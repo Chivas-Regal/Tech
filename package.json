@@ -1,17 +1,13 @@
 {
-  "name": "cloaks",
+  "name": "vuepress-theme-reco-demo",
   "version": "1.0.0",
-  "description": "热爱技术，乐于分享！",
-  "license": "MIT",
-  "type": "commonjs",
+  "author": "reco_luan",
   "scripts": {
-    "build": "vuepress build hope",
-    "clean-dev": "vuepress dev hope --no-cache",
-    "dev": "vuepress dev hope",
-    "eject-theme": "vuepress eject-hope hope"
+    "dev": "vuepress dev . --open --host \"localhost\"",
+    "build": "vuepress build ."
   },
   "devDependencies": {
-    "vuepress": "^1.9.7",
-    "vuepress-theme-hope": "^1.23.0"
+    "vuepress": "1.8.2",
+    "vuepress-theme-reco": "1.6.10"
   }
 }
