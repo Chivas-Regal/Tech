@@ -1,0 +1,21 @@
+{
+    "name": "vuepress-theme-hope-project",
+    "version": "1.0.0",
+    "description": "A project of vuepress-theme-hope",
+    "license": "MIT",
+    "scripts": {
+      "build": "vuepress build",
+      "docs:clean-dev": "vuepress dev test --no-cache",
+      "dev": "vuepress dev",
+      "docs:eject-theme": "vuepress eject-hope test"
+    },
+    "devDependencies": {
+      "vuepress": "^1.9.7",
+      "vuepress-plugin-mathjax": "^1.2.8",
+      "vuepress-theme-hope": "^1.24.0"
+    },
+    "dependencies": {
+      "vuepress-sidebar-atuo": "^1.0.4"
+    }
+  }
+  
