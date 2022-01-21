@@ -21,8 +21,10 @@ sidebar:
 ## 概述
 ### 概念
 动态规划(Dynamic Programming，**简称DP**)是运筹学的一个分支，他是<mark>解决多阶段决策过程最优化的一种数学方法，把多阶段问题转变为一系列相互联系的单阶段问题(子问题)，然后逐个加以解决</mark><br><br><br>
-<b>简单的模型：一条有向无环图</b><br>
-$$...\stackrel{\color{green}转移}{\longrightarrow}\stackrel{\color{brown}决策}|{\color{blue}状态}\stackrel{\color{green}转移}{\longrightarrow}\stackrel{\color{brown}决策}|{\color{blue}状态}\stackrel{\color{green}转移}{\longrightarrow}\stackrel{\color{brown}决策}|{\color{blue}状态}\stackrel{\color{green}转移}{\longrightarrow}...$$
+<b>简单的模型：一条有向无环图</b><br>  
+
+$$...\stackrel{\color{green}转移}{\longrightarrow}\stackrel{\color{brown}决策}|{\color{blue}状态}\stackrel{\color{green}转移}{\longrightarrow}\stackrel{\color{brown}决策}|{\color{blue}状态}\stackrel{\color{green}转移}{\longrightarrow}\stackrel{\color{brown}决策}|{\color{blue}状态}\stackrel{\color{green}转移}{\longrightarrow}...$$  
+
 #### 状态
 状态是指一个阶段的<span style="color:red;">信息表示</span>，比如 $dp[x][y]$ 中的状态就是在此阶段， $dp$ 的就是对 $x$ 和 $y$ 的一种表示形式
 #### 决策

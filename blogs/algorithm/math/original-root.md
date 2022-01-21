@@ -16,17 +16,19 @@ sidebar:
 
 定义： $gcd(a, m)=1\quad\wedge\quad a^{\delta_m(a)}\equiv1(mod\;m)$  
 性质：  
-$a^i\not\equiv a^j(mod\;m)\;(1\le i,j\le \delta_m(a))$  
-$a^n\equiv1(mod\;m)\rightarrow\delta_m(a)|n\quad and \quad a^x\equiv a^y(mod\;m)\rightarrow x\equiv y(mod\;\delta_m(a))$  
-$gcd(a,m)=gcd(b,m)=1\rightarrow (\delta_m(ab)=\delta_m(a)\delta_m(b)\quad\Longleftrightarrow\quad gcd(\delta_m(a),\delta_m(b))=1)$  
-$gcd(a,m)=1\rightarrow\delta_m(a^k)=\frac{\delta_m(a)}{gcd(\delta_m(a), k)}$
+- $a^i\not\equiv a^j(mod\;m)\;(1\le i,j\le \delta_m(a))$  
+- $a^n\equiv1(mod\;m)\rightarrow\delta_m(a)|n\quad and \quad a^x\equiv a^y(mod\;m)\rightarrow x\equiv y(mod\;\delta_m(a))$  
+- $gcd(a,m)=gcd(b,m)=1\rightarrow (\delta_m(ab)=\delta_m(a)\delta_m(b)\quad\Longleftrightarrow\quad gcd(\delta_m(a),\delta_m(b))=1)$  
+- $gcd(a,m)=1\rightarrow\delta_m(a^k)=\frac{\delta_m(a)}{gcd(\delta_m(a), k)}$
 
 # 原根$a$
 
-定义： $gcd(a,m)=1\quad\wedge\quad\delta_m(a)=\phi(m)\quad\wedge\quad a^{\phi(m)}\equiv1(mod\; m)$  
-判定定理： $\forall p|\phi(m)\quad a^{\frac{\phi(m)}{p}}\not\equiv1(mod\;m)$  
-原根个数： $\phi(\phi(m))$<br>所有原根： $\{minrt^1,minrt^2,...minrt^j,...,minrt^{\phi(m)}\}\quad\wedge\quad gcd(j,\phi(m))=1$ 
-引理1： $\exists g$ 是模 $m$ 的原根， $g^{p-1}\not\equiv1(mod\;p^2)$<br>引理2： $\forall\beta\in N^*\wedge p\not\mid k_\beta,\quad g^{\phi(p^\beta)}=1+p^\beta\times k_\beta$ <br>原根存在定理： $m=2,4,p^a,2p^a\quad \forall p\in\{ oddprime\}$   
+定义： $gcd(a,m)=1\quad\wedge\quad\delta_m(a)=\phi(m)\quad\wedge\quad a^{\phi(m)}\equiv1(mod\; m)$   
+判定定理： $\forall p|\phi(m)\quad a^{\frac{\phi(m)}{p}}\not\equiv 1(mod\;m)$  
+原根个数： $\phi(\phi(m))$<br>所有原根： $\{minrt^1,minrt^2,...minrt^j,...,minrt^{\phi(m)}\}\quad\wedge\quad gcd(j,\phi(m))=1$   
+引理1： $\exists g$ 是模 $m$ 的原根， $g^{p-1}\not\equiv1(mod\;p^2)$  
+引理2： $\forall\beta\in N^*\wedge p\not\mid k_\beta,\quad g^{\phi(p^\beta)}=1+p^\beta\times k_\beta$   
+原根存在定理： $m=2,4,p^a,2p^a\quad \forall p\in\{ oddprime\}$   
 
 # 证明
 
