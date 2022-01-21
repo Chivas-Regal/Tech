@@ -8,12 +8,14 @@ module.exports = {
     ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }]
   ],
   plugins: [
-      [
-          'vuepress-plugin-mathjax',
+      [ 
+          '@vite/vuepress-plugin-mathjax' ,
           {
               target: 'svg',
+              presets: '\def\lr#1#2#3{\left#1#2\right#3}'
           }
-      ]
+      ],
+      [ 'markdown-it-mathjax3' ]
   ],
   theme: 'reco',
   sidebarDepth: 3,
@@ -26,6 +28,10 @@ module.exports = {
                 { text: '算法', link: '/blogs/algorithm/' },
                 { text: '题解', link: '/blogs/solution/' }
             ]
+        },
+        {
+            text: '变更日志',
+            link: '/dairy'
         },
         {
             text: '个人',
@@ -163,20 +169,15 @@ module.exports = {
   markdown: {
     lineNumbers: true,
     extendMarkdown: md => {
-        md.set({
-            html: true
-        })
-        md.use(require('markdown-it-katex'))
+            md.set({
+                html: true
+            });
+            // md.use(require('markdown-it-katex'))
+            // md.use(require('markdown-it-mathjax3'), { tex: {tags: 'ams'} })
         }
     },
     head: [
-        ['link', {
-            rel: 'stylesheet',
-            href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css'
-        }],
-        ['link', {
-            rel: "stylesheet",
-            href: "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css"
-        }]
+        ['link', { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css' }],
+        ['link', { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" }]
     ]
   }

@@ -1,7 +1,7 @@
 ---
-key: 快速傅立叶变换FFT
+key: 快速傅立叶变换
 layout: article
-title: 快速傅立叶变换FFT
+title: 快速傅立叶变换
 subtitle: 两个长多项式合并的时候怎么压缩时间呢？🤔
 categories: 数学
 tags: [数论]
