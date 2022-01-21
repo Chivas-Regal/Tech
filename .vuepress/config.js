@@ -15,7 +15,29 @@ module.exports = {
               presets: '\def\lr#1#2#3{\left#1#2\right#3}'
           }
       ],
-      [ 'markdown-it-mathjax3' ]
+      [ 'markdown-it-mathjax3' ],
+      [
+          'vuepress-plugin-sponsor',
+          {
+              theme: 'drinks',
+              alipay: '/zhifubaby.png',
+              wechat: '/wechat.png',
+              duration: 2000
+          }
+      ],
+      [
+        // 一键复制
+        'one-click-copy',
+        {
+          copySelector: [
+            'div[class*="language-"] pre',
+            'div[class*="aside-code"] aside'
+          ],
+          copyMessage: '白嫖成功',
+          toolTipMessage: '立即白嫖',
+          duration: 1250
+        }
+      ],
   ],
   theme: 'reco',
   sidebarDepth: 3,
