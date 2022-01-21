@@ -1,7 +1,7 @@
 ---
 home: true
-heroText: vuepress-theme-reco
-tagline: A simple and beautiful vuepress blog theme.
+heroText: Chivas-Regal Wikishelf
+tagline: WIKI
 # heroImage: /hero.png
 # heroImageStyle: {
 #   maxWidth: '600px',
@@ -18,10 +18,10 @@ isShowTitleInHome: false
 actionText: Guide
 actionLink: /views/other/guide
 features:
-- title: Yesterday
-  details: 开发一款看着开心、写着顺手的 vuepress 博客主题
-- title: Today
-  details: 希望帮助更多的人花更多的时间在内容创作上，而不是博客搭建上
-- title: Tomorrow
-  details: 希望更多的爱好者能够参与进来，帮助这个主题更好的成长
+- title: 算法
+  details: 有自己编写的知识讲解，与自己的一些题目思路
+- title: 个人
+  details: 非常喜欢前端与算法，希望在这里两个位置有所成就
+- title: 博客
+  details: 本文档以Vue为基础搭建，非博客形式
 ---
