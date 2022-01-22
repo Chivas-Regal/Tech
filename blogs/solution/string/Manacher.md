@@ -1,6 +1,8 @@
 ---
 title: Manacher
 ---
+###  
+<hr>
 
 ## HDU3613_BestReward
 

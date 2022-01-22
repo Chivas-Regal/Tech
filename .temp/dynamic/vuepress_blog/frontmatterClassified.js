@@ -8,12 +8,12 @@ export default {
       "scope": "tags",
       "path": "/tag/数据结构/",
       "pageKeys": [
-        "v-f8b025ea",
         "v-5708d2cb",
-        "v-64401ecb",
         "v-ce6b19aa",
-        "v-5954e312",
-        "v-5f1c9caa"
+        "v-f8b025ea",
+        "v-64401ecb",
+        "v-5f1c9caa",
+        "v-5954e312"
       ]
     },
     "离线算法": {
@@ -29,9 +29,9 @@ export default {
       "scope": "tags",
       "path": "/tag/动态规划/",
       "pageKeys": [
+        "v-2a2c10aa",
         "v-1f3d212b",
         "v-76c0de6a",
-        "v-2a2c10aa",
         "v-5dd637ae"
       ]
     },
@@ -43,12 +43,16 @@ export default {
         "v-6b1345ab"
       ]
     },
-    "树": {
-      "key": "树",
+    "图论": {
+      "key": "图论",
       "scope": "tags",
-      "path": "/tag/树/",
+      "path": "/tag/图论/",
       "pageKeys": [
-        "v-4f326baa"
+        "v-743ee46a",
+        "v-caaf06ce",
+        "v-74f67eab",
+        "v-ad0ddfea",
+        "v-3f4660ce"
       ]
     },
     "建图": {
@@ -59,16 +63,12 @@ export default {
         "v-71b416de"
       ]
     },
-    "图论": {
-      "key": "图论",
+    "树": {
+      "key": "树",
       "scope": "tags",
-      "path": "/tag/图论/",
+      "path": "/tag/树/",
       "pageKeys": [
-        "v-74f67eab",
-        "v-caaf06ce",
-        "v-3f4660ce",
-        "v-743ee46a",
-        "v-ad0ddfea"
+        "v-4f326baa"
       ]
     },
     "数论": {
@@ -93,11 +93,11 @@ export default {
         "v-c9f0fe82",
         "v-439d04b3",
         "v-72a17f2b",
-        "v-668222c9",
         "v-47eb48ea",
-        "v-6b54f0eb",
         "v-a43bf9d6",
         "v-4b66926b",
+        "v-668222c9",
+        "v-6b54f0eb",
         "v-7e8a3a26"
       ]
     },
@@ -109,15 +109,6 @@ export default {
         "v-45077021"
       ]
     },
-    "字符串": {
-      "key": "字符串",
-      "scope": "tags",
-      "path": "/tag/字符串/",
-      "pageKeys": [
-        "v-8ff80d0a",
-        "v-55bfe1cb"
-      ]
-    },
     "搜索": {
       "key": "搜索",
       "scope": "tags",
@@ -125,6 +116,15 @@ export default {
       "pageKeys": [
         "v-482e0587",
         "v-94731aea"
+      ]
+    },
+    "字符串": {
+      "key": "字符串",
+      "scope": "tags",
+      "path": "/tag/字符串/",
+      "pageKeys": [
+        "v-55bfe1cb",
+        "v-8ff80d0a"
       ]
     }
   },
@@ -134,12 +134,12 @@ export default {
       "scope": "categories",
       "path": "/categories/数据结构/",
       "pageKeys": [
-        "v-f8b025ea",
         "v-5708d2cb",
-        "v-64401ecb",
         "v-ce6b19aa",
-        "v-5954e312",
-        "v-5f1c9caa"
+        "v-f8b025ea",
+        "v-64401ecb",
+        "v-5f1c9caa",
+        "v-5954e312"
       ]
     },
     "离线算法": {
@@ -155,9 +155,9 @@ export default {
       "scope": "categories",
       "path": "/categories/动态规划/",
       "pageKeys": [
+        "v-2a2c10aa",
         "v-1f3d212b",
         "v-76c0de6a",
-        "v-2a2c10aa",
         "v-5dd637ae"
       ]
     },
@@ -167,13 +167,13 @@ export default {
       "path": "/categories/图论/",
       "pageKeys": [
         "v-6b1345ab",
-        "v-4f326baa",
-        "v-71b416de",
-        "v-74f67eab",
-        "v-caaf06ce",
-        "v-3f4660ce",
         "v-743ee46a",
-        "v-ad0ddfea"
+        "v-71b416de",
+        "v-4f326baa",
+        "v-caaf06ce",
+        "v-74f67eab",
+        "v-ad0ddfea",
+        "v-3f4660ce"
       ]
     },
     "数学": {
@@ -182,19 +182,19 @@ export default {
       "path": "/categories/数学/",
       "pageKeys": [
         "v-2a9290eb",
-        "v-6f3c5242",
         "v-ed62c09e",
         "v-0b36d1cb",
+        "v-6f3c5242",
         "v-75af48d7",
         "v-c9f0fe82",
         "v-439d04b3",
         "v-72a17f2b",
         "v-0fcf4281",
-        "v-668222c9",
         "v-47eb48ea",
-        "v-6b54f0eb",
         "v-a43bf9d6",
         "v-4b66926b",
+        "v-668222c9",
+        "v-6b54f0eb",
         "v-7e8a3a26",
         "v-6a522eeb"
       ]
@@ -207,15 +207,6 @@ export default {
         "v-45077021"
       ]
     },
-    "字符串": {
-      "key": "字符串",
-      "scope": "categories",
-      "path": "/categories/字符串/",
-      "pageKeys": [
-        "v-8ff80d0a",
-        "v-55bfe1cb"
-      ]
-    },
     "搜索": {
       "key": "搜索",
       "scope": "categories",
@@ -223,6 +214,15 @@ export default {
       "pageKeys": [
         "v-482e0587",
         "v-94731aea"
+      ]
+    },
+    "字符串": {
+      "key": "字符串",
+      "scope": "categories",
+      "path": "/categories/字符串/",
+      "pageKeys": [
+        "v-55bfe1cb",
+        "v-8ff80d0a"
       ]
     }
   },

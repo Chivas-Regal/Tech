@@ -1,6 +1,8 @@
 ---
 title: 差分约束
 ---
+###  
+<hr>
 
 ## HDUOJ1384_Intervals
 

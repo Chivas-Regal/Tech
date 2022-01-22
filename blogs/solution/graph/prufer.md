@@ -1,6 +1,8 @@
 ---
 title: prufer编码
 ---
+###  
+<hr>
 
 ## 洛谷P6086_【模板】Prufer序列
 

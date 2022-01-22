@@ -1,6 +1,8 @@
 ---
 title: 中国剩余定理
 ---
+###  
+<hr>
 
 ## HDUOJ1370_Biorhythms
 

@@ -2,6 +2,9 @@
 title: 结论
 ---
 
+###  
+<hr>
+
 ## 牛客2021多校(1)F_Find3-friendlyIntegers
 
 #### 🔗

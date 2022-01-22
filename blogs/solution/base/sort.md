@@ -2,6 +2,9 @@
 title: 排序
 ---
 
+###  
+<hr>
+
 ## HDUOJ6318_SwapsAndInversions
 
 #### 🔗

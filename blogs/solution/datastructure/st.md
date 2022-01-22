@@ -1,6 +1,8 @@
 ---
 title: ST表
 ---
+###  
+<hr>
 
 ## 牛客2021多校(5)K_KingOfRange
 

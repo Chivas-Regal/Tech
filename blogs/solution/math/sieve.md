@@ -1,6 +1,8 @@
 ---
 title: 筛法
 ---
+###  
+<hr>
 
 ## CodeForces1512G_ShortTask
 

@@ -1,6 +1,8 @@
 ---
 title: 计算几何
 ---
+###  
+<hr>
 
 ## 牛客2021多校(1)B_BallDropping
 

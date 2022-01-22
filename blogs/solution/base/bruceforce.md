@@ -2,6 +2,9 @@
 title: 暴力优化
 ---
 
+###  
+<hr>
+
 ## 折半枚举
 
 ### HDU2141_CanYouFindIt?

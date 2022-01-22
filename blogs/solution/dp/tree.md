@@ -1,6 +1,8 @@
 ---
 title: 树形DP
 ---
+###  
+<hr>
 
 ## gym103145C_VertexDeletion
 

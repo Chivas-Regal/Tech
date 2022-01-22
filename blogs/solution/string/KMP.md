@@ -1,6 +1,8 @@
 ---
 title: KMP
 ---
+###  
+<hr>
 
 ## CodeForces1200E_CompressWords
 

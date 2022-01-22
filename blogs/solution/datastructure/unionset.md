@@ -1,6 +1,8 @@
 ---
 title: 并查集
 ---
+###  
+<hr>
 
 ## CodeForces1594D_TheNumberOfImposters
 

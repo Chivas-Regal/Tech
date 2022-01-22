@@ -1,6 +1,8 @@
 ---
 title: 背包DP
 ---
+###  
+<hr>
 
 ## CodeForces1516C_BabyEhabPartitionsAgain
 
