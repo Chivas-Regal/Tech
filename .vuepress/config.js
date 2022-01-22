@@ -1,7 +1,7 @@
 const {getChildren} = require("vuepress-sidebar-atuo")
 module.exports = {
-  title: "CR's WikiShelf",
-  description: 'Wiki .',
+  title: "Chivas-Regal",
+  description: 'Technology Stack',
   dest: './public',
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],

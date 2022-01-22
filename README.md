@@ -1,7 +1,7 @@
 ---
 home: true
-heroText: Chivas-Regal Wikishelf
-tagline: WIKI
+heroText: Chivas-Regal
+tagline: Technology Stack
 # heroImage: /hero.png
 # heroImageStyle: {
 #   maxWidth: '600px',
@@ -22,6 +22,6 @@ features:
   details: 有自己编写的知识讲解，与自己的一些题目思路
 - title: 个人
   details: 非常喜欢前端与算法，希望在这里两个位置有所成就
-- title: 博客
+- title: 全局
   details: 本文档以Vue为基础搭建，非博客形式
 ---
