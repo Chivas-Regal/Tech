@@ -10,7 +10,7 @@ title: 前缀-差分
 #### 💡
 
 ::: tip
-本题在 [$T214551$ 《夏摩山谷》](https://www.luogu.com.cn/problem/T214551) 中本身是一个推公式题，后来被 [There,hello 大大]([《夏摩山谷》题解 - There Hello](https://blog.therehello.top/xia_mo_shan_gu/)) 发现了新的思考方式，我在此思考方式上进行深化拓展，便诞生了 $Hard\;version$  
+本题在 [$T214551$ 《夏摩山谷》](https://www.luogu.com.cn/problem/T214551) 中本身是一个推公式题，后来被 [There,hello 大大](https://blog.therehello.top/xia_mo_shan_gu/) 发现了新的思考方式，我在此思考方式上进行深化拓展，便诞生了 $Hard\;version$  
 :::  
   
 我们先看一个二重传递  
