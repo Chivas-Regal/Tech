@@ -2,6 +2,81 @@
 title: 前缀-差分
 ---
 
+## 洛谷T214799_夏摩山谷II
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/T214799"><img src="https://img-blog.csdnimg.cn/c5d74cf1cb1c4ce3b25f39da3801dc81.png"></a>
+
+#### 💡
+
+::: tip
+本题在 [$T214551$ 《夏摩山谷》](https://www.luogu.com.cn/problem/T214551) 中本身是一个推公式题，后来被 [There,hello 大大]([《夏摩山谷》题解 - There Hello](https://blog.therehello.top/xia_mo_shan_gu/)) 发现了新的思考方式，我在此思考方式上进行深化拓展，便诞生了 $Hard\;version$  
+:::  
+  
+我们先看一个二重传递  
+
+$$\begin{aligned}
+&\sum\limits_{i=1}^n\sum\limits_{j=1}^ij\\=&\sum\limits_{i=1}^n\sum\limits_{j=1}^i\sum\limits_{k=1}^j1
+\end{aligned}$$    
+将其化为了三重传递  
+  
+我们发现在这里 $j$ 是 $1$ 的第 $j$ 个前缀和， $j$ 是其上界  
+所以对于最内重，其值为 $S_1\{\}$    
+我们令 $1=S_0$ ，则 $S_{1_j}=\sum\limits_{k=1}^jS_{0_k}$  
+  
+而对于第二重，它的值是 $...\sum\limits_{j=1}^iS_{1_j}$   
+有了上面的基础，我们不难看出这是一个关于 $S_1\{\}$ 的第 $i$ 个前缀和，$i$ 是上界  
+所以对于第二重，其值为 $S_2\{\}$  
+$S_{2_i}=\sum\limits_{j=1}^iS_{1_j}$    
+  
+对于第三重，同理，这是<mark>一个关于 $S_2\{\}$ 的第 $n$ 个前缀和</mark>， $n$ 是上界  
+  
+<b>模型建立</b>  
+我们思考一下<span style="color: red;">什么时候会产生这种前缀和关系且第一重是 $1$ 的</span>  
+对于上述的前缀和公式 $S[i][j]=s[i][j-1]+s[i-1][j-1]$  
+可以想到这个东西是杨辉三角的转置矩阵的递推式  
+  
+那么对于一个 $k$ 重，其上界为 $n$ 的宁静公式  
+可以变成一个 $k+1$ 重从 $\sum\limits_{a_{k+1}=1}^{a_k}1$ 开始的式子  
+  
+对于这样的式子，我们更是对 $k$ 进行了 $+1$ 的延伸，所以其值在杨辉三角的第 $k+1$ 列  
+因 $n$ 为每一个正整数都是成立且具备值的，所以应从第 $k+1$ 列的从上往下第一个 $1$ 开始走 $n$ 个行，即为 $k+1+n-1=k+n$ 行  
+  
+那么便有了答案：$C_{k+n}^{k+1}\%mod$  
+  
+::: danger
+$n$ 和 $k$ 都很大，而模数很小，这是一个突破口，所以应用 $Lucas$ 定理求组合数
+:::
+  
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+ll n, mod, k;
+
+inline ll ksm ( ll a, ll b ) { ll res = 1; while ( b ) { if ( b & 1 ) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv ( ll x ) { return ksm(x, mod - 2); }
+
+inline ll C(ll n, ll m) {
+        ll up = 1, down = 1;
+        for ( ll i = 0; i < m; i ++ ) {
+                up = up * (n - i) % mod;
+                down = down * (i + 1) % mod;
+        }
+        return up * inv(down) % mod;
+}
+inline ll Lucas ( ll n, ll m ) {
+        if ( !m ) return 1ll;
+        return C(n % mod, m % mod) * Lucas(n / mod, m / mod) % mod;
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin >> n >> mod >> k;
+        cout << Lucas(n + k, k + 1) << endl;
+}
+```
+
+<hr>
+
 ## ABC233F_ParenthesisChecking
 
 #### 🔗
