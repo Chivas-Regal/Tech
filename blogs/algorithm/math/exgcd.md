@@ -38,7 +38,7 @@ int gcd(int a, int b){
 
 ## 定义
 贝祖定理又称裴蜀定理 $(Bezouts\;identity)$<br>
-对于任意的不全为 $0$ 的非负整数对 $a,b$ ，一定存在整数 $x,y$ 满足： $$a*x+b*y=(a,b)$$
+对于任意的不全为 $0$ 的非负整数对 $a,b$ ，一定存在整数 $x,y$ 满足：$a*x+b*y=(a,b)$
 
 ## 证明
 在 $exgcd$ 最后一步中， $(b=0)\Rightarrow (x = 1, y = 0)$ ，一定成立<br>
@@ -46,8 +46,10 @@ $b\ne 0$ 的时候<br>
 假设 $x_0,y_0$ 是 $b\times x + (a \% b)  y = (a,b)$ 的一组解（下一步）<br>
 即 $b * x_0 + (a \% b) \times y_0 = (a,b)$<br>
 那么只要能证明 $a \times x_1 + b \times y_1 = (a,b)$ 成立即可（本步）<br><br><br>
-易得 $a\%b=a-\left\lfloor\frac ab\right\rfloor\times b$ ，那么
-$$\begin{aligned}&bx_0+(a-\left \lfloor \frac ab \right \rfloor \times b)\times y_0\\=& ay_0+b(x_0-\left \lfloor \frac ab \right \rfloor \times y_0)\\\Rightarrow&ax_1+by_1=(a,b)\qquad  (x_1=y_0,\quad y_1=x_0-\left \lfloor \frac ab \right \rfloor \times y_0)\end{aligned}$$<br>
+易得 $a\%b=a-\left\lfloor\frac ab\right\rfloor\times b$ ，那么  
+$$\begin{aligned}&bx_0+(a-\left \lfloor \frac ab \right \rfloor \times b)\times y_0\\=& ay_0+b(x_0-\left \lfloor \frac ab \right \rfloor \times y_0)\\\Rightarrow&ax_1+by_1=(a,b)\qquad  (x_1=y_0,\quad y_1=x_0-\left \lfloor \frac ab \right \rfloor \times y_0)\end{aligned}$$  
+
+<br>
 **定理得证**<br><br>
 
 ## 通解的求法  
@@ -79,7 +81,7 @@ $$\left\{\begin{aligned}x_1=x_0+k\frac b{(a,b)}\\y_1=y_0-k\frac a{(a,b)}\end{ali
 
 ## 程序
 
-```
+```cpp
 int ex_gcd(int a, int b, int &x, int &y){
 	if(b == 0) { x = 1, y = 0;  return a; }//出口：最后一步的解
 	int d = ex_gcd(b, a % b, x, y);

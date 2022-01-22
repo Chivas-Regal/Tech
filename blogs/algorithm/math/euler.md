@@ -34,8 +34,13 @@ inline void GetPrime(){
 任何一个大于$1$的自然数$N$，如果$N$不为质数，都可以唯一分解成有限个质数的乘积 $N=P_1^{a_1}P_2^{a_2}...P_n^{a_n}$ 。这里 $P_1\lt P_2\lt...\lt P_n$ 均为质数，指数 $a_i$ 均为正整数  
 这样的分解称为<span style="color: red;">$N$的标准分解式</span><br><br>
 <mark>在线性筛中的应用：每个数因它最小的质数而被标记</mark><br>
-<span style="color: yellow;">规则体现在</span>：如果某个数$num$包含了某个$div$，那么这个最小$div$可以和别的数凑成一个更大的数去标记，那么此时后面就不需要继续用$num$去凑数标记了。<br>
->例：$(i,j)=(4,2),\quad $i%j=0$，那么说明$4$中有$2$，走到后面有个$12$，$12$可以因为$(6,2)$被标记，那么此时就不需要用$(4,3)$去进行标记了
+<span style="color: yellow;">规则体现在</span>：如果某个数$num$包含了某个$div$，那么这个最小$div$可以和别的数凑成一个更大的数去标记，那么此时后面就不需要继续用$num$去凑数标记了。<br> 
+
+::: tip
+
+例： $(i,j)=(4,2),\quad,i\%j=0$ ，那么说明$4$中有$2$，走到后面有个$12$，$12$可以因为$(6,2)$被标记，那么此时就不需要用$(4,3)$去进行标记了
+
+:::
 
 # 欧拉函数
 
@@ -62,11 +67,17 @@ $n=p\quad\phi(n)=n(1-\frac1p)=p(1-\frac1p)=p-1$
 完全积性函数：$\phi(n)=\phi(p\times q)=\phi(p)\times\phi(q)$ 中不要求 $p$ $q$ 互质    
 积性函数：$\phi(n)=\phi(p\times q)=\phi(p)\times \phi(q)$ 中要求 $p$ $q$ 互质  
   
-<span style="color:orange;">情况4.$n$ 是某个 $m$ 和一个于 $m$ 互质的素数 $p$ 的乘积，即: $n = m * p$：</span>（完整的证明需要各种定理，这里不详解）假设 $m$ 是之前讨论的情况，即 $m$ 满足欧拉函数公式： $$\phi(m)=m*\prod^k_{i=1}(1-\frac1{p_i})$$ 同时因为 $n = m * p$， $m$ 与 $p$ 互质， 则有： $$\phi(n)=\phi(m*p)=\phi(m)*\phi(p)$$ 另外，由情况$1$可知： $\phi(p)=p-1=p(1-\frac1p)$   
+<span style="color:orange;">情况4.$n$ 是某个 $m$ 和一个于 $m$ 互质的素数 $p$ 的乘积，即: $n = m * p$：</span>（完整的证明需要各种定理，这里不详解）假设 $m$ 是之前讨论的情况，即 $m$ 满足欧拉函数公式：  
+$$\phi(m)=m*\prod^k_{i=1}(1-\frac1{p_i})$$  
+同时因为 $n = m * p$， $m$ 与 $p$ 互质， 则有：  
+$$\phi(n)=\phi(m*p)=\phi(m)*\phi(p)$$  
+另外，由情况 $1$ 可知： $\phi(p)=p-1=p(1-\frac1p)$   
 显然， $\phi(m) * \phi(p)$ 得到的公式，依然满足欧拉函数    
   
 <span style="color: orange;">情况5. $n = m * p$， $p$ 是素数，但是 $p$ 不与 $m$ 互质</span>   
-$p$ 是素数，但不与 $m$ 互质，显然 $p$ 是 $m$ 的因子，可以转化为 $n=q\times p^{\alpha}=\phi(q)\times\phi(p^{\alpha})$ ,其中 $q$ 不含 $p$ 的因子 故： $$\phi(n)=\phi(q*p^{\alpha})=\phi(q)*\phi(p^{\alpha})=q*p\alpha*\prod^k_{i=1}(1-\frac1{p_i})=n*\prod^k_{i=1}(1-\frac1{p_i})$$ 公式显然依然成立  
+$p$ 是素数，但不与 $m$ 互质，显然 $p$ 是 $m$ 的因子，可以转化为 $n=q\times p^{\alpha}=\phi(q)\times\phi(p^{\alpha})$ ,其中 $q$ 不含 $p$ 的因子 故： 
+$$\phi(n)=\phi(q*p^{\alpha})=\phi(q)*\phi(p^{\alpha})=q*p\alpha*\prod^k_{i=1}(1-\frac1{p_i})=n*\prod^k_{i=1}(1-\frac1{p_i})$$  
+公式显然依然成立  
 
 ## 线性求法
 
@@ -82,8 +93,14 @@ for(int i = 2; i <= N; i ++){
 ```
 # 欧拉定理
 ## 概念
-若 $n$, $a$ 为正整数，且它们互质，则 $$a^{\phi(n)}\equiv1(mod\quad n)$$  
->显然：当 $n$ 为质数时 $a^{n-1}\equiv1(mod\quad n)$ 就是费马小定理
+若 $n$, $a$ 为正整数，且它们互质，则  
+$$a^{\phi(n)}\equiv1(mod\quad n)$$   
+
+::: tip 
+
+显然：当 $n$ 为质数时 $a^{n-1}\equiv1(mod\quad n)$ 就是费马小定理  
+
+:::
 
 ## 应用 —— 逆元
 如果在<span style="color: red;">模运算</span>中有<span style="color: red;">除法</span>，同时<span style="color: red;">模数不是质数</span>，则此时不可以用费马小定理，可以用欧拉定理  
