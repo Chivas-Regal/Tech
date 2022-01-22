@@ -42,6 +42,7 @@ module.exports = {
   theme: 'reco',
   sidebarDepth: 3,
   themeConfig: {
+    mode: 'light',
     nav: [
         { text: '首页', link: '/' },
         {
