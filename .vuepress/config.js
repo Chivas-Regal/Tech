@@ -46,24 +46,23 @@ module.exports = {
   themeConfig: {
     mode: 'light',
     nav: [
-        { text: '首页', link: '/' },
+        { text: '首页', link: '/', icon: 'reco-home' },
         {
             text: '技术文档',
             items: [
                 { text: '算法', link: '/blogs/algorithm/' },
                 { text: '题解', link: '/blogs/solution/' }
-            ]
-        },
-        {
-            text: '变更日志',
-            link: '/dairy'
+            ],
+            icon: 'reco-document'
         },
         {
             text: '个人',
             items: [
-                { text: 'Github', link: 'https://github.com/Chivas-Regal' },
-                { text: 'CodeForces', link: 'https://codeforces.com/profile/Chivas_Regal' }
-            ]
+                { text: 'Github', link: 'https://github.com/Chivas-Regal', icon: 'reco-github' },
+                { text: 'WeChat', link: './person-wechat.md', icon: 'reco-wechat' },
+                { text: 'CodeForces', link: 'https://codeforces.com/profile/Chivas_Regal', icon: 'reco-api' }
+            ],
+            icon: 'reco-account'
         }
     ],
     sidebar: {
