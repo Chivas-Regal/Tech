@@ -740,6 +740,47 @@ int main () {
 
 <hr>
 
+## 牛客小白月赛44F_幽暗统领
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/11221/F"><img src="https://img-blog.csdnimg.cn/fb63cf37079a481398044a2b4f9c8794.png"></a>
+
+#### 💡
+不难想到可以求一个别的线能补出来的最小子树和最大子树，这样就有了一个范围  
+由于你不管怎么对链中点连线，都会有一个限制是最长链的长度化不下来  
+所以我门从最长链入手  
+  
+然后就能发现一个性质：  
+- 若最长链 $\le$ 总链的一半，那么所有点都可以成为重心
+- 若最长链 $>$ 总链的一半，那么只有最长链中的点可以成为重心  
+  
+第一种情况计个数就行  
+第二种情况我们找一下在最长链中的范围  
+左端点是让大树成为一条链，其中心在最长链中的位置  
+而右端点则是左端点的对称点  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void Solve () {
+        ll n; cin >> n;
+        ll mx = 0, sum = 0;
+        for ( int i = 1; i <= n; i ++ ) {
+                ll x; cin >> x;
+                mx = max(mx, x);
+                sum += x;
+        }
+        if ( mx * 2 <= sum ) {
+                cout << sum << endl;
+        } else {
+                ll l = sum / 2 + (sum & 1) - (sum - mx);
+                ll r = mx - l + 1;
+                cout << r - l + 1 << endl;
+        }
+}
+```
+
+<hr>
+
 ## 省赛2021江苏C_MagicalRearrangement
 
 #### 🔗
