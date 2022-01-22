@@ -1,0 +1,1 @@
+export { default } from "/Users/snopzyz/Documents/GitHub/test/node_modules/vuepress-plugin-mermaidjs/src/mermaid.js"
