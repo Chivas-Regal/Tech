@@ -132,6 +132,77 @@ CHIVAS_{
 
 <hr>
 
+## CodeForces1629D_PeculiarMoviePreferences
+
+#### 🔗
+<a href="https://codeforces.com/contest/1629/problem/D"><img src="https://img-blog.csdnimg.cn/47c6fd92da7543c1ac59c3d2f1f88188.png"></a>
+
+#### 💡
+
+对于不超过三个字符的串，这是一个突破口  
+如果一个串长度为 $1$  或者自成回文串，那么就一定是 `YES`    
+  
+那么剩下的就是长度 $\ge2$ 的串了  
+他们需要和别的串组合  
+可以想到的是，如果一个拼接串回文，那么它第一个串一定和最后一个串对应  
+因此如果你可以造出来回文串，那么两个就可以  
+问题就简单了  
+对于串长我们找 $2+3$ 、$2+2$ 、$3+3$ 、$3+2$ 的串就可以了  
+拿个 `map` 标记一下遍历  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void Solve () {
+        int n; cin >> n;
+        vector<string> vec;
+        map<string, int> mp;
+        bool flag = false;
+        for ( int i = 0; i < n; i ++ ) {
+                string s; cin >> s;
+                vec.push_back(s); mp[s] ++;
+                if ( s.size() == 1 ) {
+                        flag = true;
+                } else if ( s.size() == 2 ) {
+                        if ( s[0] == s[1] ) flag = true;
+                } else if ( s.size() == 3 ) {
+                        if ( s[0] == s[2] ) flag = true;
+                }
+        } 
+        if ( flag ) {
+                cout << "YES" << endl;
+                return;
+        }
+        for ( int i = 0; i < n; i ++ ) {
+                mp[vec[i]] --;
+ 
+                string rev = vec[i]; reverse(rev.begin(), rev.end());
+                if (  mp[rev] ) {
+                        cout << "YES" << endl;
+                        return;
+                }
+                if ( vec[i].size() == 2 ) {
+                        for ( char c = 'a'; c <= 'z'; c ++ ) {
+                                string cur = vec[i] + c;
+                                reverse(cur.begin(), cur.end());
+                                if ( mp[cur] ) {
+                                        cout << "YES" << endl;
+                                        return;
+                                }
+                        }
+                } else {
+                        rev = rev.substr(1, 2);
+                        if ( mp[rev] ) {
+                                cout << "YES" << endl;
+                                return;
+                        }
+                }
+        }
+        cout << "NO" << endl;
+}
+```
+
+<hr>
+
 ## CodeForces507C_GuessYourWayOut
 
 #### 🔗

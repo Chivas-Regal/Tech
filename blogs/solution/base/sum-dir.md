@@ -220,6 +220,63 @@ int main(){
 
 <hr>
 
+## CodeForces1629C_MeximumArray
+
+#### 🔗
+<a href="https://codeforces.com/contest/1629/problem/C"><img src="https://img-blog.csdnimg.cn/26ada7c8091842b0ab4c6ce786f9724b.png"></a>
+
+#### 💡
+要理解字典序在这一道题的意义  
+即如果后面有能让它 $Mex$ 上升的数字，它都要坚持往后走  
+所以我们设置一个 `wana` 来表示我们想要什么数字  
+  
+如果后面的东西要去一个个遍历来 `check` 的话，必然是一个 $O(n^2)$ 复杂度的代码，显然是过不去的  
+  
+那么我们可以用<b>后缀</b>的思想，设置一个 `map: mp` 来表示后面对应的数字有多少个  
+这个可以先存一边预处理，然后在遍历的时候一个个删掉就行了  
+  
+`wana` 开始设置为 `-1` ，如果后面有 `wana+1` 即 `mp[wana + 1] != 0` ，那么我们就继续往后走  
+但是要考虑到的是，这个数组不一定是严格升序的，也就是说它有可能在遍历的途中凑到的数，可以在走到 `wana+1` 的过程中让最后的 `wana` 进一步提升  
+这个我们就可以设立一个遍历中的 `map: cur` 来表示当前过程内每一个数字都走过了多少次  
+  
+在找到 `wana+1` 之后，我们去检查 `cur` 中有没有下一个 `wana+1` 来对它进一步提升，来获取我们当前真正想要的 `wana+1` 是多少，然后继续判断和走就行了  
+  
+如果后面没有 `wana+1` 的话，我们就要塞入答案并且对 `wana` 重新初始化与 `cur` 的清空   
+  
+时间复杂度: $O(2n)$ 
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int a[200005];
+ 
+inline void Solve () {
+        int n; cin >> n;
+        map<int, int> mp;
+        for ( int i = 0; i < n; i ++ ) cin >> a[i], mp[a[i]] ++;
+        vector<int> b;
+        int wana = -1;
+        map<int, int> cur;
+        for ( int i = 0; i < n; i ++ ) {
+                mp[a[i]] --;
+                cur[a[i]] ++;
+                if ( a[i] == wana + 1 ) {
+                        while ( cur[wana + 1] ) wana ++;
+                }
+ 
+                if ( mp[wana + 1] == 0 ) {
+                        b.push_back(wana + 1);
+                        wana = -1;
+                        cur.clear();
+                }
+        }
+        cout << b.size() << endl;
+        for ( int i = 0; i < b.size(); i ++ ) cout << b[i] << " ";
+        cout << endl;
+}
+```
+
+<hr>
+
 ## CodeForces608B_HammingDistanceSum
 
 #### 🔗

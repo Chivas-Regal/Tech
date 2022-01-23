@@ -1,4 +1,5 @@
 const {getChildren} = require("vuepress-sidebar-atuo")
+const path = require('path')
 module.exports = {
   title: "Chivas-Regal",
   description: 'Technology Stack',
@@ -104,6 +105,7 @@ module.exports = {
             }
         ],
         '/blogs/solution/': [
+            '/blogs/solution/',
             {
                 title: '基础算法',
                 collapsable: true,
