@@ -42,6 +42,86 @@ int main () {
 
 <hr>
 
+## ABC236E_AverageAndMedian
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc236/tasks/abc236_e"><img src="https://img-blog.csdnimg.cn/067234edc7384a5bb0e9c52215c77902.png"></a>
+
+#### 💡
+
+一个位置可以选或者不选，但是不能有两个相邻的不选  
+这个我们可以感觉到 $dp$ 就可以推出来  
+
+<b>平均数</b>  
+问题在于： 在不同选中数量下，一个数对平均数的贡献是不同的  
+但是我们求总值是很好求的  
+这个就奠定了我们可以给出一个平均数 `ave` 来判断能否获得比这个平均数更大的值  
+每一个数的贡献就变成了 `x-ave`  
+只要最终贡献大于 `0` ，我们就可以说能造出来  
+通过这个编写一个 `check` ，过程中采用 $dp$ 的解法去递推，判断最终结果即可  
+  
+<b>中位数</b>  
+有了上一个问题做支撑  
+我们也可以想到这个可以尝试用二分去解决  
+根上一个不同的是，我们在设置期望中位数 `mid` 后，每一个数的贡献不同了  
+思考中位数的命名性质，我们只要求出 “比 `mid` 大的数的个数” 减去 “比 `mid` 小的数的个数” 的差  
+如果这个差大于 $0$ ，那么就说明我们可以造出比它更高的中位数  
+  
+两个 `check` 搭建完毕，可以二分了  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+int n;
+int a[N];
+ 
+double f[2][N]; // 0:不选i，1:选i
+inline bool Check1 ( double ave ) {
+        for ( int i = 1; i <= n; i ++ ) {
+                f[1][i] = max(f[1][i - 1] + 1.0 * a[i] - ave, f[0][i - 1] + 1.0 * a[i] - ave);
+                f[0][i] = f[1][i - 1];
+        }
+        return max(f[1][n], f[0][n]) > 0;
+}
+inline void Solve1 () {
+        double l = 0, r = 1e9;
+        while ( l - r < -1e-6 ) {
+                double mid = (l + r) / 2;
+                if ( Check1(mid) ) l = mid;
+                else r = mid;
+        }
+        printf("%.4f\n", l);
+}
+ 
+double g[2][N]; // 0:不选i，1:选i
+inline bool Check2 ( int mid ) {
+        for ( int i = 1; i <= n; i ++ ) {
+                g[1][i] = max(g[1][i - 1] + (a[i] >= mid ? 1 : -1), g[0][i - 1] + (a[i] >= mid ? 1 : -1) );
+                g[0][i] = g[1][i - 1];
+        }
+        return max(g[1][n], g[0][n]) > 0;
+}
+inline void Solve2 () {
+        int l = 0, r = 1e9;
+        int res = 0;
+        while ( l <= r ) {
+                int mid = (l + r) / 2;
+                if ( Check2(mid) ) l = mid + 1, res = mid;
+                else r = mid - 1;
+        }
+        printf("%d\n", res);
+}
+ 
+int main () {
+        scanf("%d", &n);
+        for ( int i = 1; i <= n; i ++ ) scanf("%d", &a[i]);
+        Solve1();
+        Solve2();
+}
+```
+<hr>
+
 ## AcWing2694_最长公共子序列
 
 #### 🔗
@@ -88,7 +168,7 @@ int main(){
 
 <hr>
 
-## CF1611F_ATMAndStudents
+## CodeForces1611F_ATMAndStudents
 
 #### 🔗
 <a href="https://codeforces.com/contest/1611/problem/F"><img src="https://i.loli.net/2021/11/26/piPkK8fFsSXBa5C.png"></a>

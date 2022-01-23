@@ -384,6 +384,59 @@ int main () {
 
 <hr>
 
+### ABC236F_Spices
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc236/tasks/abc236_f"><img src="https://img-blog.csdnimg.cn/6034fce15a524943afa2cca8f1d99448.png"></a>
+
+#### 💡
+让 $1,2,\dots,2^N-1$ 没有异或不出来的，异或空位问题，很容易想到线性基  
+那么在这里，还有一个权值是 $c_i$ 价格，那么我们可以想到用 $kruskal$ 最小生成树的方式贪心地去搭建线性基的 $d$ 数组  
+对每一个调料按 $c$ 排序  
+从小到大枚举，如果能 $id$ 插入就让它把 $d[i]$ 占了，并且使结果加上这个 $c$   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const ll N = 1e5 + 10;
+struct node {
+        ll val, id;
+        inline friend bool operator < ( node a, node b ) {
+                return a.val < b.val;
+        }
+}nd[N];
+ 
+ll n;
+ll d[20];
+ 
+inline ll Insert ( ll x ) {
+        for ( ll j = n - 1; j >= 0; j -- ) {
+                if ( x & (1ll << j) ) {
+                        if ( d[j] == 0 ) { d[j] = x; return 1; }
+                        else               x ^= d[j];
+                }
+        }
+        return 0;
+}
+ 
+int main () {
+        ios::sync_with_stdio(false);
+        cin >> n; 
+        for ( ll i = 1, x; i <= (1 << n) - 1; i ++ )
+                cin >> nd[i].val, nd[i].id = i;
+        sort ( nd + 1, nd + (1 << n) );
+        ll res = 0;
+        for ( ll i = 1; i <= (1 << n) - 1; i ++ ) {
+                ll ist = Insert(nd[i].id);
+                if (ist == 1) {
+                        res += nd[i].val;
+                }
+        }
+        cout << res << endl;
+}
+```
+
+<hr>
+
 ### HDUOJ3949_XOR
 
 #### 🔗
