@@ -3532,6 +3532,7 @@ int main () {
 如果一个点的父节点是自己，那它就是根...（不会就我一个人这地方看半天吧  
 
 ###### 检查  
+
 由于  <img src="https://latex.codecogs.com/svg.image?\inline&space;p[]" title="\inline p[]" />  表示先后顺序，我们设  <img src="https://latex.codecogs.com/svg.image?\inline&space;p'[i]" title="\inline p'[i]" />  表示  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  是  <img src="https://latex.codecogs.com/svg.image?\inline&space;p[]" title="\inline p[]" />  中第几个  
 
 
@@ -3548,6 +3549,7 @@ for ( int i = 1; i <= n; i ++ )
 这个跑一遍点就可以实现了，也要在输入  <img src="https://latex.codecogs.com/svg.image?\inline&space;b[]" title="\inline b[]" />  的时候记录一下父子关系 
 
 **记录**
+
 ```cpp
 for ( int i = 1, x; i <= n; i ++ ) {
 	scanf("%d", &x); b[i] = { x, i };
@@ -3555,6 +3557,7 @@ for ( int i = 1, x; i <= n; i ++ ) {
 ```
 
 **检查**
+
 ```cpp
 inline bool check() {
         for ( int i = 1; i <= n; i ++ ) {
@@ -3861,6 +3864,72 @@ int main () {
 ```
 
 <hr>
+
+## CodeForces1629E_GridXor
+
+#### 🔗
+<a href="https://codeforces.com/contest/1629/problem/E"><img src="https://img-blog.csdnimg.cn/d7ae10edf50e4e0ba72db830bc4784a9.png"></a>
+
+#### 💡
+本题的关键还是在于模型的建立，还有注意 $n$ 是偶数，不然会像我赛时疯狂画 $3\times3$ 的情况怎么也造不出来  
+画图中可以考虑到两个相邻单元格的操作  
+::: tip
+<img src="https://img-blog.csdnimg.cn/12fcf9df124842cb96a729b3f6d72151.png"><br>
+
+图中标 $\times$ 为操作，标 $1$ 为改变  
+:::
+把它看作一个拼图的块，那么题目问的就是我们如何拼才能把这个图拼满（可以拼出界外  
+
+可以画几个试试，发现这些拼图块是互补的  
+<img src="https://img-blog.csdnimg.cn/317c16ac0ce2492da7f16d4aab0a8ffb.png">  
+就意味着我们可以把它拼出来  
+遍历一遍，每次看操作一个位置和它左侧形成的拼图是否可以完美拼上（操作区域全为 $0$），再看和它下侧是否可以拼上  
+但是要考虑到一种情况，就是一个拼图方向顺序  
+  
+可以看到这个拼图竖着放和横着放是两种不同的情况  
+这里先遍历的是行，内重按列  
+我们先考虑竖着放的话，它会过长，在第一行检查时就有可能造成上下连着两个最右侧为空的情况（$n=6$ 时）  
+这种我们就无法塞入拼图了  
+所以我们优先考虑横着放  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e3 + 10;
+bool vis[N][N]; // 记录是否被放过拼图了
+int a[N][N];
+int n;
+ 
+inline bool Is_1 ( int x, int y, int op = 0 ) { // op=0:检查，op=1:修改
+        if ( x < 1 || x > n || y < 1 || y > n ) return 1;
+        if ( op ) return vis[x][y] = 1;
+        return !vis[x][y];
+}
+inline bool Check ( int x, int y, int op = 0 ) {
+        return Is_1(x, y - 1, op) && Is_1(x, y + 1, op) && Is_1(x + 1, y, op) && Is_1(x - 1, y, op);
+}
+ 
+inline void Solve () {
+        cin >> n;    
+        for ( int i = 1; i <= n; i ++ ) for ( int j = 1; j <= n; j ++ ) vis[i][j] = 0;
+        for ( int i = 1; i <= n; i ++ ) for ( int j = 1; j <= n; j ++ ) cin >> a[i][j];    
+        int res = 0;
+        for ( int i = 1; i <= n; i ++ ) for ( int j = 1; j <= n; j ++ ) {
+                if ( j < n && Check(i, j) && Check(i, j + 1) ) { // 横着放
+                        Check(i, j, 1);
+                        Check(i, j + 1, 1);
+                        res ^= a[i][j] ^ a[i][j + 1];
+                }
+                if ( i < n && Check(i, j) && Check(i + 1, j) ) { // 竖着放
+                        Check(i, j, 1);
+                        Check(i + 1, j, 1);
+                        res ^= a[i][j] ^ a[i + 1][j];
+                } 
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
 
 ## GYM102174F_风王之瞳
 
