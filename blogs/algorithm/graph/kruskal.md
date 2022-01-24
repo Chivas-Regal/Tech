@@ -1,7 +1,7 @@
 ---
 key: 2021-02-22-最小生成树
 layout: article
-title: 最小生成树
+title: kruskal算法
 subtitle: 整体布局出整体最短路？🤔
 categories: 图论
 tags: [图论]
