@@ -660,6 +660,56 @@ int main () {
 
 <hr>
 
+### 牛客2022寒假算法基础集训营1D_牛牛做数论
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/23106/D"><img src="https://img-blog.csdnimg.cn/5711a6cd38b24a43b0888c0be21f03d6.png"></a>
+
+#### 💡  
+对于题目中给的 $\frac{\phi(n)}{n}$ 得出这个函数不会到达 $1$  
+  
+对于第二问，我们让他越逼近 $1$ 越好，所以我们肯定选 $n$ 以下最大的质数  
+对于第一问  
+思考一下欧拉函数积性函数的性质和除法结合：$\frac{\phi(n\times m)}{n\times m}=\frac{\phi(n)}{n}\times\frac{\phi(m)}{m}$ 当且仅当 $gcd(n,m)=1$  
+由于他们的乘积在互质下越来越小，所以我们选所有 $n$ 以下的质数，让它们相乘不超过 $n$ 即可  
+  
+暴力就可以写  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline bool is_Prime ( ll x ) {
+        for ( ll i = 2; i * i <= x; i ++ ) {
+                if ( x % i == 0 ) {
+                        return false;
+                }
+        }
+        return true;
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        ll cass; cin >> cass; while ( cass -- ) {
+                ll n; cin >> n;
+                if ( n == 1 ) {
+                        cout << "-1" << endl;
+                } else {
+                        ll mx_prime = n;
+                        for ( ; mx_prime >= 2; mx_prime -- ) if ( is_Prime(mx_prime) ) break;
+                        ll mul_prime = 1;
+                        for ( int i = 2; i <= n; i ++ ) {
+                                if ( is_Prime(i) ) {
+                                        if ( mul_prime * i <= n ) mul_prime *= i;
+                                        else break;
+                                }
+                        }
+                        cout << mul_prime << ' ' << mx_prime << endl;
+                }
+        }
+}
+```
+<hr>
+
+
 ### HDUOJ2588_GCD
 
 #### 🔗
