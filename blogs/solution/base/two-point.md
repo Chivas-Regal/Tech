@@ -280,6 +280,77 @@ CHIVAS_{IOS;
 
 <hr>
 
+## 牛客2022寒假算法基础集训营2F_小沙的算数
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/23477/F"><img src="https://img-blog.csdnimg.cn/9881248a6479460a9030bd79473ea72a.png"></a>
+
+#### 💡
+由于这道题只有两个运算两个优先级  
+所以我们可以采用双指针，以 `+` 为分界线，同 `*` 为一个块分配到一个 `node{l, r, val]` 中  
+预先统计出一个无修改的答案  
+在修改时 `x, y` ，我们 `lower_bound` 出第一个 $l>=x+1$ 的块，然后前一个就是我们修改的块  
+修改使答案 `res - node.val + node.val / a[x] * y` ，并更新这个块的 `val`   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const ll N = 1e6 + 10;
+const ll mod = 1e9 + 7;
+ll a[N];
+ll n, m;
+char s[N];
+
+struct node {
+        ll l, r, val;
+        inline node () {}
+        inline node ( ll a, ll  b, ll c ) { 
+                l = a, r = b, val = c;
+        }
+        inline friend bool operator < ( node a, node b ) {
+                if ( a.l != b.l ) return a.l < b.l;
+                if ( a.r != b.r ) return a.r < b.r;
+                return a.val < b.val;
+        }
+};
+
+inline ll ksm ( ll a, ll b ) { ll res = 1; while ( b ) { if ( b & 1 ) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv ( ll x ) { return ksm(x, mod - 2); }
+
+int main () {
+        ios::sync_with_stdio(false);
+
+        cin >> n >> m;
+        cin >> (s + 1);  s[n] = '+';
+        for ( ll i = 1; i <= n; i ++ ) cin >> a[i];
+        vector<node> vec;
+        for ( ll i = 1; i <= n; i ++ ) {
+                if ( s[i] == '+' ) vec.push_back({i, i, a[i]});
+                else {
+                        ll l = i;
+                        ll cur = 1;
+                        while ( i < n && s[i] == '*' ) cur = cur * a[i] % mod, i ++; cur = cur * a[i] % mod;
+                        ll r = i;
+                        vec.push_back({l, r, cur});
+                }
+        }
+        ll res = 0;
+        for ( auto i : vec ) 
+                res += i.val, res %= mod;
+        vec.push_back({10000000, 10000000, 100000});
+
+        while ( m -- ) {
+                ll x, y; cin >> x >> y;
+                ll id = lower_bound(vec.begin(), vec.end(), node(x + 1, x + 1, 0)) - vec.begin();
+                id --;
+                res = ((res - vec[id].val + vec[id].val * inv(a[x]) % mod * y % mod) % mod + mod) % mod; 
+                vec[id].val = vec[id].val * inv(a[x]) % mod * y % mod;
+                a[x] = y;
+                cout << res << endl;
+        }
+}
+```
+<hr>
+
 ## 湘潭2021全国邀请赛11_Substring
 
 #### 🔗

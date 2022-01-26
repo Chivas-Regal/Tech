@@ -16,12 +16,12 @@ export default {
       "scope": "tags",
       "path": "/tag/数据结构/",
       "pageKeys": [
-        "v-5708d2cb",
         "v-ce6b19aa",
-        "v-5954e312",
         "v-5f1c9caa",
         "v-64401ecb",
-        "v-f8b025ea"
+        "v-f8b025ea",
+        "v-5708d2cb",
+        "v-5954e312"
       ]
     },
     "动态规划": {
@@ -29,8 +29,8 @@ export default {
       "scope": "tags",
       "path": "/tag/动态规划/",
       "pageKeys": [
-        "v-2a2c10aa",
         "v-1f3d212b",
+        "v-2a2c10aa",
         "v-76c0de6a",
         "v-5dd637ae"
       ]
@@ -57,10 +57,10 @@ export default {
       "path": "/tag/图论/",
       "pageKeys": [
         "v-743ee46a",
-        "v-600a1f6b",
         "v-74f67eab",
-        "v-3f4660ce",
-        "v-caaf06ce"
+        "v-600a1f6b",
+        "v-caaf06ce",
+        "v-3f4660ce"
       ]
     },
     "树": {
@@ -71,34 +71,42 @@ export default {
         "v-4f326baa"
       ]
     },
-    "数论": {
-      "key": "数论",
-      "scope": "tags",
-      "path": "/tag/数论/",
-      "pageKeys": [
-        "v-6f3c5242",
-        "v-2a9290eb",
-        "v-75af48d7",
-        "v-0fcf4281",
-        "v-6a522eeb"
-      ]
-    },
     "数学": {
       "key": "数学",
       "scope": "tags",
       "path": "/tag/数学/",
       "pageKeys": [
-        "v-ed62c09e",
         "v-0b36d1cb",
+        "v-ed62c09e",
         "v-c9f0fe82",
-        "v-439d04b3",
         "v-72a17f2b",
+        "v-439d04b3",
         "v-668222c9",
-        "v-6b54f0eb",
         "v-47eb48ea",
+        "v-4b66926b",
+        "v-6b54f0eb",
         "v-a43bf9d6",
-        "v-7e8a3a26",
-        "v-4b66926b"
+        "v-7e8a3a26"
+      ]
+    },
+    "数论": {
+      "key": "数论",
+      "scope": "tags",
+      "path": "/tag/数论/",
+      "pageKeys": [
+        "v-75af48d7",
+        "v-6a522eeb",
+        "v-2a9290eb",
+        "v-6f3c5242",
+        "v-0fcf4281"
+      ]
+    },
+    "推导": {
+      "key": "推导",
+      "scope": "tags",
+      "path": "/tag/推导/",
+      "pageKeys": [
+        "v-45077021"
       ]
     },
     "字符串": {
@@ -106,8 +114,8 @@ export default {
       "scope": "tags",
       "path": "/tag/字符串/",
       "pageKeys": [
-        "v-8ff80d0a",
-        "v-55bfe1cb"
+        "v-55bfe1cb",
+        "v-8ff80d0a"
       ]
     },
     "搜索": {
@@ -117,14 +125,6 @@ export default {
       "pageKeys": [
         "v-94731aea",
         "v-482e0587"
-      ]
-    },
-    "推导": {
-      "key": "推导",
-      "scope": "tags",
-      "path": "/tag/推导/",
-      "pageKeys": [
-        "v-45077021"
       ]
     }
   },
@@ -142,12 +142,12 @@ export default {
       "scope": "categories",
       "path": "/categories/数据结构/",
       "pageKeys": [
-        "v-5708d2cb",
         "v-ce6b19aa",
-        "v-5954e312",
         "v-5f1c9caa",
         "v-64401ecb",
-        "v-f8b025ea"
+        "v-f8b025ea",
+        "v-5708d2cb",
+        "v-5954e312"
       ]
     },
     "动态规划": {
@@ -155,8 +155,8 @@ export default {
       "scope": "categories",
       "path": "/categories/动态规划/",
       "pageKeys": [
-        "v-2a2c10aa",
         "v-1f3d212b",
+        "v-2a2c10aa",
         "v-76c0de6a",
         "v-5dd637ae"
       ]
@@ -169,11 +169,11 @@ export default {
         "v-6b1345ab",
         "v-71b416de",
         "v-743ee46a",
-        "v-4f326baa",
-        "v-600a1f6b",
         "v-74f67eab",
-        "v-3f4660ce",
-        "v-caaf06ce"
+        "v-600a1f6b",
+        "v-caaf06ce",
+        "v-4f326baa",
+        "v-3f4660ce"
       ]
     },
     "数学": {
@@ -181,22 +181,30 @@ export default {
       "scope": "categories",
       "path": "/categories/数学/",
       "pageKeys": [
-        "v-6f3c5242",
-        "v-2a9290eb",
-        "v-ed62c09e",
         "v-0b36d1cb",
-        "v-c9f0fe82",
+        "v-ed62c09e",
         "v-75af48d7",
-        "v-439d04b3",
+        "v-c9f0fe82",
         "v-72a17f2b",
+        "v-439d04b3",
         "v-668222c9",
-        "v-6b54f0eb",
-        "v-0fcf4281",
-        "v-6a522eeb",
         "v-47eb48ea",
+        "v-4b66926b",
+        "v-6b54f0eb",
         "v-a43bf9d6",
+        "v-6a522eeb",
         "v-7e8a3a26",
-        "v-4b66926b"
+        "v-2a9290eb",
+        "v-6f3c5242",
+        "v-0fcf4281"
+      ]
+    },
+    "推导": {
+      "key": "推导",
+      "scope": "categories",
+      "path": "/categories/推导/",
+      "pageKeys": [
+        "v-45077021"
       ]
     },
     "字符串": {
@@ -204,8 +212,8 @@ export default {
       "scope": "categories",
       "path": "/categories/字符串/",
       "pageKeys": [
-        "v-8ff80d0a",
-        "v-55bfe1cb"
+        "v-55bfe1cb",
+        "v-8ff80d0a"
       ]
     },
     "搜索": {
@@ -215,14 +223,6 @@ export default {
       "pageKeys": [
         "v-94731aea",
         "v-482e0587"
-      ]
-    },
-    "推导": {
-      "key": "推导",
-      "scope": "categories",
-      "path": "/categories/推导/",
-      "pageKeys": [
-        "v-45077021"
       ]
     }
   },

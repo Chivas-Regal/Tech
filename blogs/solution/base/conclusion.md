@@ -203,6 +203,40 @@ inline void Solve () {
 
 <hr>
 
+## 牛客2022寒假算法基础集训营2A_小沙的炉石
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/23477/A"><img src="https://img-blog.csdnimg.cn/8ce60ca05de24dffab0a14f997f8e402.png"></a>
+
+#### 💡
+我们多次计算不难发现一个性质，就是在使用同样数量的攻击卡、插入回蓝时，所造成的伤害是固定的  
+那么我们设置我们使用 $a$ 次攻击  
+最小的伤害是一次攻击一次恢复一次攻击....一次恢复一次攻击  
+最大的伤害是恢复完 $m$ 次之后再全部攻击  
+那么伤害是处在 $[\frac{(1+2a-1)a}{2},\frac{(2m+a+1)a}{2}$ 之间，化简最小值为 $a^2$    
+我们要找到最大 $a$ 满足 $a^2\le hp$ ，因为再大就超了就不能完美击败了  
+那么就是 $a=\left\lfloor sqrt(hp)\right\rfloor$ ，对于这个 $a$ 我们带入公式去求最大值 `mx`  
+看看最大值是否 $\ge x$ 
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int main () {
+        ios::sync_with_stdio(false);
+
+        ll n, m; cin >> n >> m;
+        ll k; cin >> k;
+        while ( k -- ) {
+                ll hp; cin >> hp;
+                ll a = min(n, m + 1);
+                a = min(a, (ll)sqrt(hp));
+                if ( (2 * m + a + 1) * a / 2 >= hp ) cout << "YES" << endl;
+                else cout << "NO" << endl;
+        }        
+}
+```
+<hr>
+
+
 ## CodeForces507C_GuessYourWayOut
 
 #### 🔗
