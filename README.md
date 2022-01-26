@@ -1,12 +1,12 @@
 ---
 home: true
 heroImage: /hero.png
-bgImage: /bg.png
 heroImageStyle: {
   maxWidth: '200px',
   width: '100%',
   display: block,
-  margin: '0 auto 2rem',
+  margin: '0 auto 5rem',
+  margin-top: '5rem',
   background: '#fff',
   borderRadius: '1rem',
 }
@@ -14,8 +14,8 @@ bgImageStyle: {
   height: '450px'
 }
 isShowTitleInHome: false
-actionText: Guide
-actionLink: /views/other/guide
+actionText: '快速开始'
+actionLink: '/blogs/algorithm/math/mobius-inversion.html'
 features:
 - title: 算法
   details: 有自己编写的知识讲解，与自己的一些题目思路
