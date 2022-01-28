@@ -4,7 +4,7 @@ title: kurskal重构树
 
 ::: tip
 **前置知识**
-- [kruskal算法](http://localhost:8080/blogs/algorithm/graph/kruskal.html)
+- [kruskal算法](https://tech.chivas-regal.top/blogs/algorithm/graph/kruskal.html)
 - [LCA](https://algorithm.therehello.top/graph/lca/)
 :::
 
