@@ -618,6 +618,53 @@ CHIVAS_{IOS;
 
 <hr>
 
+## 牛客2022寒假算法基础集训营
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/23478/C"><img src="https://img-blog.csdnimg.cn/9865ea1a3d6940a2b08c1cce6fe03148.png"></a>
+
+#### 💡
+我们线性往后塞入数，让每一个 $i$ 的个数依次变成 $0$   
+但是有一个问题，就是我们对于偶数 $i$ ，如果选了 $i$ ，那么 $i/2$ 的方案数也会发生变化  
+我们只想让它影响 $i$ 和 $i$ 后面的数的方案数  
+所以我们每次选 $2i$ ，直到 $i$ 的方案数和数据中给出的相等  
+这个用生成函数，每加入一个数那么就合并一次括号来影响 $i$ 后面的     
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const ll N = 2005;
+const ll mod = 1e9 + 7;
+ll c1[N];
+ll c2[N];
+ll C[N];
+
+int main(){
+        ll n; cin >> n;
+        vector<int> res;
+        for ( ll i = 1; i <= n; i ++ ) cin >> C[i];
+        for ( int i = 1; i <= n; i ++ ) {
+                while ( C[i] > c1[i] ) {
+                        int x = i * 2;
+                        if ( c1[0] == 0 ) {
+                                c1[0] = c1[i] = c1[x] = 1;
+                        } else {
+                                for ( int j = 0; j <= n; j ++ ) {
+                                        c2[j + 0] += c1[j]; c2[j] %= mod;
+                                        c2[j + i] += c1[j]; c2[j + i] %= mod;
+                                        c2[j + x] += c1[j]; c2[j + x] %= mod;
+                                }
+                                for ( int j = 0; j <= n; j ++ ) c1[j] = c2[j], c2[j] = 0;
+                        }
+                        res.push_back(x);
+                }
+        }
+        cout << res.size() << endl;
+        for ( int i = 0; i < res.size(); i ++ ) cout << res[i] << ' ';
+}
+```
+<hr>
+
+
 ## 牛客练习赛92A_D与数列
 
 #### 🔗

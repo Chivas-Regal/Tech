@@ -1743,6 +1743,59 @@ int main () {
 
 <hr>
 
+### 牛客2022寒假算法基础集训营K_智乃的C语言模除方程
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/23478/K"><img src="https://img-blog.csdnimg.cn/6d2ed77c2fe84b679c807b3bf69a7975.png"></a>
+
+#### 💡
+本题是让我们计数  
+让 $[l,r]$ 以 $p$ 为循环区间进行移动，看多少个模后存在于 $[L,R]$ 中  
+首先肯定是要看需不需要从 $0$ 的位置分开计算的  
+
+对于 $[L,R]$ 都在同一边的，我们可以想到用容斥， $calc(R)-calc(L-1)$ 这种  
+那么不在一边的我们要分开计算然后加起来  
+
+那么就将区间问题转化为前缀的点问题了  
+任务是求从 $x$ 到 $0$ 有多少个数模后为 $[l,r]$ ，上面在叙述问题时已经很明白了，这个计算循环节进行优化  
+以 $[0,p-1]$ 为循环节，每个循环节内计算 $[0,p-1]\cap[l,r]$ 的个数，然后循环 $\left\lfloor\frac xp\right\rfloor$ 次  
+多出来的就算一下 $[0,x\%p]\cap[l,r]$ 即可  
+  
+相交区间长度我们写一个函数 `get_intersection(a, b, c, d)` 来计算   
+那么我们对于循环 `x / p` 次，每个循环有 `get_intersection(0, p - 1, l, r)` 个相交，加上 `get_intersection(0, x % p, l, r)` 这样去算  
+记得对 `x` 分奇偶
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+ll P, l, r, L, R;
+
+inline ll get_Intersection ( ll a, ll b, ll c, ll d ) {
+        if ( c > b || d < a ) return 0;
+        return min(b, d) - max(a, c) + 1;
+}
+inline ll Query ( ll bondry ) {
+        if ( bondry < 0 ) 
+                return (- bondry / P) * get_Intersection(- P + 1, 0, l, r) + get_Intersection(bondry % P, 0, l, r );
+        else 
+                return bondry / P * get_Intersection(0, P - 1, l, r) + get_Intersection(0, bondry % P, l, r);
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+
+        cin >> P >> l >> r >> L >> R;
+        P = llabs(P);
+        if ( L <= 0 && R >= 0 ) 
+                cout << Query(R) + Query(L) - Query(0) << endl; // 分开计算，多算了个 0
+        else if ( L < 0 && R < 0 )
+                cout << Query(L) - Query(R + 1) << endl; // 负数容斥
+        else 
+                cout << Query(R) - Query(L - 1) << endl; // 正数容斥
+}
+```
+<hr>
+
+
 ### 牛客练习赛92C_D与C
 
 #### 🔗
