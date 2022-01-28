@@ -52,7 +52,8 @@ module.exports = {
             text: '技术文档',
             items: [
                 { text: '算法', link: '/blogs/algorithm/' },
-                { text: '题解', link: '/blogs/solution/' }
+                { text: '题解', link: '/blogs/solution/' },
+                { text: '配置', link: '/blogs/configure/'}
             ],
             icon: 'reco-document'
         },
@@ -157,6 +158,14 @@ module.exports = {
                 children: getChildren('./blogs/solution/string/')
             },
         ],
+        '/blogs/configure/': [
+            '/blogs/configure/',
+            {
+                title: 'MacOS',
+                collapsable: true,
+                children: getChildren('./blogs/configure/macos/')
+            }
+        ]
     },
     subSidebar: 'auto',
     logo: '/logo.png',
