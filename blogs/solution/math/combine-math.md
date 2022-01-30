@@ -345,7 +345,7 @@ title: 组合数学
 这里上  <img src="https://latex.codecogs.com/svg.image?\inline&space;Java" title="\inline Java" /> 高精 
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
-```
+```java
 public class Main {
 
         static BigInteger zero = BigInteger.ZERO;
@@ -766,6 +766,86 @@ int main () {
 ```
 
 <hr>
+
+### ARC134C_TheMajority
+
+#### 🔗
+<a href="https://atcoder.jp/contests/arc134/tasks/arc134_c?lang=en"><img src="https://img-blog.csdnimg.cn/14f2ddf24f6949238483657ed344b023.png"></a>
+
+#### 💡  
+可以这样想，要想数字是 $1$ 的球个数严格大于别的数字的球个数  
+我们可以先给每一个盒子都铺上数字是 $1$ 的球，然后每往一个盒子里面放一个 $1$ 就跟着放一个别的  
+  
+那么我们可以将这些球分成两类物品  
+数字不是 $1$ 的球和数字是 $1$ 的球两两配对形成物品 $a$ ，有 $\alpha$ 个  
+剩余的数字是 $1$ 的球每个都是物品 $b$ ，有 $\beta$ 个   
+  
+我们要先给每个盒子都铺上物品 $b$ ，不能有空盒子  
+对于 [球盒模型情况四](https://tech.chivas-regal.top/blogs/algorithm/math/ballandbox.html#%E8%AF%81%E6%98%8E%E5%9B%9B)，方案数为 $\begin{pmatrix}\alpha-1\\\beta-1\end{pmatrix}$  
+之后对于物品 $b$ ，注意同数字的球之间是相同的，而不同数字的球是不同的，放置的时候盒可空  
+那么我们要对于每一个 $i$ 和 $1$ 拼接物品的数量 $a_i$ 计算一次 [球盒模型情况三](https://tech.chivas-regal.top/blogs/algorithm/math/ballandbox.html#%E8%AF%81%E6%98%8E%E4%B8%89)，方案数为 $\prod\limits_{i=2}^n\begin{pmatrix}a_i+m-1\\m-1\end{pmatrix}$  
+  
+故答案为  
+$$\begin{pmatrix}\alpha-1\\\beta-1\end{pmatrix}\prod\limits_{i=2}^n\begin{pmatrix}a_i+m-1\\m-1\end{pmatrix}$$  
+
+
+另外，对于 $m$ 比较小但是 $n$ 比较大的组合数，我们可以用分子分母约分之后的方式进行计算  
+
+```cpp
+inline ll C ( ll n, ll m ) {
+        ll res = 1;
+        for ( ll i = 0; i < m; i ++ ) res = res * (n - i) % mod;
+        return res * inv[m] % mod;
+}
+```
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+const int K = 210;
+const int mod = 998244353;
+
+ll inv[N];
+
+inline ll Ksm ( ll a, ll b ) { ll res = 1; while ( b ) { if ( b & 1 ) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll Inv ( ll x ) { return Ksm(x, mod - 2); }
+inline void get_I () {
+        inv[0] = Inv(1);
+        for ( int i = 1; i < K; i ++ ) 
+                inv[i] = inv[i - 1] * Inv(i) % mod;
+}
+inline ll C ( ll n, ll m ) {
+        ll res = 1;
+        for ( ll i = 0; i < m; i ++ ) res = res * (n - i) % mod;
+        return res * inv[m] % mod;
+}
+
+ll n, k;
+ll a[N];
+ll one, els; // 数字1的个数，别的数字的个数
+ll res;
+int main () {
+        get_I();
+        ios::sync_with_stdio(false);
+
+        cin >> n >> k;
+        for ( int i = 1; i <= n; i ++ ) {
+                cin >> a[i];
+                if ( i == 1 ) one += a[i];
+                else els += a[i];
+        }
+        if ( one - els < k ) {
+                cout << 0 << endl;
+                return 0;
+        }
+
+        res = C(one - els - 1, k - 1);
+        for ( int i = 2; i <= n; i ++ ) res = res * C(a[i] + k - 1, k - 1) % mod;
+        cout << res << endl;
+}
+```
+<hr>
+
 
 ### CodeForces1536B_AdvertisingAgency
 
