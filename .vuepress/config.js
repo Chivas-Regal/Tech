@@ -69,6 +69,7 @@ module.exports = {
     ],
     sidebar: {
         '/blogs/algorithm/': [
+            '/blogs/algorithm/',
             {
                 title: '动态规划',
                 collapsable: true,
