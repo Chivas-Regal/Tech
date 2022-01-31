@@ -3977,6 +3977,33 @@ inline void Solve () {
 ```
 <hr>
 
+## CodeForces1632B_RoofConstruction
+
+#### 🔗
+<a href="https://codeforces.com/contest/1632/problem/B"><img src="https://img-blog.csdnimg.cn/7dd07333281c4c5f8bdbf15c0908b9ea.png"></a>
+
+#### 💡
+由于两个数异或，在位数不同的情况下，最高位的 $1$ 一定会被保留下来  
+所以 $max$ 一定会有 小于 $n$ 的最高二的幂，设为 $x$   
+那么考虑可不可以让别的都小于 $x$   
+由于 $0\oplus i=i$ ，那么我们让 $<x$ 的都放在 $0$ 的前面  
+那么就剩下和 $x$ 同位数的数了  
+全放在 $x$ 的后面就可以让他们最高位消掉来保证 $<x$   
+那么构造方法就是 $1,2,3,...,x-1,0,x,x+1,...,n-1$ 
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void Solve () {
+        int n; cin >> n;
+        ll mx = 1;
+        while ( mx * 2 < n ) mx *= 2;
+        for ( int i = 1; i < mx; i ++ ) cout << i << " ";
+        cout << 0 << " " << mx << " ";
+        for ( int i = mx + 1; i < n; i ++ ) cout << i << ' '; cout << endl;
+}
+```
+<hr>
+
 
 ## GYM102174F_风王之瞳
 

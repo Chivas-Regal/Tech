@@ -168,6 +168,82 @@ int main(){
 
 <hr>
 
+## CodeForces1632D_NewYearConcert
+
+#### 🔗
+
+<a href="https://codeforces.com/contest/1632/problem/D"><img src="https://img-blog.csdnimg.cn/6c8a4705c9164eb6aca81bb43163d0f8.png"></a>
+
+#### 💡
+思索一下，如果我们对一个从 $i$ 开始的前缀可以发现存在这样 $gcd=l-r+1$ 的，那么我们可以在 $i$ 的位置加一个很大的质数从而隔断 $i$ 到 $1$ 的位置  
+这样我们后面的任意一个位置到达 $i$ 都会变成 $gcd=1$ ，我们要从 $l=i+1$ 之后进行判断即可  
+所以隔断后我们在后面枚举 $i$ 时只需要判断 $\sum\limits_{j=l+1}^i[gcd=i-j+1]$ 是否 $\ge 1$ 即是否存在  
+注意一下单调性，对于固定的右端点，区间越长 $gcd$ 不会越来越大，同时区间长度越来越大，他们两个呈相遇状  
+那么我们找这个满足 $gcd(a[j\rightarrow i])=i-j+1$ 就可以采用二分左端点的形式  
+- 如果 $gcd(a[j\rightarrow i])<i-j+1$ 说明我们枚举的太长了，应该让左端点往右走  
+- 如果 $gcd(a[j\rightarrow i])>i-j+1$ 就说明要往左走  
+- 如果 $gcd(a[j\rightarrow i])=i-j+1$ 就说明找到了，存在这样的位置，我们对 $i$ 进行隔断然后让答案 $+1$ 即可   
+
+注意中间存在区间查询 $gcd$ 的操作，可以使用 $st$ 表预处理  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+ll st[N][25];
+ll a[N];
+ll n;
+
+inline ll gcd ( ll a, ll b ) { return b ? gcd(b, a % b) : a; }
+inline void Build(){ // 构建ST
+        for ( int i = 1; i <= n; i ++ ) st[i][0] = a[i];
+        ll k = 32 - __builtin_clz(n) - 1;
+        for (ll j = 1; j <= k; j ++) {
+                for (ll i = 1; i + (1 << j) - 1 <= n; i ++) {
+                        st[i][j] = gcd(st[i][j - 1],st[i + (1 << (j - 1))][j - 1]);
+                }
+        }
+}
+ll Query(ll l, ll r){ // 查询
+        ll k = 32 - __builtin_clz(r - l + 1) - 1;
+        return gcd(st[l][k], st[r - (1 << k) + 1][k]);
+}
+
+inline int check ( ll p, ll i ) {
+        ll qry = Query(p, i);
+        if ( qry < i - p + 1 ) return -1;
+        else if ( qry == i - p + 1 ) return 0;
+        return 1;
+}
+
+inline void Solve () {
+        cin >> n;
+        for ( int i = 1; i <= n; i ++ ) cin >> a[i];
+        Build();
+        int l = 1, res = 0; // 隔断后面的第一个位置，答案
+        for ( int i = 1; i <= n; i ++ ) {
+                int R = i;
+                int L = l;
+                bool flg = 0;
+                while ( L <= R ) {
+                        int mid = (L + R) >> 1;
+                        if ( check(mid, i) == 0) {
+                                flg = true;
+                                break;
+                        } 
+                        if ( check(mid, i) == 1 ) R = mid - 1;
+                        else L = mid + 1;
+                }
+                if ( flg ) {
+                        l = i + 1;
+                        res ++;
+                }
+                cout << res << " ";
+        }
+}
+```
+<hr>
+
+
 ## CodeForces1611F_ATMAndStudents
 
 #### 🔗
