@@ -267,6 +267,96 @@ int main () {
 
 <hr>
 
+## ABC237E_Skiing
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc237/tasks/abc237_e"><img src="https://img-blog.csdnimg.cn/eec706cd490e471cb854393bbd1c5674.png"></a>
+
+#### 💡
+<del>这道题出题人可能没想到没卡住数据，便有了一群佬赛后疯狂提交原代码TLE</del>
+
+::: details 赛中傻瓜版
+看到图，看到最长路，看到负权，啥也不说试一手 SPFA ，过了  
+<del>代码太过傻瓜就不发了</del>
+:::  
+  
+当时比赛时候也是在想SPFA竟然没有被卡，赛后出题人也是不负众望让人去思考了一波正解  
+注意一下边权是由于高度差产生的  
+如果一条路只走下坡路，那么高度差就是每个点的边权和  
+但是走上坡路边权会形成两倍高度差的负数  
+如果这个是一倍，那么我们依然可以直接通过高度差求得答案  
+毕竟你上坡失去的快乐，下坡会给你补回来  
+  
+所以我们可以把一倍的上坡单独提出来  
+在这个基础上跑“以快乐减小值为边权”的最短路，这个是非负的，直接 Dijkstra 即可    
+让从 $1$ 到每个点走的上坡路都尽可能少  
+让 $1$ 到 $i$ 走的上坡路的量成为 $dis[i]$   
+这样的话我们最后统计 “高度差$-dis[i]$” 的最大值即可  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const ll N = 2e5 + 10;
+const ll M = 4e5 + 10;
+
+struct Edge {
+        ll nxt, to;
+        ll val;
+} edge[M];
+ll head[N], cnt;
+inline void add_Edge ( ll from, ll to, ll val ) {
+        edge[++cnt] = { head[from], to, val };
+        head[from] = cnt;
+}
+ll n, m;
+ll h[N];
+
+ll dis[N];
+bool vis[N];
+struct node {
+        ll id, val;
+        inline friend bool operator < ( node a, node b ) {
+                return a.val > b.val;
+        }
+};
+inline void Dijkstra () {
+        for ( int i = 0; i <= n; i ++ ) dis[i] = 0x3f3f3f3f,vis[i] = 0;
+        priority_queue<node> pque;
+        dis[1] = 0; pque.push({1, 0});
+        while ( pque.size() ) {
+                node cur = pque.top(); pque.pop();
+                if ( vis[cur.id] ) continue; vis[cur.id] = 1;
+                for ( int i = head[cur.id]; i; i = edge[i].nxt ) {
+                        int to = edge[i].to;
+                        if ( dis[to] > dis[cur.id] + edge[i].val ) {
+                                dis[to] = dis[cur.id] + edge[i].val; 
+				pque.push({to, dis[to]});
+                        }
+                }
+        }
+}
+
+
+int main () {
+        scanf("%lld%lld", &n, &m);
+        for ( ll i = 1; i <= n; i ++ ) scanf("%lld", &h[i]);
+        for ( ll i = 1; i <= m; i ++ ) {
+                ll a, b; scanf("%lld%lld", &a, &b);
+                // 只考虑上坡路
+                add_Edge(a, b, max(0ll, h[b] - h[a]));
+                add_Edge(b, a, max(0ll, h[a] - h[b]));
+        }
+        Dijkstra();
+        ll res = 0;
+        for ( ll i = 1; i <= n; i ++ ) {
+                res = max(res, h[1] - h[i] - dis[i]);
+        }
+        printf("%lld\n", res);
+}
+```
+<hr>
+
+
 ## CodeForces1611E1_EscapeTheMaze(easyversion)
 
 #### 🔗
