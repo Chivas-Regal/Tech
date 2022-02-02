@@ -430,6 +430,54 @@ CHIVAS_{
 
 <hr>
 
+## ABC237F_|LIS|=3
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc237/tasks/abc237_f"><img src="https://img-blog.csdnimg.cn/155975c2d1ac4d0eb71ec9589f46c449.png"></a>
+
+#### 💡  
+由于个数限定为 $3$ ，这是一个手动枚举的突破口  
+我们令 $dp(i,a_1,a_2,a_3)$ 表示在第 $i$ 位，上升子序列最后一位最小是 $a_j$ 时的方案数  
+枚举顺序便是 $i,a_1,a_2,a_3,x$ ，$x$ 表示第 $i$ 为接 $x$ 时的方案数  
+最后求一下这三个上升子序列在最后一位递增时的方案数总和（即长序列包含小序列  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+ll n, m;
+ll dp[1005][15][15][15];
+const int mod = 998244353;
+
+int main () {
+        ios::sync_with_stdio(false);
+
+        cin >> n >> m;
+        dp[0][m + 1][m + 1][m + 1] = 1;
+        for ( int i = 1; i <= n; i ++ ) {
+                for ( int a1 = 1; a1 <= m + 1; a1 ++ ) {
+                        for ( int a2 = 1; a2 <= m + 1; a2 ++ ) {
+                                for ( int a3 = 1; a3 <= m + 1; a3 ++ ) {
+                                        for ( int x = 1; x <= m; x ++ ) {
+                                                if ( x <= a1 )      (dp[i][x][a2][a3] += dp[i - 1][a1][a2][a3]) %= mod;
+                                                else if ( x <= a2 ) (dp[i][a1][x][a3] += dp[i - 1][a1][a2][a3]) %= mod;
+                                                else if ( x <= a3 ) (dp[i][a1][a2][x] += dp[i - 1][a1][a2][a3]) %= mod;
+                                        }
+                                }
+                        }
+                }
+        }
+        ll res = 0;
+        for ( int a1 = 1; a1 <= m; a1 ++ ) 
+                for ( int a2 = a1 + 1; a2 <= m; a2 ++ ) 
+                        for ( int a3 = a2 + 1; a3 <= m; a3 ++ ) 
+                                res += dp[n][a1][a2][a3],
+                                res %= mod;
+        cout << res << endl;
+}
+```
+<hr>
+
+
 ## AcWing895_最长上升子序列
 
 #### 🔗
