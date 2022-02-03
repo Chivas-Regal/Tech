@@ -58,6 +58,12 @@ module.exports = {
             icon: 'reco-document'
         },
         {
+            text: '资源',
+            items: [
+                { text: '书籍', link: '/blogs/book/' }
+            ]
+        },
+        {
             text: '个人',
             items: [
                 { text: 'Github', link: 'https://github.com/Chivas-Regal', icon: 'reco-github' },
@@ -165,6 +171,14 @@ module.exports = {
                 title: 'MacOS',
                 collapsable: true,
                 children: getChildren('./blogs/configure/macos/')
+            }
+        ],
+        '/blogs/book/': [
+            '/blogs/book/',
+            {
+                title: '算法艺术',
+                collapsable: true,
+                children: getChildren('./blogs/book/agthm-bty/')
             }
         ]
     },

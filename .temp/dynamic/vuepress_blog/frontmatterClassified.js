@@ -17,11 +17,11 @@ export default {
       "path": "/tag/数据结构/",
       "pageKeys": [
         "v-ce6b19aa",
-        "v-64401ecb",
         "v-f8b025ea",
-        "v-5954e312",
         "v-5708d2cb",
-        "v-5f1c9caa"
+        "v-5954e312",
+        "v-5f1c9caa",
+        "v-64401ecb"
       ]
     },
     "动态规划": {
@@ -29,18 +29,10 @@ export default {
       "scope": "tags",
       "path": "/tag/动态规划/",
       "pageKeys": [
-        "v-76c0de6a",
+        "v-2a2c10aa",
         "v-1f3d212b",
-        "v-5dd637ae",
-        "v-2a2c10aa"
-      ]
-    },
-    "建图、Kosaraju": {
-      "key": "建图、Kosaraju",
-      "scope": "tags",
-      "path": "/tag/建图、Kosaraju/",
-      "pageKeys": [
-        "v-6b1345ab"
+        "v-76c0de6a",
+        "v-5dd637ae"
       ]
     },
     "图论": {
@@ -50,8 +42,8 @@ export default {
       "pageKeys": [
         "v-743ee46a",
         "v-600a1f6b",
-        "v-74f67eab",
         "v-caaf06ce",
+        "v-74f67eab",
         "v-3f4660ce"
       ]
     },
@@ -61,6 +53,14 @@ export default {
       "path": "/tag/建图/",
       "pageKeys": [
         "v-71b416de"
+      ]
+    },
+    "建图、Kosaraju": {
+      "key": "建图、Kosaraju",
+      "scope": "tags",
+      "path": "/tag/建图、Kosaraju/",
+      "pageKeys": [
+        "v-6b1345ab"
       ]
     },
     "树": {
@@ -90,15 +90,24 @@ export default {
       "pageKeys": [
         "v-ed62c09e",
         "v-0b36d1cb",
+        "v-c9f0fe82",
         "v-439d04b3",
-        "v-72a17f2b",
-        "v-6b54f0eb",
         "v-668222c9",
-        "v-47eb48ea",
+        "v-6b54f0eb",
+        "v-72a17f2b",
         "v-4b66926b",
-        "v-a43bf9d6",
+        "v-47eb48ea",
         "v-7e8a3a26",
-        "v-c9f0fe82"
+        "v-a43bf9d6"
+      ]
+    },
+    "搜索": {
+      "key": "搜索",
+      "scope": "tags",
+      "path": "/tag/搜索/",
+      "pageKeys": [
+        "v-94731aea",
+        "v-482e0587"
       ]
     },
     "推导": {
@@ -117,15 +126,6 @@ export default {
         "v-8ff80d0a",
         "v-55bfe1cb"
       ]
-    },
-    "搜索": {
-      "key": "搜索",
-      "scope": "tags",
-      "path": "/tag/搜索/",
-      "pageKeys": [
-        "v-482e0587",
-        "v-94731aea"
-      ]
     }
   },
   "categories": {
@@ -143,11 +143,11 @@ export default {
       "path": "/categories/数据结构/",
       "pageKeys": [
         "v-ce6b19aa",
-        "v-64401ecb",
         "v-f8b025ea",
-        "v-5954e312",
         "v-5708d2cb",
-        "v-5f1c9caa"
+        "v-5954e312",
+        "v-5f1c9caa",
+        "v-64401ecb"
       ]
     },
     "动态规划": {
@@ -155,10 +155,10 @@ export default {
       "scope": "categories",
       "path": "/categories/动态规划/",
       "pageKeys": [
-        "v-76c0de6a",
+        "v-2a2c10aa",
         "v-1f3d212b",
-        "v-5dd637ae",
-        "v-2a2c10aa"
+        "v-76c0de6a",
+        "v-5dd637ae"
       ]
     },
     "图论": {
@@ -166,13 +166,13 @@ export default {
       "scope": "categories",
       "path": "/categories/图论/",
       "pageKeys": [
-        "v-6b1345ab",
         "v-743ee46a",
         "v-71b416de",
+        "v-6b1345ab",
         "v-600a1f6b",
+        "v-caaf06ce",
         "v-4f326baa",
         "v-74f67eab",
-        "v-caaf06ce",
         "v-3f4660ce"
       ]
     },
@@ -184,19 +184,28 @@ export default {
         "v-6f3c5242",
         "v-2a9290eb",
         "v-ed62c09e",
-        "v-75af48d7",
         "v-0b36d1cb",
+        "v-c9f0fe82",
         "v-439d04b3",
+        "v-75af48d7",
         "v-0fcf4281",
-        "v-72a17f2b",
-        "v-6b54f0eb",
         "v-668222c9",
-        "v-47eb48ea",
+        "v-6b54f0eb",
+        "v-72a17f2b",
         "v-4b66926b",
         "v-6a522eeb",
-        "v-a43bf9d6",
+        "v-47eb48ea",
         "v-7e8a3a26",
-        "v-c9f0fe82"
+        "v-a43bf9d6"
+      ]
+    },
+    "搜索": {
+      "key": "搜索",
+      "scope": "categories",
+      "path": "/categories/搜索/",
+      "pageKeys": [
+        "v-94731aea",
+        "v-482e0587"
       ]
     },
     "推导": {
@@ -214,15 +223,6 @@ export default {
       "pageKeys": [
         "v-8ff80d0a",
         "v-55bfe1cb"
-      ]
-    },
-    "搜索": {
-      "key": "搜索",
-      "scope": "categories",
-      "path": "/categories/搜索/",
-      "pageKeys": [
-        "v-482e0587",
-        "v-94731aea"
       ]
     }
   },
