@@ -46,83 +46,6 @@ export const siteData = {
       "lastUpdated": "1/30/2022, 7:48:54 PM"
     },
     {
-      "title": "三维偏序_CDQ分治",
-      "frontmatter": {
-        "key": "2021-10-07-三维偏序_CDQ分治",
-        "layout": "article",
-        "title": "三维偏序_CDQ分治",
-        "subtitle": "好几个都要小？那怎么找？🤔",
-        "categories": "离线算法",
-        "tags": [
-          "离线算法"
-        ],
-        "aside": {
-          "toc": true
-        },
-        "sidebar": {
-          "nav": "docs-en"
-        }
-      },
-      "regularPath": "/blogs/algorithm/data-structure/cdq.html",
-      "relativePath": "blogs/algorithm/data-structure/cdq.md",
-      "key": "v-eb61328e",
-      "path": "/blogs/algorithm/data-structure/cdq.html",
-      "headers": [
-        {
-          "level": 2,
-          "title": "做法1-树状数组",
-          "slug": "做法1-树状数组"
-        },
-        {
-          "level": 2,
-          "title": "做法2-归并排序",
-          "slug": "做法2-归并排序"
-        }
-      ],
-      "lastUpdated": "1/21/2022, 5:23:46 PM"
-    },
-    {
-      "title": "Home",
-      "frontmatter": {
-        "home": true,
-        "heroImage": "/hero.png",
-        "heroImageStyle": {
-          "maxWidth": "200px",
-          "width": "100%",
-          "display": "block",
-          "margin": "0 auto 5rem",
-          "margin-top": "5rem",
-          "background": "#fff",
-          "borderRadius": "1rem"
-        },
-        "bgImageStyle": {
-          "height": "450px"
-        },
-        "isShowTitleInHome": false,
-        "actionText": "快速开始",
-        "actionLink": "/blogs/algorithm/math/mobius-inversion.html",
-        "features": [
-          {
-            "title": "算法",
-            "details": "有自己编写的知识讲解，与自己的一些题目思路"
-          },
-          {
-            "title": "个人",
-            "details": "非常喜欢前端与算法，希望在这里两个位置有所成就"
-          },
-          {
-            "title": "全局",
-            "details": "本文档以Vue为基础搭建，非博客形式"
-          }
-        ]
-      },
-      "regularPath": "/",
-      "relativePath": "README.md",
-      "key": "v-1fc22f70",
-      "path": "/",
-      "lastUpdated": "1/27/2022, 12:45:36 AM"
-    },
-    {
       "title": "莫队算法",
       "frontmatter": {
         "key": "2021-09-11-莫队算法",
@@ -292,6 +215,141 @@ export const siteData = {
       "lastUpdated": "1/22/2022, 1:58:14 AM"
     },
     {
+      "title": "Home",
+      "frontmatter": {
+        "home": true,
+        "heroImage": "/hero.png",
+        "heroImageStyle": {
+          "maxWidth": "200px",
+          "width": "100%",
+          "display": "block",
+          "margin": "0 auto 5rem",
+          "margin-top": "5rem",
+          "background": "#fff",
+          "borderRadius": "1rem"
+        },
+        "bgImageStyle": {
+          "height": "450px"
+        },
+        "isShowTitleInHome": false,
+        "actionText": "快速开始",
+        "actionLink": "/blogs/algorithm/math/mobius-inversion.html",
+        "features": [
+          {
+            "title": "算法",
+            "details": "有自己编写的知识讲解，与自己的一些题目思路"
+          },
+          {
+            "title": "个人",
+            "details": "非常喜欢前端与算法，希望在这里两个位置有所成就"
+          },
+          {
+            "title": "全局",
+            "details": "本文档以Vue为基础搭建，非博客形式"
+          }
+        ]
+      },
+      "regularPath": "/",
+      "relativePath": "README.md",
+      "key": "v-1fc22f70",
+      "path": "/",
+      "lastUpdated": "1/27/2022, 12:45:36 AM"
+    },
+    {
+      "title": "三维偏序_CDQ分治",
+      "frontmatter": {
+        "key": "2021-10-07-三维偏序_CDQ分治",
+        "layout": "article",
+        "title": "三维偏序_CDQ分治",
+        "subtitle": "好几个都要小？那怎么找？🤔",
+        "categories": "离线算法",
+        "tags": [
+          "离线算法"
+        ],
+        "aside": {
+          "toc": true
+        },
+        "sidebar": {
+          "nav": "docs-en"
+        }
+      },
+      "regularPath": "/blogs/algorithm/data-structure/cdq.html",
+      "relativePath": "blogs/algorithm/data-structure/cdq.md",
+      "key": "v-eb61328e",
+      "path": "/blogs/algorithm/data-structure/cdq.html",
+      "headers": [
+        {
+          "level": 2,
+          "title": "做法1-树状数组",
+          "slug": "做法1-树状数组"
+        },
+        {
+          "level": 2,
+          "title": "做法2-归并排序",
+          "slug": "做法2-归并排序"
+        }
+      ],
+      "lastUpdated": "1/21/2022, 5:23:46 PM"
+    },
+    {
+      "title": "树链剖分",
+      "frontmatter": {
+        "title": "树链剖分"
+      },
+      "regularPath": "/blogs/algorithm/data-structure/divid-tree.html",
+      "relativePath": "blogs/algorithm/data-structure/divid-tree.md",
+      "key": "v-a4e952aa",
+      "path": "/blogs/algorithm/data-structure/divid-tree.html",
+      "headers": [
+        {
+          "level": 2,
+          "title": "定义",
+          "slug": "定义"
+        },
+        {
+          "level": 2,
+          "title": "过程",
+          "slug": "过程"
+        },
+        {
+          "level": 2,
+          "title": "最近公共祖先",
+          "slug": "最近公共祖先"
+        },
+        {
+          "level": 3,
+          "title": "定义",
+          "slug": "定义-2"
+        },
+        {
+          "level": 3,
+          "title": "思路",
+          "slug": "思路"
+        },
+        {
+          "level": 2,
+          "title": "树上操作",
+          "slug": "树上操作"
+        },
+        {
+          "level": 3,
+          "title": "思路",
+          "slug": "思路-2"
+        },
+        {
+          "level": 3,
+          "title": "路径操作",
+          "slug": "路径操作"
+        },
+        {
+          "level": 3,
+          "title": "子树操作",
+          "slug": "子树操作"
+        }
+      ],
+      "lastUpdated": "2/3/2022, 5:57:57 PM"
+    },
+    {
       "title": "主席树",
       "frontmatter": {
         "key": "2021-09-23-主席树",
@@ -363,64 +421,6 @@ export const siteData = {
       "lastUpdated": "1/21/2022, 5:23:46 PM"
     },
     {
-      "title": "树链剖分",
-      "frontmatter": {
-        "title": "树链剖分"
-      },
-      "regularPath": "/blogs/algorithm/data-structure/divid-tree.html",
-      "relativePath": "blogs/algorithm/data-structure/divid-tree.md",
-      "key": "v-a4e952aa",
-      "path": "/blogs/algorithm/data-structure/divid-tree.html",
-      "headers": [
-        {
-          "level": 2,
-          "title": "定义",
-          "slug": "定义"
-        },
-        {
-          "level": 2,
-          "title": "过程",
-          "slug": "过程"
-        },
-        {
-          "level": 2,
-          "title": "最近公共祖先",
-          "slug": "最近公共祖先"
-        },
-        {
-          "level": 3,
-          "title": "定义",
-          "slug": "定义-2"
-        },
-        {
-          "level": 3,
-          "title": "思路",
-          "slug": "思路"
-        },
-        {
-          "level": 2,
-          "title": "树上操作",
-          "slug": "树上操作"
-        },
-        {
-          "level": 3,
-          "title": "思路",
-          "slug": "思路-2"
-        },
-        {
-          "level": 3,
-          "title": "路径操作",
-          "slug": "路径操作"
-        },
-        {
-          "level": 3,
-          "title": "子树操作",
-          "slug": "子树操作"
-        }
-      ],
-      "lastUpdated": "2/3/2022, 5:57:57 PM"
-    },
-    {
       "title": "Hash",
       "frontmatter": {
         "key": "2021-03-10-Hash",
@@ -490,6 +490,52 @@ export const siteData = {
         }
       ],
       "lastUpdated": "1/21/2022, 5:23:46 PM"
+    },
+    {
+      "title": "字典树",
+      "frontmatter": {
+        "key": "2021-03-07-字典树",
+        "layout": "article",
+        "title": "字典树",
+        "subtitle": "存字符串然后好找？🤔",
+        "categories": "数据结构",
+        "tags": [
+          "数据结构"
+        ],
+        "aside": {
+          "toc": true
+        },
+        "sidebar": {
+          "nav": "docs-en"
+        }
+      },
+      "regularPath": "/blogs/algorithm/data-structure/trietree.html",
+      "relativePath": "blogs/algorithm/data-structure/trietree.md",
+      "key": "v-64401ecb",
+      "path": "/blogs/algorithm/data-structure/trietree.html",
+      "headers": [
+        {
+          "level": 2,
+          "title": "😀专用变量",
+          "slug": "😀专用变量"
+        },
+        {
+          "level": 3,
+          "title": "😀构造",
+          "slug": "😀构造"
+        },
+        {
+          "level": 2,
+          "title": "流程：",
+          "slug": "流程"
+        },
+        {
+          "level": 2,
+          "title": "检索",
+          "slug": "检索"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:52:47 PM"
     },
     {
       "title": "线段树",
@@ -593,440 +639,6 @@ export const siteData = {
       "lastUpdated": "1/21/2022, 5:23:46 PM"
     },
     {
-      "title": "字典树",
-      "frontmatter": {
-        "key": "2021-03-07-字典树",
-        "layout": "article",
-        "title": "字典树",
-        "subtitle": "存字符串然后好找？🤔",
-        "categories": "数据结构",
-        "tags": [
-          "数据结构"
-        ],
-        "aside": {
-          "toc": true
-        },
-        "sidebar": {
-          "nav": "docs-en"
-        }
-      },
-      "regularPath": "/blogs/algorithm/data-structure/trietree.html",
-      "relativePath": "blogs/algorithm/data-structure/trietree.md",
-      "key": "v-64401ecb",
-      "path": "/blogs/algorithm/data-structure/trietree.html",
-      "headers": [
-        {
-          "level": 2,
-          "title": "😀专用变量",
-          "slug": "😀专用变量"
-        },
-        {
-          "level": 3,
-          "title": "😀构造",
-          "slug": "😀构造"
-        },
-        {
-          "level": 2,
-          "title": "流程：",
-          "slug": "流程"
-        },
-        {
-          "level": 2,
-          "title": "检索",
-          "slug": "检索"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:52:47 PM"
-    },
-    {
-      "title": "并查集",
-      "frontmatter": {
-        "key": "2021-02-20-并查集",
-        "layout": "article",
-        "title": "并查集",
-        "subtitle": "一堆数据抱团活动？🤔",
-        "categories": "数据结构",
-        "tags": [
-          "数据结构"
-        ],
-        "aside": {
-          "toc": true
-        },
-        "sidebar": {
-          "nav": "docs-en"
-        }
-      },
-      "regularPath": "/blogs/algorithm/data-structure/unionset.html",
-      "relativePath": "blogs/algorithm/data-structure/unionset.md",
-      "key": "v-5f1c9caa",
-      "path": "/blogs/algorithm/data-structure/unionset.html",
-      "headers": [
-        {
-          "level": 2,
-          "title": "概念：",
-          "slug": "概念"
-        },
-        {
-          "level": 2,
-          "title": "过程：",
-          "slug": "过程"
-        },
-        {
-          "level": 2,
-          "title": "操作",
-          "slug": "操作"
-        },
-        {
-          "level": 3,
-          "title": "1.find函数",
-          "slug": "_1-find函数"
-        },
-        {
-          "level": 3,
-          "title": "2.merge函数",
-          "slug": "_2-merge函数"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:52:47 PM"
-    },
-    {
-      "title": "背包DP",
-      "frontmatter": {
-        "key": "2021-07-20-背包DP",
-        "layout": "article",
-        "title": "背包DP",
-        "subtitle": "DP奇奇怪怪的模型？🤔",
-        "categories": "动态规划",
-        "tags": [
-          "动态规划"
-        ],
-        "aside": {
-          "toc": true
-        },
-        "sidebar": {
-          "nav": "docs-en"
-        }
-      },
-      "regularPath": "/blogs/algorithm/dpp/backpack-DP.html",
-      "relativePath": "blogs/algorithm/dpp/backpack-DP.md",
-      "key": "v-1f3d212b",
-      "path": "/blogs/algorithm/dpp/backpack-DP.html",
-      "headers": [
-        {
-          "level": 2,
-          "title": "定义",
-          "slug": "定义"
-        },
-        {
-          "level": 2,
-          "title": "01背包",
-          "slug": "_01背包"
-        },
-        {
-          "level": 3,
-          "title": "模型",
-          "slug": "模型"
-        },
-        {
-          "level": 3,
-          "title": "子问题",
-          "slug": "子问题"
-        },
-        {
-          "level": 3,
-          "title": "状态",
-          "slug": "状态"
-        },
-        {
-          "level": 3,
-          "title": "转移方程",
-          "slug": "转移方程"
-        },
-        {
-          "level": 3,
-          "title": "处理方式",
-          "slug": "处理方式"
-        },
-        {
-          "level": 3,
-          "title": "程序",
-          "slug": "程序"
-        },
-        {
-          "level": 3,
-          "title": "例题",
-          "slug": "例题"
-        },
-        {
-          "level": 2,
-          "title": "完全背包",
-          "slug": "完全背包"
-        },
-        {
-          "level": 3,
-          "title": "模型",
-          "slug": "模型-2"
-        },
-        {
-          "level": 3,
-          "title": "处理方式",
-          "slug": "处理方式-2"
-        },
-        {
-          "level": 3,
-          "title": "程序",
-          "slug": "程序-2"
-        },
-        {
-          "level": 3,
-          "title": "例题",
-          "slug": "例题-2"
-        },
-        {
-          "level": 2,
-          "title": "多重背包",
-          "slug": "多重背包"
-        },
-        {
-          "level": 3,
-          "title": "前置知识-二进制拆分",
-          "slug": "前置知识-二进制拆分"
-        },
-        {
-          "level": 3,
-          "title": "模型",
-          "slug": "模型-3"
-        },
-        {
-          "level": 3,
-          "title": "处理方式",
-          "slug": "处理方式-3"
-        },
-        {
-          "level": 3,
-          "title": "程序",
-          "slug": "程序-3"
-        },
-        {
-          "level": 3,
-          "title": "例题",
-          "slug": "例题-3"
-        },
-        {
-          "level": 2,
-          "title": "精准装满的背包",
-          "slug": "精准装满的背包"
-        },
-        {
-          "level": 2,
-          "title": "分组背包",
-          "slug": "分组背包"
-        },
-        {
-          "level": 3,
-          "title": "模型",
-          "slug": "模型-4"
-        },
-        {
-          "level": 3,
-          "title": "处理方式",
-          "slug": "处理方式-4"
-        },
-        {
-          "level": 3,
-          "title": "程序",
-          "slug": "程序-4"
-        },
-        {
-          "level": 3,
-          "title": "例题",
-          "slug": "例题-4"
-        },
-        {
-          "level": 2,
-          "title": "二维费用",
-          "slug": "二维费用"
-        },
-        {
-          "level": 3,
-          "title": "模型",
-          "slug": "模型-5"
-        },
-        {
-          "level": 3,
-          "title": "状态表示",
-          "slug": "状态表示"
-        },
-        {
-          "level": 3,
-          "title": "处理方式",
-          "slug": "处理方式-5"
-        },
-        {
-          "level": 3,
-          "title": "程序",
-          "slug": "程序-5"
-        },
-        {
-          "level": 3,
-          "title": "例题",
-          "slug": "例题-5"
-        },
-        {
-          "level": 2,
-          "title": "混合背包",
-          "slug": "混合背包"
-        },
-        {
-          "level": 3,
-          "title": "模型",
-          "slug": "模型-6"
-        },
-        {
-          "level": 3,
-          "title": "处理方式",
-          "slug": "处理方式-6"
-        },
-        {
-          "level": 3,
-          "title": "程序",
-          "slug": "程序-6"
-        },
-        {
-          "level": 3,
-          "title": "例题",
-          "slug": "例题-6"
-        },
-        {
-          "level": 2,
-          "title": "有依赖性物品的背包",
-          "slug": "有依赖性物品的背包"
-        },
-        {
-          "level": 3,
-          "title": "模型",
-          "slug": "模型-7"
-        },
-        {
-          "level": 3,
-          "title": "处理方式",
-          "slug": "处理方式-7"
-        },
-        {
-          "level": 3,
-          "title": "程序",
-          "slug": "程序-7"
-        },
-        {
-          "level": 3,
-          "title": "例题",
-          "slug": "例题-7"
-        },
-        {
-          "level": 2,
-          "title": "泛化物品背包",
-          "slug": "泛化物品背包"
-        },
-        {
-          "level": 3,
-          "title": "模型",
-          "slug": "模型-8"
-        },
-        {
-          "level": 3,
-          "title": "处理方式",
-          "slug": "处理方式-8"
-        },
-        {
-          "level": 3,
-          "title": "程序",
-          "slug": "程序-8"
-        },
-        {
-          "level": 3,
-          "title": "例题",
-          "slug": "例题-8"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 1:58:14 AM"
-    },
-    {
-      "title": "线性DP",
-      "frontmatter": {
-        "key": "2021-07-19-线性DP",
-        "layout": "article",
-        "title": "线性DP",
-        "subtitle": "如果父问题可以利用子问题求解，那岂不是非常方便了？🤔",
-        "categories": "动态规划",
-        "tags": [
-          "动态规划"
-        ],
-        "aside": {
-          "toc": true
-        },
-        "sidebar": {
-          "nav": "docs-en"
-        }
-      },
-      "regularPath": "/blogs/algorithm/dpp/line-DP.html",
-      "relativePath": "blogs/algorithm/dpp/line-DP.md",
-      "key": "v-2a2c10aa",
-      "path": "/blogs/algorithm/dpp/line-DP.html",
-      "headers": [
-        {
-          "level": 2,
-          "title": "导引问题：超级楼梯",
-          "slug": "导引问题-超级楼梯"
-        },
-        {
-          "level": 2,
-          "title": "概述",
-          "slug": "概述"
-        },
-        {
-          "level": 3,
-          "title": "概念",
-          "slug": "概念"
-        },
-        {
-          "level": 3,
-          "title": "思想",
-          "slug": "思想"
-        },
-        {
-          "level": 3,
-          "title": "过程",
-          "slug": "过程"
-        },
-        {
-          "level": 2,
-          "title": "经典题型",
-          "slug": "经典题型"
-        },
-        {
-          "level": 3,
-          "title": "（最长上升子序列）LIS",
-          "slug": "最长上升子序列-lis"
-        },
-        {
-          "level": 3,
-          "title": "（最长公共子序列）LCS",
-          "slug": "最长公共子序列-lcs"
-        },
-        {
-          "level": 3,
-          "title": "数塔问题",
-          "slug": "数塔问题"
-        },
-        {
-          "level": 2,
-          "title": "灵活运用题",
-          "slug": "灵活运用题"
-        }
-      ],
-      "lastUpdated": "1/21/2022, 6:36:55 PM"
-    },
-    {
       "title": "数位DP",
       "frontmatter": {
         "key": "2021-08-01-数位DP",
@@ -1091,6 +703,57 @@ export const siteData = {
         }
       ],
       "lastUpdated": "1/21/2022, 5:23:46 PM"
+    },
+    {
+      "title": "并查集",
+      "frontmatter": {
+        "key": "2021-02-20-并查集",
+        "layout": "article",
+        "title": "并查集",
+        "subtitle": "一堆数据抱团活动？🤔",
+        "categories": "数据结构",
+        "tags": [
+          "数据结构"
+        ],
+        "aside": {
+          "toc": true
+        },
+        "sidebar": {
+          "nav": "docs-en"
+        }
+      },
+      "regularPath": "/blogs/algorithm/data-structure/unionset.html",
+      "relativePath": "blogs/algorithm/data-structure/unionset.md",
+      "key": "v-5f1c9caa",
+      "path": "/blogs/algorithm/data-structure/unionset.html",
+      "headers": [
+        {
+          "level": 2,
+          "title": "概念：",
+          "slug": "概念"
+        },
+        {
+          "level": 2,
+          "title": "过程：",
+          "slug": "过程"
+        },
+        {
+          "level": 2,
+          "title": "操作",
+          "slug": "操作"
+        },
+        {
+          "level": 3,
+          "title": "1.find函数",
+          "slug": "_1-find函数"
+        },
+        {
+          "level": 3,
+          "title": "2.merge函数",
+          "slug": "_2-merge函数"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:52:47 PM"
     },
     {
       "title": "悬线法",
@@ -1286,6 +949,302 @@ export const siteData = {
       "lastUpdated": "1/21/2022, 5:23:46 PM"
     },
     {
+      "title": "Matrix-tree定理",
+      "frontmatter": {
+        "key": "2021-10-13-Matrix-tree定理",
+        "layout": "article",
+        "title": "Matrix-tree定理",
+        "subtitle": "图上的总生成树问题还能用矩阵玩出花？🤔",
+        "categories": "图论",
+        "tags": [
+          "图论"
+        ],
+        "aside": {
+          "toc": true
+        },
+        "sidebar": {
+          "nav": "docs-en"
+        }
+      },
+      "regularPath": "/blogs/algorithm/graph/matrix-tree.html",
+      "relativePath": "blogs/algorithm/graph/matrix-tree.md",
+      "key": "v-743ee46a",
+      "path": "/blogs/algorithm/graph/matrix-tree.html",
+      "headers": [
+        {
+          "level": 2,
+          "title": "生成树个数",
+          "slug": "生成树个数"
+        },
+        {
+          "level": 2,
+          "title": "生成树权值积的和",
+          "slug": "生成树权值积的和"
+        },
+        {
+          "level": 2,
+          "title": "生成树权值和的和",
+          "slug": "生成树权值和的和"
+        }
+      ],
+      "lastUpdated": "1/21/2022, 5:23:46 PM"
+    },
+    {
+      "title": "kurskal重构树",
+      "frontmatter": {
+        "title": "kurskal重构树"
+      },
+      "regularPath": "/blogs/algorithm/graph/krusalnewtree.html",
+      "relativePath": "blogs/algorithm/graph/krusalnewtree.md",
+      "key": "v-3264d90b",
+      "path": "/blogs/algorithm/graph/krusalnewtree.html",
+      "headers": [
+        {
+          "level": 2,
+          "title": "定义",
+          "slug": "定义"
+        },
+        {
+          "level": 2,
+          "title": "流程",
+          "slug": "流程"
+        },
+        {
+          "level": 3,
+          "title": "继承",
+          "slug": "继承"
+        },
+        {
+          "level": 3,
+          "title": "补充",
+          "slug": "补充"
+        },
+        {
+          "level": 2,
+          "title": "例子",
+          "slug": "例子"
+        },
+        {
+          "level": 2,
+          "title": "性质",
+          "slug": "性质"
+        },
+        {
+          "level": 2,
+          "title": "作用",
+          "slug": "作用"
+        },
+        {
+          "level": 2,
+          "title": "程序设计",
+          "slug": "程序设计"
+        }
+      ],
+      "lastUpdated": "1/28/2022, 8:03:49 PM"
+    },
+    {
+      "title": "Prufer编码",
+      "frontmatter": {
+        "layout": "article",
+        "key": "2021-11-03-new-template",
+        "title": "Prufer编码",
+        "subtitle": "图论的东西，最后沦落为树上计数？🤔",
+        "aside": {
+          "toc": true
+        },
+        "sidebar": {
+          "nav": "docs-en"
+        },
+        "categories": "图论",
+        "tags": [
+          "图论"
+        ]
+      },
+      "regularPath": "/blogs/algorithm/graph/prufer.html",
+      "relativePath": "blogs/algorithm/graph/prufer.md",
+      "key": "v-caaf06ce",
+      "path": "/blogs/algorithm/graph/prufer.html",
+      "headers": [
+        {
+          "level": 2,
+          "title": "步骤",
+          "slug": "步骤"
+        },
+        {
+          "level": 2,
+          "title": "模拟",
+          "slug": "模拟"
+        },
+        {
+          "level": 2,
+          "title": "线性构造",
+          "slug": "线性构造"
+        },
+        {
+          "level": 2,
+          "title": "程序",
+          "slug": "程序"
+        },
+        {
+          "level": 2,
+          "title": "步骤 $\\And$ 线性构造",
+          "slug": "步骤-线性构造"
+        },
+        {
+          "level": 2,
+          "title": "模拟",
+          "slug": "模拟-2"
+        },
+        {
+          "level": 2,
+          "title": "程序",
+          "slug": "程序-2"
+        }
+      ],
+      "lastUpdated": "1/21/2022, 5:23:46 PM"
+    },
+    {
+      "title": "kruskal算法",
+      "frontmatter": {
+        "key": "2021-02-22-最小生成树",
+        "layout": "article",
+        "title": "kruskal算法",
+        "subtitle": "整体布局出整体最短路？🤔",
+        "categories": "图论",
+        "tags": [
+          "图论"
+        ],
+        "aside": {
+          "toc": true
+        },
+        "sidebar": {
+          "nav": "docs-en"
+        }
+      },
+      "regularPath": "/blogs/algorithm/graph/kruskal.html",
+      "relativePath": "blogs/algorithm/graph/kruskal.md",
+      "key": "v-600a1f6b",
+      "path": "/blogs/algorithm/graph/kruskal.html",
+      "headers": [
+        {
+          "level": 2,
+          "title": "概念",
+          "slug": "概念"
+        },
+        {
+          "level": 2,
+          "title": "图解",
+          "slug": "图解"
+        },
+        {
+          "level": 2,
+          "title": "kruskal算法过程",
+          "slug": "kruskal算法过程"
+        }
+      ],
+      "lastUpdated": "1/24/2022, 10:08:10 PM"
+    },
+    {
+      "title": "线性DP",
+      "frontmatter": {
+        "key": "2021-07-19-线性DP",
+        "layout": "article",
+        "title": "线性DP",
+        "subtitle": "如果父问题可以利用子问题求解，那岂不是非常方便了？🤔",
+        "categories": "动态规划",
+        "tags": [
+          "动态规划"
+        ],
+        "aside": {
+          "toc": true
+        },
+        "sidebar": {
+          "nav": "docs-en"
+        }
+      },
+      "regularPath": "/blogs/algorithm/dpp/line-DP.html",
+      "relativePath": "blogs/algorithm/dpp/line-DP.md",
+      "key": "v-2a2c10aa",
+      "path": "/blogs/algorithm/dpp/line-DP.html",
+      "headers": [
+        {
+          "level": 2,
+          "title": "导引问题：超级楼梯",
+          "slug": "导引问题-超级楼梯"
+        },
+        {
+          "level": 2,
+          "title": "概述",
+          "slug": "概述"
+        },
+        {
+          "level": 3,
+          "title": "概念",
+          "slug": "概念"
+        },
+        {
+          "level": 3,
+          "title": "思想",
+          "slug": "思想"
+        },
+        {
+          "level": 3,
+          "title": "过程",
+          "slug": "过程"
+        },
+        {
+          "level": 2,
+          "title": "经典题型",
+          "slug": "经典题型"
+        },
+        {
+          "level": 3,
+          "title": "（最长上升子序列）LIS",
+          "slug": "最长上升子序列-lis"
+        },
+        {
+          "level": 3,
+          "title": "（最长公共子序列）LCS",
+          "slug": "最长公共子序列-lcs"
+        },
+        {
+          "level": 3,
+          "title": "数塔问题",
+          "slug": "数塔问题"
+        },
+        {
+          "level": 2,
+          "title": "灵活运用题",
+          "slug": "灵活运用题"
+        }
+      ],
+      "lastUpdated": "1/21/2022, 6:36:55 PM"
+    },
+    {
+      "title": "树分治",
+      "frontmatter": {
+        "key": "2021-09-28-树分治",
+        "layout": "article",
+        "title": "树分治",
+        "subtitle": "树上路径那么多，你让我求满足条件的？🤔",
+        "aside": {
+          "toc": true
+        },
+        "sidebar": {
+          "nav": "docs-en"
+        },
+        "categories": "图论",
+        "tags": [
+          "树"
+        ]
+      },
+      "regularPath": "/blogs/algorithm/graph/tree-partitioning.html",
+      "relativePath": "blogs/algorithm/graph/tree-partitioning.md",
+      "key": "v-4f326baa",
+      "path": "/blogs/algorithm/graph/tree-partitioning.html",
+      "lastUpdated": "1/21/2022, 5:23:46 PM"
+    },
+    {
       "title": "最短路",
       "frontmatter": {
         "key": "2021-02-15-最短路",
@@ -1390,226 +1349,6 @@ export const siteData = {
         }
       ],
       "lastUpdated": "1/21/2022, 5:23:46 PM"
-    },
-    {
-      "title": "kruskal算法",
-      "frontmatter": {
-        "key": "2021-02-22-最小生成树",
-        "layout": "article",
-        "title": "kruskal算法",
-        "subtitle": "整体布局出整体最短路？🤔",
-        "categories": "图论",
-        "tags": [
-          "图论"
-        ],
-        "aside": {
-          "toc": true
-        },
-        "sidebar": {
-          "nav": "docs-en"
-        }
-      },
-      "regularPath": "/blogs/algorithm/graph/kruskal.html",
-      "relativePath": "blogs/algorithm/graph/kruskal.md",
-      "key": "v-600a1f6b",
-      "path": "/blogs/algorithm/graph/kruskal.html",
-      "headers": [
-        {
-          "level": 2,
-          "title": "概念",
-          "slug": "概念"
-        },
-        {
-          "level": 2,
-          "title": "图解",
-          "slug": "图解"
-        },
-        {
-          "level": 2,
-          "title": "kruskal算法过程",
-          "slug": "kruskal算法过程"
-        }
-      ],
-      "lastUpdated": "1/24/2022, 10:08:10 PM"
-    },
-    {
-      "title": "Prufer编码",
-      "frontmatter": {
-        "layout": "article",
-        "key": "2021-11-03-new-template",
-        "title": "Prufer编码",
-        "subtitle": "图论的东西，最后沦落为树上计数？🤔",
-        "aside": {
-          "toc": true
-        },
-        "sidebar": {
-          "nav": "docs-en"
-        },
-        "categories": "图论",
-        "tags": [
-          "图论"
-        ]
-      },
-      "regularPath": "/blogs/algorithm/graph/prufer.html",
-      "relativePath": "blogs/algorithm/graph/prufer.md",
-      "key": "v-caaf06ce",
-      "path": "/blogs/algorithm/graph/prufer.html",
-      "headers": [
-        {
-          "level": 2,
-          "title": "步骤",
-          "slug": "步骤"
-        },
-        {
-          "level": 2,
-          "title": "模拟",
-          "slug": "模拟"
-        },
-        {
-          "level": 2,
-          "title": "线性构造",
-          "slug": "线性构造"
-        },
-        {
-          "level": 2,
-          "title": "程序",
-          "slug": "程序"
-        },
-        {
-          "level": 2,
-          "title": "步骤 $\\And$ 线性构造",
-          "slug": "步骤-线性构造"
-        },
-        {
-          "level": 2,
-          "title": "模拟",
-          "slug": "模拟-2"
-        },
-        {
-          "level": 2,
-          "title": "程序",
-          "slug": "程序-2"
-        }
-      ],
-      "lastUpdated": "1/21/2022, 5:23:46 PM"
-    },
-    {
-      "title": "Matrix-tree定理",
-      "frontmatter": {
-        "key": "2021-10-13-Matrix-tree定理",
-        "layout": "article",
-        "title": "Matrix-tree定理",
-        "subtitle": "图上的总生成树问题还能用矩阵玩出花？🤔",
-        "categories": "图论",
-        "tags": [
-          "图论"
-        ],
-        "aside": {
-          "toc": true
-        },
-        "sidebar": {
-          "nav": "docs-en"
-        }
-      },
-      "regularPath": "/blogs/algorithm/graph/matrix-tree.html",
-      "relativePath": "blogs/algorithm/graph/matrix-tree.md",
-      "key": "v-743ee46a",
-      "path": "/blogs/algorithm/graph/matrix-tree.html",
-      "headers": [
-        {
-          "level": 2,
-          "title": "生成树个数",
-          "slug": "生成树个数"
-        },
-        {
-          "level": 2,
-          "title": "生成树权值积的和",
-          "slug": "生成树权值积的和"
-        },
-        {
-          "level": 2,
-          "title": "生成树权值和的和",
-          "slug": "生成树权值和的和"
-        }
-      ],
-      "lastUpdated": "1/21/2022, 5:23:46 PM"
-    },
-    {
-      "title": "树分治",
-      "frontmatter": {
-        "key": "2021-09-28-树分治",
-        "layout": "article",
-        "title": "树分治",
-        "subtitle": "树上路径那么多，你让我求满足条件的？🤔",
-        "aside": {
-          "toc": true
-        },
-        "sidebar": {
-          "nav": "docs-en"
-        },
-        "categories": "图论",
-        "tags": [
-          "树"
-        ]
-      },
-      "regularPath": "/blogs/algorithm/graph/tree-partitioning.html",
-      "relativePath": "blogs/algorithm/graph/tree-partitioning.md",
-      "key": "v-4f326baa",
-      "path": "/blogs/algorithm/graph/tree-partitioning.html",
-      "lastUpdated": "1/21/2022, 5:23:46 PM"
-    },
-    {
-      "title": "kurskal重构树",
-      "frontmatter": {
-        "title": "kurskal重构树"
-      },
-      "regularPath": "/blogs/algorithm/graph/krusalnewtree.html",
-      "relativePath": "blogs/algorithm/graph/krusalnewtree.md",
-      "key": "v-3264d90b",
-      "path": "/blogs/algorithm/graph/krusalnewtree.html",
-      "headers": [
-        {
-          "level": 2,
-          "title": "定义",
-          "slug": "定义"
-        },
-        {
-          "level": 2,
-          "title": "流程",
-          "slug": "流程"
-        },
-        {
-          "level": 3,
-          "title": "继承",
-          "slug": "继承"
-        },
-        {
-          "level": 3,
-          "title": "补充",
-          "slug": "补充"
-        },
-        {
-          "level": 2,
-          "title": "例子",
-          "slug": "例子"
-        },
-        {
-          "level": 2,
-          "title": "性质",
-          "slug": "性质"
-        },
-        {
-          "level": 2,
-          "title": "作用",
-          "slug": "作用"
-        },
-        {
-          "level": 2,
-          "title": "程序设计",
-          "slug": "程序设计"
-        }
-      ],
-      "lastUpdated": "1/28/2022, 8:03:49 PM"
     },
     {
       "title": "球盒模型",
@@ -1731,30 +1470,6 @@ export const siteData = {
       "lastUpdated": "1/21/2022, 5:23:46 PM"
     },
     {
-      "title": "中国剩余定理",
-      "frontmatter": {
-        "key": "2021-07-16-中国剩余定理",
-        "layout": "article",
-        "title": "中国剩余定理",
-        "subtitle": "扩展：跳模数啊，空间跳跃？结果还不变？🤔",
-        "categories": "数学",
-        "tags": [
-          "数论"
-        ],
-        "aside": {
-          "toc": true
-        },
-        "sidebar": {
-          "nav": "docs-en"
-        }
-      },
-      "regularPath": "/blogs/algorithm/math/crt.html",
-      "relativePath": "blogs/algorithm/math/crt.md",
-      "key": "v-6f3c5242",
-      "path": "/blogs/algorithm/math/crt.html",
-      "lastUpdated": "1/21/2022, 5:23:46 PM"
-    },
-    {
       "title": "欧拉函数与欧拉定理",
       "frontmatter": {
         "key": "2021-07-16-欧拉函数和欧拉定理",
@@ -1831,15 +1546,15 @@ export const siteData = {
       "lastUpdated": "1/22/2022, 8:16:36 PM"
     },
     {
-      "title": "扩展欧几里得",
+      "title": "Baby-Step Giant-Step",
       "frontmatter": {
-        "key": "2021-07-16-扩展欧几里得",
+        "key": "2021-08-11-Baby-Step-Giant-Step",
         "layout": "article",
-        "title": "扩展欧几里得",
-        "subtitle": "求方程组？🤔",
+        "title": "Baby-Step Giant-Step",
+        "subtitle": "高次同余方程又该怎么解那个指数呢？🤔",
         "categories": "数学",
         "tags": [
-          "数学"
+          "数论"
         ],
         "aside": {
           "toc": true
@@ -1848,38 +1563,11 @@ export const siteData = {
           "nav": "docs-en"
         }
       },
-      "regularPath": "/blogs/algorithm/math/exgcd.html",
-      "relativePath": "blogs/algorithm/math/exgcd.md",
-      "key": "v-c9f0fe82",
-      "path": "/blogs/algorithm/math/exgcd.html",
-      "headers": [
-        {
-          "level": 2,
-          "title": "定义",
-          "slug": "定义"
-        },
-        {
-          "level": 2,
-          "title": "证明",
-          "slug": "证明"
-        },
-        {
-          "level": 2,
-          "title": "通解的求法",
-          "slug": "通解的求法"
-        },
-        {
-          "level": 2,
-          "title": "代码思路",
-          "slug": "代码思路"
-        },
-        {
-          "level": 2,
-          "title": "程序",
-          "slug": "程序"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 8:16:36 PM"
+      "regularPath": "/blogs/algorithm/math/bsgs.html",
+      "relativePath": "blogs/algorithm/math/bsgs.md",
+      "key": "v-2a9290eb",
+      "path": "/blogs/algorithm/math/bsgs.html",
+      "lastUpdated": "1/21/2022, 11:13:49 PM"
     },
     {
       "title": "欧拉反演",
@@ -1904,30 +1592,6 @@ export const siteData = {
       "key": "v-0b36d1cb",
       "path": "/blogs/algorithm/math/euler-inversion.html",
       "lastUpdated": "1/21/2022, 5:23:46 PM"
-    },
-    {
-      "title": "Baby-Step Giant-Step",
-      "frontmatter": {
-        "key": "2021-08-11-Baby-Step-Giant-Step",
-        "layout": "article",
-        "title": "Baby-Step Giant-Step",
-        "subtitle": "高次同余方程又该怎么解那个指数呢？🤔",
-        "categories": "数学",
-        "tags": [
-          "数论"
-        ],
-        "aside": {
-          "toc": true
-        },
-        "sidebar": {
-          "nav": "docs-en"
-        }
-      },
-      "regularPath": "/blogs/algorithm/math/bsgs.html",
-      "relativePath": "blogs/algorithm/math/bsgs.md",
-      "key": "v-2a9290eb",
-      "path": "/blogs/algorithm/math/bsgs.html",
-      "lastUpdated": "1/21/2022, 11:13:49 PM"
     },
     {
       "title": "狄利克雷卷积",
@@ -2018,6 +1682,30 @@ export const siteData = {
           "slug": "-8"
         }
       ],
+      "lastUpdated": "1/21/2022, 5:23:46 PM"
+    },
+    {
+      "title": "中国剩余定理",
+      "frontmatter": {
+        "key": "2021-07-16-中国剩余定理",
+        "layout": "article",
+        "title": "中国剩余定理",
+        "subtitle": "扩展：跳模数啊，空间跳跃？结果还不变？🤔",
+        "categories": "数学",
+        "tags": [
+          "数论"
+        ],
+        "aside": {
+          "toc": true
+        },
+        "sidebar": {
+          "nav": "docs-en"
+        }
+      },
+      "regularPath": "/blogs/algorithm/math/crt.html",
+      "relativePath": "blogs/algorithm/math/crt.md",
+      "key": "v-6f3c5242",
+      "path": "/blogs/algorithm/math/crt.html",
       "lastUpdated": "1/21/2022, 5:23:46 PM"
     },
     {
@@ -2172,6 +1860,72 @@ export const siteData = {
       "lastUpdated": "1/21/2022, 11:13:49 PM"
     },
     {
+      "title": "康托展开",
+      "frontmatter": {
+        "key": "2021-05-20-康托展开",
+        "layout": "article",
+        "title": "康托展开",
+        "subtitle": "全排列按字典序是第几个呢？🤔",
+        "categories": "数学",
+        "tags": [
+          "数学"
+        ],
+        "aside": {
+          "toc": true
+        },
+        "sidebar": {
+          "nav": "docs-en"
+        }
+      },
+      "regularPath": "/blogs/algorithm/math/kangtuo.html",
+      "relativePath": "blogs/algorithm/math/kangtuo.md",
+      "key": "v-6b54f0eb",
+      "path": "/blogs/algorithm/math/kangtuo.html",
+      "headers": [
+        {
+          "level": 2,
+          "title": "📕定义 & 用处",
+          "slug": "📕定义-用处"
+        },
+        {
+          "level": 2,
+          "title": "📕思想",
+          "slug": "📕思想"
+        },
+        {
+          "level": 2,
+          "title": "📕过程",
+          "slug": "📕过程"
+        },
+        {
+          "level": 2,
+          "title": "📕程序",
+          "slug": "📕程序"
+        },
+        {
+          "level": 2,
+          "title": "📕定义 & 用处",
+          "slug": "📕定义-用处-2"
+        },
+        {
+          "level": 2,
+          "title": "📕思想",
+          "slug": "📕思想-2"
+        },
+        {
+          "level": 2,
+          "title": "📕过程",
+          "slug": "📕过程-2"
+        },
+        {
+          "level": 2,
+          "title": "📕程序",
+          "slug": "📕程序-2"
+        }
+      ],
+      "lastUpdated": "1/21/2022, 5:23:46 PM"
+    },
+    {
       "title": "生成函数",
       "frontmatter": {
         "key": "2021-05-28-生成函数",
@@ -2258,72 +2012,6 @@ export const siteData = {
       "lastUpdated": "1/21/2022, 5:23:46 PM"
     },
     {
-      "title": "康托展开",
-      "frontmatter": {
-        "key": "2021-05-20-康托展开",
-        "layout": "article",
-        "title": "康托展开",
-        "subtitle": "全排列按字典序是第几个呢？🤔",
-        "categories": "数学",
-        "tags": [
-          "数学"
-        ],
-        "aside": {
-          "toc": true
-        },
-        "sidebar": {
-          "nav": "docs-en"
-        }
-      },
-      "regularPath": "/blogs/algorithm/math/kangtuo.html",
-      "relativePath": "blogs/algorithm/math/kangtuo.md",
-      "key": "v-6b54f0eb",
-      "path": "/blogs/algorithm/math/kangtuo.html",
-      "headers": [
-        {
-          "level": 2,
-          "title": "📕定义 & 用处",
-          "slug": "📕定义-用处"
-        },
-        {
-          "level": 2,
-          "title": "📕思想",
-          "slug": "📕思想"
-        },
-        {
-          "level": 2,
-          "title": "📕过程",
-          "slug": "📕过程"
-        },
-        {
-          "level": 2,
-          "title": "📕程序",
-          "slug": "📕程序"
-        },
-        {
-          "level": 2,
-          "title": "📕定义 & 用处",
-          "slug": "📕定义-用处-2"
-        },
-        {
-          "level": 2,
-          "title": "📕思想",
-          "slug": "📕思想-2"
-        },
-        {
-          "level": 2,
-          "title": "📕过程",
-          "slug": "📕过程-2"
-        },
-        {
-          "level": 2,
-          "title": "📕程序",
-          "slug": "📕程序-2"
-        }
-      ],
-      "lastUpdated": "1/21/2022, 5:23:46 PM"
-    },
-    {
       "title": "拉格朗日插值法",
       "frontmatter": {
         "key": "2021-11-19-拉格朗日插值法",
@@ -2380,72 +2068,6 @@ export const siteData = {
       "lastUpdated": "1/25/2022, 12:38:45 AM"
     },
     {
-      "title": "线性基",
-      "frontmatter": {
-        "key": "2021-07-24-线性基",
-        "layout": "article",
-        "title": "线性基",
-        "subtitle": "XOR的压缩🤔",
-        "categories": "数学",
-        "tags": [
-          "数学"
-        ],
-        "aside": {
-          "toc": true
-        },
-        "sidebar": {
-          "nav": "docs-en"
-        }
-      },
-      "regularPath": "/blogs/algorithm/math/line-base.html",
-      "relativePath": "blogs/algorithm/math/line-base.md",
-      "key": "v-a43bf9d6",
-      "path": "/blogs/algorithm/math/line-base.html",
-      "headers": [
-        {
-          "level": 2,
-          "title": "前置知识：异或运算",
-          "slug": "前置知识-异或运算"
-        },
-        {
-          "level": 3,
-          "title": "性质",
-          "slug": "性质"
-        },
-        {
-          "level": 2,
-          "title": "线性基",
-          "slug": "线性基"
-        },
-        {
-          "level": 3,
-          "title": "定义",
-          "slug": "定义"
-        },
-        {
-          "level": 3,
-          "title": "举例",
-          "slug": "举例"
-        },
-        {
-          "level": 3,
-          "title": "如何求线性基",
-          "slug": "如何求线性基"
-        },
-        {
-          "level": 3,
-          "title": "线性基的性质",
-          "slug": "线性基的性质"
-        },
-        {
-          "level": 3,
-          "title": "问题解决",
-          "slug": "问题解决"
-        }
-      ],
-      "lastUpdated": "1/25/2022, 12:38:45 AM"
-    },
-    {
       "title": "推导 & 证明",
       "frontmatter": {
         "key": "2021-08-27-数学推导",
@@ -2482,15 +2104,15 @@ export const siteData = {
       "lastUpdated": "1/21/2022, 5:23:46 PM"
     },
     {
-      "title": "莫比乌斯反演",
+      "title": "扩展欧几里得",
       "frontmatter": {
-        "key": "2021-07-17-莫比乌斯反演",
+        "key": "2021-07-16-扩展欧几里得",
         "layout": "article",
-        "title": "莫比乌斯反演",
-        "subtitle": "复杂的式子经过反演竟然可以变得这么简单？🤔",
+        "title": "扩展欧几里得",
+        "subtitle": "求方程组？🤔",
         "categories": "数学",
         "tags": [
-          "数论"
+          "数学"
         ],
         "aside": {
           "toc": true
@@ -2499,160 +2121,38 @@ export const siteData = {
           "nav": "docs-en"
         }
       },
-      "regularPath": "/blogs/algorithm/math/mobius-inversion.html",
-      "relativePath": "blogs/algorithm/math/mobius-inversion.md",
-      "key": "v-6a522eeb",
-      "path": "/blogs/algorithm/math/mobius-inversion.html",
+      "regularPath": "/blogs/algorithm/math/exgcd.html",
+      "relativePath": "blogs/algorithm/math/exgcd.md",
+      "key": "v-c9f0fe82",
+      "path": "/blogs/algorithm/math/exgcd.html",
       "headers": [
         {
-          "level": 3,
+          "level": 2,
           "title": "定义",
           "slug": "定义"
         },
         {
-          "level": 3,
-          "title": "性质",
-          "slug": "性质"
+          "level": 2,
+          "title": "证明",
+          "slug": "证明"
         },
         {
-          "level": 3,
-          "title": "推论",
-          "slug": "推论"
+          "level": 2,
+          "title": "通解的求法",
+          "slug": "通解的求法"
         },
         {
-          "level": 3,
+          "level": 2,
+          "title": "代码思路",
+          "slug": "代码思路"
+        },
+        {
+          "level": 2,
           "title": "程序",
           "slug": "程序"
-        },
-        {
-          "level": 3,
-          "title": "概念",
-          "slug": "概念"
-        },
-        {
-          "level": 3,
-          "title": "思想",
-          "slug": "思想"
-        },
-        {
-          "level": 3,
-          "title": "反演定理",
-          "slug": "反演定理"
-        },
-        {
-          "level": 3,
-          "title": "题目",
-          "slug": "题目"
-        },
-        {
-          "level": 3,
-          "title": "思路",
-          "slug": "思路"
-        },
-        {
-          "level": 3,
-          "title": "程序",
-          "slug": "程序-2"
         }
       ],
-      "lastUpdated": "1/27/2022, 12:45:36 AM"
-    },
-    {
-      "title": "BFS",
-      "frontmatter": {
-        "key": "2021-02-13-BFS",
-        "layout": "article",
-        "title": "BFS",
-        "subtitle": "跑起图来真的比DFS更丝滑吗？ 🤔",
-        "categories": "搜索",
-        "tags": [
-          "搜索"
-        ],
-        "aside": {
-          "toc": true
-        },
-        "sidebar": {
-          "nav": "docs-en"
-        }
-      },
-      "regularPath": "/blogs/algorithm/search/bfs.html",
-      "relativePath": "blogs/algorithm/search/bfs.md",
-      "key": "v-94731aea",
-      "path": "/blogs/algorithm/search/bfs.html",
-      "headers": [
-        {
-          "level": 2,
-          "title": "概念",
-          "slug": "概念"
-        },
-        {
-          "level": 2,
-          "title": "树遍历",
-          "slug": "树遍历"
-        },
-        {
-          "level": 2,
-          "title": "图遍历",
-          "slug": "图遍历"
-        },
-        {
-          "level": 2,
-          "title": "线性遍历",
-          "slug": "线性遍历"
-        }
-      ],
-      "lastUpdated": "1/21/2022, 5:23:46 PM"
-    },
-    {
-      "title": "KMP",
-      "frontmatter": {
-        "key": "2021-03-01-KMP",
-        "layout": "article",
-        "title": "KMP",
-        "subtitle": "文本识别匹配，引擎技术？🤔",
-        "categories": "字符串",
-        "tags": [
-          "字符串"
-        ],
-        "aside": {
-          "toc": true
-        },
-        "sidebar": {
-          "nav": "docs-en"
-        }
-      },
-      "regularPath": "/blogs/algorithm/string/kmp.html",
-      "relativePath": "blogs/algorithm/string/kmp.md",
-      "key": "v-8ff80d0a",
-      "path": "/blogs/algorithm/string/kmp.html",
-      "headers": [
-        {
-          "level": 2,
-          "title": "概述：",
-          "slug": "概述"
-        },
-        {
-          "level": 2,
-          "title": "基本思想：",
-          "slug": "基本思想"
-        },
-        {
-          "level": 2,
-          "title": "图示：",
-          "slug": "图示"
-        },
-        {
-          "level": 2,
-          "title": "代码：",
-          "slug": "代码"
-        },
-        {
-          "level": 2,
-          "title": "一句话理解算法：",
-          "slug": "一句话理解算法"
-        }
-      ],
-      "lastUpdated": "1/21/2022, 5:23:46 PM"
+      "lastUpdated": "1/22/2022, 8:16:36 PM"
     },
     {
       "title": "矩阵ksm",
@@ -2807,6 +2307,52 @@ export const siteData = {
       "lastUpdated": "1/21/2022, 5:23:46 PM"
     },
     {
+      "title": "BFS",
+      "frontmatter": {
+        "key": "2021-02-13-BFS",
+        "layout": "article",
+        "title": "BFS",
+        "subtitle": "跑起图来真的比DFS更丝滑吗？ 🤔",
+        "categories": "搜索",
+        "tags": [
+          "搜索"
+        ],
+        "aside": {
+          "toc": true
+        },
+        "sidebar": {
+          "nav": "docs-en"
+        }
+      },
+      "regularPath": "/blogs/algorithm/search/bfs.html",
+      "relativePath": "blogs/algorithm/search/bfs.md",
+      "key": "v-94731aea",
+      "path": "/blogs/algorithm/search/bfs.html",
+      "headers": [
+        {
+          "level": 2,
+          "title": "概念",
+          "slug": "概念"
+        },
+        {
+          "level": 2,
+          "title": "树遍历",
+          "slug": "树遍历"
+        },
+        {
+          "level": 2,
+          "title": "图遍历",
+          "slug": "图遍历"
+        },
+        {
+          "level": 2,
+          "title": "线性遍历",
+          "slug": "线性遍历"
+        }
+      ],
+      "lastUpdated": "1/21/2022, 5:23:46 PM"
+    },
+    {
       "title": "阶与原根",
       "frontmatter": {
         "key": "2021-10-21-new-template",
@@ -2893,6 +2439,133 @@ export const siteData = {
       "lastUpdated": "1/21/2022, 6:36:55 PM"
     },
     {
+      "title": "莫比乌斯反演",
+      "frontmatter": {
+        "key": "2021-07-17-莫比乌斯反演",
+        "layout": "article",
+        "title": "莫比乌斯反演",
+        "subtitle": "复杂的式子经过反演竟然可以变得这么简单？🤔",
+        "categories": "数学",
+        "tags": [
+          "数论"
+        ],
+        "aside": {
+          "toc": true
+        },
+        "sidebar": {
+          "nav": "docs-en"
+        }
+      },
+      "regularPath": "/blogs/algorithm/math/mobius-inversion.html",
+      "relativePath": "blogs/algorithm/math/mobius-inversion.md",
+      "key": "v-6a522eeb",
+      "path": "/blogs/algorithm/math/mobius-inversion.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "定义",
+          "slug": "定义"
+        },
+        {
+          "level": 3,
+          "title": "性质",
+          "slug": "性质"
+        },
+        {
+          "level": 3,
+          "title": "推论",
+          "slug": "推论"
+        },
+        {
+          "level": 3,
+          "title": "程序",
+          "slug": "程序"
+        },
+        {
+          "level": 3,
+          "title": "概念",
+          "slug": "概念"
+        },
+        {
+          "level": 3,
+          "title": "思想",
+          "slug": "思想"
+        },
+        {
+          "level": 3,
+          "title": "反演定理",
+          "slug": "反演定理"
+        },
+        {
+          "level": 3,
+          "title": "题目",
+          "slug": "题目"
+        },
+        {
+          "level": 3,
+          "title": "思路",
+          "slug": "思路"
+        },
+        {
+          "level": 3,
+          "title": "程序",
+          "slug": "程序-2"
+        }
+      ],
+      "lastUpdated": "1/27/2022, 12:45:36 AM"
+    },
+    {
+      "title": "KMP",
+      "frontmatter": {
+        "key": "2021-03-01-KMP",
+        "layout": "article",
+        "title": "KMP",
+        "subtitle": "文本识别匹配，引擎技术？🤔",
+        "categories": "字符串",
+        "tags": [
+          "字符串"
+        ],
+        "aside": {
+          "toc": true
+        },
+        "sidebar": {
+          "nav": "docs-en"
+        }
+      },
+      "regularPath": "/blogs/algorithm/string/kmp.html",
+      "relativePath": "blogs/algorithm/string/kmp.md",
+      "key": "v-8ff80d0a",
+      "path": "/blogs/algorithm/string/kmp.html",
+      "headers": [
+        {
+          "level": 2,
+          "title": "概述：",
+          "slug": "概述"
+        },
+        {
+          "level": 2,
+          "title": "基本思想：",
+          "slug": "基本思想"
+        },
+        {
+          "level": 2,
+          "title": "图示：",
+          "slug": "图示"
+        },
+        {
+          "level": 2,
+          "title": "代码：",
+          "slug": "代码"
+        },
+        {
+          "level": 2,
+          "title": "一句话理解算法：",
+          "slug": "一句话理解算法"
+        }
+      ],
+      "lastUpdated": "1/21/2022, 5:23:46 PM"
+    },
+    {
       "title": "介绍",
       "frontmatter": {
         "title": "介绍"
@@ -2954,132 +2627,6 @@ export const siteData = {
       "key": "v-55bfe1cb",
       "path": "/blogs/algorithm/string/manacher.html",
       "lastUpdated": "1/21/2022, 5:23:46 PM"
-    },
-    {
-      "title": "二分",
-      "frontmatter": {
-        "title": "二分"
-      },
-      "regularPath": "/blogs/solution/base/binary.html",
-      "relativePath": "blogs/solution/base/binary.md",
-      "key": "v-7a2d18ee",
-      "path": "/blogs/solution/base/binary.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "洛谷P5657_格雷码",
-          "slug": "洛谷p5657-格雷码"
-        },
-        {
-          "level": 2,
-          "title": "ABC236E_AverageAndMedian",
-          "slug": "abc236e-averageandmedian"
-        },
-        {
-          "level": 2,
-          "title": "AcWing2694_最长公共子序列",
-          "slug": "acwing2694-最长公共子序列"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1632D_NewYearConcert",
-          "slug": "codeforces1632d-newyearconcert"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1611F_ATMAndStudents",
-          "slug": "codeforces1611f-atmandstudents"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1512D_CorruptedArray",
-          "slug": "codeforces1512d-corruptedarray"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1530C_Persuit",
-          "slug": "codeforces1530c-persuit"
-        },
-        {
-          "level": 2,
-          "title": "ICPC2020上海站D_Walker",
-          "slug": "icpc2020上海站d-walker"
-        },
-        {
-          "level": 2,
-          "title": "ICPC2021台湾省赛E_EatCoin",
-          "slug": "icpc2021台湾省赛e-eatcoin"
-        },
-        {
-          "level": 2,
-          "title": "NCD2019A_HasanTheLazyJudge",
-          "slug": "ncd2019a-hasanthelazyjudge"
-        },
-        {
-          "level": 2,
-          "title": "POJ3579_Median",
-          "slug": "poj3579-median"
-        }
-      ],
-      "lastUpdated": "1/31/2022, 2:10:54 PM"
-    },
-    {
-      "title": "模拟",
-      "frontmatter": {
-        "title": "模拟"
-      },
-      "regularPath": "/blogs/solution/base/doas.html",
-      "relativePath": "blogs/solution/base/doas.md",
-      "key": "v-0d88955e",
-      "path": "/blogs/solution/base/doas.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "洛谷P1067_多项式输出",
-          "slug": "洛谷p1067-多项式输出"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1512C_A-BPanlindrom",
-          "slug": "codeforces1512c-a-bpanlindrom"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1549C_WebofLies",
-          "slug": "codeforces1549c-weboflies"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1555B_TwoTables",
-          "slug": "codeforces1555b-twotables"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1593B_MakeItDivisibleBy25",
-          "slug": "codeforces1593b-makeitdivisibleby25"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1911C_PolycarpRecoversThePermutation",
-          "slug": "codeforces1911c-polycarprecoversthepermutation"
-        },
-        {
-          "level": 2,
-          "title": "HDU2021多校(5)6_CuteTree",
-          "slug": "hdu2021多校-5-6-cutetree"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
     },
     {
       "title": "暴力优化",
@@ -3223,6 +2770,59 @@ export const siteData = {
       "lastUpdated": "1/27/2022, 1:57:19 AM"
     },
     {
+      "title": "模拟",
+      "frontmatter": {
+        "title": "模拟"
+      },
+      "regularPath": "/blogs/solution/base/doas.html",
+      "relativePath": "blogs/solution/base/doas.md",
+      "key": "v-0d88955e",
+      "path": "/blogs/solution/base/doas.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1067_多项式输出",
+          "slug": "洛谷p1067-多项式输出"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1512C_A-BPanlindrom",
+          "slug": "codeforces1512c-a-bpanlindrom"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1549C_WebofLies",
+          "slug": "codeforces1549c-weboflies"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1555B_TwoTables",
+          "slug": "codeforces1555b-twotables"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1593B_MakeItDivisibleBy25",
+          "slug": "codeforces1593b-makeitdivisibleby25"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1911C_PolycarpRecoversThePermutation",
+          "slug": "codeforces1911c-polycarprecoversthepermutation"
+        },
+        {
+          "level": 2,
+          "title": "HDU2021多校(5)6_CuteTree",
+          "slug": "hdu2021多校-5-6-cutetree"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
       "title": "排序",
       "frontmatter": {
         "title": "排序"
@@ -3244,6 +2844,152 @@ export const siteData = {
         }
       ],
       "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "二分",
+      "frontmatter": {
+        "title": "二分"
+      },
+      "regularPath": "/blogs/solution/base/binary.html",
+      "relativePath": "blogs/solution/base/binary.md",
+      "key": "v-7a2d18ee",
+      "path": "/blogs/solution/base/binary.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "洛谷P5657_格雷码",
+          "slug": "洛谷p5657-格雷码"
+        },
+        {
+          "level": 2,
+          "title": "ABC236E_AverageAndMedian",
+          "slug": "abc236e-averageandmedian"
+        },
+        {
+          "level": 2,
+          "title": "AcWing2694_最长公共子序列",
+          "slug": "acwing2694-最长公共子序列"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1632D_NewYearConcert",
+          "slug": "codeforces1632d-newyearconcert"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1611F_ATMAndStudents",
+          "slug": "codeforces1611f-atmandstudents"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1512D_CorruptedArray",
+          "slug": "codeforces1512d-corruptedarray"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1530C_Persuit",
+          "slug": "codeforces1530c-persuit"
+        },
+        {
+          "level": 2,
+          "title": "ICPC2020上海站D_Walker",
+          "slug": "icpc2020上海站d-walker"
+        },
+        {
+          "level": 2,
+          "title": "ICPC2021台湾省赛E_EatCoin",
+          "slug": "icpc2021台湾省赛e-eatcoin"
+        },
+        {
+          "level": 2,
+          "title": "NCD2019A_HasanTheLazyJudge",
+          "slug": "ncd2019a-hasanthelazyjudge"
+        },
+        {
+          "level": 2,
+          "title": "POJ3579_Median",
+          "slug": "poj3579-median"
+        }
+      ],
+      "lastUpdated": "1/31/2022, 2:10:54 PM"
+    },
+    {
+      "title": "前缀-差分",
+      "frontmatter": {
+        "title": "前缀-差分"
+      },
+      "regularPath": "/blogs/solution/base/sum-dir.html",
+      "relativePath": "blogs/solution/base/sum-dir.md",
+      "key": "v-20c2fe6a",
+      "path": "/blogs/solution/base/sum-dir.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "洛谷T214799_夏摩山谷II",
+          "slug": "洛谷t214799-夏摩山谷ii"
+        },
+        {
+          "level": 2,
+          "title": "ABC233F_ParenthesisChecking",
+          "slug": "abc233f-parenthesischecking"
+        },
+        {
+          "level": 2,
+          "title": "AcWing3494_最大的和",
+          "slug": "acwing3494-最大的和"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1629C_MeximumArray",
+          "slug": "codeforces1629c-meximumarray"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces608B_HammingDistanceSum",
+          "slug": "codeforces608b-hammingdistancesum"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces611C_NewYearAndDomino",
+          "slug": "codeforces611c-newyearanddomino"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces612D_TheUnionOfK-Segments",
+          "slug": "codeforces612d-theunionofk-segments"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1409E_TwoPlatforms",
+          "slug": "codeforces1409e-twoplatforms"
+        },
+        {
+          "level": 2,
+          "title": "HDU2021多校(1)5_Minimumspanningtree",
+          "slug": "hdu2021多校-1-5-minimumspanningtree"
+        },
+        {
+          "level": 2,
+          "title": "HDU2021多校(5)9_Array",
+          "slug": "hdu2021多校-5-9-array"
+        },
+        {
+          "level": 2,
+          "title": "HDU2021多校(7)12_Yiwenwith Sqc",
+          "slug": "hdu2021多校-7-12-yiwenwith-sqc"
+        }
+      ],
+      "lastUpdated": "1/23/2022, 7:40:17 PM"
     },
     {
       "title": "贪心-构造",
@@ -3274,6 +3020,11 @@ export const siteData = {
           "level": 2,
           "title": "洛谷P1286_两数之和",
           "slug": "洛谷p1286-两数之和"
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1645_序列",
+          "slug": "洛谷p1645-序列"
         },
         {
           "level": 2,
@@ -3549,79 +3300,6 @@ export const siteData = {
       "lastUpdated": "1/31/2022, 2:10:54 PM"
     },
     {
-      "title": "前缀-差分",
-      "frontmatter": {
-        "title": "前缀-差分"
-      },
-      "regularPath": "/blogs/solution/base/sum-dir.html",
-      "relativePath": "blogs/solution/base/sum-dir.md",
-      "key": "v-20c2fe6a",
-      "path": "/blogs/solution/base/sum-dir.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "洛谷T214799_夏摩山谷II",
-          "slug": "洛谷t214799-夏摩山谷ii"
-        },
-        {
-          "level": 2,
-          "title": "ABC233F_ParenthesisChecking",
-          "slug": "abc233f-parenthesischecking"
-        },
-        {
-          "level": 2,
-          "title": "AcWing3494_最大的和",
-          "slug": "acwing3494-最大的和"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1629C_MeximumArray",
-          "slug": "codeforces1629c-meximumarray"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces608B_HammingDistanceSum",
-          "slug": "codeforces608b-hammingdistancesum"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces611C_NewYearAndDomino",
-          "slug": "codeforces611c-newyearanddomino"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces612D_TheUnionOfK-Segments",
-          "slug": "codeforces612d-theunionofk-segments"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1409E_TwoPlatforms",
-          "slug": "codeforces1409e-twoplatforms"
-        },
-        {
-          "level": 2,
-          "title": "HDU2021多校(1)5_Minimumspanningtree",
-          "slug": "hdu2021多校-1-5-minimumspanningtree"
-        },
-        {
-          "level": 2,
-          "title": "HDU2021多校(5)9_Array",
-          "slug": "hdu2021多校-5-9-array"
-        },
-        {
-          "level": 2,
-          "title": "HDU2021多校(7)12_Yiwenwith Sqc",
-          "slug": "hdu2021多校-7-12-yiwenwith-sqc"
-        }
-      ],
-      "lastUpdated": "1/23/2022, 7:40:17 PM"
-    },
-    {
       "title": "bitset",
       "frontmatter": {
         "title": "bitset"
@@ -3645,6 +3323,39 @@ export const siteData = {
           "level": 2,
           "title": "HDU2021多校(10)3_PtyLovesLines",
           "slug": "hdu2021多校-10-3-ptyloveslines"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "分块",
+      "frontmatter": {
+        "title": "分块"
+      },
+      "regularPath": "/blogs/solution/datastructure/block.html",
+      "relativePath": "blogs/solution/datastructure/block.md",
+      "key": "v-5d3c030e",
+      "path": "/blogs/solution/datastructure/block.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "洛谷P3396_哈希冲突",
+          "slug": "洛谷p3396-哈希冲突"
+        },
+        {
+          "level": 2,
+          "title": "洛谷P3870_开关",
+          "slug": "洛谷p3870-开关"
+        },
+        {
+          "level": 2,
+          "title": "洛谷P4109_定价",
+          "slug": "洛谷p4109-定价"
         }
       ],
       "lastUpdated": "1/22/2022, 6:05:19 PM"
@@ -3703,105 +3414,6 @@ export const siteData = {
       "lastUpdated": "1/27/2022, 1:57:19 AM"
     },
     {
-      "title": "分块",
-      "frontmatter": {
-        "title": "分块"
-      },
-      "regularPath": "/blogs/solution/datastructure/block.html",
-      "relativePath": "blogs/solution/datastructure/block.md",
-      "key": "v-5d3c030e",
-      "path": "/blogs/solution/datastructure/block.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "洛谷P3396_哈希冲突",
-          "slug": "洛谷p3396-哈希冲突"
-        },
-        {
-          "level": 2,
-          "title": "洛谷P3870_开关",
-          "slug": "洛谷p3870-开关"
-        },
-        {
-          "level": 2,
-          "title": "洛谷P4109_定价",
-          "slug": "洛谷p4109-定价"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "单调栈",
-      "frontmatter": {
-        "title": "单调栈"
-      },
-      "regularPath": "/blogs/solution/datastructure/monotonically-stack.html",
-      "relativePath": "blogs/solution/datastructure/monotonically-stack.md",
-      "key": "v-391b0719",
-      "path": "/blogs/solution/datastructure/monotonically-stack.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "洛谷P4147_玉蟾宫",
-          "slug": "洛谷p4147-玉蟾宫"
-        },
-        {
-          "level": 2,
-          "title": "HDU1506_LargestRectangleInAHistogram",
-          "slug": "hdu1506-largestrectangleinahistogram"
-        },
-        {
-          "level": 2,
-          "title": "UVA1619_感觉不错FeelGood",
-          "slug": "uva1619-感觉不错feelgood"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "主席树",
-      "frontmatter": {
-        "title": "主席树"
-      },
-      "regularPath": "/blogs/solution/datastructure/chairmantree.html",
-      "relativePath": "blogs/solution/datastructure/chairmantree.md",
-      "key": "v-7cd6930b",
-      "path": "/blogs/solution/datastructure/chairmantree.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "洛谷P1972_HH的项链",
-          "slug": "洛谷p1972-hh的项链"
-        },
-        {
-          "level": 2,
-          "title": "洛谷P4137_RmqProblemMex",
-          "slug": "洛谷p4137-rmqproblemmex"
-        },
-        {
-          "level": 2,
-          "title": "牛客NC21758_LittleWAndDiscretization",
-          "slug": "牛客nc21758-littlewanddiscretization"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
       "title": "优先队列",
       "frontmatter": {
         "title": "优先队列"
@@ -3840,6 +3452,39 @@ export const siteData = {
           "level": 2,
           "title": "POJ2833_TheAverage",
           "slug": "poj2833-theaverage"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "主席树",
+      "frontmatter": {
+        "title": "主席树"
+      },
+      "regularPath": "/blogs/solution/datastructure/chairmantree.html",
+      "relativePath": "blogs/solution/datastructure/chairmantree.md",
+      "key": "v-7cd6930b",
+      "path": "/blogs/solution/datastructure/chairmantree.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1972_HH的项链",
+          "slug": "洛谷p1972-hh的项链"
+        },
+        {
+          "level": 2,
+          "title": "洛谷P4137_RmqProblemMex",
+          "slug": "洛谷p4137-rmqproblemmex"
+        },
+        {
+          "level": 2,
+          "title": "牛客NC21758_LittleWAndDiscretization",
+          "slug": "牛客nc21758-littlewanddiscretization"
         }
       ],
       "lastUpdated": "1/22/2022, 6:05:19 PM"
@@ -3898,6 +3543,39 @@ export const siteData = {
           "level": 3,
           "title": "HDUOJ1027_IgnatiusAndThePrincess2",
           "slug": "hduoj1027-ignatiusandtheprincess2"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "单调栈",
+      "frontmatter": {
+        "title": "单调栈"
+      },
+      "regularPath": "/blogs/solution/datastructure/monotonically-stack.html",
+      "relativePath": "blogs/solution/datastructure/monotonically-stack.md",
+      "key": "v-391b0719",
+      "path": "/blogs/solution/datastructure/monotonically-stack.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "洛谷P4147_玉蟾宫",
+          "slug": "洛谷p4147-玉蟾宫"
+        },
+        {
+          "level": 2,
+          "title": "HDU1506_LargestRectangleInAHistogram",
+          "slug": "hdu1506-largestrectangleinahistogram"
+        },
+        {
+          "level": 2,
+          "title": "UVA1619_感觉不错FeelGood",
+          "slug": "uva1619-感觉不错feelgood"
         }
       ],
       "lastUpdated": "1/22/2022, 6:05:19 PM"
@@ -4012,6 +3690,72 @@ export const siteData = {
       "lastUpdated": "1/22/2022, 6:05:19 PM"
     },
     {
+      "title": "线性基",
+      "frontmatter": {
+        "key": "2021-07-24-线性基",
+        "layout": "article",
+        "title": "线性基",
+        "subtitle": "XOR的压缩🤔",
+        "categories": "数学",
+        "tags": [
+          "数学"
+        ],
+        "aside": {
+          "toc": true
+        },
+        "sidebar": {
+          "nav": "docs-en"
+        }
+      },
+      "regularPath": "/blogs/algorithm/math/line-base.html",
+      "relativePath": "blogs/algorithm/math/line-base.md",
+      "key": "v-a43bf9d6",
+      "path": "/blogs/algorithm/math/line-base.html",
+      "headers": [
+        {
+          "level": 2,
+          "title": "前置知识：异或运算",
+          "slug": "前置知识-异或运算"
+        },
+        {
+          "level": 3,
+          "title": "性质",
+          "slug": "性质"
+        },
+        {
+          "level": 2,
+          "title": "线性基",
+          "slug": "线性基"
+        },
+        {
+          "level": 3,
+          "title": "定义",
+          "slug": "定义"
+        },
+        {
+          "level": 3,
+          "title": "举例",
+          "slug": "举例"
+        },
+        {
+          "level": 3,
+          "title": "如何求线性基",
+          "slug": "如何求线性基"
+        },
+        {
+          "level": 3,
+          "title": "线性基的性质",
+          "slug": "线性基的性质"
+        },
+        {
+          "level": 3,
+          "title": "问题解决",
+          "slug": "问题解决"
+        }
+      ],
+      "lastUpdated": "1/25/2022, 12:38:45 AM"
+    },
+    {
       "title": "树状数组",
       "frontmatter": {
         "title": "树状数组"
@@ -4101,369 +3845,6 @@ export const siteData = {
           "level": 2,
           "title": "CodeForces1611F_ATMAndStudents",
           "slug": "codeforces1611f-atmandstudents"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "并查集",
-      "frontmatter": {
-        "title": "并查集"
-      },
-      "regularPath": "/blogs/solution/datastructure/unionset.html",
-      "relativePath": "blogs/solution/datastructure/unionset.md",
-      "key": "v-481746ea",
-      "path": "/blogs/solution/datastructure/unionset.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1594D_TheNumberOfImposters",
-          "slug": "codeforces1594d-thenumberofimposters"
-        },
-        {
-          "level": 2,
-          "title": "HDUOJ2844_食物链",
-          "slug": "hduoj2844-食物链"
-        },
-        {
-          "level": 2,
-          "title": "POJ1703_FindThem,CatchThem",
-          "slug": "poj1703-findthem-catchthem"
-        },
-        {
-          "level": 2,
-          "title": "POJ1988_BuildingBlock",
-          "slug": "poj1988-buildingblock"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "背包DP",
-      "frontmatter": {
-        "title": "背包DP"
-      },
-      "regularPath": "/blogs/solution/dp/backpack.html",
-      "relativePath": "blogs/solution/dp/backpack.md",
-      "key": "v-862d637e",
-      "path": "/blogs/solution/dp/backpack.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1516C_BabyEhabPartitionsAgain",
-          "slug": "codeforces1516c-babyehabpartitionsagain"
-        },
-        {
-          "level": 2,
-          "title": "HDUOJ2639_BoneCollector2",
-          "slug": "hduoj2639-bonecollector2"
-        },
-        {
-          "level": 2,
-          "title": "HDUOJ2844_Coins",
-          "slug": "hduoj2844-coins"
-        },
-        {
-          "level": 2,
-          "title": "OpenJ2726_采药",
-          "slug": "openj2726-采药"
-        },
-        {
-          "level": 2,
-          "title": "UVA624_CD",
-          "slug": "uva624-cd"
-        },
-        {
-          "level": 2,
-          "title": "UVA12589_LearningVector",
-          "slug": "uva12589-learningvector"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "区间DP",
-      "frontmatter": {
-        "title": "区间DP"
-      },
-      "regularPath": "/blogs/solution/dp/lr.html",
-      "relativePath": "blogs/solution/dp/lr.md",
-      "key": "v-7a518916",
-      "path": "/blogs/solution/dp/lr.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "洛谷P1005_矩阵取数游戏",
-          "slug": "洛谷p1005-矩阵取数游戏"
-        },
-        {
-          "level": 2,
-          "title": "洛谷P1220_关路灯",
-          "slug": "洛谷p1220-关路灯"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "计数DP",
-      "frontmatter": {
-        "title": "计数DP"
-      },
-      "regularPath": "/blogs/solution/dp/get-number.html",
-      "relativePath": "blogs/solution/dp/get-number.md",
-      "key": "v-5dc2fcc1",
-      "path": "/blogs/solution/dp/get-number.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "洛谷P1136_迎接仪式",
-          "slug": "洛谷p1136-迎接仪式"
-        },
-        {
-          "level": 2,
-          "title": "洛谷P5484_基因补全",
-          "slug": "洛谷p5484-基因补全"
-        },
-        {
-          "level": 2,
-          "title": "ICPC2021台湾省赛G_GardenPark",
-          "slug": "icpc2021台湾省赛g-gardenpark"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "状压DP",
-      "frontmatter": {
-        "title": "状压DP"
-      },
-      "regularPath": "/blogs/solution/dp/statement.html",
-      "relativePath": "blogs/solution/dp/statement.md",
-      "key": "v-74c830ab",
-      "path": "/blogs/solution/dp/statement.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "洛谷P1171_售货员的难题",
-          "slug": "洛谷p1171-售货员的难题"
-        },
-        {
-          "level": 2,
-          "title": "CCPC2021女生赛C_连锁商店",
-          "slug": "ccpc2021女生赛c-连锁商店"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "数位DP",
-      "frontmatter": {
-        "title": "数位DP"
-      },
-      "regularPath": "/blogs/solution/dp/number.html",
-      "relativePath": "blogs/solution/dp/number.md",
-      "key": "v-733ceeaf",
-      "path": "/blogs/solution/dp/number.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "HDUOJ2089_不要62",
-          "slug": "hduoj2089-不要62"
-        },
-        {
-          "level": 2,
-          "title": "HDUOJ3555_Bomb",
-          "slug": "hduoj3555-bomb"
-        },
-        {
-          "level": 2,
-          "title": "HDUOJ4507_恨7不成妻",
-          "slug": "hduoj4507-恨7不成妻"
-        },
-        {
-          "level": 2,
-          "title": "ICPC2020上海站C_SumOfLog",
-          "slug": "icpc2020上海站c-sumoflog"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "树形DP",
-      "frontmatter": {
-        "title": "树形DP"
-      },
-      "regularPath": "/blogs/solution/dp/tree.html",
-      "relativePath": "blogs/solution/dp/tree.md",
-      "key": "v-08860785",
-      "path": "/blogs/solution/dp/tree.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "gym103145C_VertexDeletion",
-          "slug": "gym103145c-vertexdeletion"
-        },
-        {
-          "level": 2,
-          "title": "HDUOJ2412_PartyatHali-Bula",
-          "slug": "hduoj2412-partyathali-bula"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "悬线法",
-      "frontmatter": {
-        "title": "悬线法"
-      },
-      "regularPath": "/blogs/solution/else/levitation-line.html",
-      "relativePath": "blogs/solution/else/levitation-line.md",
-      "key": "v-5610fa2a",
-      "path": "/blogs/solution/else/levitation-line.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "洛谷P1169_棋盘制作",
-          "slug": "洛谷p1169-棋盘制作"
-        },
-        {
-          "level": 2,
-          "title": "洛谷P2701_巨大的牛棚BigBarn",
-          "slug": "洛谷p2701-巨大的牛棚bigbarn"
-        },
-        {
-          "level": 2,
-          "title": "README",
-          "slug": "readme"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "计算几何",
-      "frontmatter": {
-        "title": "计算几何"
-      },
-      "regularPath": "/blogs/solution/geometry/geometry.html",
-      "relativePath": "blogs/solution/geometry/geometry.md",
-      "key": "v-5d73f769",
-      "path": "/blogs/solution/geometry/geometry.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "牛客2021多校(1)B_BallDropping",
-          "slug": "牛客2021多校-1-b-balldropping"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces613A_PeterAndSnowBlower",
-          "slug": "codeforces613a-peterandsnowblower"
-        },
-        {
-          "level": 2,
-          "title": "ICPC上海站2020I_SkyGarden",
-          "slug": "icpc上海站2020i-skygarden"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "强连通分量",
-      "frontmatter": {
-        "title": "强连通分量"
-      },
-      "regularPath": "/blogs/solution/graph/connectcomponents.html",
-      "relativePath": "blogs/solution/graph/connectcomponents.md",
-      "key": "v-2815fd09",
-      "path": "/blogs/solution/graph/connectcomponents.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "README",
-          "slug": "readme"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "最小生成树",
-      "frontmatter": {
-        "title": "最小生成树"
-      },
-      "regularPath": "/blogs/solution/graph/minimum-spaning-tree.html",
-      "relativePath": "blogs/solution/graph/minimum-spaning-tree.md",
-      "key": "v-6a89c8cb",
-      "path": "/blogs/solution/graph/minimum-spaning-tree.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "ABC235E_MST+1",
-          "slug": "abc235e-mst-1"
-        },
-        {
-          "level": 2,
-          "title": "POJ1258_AgriNet",
-          "slug": "poj1258-agrinet"
-        },
-        {
-          "level": 2,
-          "title": "POJ2349_ArcticNetwork",
-          "slug": "poj2349-arcticnetwork"
         }
       ],
       "lastUpdated": "1/22/2022, 6:05:19 PM"
@@ -4567,6 +3948,630 @@ export const siteData = {
       "lastUpdated": "2/2/2022, 8:07:40 AM"
     },
     {
+      "title": "并查集",
+      "frontmatter": {
+        "title": "并查集"
+      },
+      "regularPath": "/blogs/solution/datastructure/unionset.html",
+      "relativePath": "blogs/solution/datastructure/unionset.md",
+      "key": "v-481746ea",
+      "path": "/blogs/solution/datastructure/unionset.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1594D_TheNumberOfImposters",
+          "slug": "codeforces1594d-thenumberofimposters"
+        },
+        {
+          "level": 2,
+          "title": "HDUOJ2844_食物链",
+          "slug": "hduoj2844-食物链"
+        },
+        {
+          "level": 2,
+          "title": "POJ1703_FindThem,CatchThem",
+          "slug": "poj1703-findthem-catchthem"
+        },
+        {
+          "level": 2,
+          "title": "POJ1988_BuildingBlock",
+          "slug": "poj1988-buildingblock"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "计数DP",
+      "frontmatter": {
+        "title": "计数DP"
+      },
+      "regularPath": "/blogs/solution/dp/get-number.html",
+      "relativePath": "blogs/solution/dp/get-number.md",
+      "key": "v-5dc2fcc1",
+      "path": "/blogs/solution/dp/get-number.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1136_迎接仪式",
+          "slug": "洛谷p1136-迎接仪式"
+        },
+        {
+          "level": 2,
+          "title": "洛谷P5484_基因补全",
+          "slug": "洛谷p5484-基因补全"
+        },
+        {
+          "level": 2,
+          "title": "ICPC2021台湾省赛G_GardenPark",
+          "slug": "icpc2021台湾省赛g-gardenpark"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "背包DP",
+      "frontmatter": {
+        "key": "2021-07-20-背包DP",
+        "layout": "article",
+        "title": "背包DP",
+        "subtitle": "DP奇奇怪怪的模型？🤔",
+        "categories": "动态规划",
+        "tags": [
+          "动态规划"
+        ],
+        "aside": {
+          "toc": true
+        },
+        "sidebar": {
+          "nav": "docs-en"
+        }
+      },
+      "regularPath": "/blogs/algorithm/dpp/backpack-DP.html",
+      "relativePath": "blogs/algorithm/dpp/backpack-DP.md",
+      "key": "v-1f3d212b",
+      "path": "/blogs/algorithm/dpp/backpack-DP.html",
+      "headers": [
+        {
+          "level": 2,
+          "title": "定义",
+          "slug": "定义"
+        },
+        {
+          "level": 2,
+          "title": "01背包",
+          "slug": "_01背包"
+        },
+        {
+          "level": 3,
+          "title": "模型",
+          "slug": "模型"
+        },
+        {
+          "level": 3,
+          "title": "子问题",
+          "slug": "子问题"
+        },
+        {
+          "level": 3,
+          "title": "状态",
+          "slug": "状态"
+        },
+        {
+          "level": 3,
+          "title": "转移方程",
+          "slug": "转移方程"
+        },
+        {
+          "level": 3,
+          "title": "处理方式",
+          "slug": "处理方式"
+        },
+        {
+          "level": 3,
+          "title": "程序",
+          "slug": "程序"
+        },
+        {
+          "level": 3,
+          "title": "例题",
+          "slug": "例题"
+        },
+        {
+          "level": 2,
+          "title": "完全背包",
+          "slug": "完全背包"
+        },
+        {
+          "level": 3,
+          "title": "模型",
+          "slug": "模型-2"
+        },
+        {
+          "level": 3,
+          "title": "处理方式",
+          "slug": "处理方式-2"
+        },
+        {
+          "level": 3,
+          "title": "程序",
+          "slug": "程序-2"
+        },
+        {
+          "level": 3,
+          "title": "例题",
+          "slug": "例题-2"
+        },
+        {
+          "level": 2,
+          "title": "多重背包",
+          "slug": "多重背包"
+        },
+        {
+          "level": 3,
+          "title": "前置知识-二进制拆分",
+          "slug": "前置知识-二进制拆分"
+        },
+        {
+          "level": 3,
+          "title": "模型",
+          "slug": "模型-3"
+        },
+        {
+          "level": 3,
+          "title": "处理方式",
+          "slug": "处理方式-3"
+        },
+        {
+          "level": 3,
+          "title": "程序",
+          "slug": "程序-3"
+        },
+        {
+          "level": 3,
+          "title": "例题",
+          "slug": "例题-3"
+        },
+        {
+          "level": 2,
+          "title": "精准装满的背包",
+          "slug": "精准装满的背包"
+        },
+        {
+          "level": 2,
+          "title": "分组背包",
+          "slug": "分组背包"
+        },
+        {
+          "level": 3,
+          "title": "模型",
+          "slug": "模型-4"
+        },
+        {
+          "level": 3,
+          "title": "处理方式",
+          "slug": "处理方式-4"
+        },
+        {
+          "level": 3,
+          "title": "程序",
+          "slug": "程序-4"
+        },
+        {
+          "level": 3,
+          "title": "例题",
+          "slug": "例题-4"
+        },
+        {
+          "level": 2,
+          "title": "二维费用",
+          "slug": "二维费用"
+        },
+        {
+          "level": 3,
+          "title": "模型",
+          "slug": "模型-5"
+        },
+        {
+          "level": 3,
+          "title": "状态表示",
+          "slug": "状态表示"
+        },
+        {
+          "level": 3,
+          "title": "处理方式",
+          "slug": "处理方式-5"
+        },
+        {
+          "level": 3,
+          "title": "程序",
+          "slug": "程序-5"
+        },
+        {
+          "level": 3,
+          "title": "例题",
+          "slug": "例题-5"
+        },
+        {
+          "level": 2,
+          "title": "混合背包",
+          "slug": "混合背包"
+        },
+        {
+          "level": 3,
+          "title": "模型",
+          "slug": "模型-6"
+        },
+        {
+          "level": 3,
+          "title": "处理方式",
+          "slug": "处理方式-6"
+        },
+        {
+          "level": 3,
+          "title": "程序",
+          "slug": "程序-6"
+        },
+        {
+          "level": 3,
+          "title": "例题",
+          "slug": "例题-6"
+        },
+        {
+          "level": 2,
+          "title": "有依赖性物品的背包",
+          "slug": "有依赖性物品的背包"
+        },
+        {
+          "level": 3,
+          "title": "模型",
+          "slug": "模型-7"
+        },
+        {
+          "level": 3,
+          "title": "处理方式",
+          "slug": "处理方式-7"
+        },
+        {
+          "level": 3,
+          "title": "程序",
+          "slug": "程序-7"
+        },
+        {
+          "level": 3,
+          "title": "例题",
+          "slug": "例题-7"
+        },
+        {
+          "level": 2,
+          "title": "泛化物品背包",
+          "slug": "泛化物品背包"
+        },
+        {
+          "level": 3,
+          "title": "模型",
+          "slug": "模型-8"
+        },
+        {
+          "level": 3,
+          "title": "处理方式",
+          "slug": "处理方式-8"
+        },
+        {
+          "level": 3,
+          "title": "程序",
+          "slug": "程序-8"
+        },
+        {
+          "level": 3,
+          "title": "例题",
+          "slug": "例题-8"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 1:58:14 AM"
+    },
+    {
+      "title": "背包DP",
+      "frontmatter": {
+        "title": "背包DP"
+      },
+      "regularPath": "/blogs/solution/dp/backpack.html",
+      "relativePath": "blogs/solution/dp/backpack.md",
+      "key": "v-862d637e",
+      "path": "/blogs/solution/dp/backpack.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1516C_BabyEhabPartitionsAgain",
+          "slug": "codeforces1516c-babyehabpartitionsagain"
+        },
+        {
+          "level": 2,
+          "title": "HDUOJ2639_BoneCollector2",
+          "slug": "hduoj2639-bonecollector2"
+        },
+        {
+          "level": 2,
+          "title": "HDUOJ2844_Coins",
+          "slug": "hduoj2844-coins"
+        },
+        {
+          "level": 2,
+          "title": "OpenJ2726_采药",
+          "slug": "openj2726-采药"
+        },
+        {
+          "level": 2,
+          "title": "UVA624_CD",
+          "slug": "uva624-cd"
+        },
+        {
+          "level": 2,
+          "title": "UVA12589_LearningVector",
+          "slug": "uva12589-learningvector"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "区间DP",
+      "frontmatter": {
+        "title": "区间DP"
+      },
+      "regularPath": "/blogs/solution/dp/lr.html",
+      "relativePath": "blogs/solution/dp/lr.md",
+      "key": "v-7a518916",
+      "path": "/blogs/solution/dp/lr.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1005_矩阵取数游戏",
+          "slug": "洛谷p1005-矩阵取数游戏"
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1220_关路灯",
+          "slug": "洛谷p1220-关路灯"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "状压DP",
+      "frontmatter": {
+        "title": "状压DP"
+      },
+      "regularPath": "/blogs/solution/dp/statement.html",
+      "relativePath": "blogs/solution/dp/statement.md",
+      "key": "v-74c830ab",
+      "path": "/blogs/solution/dp/statement.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1171_售货员的难题",
+          "slug": "洛谷p1171-售货员的难题"
+        },
+        {
+          "level": 2,
+          "title": "CCPC2021女生赛C_连锁商店",
+          "slug": "ccpc2021女生赛c-连锁商店"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "悬线法",
+      "frontmatter": {
+        "title": "悬线法"
+      },
+      "regularPath": "/blogs/solution/else/levitation-line.html",
+      "relativePath": "blogs/solution/else/levitation-line.md",
+      "key": "v-5610fa2a",
+      "path": "/blogs/solution/else/levitation-line.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1169_棋盘制作",
+          "slug": "洛谷p1169-棋盘制作"
+        },
+        {
+          "level": 2,
+          "title": "洛谷P2701_巨大的牛棚BigBarn",
+          "slug": "洛谷p2701-巨大的牛棚bigbarn"
+        },
+        {
+          "level": 2,
+          "title": "README",
+          "slug": "readme"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "计算几何",
+      "frontmatter": {
+        "title": "计算几何"
+      },
+      "regularPath": "/blogs/solution/geometry/geometry.html",
+      "relativePath": "blogs/solution/geometry/geometry.md",
+      "key": "v-5d73f769",
+      "path": "/blogs/solution/geometry/geometry.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "牛客2021多校(1)B_BallDropping",
+          "slug": "牛客2021多校-1-b-balldropping"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces613A_PeterAndSnowBlower",
+          "slug": "codeforces613a-peterandsnowblower"
+        },
+        {
+          "level": 2,
+          "title": "ICPC上海站2020I_SkyGarden",
+          "slug": "icpc上海站2020i-skygarden"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "数位DP",
+      "frontmatter": {
+        "title": "数位DP"
+      },
+      "regularPath": "/blogs/solution/dp/number.html",
+      "relativePath": "blogs/solution/dp/number.md",
+      "key": "v-733ceeaf",
+      "path": "/blogs/solution/dp/number.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "HDUOJ2089_不要62",
+          "slug": "hduoj2089-不要62"
+        },
+        {
+          "level": 2,
+          "title": "HDUOJ3555_Bomb",
+          "slug": "hduoj3555-bomb"
+        },
+        {
+          "level": 2,
+          "title": "HDUOJ4507_恨7不成妻",
+          "slug": "hduoj4507-恨7不成妻"
+        },
+        {
+          "level": 2,
+          "title": "ICPC2020上海站C_SumOfLog",
+          "slug": "icpc2020上海站c-sumoflog"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "树形DP",
+      "frontmatter": {
+        "title": "树形DP"
+      },
+      "regularPath": "/blogs/solution/dp/tree.html",
+      "relativePath": "blogs/solution/dp/tree.md",
+      "key": "v-08860785",
+      "path": "/blogs/solution/dp/tree.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "gym103145C_VertexDeletion",
+          "slug": "gym103145c-vertexdeletion"
+        },
+        {
+          "level": 2,
+          "title": "HDUOJ2412_PartyatHali-Bula",
+          "slug": "hduoj2412-partyathali-bula"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "强连通分量",
+      "frontmatter": {
+        "title": "强连通分量"
+      },
+      "regularPath": "/blogs/solution/graph/connectcomponents.html",
+      "relativePath": "blogs/solution/graph/connectcomponents.md",
+      "key": "v-2815fd09",
+      "path": "/blogs/solution/graph/connectcomponents.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "README",
+          "slug": "readme"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "最小生成树",
+      "frontmatter": {
+        "title": "最小生成树"
+      },
+      "regularPath": "/blogs/solution/graph/minimum-spaning-tree.html",
+      "relativePath": "blogs/solution/graph/minimum-spaning-tree.md",
+      "key": "v-6a89c8cb",
+      "path": "/blogs/solution/graph/minimum-spaning-tree.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "ABC235E_MST+1",
+          "slug": "abc235e-mst-1"
+        },
+        {
+          "level": 2,
+          "title": "POJ1258_AgriNet",
+          "slug": "poj1258-agrinet"
+        },
+        {
+          "level": 2,
+          "title": "POJ2349_ArcticNetwork",
+          "slug": "poj2349-arcticnetwork"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
       "title": "矩阵树定理",
       "frontmatter": {
         "title": "矩阵树定理"
@@ -4600,6 +4605,39 @@ export const siteData = {
           "level": 2,
           "title": "洛谷P4821_生成树",
           "slug": "洛谷p4821-生成树"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "差分约束",
+      "frontmatter": {
+        "title": "差分约束"
+      },
+      "regularPath": "/blogs/solution/graph/differconnect.html",
+      "relativePath": "blogs/solution/graph/differconnect.md",
+      "key": "v-55bbfa19",
+      "path": "/blogs/solution/graph/differconnect.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1645_序列",
+          "slug": "洛谷p1645-序列"
+        },
+        {
+          "level": 2,
+          "title": "HDUOJ3592_WorldExhibition",
+          "slug": "hduoj3592-worldexhibition"
+        },
+        {
+          "level": 2,
+          "title": "Luogu2294_狡猾的商人",
+          "slug": "luogu2294-狡猾的商人"
         }
       ],
       "lastUpdated": "1/22/2022, 6:05:19 PM"
@@ -4666,44 +4704,6 @@ export const siteData = {
           "level": 2,
           "title": "洛谷P6086_【模板】Prufer序列",
           "slug": "洛谷p6086-【模板】prufer序列"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "拓扑排序",
-      "frontmatter": {
-        "title": "拓扑排序"
-      },
-      "regularPath": "/blogs/solution/graph/topsort.html",
-      "relativePath": "blogs/solution/graph/topsort.md",
-      "key": "v-fa0c0fba",
-      "path": "/blogs/solution/graph/topsort.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "牛客2000_食物链",
-          "slug": "牛客2000-食物链"
-        },
-        {
-          "level": 2,
-          "title": "abc223D_RestrictedPermutation",
-          "slug": "abc223d-restrictedpermutation"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1593E_GardenerAndTree",
-          "slug": "codeforces1593e-gardenerandtree"
-        },
-        {
-          "level": 2,
-          "title": "PTA_最短工期",
-          "slug": "pta-最短工期"
         }
       ],
       "lastUpdated": "1/22/2022, 6:05:19 PM"
@@ -4785,102 +4785,6 @@ export const siteData = {
       "lastUpdated": "1/27/2022, 1:57:19 AM"
     },
     {
-      "title": "树上问题",
-      "frontmatter": {
-        "title": "树上问题"
-      },
-      "regularPath": "/blogs/solution/graph/treeproblem.html",
-      "relativePath": "blogs/solution/graph/treeproblem.md",
-      "key": "v-1a70d007",
-      "path": "/blogs/solution/graph/treeproblem.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "树的重心",
-          "slug": "树的重心"
-        },
-        {
-          "level": 3,
-          "title": "POJ1655_BalancingAct",
-          "slug": "poj1655-balancingact"
-        },
-        {
-          "level": 2,
-          "title": "树链剖分",
-          "slug": "树链剖分"
-        },
-        {
-          "level": 3,
-          "title": "洛谷P3384_【模板】轻重链剖分树链剖分",
-          "slug": "洛谷p3384-【模板】轻重链剖分树链剖分"
-        },
-        {
-          "level": 2,
-          "title": "虚树",
-          "slug": "虚树"
-        },
-        {
-          "level": 3,
-          "title": "洛谷P2495_消耗战",
-          "slug": "洛谷p2495-消耗战"
-        },
-        {
-          "level": 3,
-          "title": "洛谷P3320_寻宝游戏",
-          "slug": "洛谷p3320-寻宝游戏"
-        },
-        {
-          "level": 2,
-          "title": "子树问题",
-          "slug": "子树问题"
-        },
-        {
-          "level": 3,
-          "title": "CodeForces1626E_BlackAndWhiteTree",
-          "slug": "codeforces1626e-blackandwhitetree"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "指南",
-      "frontmatter": {
-        "title": "指南"
-      },
-      "regularPath": "/blogs/solution/",
-      "relativePath": "blogs/solution/index.md",
-      "key": "v-0c4f08c8",
-      "path": "/blogs/solution/",
-      "headers": [
-        {
-          "level": 2,
-          "title": "搜索方式",
-          "slug": "搜索方式"
-        },
-        {
-          "level": 3,
-          "title": "题号",
-          "slug": "题号"
-        },
-        {
-          "level": 3,
-          "title": "题目",
-          "slug": "题目"
-        },
-        {
-          "level": 2,
-          "title": "阅读方式",
-          "slug": "阅读方式"
-        }
-      ],
-      "lastUpdated": "1/23/2022, 7:40:17 PM"
-    },
-    {
       "title": "二分图染色",
       "frontmatter": {
         "title": "二分图染色"
@@ -4907,266 +4811,6 @@ export const siteData = {
         }
       ],
       "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "同余方程",
-      "frontmatter": {
-        "title": "同余方程"
-      },
-      "regularPath": "/blogs/solution/math/congruence-equation.html",
-      "relativePath": "blogs/solution/math/congruence-equation.md",
-      "key": "v-0d8af98b",
-      "path": "/blogs/solution/math/congruence-equation.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "线性同余方程",
-          "slug": "线性同余方程"
-        },
-        {
-          "level": 3,
-          "title": "HDUOJ2669_Romantic",
-          "slug": "hduoj2669-romantic"
-        },
-        {
-          "level": 3,
-          "title": "POJ1061_青蛙的约会",
-          "slug": "poj1061-青蛙的约会"
-        },
-        {
-          "level": 2,
-          "title": "乘法逆元",
-          "slug": "乘法逆元"
-        },
-        {
-          "level": 3,
-          "title": "【模板】乘法逆元",
-          "slug": "【模板】乘法逆元"
-        },
-        {
-          "level": 3,
-          "title": "HDUOJ1576AB",
-          "slug": "hduoj1576-a-b"
-        },
-        {
-          "level": 3,
-          "title": "HDUOJ5685_ProblemA",
-          "slug": "hduoj5685-problema"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "欧拉反演",
-      "frontmatter": {
-        "title": "欧拉反演"
-      },
-      "regularPath": "/blogs/solution/math/euler-inversion.html",
-      "relativePath": "blogs/solution/math/euler-inversion.md",
-      "key": "v-1e48f3aa",
-      "path": "/blogs/solution/math/euler-inversion.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "洛谷P1447_能量采集",
-          "slug": "洛谷p1447-能量采集"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "中国剩余定理",
-      "frontmatter": {
-        "title": "中国剩余定理"
-      },
-      "regularPath": "/blogs/solution/math/crt.html",
-      "relativePath": "blogs/solution/math/crt.md",
-      "key": "v-2b4cf22a",
-      "path": "/blogs/solution/math/crt.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "HDUOJ1370_Biorhythms",
-          "slug": "hduoj1370-biorhythms"
-        },
-        {
-          "level": 2,
-          "title": "HDUOJ3579_HelloKiki",
-          "slug": "hduoj3579-hellokiki"
-        },
-        {
-          "level": 2,
-          "title": "README",
-          "slug": "readme"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "博弈论",
-      "frontmatter": {
-        "title": "博弈论"
-      },
-      "regularPath": "/blogs/solution/math/game.html",
-      "relativePath": "blogs/solution/math/game.md",
-      "key": "v-42efab95",
-      "path": "/blogs/solution/math/game.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "棋盘",
-          "slug": "棋盘"
-        },
-        {
-          "level": 3,
-          "title": "HDU2021多校(9)2_AnotherBoardGame",
-          "slug": "hdu2021多校-9-2-anotherboardgame"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "整除相关",
-      "frontmatter": {
-        "title": "整除相关"
-      },
-      "regularPath": "/blogs/solution/math/exact-divid.html",
-      "relativePath": "blogs/solution/math/exact-divid.md",
-      "key": "v-c2b474ea",
-      "path": "/blogs/solution/math/exact-divid.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "因数、素数",
-          "slug": "因数、素数"
-        },
-        {
-          "level": 3,
-          "title": "洛谷P1128_求正整数",
-          "slug": "洛谷p1128-求正整数"
-        },
-        {
-          "level": 3,
-          "title": "洛谷P1445_樱花",
-          "slug": "洛谷p1445-樱花"
-        },
-        {
-          "level": 3,
-          "title": "CodeForces1445C_Division",
-          "slug": "codeforces1445c-division"
-        },
-        {
-          "level": 3,
-          "title": "CodeForces1593D2_HalfOfSame",
-          "slug": "codeforces1593d2-halfofsame"
-        },
-        {
-          "level": 3,
-          "title": "HDU2021多校(6)1_YesPrimeMinister",
-          "slug": "hdu2021多校-6-1-yesprimeminister"
-        },
-        {
-          "level": 2,
-          "title": "欧拉函数",
-          "slug": "欧拉函数"
-        },
-        {
-          "level": 3,
-          "title": "洛谷P2158_仪仗队",
-          "slug": "洛谷p2158-仪仗队"
-        },
-        {
-          "level": 3,
-          "title": "洛谷P2398_GCDSUM",
-          "slug": "洛谷p2398-gcdsum"
-        },
-        {
-          "level": 3,
-          "title": "牛客2022寒假算法基础集训营1D_牛牛做数论",
-          "slug": "牛客2022寒假算法基础集训营1d-牛牛做数论"
-        },
-        {
-          "level": 3,
-          "title": "HDUOJ2588_GCD",
-          "slug": "hduoj2588-gcd"
-        },
-        {
-          "level": 3,
-          "title": "POJ1284_PrimitiveRoots",
-          "slug": "poj1284-primitiveroots"
-        },
-        {
-          "level": 3,
-          "title": "POJ2407_Relatives",
-          "slug": "poj2407-relatives"
-        },
-        {
-          "level": 3,
-          "title": "POJ2478_FareySequence",
-          "slug": "poj2478-fareysequence"
-        },
-        {
-          "level": 3,
-          "title": "POJ2773_Happy2006",
-          "slug": "poj2773-happy2006"
-        },
-        {
-          "level": 3,
-          "title": "POJ3090_VisibleLatticePoints",
-          "slug": "poj3090-visiblelatticepoints"
-        },
-        {
-          "level": 3,
-          "title": "Question_phi",
-          "slug": "question-phi"
-        },
-        {
-          "level": 3,
-          "title": "README",
-          "slug": "readme"
-        },
-        {
-          "level": 2,
-          "title": "欧拉降幂",
-          "slug": "欧拉降幂"
-        },
-        {
-          "level": 3,
-          "title": "HDUOJ5728_PowMod",
-          "slug": "hduoj5728-powmod"
-        },
-        {
-          "level": 3,
-          "title": "README",
-          "slug": "readme-2"
-        }
-      ],
-      "lastUpdated": "1/25/2022, 6:25:40 PM"
     },
     {
       "title": "组合数学",
@@ -5367,14 +5011,14 @@ export const siteData = {
       "lastUpdated": "1/30/2022, 4:30:13 PM"
     },
     {
-      "title": "高等数学",
+      "title": "拓扑排序",
       "frontmatter": {
-        "title": "高等数学"
+        "title": "拓扑排序"
       },
-      "regularPath": "/blogs/solution/math/highmath.html",
-      "relativePath": "blogs/solution/math/highmath.md",
-      "key": "v-9c5d72b6",
-      "path": "/blogs/solution/math/highmath.html",
+      "regularPath": "/blogs/solution/graph/topsort.html",
+      "relativePath": "blogs/solution/graph/topsort.md",
+      "key": "v-fa0c0fba",
+      "path": "/blogs/solution/graph/topsort.html",
       "headers": [
         {
           "level": 3,
@@ -5383,16 +5027,382 @@ export const siteData = {
         },
         {
           "level": 2,
-          "title": "求极限",
-          "slug": "求极限"
+          "title": "牛客2000_食物链",
+          "slug": "牛客2000-食物链"
         },
         {
-          "level": 3,
-          "title": "ICPC2021网络赛(2)G_Limit",
-          "slug": "icpc2021网络赛-2-g-limit"
+          "level": 2,
+          "title": "abc223D_RestrictedPermutation",
+          "slug": "abc223d-restrictedpermutation"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1593E_GardenerAndTree",
+          "slug": "codeforces1593e-gardenerandtree"
+        },
+        {
+          "level": 2,
+          "title": "PTA_最短工期",
+          "slug": "pta-最短工期"
         }
       ],
       "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "指南",
+      "frontmatter": {
+        "title": "指南"
+      },
+      "regularPath": "/blogs/solution/",
+      "relativePath": "blogs/solution/index.md",
+      "key": "v-0c4f08c8",
+      "path": "/blogs/solution/",
+      "headers": [
+        {
+          "level": 2,
+          "title": "搜索方式",
+          "slug": "搜索方式"
+        },
+        {
+          "level": 3,
+          "title": "题号",
+          "slug": "题号"
+        },
+        {
+          "level": 3,
+          "title": "题目",
+          "slug": "题目"
+        },
+        {
+          "level": 2,
+          "title": "阅读方式",
+          "slug": "阅读方式"
+        }
+      ],
+      "lastUpdated": "1/23/2022, 7:40:17 PM"
+    },
+    {
+      "title": "欧拉反演",
+      "frontmatter": {
+        "title": "欧拉反演"
+      },
+      "regularPath": "/blogs/solution/math/euler-inversion.html",
+      "relativePath": "blogs/solution/math/euler-inversion.md",
+      "key": "v-1e48f3aa",
+      "path": "/blogs/solution/math/euler-inversion.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1447_能量采集",
+          "slug": "洛谷p1447-能量采集"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "同余方程",
+      "frontmatter": {
+        "title": "同余方程"
+      },
+      "regularPath": "/blogs/solution/math/congruence-equation.html",
+      "relativePath": "blogs/solution/math/congruence-equation.md",
+      "key": "v-0d8af98b",
+      "path": "/blogs/solution/math/congruence-equation.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "线性同余方程",
+          "slug": "线性同余方程"
+        },
+        {
+          "level": 3,
+          "title": "HDUOJ2669_Romantic",
+          "slug": "hduoj2669-romantic"
+        },
+        {
+          "level": 3,
+          "title": "POJ1061_青蛙的约会",
+          "slug": "poj1061-青蛙的约会"
+        },
+        {
+          "level": 2,
+          "title": "乘法逆元",
+          "slug": "乘法逆元"
+        },
+        {
+          "level": 3,
+          "title": "【模板】乘法逆元",
+          "slug": "【模板】乘法逆元"
+        },
+        {
+          "level": 3,
+          "title": "HDUOJ1576AB",
+          "slug": "hduoj1576-a-b"
+        },
+        {
+          "level": 3,
+          "title": "HDUOJ5685_ProblemA",
+          "slug": "hduoj5685-problema"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "中国剩余定理",
+      "frontmatter": {
+        "title": "中国剩余定理"
+      },
+      "regularPath": "/blogs/solution/math/crt.html",
+      "relativePath": "blogs/solution/math/crt.md",
+      "key": "v-2b4cf22a",
+      "path": "/blogs/solution/math/crt.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "HDUOJ1370_Biorhythms",
+          "slug": "hduoj1370-biorhythms"
+        },
+        {
+          "level": 2,
+          "title": "HDUOJ3579_HelloKiki",
+          "slug": "hduoj3579-hellokiki"
+        },
+        {
+          "level": 2,
+          "title": "README",
+          "slug": "readme"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "树上问题",
+      "frontmatter": {
+        "title": "树上问题"
+      },
+      "regularPath": "/blogs/solution/graph/treeproblem.html",
+      "relativePath": "blogs/solution/graph/treeproblem.md",
+      "key": "v-1a70d007",
+      "path": "/blogs/solution/graph/treeproblem.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "树的重心",
+          "slug": "树的重心"
+        },
+        {
+          "level": 3,
+          "title": "POJ1655_BalancingAct",
+          "slug": "poj1655-balancingact"
+        },
+        {
+          "level": 2,
+          "title": "树链剖分",
+          "slug": "树链剖分"
+        },
+        {
+          "level": 3,
+          "title": "洛谷P3384_【模板】轻重链剖分树链剖分",
+          "slug": "洛谷p3384-【模板】轻重链剖分树链剖分"
+        },
+        {
+          "level": 2,
+          "title": "虚树",
+          "slug": "虚树"
+        },
+        {
+          "level": 3,
+          "title": "洛谷P2495_消耗战",
+          "slug": "洛谷p2495-消耗战"
+        },
+        {
+          "level": 3,
+          "title": "洛谷P3320_寻宝游戏",
+          "slug": "洛谷p3320-寻宝游戏"
+        },
+        {
+          "level": 2,
+          "title": "子树问题",
+          "slug": "子树问题"
+        },
+        {
+          "level": 3,
+          "title": "CodeForces1626E_BlackAndWhiteTree",
+          "slug": "codeforces1626e-blackandwhitetree"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "博弈论",
+      "frontmatter": {
+        "title": "博弈论"
+      },
+      "regularPath": "/blogs/solution/math/game.html",
+      "relativePath": "blogs/solution/math/game.md",
+      "key": "v-42efab95",
+      "path": "/blogs/solution/math/game.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "棋盘",
+          "slug": "棋盘"
+        },
+        {
+          "level": 3,
+          "title": "HDU2021多校(9)2_AnotherBoardGame",
+          "slug": "hdu2021多校-9-2-anotherboardgame"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "整除相关",
+      "frontmatter": {
+        "title": "整除相关"
+      },
+      "regularPath": "/blogs/solution/math/exact-divid.html",
+      "relativePath": "blogs/solution/math/exact-divid.md",
+      "key": "v-c2b474ea",
+      "path": "/blogs/solution/math/exact-divid.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "因数、素数",
+          "slug": "因数、素数"
+        },
+        {
+          "level": 3,
+          "title": "洛谷P1128_求正整数",
+          "slug": "洛谷p1128-求正整数"
+        },
+        {
+          "level": 3,
+          "title": "洛谷P1445_樱花",
+          "slug": "洛谷p1445-樱花"
+        },
+        {
+          "level": 3,
+          "title": "CodeForces1445C_Division",
+          "slug": "codeforces1445c-division"
+        },
+        {
+          "level": 3,
+          "title": "CodeForces1593D2_HalfOfSame",
+          "slug": "codeforces1593d2-halfofsame"
+        },
+        {
+          "level": 3,
+          "title": "HDU2021多校(6)1_YesPrimeMinister",
+          "slug": "hdu2021多校-6-1-yesprimeminister"
+        },
+        {
+          "level": 2,
+          "title": "欧拉函数",
+          "slug": "欧拉函数"
+        },
+        {
+          "level": 3,
+          "title": "洛谷P2158_仪仗队",
+          "slug": "洛谷p2158-仪仗队"
+        },
+        {
+          "level": 3,
+          "title": "洛谷P2398_GCDSUM",
+          "slug": "洛谷p2398-gcdsum"
+        },
+        {
+          "level": 3,
+          "title": "牛客2022寒假算法基础集训营1D_牛牛做数论",
+          "slug": "牛客2022寒假算法基础集训营1d-牛牛做数论"
+        },
+        {
+          "level": 3,
+          "title": "HDUOJ2588_GCD",
+          "slug": "hduoj2588-gcd"
+        },
+        {
+          "level": 3,
+          "title": "POJ1284_PrimitiveRoots",
+          "slug": "poj1284-primitiveroots"
+        },
+        {
+          "level": 3,
+          "title": "POJ2407_Relatives",
+          "slug": "poj2407-relatives"
+        },
+        {
+          "level": 3,
+          "title": "POJ2478_FareySequence",
+          "slug": "poj2478-fareysequence"
+        },
+        {
+          "level": 3,
+          "title": "POJ2773_Happy2006",
+          "slug": "poj2773-happy2006"
+        },
+        {
+          "level": 3,
+          "title": "POJ3090_VisibleLatticePoints",
+          "slug": "poj3090-visiblelatticepoints"
+        },
+        {
+          "level": 3,
+          "title": "Question_phi",
+          "slug": "question-phi"
+        },
+        {
+          "level": 3,
+          "title": "README",
+          "slug": "readme"
+        },
+        {
+          "level": 2,
+          "title": "欧拉降幂",
+          "slug": "欧拉降幂"
+        },
+        {
+          "level": 3,
+          "title": "HDUOJ5728_PowMod",
+          "slug": "hduoj5728-powmod"
+        },
+        {
+          "level": 3,
+          "title": "README",
+          "slug": "readme-2"
+        }
+      ],
+      "lastUpdated": "1/25/2022, 6:25:40 PM"
     },
     {
       "title": "线性代数",
@@ -5528,6 +5538,533 @@ export const siteData = {
       "lastUpdated": "1/24/2022, 2:03:41 AM"
     },
     {
+      "title": "多项式",
+      "frontmatter": {
+        "title": "多项式"
+      },
+      "regularPath": "/blogs/solution/math/polynomial.html",
+      "relativePath": "blogs/solution/math/polynomial.md",
+      "key": "v-68325791",
+      "path": "/blogs/solution/math/polynomial.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "快速傅立叶变换",
+          "slug": "快速傅立叶变换"
+        },
+        {
+          "level": 3,
+          "title": "洛谷P1919_A*BProblem升级版",
+          "slug": "洛谷p1919-a-bproblem升级版"
+        },
+        {
+          "level": 3,
+          "title": "洛谷P3803_【模板】多项式乘法（FFT）",
+          "slug": "洛谷p3803-【模板】多项式乘法-fft"
+        },
+        {
+          "level": 3,
+          "title": "CodeForces608B_HammingDistance Sum",
+          "slug": "codeforces608b-hammingdistance-sum"
+        },
+        {
+          "level": 3,
+          "title": "HDUOJ1028_IgnatiusandthePrincessIII",
+          "slug": "hduoj1028-ignatiusandtheprincessiii"
+        },
+        {
+          "level": 3,
+          "title": "HDUOJ1398_SquareCoins",
+          "slug": "hduoj1398-squarecoins"
+        },
+        {
+          "level": 3,
+          "title": "HDUOJ2087_剪花布条",
+          "slug": "hduoj2087-剪花布条"
+        },
+        {
+          "level": 3,
+          "title": "ICPC2021大田H_RockPaperScissors",
+          "slug": "icpc2021大田h-rockpaperscissors"
+        },
+        {
+          "level": 2,
+          "title": "拉格朗日插值",
+          "slug": "拉格朗日插值"
+        },
+        {
+          "level": 3,
+          "title": "ICPC2021台湾省赛E_EatCoin",
+          "slug": "icpc2021台湾省赛e-eatcoin"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "置换群",
+      "frontmatter": {
+        "title": "置换群"
+      },
+      "regularPath": "/blogs/solution/math/replace-group.html",
+      "relativePath": "blogs/solution/math/replace-group.md",
+      "key": "v-411a6a4b",
+      "path": "/blogs/solution/math/replace-group.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "基础思想",
+          "slug": "基础思想"
+        },
+        {
+          "level": 3,
+          "title": "CodeForces1621C_HiddenPermutations",
+          "slug": "codeforces1621c-hiddenpermutations"
+        },
+        {
+          "level": 2,
+          "title": "polya定理",
+          "slug": "polya定理"
+        },
+        {
+          "level": 3,
+          "title": "POJ2409_LetItBead",
+          "slug": "poj2409-letitbead"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "筛法",
+      "frontmatter": {
+        "title": "筛法"
+      },
+      "regularPath": "/blogs/solution/math/sieve.html",
+      "relativePath": "blogs/solution/math/sieve.md",
+      "key": "v-71e9776a",
+      "path": "/blogs/solution/math/sieve.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1512G_ShortTask",
+          "slug": "codeforces1512g-shorttask"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1627D_NotAdding",
+          "slug": "codeforces1627d-notadding"
+        },
+        {
+          "level": 2,
+          "title": "ICPC吉林站2020G_Matrix",
+          "slug": "icpc吉林站2020g-matrix"
+        },
+        {
+          "level": 2,
+          "title": "LOJ10199_轻拍牛头",
+          "slug": "loj10199-轻拍牛头"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "多维偏序",
+      "frontmatter": {
+        "title": "多维偏序"
+      },
+      "regularPath": "/blogs/solution/offline/preferorder.html",
+      "relativePath": "blogs/solution/offline/preferorder.md",
+      "key": "v-b1c51b3a",
+      "path": "/blogs/solution/offline/preferorder.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "二维",
+          "slug": "二维"
+        },
+        {
+          "level": 3,
+          "title": "AcWing2849_老C的任务",
+          "slug": "acwing2849-老c的任务"
+        },
+        {
+          "level": 2,
+          "title": "三维",
+          "slug": "三维"
+        },
+        {
+          "level": 3,
+          "title": "洛谷P4390_Mokia",
+          "slug": "洛谷p4390-mokia"
+        },
+        {
+          "level": 3,
+          "title": "AcWing2817_三维偏序",
+          "slug": "acwing2817-三维偏序"
+        },
+        {
+          "level": 3,
+          "title": "AcWing2821_动态逆序对",
+          "slug": "acwing2821-动态逆序对"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "高等数学",
+      "frontmatter": {
+        "title": "高等数学"
+      },
+      "regularPath": "/blogs/solution/math/highmath.html",
+      "relativePath": "blogs/solution/math/highmath.md",
+      "key": "v-9c5d72b6",
+      "path": "/blogs/solution/math/highmath.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "求极限",
+          "slug": "求极限"
+        },
+        {
+          "level": 3,
+          "title": "ICPC2021网络赛(2)G_Limit",
+          "slug": "icpc2021网络赛-2-g-limit"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "DFS",
+      "frontmatter": {
+        "title": "DFS"
+      },
+      "regularPath": "/blogs/solution/search/DFS.html",
+      "relativePath": "blogs/solution/search/DFS.md",
+      "key": "v-47a77f6b",
+      "path": "/blogs/solution/search/DFS.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1034_矩形覆盖",
+          "slug": "洛谷p1034-矩形覆盖"
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1041_传染病控制",
+          "slug": "洛谷p1041-传染病控制"
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1074_靶形数独",
+          "slug": "洛谷p1074-靶形数独"
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1127_词链",
+          "slug": "洛谷p1127-词链"
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1363_幻象迷宫",
+          "slug": "洛谷p1363-幻象迷宫"
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1434_滑雪",
+          "slug": "洛谷p1434-滑雪"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "莫队",
+      "frontmatter": {
+        "title": "莫队"
+      },
+      "regularPath": "/blogs/solution/offline/captain-mo.html",
+      "relativePath": "blogs/solution/offline/captain-mo.md",
+      "key": "v-0123e74b",
+      "path": "/blogs/solution/offline/captain-mo.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "普通莫队",
+          "slug": "普通莫队"
+        },
+        {
+          "level": 3,
+          "title": "CodeForces617E_XORAndFavoriteNumber",
+          "slug": "codeforces617e-xorandfavoritenumber"
+        },
+        {
+          "level": 3,
+          "title": "洛谷P3674_小清新人渣的本愿",
+          "slug": "洛谷p3674-小清新人渣的本愿"
+        },
+        {
+          "level": 2,
+          "title": "带修莫队",
+          "slug": "带修莫队"
+        },
+        {
+          "level": 3,
+          "title": "黑暗爆炸2120_数颜色",
+          "slug": "黑暗爆炸2120-数颜色"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "frontmatter": {},
+      "regularPath": "/dairy.html",
+      "relativePath": "dairy.md",
+      "key": "v-6bbc2e4b",
+      "path": "/dairy.html",
+      "lastUpdated": "1/21/2022, 11:13:49 PM"
+    },
+    {
+      "title": "BFS",
+      "frontmatter": {
+        "title": "BFS"
+      },
+      "regularPath": "/blogs/solution/search/BFS.html",
+      "relativePath": "blogs/solution/search/BFS.md",
+      "key": "v-50957eab",
+      "path": "/blogs/solution/search/BFS.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1132_数字生成游戏",
+          "slug": "洛谷p1132-数字生成游戏"
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1225_黑白棋",
+          "slug": "洛谷p1225-黑白棋"
+        },
+        {
+          "level": 2,
+          "title": "ABC224_D8PuzzleOnGraph",
+          "slug": "abc224-d8puzzleongraph"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1063B_Labyrinth",
+          "slug": "codeforces1063b-labyrinth"
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1536B_PrinzessinDerVerurteilung",
+          "slug": "codeforces1536b-prinzessinderverurteilung"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "全排列",
+      "frontmatter": {
+        "title": "全排列"
+      },
+      "regularPath": "/blogs/solution/search/permutation.html",
+      "relativePath": "blogs/solution/search/permutation.md",
+      "key": "v-d2e30b6a",
+      "path": "/blogs/solution/search/permutation.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "洛谷P1013_进制位",
+          "slug": "洛谷p1013-进制位"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "Manacher",
+      "frontmatter": {
+        "title": "Manacher"
+      },
+      "regularPath": "/blogs/solution/string/Manacher.html",
+      "relativePath": "blogs/solution/string/Manacher.md",
+      "key": "v-7e125c19",
+      "path": "/blogs/solution/string/Manacher.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "HDU3613_BestReward",
+          "slug": "hdu3613-bestreward"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "api",
+      "frontmatter": {
+        "title": "api",
+        "date": "2020-05-29T00:00:00.000Z"
+      },
+      "regularPath": "/docs/theme-reco/api.html",
+      "relativePath": "docs/theme-reco/api.md",
+      "key": "v-5630a72a",
+      "path": "/docs/theme-reco/api.html",
+      "lastUpdated": "1/21/2022, 5:19:01 PM"
+    },
+    {
+      "title": "theme-reco",
+      "frontmatter": {
+        "title": "theme-reco",
+        "date": "2020-05-29T00:00:00.000Z"
+      },
+      "regularPath": "/docs/theme-reco/",
+      "relativePath": "docs/theme-reco/README.md",
+      "key": "v-1f297fc0",
+      "path": "/docs/theme-reco/",
+      "lastUpdated": "1/21/2022, 5:19:01 PM"
+    },
+    {
+      "title": "plugin",
+      "frontmatter": {
+        "title": "plugin",
+        "date": "2020-05-28T00:00:00.000Z"
+      },
+      "regularPath": "/docs/theme-reco/plugin.html",
+      "relativePath": "docs/theme-reco/plugin.md",
+      "key": "v-d1f4997e",
+      "path": "/docs/theme-reco/plugin.html",
+      "lastUpdated": "1/21/2022, 5:19:01 PM"
+    },
+    {
+      "title": "KMP",
+      "frontmatter": {
+        "title": "KMP"
+      },
+      "regularPath": "/blogs/solution/string/KMP.html",
+      "relativePath": "blogs/solution/string/KMP.md",
+      "key": "v-3df671ab",
+      "path": "/blogs/solution/string/KMP.html",
+      "headers": [
+        {
+          "level": 3,
+          "title": "",
+          "slug": ""
+        },
+        {
+          "level": 2,
+          "title": "CodeForces1200E_CompressWords",
+          "slug": "codeforces1200e-compresswords"
+        },
+        {
+          "level": 2,
+          "title": "HDU1686_Oulipo",
+          "slug": "hdu1686-oulipo"
+        },
+        {
+          "level": 2,
+          "title": "HDU2087_剪花布条",
+          "slug": "hdu2087-剪花布条"
+        },
+        {
+          "level": 2,
+          "title": "HDU2594_Simpson'sHiddenTalents",
+          "slug": "hdu2594-simpson-shiddentalents"
+        },
+        {
+          "level": 2,
+          "title": "HDU3336_CountTheString",
+          "slug": "hdu3336-countthestring"
+        },
+        {
+          "level": 2,
+          "title": "HDU5763_AnotherMeaning",
+          "slug": "hdu5763-anothermeaning"
+        },
+        {
+          "level": 2,
+          "title": "PTA_好中缀",
+          "slug": "pta-好中缀"
+        }
+      ],
+      "lastUpdated": "1/22/2022, 6:05:19 PM"
+    },
+    {
+      "title": "theme",
+      "frontmatter": {
+        "title": "theme",
+        "date": "2020-05-27T00:00:00.000Z"
+      },
+      "regularPath": "/docs/theme-reco/theme.html",
+      "relativePath": "docs/theme-reco/theme.md",
+      "key": "v-598dbe8b",
+      "path": "/docs/theme-reco/theme.html",
+      "lastUpdated": "1/21/2022, 5:19:01 PM"
+    },
+    {
+      "frontmatter": {},
+      "regularPath": "/person-wechat.html",
+      "relativePath": "person-wechat.md",
+      "key": "v-2a76442a",
+      "path": "/person-wechat.html",
+      "lastUpdated": "1/22/2022, 5:37:28 PM"
+    },
+    {
+      "frontmatter": {
+        "showSponsor": true
+      },
+      "regularPath": "/rewards.html",
+      "relativePath": "rewards.md",
+      "key": "v-b90240aa",
+      "path": "/rewards.html",
+      "lastUpdated": "1/22/2022, 1:58:14 AM"
+    },
+    {
       "title": "莫比乌斯反演",
       "frontmatter": {
         "title": "莫比乌斯反演"
@@ -5611,538 +6148,6 @@ export const siteData = {
       "lastUpdated": "1/22/2022, 6:05:19 PM"
     },
     {
-      "title": "置换群",
-      "frontmatter": {
-        "title": "置换群"
-      },
-      "regularPath": "/blogs/solution/math/replace-group.html",
-      "relativePath": "blogs/solution/math/replace-group.md",
-      "key": "v-411a6a4b",
-      "path": "/blogs/solution/math/replace-group.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "基础思想",
-          "slug": "基础思想"
-        },
-        {
-          "level": 3,
-          "title": "CodeForces1621C_HiddenPermutations",
-          "slug": "codeforces1621c-hiddenpermutations"
-        },
-        {
-          "level": 2,
-          "title": "polya定理",
-          "slug": "polya定理"
-        },
-        {
-          "level": 3,
-          "title": "POJ2409_LetItBead",
-          "slug": "poj2409-letitbead"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "多项式",
-      "frontmatter": {
-        "title": "多项式"
-      },
-      "regularPath": "/blogs/solution/math/polynomial.html",
-      "relativePath": "blogs/solution/math/polynomial.md",
-      "key": "v-68325791",
-      "path": "/blogs/solution/math/polynomial.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "快速傅立叶变换",
-          "slug": "快速傅立叶变换"
-        },
-        {
-          "level": 3,
-          "title": "洛谷P1919_A*BProblem升级版",
-          "slug": "洛谷p1919-a-bproblem升级版"
-        },
-        {
-          "level": 3,
-          "title": "洛谷P3803_【模板】多项式乘法（FFT）",
-          "slug": "洛谷p3803-【模板】多项式乘法-fft"
-        },
-        {
-          "level": 3,
-          "title": "CodeForces608B_HammingDistance Sum",
-          "slug": "codeforces608b-hammingdistance-sum"
-        },
-        {
-          "level": 3,
-          "title": "HDUOJ1028_IgnatiusandthePrincessIII",
-          "slug": "hduoj1028-ignatiusandtheprincessiii"
-        },
-        {
-          "level": 3,
-          "title": "HDUOJ1398_SquareCoins",
-          "slug": "hduoj1398-squarecoins"
-        },
-        {
-          "level": 3,
-          "title": "HDUOJ2087_剪花布条",
-          "slug": "hduoj2087-剪花布条"
-        },
-        {
-          "level": 3,
-          "title": "ICPC2021大田H_RockPaperScissors",
-          "slug": "icpc2021大田h-rockpaperscissors"
-        },
-        {
-          "level": 2,
-          "title": "拉格朗日插值",
-          "slug": "拉格朗日插值"
-        },
-        {
-          "level": 3,
-          "title": "ICPC2021台湾省赛E_EatCoin",
-          "slug": "icpc2021台湾省赛e-eatcoin"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "筛法",
-      "frontmatter": {
-        "title": "筛法"
-      },
-      "regularPath": "/blogs/solution/math/sieve.html",
-      "relativePath": "blogs/solution/math/sieve.md",
-      "key": "v-71e9776a",
-      "path": "/blogs/solution/math/sieve.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1512G_ShortTask",
-          "slug": "codeforces1512g-shorttask"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1627D_NotAdding",
-          "slug": "codeforces1627d-notadding"
-        },
-        {
-          "level": 2,
-          "title": "ICPC吉林站2020G_Matrix",
-          "slug": "icpc吉林站2020g-matrix"
-        },
-        {
-          "level": 2,
-          "title": "LOJ10199_轻拍牛头",
-          "slug": "loj10199-轻拍牛头"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "莫队",
-      "frontmatter": {
-        "title": "莫队"
-      },
-      "regularPath": "/blogs/solution/offline/captain-mo.html",
-      "relativePath": "blogs/solution/offline/captain-mo.md",
-      "key": "v-0123e74b",
-      "path": "/blogs/solution/offline/captain-mo.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "普通莫队",
-          "slug": "普通莫队"
-        },
-        {
-          "level": 3,
-          "title": "CodeForces617E_XORAndFavoriteNumber",
-          "slug": "codeforces617e-xorandfavoritenumber"
-        },
-        {
-          "level": 3,
-          "title": "洛谷P3674_小清新人渣的本愿",
-          "slug": "洛谷p3674-小清新人渣的本愿"
-        },
-        {
-          "level": 2,
-          "title": "带修莫队",
-          "slug": "带修莫队"
-        },
-        {
-          "level": 3,
-          "title": "黑暗爆炸2120_数颜色",
-          "slug": "黑暗爆炸2120-数颜色"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "BFS",
-      "frontmatter": {
-        "title": "BFS"
-      },
-      "regularPath": "/blogs/solution/search/BFS.html",
-      "relativePath": "blogs/solution/search/BFS.md",
-      "key": "v-50957eab",
-      "path": "/blogs/solution/search/BFS.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "洛谷P1132_数字生成游戏",
-          "slug": "洛谷p1132-数字生成游戏"
-        },
-        {
-          "level": 2,
-          "title": "洛谷P1225_黑白棋",
-          "slug": "洛谷p1225-黑白棋"
-        },
-        {
-          "level": 2,
-          "title": "ABC224_D8PuzzleOnGraph",
-          "slug": "abc224-d8puzzleongraph"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1063B_Labyrinth",
-          "slug": "codeforces1063b-labyrinth"
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1536B_PrinzessinDerVerurteilung",
-          "slug": "codeforces1536b-prinzessinderverurteilung"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "多维偏序",
-      "frontmatter": {
-        "title": "多维偏序"
-      },
-      "regularPath": "/blogs/solution/offline/preferorder.html",
-      "relativePath": "blogs/solution/offline/preferorder.md",
-      "key": "v-b1c51b3a",
-      "path": "/blogs/solution/offline/preferorder.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "二维",
-          "slug": "二维"
-        },
-        {
-          "level": 3,
-          "title": "AcWing2849_老C的任务",
-          "slug": "acwing2849-老c的任务"
-        },
-        {
-          "level": 2,
-          "title": "三维",
-          "slug": "三维"
-        },
-        {
-          "level": 3,
-          "title": "洛谷P4390_Mokia",
-          "slug": "洛谷p4390-mokia"
-        },
-        {
-          "level": 3,
-          "title": "AcWing2817_三维偏序",
-          "slug": "acwing2817-三维偏序"
-        },
-        {
-          "level": 3,
-          "title": "AcWing2821_动态逆序对",
-          "slug": "acwing2821-动态逆序对"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "全排列",
-      "frontmatter": {
-        "title": "全排列"
-      },
-      "regularPath": "/blogs/solution/search/permutation.html",
-      "relativePath": "blogs/solution/search/permutation.md",
-      "key": "v-d2e30b6a",
-      "path": "/blogs/solution/search/permutation.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "洛谷P1013_进制位",
-          "slug": "洛谷p1013-进制位"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "DFS",
-      "frontmatter": {
-        "title": "DFS"
-      },
-      "regularPath": "/blogs/solution/search/DFS.html",
-      "relativePath": "blogs/solution/search/DFS.md",
-      "key": "v-47a77f6b",
-      "path": "/blogs/solution/search/DFS.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "洛谷P1034_矩形覆盖",
-          "slug": "洛谷p1034-矩形覆盖"
-        },
-        {
-          "level": 2,
-          "title": "洛谷P1041_传染病控制",
-          "slug": "洛谷p1041-传染病控制"
-        },
-        {
-          "level": 2,
-          "title": "洛谷P1074_靶形数独",
-          "slug": "洛谷p1074-靶形数独"
-        },
-        {
-          "level": 2,
-          "title": "洛谷P1127_词链",
-          "slug": "洛谷p1127-词链"
-        },
-        {
-          "level": 2,
-          "title": "洛谷P1363_幻象迷宫",
-          "slug": "洛谷p1363-幻象迷宫"
-        },
-        {
-          "level": 2,
-          "title": "洛谷P1434_滑雪",
-          "slug": "洛谷p1434-滑雪"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "frontmatter": {},
-      "regularPath": "/dairy.html",
-      "relativePath": "dairy.md",
-      "key": "v-6bbc2e4b",
-      "path": "/dairy.html",
-      "lastUpdated": "1/21/2022, 11:13:49 PM"
-    },
-    {
-      "title": "KMP",
-      "frontmatter": {
-        "title": "KMP"
-      },
-      "regularPath": "/blogs/solution/string/KMP.html",
-      "relativePath": "blogs/solution/string/KMP.md",
-      "key": "v-3df671ab",
-      "path": "/blogs/solution/string/KMP.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "CodeForces1200E_CompressWords",
-          "slug": "codeforces1200e-compresswords"
-        },
-        {
-          "level": 2,
-          "title": "HDU1686_Oulipo",
-          "slug": "hdu1686-oulipo"
-        },
-        {
-          "level": 2,
-          "title": "HDU2087_剪花布条",
-          "slug": "hdu2087-剪花布条"
-        },
-        {
-          "level": 2,
-          "title": "HDU2594_Simpson'sHiddenTalents",
-          "slug": "hdu2594-simpson-shiddentalents"
-        },
-        {
-          "level": 2,
-          "title": "HDU3336_CountTheString",
-          "slug": "hdu3336-countthestring"
-        },
-        {
-          "level": 2,
-          "title": "HDU5763_AnotherMeaning",
-          "slug": "hdu5763-anothermeaning"
-        },
-        {
-          "level": 2,
-          "title": "PTA_好中缀",
-          "slug": "pta-好中缀"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "Manacher",
-      "frontmatter": {
-        "title": "Manacher"
-      },
-      "regularPath": "/blogs/solution/string/Manacher.html",
-      "relativePath": "blogs/solution/string/Manacher.md",
-      "key": "v-7e125c19",
-      "path": "/blogs/solution/string/Manacher.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "HDU3613_BestReward",
-          "slug": "hdu3613-bestreward"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "title": "theme-reco",
-      "frontmatter": {
-        "title": "theme-reco",
-        "date": "2020-05-29T00:00:00.000Z"
-      },
-      "regularPath": "/docs/theme-reco/",
-      "relativePath": "docs/theme-reco/README.md",
-      "key": "v-1f297fc0",
-      "path": "/docs/theme-reco/",
-      "lastUpdated": "1/21/2022, 5:19:01 PM"
-    },
-    {
-      "title": "api",
-      "frontmatter": {
-        "title": "api",
-        "date": "2020-05-29T00:00:00.000Z"
-      },
-      "regularPath": "/docs/theme-reco/api.html",
-      "relativePath": "docs/theme-reco/api.md",
-      "key": "v-5630a72a",
-      "path": "/docs/theme-reco/api.html",
-      "lastUpdated": "1/21/2022, 5:19:01 PM"
-    },
-    {
-      "title": "plugin",
-      "frontmatter": {
-        "title": "plugin",
-        "date": "2020-05-28T00:00:00.000Z"
-      },
-      "regularPath": "/docs/theme-reco/plugin.html",
-      "relativePath": "docs/theme-reco/plugin.md",
-      "key": "v-d1f4997e",
-      "path": "/docs/theme-reco/plugin.html",
-      "lastUpdated": "1/21/2022, 5:19:01 PM"
-    },
-    {
-      "title": "theme",
-      "frontmatter": {
-        "title": "theme",
-        "date": "2020-05-27T00:00:00.000Z"
-      },
-      "regularPath": "/docs/theme-reco/theme.html",
-      "relativePath": "docs/theme-reco/theme.md",
-      "key": "v-598dbe8b",
-      "path": "/docs/theme-reco/theme.html",
-      "lastUpdated": "1/21/2022, 5:19:01 PM"
-    },
-    {
-      "title": "差分约束",
-      "frontmatter": {
-        "title": "差分约束"
-      },
-      "regularPath": "/blogs/solution/graph/differconnect.html",
-      "relativePath": "blogs/solution/graph/differconnect.md",
-      "key": "v-55bbfa19",
-      "path": "/blogs/solution/graph/differconnect.html",
-      "headers": [
-        {
-          "level": 3,
-          "title": "",
-          "slug": ""
-        },
-        {
-          "level": 2,
-          "title": "HDUOJ1384_Intervals",
-          "slug": "hduoj1384-intervals"
-        },
-        {
-          "level": 2,
-          "title": "HDUOJ3592_WorldExhibition",
-          "slug": "hduoj3592-worldexhibition"
-        },
-        {
-          "level": 2,
-          "title": "Luogu2294_狡猾的商人",
-          "slug": "luogu2294-狡猾的商人"
-        }
-      ],
-      "lastUpdated": "1/22/2022, 6:05:19 PM"
-    },
-    {
-      "frontmatter": {
-        "showSponsor": true
-      },
-      "regularPath": "/rewards.html",
-      "relativePath": "rewards.md",
-      "key": "v-b90240aa",
-      "path": "/rewards.html",
-      "lastUpdated": "1/22/2022, 1:58:14 AM"
-    },
-    {
-      "frontmatter": {},
-      "regularPath": "/person-wechat.html",
-      "relativePath": "person-wechat.md",
-      "key": "v-2a76442a",
-      "path": "/person-wechat.html",
-      "lastUpdated": "1/22/2022, 5:37:28 PM"
-    },
-    {
       "frontmatter": {
         "layout": "Tags",
         "title": "Tags"
@@ -6172,20 +6177,20 @@ export const siteData = {
     {
       "frontmatter": {
         "layout": "Tag",
-        "title": "离线算法 Tags"
-      },
-      "regularPath": "/tag/%E7%A6%BB%E7%BA%BF%E7%AE%97%E6%B3%95/",
-      "key": "v-19490cfb",
-      "path": "/tag/离线算法/"
-    },
-    {
-      "frontmatter": {
-        "layout": "Tag",
         "title": "数据结构 Tags"
       },
       "regularPath": "/tag/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/",
       "key": "v-92b3076c",
       "path": "/tag/数据结构/"
+    },
+    {
+      "frontmatter": {
+        "layout": "Tag",
+        "title": "离线算法 Tags"
+      },
+      "regularPath": "/tag/%E7%A6%BB%E7%BA%BF%E7%AE%97%E6%B3%95/",
+      "key": "v-19490cfb",
+      "path": "/tag/离线算法/"
     },
     {
       "frontmatter": {
@@ -6280,20 +6285,20 @@ export const siteData = {
     {
       "frontmatter": {
         "layout": "Category",
-        "title": "离线算法 Categories"
-      },
-      "regularPath": "/categories/%E7%A6%BB%E7%BA%BF%E7%AE%97%E6%B3%95/",
-      "key": "v-17c9b307",
-      "path": "/categories/离线算法/"
-    },
-    {
-      "frontmatter": {
-        "layout": "Category",
         "title": "数据结构 Categories"
       },
       "regularPath": "/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/",
       "key": "v-95b1bb54",
       "path": "/categories/数据结构/"
+    },
+    {
+      "frontmatter": {
+        "layout": "Category",
+        "title": "离线算法 Categories"
+      },
+      "regularPath": "/categories/%E7%A6%BB%E7%BA%BF%E7%AE%97%E6%B3%95/",
+      "key": "v-17c9b307",
+      "path": "/categories/离线算法/"
     },
     {
       "frontmatter": {

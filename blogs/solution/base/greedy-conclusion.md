@@ -269,6 +269,51 @@ int main () {
 
 <hr>
 
+## 洛谷P1645_序列
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P1645"><img src="https://img-blog.csdnimg.cn/9ede6338984a43c08e9ba90a481fd7ea.png"></a>
+
+#### 💡
+一个贪心的思想  
+我们对 $r$ 从小到大排序，每次尽可能选择区间右边的去占位  
+从而保证后面的区间内部有了更多的占位，做到压缩答案序列数  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1100;
+int n;
+bool vis[N];
+struct node {
+        int l, r, c;
+        inline friend bool operator < ( node a, node b ) {
+                return a.r < b.r;
+        }
+} nd[N];
+int res = 0;
+
+int main () {
+        ios::sync_with_stdio(false);
+
+        cin >> n;
+        for ( int i = 0; i < n; i ++ ) cin >> nd[i].l >> nd[i].r >> nd[i].c;
+        sort ( nd, nd + n );
+
+        for ( int i = 0; i < n; i ++ ) {
+                for ( int j = nd[i].l; j <= nd[i].r; j ++ ) nd[i].c -= vis[j];
+                for ( int j = nd[i].r; j >= nd[i].l && nd[i].c > 0; j -- ) {
+                        if ( vis[j] ) continue;
+                        vis[j] = 1,
+                        nd[i].c --, res ++; 
+                }
+        }
+        
+        cout << res << endl;
+}
+```
+<hr>
+
+
 ## 洛谷P2869_GourmetGrazersG
 
 #### 🔗
