@@ -194,6 +194,122 @@ int main () {
 
 <hr>
 
+## ABC238G_Cubic?
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc238/tasks/abc238_g?lang=en"><img src="https://img-blog.csdnimg.cn/8a02cff6f49c4f1380791a7e6c67cc5f.png"></a>
+
+#### 💡
+注意一下立方数的性质：分解质因数后每个质因数出现至少三的倍数次  
+仅有区间查询，我们可以使用莫队  
+对每一次移动的数，都对其质因数进行统计，如果出现操作后变得不是三的倍数，就使计数变量 $+1$ ，相反的情况是 $-1$   
+当然如果我们移动的时候都求一次，会超时  
+那么我们可以先对每一个位置打一个质因数表  
+移动的时候直接遍历这个位置的质因数表即可  
+带上奇偶优化，勉强卡过去  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e6 + 10;
+
+namespace Number {
+        bool not_prime[N];
+        vector<ll> prime;
+        inline void Sieve () {
+                not_prime[0] = not_prime[1] = 1;
+                for ( int i = 2; i < N; i ++ ) {
+                        if ( !not_prime[i] ) prime.push_back(i);
+                        for ( ll j = 0; j < prime.size() && i * prime[j] < N; j ++ ) {
+                                not_prime[i * prime[j]] = 1;
+                                if ( i % prime[j] == 0 ) break;
+                        }
+                }
+        }
+        inline vector<pair<ll, ll> > get_Div ( ll x ) {
+                vector<pair<ll, ll> > res;
+                for ( ll p : prime ) {
+                        if ( p * p > x ) break;
+                        if ( !not_prime[x] ) break;
+                        ll num = 0;
+                        while ( x % p == 0 ) x /= p, num ++;
+                        if ( num ) res.push_back({p, num});
+                }
+                if ( x > 1 ) res.push_back({x, 1});
+                return res;
+        }
+}
+
+int stsz;
+int cnt[N];
+vector<pair<ll, ll> > divid[N];
+
+
+inline void add ( int id ) {
+        for ( pair<ll, ll> pr : divid[id] ) {
+                int pre = cnt[pr.first];
+                cnt[pr.first] += pr.second;
+                int thn = cnt[pr.first];
+                if ( pre % 3 == 0 && thn % 3 != 0 ) stsz ++;
+                else if ( pre % 3 != 0 && thn % 3 == 0 ) stsz --;
+        }
+}
+inline void del ( int id ) {
+        for ( pair<ll, ll> pr : divid[id] ) {
+                int pre = cnt[pr.first];
+                cnt[pr.first] -= pr.second;
+                int thn = cnt[pr.first];
+                if ( pre % 3 == 0 && thn % 3 != 0 ) stsz ++;
+                else if ( pre % 3 != 0 && thn % 3 == 0 ) stsz --;
+        }
+}
+
+int n, q;
+int a[N];
+int len;
+inline int pos ( int x ) {
+        return x / len;
+}
+struct Query {
+        int l, r;
+        int id;
+        inline friend bool operator < ( Query a, Query b ) {
+                if ( pos(a.l) != pos(b.l) ) return pos(a.l) < pos(b.l);
+                if ( pos(a.l) % 2 ) return a.r > b.r;
+                else return a.r < b.r;
+        }
+} qry[N];
+int res[N];
+
+int main () {
+        Number::Sieve();
+
+        scanf("%d%d", &n, &q); len = sqrt(n);
+        for ( int i = 1; i <= n; i ++ ) 
+                scanf("%d", &a[i]),
+                divid[i] = Number::get_Div(a[i]);
+        for ( int i = 0; i < q; i ++ ) 
+                scanf("%d%d", &qry[i].l, &qry[i].r), 
+                qry[i].id = i;
+        sort(qry, qry + q);
+
+        int L = 1, R = 0;
+        for ( int i = 0; i < q; i ++ ) {
+                while ( L < qry[i].l ) del(L ++);
+                while ( L > qry[i].l ) add(-- L);
+                while ( R > qry[i].r ) del(R --);
+                while ( R < qry[i].r ) add(++ R);
+                if ( stsz ) res[qry[i].id] = 0;
+                else res[qry[i].id] = 1;
+        }
+        for ( int i = 0; i < q; i ++ ) {
+                if ( res[i] ) puts("Yes");
+                else puts("No");
+        }
+}
+```
+<hr>
+
+
 
 ## 带修莫队
 

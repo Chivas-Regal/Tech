@@ -4,6 +4,48 @@ title: 并查集
 ###  
 <hr>
 
+## ABC238E_RangeSums
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc238/tasks/abc238_e"><img src="https://img-blog.csdnimg.cn/90eaebfac43c492ca3271d26b09bf540.png"></a>
+
+#### 💡
+考虑一下，在拥有 $x\to y$ 的情况下，拥有了 $y+1\to z$ ，我们会获得 $x\to z$   
+如果是拥有了 $z+1\to y$ ，我们会获得 $x\to z$  
+这是一个传递性的关系  
+可以通过建图完成  
+建立并查集，每次连通 $l-1\to r$ ，如果最后 $0$ 与 $n$ 连通，就可以传递过去  
+反之不能   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+
+namespace UnionSet {
+        int nod[N];
+        inline int Find ( int x ) { return x == nod[x] ? x : nod[x] = Find(nod[x]); }
+        inline void Merge ( int x, int y ) {
+                int fx = Find(x), fy = Find(y);
+                if ( fx != fy ) nod[fx] = fy;
+        }
+}
+int n, q;
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin >> n >> q;
+        for ( int i = 0; i <= n; i ++ ) UnionSet::nod[i] = i;
+        for ( int i = 0; i < q; i ++ ) {        
+                int l, r; cin >> l >> r;
+                UnionSet::Merge(l - 1, r);
+        }        
+        if ( UnionSet::Find(0) == UnionSet::Find(n) ) cout << "Yes" << endl;
+        else cout << "No" << endl;
+}
+```
+<hr>
+
+
 ## CodeForces1594D_TheNumberOfImposters
 
 #### 🔗

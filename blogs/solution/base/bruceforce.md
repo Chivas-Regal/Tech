@@ -773,6 +773,45 @@ CHIVAS_{
 
 <hr>
 
+### ABC238C_Digitnum
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc238/tasks/abc238_c"><img src="https://img-blog.csdnimg.cn/070e2ecb66c147508fc718bbb804f72a.png"></a>
+
+#### 💡
+我们具像化一下公式  
+$f(x)=x-10^{sz_x-1}+1$  
+对于前两部分可以在同位数上一起求  
+- 第一部分为 $100...0\to min(n,999...9)$ 的等差数列   
+- 第二部分为 $100...0\to min(n,999...9)$ 的个数 $\times10^{sz-1}$  
+最后求第三部分，即 $+n$       
+本题难点2在取模上，写一个 `add(a,b)` 和 `sub(a,b)` 函数即可   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+// 代码为非取模版本  
+int main () {
+        ios::sync_with_stdio(false);
+
+        ll n; cin >> n;
+        ll sz = to_string(n).size();
+        ll res = 0;
+        for ( ll i = 0; i < sz - 1; i ++ ) {
+                ll a = ksm(10, i);
+                ll b = ksm(10, i + 1) - 1;
+                res += (a + b) * (b - a + 1) / 2;
+                res -= (b - a + 1) * ksm(10, i);
+        }
+        ll a = ksm(10, sz - 1);
+        ll b = n;
+        res += (a + b) * (b - a + 1) / 2;
+        res -= (b - a + 1) * ksm(10, sz - 1);
+        cout << res + n << endl;
+}
+```
+<hr>
+
+
 ### CodeForces813B_TheGoldenAge
 
 #### 🔗
