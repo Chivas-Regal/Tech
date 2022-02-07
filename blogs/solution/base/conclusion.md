@@ -310,6 +310,42 @@ int main () {
 
 <hr>
 
+## CodeForces1634B_FortuneTelling
+
+#### 🔗
+<a href="https://codeforces.com/contest/1634/problem/B"><img src="https://img-blog.csdnimg.cn/5c48974a8c504065b828aff7f9ff26a6.png"></a>
+
+#### 💡
+本题在不深入了解异或与加法的关系时，需要猜结论  
+首先题目确保只有一个人能赢， $x$ 与 $x+3$ 的不同之处有一个是奇偶性且 $y$ 一定是奇偶中的一个  
+所以考虑奇偶性  
+::: tip
+一个易得的性质：加法和异或奇偶性相同  
+即： $(a+b)\%2=(a\oplus b)%2$
+:::  
+那么我们让 $x+sum\{a\}$ 和 $x+3+sum\{a\}$ 看看哪个奇偶性和 $y$ 相同就是谁赢    
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void Solve () {
+        ll n, x, y; cin >> n >> x >> y;
+        vector<ll> a(n + 5);
+        ll sum = 0;
+        for ( int i = 0; i < n; i ++ ) {
+                cin >> a[i];
+                sum += a[i];
+        }
+        ll ali = x;
+        ll bob = x + 3;
+        ali += sum;
+        bob += sum;
+        if ( ali % 2 == y % 2 ) cout << "Alice" << endl;
+        else cout << "Bob" << endl;
+}
+```
+<hr>
+
+
 ## HDU2021多校(5)3_VCisAllYouNeed
 
 #### 🔗

@@ -4049,6 +4049,110 @@ inline void Solve () {
 ```
 <hr>
 
+## CodeForces1634C_OKEA
+
+#### 🔗
+<a href="https://codeforces.com/contest/1634/problem/C"><img src="https://img-blog.csdnimg.cn/694382857dcb4b0db641b56ca2d7b6fa.png"></a>
+
+#### 💡
+注意每一行只能是连续的奇数或者是连续的偶数，否则奇偶相间则这一对相邻的平均数不为整数    
+那么我们就构造，如果奇数不够或者是偶数不够就 `NO`  
+否则输出 `YES` 和构造后的数组即可
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int res[505][505];
+ 
+inline void Solve () {
+        ll n, k; cin >> n >> k;
+        vector<ll> odd, eve;
+        for ( int i = n * k; i >= 1; i -- ) {
+                if ( i & 1 ) odd.push_back(i);
+                else eve.push_back(i);
+        }
+        for ( int i = 1; i <= n; i ++ ) {
+                if ( i & 1 ) {
+                        for ( int j = 1; j <= k; j ++ ) {
+                                if ( !odd.size() ) {
+                                        cout << "NO" << endl;
+                                        return;
+                                }
+                                res[i][j] = odd.back(); odd.pop_back();
+                        }
+                } else {
+                        for ( int j = 1; j <= k; j ++ ) {
+                                if ( !eve.size() ) {
+                                        cout << "NO" << endl;
+                                        return;
+                                }
+                                res[i][j] = eve.back(); eve.pop_back();
+                        }
+                }
+        }
+        cout << "YES" << endl;
+        for ( int i = 1; i <= n; i ++ ) {
+                for ( int j = 1; j <= k; j ++ ) cout << res[i][j] << ' ';
+                cout << endl;
+        } 
+}
+```
+<hr>
+
+
+## CodeForces1634D_FindZero
+
+#### 🔗
+<a href="https://codeforces.com/problemset/problem/1634/D"><img src="https://img-blog.csdnimg.cn/7e3b0810bfe9425eb772ebd731200287.png"></a>
+
+#### 💡
+我们每次可以获得 $max(a[a],a[b],a[c])-min(a[a],a[b],a[c])$   
+在所有的三元组中，若这个值最大  
+那么 $max\{a\}$ 和 $min\{a\}=0$ 一定存在于这个三元组中  
+所以我们可以先固定 $a=1,b=2,c=3$ ，然后遍历两遍，在维护 $mx$ 的最大值时更新 $b$ 和 $c$  
+那么我们就会获得一个包含 最大值 和 $0$ 的三元组，且一共询问了 $2n-6$ 次  
+然后我们就要判断 $max\{a\}$ 和 $min\{a\}$ 在哪两个里面  
+找一个 $id$ 满足 $id\neq a\wedge id\neq b\wedge id\neq c$  
+分别用 $id$ 替换 $a,b,c$    
+若替换后查询结果还是最大值，那么 $max\{a\}$ 和 $min\{a\}$ 一定在另外两个里面，输出就行了  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline int query ( int x, int y, int z ) {
+        cout << "? " << x << " " << y << " " << z << endl; cout.flush();
+        int res; cin >> res;
+        return res;
+}
+inline void answer ( int x, int y ) {
+        cout << "! " << x << ' ' << y << endl; cout.flush();
+}
+
+inline void Solve () {
+        int n; cin >> n;
+        int a = 1, b = 2, c = 3;
+        int mx = query(a, b, c);
+        for ( int i = 4; i <= n; i ++ ) {
+                int abi = query(a, b, i);
+                if ( mx < abi ) 
+                        mx = abi,
+                        c = i;
+        }
+        for ( int i = 1; i <= n; i ++ ) {
+                if ( i == a || i == b || i == c ) continue;
+                int aic = query(a, i, c);
+                if ( mx < aic )
+                        mx = aic,
+                        b = i;
+        }
+        int id = 1; while ( id == a || id == b || id == c ) id ++;
+        int tst1 = query(id, b, c);
+        int tst2 = query(a, id, c);
+        if ( tst1 == mx ) answer(b, c);
+        else if ( tst2 == mx ) answer(a, c);
+        else answer(a, b);
+}
+```
+<hr>
+
 
 ## GYM102174F_风王之瞳
 
