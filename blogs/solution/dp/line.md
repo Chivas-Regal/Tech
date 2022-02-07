@@ -14,15 +14,15 @@ title: 线性DP
 那么关键就是第二问：求最长下降子序列的个数  
 是 [这道题](https://codeforces.com/gym/102163/problem/C) 的深化版，就是多了一份同样的数列去重  
 去重是最难想的，因为没有去重的话我们每次就以 <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> 更新  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 的时候都递加一下这个长度的数量即可  
-  
+
 求最长下降子序列的时候是前缀一个个递推的  
 我们在这里可以接着递推的时候求  
 设置  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{dp2\}" title="\inline \{dp2\}" /> 为方案数  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{dp\}" title="\inline \{dp\}" /> 数组，  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{dp1\}" title="\inline \{dp1\}" /> 是前缀最长下降子序列数组  
-  
+
 如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;a_i=a_j" title="\inline a_i=a_j" /> 且  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp_i=dp_j" title="\inline dp_i=dp_j" /> 说明转移给  <img src="https://latex.codecogs.com/svg.image?\inline&space;a_j" title="\inline a_j" /> 的也可以以同样的方式转移给  <img src="https://latex.codecogs.com/svg.image?\inline&space;a_i" title="\inline a_i" /> ，那么此时我们就不需要  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2_j" title="\inline dp2_j" /> 了，直接用  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2_i" title="\inline dp2_i" /> 就可以表示  
 如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;a_j>a_i" title="\inline a_j>a_i" /> 且  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1_j+1=dp1_i" title="\inline dp1_j+1=dp1_i" /> ，则说明这里有  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1_i" title="\inline dp1_i" /> 通过  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1_j" title="\inline dp1_j" /> 转移来  
 所以我们在方案数  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2_i" title="\inline dp2_i" /> 可以继承  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2_j" title="\inline dp2_j" /> 即  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2_i+=dp2_i" title="\inline dp2_i+=dp2_i" />   
-  
+
 我们可以顺求  <img src="https://latex.codecogs.com/svg.image?\inline&space;max\{dp1\}=res1" title="\inline max\{dp1\}=res1" /> 
 处理完之后累加一下每一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1=res" title="\inline dp1=res" /> 的  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2" title="\inline dp2" />  
 
@@ -69,21 +69,21 @@ int main () {
 #### 💡
 这道题，每个地方吃垃圾和踩垃圾，两种中决策出来一个  
 受到饱腹感的限制  
-  
+
 这不就  <img src="https://latex.codecogs.com/svg.image?\inline&space;DP" title="\inline DP" /> 吗  
 我们想要进行取最优的是高度，所以我们状态表示的是高度  
 而那两个限制就放在维度中  
 令  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j]" title="\inline dp[i][j]" /> 表示第  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 个垃圾，有  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> 饱腹感的最高高度  
-  
+
 那么我们在枚举到  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  的时候，有吃和踩两种  
 踩无法让饱腹感更高但是可以贡献高度：  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j]=max(dp[i-1][j+gbgs[i].t-gbgs[i-1].t]+gbgs[i].h)" title="\inline dp[i][j]=max(dp[i-1][j],dp[i-1][j+gbgs[i].t-gbgs[i-1].t]+gbgs[i].h)" />   
 吃无法让高度更高但是要更新更高的饱腹感：  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j+gbgs[i].f]=max(dp[i-1][j+gbgs[i].t-gbgs[i-1].t])" title="\inline dp[i][j+gbgs[i].f]=max(dp[i][j+gbgs[i].f],dp[i-1][j+gbgs[i].t-gbgs" />   
-  
+
 设计一个饱腹感变量让它每次都吃  
 也就是最高的饱腹感  
 不仅用作遍历，还用作判断，如果中间断时间过大，那么一定是走不上去就被饿死了，所以中间判断一下够不够减这个时间，不够的话就根据上一次时间和饱腹感输出时间  
 如果中间  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[][]" title="\inline dp" /> 比  <img src="https://latex.codecogs.com/svg.image?\inline&space;D" title="\inline D" /> 更高了，那么就直接输出这个时间，能走上去  
-  
+
 最后还是没走上去的话，就每次都吃统计一下总饱腹感，然后输出这个饱腹感就是坚持的时间  
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
@@ -152,7 +152,7 @@ int main () {
 #### 💡
 很麻烦的一道  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp" title="\inline dp" /> 加贪心  
 首先每一次要选哪个点进行射击时决策，所以我们想到  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp" title="\inline dp" />   
-  
+
 由于在不同的行花费不同的子弹能得到不同的价值，而我们有这个子弹数  
 所以预处理出  
 
@@ -176,7 +176,7 @@ inline void pre_D ( int j ) {
 }
 
 for ( int j = 1; j <= M; j ++ ) pre_D ( j );
-```  
+```
 
 其次是  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp" title="\inline dp" />   
 由于限制为子弹数量和列数  
@@ -253,7 +253,85 @@ int main () {
 }
 ```
 
+---
+
+## 洛谷P2498_SkiLessonsG
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P2948"><img src="https://img-blog.csdnimg.cn/02106c1b63624673869055a41a74784e.png"></a>
+
+#### 💡
+
+::: tip 成员变量
+`class[i] {beg, lst, can}` 第 $i$ 节课开始时间，持续时间，能力值  
+:::
+
+我们贪心地让在 $j$ 能力下，选择滑雪时间最短的场滑雪用时  
+即设置 `mntim[j]`  
+我们设置 $dp[i][j]$ 表示第 $i$ 时刻，能力值为 $j$ ，滑过雪的最大次数  
+那么一次有三种选择  
+
+- 学习：若此时是第 $k$ 门课的开始时间且 $class[k].can>j$，$dp[i+class[k].lst][class[k].can]=max(this,dp[i][j])$
+- 滑雪：若 $i+mntim[j]\le t$ ，$dp[i+mntim[j]][j]=max(this,dp[i][j]+1)$
+- 摸鱼：$dp[i+1][j]=max(this,dp[i][j])$
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 3e4 + 10;
+int t, s, n;
+struct cls {
+        int beg, lst, can;
+} cls[N];
+struct path {
+        int tim, ned;
+} pth[N];
+int mntim[110];
+int dp[N][110]; 
+int maxcan = 1;
+
+int main () {
+        ios::sync_with_stdio(false);
+
+        cin >> t >> s >> n;
+        for ( int i = 1; i <= s; i ++ ) 
+                cin >> cls[i].beg >> cls[i].lst >> cls[i].can,
+                maxcan = max(maxcan, cls[i].can);
+
+        memset(mntim, 0x3f3f3f3f, sizeof mntim);
+        for ( int i = 1; i <= n; i ++ ) 
+                cin >> pth[i].ned >> pth[i].tim,
+                mntim[pth[i].ned] = min(mntim[pth[i].ned], pth[i].tim);
+        for ( int i = 1; i <= 101; i ++ )  
+                mntim[i] = min(mntim[i], mntim[i - 1]);
+
+        memset(dp, -0x3f3f3f3f, sizeof dp);
+        dp[0][1] = 0;
+        for ( int i = 0; i <= t; i ++ ) {
+                for ( int j = 1; j <= maxcan; j ++ ) {
+                        if ( dp[i][j] < 0 ) continue; // 无法转移
+                        for ( int k = 1; k <= s; k ++ ) {
+                                if ( cls[k].beg != i || cls[k].can <= j || i + cls[k].lst > t ) continue;
+                                dp[i + cls[k].lst][cls[k].can] = max(dp[i + cls[k].lst][cls[k].can], dp[i][j]); // 学习
+                        }
+                        dp[i + 1][j] = max(dp[i + 1][j], dp[i][j]); // 什么也不干
+                        if ( i + mntim[j] <= t ) 
+                                dp[i + mntim[j]][j] = max(dp[i + mntim[j]][j], dp[i][j] + 1); // 滑雪
+                }
+        }
+
+        int res = -0x3f3f3f3f;
+        for ( int i = 0; i <= t; i ++ ) {
+                for ( int j = 1; j <= maxcan; j ++ ) {
+                        res = max(res, dp[i][j]);
+                }
+        }
+        cout << res << endl;
+}
+```
 <hr>
+
+
 
 ## 洛谷P2606_排列计数
 
@@ -266,7 +344,7 @@ int main () {
 从  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" />  开始，我们有  <img src="https://latex.codecogs.com/svg.image?\inline&space;Sz_1" title="\inline Sz_1" /> 个节点，可以选择  <img src="https://latex.codecogs.com/svg.image?\inline&space;\binom{Sz_1-1}{Sz_2}" title="\inline \binom{Sz_1-1}{Sz_2}" /> 放入二号子树，其余放入三号子树  
 通俗地说，就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;\binom{Sz_x-1}{Sz_{x\times&space;2}}" title="\inline " /> 放入左子树，其余放入右子树  
 这样就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;C(Sz_x-1,Sz{x\times&space;2\times&space;Dfs(x\times2)\times&space;Dfs(x\times2+1)" title="\inline C(S" />   
-  
+
 注意模数可能很小，所以我们需要用  <img src="https://latex.codecogs.com/svg.image?\inline&space;Lucas" title="\inline Lucas" /> 定理  
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
@@ -315,17 +393,17 @@ https://vjudge.net/problem/AtCoder-abc189_d
 #### 💡
 可以看出这是一道两套子问题互相来回交汇的方案数问题  
 由于中途中选TF是比较随意的，所以我们先列出TF的关系式：  
-  
+
 <img src="https://latex.codecogs.com/svg.image?\begin{matrix}&F\;&\And\;&F\;&=\;&F\\&F\;&\And\;&T\;&=\;&F\\&T\;&\And\;&F\;&=\;&F\\&T\;&\And\;&T\;&=\;&T\\\\&F\;&|\;&T\;&=\;&T\\&T\;&|\;&T\;&=\;&T\\&T\;&|\;&F\;&=\;&T\\&F\;&|\;&F\;&=\;&F&space;\end{matrix}&space;" title="\begin{matrix}&F\;&\And\;&F\;&=\;&F\\&F\;&\And\;&T\;&=\;&F\\&T\;&\And\;&F\;&=\;&F\\&T\;&\And\;&T\;&=\;&T\\\\&F\;&|\;&T\;&=\;&T\\&T\;&|\;&T\;&=\;&T\\&T\;&|\;&F\;&=\;&T\\&F\;&|\;&F\;&=\;&F \end{matrix} " />
-  
+
 这两套方案即是这一位为T或F的两种状态  
 那么我们设置dpT, dpF为状态表示  
 然后就是利用上面的式子  
-  
+
 在 "or" 中，T可以由两个T和一个F转移来，F可以由一个F转移来  
 在 "and" 中，F可以由两个F和一个T转移来，T可以由一个T转移来  
 得到转移方程式，开始写程序  
-  
+
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
 
 ```cpp
@@ -483,7 +561,7 @@ int main () {
 #### 🔗
 <a href="https://www.acwing.com/problem/content/897/"><img src="https://img-blog.csdnimg.cn/20210617171842630.png"></a>
 
-     
+
 #### 💡
 数据量1000，可以用n^2的复杂度去解  
 在上升子序列中，考虑每一位都必须比前面那一位要大  
@@ -526,12 +604,12 @@ int main(){
 我第一反应是区间DP，但是我们需要一维去记录删掉多少个元素  
 所以我们用一维表示枚举的位数，一维表示删除多少个元素  
 就变成了一道线性DP  
-  
+
 发现这个几乎可以用[LIS问题的方法](https://blog.csdn.net/SnopzYz/article/details/117997834?spm=1001.2014.3001.5501)写，相比较于LIS问题  
 少了个大小的限制，但多了个对删除多少个元素的限制  
 同时把a[i]接到a[j]后面的收益从1变成了w[a[i]][a[j]]  
 数据量200，明显是让我们加一重循环去维护第二维的    
-  
+
 所以问题就转化成了一个带一点变动的LIS问题  
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
@@ -567,12 +645,12 @@ int main(){
 
 #### 🔗
 https://codeforces.com/contest/376/problem/D
- 
+
 #### 💡
 本题使用了DP悬线法  
 即：我们求出每个点的向上最长延伸距离 x 、向左最长延伸距离 y ，从上向下缩个 y ，然后枚举点维护 x * y 的最大值即可求得最大条件矩阵面积  
 我们缩 y 的目的是：我们可能在最长向上延伸距离中，上面有的点的左延伸距离比下面的短，导致我们用下面的点的 x * y 形成的子矩阵是个不符合条件的子矩阵，所以我们要缩边  
-  
+
 但是本题有个约定是：我们可以改变行的顺序  
 那么这样我们就可以对每一列的最长向左延伸距离做个降序排序，从而使得我们不需要再缩边  
 而我们每个最长向左延伸距离在有数的时候，我们的矩阵点都是1，所以我们排过序后，最长向上延伸距离就是这个点的行号  
@@ -753,7 +831,7 @@ int main () {
 #### 🔗
 https://acm.hdu.edu.cn/showproblem.php?pid=1176
 
-    
+
 #### 💡
 可以看作是一个倒着的数塔，每个点连接三条边  
 其中高度就是它给的时间，毕竟时间越长离地面越远  
@@ -889,7 +967,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=2041
 
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
-  
+
 
 ```cpp
 #pragma region
@@ -1126,11 +1204,11 @@ int main () {
 求最长上升子序列的长度以及它的个数  
 可以看做是[这道题](https://www.luogu.com.cn/problem/P1108)的简化版，因为这里是按下标看的  
 并不需要涉及一样的数列去重  
-  
+
 在这个地方就省去很多处理的步骤  
 还是一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[i]" title="\inline dp1[i]" /> 表示  结尾是  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  的最长上升子序列长度，一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2[i]" title="\inline dp2[i]" /> 表示结尾是  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  的最长上升子序列的数量  
  <img src="https://latex.codecogs.com/svg.image?\inline&space;1000" title="\inline 100" /> 的数据量，那么我们求它的时候就是正常的前面的进行   
-   
+
  在求  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2[i]" title="\inline dp2[i]" /> 时，我们一样枚举  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 前面的  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> ，如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;a[j]<a[i]" title="\inline a[j]<a[i]" /> 并且  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[i]=dp1[j]+1" title="\inline dp1[i]=dp1[j]+1" /> ，就说明这个  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[i]" title="\inline dp[i]" /> 有一部分方案是由  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[j]" title="\inline dp1[j]" /> 转移过来的  
  那么我们汇聚一下方案数也就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2[i]+=dp2[j]" title="\inline dp2[i]+=dp2[j]" /> 就可以了（记得在  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[i]=1" title="\inline dp1[i]=1" /> 的情况下说明  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 没有别的推过来，它自己是唯一一种方案，要设置为  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" /> 
 
@@ -1231,3 +1309,4 @@ public class Main {
 
 
 <hr>
+
