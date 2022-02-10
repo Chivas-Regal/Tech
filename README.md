@@ -8,7 +8,7 @@ heroImageStyle: {
   margin: '0 auto 5rem',
   margin-top: '5rem',
   background: '#fff',
-  borderRadius: '1rem',
+  borderRadius: '50%',
 }
 bgImageStyle: {
   height: '450px'
