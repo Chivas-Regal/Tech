@@ -5,6 +5,24 @@ title: 位运算
 ###
 <hr>
 
+## 牛客2022寒假算法基础集训营4K_小红的真真假假签到题题
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/23479/K"><img src="https://img-blog.csdnimg.cn/6fc08de6a4cc42d493ed9bd838c4b980.png"></a>
+
+#### 💡
+要求子串，且 $1$ 的个数不同  
+那么我们让 $x$ 化为 $01$ 串后两段 $x$ 拼在一起即可  
+方便下其实左移 $30$ 为后腾出充足的位置在补上 $x$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```python
+x = int(input())
+print(x << 30 | x)
+```
+<hr>
+
+
 ## ABC238D_ANDandSUM
 
 #### 🔗

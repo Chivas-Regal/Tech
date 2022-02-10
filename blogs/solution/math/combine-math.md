@@ -13,6 +13,8 @@ title: 组合数学
 
 #### 💡
 我们先打一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;2^k" title="\inline 2^k" /> 进制和  <img src="https://latex.codecogs.com/svg.image?\inline&space;2" title="\inline 2" /> 进制的对应表看看  
+
+::: details 表格
 <table>
 <tr><th>k</th><th> <img src="https://latex.codecogs.com/svg.image?\inline&space;10" title="\inline 10" />  进制</th><th> <img src="https://latex.codecogs.com/svg.image?\inline&space;2^k" title="\inline 2^k" /> 进制</th><th> <img src="https://latex.codecogs.com/svg.image?\inline&space;2" title="\inline 2" /> 进制</th></tr>
 <tr><td rowspan="101">1</td></tr><tr><td>1</td><td>1</td><td>1</td></tr>
@@ -316,10 +318,10 @@ title: 组合数学
 <tr><td>99</td><td>143</td><td>1100011</td></tr>
 <tr><td>100</td><td>144</td><td>1100100</td></tr>
 </table>
-
+:::
   
 可以发现几个有趣的事情：  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;1." title="\inline 1." />  <img src="https://latex.codecogs.com/svg.image?\inline&space;2^k" title="\inline 2^k" /> 进制对于  <img src="https://latex.codecogs.com/svg.image?\inline&space;2" title="\inline 2" /> 进制的进位极限在  <img src="https://latex.codecogs.com/svg.image?\inline&space;2^k" title="\inline 2^k" /> 进制表示的最高位上呈这样的排列  
+$1.$  $2^k$ 进制对于  $2$ 进制的进位极限在 $2^k$ 进制表示的最高位上呈这样的排列  
  <table>
  <tr><th>k=1</th><td>1,1,1,1,1,1,...</td></tr>
  <tr><th>k=2</th><td>1,3,1,3,1,3,...</td></tr>
@@ -327,10 +329,10 @@ title: 组合数学
  </table>  
  那么我们可以从中推出  
   <table>
- <tr><th>k=x</th><td> <img src="https://latex.codecogs.com/svg.image?\inline&space;2^0-1,2^1-1,2^2-1,...2^x-1,2^0-1,2^1-1,2^2-1,....,2^x-1...." title="\inline 2^0-1,2^1-1,2^2-1,...2^x-1,2^0-1,2^1-1,2^2-1,....,2^x-1...." /></td></tr>
+ <tr><th>k=x</th><td> $2^0-1,2^1-1,2^2-1,...2^x-1,2^0-1,2^1-1,2^2-1,....,2^x-1....$</td></tr>
  </table>  
  
-  <img src="https://latex.codecogs.com/svg.image?\inline&space;2." title="\inline 2." /> <img src="https://latex.codecogs.com/svg.image?\inline&space;2^k" title="\inline 2^k" /> 进制下，在这个排列里面，一次循环  <img src="https://latex.codecogs.com/svg.image?\inline&space;2^k" title="\inline 2^k" /> 进制会进一位  
+$2.$ $2^k$ 进制下，在这个排列里面，一次循环  $2^k$ 进制会进一位  
   
     
     
@@ -583,6 +585,71 @@ int main () {
 ```
 
 <hr>
+
+### 牛客2022寒假算法基础集训营4G_子序列权值乘积
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/23479/G"><img src="https://img-blog.csdnimg.cn/636cc7a3d9dd4b898721425de121988e.png"></a>
+
+#### 💡
+考虑每个数作为 $min$ 和 $max$ 出现的次数  
+分成这么两类  
+- 自己这个数在整个序列中只出现一次
+- 自己这个数在整个序列中出现任意次
+  
+对于第一类：  
+我们找出比自己大的数的个数设置为 `gre`，比自己小的设置为 `les`  
+由于可以选或者不选，所以 $x$ 个数就有 $2^x$ 种方案  
+那么这类情况做出的贡献为 $a^{2^{les}}\times a^{2^{gre}}$   
+  
+对于第二类：  
+首先我们自己有 $b$ 个，然后依旧是比自己大的数的个数设置为 `gre`，比自己小的设置为 `les`  
+自己至少要选两个，别的选或者不选  
+那么贡献为 $a^{(2^b-1-b)\times 2^{les}}\times a^{(2^b-1-b)\times 2^{gre}}$   
+  
+::: danger
+有一个细节是取模的时候指数不应是取 $10^9+7$   
+而是根据欧拉降幂取 $\phi(10^9+7)=10^9+6$ 
+:::
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+ll a[200005];
+const ll mod = 1e9 + 7;
+const ll powmod = 1e9 + 6;
+inline ll ksm ( ll a, ll b, ll mod = 1e9 + 7 ) { ll res = 1; while ( b ) { if ( b & 1 ) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+map<ll, ll> num;
+
+int main () {
+        ios::sync_with_stdio(false);
+        ll n; cin >> n;
+        for ( ll i = 0; i < n; i ++ ) {
+                cin >> a[i];
+                num[a[i]] ++;
+        }
+        sort ( a, a + n ); a[n] = 0x3f3f3f3f;
+        ll res = 1;
+        for ( ll i = 0; i < n; i ++ ) {
+                ll les = lower_bound(a, a + n + 1, a[i]) - a;
+                ll gre = n - (upper_bound(a, a + n + 1, a[i]) - a);
+                res = res * ksm(a[i], ksm(2, les, powmod)) % mod; 
+                res = res * ksm(a[i], ksm(2, gre, powmod)) % mod;
+        }
+        for ( auto i : num ) {
+                res = res * ksm(
+                                i.first % mod, 
+                                (((ksm(2, i.second, powmod) - 1 - i.second) % powmod + powmod) % powmod) * ksm(2, lower_bound(a, a + n + 1, i.first) - a, powmod)
+                        ) % mod;
+                res = res * ksm(
+                                i.first % mod,
+                                (((ksm(2, i.second, powmod) - 1 - i.second) % powmod + powmod) % powmod) * ksm(2, n - (upper_bound(a, a + n + 1, i.first) - a), powmod)
+                        ) % mod;       
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
 
 ### 牛客练习赛80B_卷积
 

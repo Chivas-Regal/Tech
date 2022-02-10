@@ -125,6 +125,248 @@ int main () {
 
 <hr>
 
+## 牛客2022寒假算法基础集训营4B_进制
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/23479/B"><img src="https://img-blog.csdnimg.cn/6ce037fb4092415f9ee78d7c71b562a6.png"></a>
+
+#### 💡
+正解很好想，就是找出区间中最大的数，我们利用的进制就是 `mx + 1`   
+问题在于快速求进制和快速求 $mx$  
+两个线段树即可  
+一个区间 $max$ 一个区间求大数  
+令 $s[i][N<<2]$ 为 $i$ 进制的线段树数组  
+那么向上更新时便是左子树多乘进制套着右子树向上走    
+$s[i][rt]=s[i][rt<<1] \times i^{r-mid}+s[i][rt<<1|1]$
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const ll N = 1e5 + 10;
+const ll mod = 1e9 + 7;
+ll a[N], n, q;
+
+namespace SegmentTree_Max {
+        ll sgtr[N << 2];
+        inline void push_Up ( ll rt ) {
+                sgtr[rt] = max ( sgtr[rt << 1], sgtr[rt << 1 | 1] );
+        }
+        inline void Build ( ll l, ll r, ll rt ) {
+                if ( l == r ) { sgtr[rt] = a[l]; return; }
+                ll mid = (l + r) >> 1;
+                Build ( l, mid, rt << 1 );
+                Build ( mid + 1, r, rt << 1 | 1 );
+                push_Up ( rt ); 
+        }
+        inline void Update ( ll id, ll c, ll l, ll r, ll rt ) {
+                if ( l > id || r < id ) return;
+                if ( l == id && r == id ) { sgtr[rt] = c; return; }
+                ll mid = (l + r) >> 1;
+                Update ( id, c, l, mid, rt << 1 );
+                Update ( id, c, mid + 1, r, rt << 1 | 1 );
+                push_Up ( rt );
+        }
+        inline ll Query ( ll a, ll b, ll l, ll r, ll rt ) {
+                if ( a <= l && r <= b ) return sgtr[rt];
+                if ( a > r || b < l )   return 0;
+                ll mid = (l + r) >> 1;
+                return max ( Query ( a, b, l, mid, rt << 1 ), Query ( a, b, mid + 1, r, rt << 1 | 1) ); 
+        }
+}
+namespace SegmentTree_Num {
+        ll s[15][N << 2];
+        inline ll ksm ( ll a, ll b ) { ll res = 1; while ( b ) { if ( b & 1 ) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+        inline void Build ( ll l, ll r, ll rt ) {
+                if ( l == r ) {
+                        for ( int i = 2; i <= 10; i ++ ) 
+                                s[i][rt] = a[l];
+                        return;
+                }
+                int mid = (l + r) >> 1;
+                Build(l, mid, rt << 1);
+                Build(mid + 1, r, rt << 1 | 1);
+                for ( int i = 2; i <= 10; i ++ ) 
+                        s[i][rt] = (s[i][rt << 1] * ksm(i, r - mid) % mod + s[i][rt << 1 | 1]) % mod;
+        }
+        inline void Update ( ll id, ll c, ll l, ll r, ll rt ) {
+                if ( l > id || r < id ) return;
+                if ( id == l && r == id ) {
+                        for ( int i = 2; i <= 10; i ++ )
+                                s[i][rt] = c;
+                        return;
+                } 
+
+                ll mid = (l + r) >> 1;
+                Update(id, c, l, mid, rt << 1);
+                Update(id, c, mid + 1, r, rt << 1 | 1);
+                for ( int i = 2; i <= 10; i ++ )
+                        s[i][rt] = (s[i][rt << 1] * ksm(i, r - mid) % mod + s[i][rt << 1 | 1]) % mod;
+        }
+
+        inline ll Query ( ll a, ll b, ll l, ll r, ll rt, ll bs ) { // 区间压缩的理解下面的题有说  
+                if ( a > r || b < l )   return 0;
+                if ( l == a && r == b ) return s[bs][rt];
+                ll mid = (l + r) >> 1;
+                if ( b <= mid ) return Query ( a, b, l, mid, rt << 1, bs );
+                else if ( a > mid ) return Query ( a, b, mid + 1, r, rt << 1 | 1, bs );
+                else return (Query ( a, mid, l, mid, rt << 1, bs ) * ksm(bs, b - mid) % mod + Query ( mid + 1, b, mid + 1, r, rt << 1 | 1, bs )) % mod;
+        }
+}
+
+
+int main () {
+        ios::sync_with_stdio(false);
+
+        cin >> n >> q;
+        string s; cin >> s; for ( ll i = 1; i <= n; i ++ ) a[i] = s[i - 1] - '0';
+        SegmentTree_Max::Build(1, n, 1);
+        SegmentTree_Num::Build(1, n, 1);
+        while ( q -- ) {
+                ll op, x, y; cin >> op >> x >> y;
+                if ( op == 1 ) {
+                        SegmentTree_Num::Update(x, y, 1, n, 1);
+                        SegmentTree_Max::Update(x, y, 1, n, 1);
+                } else {
+                        int mx = SegmentTree_Max::Query(x, y, 1, n, 1); 
+                        cout << SegmentTree_Num::Query(x, y, 1, n, 1, mx + 1) << endl;
+                }
+        }
+}
+```
+<hr>
+
+
+## 牛客2022寒假算法基础集训营5E_复苏小孩
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/23480/E"><img src="https://img-blog.csdnimg.cn/1cf9d482c13043998c7f012b30d99af7.png"></a>
+
+#### 💡
+先简化一下情况    
+我们设置当前某个鬼的力量为 $x$   
+那么有两种情况  
+- 吸收力量：$x=x+\frac{3-x}{2}=\frac{x+3}{2}$  
+- 被吸收力量：$x=\frac{x+0}{2}$  
+  
+那么我们可以将这两种情况抽象成数位关系的进制  
+即 $0.5$ 进制，每个位置要么是 $0$ 要么是 $3$  
+对于这种修改查询我们可以想到使用**线段树维护大数**来解决  
+令 $s[i][N<<2]$ 为第 $i$ 只鬼的线段树数组  
+那么向上更新时便是左子树多乘进制套着右子树向上走    
+$s[i][rt]=s[i][rt<<1] \times(\frac12)^{r-mid}+s[i][rt<<1|1]$  
+  
+查询时也与之类似，但要考虑到防止右侧没有数但是左侧仍然进位的情况  
+我们进行区间压缩  
+即  
+
+```cpp
+// 查询 [a,b] ，第 bs 只鬼 
+inline ll Query ( ll a, ll b, ll l, ll r, ll rt, ll bs ) { 
+        ...
+        if ( b <= mid ) return Query ( a, b, l, mid, rt << 1, bs ); // 向左压缩
+        else if ( a > mid ) return Query ( a, b, mid + 1, r, rt << 1 | 1, bs ); // 向右压缩
+        else return (Query ( a, mid, l, mid, rt << 1, bs ) * ksm(iv2, b - mid) % mod + Query ( mid + 1, b, mid + 1, r, rt << 1 | 1, bs )) % mod; // 向中间压缩
+}
+```
+  
+当然还有一些细节部分  
+- 开始时力量默认为 $1$ ，所以 $x$ 位要额外 $+1$ 进行求值
+- 开始那一位带上了一遍 $/2$ 所以最后要多除一遍 $2$    
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const ll N = 1e5 + 10;
+const ll mod = 998244353;
+ll a[N];
+
+namespace SegmentTree_Num {
+        ll s[15][N << 2];
+        inline ll ksm ( ll a, ll b ) { ll res = 1; while ( b ) { if ( b & 1 ) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+        inline ll inv ( ll x ) { return ksm(x, mod - 2); }
+        ll iv2 = inv(2);
+        inline void Build ( ll l, ll r, ll rt ) {
+                if ( l == r ) {
+                        for ( ll i = 1; i <= 3; i ++ ) 
+                                s[i][rt] = 3 * (a[l] == i);
+                        return;
+                }
+                ll mid = (l + r) >> 1;
+                Build(l, mid, rt << 1);
+                Build(mid + 1, r, rt << 1 | 1);
+                for ( ll i = 1; i <= 3; i ++ ) 
+                        s[i][rt] = (s[i][rt << 1] * ksm(iv2, r - mid) % mod + s[i][rt << 1 | 1]) % mod;
+        }
+        inline void Update ( ll id, ll c, ll l, ll r, ll rt ) {
+                if ( l > id || r < id ) return;
+                if ( id == l && r == id ) {
+                        for ( ll i = 1; i <= 3; i ++ )
+                                s[i][rt] = 3 * (c == i);
+                        return;
+                } 
+
+                ll mid = (l + r) >> 1;
+                Update(id, c, l, mid, rt << 1);
+                Update(id, c, mid + 1, r, rt << 1 | 1);
+                for ( ll i = 1; i <= 3; i ++ )
+                        s[i][rt] = (s[i][rt << 1] * ksm(iv2, r - mid) % mod + s[i][rt << 1 | 1]) % mod;
+        }
+        inline void Pre ( ll id, ll l, ll r, ll rt ) { // id位+1
+                if ( l > id || r < id ) return;
+                if ( id == l && r == id ) {
+                        for ( ll i = 1; i <= 3; i ++ ) s[i][rt] ++;
+                        return;
+                }
+                ll mid = (l + r) >> 1;
+                Pre(id, l, mid, rt << 1);
+                Pre(id, mid + 1, r, rt << 1 | 1);
+                for ( ll i = 1; i <= 3; i ++ )
+                        s[i][rt] = (s[i][rt << 1] * ksm(iv2, r - mid) % mod + s[i][rt << 1 | 1]) % mod;
+        }
+        inline void Las ( ll id, ll l, ll r, ll rt ) { // id位-1
+                if ( l > id || r < id ) return;
+                if ( id == l && r == id ) {
+                        for ( ll i = 1; i <= 3; i ++ ) s[i][rt] --;
+                        return;
+                }
+                ll mid = (l + r) >> 1;
+                Las(id, l, mid, rt << 1);
+                Las(id, mid + 1, r, rt << 1 | 1);
+                for ( ll i = 1; i <= 3; i ++ )
+                        s[i][rt] = (s[i][rt << 1] * ksm(iv2, r - mid) % mod + s[i][rt << 1 | 1]) % mod;
+        }
+
+
+        inline ll Query ( ll a, ll b, ll l, ll r, ll rt, ll bs ) { 
+                if ( a > r || b < l )   return 0;
+                if ( l == a && r == b ) return s[bs][rt];
+                ll mid = (l + r) >> 1;
+                if ( b <= mid ) return Query ( a, b, l, mid, rt << 1, bs );
+                else if ( a > mid ) return Query ( a, b, mid + 1, r, rt << 1 | 1, bs );
+                else return (Query ( a, mid, l, mid, rt << 1, bs ) * ksm(iv2, b - mid) % mod + Query ( mid + 1, b, mid + 1, r, rt << 1 | 1, bs )) % mod;
+        }
+}
+char s[N];
+int main () {
+        ll n, q; scanf("%lld%lld", &n, &q);
+        scanf("%s", s);
+        for ( ll i = 1; i <= n; i ++ ) a[i] = s[i - 1] - '0';
+        SegmentTree_Num::Build(1, n, 1);
+        while ( q -- ) {
+                ll op, x, y; scanf("%lld%lld%lld", &op, &x, &y);
+                if ( op == 1 ) {
+                        SegmentTree_Num::Update(x, y, 1, n, 1);
+                        a[x] = y;
+                } else {
+                        SegmentTree_Num::Pre(x, 1, n, 1);
+                        for ( ll i = 1; i <= 3; i ++ ) printf("%lld ", SegmentTree_Num::Query(x, y, 1, n, 1, i) * SegmentTree_Num::iv2 % mod);
+                        puts("");
+                        SegmentTree_Num::Las(x, 1, n, 1);
+                }
+        }
+}
+```
+<hr>
+
+
 ## 牛客练习赛68A_牛牛的mex
 
 #### 🔗

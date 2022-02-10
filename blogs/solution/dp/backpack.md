@@ -4,6 +4,43 @@ title: 背包DP
 ###  
 <hr>
 
+## 牛客2022寒假算法基础集训营4I_爆炸的符卡洋洋洒洒
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/23479/I"><img src="https://img-blog.csdnimg.cn/8222c48d110c41b1a01035316129a99a.png"></a>
+
+#### 💡
+限制： $\equiv0(mod\;k)$  
+那么我们让背包第二维是模 $k$ 后的值即可  
+由于我们很难固定从大到小转移，这里数据也不大，直接开 $2$ 维即可     
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+ll n, k;
+pair<ll, ll> pr[1100];
+ll dp[1100][2100];
+int main () {
+        ios::sync_with_stdio(false);
+        memset(dp, -0x3f3f3f3f, sizeof dp);
+        cin >> n >> k;
+        for ( ll i = 1; i <= n; i ++ ) {
+                cin >> pr[i].first >> pr[i].second;
+                pr[i].first %= k;
+        }
+        dp[0][0] = 0;
+        ll res = 0;
+        for ( ll i = 1; i <= n; i ++ ) {
+                for ( ll j = 0; j < k; j ++ ) {
+                        dp[i][j] = max(dp[i - 1][j], dp[i - 1][((j - pr[i].first) % k + k) % k] + pr[i].second);
+                } 
+                res = max(res, dp[i][0]);
+        }
+        cout << (res == 0 ? -1 : res) << endl;
+}
+```
+<hr>
+
+
 ## CodeForces1516C_BabyEhabPartitionsAgain
 
 #### 🔗

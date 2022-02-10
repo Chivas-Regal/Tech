@@ -213,6 +213,101 @@ int main () {
 
 <hr>
 
+### 牛客2022寒假算法基础集训营4J_区间合数的最小公倍数
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/23479/J"><img src="https://img-blog.csdnimg.cn/5320392dcf7f44dfbb8b199a08a0c87a.png"></a>
+
+#### 💡
+$lcm(a,b)=\frac{a\times b}{(a,b)}$   
+本题需要注意，模意义下是无法 $gcd$ 的  
+即 $gcd(a,b)\neq gcd(a\%m,b)$  
+那么我们考虑 $gcd$ 的本质  
+即挑出 $a$ 和 $b$ 的所有共同的质因数的乘积  
+那么我们实时存入 $res$ 的所有质因数  
+然后与当前的合数质因数进行比对求解 $gcd$   
+求解的过程中顺便将当前的合数压缩下去再让 $res$ 直接乘      
+到最后需要将当前合数的质因数融入 $res$ 的质因数  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+namespace primeNumber {
+        const ll N = 3e4 + 10;
+        vector<ll> prime;
+        bool notprime[N];
+        inline void Sieve () {
+                notprime[0] = notprime[1] = 1; 
+                for ( ll i = 2; i < N; i ++ ) {
+                        if ( !notprime[i] ) prime.push_back(i);
+                        for ( ll j = 0; j < prime.size() && i * prime[j] < N; j ++ ) {
+                                notprime[i * prime[j]] = 1;
+                                if ( i % prime[j] == 0 ) break;
+                        }
+                }
+        }
+} using namespace primeNumber;
+
+ll l, r;
+const ll mod = 1000000007;
+
+inline ll gcd ( ll a, ll b ) { return b ? gcd(b, a % b) : a; }
+inline ll ksm ( ll a, ll b ) { ll res = 1; while ( b ) { if ( b & 1 ) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv ( ll x ) { return ksm(x, mod - 2); }
+
+
+int main () {
+        ios::sync_with_stdio(false);
+
+        Sieve();
+        vector<ll> ntp;
+        cin >> l >> r;
+        for ( ll i = l; i <= r; i ++ ) {
+                if ( !notprime[i] ) continue;
+                ntp.push_back(i);
+        }
+        if ( !ntp.size() ) {
+                cout << "-1" << endl;
+                return 0;
+        }
+        ll res = ntp[0];
+        
+        // 分解 ntp[0]
+        map<ll, ll> divres;
+        ll tt = res;
+        for ( ll j = 0; j < prime.size() && prime[j] * prime[j] <= tt; j ++ ) {
+                while ( tt % prime[j] == 0 ) divres[prime[j]] ++, tt /= prime[j];
+        }
+        if ( tt > 1 ) divres[tt] ++;
+
+        for ( ll i = 1; i < ntp.size(); i ++ ) {
+                // 分解 ntp[i]
+                map<ll, ll> divi;
+                ll tmp = ntp[i];
+                for ( ll j = 0; j < prime.size() && prime[j] * prime[j] <= tmp; j ++ ) {
+                        while ( tmp % prime[j] == 0 ) divi[prime[j]] ++, tmp /= prime[j];
+                }
+                if ( tmp > 1 ) divi[tmp] ++;
+
+                // 缩小 ntp[i]
+                for ( auto kk : divi ) {
+                        ll k = kk.first;
+                        ntp[i] /= ksm(k, min(divi[k], divres[k]));
+                }
+
+                // 计算 lcm
+                res = res * ntp[i] % mod;
+
+                // 融合 res 质因数
+                for ( auto kk : divi ) {
+                        if ( kk.second > divres[kk.first] ) divres[kk.first] += kk.second - divres[kk.first];
+                }
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
+
 ### CodeForces1445C_Division
 
 #### 🔗
