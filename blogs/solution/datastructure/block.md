@@ -357,3 +357,89 @@ int main () {
 ```
 
 <hr>
+
+## 牛客2022寒假算法基础集训营5K_造梦小孩
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/23480/K"><img src="https://img-blog.csdnimg.cn/099340c078ab48408b6f938445711e3c.png"></a>
+
+#### 💡
+对于操作 $1$ ，我们单点修改即可  
+  
+对于操作 $2$ ，分两种情况  
+- $len>=block$ ，我们跑完整个数组单点修改即可  
+- $len<block$ ，使用区间偏移量前缀和 $sum[i][j]$ 表示 $len=i$ 时，偏移量为 $j$ 时的前缀和
+
+那么在第二种情况下区间查询即 $calc(r)-calc(l-1)$   
+对于 $calc(x)$   
+我们计算所有的 $\sum\limits_{len=1}^{block}$ ，其中最左偏移量下所在的位置为 $x\%len$   
+如果 $x\%len=0$ 那么说明所有偏移量都只出现了 $x/len$ 次  
+否则说明偏移量为 $x\%len$ 出现了 $x/len$ 次，而 $[x\%len+1,len]$ 则是出现了 $x/len+1$ 次   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+const int mod = 998244353;
+const int block = 800;
+
+int n, m;
+
+namespace TreeArray {
+        ll tr[N];
+        inline int lowbit ( int x ) { return x & -x; }
+        inline void update ( int x, int val ) {
+                while ( x <= n ) tr[x] += val, x += lowbit(x);
+        }
+        inline ll query ( int x ) {
+                ll res = 0;
+                while ( x > 0 ) res += tr[x], x -= lowbit(x);
+                return res;
+        }
+}
+
+ll sum[block + 5][block + 5];
+inline void update ( int x, int y, int len ) {
+        if ( len > block ) {
+                for ( int i = (x % len == 0 ? len : x % len); i <= n; i += len ) TreeArray::update(i, y);
+        } else {
+                int l = x % len == 0 ? len : x % len, r = len;
+                for ( int i = l; i <= r; i ++ ) sum[len][i] += y;
+        }
+        TreeArray::update(x, -y);
+}
+inline ll calc ( int x ) {
+        ll res = 0;
+        for ( int len = 1; len <= block; len ++ ) {
+                int mx = x % len;
+                if ( mx == 0 ) {
+                        res += sum[len][len] * (x / len);
+                } else {
+                        res += sum[len][mx] * (x / len + 1) + (sum[len][len] - sum[len][mx]) * (x / len);
+                }
+        }
+        return res;
+}
+inline ll query ( int x, int y ) {
+        return calc(y) - calc(x - 1) + TreeArray::query(y) - TreeArray::query(x - 1);
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin >> n >> m;
+        while ( m -- ) {
+                int op; cin >> op;
+                if ( op == 1 ) {
+                        int x, y; cin >> x >> y;
+                        TreeArray::update(x, y);
+                } else if ( op == 2 ) {
+                        int x, y, len; cin >> x >> y >> len;
+                        update(x, y, len);
+                } else {
+                        int x, y; cin >> x >> y;
+                        cout << query(x, y) << endl;
+                }
+        }
+}
+
+```
+<hr>
