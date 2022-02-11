@@ -459,3 +459,69 @@ int main () {
 ```
 
 <hr>
+
+
+## 牛客2022寒假算法基础集训营5C_战棋小孩
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/23480/C"><img src="https://img-blog.csdnimg.cn/2708fd8a9f264f8fb798415f3d4b4c9e.png"></a>
+
+#### 💡
+首先能得到的思考是  
+每一局游戏肯定是选能选的最大得分  
+如果已知所有的最大得分，我们就可以降序排序，让贡献最多的放在前面  
+那么问题就在于，如果去分配礼遇情况  
+由于游戏局数十分少，我们看一下最大复杂度即 $\binom{20}{10}$ 其实也不是很大  
+所以我们可以 $01$ 暴力搜索去分配礼遇  
+递归出口的时候用最大得分 `sort` 一下与要求得分比对一下即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+ll n, k, s;
+ll p[40];
+struct node {
+        ll a, b, c, d;
+        bool chs;
+        inline friend bool operator < ( node a, node b ) {
+                int mxa, mxb;
+                if ( a.chs == 1 ) mxa = max(max(a.a, a.b), max(a.c, a.d));
+                else              mxa = max(a.a, a.b);
+                if ( b.chs == 1 ) mxb = max(max(b.a, b.b), max(b.c, b.d));
+                else              mxb = max(b.a, b.b);
+                return mxa > mxb;
+        }
+} nd[40], tmp[40];
+int RES = 0;
+
+inline void DFS ( vector<int> chss, int num ) {
+        if ( chss.size() == k ) {
+                for ( int i = 1; i <= n; i ++ )          tmp[i] = nd[i];
+                for ( int i = 0; i < chss.size(); i ++ ) tmp[chss[i]].chs = 1;
+                sort ( tmp + 1, tmp + 1 + n );
+
+                ll cur = s; int res = 0;
+                for ( int i = 1; i <= n; i ++ ) {
+                        if ( tmp[i].chs ) cur += max(max(tmp[i].a, tmp[i].b), max(tmp[i].c, tmp[i].d));
+                        else              cur += max(tmp[i].a, tmp[i].b);
+                        if ( cur >= p[i] ) res ++;
+                } 
+                RES = max(RES, res);
+                return;
+        }
+        for ( int i = num + 1; i <= n; i ++ ) {
+                chss.push_back(i);
+                DFS(chss, i);
+                chss.pop_back();
+        }
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin >> n >> k >> s;
+        for ( int i = 1; i <= n; i ++ ) cin >> p[i];
+        for ( int i = 1; i <= n; i ++ ) cin >> nd[i].a >> nd[i].b >> nd[i].c >> nd[i].d;
+        DFS({}, 0);
+        cout << RES << endl;
+}
+```
+<hr>

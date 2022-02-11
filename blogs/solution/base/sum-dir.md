@@ -82,6 +82,50 @@ int main () {
 
 <hr>
 
+## 牛客2022寒假算法基础集训营5I_兔崽小孩
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/23480/I"><img src="https://img-blog.csdnimg.cn/2987348d47144694bf21b0bc87fe2c84.png"></a>
+
+#### 💡
+抽象问题：  
+给出一个数列，抽出其中差值，每次询问 $k$ ，让每个差值减去 $k$ ，最小减到 $0$ ，问最后的剩余值是否大于等于 $p$   
+  
+可以知道比 $k$ 小的均是无贡献的  
+那么有了大小关系我们升序排序  
+计算出在减去 $0$ 时的后缀和  
+然后每次询问用 `upper_bound` 求出有多少个差值 $>k$ ，个数为 $num$，是从第 $id$ 个开始     
+那么剩余值便是 $sum[id]-num\times k$    
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+vector<ll> t;
+int n, Q;
+ll sum[1000005];
+
+int main () {
+
+        read(n); read(Q);
+        for ( int i = 0; i < n; i ++ ) {
+                ll x; read(x);
+                t.push_back(x);
+        }
+        vector<ll> vec; for ( int i = 1; i < n; i ++ ) vec.push_back(t[i] - t[i - 1]);
+        sort ( vec.begin(), vec.end() );
+        for ( int i = vec.size() - 1; i >= 0; i -- ) sum[i] = sum[i + 1] + vec[i];
+        for ( int i = 0; i < Q; i ++ ) { 
+                ll k, p; read(k); read(p); 
+                ll id = upper_bound(vec.begin(), vec.end(), k) - vec.begin(); 
+                ll num = (int)vec.size() - id;
+                ll rel = sum[id] - num * k; 
+                if ( rel >= p ) puts("Yes");
+                else puts("No");
+        }
+}
+```
+<hr>
+
+
 ## ABC233F_ParenthesisChecking
 
 #### 🔗

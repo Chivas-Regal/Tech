@@ -42,6 +42,67 @@ int main () {
 
 <hr>
 
+## 牛客2022寒假算法基础集训营5A_疫苗小孩
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/23480/A"><img src="https://img-blog.csdnimg.cn/55f7e80521ab443bbecb6d6cf214412c.png"></a>
+
+#### 💡
+统计字符串中为 $0$ 的位置 $\{ps\}$ 后  
+我们枚举每个起始点 $ps[i]$   
+对 $ps[i]$ 去找离 $ps[i]+k$ 最近的左右两点，满足的统计一下 $max$   
+然后对该左右两点分别去找最近的 $ps+k$ 的左右两点，满足的统计一下 $max$   
+即：  
+$i\left\{\begin{aligned}
+pos01\left\{\begin{aligned}pos011\\pos012\end{aligned}\right.\\
+pos02\left\{\begin{aligned}pos021\\pos022\end{aligned}\right.
+\end{aligned}\right.$  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+ll k, w, q; 
+inline ll calc ( ll a, ll b ) { // 计算 a->b 的提升值
+        return w - llabs(b - a - k) * q;
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+
+        ll n; string s; cin >> n >> s;
+        cin >> k >> w >> q;
+        vector<ll> ps;
+        for ( int i = 0; i < s.size(); i ++ ) {
+                if ( s[i] == '0' ) ps.push_back(i);
+        }
+        ll res = 0;
+        for ( int i = 0; i < ps.size(); i ++ ) {
+                ll pos02 = lower_bound(ps.begin(), ps.end(), ps[i] + k) - ps.begin();
+                ll pos01 = pos02 - 1;
+                if ( pos02 != ps.size() && pos02 > i ) res = max(res, calc(ps[i], ps[pos02]));
+                if ( pos01 != ps.size() && pos01 > i ) res = max(res, calc(ps[i], ps[pos01]));
+
+                if ( pos02 != ps.size() && pos02 > i ) {
+                        ll disi02 = calc(ps[i], ps[pos02]);
+                        ll pos022 = lower_bound(ps.begin(), ps.end(), ps[pos02] + k) - ps.begin();
+                        ll pos021 = pos022 - 1;
+                        if ( pos022 != ps.size() && pos022 > pos02 ) res = max(res, disi02 + calc(ps[pos02], ps[pos022]));
+                        if ( pos021 != ps.size() && pos021 > pos02 ) res = max(res, disi02 + calc(ps[pos02], ps[pos021]));
+                }
+                if ( pos01 != ps.size() && pos01 > i ) {
+                        ll disi01 = calc(ps[i], ps[pos01]);
+                        ll pos012 = lower_bound(ps.begin(), ps.end(), ps[pos01] + k) - ps.begin();
+                        ll pos011 = pos012 - 1;
+                        if ( pos012 != ps.size() && pos012 > pos01 ) res = max(res, disi01 + calc(ps[pos01], ps[pos012]));
+                        if ( pos011 != ps.size() && pos011 > pos01 ) res = max(res, disi01 + calc(ps[pos01], ps[pos011]));
+                }
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
+
 ## ABC236E_AverageAndMedian
 
 #### 🔗
