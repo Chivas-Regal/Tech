@@ -31,7 +31,7 @@ $dp[u][2]+=min(dp[v][0],dp[v][1])$
   
 $
 dp[u][1]+=\sum\limits_{son}dp[son][0]\\
-\textbf{sort}(son,\{dp[son][1]-dp[son][0],\textbf{<>}\})\\
+\textbf{sort}(son,\{dp[son][1]-dp[son][0],\textbf{<}\})\\
 \textbf{for}\;son\;\textbf{in}\;sons\;\;\textbf{\&}\;\;son\neq endson:\\
 \qquad \textbf{if}\;dp[son][1]-dp[son][0]<0:\\
 \qquad\qquad dp[u][1]+=dp[son][1]-dp[son][0];\\
