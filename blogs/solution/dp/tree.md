@@ -4,6 +4,45 @@ title: 树形DP
 ###  
 <hr>
 
+## 洛谷P2899_CellPhoneNetworkG
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P2899"><img src="https://img-blog.csdnimg.cn/c1fbbf9a4ffb403daae865b1825a5478.png"></a>
+
+#### 💡
+由于一个节点可以被自己给信号，可以被儿子给信号，可以被父亲给信号  
+所以我们设置 $dp[i][0/1/2]$ 表示 $i$ 节点被 $[$自己$/$儿子$/$父亲$]$ 给信号需要的节点数  
+  
+若被自己给信号，那么它的儿子被谁给信号都可以  
+$dp[u][0]+=min(dp[v][0],dp[v][1],dp[v][2])$  
+  
+若被父亲给信号，那么说明儿子 $v$ 一定没法从 $u$ 身上获得信号  
+$dp[u][2]+=min(dp[v][0],dp[v][1])$  
+  
+若被儿子给信号，那么还是上面这种  
+但是要注意，我们只有一个父亲，但可能有很多个儿子  
+所以在众多儿子中我们需要保证至少选一个 $dp[v][0]$  
+那么可以先把 $dp[v][0]$ 都选了，然后对所有儿子的 $dp[v][1]-dp[v][0]$ 进行排序  
+然后在前 儿子个数$-1$ 个儿子内看看哪些可以替换为 $dp[v][1]$  
+即  
+  
+$
+dp[u][1]+=\sum\limits_{son}dp[son][0]\\
+\textbf{sort}(son,\{dp[son][1]-dp[son][0],\textbf{<>}\})\\
+\textbf{for}\;son\;\textbf{in}\;sons\;\;\textbf{\&}\;\;son\neq endson:\\
+\qquad \textbf{if}\;dp[son][1]-dp[son][0]<0:\\
+\qquad\qquad dp[u][1]+=dp[son][1]-dp[son][0];\\
+\qquad \textbf{else}\\
+\qquad\qquad \textbf{break};\\
+$
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+// 有上述转移，此处就不放置代码了
+```
+<hr>
+
+
 ## gym103145C_VertexDeletion
 
 #### 🔗
