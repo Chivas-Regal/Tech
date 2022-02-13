@@ -125,6 +125,103 @@ int main () {
 
 <hr>
 
+## 洛谷T225362_《山茶文具店》
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/T225362"><img src="https://img-blog.csdnimg.cn/451a4a9306d141d6a040074be6ca264b.png"></a>
+
+#### 💡
+
+::: tip  
+在一寒假见了三次线段树维护进制的题且看了《山茶文具店》强烈推荐下  
+决定出了这样一道最基础写法的题  
+:::  
+
+这道题考的是是否完全弄明白了线段树的结构  
+对于一个掌管区间 $[l,r]$ 的节点，它的左右子节点掌管的区间分别为 $[l,mid]$,$[mid+1,r]$  
+考虑到一个数内，左侧的数位要高于右侧的数位，且从左到右数位是一个下降的阶梯  
+那么对于这个左右子区间，左侧的区间阶梯要完整的比右侧的区间阶梯高出 $r-mid$ 层  
+由于一层对应的是 $10$ ，那么 $r-mid$ 层对应的是 $10^{r-mid}$  
+
+那么在线段树中层层向上便是 $sgtr[rt].val=sgtr[rt<<1].val\times 10^{r-mid}+sgtr[rt<<1|1].val$  
+  
+在查询的时候我们也应当考虑是否会出现右侧没有数但是我们依旧让左侧台阶往上走很高的情况  
+就可以采用区间压缩  
+
+```cpp
+inline ll Query ( ll a, ll b, ll l, ll r, ll rt ) { 
+                if ( a > r || b < l )   return 0;
+                if ( l == a && r == b ) return sgtr[rt].val;
+                ll mid = (l + r) >> 1;
+                if ( b <= mid ) // 向左压缩
+                        return Query ( a, b, l, mid, rt << 1 ); 
+                else if ( a > mid ) // 向右压缩 
+                        return Query ( a, b, mid + 1, r, rt << 1 | 1 ); 
+                else // 向中间压缩
+                        return Query ( a, mid, l, mid, rt << 1 ) * ksm(10, b - mid) + Query ( mid + 1, b, mid + 1, r, rt << 1 | 1 ); 
+        }
+```
+::: warning  
+注意对递归出口也就是线段树的叶子节点要赋值  
+毕竟它可没有儿子节点
+:::
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+namespace SegmentTree_Num {
+        ll s[N << 2];
+        inline ll ksm ( ll a, ll b ) { ll res = 1; while ( b ) { if ( b & 1 ) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+        inline void Build ( ll l, ll r, ll rt ) {
+                if ( l == r ) {
+                        s[rt] = a[l];
+                        return;
+                }
+                int mid = (l + r) >> 1;
+                Build(l, mid, rt << 1);
+                Build(mid + 1, r, rt << 1 | 1);
+                s[rt] = (s[rt << 1] * ksm(10, r - mid) % mod + s[rt << 1 | 1]) % mod;
+        }
+        inline void Update ( ll id, ll c, ll l, ll r, ll rt ) {
+                if ( l > id || r < id ) return;
+                if ( id == l && r == id ) {
+                        s[rt] = c;
+                        return;
+                } 
+
+                ll mid = (l + r) >> 1;
+                Update(id, c, l, mid, rt << 1);
+                Update(id, c, mid + 1, r, rt << 1 | 1);
+                s[rt] = (s[rt << 1] * ksm(10, r - mid) % mod + s[rt << 1 | 1]) % mod;
+        }
+
+        inline ll Query ( ll a, ll b, ll l, ll r, ll rt ) { // 区间压缩的理解下面的题有说  
+                if ( a > r || b < l )   return 0;
+                if ( l == a && r == b ) return s[rt];
+                ll mid = (l + r) >> 1;
+                if ( b <= mid ) return Query ( a, b, l, mid, rt << 1 );
+                else if ( a > mid ) return Query ( a, b, mid + 1, r, rt << 1 | 1 );
+                else return (Query ( a, mid, l, mid, rt << 1 ) * ksm(10, b - mid) % mod + Query ( mid + 1, b, mid + 1, r, rt << 1 | 1 )) % mod;
+        }
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin >> n >> q;
+        string s; cin >> s; for ( ll i = 1; i <= n; i ++ ) a[i] = s[i - 1] - '0';
+        SegmentTree_Num::Build(1, n, 1);
+        while ( q -- ) {
+                ll op, x, y; cin >> op >> x >> y;
+                if ( op == 1 ) {
+                        SegmentTree_Num::Update(x, y, 1, n, 1);
+                } else {
+                        cout << SegmentTree_Num::Query(x, y, 1, n, 1) << endl;
+                }
+        }
+}
+```
+<hr>
+
+
 ## 牛客2022寒假算法基础集训营4B_进制
 
 #### 🔗
