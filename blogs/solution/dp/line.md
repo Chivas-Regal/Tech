@@ -385,6 +385,64 @@ int main () {
 
 <hr>
 
+## 洛谷P4059_找爸爸
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P4059"><img src="https://img-blog.csdnimg.cn/9622ba59467d4e36972aecce51e84edc.png"></a>
+
+#### 💡
+限制：字符串位置匹配、空格分布情况  
+状态：$dp[i][j][k]$ 表示 $a$ 串用了 $i$ 个，$b$ 串用了 $j$ 个，$k=0/1/2\;\to\;$ 两串结尾无空格$/$空格在$a$串$/$空格在$b$串  
+  
+对于连续空格我们可以将 $g(k)=-A-B(k-1)$ 这个公式看作在连续的空格中，我们只有第一个空格的贡献为 $-A$ ，其余均为 $-B$  
+建立三种转移：  
+此刻任意一个都不用空格，那便是都用了字母    
+$dp[i][j][0]=max(dp[i-1][j-1][])+d(a[i],b[i])$  
+$a$ 用空格，那便是之前还是 $a$ 最后的可以续上一个 $-B$，其他的都只能续 $-A$  
+$dp[i][j][1]=max(dp[i-1][j][0]-A,dp[i][j-1][1]-B,dp[i][j-1][2]-A)$  
+$b$ 用空格同理  
+$dp[i][j][2]=max(dp[i-1][j][0]-A,dp[i-1][j][1]-A,dp[i-1][j][2]-B)$  
+
+最后统计用完字符的状态即 $max(dp[n][m][])$
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int g[300][300];
+int dp[3005][3005][3];
+int A, B;
+string a, b;
+int n, m;
+
+int main () {
+        cin >> a >> b;
+
+        vector<char> DNA = {'A', 'T', 'G', 'C'};
+        for ( int i = 0; i < 4; i ++ ) {
+                for ( int j = 0; j < 4; j ++ ) {
+                        cin >> g[DNA[i]][DNA[j]];
+                }
+        }
+        cin >> A >> B;
+        n = a.size(), m = b.size();
+        a = " " + a, b = " " + b;
+        for ( int i = 1; i <= max(n, m); i ++ ) {
+                dp[0][i][0] = dp[i][0][0] = dp[0][i][2] = dp[i][0][1] = -0x3f3f3f3f;
+                dp[0][i][1] = dp[i][0][2] = - A - B * (i - 1);
+        }
+        dp[0][0][1] = dp[0][0][2] = -0x3f3f3f3f;
+        for ( int i = 1; i <= n; i ++ ) {
+                for ( int j = 1; j <= m; j ++ ) {
+                        dp[i][j][0] = max({dp[i - 1][j - 1][0], dp[i - 1][j - 1][1], dp[i - 1][j - 1][2]}) + g[a[i]][b[j]];
+                        dp[i][j][1] = max({dp[i][j - 1][0] - A, dp[i][j - 1][1] - B, dp[i][j - 1][2] - A});
+                        dp[i][j][2] = max({dp[i - 1][j][0] - A, dp[i - 1][j][1] - A, dp[i - 1][j][2] - B});
+                }
+        }
+        cout << max({dp[n][m][0], dp[n][m][1], dp[n][m][2]}) << endl;
+}
+```
+<hr>
+
+
 ## ABC189D_LogicalExpression
 
 #### 🔗
