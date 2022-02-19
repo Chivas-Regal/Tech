@@ -418,3 +418,90 @@ CHIVAS_{
 ```
 
 <hr>
+
+## CodeForces1638D_BigBrush
+
+#### 🔗
+<a href="https://codeforces.com/contest/1638/problem/D"><img src="https://img-blog.csdnimg.cn/a149526db0e84b03a28213d910f72991.png"></a>
+
+#### 💡
+考虑覆盖效果  
+发现最后一个覆盖的元素一定是四个方格全有的  
+倒数第二个覆盖的可以有一部分在这四个方格内，但它所染色的四个点不在这些方格内的点一定要同色才可以    
+接下来同理  
+  
+那么可以使用倒着构造操作的方式  
+每次看看是否有可以涂色的且未出发的点  
+将它塞入操作内  
+然后去看它所包含的四个点是否有可以入队的  
+这样进行 BFS  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e3 + 10;
+int a[N][N];
+int n, m;
+struct node { int x, y, val; };
+int dx[4] = {0, 0, -1, 1};
+int dy[4] = {1, -1, 0, 0};
+bool vis[N][N];
+bool ismark[N][N];
+
+inline int check ( int x, int y ) {
+        if ( x <= 0 || y <= 0 || x >= n || y >= m || vis[x][y] ) return -1;
+        vector<pair<int, int> > vec;
+        if ( ismark[x][y] == 0 ) vec.push_back({x, y});
+        if ( ismark[x + 1][y] == 0 ) vec.push_back({x + 1, y});
+        if ( ismark[x][y + 1] == 0 ) vec.push_back({x, y + 1});
+        if ( ismark[x + 1][y + 1] == 0 ) vec.push_back({x + 1, y + 1});
+        if ( vec.size() == 0 ) return 1;
+        int clr = a[vec[0].first][vec[0].second];
+        for ( int i = 0; i < vec.size(); i ++ ) {
+                if ( clr != a[vec[i].first][vec[i].second] ) return -1;
+        }
+        return clr;
+}
+
+inline void Solve () {
+        scanf("%d%d", &n, &m);
+        for ( int i = 1; i <= n; i ++ ) for ( int j = 1; j <= m; j ++ ) scanf("%d", &a[i][j]), vis[i][j] = 0, ismark[i][j] = 0;
+        vector<node> res;
+
+        queue<pair<int, int> > que;
+        for ( int i = 1; i < n; i ++ ) {
+                for ( int j = 1; j < m; j ++ ) {
+                        if ( a[i][j] == a[i + 1][j] && a[i][j] == a[i][j + 1] && a[i][j] == a[i + 1][j + 1] ) {
+                                que.push({i, j});
+                        }
+                }
+        }
+        while ( que.size() ) {
+                pair<int, int> cur = que.front(); que.pop();
+                int x = cur.first, y = cur.second;
+                int chk = check(x, y);
+                if ( chk == -1 ) continue;
+                res.push_back({x, y, chk});
+                vis[x][y] = 1;
+                ismark[x][y] = ismark[x + 1][y] = ismark[x][y + 1] = ismark[x + 1][y + 1] = 1;
+                for ( int i = 0; i < 4; i ++ ) {
+                        int nx = x + dx[i];
+                        int ny = y + dy[i];
+                        que.push({nx, ny});
+                }
+        }
+        for ( int i = 1; i <= n; i ++ ) for ( int j = 1; j <= m; j ++ ) {
+                if ( !ismark[i][j] ) {
+                        puts("-1");
+                        return;
+                }
+        }
+        printf("%d\n", (int)res.size());
+        for ( int i = res.size() - 1; i >= 0; i -- ) printf("%d %d %d\n", res[i].x, res[i].y, res[i].val);
+}
+
+int main () {
+        Solve();
+}
+```
+<hr>
+
