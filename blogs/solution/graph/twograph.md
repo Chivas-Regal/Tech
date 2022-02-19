@@ -4,6 +4,83 @@ title: 二分图染色
 ###  
 <hr>
 
+## 洛谷P6268_舞会
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P6268"><img src="https://img-blog.csdnimg.cn/cedfc969669b42cc9a0cee6242265b57.png"></a>
+
+#### 💡
+两两不配对，求最多配对点  
+求最大独立集即可  
+求之前先要男女染色  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1005;
+const int M = 4010;
+
+struct Edge {
+        int nxt, to;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge ( int from, int to ) {
+        edge[++cnt] = { head[from], to };
+        head[from] = cnt;
+}
+
+int e[N][N];
+int n, m;
+vector<int> b, g;
+bool col[N];
+
+int match[N];
+bool st[N];
+
+inline void Color ( int x, int dep ) {
+        dep == 1 ? g.push_back(x) : b.push_back(x); 
+        col[x] = true;
+        for ( int i = 1; i <= n; i ++ ) 
+                if ( e[x][i] && !col[i] ) 
+                        Color(i, 3 - dep);
+}
+
+inline bool Find ( int x ) {
+        for ( int i = head[x]; i; i = edge[i].nxt ) {
+                int y = edge[i].to;
+                if ( !st[y] ) {
+                        st[y] = true;
+                        if ( !match[y] || Find(match[y]) ) {
+                                match[y] = x;
+                                return true;
+                        }
+                }
+        }
+        return false;
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin >> n >> m;
+        for ( int i = 0; i < m; i ++ ) {
+                int a, b; cin >> a >> b;
+                a ++, b ++;
+                e[a][b] = e[b][a] = 1;
+                add_Edge(a, b);
+                add_Edge(b, a);
+        }
+        for ( int i = 1; i <= n; i ++ ) if ( !col[i] ) Color(i, 1);
+        
+        int res = 0;
+        for ( int i = 0; i < b.size(); i ++ ) {
+                for ( int j = 0; j < g.size(); j ++ ) st[g[j]] = false;
+                if ( Find(b[i]) ) res ++;
+        }
+        cout << n - res << endl;
+}
+```
+<hr>
+
+
 ## 省赛2021江苏J_Anti-merge
 
 #### 🔗
