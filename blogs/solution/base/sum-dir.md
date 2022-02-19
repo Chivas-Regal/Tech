@@ -569,6 +569,52 @@ int main () {
 }
 ```
 
+## CodeForces1638C_InversionGraph
+
+#### 🔗
+<a href="https://codeforces.com/contest/1638/problem/C"><img src="https://img-blog.csdnimg.cn/81de50d2cba9482b846fbd6e425cd400.png"></a>
+
+#### 💡
+分析一下  
+如果一个数 $a_k$ ，前面有 $a_i>a_k$ ，那么这个数可以被归入 $a_i$ 下  
+如果一个数 $a_j$ 过小，那么前面都会是比它大的都可以和它相连，直到前面没有比它大的了  
+这样下来就是一个考虑前缀最大值的问题了  
+我们从后往前维护最小值，如果这个位置前面没有比当前最小值更大的数了，就重启最小值并使答案 $+1$  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+int mx[N];
+int a[N];
+
+inline void Solve () {
+        int n; cin >> n;
+        for ( int i = 1; i <= n; i ++ ) {
+                cin >> a[i];
+                mx[i] = max(mx[i - 1], a[i]);
+        }
+        int res = 0;
+        int mn = 0x3f3f3f3f;
+        for ( int i = n; i >= 1; i -- ) {
+                mn = min(mn, a[i]);
+                if ( mx[i - 1] < mn ) {
+                        res ++;
+                        mn = 0x3f3f3f3f;
+                }
+        }
+        cout << res << endl;
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        int cass; cin >> cass; while ( cass -- ) {
+                Solve ();
+        }
+}
+```
+<hr>
+
+
 <hr>
 
 ## HDU2021多校(1)5_Minimumspanningtree

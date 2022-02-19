@@ -345,6 +345,41 @@ inline void Solve () {
 ```
 <hr>
 
+## CodeForces1638B_OddSwapSort
+
+#### 🔗
+<a href="https://codeforces.com/contest/1638/problem/B"><img src="https://img-blog.csdnimg.cn/a088a23e37004f11be6902d8c99f1eb5.png"></a>
+
+#### 💡
+$(a_i+a_{i+1})\%2=1\leftrightarrow (a_i\%2)\oplus(a_{i+1}\%2)=1$  
+那么交换位置只可以发生在两个奇偶性不同的数之间  
+意味着后面的奇数不可能跨越前面的奇数，偶数一样  
+所以我们只需要看偶数序列和奇数序列是否排序好了就行了   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void Solve () {
+        int n; cin >> n;
+        vector<int> odd, eve;
+        for ( int i = 0; i < n; i ++ ) {
+                int x; cin >> x;
+                if ( x & 1 ) odd.push_back(x);
+                else eve.push_back(x);
+        }
+        if (is_sorted(odd.begin(), odd.end()) && is_sorted(eve.begin(), eve.end()))  cout << "Yes" << endl;
+        else cout << "No" << endl; 
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        int cass; cin >> cass; while ( cass -- ) {
+                Solve ();
+        }
+}
+```
+<hr>
+
+
 
 ## HDU2021多校(5)3_VCisAllYouNeed
 
