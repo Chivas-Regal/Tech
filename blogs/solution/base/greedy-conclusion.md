@@ -313,6 +313,76 @@ int main () {
 ```
 <hr>
 
+## 洛谷2127_序列排序
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P2127"><img src="https://img-blog.csdnimg.cn/bfca1bf2aed94e3fb10936776e1df0a3.png"></a>
+
+#### 💡
+首先要知道每个点应该在哪  
+这个可以用离散化给出  
+然后对每个点和其应该在的点连线，发现这是几个环  
+我们可以考虑环内交换排序，肯定是用环内最小值 $b$ 进行交换  
+当然还有一种策略，就是可以利用环外最小值 $a$ 顶替这个环内最小值 $b$ 进行交换  
+  
+<b>用环内最小值</b>  
+$a$ 进出两次  
+$b$ 进出两次  
+$a$ 排里面的 $n-1$ 个数用了 $n-1$ 次  
+别的数各用 $1$ 次  
+<b>用环外最小值</b>  
+$b$ 排 $n-1$ 个数用了 $n-1$ 次  
+别的数各用一次  
+  
+可以看出差别在于 $2(a+b)+(n-1)a$ 和 $(n-1)b$ 上  
+对于每个环我们取最小即可  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+int n;
+ll a[N]; int b[N];
+ll res;
+
+bool vis[N];
+ll numrol;
+ll sumrol;
+ll minrol;
+inline void DFS ( int x ) {
+        if ( vis[x] ) return; vis[x] = true;
+        numrol ++; 
+        sumrol += a[x];
+        minrol = min(minrol, a[x]);
+        DFS(b[x]);
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+
+        cin >> n;
+        vector<int> vec;
+        for ( int i = 1; i <= n; i ++ ) 
+                cin >> a[i], 
+                vec.push_back(a[i]);
+        sort ( vec.begin(), vec.end() );
+        for ( int i = 1; i <= n; i ++ ) 
+                b[i] = lower_bound(vec.begin(), vec.end(), a[i]) - vec.begin() + 1;
+                
+        for ( int i = 1; i <= n; i ++ ) {
+                if ( vis[i] ) continue;
+                numrol = 0;
+                sumrol = 0;
+                minrol = 0x3f3f3f3f;
+                DFS(i); 
+                res += sumrol - minrol + min(2 * (vec[0] + minrol) + (numrol - 1) * vec[0], (numrol - 1) * minrol);
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
+
 
 ## 洛谷P2869_GourmetGrazersG
 
