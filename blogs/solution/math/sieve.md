@@ -4,7 +4,9 @@ title: 筛法
 ###  
 <hr>
 
-## CodeForces1512G_ShortTask
+## 埃氏筛
+
+### CodeForces1512G_ShortTask
 
 #### 🔗
 <a href="https://codeforces.com/problemset/problem/1512/G"><img src="https://img-blog.csdnimg.cn/5b206cdb8bd74dafa8c530e12e895270.png"></a>
@@ -42,7 +44,7 @@ int main () {
 
 <hr>
 
-## CodeForces1627D_NotAdding
+### CodeForces1627D_NotAdding
 
 #### 🔗
 <a href="https://codeforces.com/contest/1627/problem/D"><img src="https://s2.loli.net/2022/01/18/GtWesXr3kMwVHCY.png"></a>
@@ -86,7 +88,7 @@ int main () {
 
 <hr>
 
-## ICPC吉林站2020G_Matrix
+### ICPC吉林站2020G_Matrix
 
 #### 🔗
 <a href="https://codeforces.com/gym/102800/attachments"><img src="https://i.loli.net/2021/11/11/vqLZV6SGARBt38T.png"></a>
@@ -116,7 +118,7 @@ int main () {
 
 <hr>
 
-## LOJ10199_轻拍牛头
+### LOJ10199_轻拍牛头
 
 #### 🔗
 <a href="https://loj.ac/p/10199"><img src="https://i.loli.net/2021/08/17/H6A7etja5nFfP4u.png"></a>
@@ -154,6 +156,64 @@ int main () {
         for ( int i = 0; i < n; i ++ ) cin >> a[i], mark[a[i]] ++;
         Get();
         for ( int i = 0; i < n; i ++ ) cout << res[a[i]] - 1 << endl;
+}
+```
+
+<hr>
+
+## 杜教筛
+
+### ABC239Ex_DiceProduct2
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc239/tasks/abc239_h"><img src="https://img-blog.csdnimg.cn/83741fe4345f46b29a3305a23d5ab1ce.png"></a>
+
+#### 💡
+
+转化成 $dp$ 去考虑  
+在 $N$ 下，设 $dp_x$ 表示 $M=x$ 时的期望  
+则  
+$$dp_x=1+\frac1N\sum\limits_{i=1}^Ndp_{\frac xi}$$  
+由于 $i=1$ 时不影响 $x$ ， $1$ 会贯彻从而可以让答案 $\times\frac{N}{N-1}$   
+::: tip 例如
+$1+\frac12+\frac14+\frac18+\dots=2$  
+$1+\frac13+\frac19+\frac1{27}+\dots=3$  
+$\dots$
+:::  
+那么原式为  
+$$\begin{aligned}
+&\frac N{N-1}(1+\frac1N\sum\limits_{i=2}^Nf_{\left\lfloor\frac xi\right\rfloor})\\
+=&\frac{N+\sum\limits_{i=2}^Nf_{\left\lfloor\frac xi\right\rfloor}}{N-1}
+\end{aligned}$$  
+发现内部有 $\left\lfloor\right\rfloor$ 可以使用杜教筛进行整除分块  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+
+```cpp
+const int mod = 1e9 + 7;
+inline ll ksm ( ll a, ll b ) { ll res = 1; while ( b ) { if ( b & 1 ) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv ( ll x ) { return ksm(x, mod - 2); }
+
+ll N, M, invnsub1;
+inline ll g ( ll k, ll x ) { return k / (k / x); }
+unordered_map<ll, ll> mp;
+inline ll duSieve ( ll x ) {
+        if ( mp[x] ) return mp[x];
+        ll res = 0;
+        for ( int L = 2, R; L <= min(N, x); L = R + 1 ) {
+                R = min(N, g(x, L));
+                res += duSieve(x / L) * (R - L + 1) % mod;
+                res %= mod;
+        }
+        return mp[x] = (N + res) * invnsub1 % mod;
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+
+        cin >> N >> M;
+        invnsub1 = inv(N - 1);
+        cout << duSieve(M) << endl;
 }
 ```
 
