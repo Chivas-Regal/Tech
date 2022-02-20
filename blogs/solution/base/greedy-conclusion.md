@@ -1117,6 +1117,89 @@ int main () {
 
 <hr>
 
+## ABC239F_ConstructHighway
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc239/tasks/abc239_f?lang=en"><img src="https://img-blog.csdnimg.cn/a7873f3812a3498790b1c697606a48be.png"></a>
+
+#### 💡
+给点的度数和几条已知边，让建树  
+树的形状小了来说是没有回路，大了来说是给定的连通块没有回路  
+那么我们按连通块合并，然后让每个连通块内的度数消为 $0$   
+都消到零可以用优先队列消减的思想，让大的之间先互消  
+那么我们存入每个连通块的总度数并对其降序排序   
+然后让前面的连通块去合并后面的连通块  
+  
+这里有一个菊花图的思想  
+就是默认 $0$ 号连通块为中心点，然后往后面的连通块合并 
+如果 $0$ 号连通块的总度数降到 $0$ ，那么就让下一个连通块作为 $0$ 号连通块进行之后的合并  
+  
+::: danger 
+注意好特判 $-1$ 的情况，即连不成一棵树  
+- 给的边有环
+- 剩余度数和为奇数或者 $/2$ 加上已有的边不等于 $n-1$   
+- 给的一个点出现的次数大于给的度数
+- 给的度数在构造后有不为 $0$ 的情况  
+:::
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+int n, m;
+int d[N];
+
+namespace UnionSet {
+        int nod[N];
+        inline void Init () { for ( int i = 0; i < N; i ++ ) nod[i] = i; }
+        inline int Find ( int x ) { return x == nod[x] ? x : nod[x] = Find(nod[x]); }
+        inline void Merge ( int x, int y ) { int fx = Find(x); int fy = Find(y); if ( fx != fy ) nod[fx] = fy;  }
+        inline bool Check ( int x, int y) { int fx = Find(x), fy = Find(y); return fx == fy; }
+}
+
+queue<int> que[N];
+vector<pair<int, int> > vec;
+vector<pair<int, int> > res;
+
+int main () {
+        UnionSet::Init();
+        scanf("%d%d", &n, &m);
+        for ( int i = 1; i <= n; i ++ ) scanf("%d", &d[i]);
+        for ( int i = 0; i < m; i ++ ) {
+                int a, b; scanf("%d%d", &a, &b);
+                d[a] --; d[b] --;
+                if ( UnionSet::Check(a, b) || d[a] < 0 || d[b] < 0 ) { puts("-1"); return 0; }
+                UnionSet::Merge(a, b);
+        }
+        int sum = 0;
+        for ( int i = 1; i <= n; i ++ ) if ( d[i] > 0 ) sum += d[i];
+        if ( sum / 2 + m != n - 1 || sum % 2 != 0 ) { puts("-1"); return 0; }
+
+        for ( int i = 1; i <= n; i ++ ) 
+                for ( int j = 0; j < d[i]; j ++ ) que[UnionSet::Find(i)].push(i);
+        for ( int i = 1; i <= n; i ++ ) if ( que[i].size() ) vec.push_back({que[i].size(), i});
+        sort ( vec.begin(), vec.end(), [&]( pii a, pii b ) { return a.first > b.first; } );
+
+        for ( int i = 1; i < vec.size(); i ++ ) {
+                if ( vec[0].first ) {
+                        int u = que[vec[i].second].front(); que[vec[i].second].pop();
+                        int v = que[vec[0].second].front(); que[vec[0].second].pop();
+                        res.push_back({u, v});
+                        d[u] --, d[v] --;
+                        vec[i].first --; vec[0].first --;
+                }
+                vec[0].first += vec[i].first;
+                while ( que[vec[i].second].size() ) 
+                        que[vec[0].second].push(que[vec[i].second].front()),
+                        que[vec[i].second].pop();
+        }
+
+        for ( int i = 1; i <= n; i ++ ) if ( d[i] ) { puts("-1"); return 0; }
+        for ( auto i : res ) printf("%d %d\n", i.first, i.second);
+}
+```
+<hr>
+
+
 ## AcWing3766_数字矩阵
 
 #### 🔗

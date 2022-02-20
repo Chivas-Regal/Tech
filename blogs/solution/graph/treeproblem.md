@@ -483,6 +483,78 @@ int main () {
 
 ## 子树问题
 
+### ABC239E_SubtreeK-thMax
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc239/tasks/abc239_e"><img src="https://img-blog.csdnimg.cn/25a30af4e188482980e8e955f94e5fcd.png"></a>
+
+#### 💡
+这个题的突破口在于是否能快速注意到数据范围 $k\le 20$  
+注意到这个就很好做了  
+每个点维护一个子树权值的小顶堆，装入子树下最大的 $20$ 个点权  
+用 $DFS$ 回溯维护  
+每次查询就跑一下这个堆即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+const int M = 2e5 + 10;
+priority_queue<int, vector<int>, greater<int> > pque[N];
+int n, q;
+struct Edge {
+        int nxt, to;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge ( int from, int to ) {
+        edge[++cnt] = { head[from], to };
+        head[from] = cnt;
+}
+int val[N];
+ 
+inline void DFS ( int x, int fa ) {
+        pque[x].push(val[x]);
+        for ( int i = head[x]; i; i = edge[i].nxt ) {
+                int y = edge[i].to;
+                if ( y == fa ) continue;
+                DFS(y, x);
+                priority_queue<int> tmp;
+                while ( pque[y].size() ) {
+                        tmp.push(pque[y].top());
+                        if ( pque[x].size() < 20 ) pque[x].push(pque[y].top());
+                        else {
+                                if ( pque[y].top() > pque[x].top() ) pque[x].pop(), pque[x].push(pque[y].top());
+                        }
+                        pque[y].pop();
+                }
+                while ( tmp.size() ) pque[y].push(tmp.top()), tmp.pop();
+        } 
+}
+ 
+int main () {
+        scanf("%d%d", &n, &q);
+        for ( int i = 1; i <= n; i ++ ) scanf("%d", &val[i]);
+        for ( int i = 0; i < n - 1; i ++ ) {
+                int a, b; scanf("%d%d", &a, &b);
+                add_Edge(a, b);
+                add_Edge(b, a);
+        }
+        DFS(1, 1);
+        while ( q -- ) {
+                int v, k; scanf("%d%d", &v, &k);
+                priority_queue<int> tmp;
+                while ( pque[v].size() ) tmp.push(pque[v].top()), pque[v].pop();
+                int idx = 0;
+                while ( tmp.size() ) {
+                        idx ++;
+                        if ( idx == k ) printf("%d\n", tmp.top());
+                        pque[v].push(tmp.top()); tmp.pop();
+                }
+        }
+}
+```
+<hr>
+
+
 ### CodeForces1626E_BlackAndWhiteTree
 
 #### 🔗
