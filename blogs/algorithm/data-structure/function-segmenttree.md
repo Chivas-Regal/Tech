@@ -68,27 +68,36 @@ sidebar:
 
 ### 程序  
 
+逐个分析:  
+
+#### 全局变量  
+
 ```cpp
-#include <iostream>
-#include <algorithm>
-#include <vector>
-
-using namespace std;
-
 const int N = 2e5 + 10;
-int a[N];
-vector<int> nums;
+int a[N];           // 原数组
+vector<int> nums;   // 离散化数组
 struct node {
-        int l, r, sum;
-}sgtr[N * 30];
-int tot, root[N];
+    int l, r, sum;  // 左子树版本号，右子树版本号，当前版本数字个数
+} sgtr[N * 30];     // 下标为版本号
+int tot;            // 递进的版本号
+int root[];         // 每个大版本 “[1~n]”  的出发节点
+```
 
+#### 离散化
+
+```cpp
 // 访问x离散化之后的值
 inline int get_Id ( int x ) {
         return lower_bound(nums.begin(), nums.end(), x) - nums.begin() + 1;
 }
+```
 
-// 在表示[l, r]区间的now节点插入数字p，上个版本是pre
+#### 插入
+
+```cpp
+// 从数值 [l,r] 中查找 p 的位置从而修改，
+// pre：当前节点的原先版本，不修改，用作实例
+// now：我们要对这个原先版本新开的版本
 inline void Insert ( int l, int r, int pre, int &now, int p ) {
         sgtr[++ tot] = sgtr[pre];       // 很多信息一样，剩下的改改就行
         now = tot;                      // 当前节点编号 = 新分配的节点编号
@@ -96,29 +105,40 @@ inline void Insert ( int l, int r, int pre, int &now, int p ) {
         if ( l == r ) return ;          // 叶子节点
 
         int mid = (l + r) >> 1;
-        if ( p <= mid )                 // 插入什么数 = 在线段树哪一个位置插入
+        // 插入什么数 -> 在线段树哪一个位置插入
+        // 不仅我们要移动当前版本now至左(右)，我们也要移动我们的示例版本pre至左(右)
+        if ( p <= mid )                 
                 Insert(l, mid, sgtr[pre].l, sgtr[now].l, p);
         else
                 Insert(mid + 1, r, sgtr[pre].r, sgtr[now].r, p);
 }
+```
 
-// 查询版本R-版本L-1，两个版本同步进行，当前到达节点表示区间[l,r]，查询第k大
+#### 查询
+
+```cpp
+// 版本号：R 和 L  
+// 区间 [l,r] 固定出第 k 小在这之内
 inline int Query ( int l, int r, int L, int R, int k ) {
         if ( l == r ) return l;
 
         int mid = (l + r) >> 1;
-        int cnt = sgtr[sgtr[R].l].sum - sgtr[sgtr[L].l].sum; // 新减出的线段树的左子树有多少个数
+        // sgtr[sgtr[R].l].sum：版本 R 的左子树的 sum
+        // sgtr[sgtr[L].l].sum：版本 L 的右子树的 sum
+        // 新减出的线段树的左子树有多少个数
+        int cnt = sgtr[sgtr[R].l].sum - sgtr[sgtr[L].l].sum; 
+        // 版本 L R 都要向下移动至其 左(右)子树
         if ( k <= cnt )
                 return Query(l, mid, sgtr[L].l, sgtr[R].l, k);
         else
                 return Query(mid + 1, r, sgtr[L].r, sgtr[R].r, k - cnt);
 }
+```
 
+#### 主函数
+
+```cpp
 int main() {
-#ifndef ONLINE_JUDGE
-        freopen("../in.in", "r", stdin);
-        freopen("../out.out", "w", stdout);
-#endif
         int n, m; cin >> n >> m;
         for ( int i = 1; i <= n; i ++ ) {
                 cin >> a[i];
@@ -126,13 +146,15 @@ int main() {
         }
         sort ( nums.begin(), nums.end() );
         nums.erase(unique(nums.begin(), nums.end()), nums.end());
+
+        // 构建
         for ( int i = 1; i <= n; i ++ ) {
-                Insert(1, n, root[i - 1], root[i], get_Id(a[i])); // 插入，同时赋值第i个数形成的版本是几
+                Insert(1, n, root[i - 1], root[i], get_Id(a[i])); // 插入，同时赋值第i个数形成的版本号的出发根节点
         }
 
         while ( m -- ) {
                 int l, r, k; cin >> l >> r >> k;
-                cout << nums[Query(1, n, root[l - 1], root[r], k) - 1] << endl;
+                cout << nums[Query(1, n, root[l - 1], root[r], k) - 1] << endl; // 前缀和思想，从 r 版本减去 l-1 版本进行查找
         }
         return 0;
 }
