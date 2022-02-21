@@ -547,6 +547,126 @@ int main()
 
 <hr>
 
+## 牛客NC19246_数据结构
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/problem/19246"><img src="https://img-blog.csdnimg.cn/1a4283ba950d4931943f3bcaae77f392.png"></a>
+
+#### 💡
+区间加和区间乘互相包含且顺序不能混，所以用两个懒标记实现 `lazy_add, lazy_mul`  
+区间平方和与区间和也同样，所以用两个记录数值实现 `val1, val2`  
+  
+<b>在 `PushDown()` 内</b>  
+子点 `lazy_add` 一定包含在父点的 `lazy_mul` 内，所以应在推 `lazy_mul` 时让子点的 `lazy_add` 也乘上  
+且先推 `lazy_mul` 再推 `lazy_add`  
+- `lazy_mul` 推的时候，除了平方数乘 $k^2$ 外别的均乘 $k$（没什么好说的  
+- `lazy_add` 推的时候，别的都很简单，但要注意平方数 $(x+c)^2=x^2+2cx+c^2$
+  - 这里 $x^2$ 就是本身所以 `+=` 即可  
+  - $2cx$ 是以 `val2` 的区间整体乘 $2c$
+  - $c^2$ 则是累加了 $len[l(mid+1),mid(r)]$ 次
+  - 所以 `ls.val1 += c * c * (mid - l + 1) + 2 * c * ls.val2`
+  
+<b>在 `Update()` 内</b>  
+区间加和上面说的类似  
+区间乘时要注意之前加过的也就是 `lazy_add` 也要乘  
+
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e4 + 10;
+int n, m;
+ll a[N];
+
+namespace SegmentTree {
+        struct sgtr {
+                ll val1, val2;
+                ll lazy_mul, lazy_plus;
+        } t[N << 2];
+        inline void PushUp ( int rt ) {
+                sgtr &ls = t[rt << 1], &rs = t[rt << 1 | 1], &fa = t[rt];
+                fa.val1 = ls.val1 + rs.val1;
+                fa.val2 = ls.val2 + rs.val2;
+        } 
+        inline void PushDown ( int l, int r, int rt ) {
+                sgtr &ls = t[rt << 1], &rs = t[rt << 1 | 1], &fa = t[rt];
+                if ( fa.lazy_mul != 1 ) {
+                        ll k = fa.lazy_mul;
+                        ls.val1 *= k * k;  rs.val1 *= k * k;
+                        ls.val2 *= k;      rs.val2 *= k;
+                        ls.lazy_mul *= k;  rs.lazy_mul *= k;
+                        ls.lazy_plus *= k; rs.lazy_plus *= k;
+                        fa.lazy_mul = 1;
+                }
+                if ( fa.lazy_plus != 0 ) {
+                        ll k = fa.lazy_plus;
+                        int mid = (l + r) >> 1;
+                        ls.val1 += k * k * (mid - l + 1) + 2 * k * ls.val2; rs.val1 += k * k * (r - mid) + 2 * k * rs.val2;
+                        ls.val2 += k * (mid - l + 1);                       rs.val2 += k * (r - mid);
+                        ls.lazy_plus += k;                                  rs.lazy_plus += k;
+                        fa.lazy_plus = 0;
+                }
+        }
+        inline void Build ( int l = 1, int r = n, int rt = 1 ) {
+                t[rt].lazy_mul = 1, t[rt].lazy_plus = 0;
+                if ( l == r ) {
+                        t[rt].val1 = a[l] * a[l];
+                        t[rt].val2 = a[l];
+                        return;
+                }
+                int mid = (l + r) >> 1;
+                Build(l, mid, rt << 1);
+                Build(mid + 1, r, rt << 1 | 1);
+                PushUp(rt);
+        }
+        inline void update ( int a, int b, ll c, int opt, int l = 1, int r = n, int rt = 1 ) {
+                if ( r < a || b < l ) return;
+                if ( a <= l && r <= b ) {
+                        if ( opt == 3 ) {
+                                t[rt].val1 *= c * c;
+                                t[rt].val2 *= c;
+                                t[rt].lazy_mul *= c;
+                                t[rt].lazy_plus *= c;
+                        } else {
+                                t[rt].val1 += c * c * (r - l + 1) + 2 * c * t[rt].val2;
+                                t[rt].val2 += c * (r - l + 1);
+                                t[rt].lazy_plus += c;
+                        }
+                        return;
+                }
+                int mid = (l + r) >> 1;
+                PushDown(l, r, rt);
+                update(a, b, c, opt, l, mid, rt << 1);
+                update(a, b, c, opt, mid + 1, r, rt << 1 | 1);
+                PushUp(rt);
+        }
+        inline ll Query ( int a, int b, int opt, int l = 1, int r = n, int rt = 1 ) {
+                if ( r < a || b < l ) return 0;
+                if ( a <= l && r <= b ) return opt == 1 ? t[rt].val2 : t[rt].val1;
+                int mid = (l + r) >> 1;
+                PushDown(l, r, rt);
+                return Query(a, b, opt, l, mid, rt << 1) + Query(a, b, opt, mid + 1, r, rt << 1 | 1);
+        }
+} using namespace SegmentTree;
+
+int main () {
+        scanf("%d%d", &n, &m);
+        for ( int i = 1; i <= n; i ++ ) scanf("%lld", &a[i]);
+        Build();
+        while ( m -- ) {
+                int opt, l, r; scanf("%d%d%d", &opt, &l, &r);
+                if ( opt <= 2 ) {
+                        printf("%lld\n", Query(l, r, opt));
+                } else {
+                        ll c; scanf("%lld", &c);
+                        update(l, r, c, opt);
+                }
+        }
+}
+```
+<hr>
+
+
 ## 牛客NC230082_SashaAndArray
 
 #### 🔗
