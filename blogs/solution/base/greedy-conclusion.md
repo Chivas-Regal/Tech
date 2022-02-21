@@ -1269,6 +1269,77 @@ int main () {
 ```
 <hr>
 
+## ABC240F_SumSumMax
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc240/tasks/abc240_f?lang=en"><img src="https://img-blog.csdnimg.cn/f4031d9fd83c452e97da4f1da3c54ae3.png"></a>
+
+#### 💡
+我们关注一下 $\{A\}$ 都等于什么  
+$A_1=C_1$  
+$A_2=2C_1+C2$  
+$A_3=3C_1+2C_2+C_3$  
+$...$  
+可以看出这是个等差数列  
+那么我们分析一波 $\{A\}$ 中需要维护最大值的位置  
+- 每 $b[i]$ 或者最后是 $m$ 维护一次  
+- 每段 $0\to b[i]$ 中间维护一次  
+  
+我们设 $idx$ 为当前的 $A$ 下标， $sum=\sum\limits_{i=1}^{idx}a_i\times b_i$    
+第一个很好求，直接用等差数列计算即可  
+第二个只会存在于 $sum>0$ 且 $a_i<0$   
+令加的量 $ad=sum$ ，减的量 $dl=-a_i$  
+那么加的速度即 $ad$ ，减的速度即 $dl,2dl,3dl\dots$    
+在这个段内找到最后让 $ad>x\times dl$ 的位置 $x$    
+即 $x=\frac{ad}{dl}$  
+如果这个位置在所求段内，即可算上这个位置的价值  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+int n, m;
+ll a[N], b[N];
+
+inline void Solve () {
+        cin >> n >> m;
+        for ( int i = 0; i < n; i ++ ) cin >> a[i] >> b[i];
+        ll res = a[0];
+        ll idx = 0; // 保证 A 的下标不超过 m
+        ll cur = 0; // 维护当前值
+        ll sum = 0; 
+        for (int i = 0; i < n; i ++ ) {
+                if ( a[i] < 0 && sum > 0 ) {
+                        ll ad = sum;
+                        ll dl = - a[i];
+                        ll ps = ad / dl; 
+                        if ( ps >= 0 && idx + ps <= m && ps <= b[i] ) {
+                                res = max(res, cur + ad * ps - dl * (ps + 1) * ps / 2);
+                        }
+                }
+                if ( idx + b[i] <= m ) {
+                        cur += (1ll + b[i]) * b[i] / 2 * a[i] + sum * b[i];
+                        idx += b[i];
+                        res = max(res, cur);
+                        if ( idx == m ) break;
+                } else {
+                        cur += a[i] * ((1 + m - idx) * (m - idx) / 2) + sum * (m - idx);
+                        res = max(res, cur);
+                        break;
+                }
+                sum += a[i] * b[i];
+        }
+        cout << res << endl;
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        int cass; cin >> cass; while ( cass -- ) {
+                Solve ();
+        }
+}
+```
+<hr>
+
 
 ## AcWing3766_数字矩阵
 
