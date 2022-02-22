@@ -917,3 +917,71 @@ CHIVAS_{
 ```
 
 <hr>
+
+## CodeForces1633D_MakeThemEqual
+
+#### 🔗
+<a href="https://codeforces.com/contest/1633/problem/D"><img src="https://img-blog.csdnimg.cn/49789d91e1e64995ab4a9a865e8f080b.png"></a>
+
+#### 💡
+首先我们肯定要去求一下每个数最少被 $1$ 跑多少遍，设为$[stp]$  
+然后我们现在的条件可以建模为：有 $k$ 的容积，$n$ 个物品，每个物品容积价值也有  
+那么就是背包问题  
+  
+如果 $O(nk)$ 肯定会超时，但是我们注意到，$max[stp]$ 不会很大  
+所以其实所有物品的体积加起来不会达到 $1e6$  
+那么我们可以通过这个压缩一下容积进行求解  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const ll N = 1e3 + 10;
+ll stp[N];
+ll vis[N];
+ll dp[1000005];
+ll mx = 0;
+
+inline void BFS () {
+        queue<pair<ll, ll> > q;
+        q.push({1, 0});
+        while ( q.size() ) {
+                pair<ll, ll> cur = q.front(); q.pop();
+                if ( cur.first > 1000 || vis[cur.first] ) continue; vis[cur.first] = 1;
+                stp[cur.first] = cur.second;
+                for ( ll x = 1; x <= cur.first; x ++ ) 
+                        q.push({cur.first + cur.first / x, cur.second + 1});
+        } 
+}
+
+inline void Solve () {
+        ll n, m; cin >> n >> m;
+        vector<ll> b, c; b.push_back(0); c.push_back(0);
+        ll sum = 0;
+        for ( ll i = 1; i <= n; i ++ ) {
+                ll x; cin >> x;
+                b.push_back(stp[x]);
+                sum += stp[x];
+        }
+        for ( ll i = 1; i <= n; i ++ ) {
+                ll x; cin >> x;
+                c.push_back(x);
+        }
+        m = min(m, sum);
+        memset(dp, 0, sizeof dp);
+        for ( ll i = 1; i <= n; i ++ ) {
+                for ( ll j = m; j >= b[i]; j -- ) {
+                        dp[j] = max(dp[j], dp[j - b[i]] + c[i]);
+                }
+        }
+        cout << dp[m] << endl;
+}
+
+int main () {
+        memset(stp, 0x3f3f3f3f, sizeof stp);
+        BFS(); 
+        ios::sync_with_stdio(false);
+        ll cass; cin >> cass; while ( cass -- ) {
+                Solve ();
+        }
+}
+```
+<hr>
