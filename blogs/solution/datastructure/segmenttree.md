@@ -666,6 +666,85 @@ int main () {
 ```
 <hr>
 
+## 牛客NC226170_仓鼠的鸡蛋
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/problem/226170"><img src="https://img-blog.csdnimg.cn/ce60ba1d5668459f8f50e2c189c5c88d.png"></a>
+
+#### 💡
+求篮子中剩余值第一个大于等于 $a_i$ 的位置  
+以篮子做线段树数组 $\{m,k\}$  
+维护区间 $max$ ，查询时对 $a_i$ 与 $t[rt].m$ 进行比较，优先去找左区间   
+找到单点后答案即为该点，然后单点修改，注意如果种类放完也就是说 $t[rt].k=0$ 那么可放个数 $t[rt].m$ 也要变成 $0$   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 3e5 + 10;
+const int mod = 1e9 + 7;
+
+int n, m, k;
+int a[N];
+
+struct sgtr {
+        int cnt_num;
+        int cnt_kind;
+} t[N << 2];
+inline void PushUp ( int rt ) {
+        t[rt].cnt_num = max(t[rt << 1].cnt_num, t[rt << 1 | 1].cnt_num);
+}
+inline void Build ( int l, int r, int rt ) {
+        if ( l == r ) {
+                t[rt] = {m, k};
+                return;
+        }
+        int mid = (l + r) >> 1;
+        Build(l, mid, rt << 1);
+        Build(mid + 1, r, rt << 1 | 1);
+        PushUp(rt);
+}
+inline void Update ( int id, int c, int l = 1, int r = n, int rt = 1 ) {
+        if ( l > id || id > r ) return;
+        if ( l == r ) {
+                t[rt].cnt_num -= c;
+                t[rt].cnt_kind --;
+                if ( t[rt].cnt_kind == 0 ) t[rt].cnt_num = 0;
+                return;
+        }
+        int mid = (l + r) >> 1;
+        Update(id, c, l, mid, rt << 1);
+        Update(id, c, mid + 1, r, rt << 1 | 1);
+        PushUp(rt);
+}
+inline int Query ( int num, int l = 1, int r = n, int rt = 1 ) {
+        if ( l == r ) return l;
+        int mid = (l + r) >> 1;
+        if ( t[rt << 1].cnt_num >= num ) return Query(num, l, mid, rt << 1);
+        else                             return Query(num, mid + 1, r, rt << 1 | 1); 
+}
+
+inline void Solve () {
+        scanf("%d%d%d", &n, &m, &k);
+        for ( int i = 1; i <= n; i ++ ) scanf("%d", &a[i]);
+        Build(1, n, 1);
+        for ( int i = 1; i <= n; i ++ ) {
+                if ( t[1].cnt_num < a[i] ) {
+                        puts("-1");
+                        continue;
+                } 
+                int id = Query(a[i]);
+                printf("%d\n", id);
+                Update(id, a[i]);
+        }
+}
+
+int main () {
+        int cass; scanf("%d", &cass); while ( cass -- ) {
+                Solve();
+        }
+}
+```
+<hr>
+
 
 ## 牛客NC230082_SashaAndArray
 
