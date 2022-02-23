@@ -1174,6 +1174,64 @@ int main () {
 
 <hr>
 
+### CodeForces1644D_CrossColoring
+
+#### 🔗
+<a href="https://codeforces.com/contest/1644/problem/D"><img src="https://img-blog.csdnimg.cn/e9a42398e1094cf1815b59ef9ee1d3ab.png"></a>
+
+#### 💡
+这个是要能对结果进行分区再组合  
+求出我们可以向下移动的次数 `can_dwn` 和可以向右移动的次数 `can_rgt`  
+
+首先我们要找到真正可以移动的部分  
+即 $s[i]!=s[i+1]$ 的位置（第一个拐角  
+先求出彻底包含第一个拐角之后的路径的行数 `r` 和列数 `c`  
+那么  
+<b>第一个部分</b>是我们一直向右移动可以多覆盖的面积：$can\_rgt\times c$  
+<b>第二个部分</b>是我们一直向下移动可以多覆盖的面积：$can\_dwn\times r$  
+<b>第三个部分</b>是我们开始时覆盖的面积：$s.size()+1$  
+<b>第四个部分</b>是我们右下角的面积：$can\_dwn\times can\_rgt$  
+
+将这四部分加在一起即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void Solve () {
+        int n; cin >> n; n --;
+        string s; cin >> s;
+        ll rgt = 0, dwn = 0;
+        for ( int i = 0; i < s.size(); i ++ ) {
+                rgt += s[i] == 'R';
+                dwn += s[i] == 'D';
+        }
+        ll canr = n - rgt;
+        ll cand = n - dwn;
+ 
+        string tmp = s; sort ( tmp.begin(), tmp.end() );
+        if (tmp[0] == tmp.back()) {
+                cout << n + 1 << endl;
+                return;
+        }
+ 
+        int id = 0;
+        for ( int i = 0; i < s.size(); i ++ ) {
+                if ( s[i] != s[i + 1] ) {
+                        id = i;
+                        break;
+                }
+        }
+        rgt = dwn = 1;
+        for ( int i = id + 1; i < s.size(); i ++ ) rgt += s[i] == 'R', dwn += s[i] == 'D';
+ 
+ 
+        ll dwn_num = rgt * cand;
+        ll rgt_num = dwn * canr;
+        cout << canr * cand + s.size() + 1 + dwn_num + rgt_num << endl;
+}
+```
+<hr>
+
+
 ### ICPC2020上海站G_Fibonacci
 
 #### 🔗

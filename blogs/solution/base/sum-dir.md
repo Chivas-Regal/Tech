@@ -614,8 +614,46 @@ int main () {
 ```
 <hr>
 
+## CodeForces1644C_IncreaseSubarraySums
 
+#### 🔗
+<a href="https://codeforces.com/contest/1644/problem/C"><img src="https://img-blog.csdnimg.cn/97cc7c4c01b247b39e98c80c939be377.png"></a>
+
+#### 💡
+如果两个位置加得太远，那么和就加一个没什么区别  
+所以应该考虑到，应该是加连续的位置来获得更大的收益  
+每次加完后取长度不小于 $k$ 的最长连续子区间，因为如果说 $<k$ 可以得到更大的结果，这个通过维护当前 $f[k]$ 与 $f[k-1]$ 的 $max$
+ 即可考虑在内  
+对于长度不小于 $k$ 的连续子区间，我们维护一个前缀和，再维护一个前缀和的前缀最小值  
+那么以 $i$ 结尾的长度不小于 $k$ 的连续最小子区间即可通过 $sum[i]-mnsum[i-k]$ 得到  
+每次先行扫描一遍维护一下当前最大值，然后 $f[k]=max(mx,f[k-1])$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const ll N = 5010;
+ll a[N];
+ll sum[N];
+ll mnsum[N];
+ll f[N];
+
+inline void Solve () {
+        f[0] = 0;
+        ll n, x; cin >> n >> x;
+        for ( ll i = 1; i <= n; i ++ ) cin >> a[i], sum[i] = sum[i - 1] + a[i];
+        for ( ll i = 1; i <= n; i ++ ) mnsum[i] = min(mnsum[i - 1], sum[i]);
+        for ( ll k = 1; k <= n; k ++ ) {
+                ll mx = 0;
+                for ( ll i = k; i <= n; i ++ ) {
+                        ll j = i - k + 1;
+                        mx = max(mx, sum[i] - mnsum[j - 1] + k * x);
+                }
+                f[k] = max(f[k - 1], mx);
+        }
+        for ( ll i = 0; i <= n; i ++ ) cout << f[i] << " "; cout << endl;
+}
+```
 <hr>
+
 
 ## HDU2021多校(1)5_Minimumspanningtree
 
