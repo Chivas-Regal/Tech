@@ -5,6 +5,378 @@ title:  二分
 ###  
 <hr>
 
+## 洛谷P1462_通往奥格瑞玛的道路
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P1462"><img src="https://img-blog.csdnimg.cn/c9cdf9a2edd54a448db5492ff12fd394.png"></a>
+
+#### 💡
+二分答案，`check()` 可以通过删点来解决  
+在不走 $f[x]>mid$ 的情况下，即提前标记 $vis[x]=true$ ，看看最短路是多少  
+和血量 $b$ 比较一下  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e4 + 10;
+const int M = 1e5 + 10;
+
+int n, m; ll b;
+ll f[N];
+
+bool vis[N];
+ll dis[N];
+
+struct Edge {
+        int nxt, to;
+        ll val;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge ( int from, int to, ll val ) {
+        edge[++cnt] = { head[from], to, val };
+        head[from] = cnt;
+}
+
+struct node { int id; ll dis; inline friend bool operator < ( node a, node b ) { return a.dis > b.dis; } };
+inline bool Check ( ll x ) {
+        for ( int i = 1; i <= n; i ++ ) {
+                if ( f[i] <= x ) vis[i] = false;
+                else             vis[i] = true;
+                dis[i] = 1e18;
+        }
+        priority_queue<node> pque;
+        pque.push({1, 0});
+        dis[1] = 0;
+        while ( !pque.empty() ) {
+                node cur = pque.top(); pque.pop();
+                if ( vis[cur.id] ) continue; vis[cur.id] = true;
+                for ( int i = head[cur.id]; i; i = edge[i].nxt ) {
+                        int to = edge[i].to;
+                        if ( dis[to] > dis[cur.id] + edge[i].val && !vis[to] ) {
+                                dis[to] = dis[cur.id] + edge[i].val;
+                                pque.push({to, dis[to]});
+                        }
+                }
+        }
+        return dis[n] < b;
+}
+
+int main () {
+        scanf("%d%d%lld", &n, &m, &b);
+        for ( int i = 1; i <= n; i ++ ) scanf("%lld", &f[i]);
+        for ( int i = 1; i <= m; i ++ ) {
+                int x, y; ll z; scanf("%d%d%lld", &x, &y, &z);
+                add_Edge(x, y, z);
+                add_Edge(y, x, z);
+        }
+
+        ll l = 0, r = 1000000005;
+        if ( Check(r) == false ) {
+                puts("AFK");
+                return 0;
+        }
+
+        ll res = r;
+        while ( l <= r ) {
+                int mid = (l + r) >> 1;
+                if ( Check(mid) ) res = mid, r = mid - 1;
+                else l = mid + 1;
+        }
+        printf("%lld\n", res);
+}
+```
+<hr>
+
+## 洛谷P1663_山
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P1663"><img src="https://img-blog.csdnimg.cn/0eb7b1d988c04aa9a730a04bd7460727.png"></a>
+
+#### 💡
+思考什么样的点才可以被所有地方看见  
+在所有山坡<b>直线上方</b>的点  
+那么我们对于一个 $y$ ，可以求出它与所有山坡的交点  
+利用交点我们可以得到对于每个山坡，它能被看见的话，$x$ 可在的区间  
+利用二分答案，每一个 `check()` 是：对于所有 $x$ 可以被看到的区间是否有交集  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+struct node {
+        double k, b;
+} l[5010];
+pair<double, double> p[5010];
+
+int n;
+
+inline bool check ( double y ) {
+        double L = -1e10, R = 1e10;
+        for ( int i = 0; i < n - 1; i ++ ) {
+                if ( l[i].k == 0 ) {
+                        if ( l[i].b > y ) return false;
+                } else {
+                        double x0 = (y - l[i].b) / l[i].k, y0 = y;
+                        if ( l[i].k < 0 ) L = max(L, x0);
+                        else              R = min(R, x0);
+                }
+        }
+        return L <= R;
+}
+
+int main () {
+        cin >> n;
+        for ( int i = 0; i < n; i ++ ) {
+                cin >> p[i].first >> p[i].second;
+                if ( i ) {
+                        l[i - 1].k = (p[i].second - p[i - 1].second) / (p[i].first - p[i - 1].first);
+                        l[i - 1].b = p[i].second - l[i - 1].k * p[i].first;
+                } 
+        }
+        double l = 0, r = 1e10;
+        while ( r - l > 1e-6 ) {
+                double mid = (l + r) / 2;
+                if ( check(mid) ) r = mid;
+                else              l = mid;
+        }
+        printf("%.3f\n", l);
+}
+```
+<hr>
+
+## 洛谷P1704_寻找最优美做题曲线
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P1704"><img src="https://img-blog.csdnimg.cn/8d693c7c5186461d96b09396b6de9616.png"></a>
+
+#### 💡
+既然 $[p]$ 是必须出现在 $LIS$ 中的  
+那么我们可以找到 $[1\to n]$ 中一定不会出现在 $LIS$ 中的，删去      
+即对于 $j:p[i-1]\to p[i]$ $c[p[i-1]]\ge c[j]$ 或 $c[j]\ge c[p[i]]$ 的都不行   
+一看数据范围用二分法算 $LIS$  
+每次遇见 $p[i]$ 后都一定会进行 `push_back()`  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N  = 5e5 + 10;
+int n, k;
+int p[N], c[N];
+bool del[N];
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin >> n >> k;
+        for ( int i = 1; i <= k; i ++ ) cin >> p[i];
+        for ( int i = 1; i <= n; i ++ ) cin >> c[i];
+
+        sort ( p + 1, p + 1 + k );
+        for ( int i = 2; i <= k; i ++ ) {
+                if ( c[p[i]] <= c[p[i - 1]] ) {
+                        cout << "impossible" << endl;
+                        return 0;
+                }
+        }
+
+
+        for ( int j = 1; j < p[1]; j ++ ) if ( c[j] >= c[p[1]] ) del[j] = true;
+        for ( int j = p[k] + 1; j <= n; j ++ ) if ( c[j] <= c[p[k]] ) del[j] = true;
+        for ( int i = 2; i <= k; i ++ ) {
+                for ( int j = p[i - 1] + 1; j < p[i]; j ++ ) {
+                        if ( c[j] <= c[p[i - 1]] || c[j] >= c[p[i]] ) 
+                                del[j] = true;
+                }
+        }
+
+        vector<int> vec;
+        for ( int i = 1; i <= n; i ++ ) {
+                if ( del[i] ) continue;
+                if ( vec.empty() || vec.back() < c[i] ) vec.push_back(c[i]);
+                else vec[lower_bound(vec.begin(), vec.end(), c[i]) - vec.begin()] = c[i];
+        }
+        cout << vec.size() << endl;
+}
+```
+<hr>
+
+## 洛谷P1768_天路
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P1768"><img src="https://img-blog.csdnimg.cn/1a3261ad18f94a929450dd2dff4a440e.png"></a>
+
+#### 💡  
+带环的图很难求最长环  
+可以想一想能不能判断一个数是否为答案  
+  
+考虑若 $res$ 是最后的结果  
+那么必然所有的环均满足  
+$$\begin{aligned}
+\frac{\sum V}{\sum P}&\le res\\
+\sum V&\le res\times \sum P\\
+res\times \sum P-\sum V&\ge 0
+\end{aligned}$$  
+  
+这样权值大小就很明显了，<mark>在最大值中找到最小的也是二分答案的标志</mark>    
+使用密度二分，每次对边权重新赋值 $val=mid\times p-v$  
+如果具有环 $res\times\sum P-\sum V\lt 0$ 那么说明还没有到最大值  
+否则的话可能比最大值要大  
+那么就是判断是否有负环，如果有的话就说名具有环满足上面的不等式，这个便是 `check()`  
+  
+要注意可能会有不连通的情况，我们可以建立超级源点连接所有的边  
+这里 `BFS` 版 $SPFA$ 会寄， `DFS` 版勉强过  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 7010;
+const int M = 40010;
+
+struct Edge {
+        int nxt, to;
+        int v, p;
+        double val;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge ( int from, int to, int v, int p ) {
+        edge[++cnt] = { head[from], to, v, p };
+        head[from] = cnt;
+}
+int n, m;
+
+
+bool vis[N];
+double dis[N];
+
+inline bool has_Neg ( int x ) {
+        vis[x] = true;
+        for ( int i = head[x]; i; i = edge[i].nxt ) {
+                int to = edge[i].to;
+                if ( dis[to] > dis[x] + edge[i].val ) {
+                        dis[to] = dis[x] + edge[i].val;
+                        if ( vis[to] ) return true;
+                        if ( has_Neg(to) ) return true;
+                }
+        }
+        vis[x] = false;
+        return false;
+}
+
+int main () {
+        scanf("%d%d", &n, &m);       
+        for ( int i = 0; i < m; i ++ ) {
+                int a, b, c, d; scanf("%d%d%d%d", &a, &b, &c, &d);
+                add_Edge(a, b, c, d);
+        }
+        for ( int i = 1; i <= n; i ++ ) add_Edge(0, i, 0, 0);
+
+        double l = 0, r = 7000000;
+        while ( r - l > 1e-6 ) {
+                double mid = (l + r) / 2;
+                for ( int i = 1; i <= cnt; i ++ ) edge[i].val = mid * edge[i].p - edge[i].v;
+                for ( int i = 0; i <= n; i ++ ) vis[i] = 0, dis[i] = 100000000;
+                dis[0] = 0;
+                has_Neg(0) ? l = mid : r = mid;
+        }
+        if ( l == 0 ) {
+                puts("-1");
+                return 0;
+        }
+        printf("%.1f\n", l);
+}
+```
+<hr>
+
+
+
+## 洛谷P2323_公路修建问题
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P2323"><img src="https://img-blog.csdnimg.cn/45b1e8f082124ea5b412e1515eb278c3.png"></a>
+
+#### 💡
+因为答案是一个数值且要最小，所以具有单调性   
+且具有很多限制，如果给定一个数值我们可以很好地得出是否可以完成指标（ $k$ 个 $c1$ ，还要完成可以构建生成树  
+那么我们利用这个限制，去二分答案求解，`check()` 可以通过删边来解决    
+每次用 $x=mid$ 去 $check()$ 先扫一遍尽可能去把 $c1<=x$ 的道路都建上  
+满足了 $k$ 个边了再去看看生成树可不可以  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e4 + 10;
+int n, k, m;
+
+namespace UnionSet {
+        int nod[N];
+        inline void Init () { for ( int i = 0; i <= n; i ++ ) nod[i] = i; }
+        inline int Find ( int x ) { return x == nod[x] ? x : Find(nod[x]); }
+        inline void Merge ( int x, int y ) { int fx = Find(x), fy = Find(y); if ( fx != fy ) nod[fx] = fy; }
+        inline bool is_Similar ( int x, int y ) { int fx = Find(x), fy = Find(y); return fx == fy; }
+} using namespace UnionSet;
+
+struct Edge {
+        int a, b, c1, c2;
+} e[N];
+
+inline bool Check ( int x ) {
+        Init();
+        int cntk = 0, cnt = 0;
+        for ( int i = 0; i < m; i ++ ) {
+                if ( e[i].c1 <= x ) {
+                        if ( !is_Similar(e[i].a, e[i].b) ) 
+                                Merge(e[i].a, e[i].b),
+                                cntk ++,
+                                cnt ++;
+                }
+                if ( cnt == n - 1 ) {
+                        return cntk >= k;
+                }
+        }
+        if ( cntk < k ) return false;
+        for ( int i = 0; i < m; i ++ ) {
+                if ( e[i].c2 <= x ) {
+                        if ( !is_Similar(e[i].a, e[i].b) ) 
+                                Merge(e[i].a, e[i].b),
+                                cnt ++;
+                }
+                if ( cnt == n - 1 ) break;
+        }
+        return cnt == n - 1;
+}
+
+int main () {
+        scanf("%d%d%d", &n, &k, &m);
+        for ( int i = 0; i < m; i ++ ) scanf("%d%d%d%d", &e[i].a, &e[i].b, &e[i].c1, &e[i].c2);
+        int l = 1, r = 30000;
+        int res = 30000;
+        while ( l <= r ) {
+                int mid = (l + r) >> 1;
+                if ( Check(mid) ) res = mid, r = mid - 1;
+                else l = mid + 1;
+        }
+        
+        printf("%d\n", res);
+        Init();
+
+        int cnt = 0, cntk = 0;
+        for ( int i = 0; i < m; i ++ ) {
+                if ( e[i].c1 <= res ) {
+                        if ( !is_Similar(e[i].a, e[i].b) ) 
+                                Merge(e[i].a, e[i].b),
+                                cntk ++,
+                                cnt ++,
+                                printf("%d 1\n", i + 1);
+                }
+                if ( cnt == n - 1 ) return 0;
+        }
+        for ( int i = 0; i < m; i ++ ) {
+                if ( e[i].c2 <= res ) {
+                        if ( !is_Similar(e[i].a, e[i].b) ) 
+                                Merge(e[i].a, e[i].b),
+                                cnt ++,
+                                printf("%d 2\n", i + 1);
+                }
+                if ( cnt == n - 1 ) return 0;
+        }
+}
+```
+<hr>
+
 ## 洛谷P5657_格雷码
 
 #### 🔗
@@ -41,6 +413,7 @@ int main () {
 ```
 
 <hr>
+
 
 ## 牛客2022寒假算法基础集训营5A_疫苗小孩
 
@@ -109,6 +482,10 @@ int main () {
 <a href="https://atcoder.jp/contests/abc236/tasks/abc236_e"><img src="https://img-blog.csdnimg.cn/067234edc7384a5bb0e9c52215c77902.png"></a>
 
 #### 💡
+
+::: tip
+二分求平均数是一个经典的密度二分
+:::
 
 一个位置可以选或者不选，但是不能有两个相邻的不选  
 这个我们可以感觉到 $dp$ 就可以推出来  
