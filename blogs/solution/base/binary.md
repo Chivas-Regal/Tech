@@ -283,6 +283,62 @@ int main () {
 <hr>
 
 
+## 洛谷P1800_software
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P1800"><img src="https://img-blog.csdnimg.cn/693c0b611f104a5fa7ad36571d5463df.png"></a>
+
+#### 💡
+两个限制，即模块$1$和模块$2$的完成数要达到 $m$  
+但是没有对应的价值，那么我们可以令一个模块的完成数作为价值，一个作为限制  
+那么开 $dp$  
+$dp[i][j]$ 表示前 $i$ 个人完成 $j$ 个模块$1$下最多能完成多少个模块$2$  
+由于时间固定出每个物品的价值（完成物品体积个模块$1$后又能完成多少个模块$2$），那么就是枚举时间，枚举物品，枚举背包容积，再枚举物品容积  
+这是一个 $O(n^4)$ 的复杂度  
+但是考虑一下随着时间增大， $dp[n][m]$ 肯定是单调递增的，那么时间使用二分答案判断 $dp[n][m]$ 是否 $\ge m$  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 110;
+const int M = 110;
+
+int n, m;
+int a[N], b[N];
+
+int dp[N][M];
+
+inline bool Check ( int tim ) {
+        memset(dp, -0x3f3f3f3f, sizeof dp);
+        dp[0][0] = 0;
+        for ( int i = 1; i <= n; i ++ ) {
+                for ( int j = 0; j <= m; j ++ ) {         // 一共做了 j 个模块1
+                        for ( int k = 0; k <= j; k ++ ) { // 第 i 个人做 k 个模块1
+                                int time_else = tim - k * a[i];
+                                if ( time_else >= 0 )
+                                        dp[i][j] = max(dp[i][j], dp[i - 1][j - k] + time_else / b[i]);
+                        }
+                }
+        }
+        return dp[n][m] >= m;
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin >> n >> m;
+        for ( int i = 1; i <= n; i ++ ) cin >> a[i] >> b[i];
+        int l = 1, r = 100000;
+        while ( l <= r ) {
+                int mid = (l + r) >> 1;
+                if ( Check(mid) ) r = mid - 1;
+                else l = mid + 1;
+        }
+        cout << l << endl;
+}
+```
+<hr>
+
+
 
 ## 洛谷P2323_公路修建问题
 

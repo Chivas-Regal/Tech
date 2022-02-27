@@ -78,9 +78,6 @@ int main () {
 #### 🔗
 <a href="https://www.luogu.com.cn/problem/P1220"><img src="https://i.loli.net/2021/12/02/jiWgtSOIUvEZoPN.png"></a>
 
-<details>
-  <summary align="center">查看题解</summary>
-  
 #### 💡
   
 这种左右端点决策扩展的问题，应想到用区间DP  
@@ -117,13 +114,13 @@ inline int WalkTime ( int i, int j ) {
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
 ```cpp
-#### include <iostream>
-#### include <algorithm>
-#### include <cstring>
-#### include <vector>
-#### include <map>
+# include <iostream>
+# include <algorithm>
+# include <cstring>
+# include <vector>
+# include <map>
 
-#### define ll long long
+# define ll long long
 
 using namespace std;
 
@@ -164,4 +161,69 @@ int main () {
 }
 ```
 
+<hr>
+
+## NamomoCamp2022春季div1每日一题2_NoCrossing
+
+#### 🔗
+<a href="http://oj.daimayuan.top/problem/437"><img src="https://img-blog.csdnimg.cn/285cf76822ea4e18aa79fe8835b7250b.png"></a>
+
+#### 💡
+在图上画一画可行的走法便可得到  
+这个题要考虑好我们走的点在坐标上一定要是让 $[l,r]$ 不断下压的   
+这非常有区间 $dp$ 的味道  
+那么我们维护 $dp[s][l][r][to]$  
+- $s$ 为滚动下标
+- $l,r$ 为我们维护的区间
+- $to$ 指方向，也意味着在 $[l,r]$ 区间内我们最终会停在 $0/1:l/r$  
+那么状态转移即为  
+
+$[l,mid]$ 一定是停在 $mid$ ，毕竟 $mid\to l$ 没有可转移的状态  
+$[mid,r]$ 同理也是停在 $mid$  
+$[l,mid],[mid,r]$ 都可以由 $l\to r\to mid$ 和 $r\to l\to mid$ 可以固定出来  
+所以 $dp[l,mid],dp[mid,r]$ 都由 $dp[l,r][1]+g[r][mid]$ 和 $dp[l,r][0]+g[l][mid]$ 维护最小值  
+
+更新 $k$ 次后我们即可得到我们想要的  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int M = 2010,
+          N = 110;
+
+int g[N][N];
+int n, m, k;
+int dp[2][N][N][2]; // s, l, r, to{{0,left},{1,right}}
+
+
+int main () {
+        scanf("%d%d%d", &n, &k, &m);
+        memset(g, 0x3f3f3f, sizeof g);
+        for ( int i = 0; i < m; i ++ ) {
+                int a, b, c; scanf("%d%d%d", &a, &b, &c);
+                g[a][b] = min(g[a][b], c);
+        }
+        memset(dp[0], 0x3f3f3f3f, sizeof dp[0]);
+        for ( int i = 1; i <= n; i ++ ) dp[0][0][i][1] = dp[0][i][n + 1][0] = 0;
+        for ( int S = 1; S <= k - 1; S ++ ) {
+                int s = S & 1;
+                memset(dp[s], 0x3f3f3f3f, sizeof dp[s]);
+                for ( int l = 0; l <= n + 1; l ++ ) {
+                        for ( int r = l + 2; r <= n + 1; r ++ ) {
+                                for ( int mid = l + 1; mid < r; mid ++ ) {
+                                        int tmp = min(dp[!s][l][r][1] + g[r][mid], dp[!s][l][r][0] + g[l][mid]);
+                                        dp[s][l][mid][1] = min(dp[s][l][mid][1], tmp);
+                                        dp[s][mid][r][0] = min(dp[s][mid][r][0], tmp);
+                                }
+                        }
+                }
+        }
+        int res = 0x3f3f3f3f;
+        for ( int l = 0; l <= n + 1; l ++ ) {
+                for ( int r = l + 1; r <= n + 1; r ++ ) {
+                        res = min({res, dp[k - 1 & 1][l][r][0], dp[k - 1 & 1][l][r][1]});
+                }
+        }
+        cout << (res == 0x3f3f3f3f ? -1 : res) << endl;
+}
+```
 <hr>

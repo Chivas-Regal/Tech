@@ -611,6 +611,8 @@ int main () {
 有一个细节是取模的时候指数不应是取 $10^9+7$   
 而是根据欧拉降幂取 $\phi(10^9+7)=10^9+6$ 
 :::
+  
+[本题线段树解法请看这里](https://tech.chivas-regal.top/blogs/solution/datastructure/segmenttree.html#%E7%89%9B%E5%AE%A22022%E5%AF%92%E5%81%87%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E9%9B%86%E8%AE%AD%E8%90%A54g-%E5%AD%90%E5%BA%8F%E5%88%97%E6%9D%83%E5%80%BC%E4%B9%98%E7%A7%AF)
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
 ```cpp

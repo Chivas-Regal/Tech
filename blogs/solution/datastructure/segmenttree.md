@@ -331,6 +331,116 @@ int main () {
 ```
 <hr>
 
+### 牛客2022寒假算法基础集训营4G_子序列权值乘积
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/23479/G"><img src="https://img-blog.csdnimg.cn/636cc7a3d9dd4b898721425de121988e.png"></a>
+
+#### 💡
+  
+考虑每个数作为 $min$ 和 $max$ 出现的次数    
+<b>作为 $min$  </b>
+对于 $a_i$ ，我们应当找左侧 $\ge a_i$ 的数和右侧 $\ge a_i$ 的数，但是我们要考虑在相同的数 $a[x]=a[y]$ ，从 $x\to y$ 抽取子序列和从 $y\to x$ 抽取子序列会有重复的情况  
+所以我们右侧找 $\gt a_i$ 的数的个数   
+左侧个数设为 $l_i$ ，右侧个数设为 $r_i$  
+那么左侧有 $2^{l_i}$ 个选择方式  
+右侧有 $2^{r_i}$ 个选择方式  
+总共就有 $2^{l_i}\times2^{r_i}$ 个选择方式    
+对答案的贡献即为 $a_i^{2^{l_i}\times2^{r_i}}$  
+  
+<b>作为 $max$</b> 同理   
+  
+ 在找左侧右侧个数的时候我们可以利用权值线段树一边扫描一边实时统计  
+  
+[本题纯组合数学解法请看这里](https://tech.chivas-regal.top/blogs/solution/math/combine-math.html#%E7%89%9B%E5%AE%A22022%E5%AF%92%E5%81%87%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E9%9B%86%E8%AE%AD%E8%90%A54g-%E5%AD%90%E5%BA%8F%E5%88%97%E6%9D%83%E5%80%BC%E4%B9%98%E7%A7%AF)
+  
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+ll a[N], n, b[N];
+vector<ll> nums;
+const ll mod = 1e9 + 7;
+const ll powmod = 1e9 + 6;
+inline ll ksm ( ll a, ll b, ll mod = 1e9 + 7 ) { ll res = 1; while ( b > 0 ) { if ( b & 1 ) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+
+ll t[N << 2];
+inline void PushUp ( int rt ) {
+        t[rt] = t[rt << 1] + t[rt << 1 | 1];
+}
+inline void Update ( int id, int c = 1, int l = 1, int r = n + 1, int rt = 1 ) {
+        if ( l > id || id > r  ) return;
+        if ( l == r && l == id ) {
+                t[rt] += c;
+                return;
+        }
+        int mid = (l + r) >> 1;
+        Update(id, c, l, mid, rt << 1);
+        Update(id, c, mid + 1, r, rt << 1 | 1);
+        PushUp(rt);
+}
+inline ll Query ( int a, int b, int l = 1, int r = n + 1, int rt = 1 ) {
+        if ( r < a || b < l ) return 0;
+        if ( a <= l && r <= b ) return t[rt];
+        int mid = ( l + r ) >> 1;
+        return Query(a, b, l, mid, rt << 1) + Query(a, b, mid + 1, r, rt << 1 | 1);
+}
+
+int l[N], r[N];
+
+inline ll Calc1 () {
+        memset(t, 0, sizeof t);
+        for ( int i = 0; i < n; i ++ ) {
+                l[i] = Query(1, b[i]);
+                Update(b[i]);
+        }
+        memset(t, 0, sizeof t);
+        for ( int i = n - 1; i >= 0; i -- ) {
+                r[i] = Query(1, b[i] - 1);
+                Update(b[i]);
+        }
+        ll res = 1;
+        for ( int i = 0; i < n; i ++ ) {
+                res = res * ksm(a[i], ksm(2, l[i], powmod) * ksm(2, r[i], powmod) % powmod) % mod;
+        }
+        return res;
+}
+inline ll Calc2 () {
+        memset(t, 0, sizeof t);
+        for ( int i = 0; i < n; i ++ ) {
+                l[i] = Query(b[i], n + 1);
+                Update(b[i]);
+        }
+        memset(t, 0, sizeof t);
+        for ( int i = n - 1; i >= 0; i -- ) {
+                r[i] = Query(b[i] + 1, n + 1);
+                Update(b[i]);
+        }
+        ll res = 1;
+        for ( int i = 0; i < n; i ++ ) {
+                res = res * ksm(a[i], ksm(2, l[i], powmod) * ksm(2, r[i], powmod) % powmod) % mod;
+        }
+        return res;
+}
+
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin >> n;
+        for ( ll i = 0; i < n; i ++ ) {
+                cin >> a[i];
+                nums.push_back(a[i]);
+        }
+        sort ( nums.begin(), nums.end() );
+        nums.erase(unique(nums.begin(), nums.end()), nums.end());
+        for ( int i = 0; i < n; i ++ ) {
+                b[i] = lower_bound(nums.begin(), nums.end(), a[i]) - nums.begin() + 2;
+        } 
+        cout << Calc1() * Calc2() % mod << endl;
+}
+```
+
+<hr>
+
 
 ## 牛客2022寒假算法基础集训营5E_复苏小孩
 
@@ -1096,6 +1206,135 @@ ll Query(int a, int b, int l, int r, int rt)
 ```
 
 <hr>
+
+## NamomoCamp2022春季div1每日一题1_子串最大差
+
+#### 🔗
+<a href="http://oj.daimayuan.top/problem/436"><img src="https://img-blog.csdnimg.cn/23167fc9bc9c433383b17cd3254672eb.png"></a>
+
+#### 💡1
+和 [牛客2022寒假算法基础集训营4G_子序列权值乘积](###牛客2022寒假算法基础集训营4G_子序列权值乘积) 想法类似  
+
+<b>作为最小值</b>  
+由于这里是子区间，那么我们用 $l_i,r_i$ 分别维护
+- 左侧最大的 $\lt a_i$ 的下标，若没有则是 $0$
+- 右侧最小的 $le a_i$ 的下标，若没有则是 $n+1$  
+
+那么一共可覆盖的范围为 $(i-l_i)\times(r_i-i)$，这里对答案的贡献为 $a_i\times(i-l_i)\times(r_i-i)$  
+<b>作为最大值</b>  
+同理  
+最后结果让最大值减去最小值即可    
+  
+<mark>两个偏序关系 $($权值,下标$)$  
+那么令权值为线段树的根节点，这个可以离散化后实现  
+令下标为线段树每个根节点表示的权值</mark>  
+在求最大下标和最小下标的时候，我们让线段树维护区间 $max,min$  
+每次查询 $\le$ 是查询 $[1,a_i]$ 的区间 $max$  
+每次更新则是在 $a_i$ 离散化后的位置上单点更新为 $i$  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >1
+```cpp
+const int N = 5e5 + 10;
+int n;
+ll a[N];
+int b[N], Mx;
+vector<ll> nums;
+
+struct Sgtr {
+        int mx, mn;
+} t[N << 2];
+
+inline void PushUp ( int rt ) {
+        Sgtr &ls = t[rt << 1], &rs = t[rt << 1 | 1], &fa = t[rt];
+        fa = {max(ls.mx, rs.mx), min(ls.mn, rs.mn)};
+}
+inline void Update ( int id, int c, int l = 1, int r = Mx, int rt = 1 ) {
+        if ( r < id || id < l ) return;
+        if ( l == id && id == r ) {
+                t[rt] = {max(c, t[rt].mx), min(c, t[rt].mn)};
+                return;
+        }
+        int mid = (l + r) >> 1;
+        Update(id, c, l, mid, rt << 1);
+        Update(id, c, mid + 1, r, rt << 1 | 1);
+        PushUp(rt);
+}
+inline int Query_Max ( int a, int b, int l = 1, int r = Mx, int rt = 1 ) {
+        if ( r < a || b < l ) return 0;
+        if ( a <= l && r <= b ) return t[rt].mx;
+        int mid = (l + r) >> 1;
+        return max(Query_Max(a, b, l, mid, rt << 1), Query_Max(a, b, mid + 1, r, rt << 1 | 1));
+}
+inline int Query_Min ( int a, int b, int l = 1, int r = Mx, int rt = 1 ) {
+        if ( r < a || b < l ) return 0x3f3f3f3f;
+        if ( a <= l && r <= b ) return t[rt].mn;
+        int mid = (l + r) >> 1;
+        return min(Query_Min(a, b, l, mid, rt << 1), Query_Min(a, b, mid + 1, r, rt << 1 | 1)); 
+}
+
+int l[N], r[N];
+
+inline ll Calc1 () {
+        for ( int i = 0; i < (N << 2); i ++ ) t[i] = {0, 0x3f3f3f3f};
+        memset(l, 0, sizeof l);
+        for ( int i = 1; i <= n; i ++ ) {
+                l[i] = Query_Max(1, b[i] - 1);
+                Update(b[i], i);
+        }
+        for ( int i = 0; i < (N << 2); i ++ ) t[i] = {0, 0x3f3f3f3f};
+        memset(r, 0, sizeof r);
+        for ( int i = n; i >= 1; i -- ) {
+                r[i] = Query_Min(1, b[i]);
+                if ( r[i] == 0x3f3f3f3f ) r[i] = n + 1;
+                Update(b[i], i);
+        }
+        ll res = 0;
+        for ( int i = 1; i <= n; i ++ ) {
+                ll numl = i - l[i];
+                ll numr = r[i] - i;
+                ll num = numl * numr;
+                res += a[i] * num;
+        }
+        return res;
+}
+inline ll Calc2 () {
+        for ( int i = 0; i < (N << 2); i ++ ) t[i] = {0, 0x3f3f3f3f};
+        memset(l, 0, sizeof l);
+        for ( int i = 1; i <= n; i ++ ) {
+                l[i] = Query_Max(b[i] + 1, Mx);
+                Update(b[i], i);
+        }
+        for ( int i = 0; i < (N << 2); i ++ ) t[i] = {0, 0x3f3f3f3f};
+        memset(r, 0, sizeof r);
+        for ( int i = n; i >= 1; i -- ) {
+                r[i] = Query_Min(b[i], Mx);
+                if ( r[i] == 0x3f3f3f3f ) r[i] = n + 1;
+                Update(b[i], i);
+        }
+        ll res = 0;
+        for ( int i = 1; i <= n; i ++ ) {
+                ll numl = i - l[i];
+                ll numr = r[i] - i;
+                ll num = numl * numr;
+                res += a[i] * num;
+        } 
+        return res;
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin >> n;
+        for ( int i = 1; i <= n; i ++ ) cin >> a[i], nums.push_back(a[i]);
+        sort (nums.begin(), nums.end());
+        nums.erase(unique(nums.begin(), nums.end()), nums.end());
+        for ( int i = 1; i <= n; i ++ ) {
+                b[i] = lower_bound(nums.begin(), nums.end(), a[i]) - nums.begin() + 2;
+                Mx = max(Mx, b[i]); 
+        }
+        cout << Calc2() - Calc1() << endl;
+}
+```
+
 
 ## POJ2299_Ultra-QuickSort
 
