@@ -290,6 +290,124 @@ int main () {
 
 <hr>
 
+## ABC241F_Skate
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc241/tasks/abc241_f?lang=en"><img src="https://img-blog.csdnimg.cn/93d3b59595924618ba7948c1d7f3db0a.png"></a>
+
+#### 💡
+分析一波，有 $10^5$ 个石头，那么能让我们停下来的也就是石头的四个方向，我们只会停在 $4\times10^5$ 个点  
+不多，开始搜索  
+大概思索一下搜索的流程  
+记录：`set<pair<int, int> > vis` 即可实现  
+队列：`queue<tuple<int, int, int> > que` ，前两个是坐标，后面是步数  
+那么就该看怎么走了  
+往四个方向走一个一个点走显然不现实，那么我们存两个
+- `vector<int> X[i]` 第 $i$ 列所有石头所在的行  
+- `vector<int> Y[i]` 第 $i$ 行所有石头所在的列
+
+下标有 $10^9$ 个，如果我们直接存会炸  
+既然停在哪能往哪走都是固定的且坐标没有价值，那么将坐标离散化  
+注意这里离散化 $x$ 如果只是存入 $x$ 那么会导致本不相邻的两个石头合在一起  
+所以我们一次要存入 $x-1,x,x+1$  
+离散化之后我们将每个石头存入 `X[].push_back()` 和 `Y[].push_back()`  
+  
+然后我们就继续我们的走法（当前在 $(x,y)$ 处  
+- 向上走，用 `lower_bound` `X[y]` 锁定出来第 $y$ 列行数第一个比当前 $x$ 小的石头位置，存入那个石头下面的第一个位置的坐标，如果没有则不存  
+- 向下走，用 `lower_bound` `X[y]` 锁定出来第 $y$ 列行数第一个比当前 $x$ 大的石头位置，存入那个石头上面的第一个位置的坐标，如果没有则不存  
+- 向右走，用 `lower_bound` `Y[x]` 锁定出来第 $x$ 行列数第一个比当前 $x$ 小的石头位置，存入那个石头右侧的第一个位置的坐标，如果没有则不存  
+- 向右走，用 `lower_bound` `Y[x]` 锁定出来第 $x$ 行列数第一个比当前 $x$ 大的石头位置，存入那个石头左侧的第一个位置的坐标，如果没有则不存  
+  
+直到当前位置等于离散化后的重点即可输出步数  
+  
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int h, w, n;
+set<pair<int, int> > vis;
+
+pair<int, int> a[100005];
+vector<int> x, y;
+pair<int, int> s, g;
+vector<int> X[400005], Y[400005];
+
+struct node { pair<int, int> pr; int dep; };
+inline void BFS () {
+        queue<node> que;
+        que.push({s, 0});
+        while ( que.size() ) {
+                node cur = que.front(); que.pop();
+                if ( vis.count(cur.pr) ) continue; vis.insert(cur.pr);
+                if ( cur.pr == g ) {
+                        cout << cur.dep << endl;
+                        return;
+                }
+                
+                auto i = lower_bound(X[cur.pr.second].begin(), X[cur.pr.second].end(), cur.pr.first);
+
+
+                i = upper_bound(X[cur.pr.second].begin(), X[cur.pr.second].end(), cur.pr.first);
+                if ( i != X[cur.pr.second].end() ) que.push({{*i - 1, cur.pr.second}, cur.dep + 1});
+                if ( i != X[cur.pr.second].begin() ) i --, que.push({{*i + 1, cur.pr.second}, cur.dep + 1});
+
+                i = upper_bound(Y[cur.pr.first].begin(), Y[cur.pr.first].end(), cur.pr.second);
+                if ( i != Y[cur.pr.first].end() ) que.push({{cur.pr.first, *i - 1}, cur.dep + 1});
+                if ( i != Y[cur.pr.first].begin() ) i --, que.push({{cur.pr.first, *i + 1}, cur.dep + 1});
+        }
+        cout << "-1" << endl;
+}
+
+inline int get_Id ( int num, int op ) {
+        if ( op == 1 ) return lower_bound(x.begin(), x.end(), num) - x.begin();
+        else return lower_bound(y.begin(), y.end(), num) - y.begin();
+}
+inline void add_Num (int num, int op) {
+        if ( op == 1 ) {
+                x.push_back(num - 1);
+                x.push_back(num);
+                x.push_back(num + 1);
+        } else {
+                y.push_back(num - 1);
+                y.push_back(num);
+                y.push_back(num + 1);
+        }
+}
+
+int main () {
+        scanf("%d%d%d", &h, &w, &n);
+        scanf("%d%d%d%d", &s.first, &s.second, &g.first, &g.second);
+        add_Num(s.first, 1);
+        add_Num(s.second, 2);
+        add_Num(g.first, 1);
+        add_Num(g.second, 2);
+
+        for ( int i = 0; i < n; i ++ ) {
+                scanf("%d%d", &a[i].first, &a[i].second);
+                add_Num(a[i].first, 1);
+                add_Num(a[i].second, 2);
+        }
+        sort ( x.begin(), x.end() );
+        sort ( y.begin(), y.end() );
+        x.erase(unique(x.begin(), x.end()), x.end());
+        y.erase(unique(y.begin(), y.end()), y.end());
+
+        s = {get_Id(s.first, 1), get_Id(s.second, 2)};
+        g = {get_Id(g.first, 1), get_Id(g.second, 2)};
+        for ( int i = 0; i < n; i ++ ) {
+                X[get_Id(a[i].second, 2)].push_back(get_Id(a[i].first, 1));
+                Y[get_Id(a[i].first, 1)].push_back(get_Id(a[i].second, 2));
+        }       
+
+        for ( int i = 0; i < 400005; i ++ ) {
+                sort ( X[i].begin(), X[i].end() );
+                sort ( Y[i].begin(), Y[i].end() );
+        }
+
+        BFS();
+}
+```
+<hr>
+
+
 ## CodeForces1063B_Labyrinth
 
 #### 🔗
