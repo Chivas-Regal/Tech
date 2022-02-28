@@ -4377,6 +4377,95 @@ inline void Solve () {
 ```
 <hr>
 
+## CodeForces1637F_Towers
+
+#### 🔗
+<a href="https://codeforces.com/contest/1637/problem/F"><img src="https://img-blog.csdnimg.cn/da11c005a6994765ac290ae15ec08cc5.png"></a>
+
+#### 💡
+先考虑 $h_i$ 最大的点 $x$，先让它找到两个路径两个端点  
+这样的话别的点都可以白嫖其中一个或两个端点  
+那么我们令 $x$ 作为根节点，其要构造出来的两个塔高度一定是 $h[x]$ ，由于经过叶子结点的路径必然有一个端点在叶子结点上，所以我们让两个塔位于两个叶子结点上  
+那么对于一个节点 $y$，其向上经过根节点肯定可以到达一个塔高度为 $h[x]$ 的叶子结点，所以我们只需要考虑在其子树内构造出一棵高度不小于 $h[y]$ 的塔，如果已经存在这样的塔那么就不用管了  
+具体实现我们可以采用回溯的方式，向上维护子树中建过的塔的最大值  
+按上面所说：  
+- 对于非根节点 $u$，我们要找到一个子树最大值，如果 $<h[u]$ 需要将其补到 $h[u]$  
+- 对于根节点 $u$，我们要找到两个子树最大值，同样如果 $<h[u]$ 也是需要将其补到 $h[u]$  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+const int M = 4e5 + 10;
+
+struct Edge {
+        int nxt, to;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge ( int from, int to ) {
+        edge[++cnt] = { head[from], to };
+        head[from] = cnt;
+}
+
+int n, h[N], root;
+ll e[N];
+ll res;
+
+inline int DFS ( int x, int fa ) {
+        bool leaf = true;
+        for ( int i = head[x]; i; i = edge[i].nxt ) { 
+                if ( edge[i].to == fa ) continue;
+                leaf = false;
+        }
+        if ( leaf ) { // 叶子结点建塔为 h[x] 即可
+                res += h[x];
+                return h[x];
+        } else {
+                if ( x == root ) { // 根节点找两个
+                        int firmx = 0, secmx = 0;
+                        for ( int i = head[x]; i; i = edge[i].nxt ) {
+                                int to = edge[i].to;
+                                if ( to == fa ) continue;
+                                int sonmx = DFS(to, x);
+                                if ( sonmx >= firmx ) {
+                                        secmx = firmx;
+                                        firmx = sonmx;
+                                } else if ( sonmx >= secmx )
+                                        secmx = sonmx;
+                        }
+                        res += (ll)max(0, h[x] - firmx) + max(0, h[x] - secmx);
+                        return 0;
+                } else { // 非根节点找一个
+                        int mx = 0;
+                        for ( int i = head[x]; i; i = edge[i].nxt ) {
+                                int to = edge[i].to;
+                                if ( to == fa ) continue;
+                                int sonmx = DFS(to, x);
+                                mx = max(mx, sonmx);
+                        }
+                        res += (ll)max(0, h[x] - mx); // 取 max(0, h[x] - mx) 是因为子树中的 mx 有可能比 h[x] 大
+                        return max(mx, h[x]);
+                }
+        }
+}
+
+int main () {
+        scanf("%d", &n);
+        for ( int i = 1; i <= n; i ++ ) {
+                scanf("%d", &h[i]);
+                if ( h[i] > h[root] ) root = i;
+        }
+        for ( int i = 1; i < n; i ++ ) {
+                int a, b; scanf("%d%d", &a, &b);
+                add_Edge(a, b);
+                add_Edge(b, a);
+        }
+        DFS(root, root);
+        printf("%lld\n", res);
+}
+```
+<hr>
+
+
 
 ## GYM102174F_风王之瞳
 

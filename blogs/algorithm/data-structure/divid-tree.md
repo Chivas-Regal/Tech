@@ -75,6 +75,7 @@ inline void DFS1(int x, int fath){
         }
 }
 ```
+
 ```cpp
 inline void DFS2(int x, int topx){
         top[x] = topx;
@@ -101,6 +102,7 @@ int main(){ ... DFS1(1, 0); DFS2(1, 1); ... }
 - 否则将 $top$ 的深度较大的那个点往上跳到 $top$ 的父亲，这一步跳过了一条轻边
 - 不断重复第二步直到 $x$ 和 $y$ 在同一条重链中
   
+
 ```cpp
 inline int LCA(int x, int y){
         while(top[x] != top[y]){                        //不在同一条重链
