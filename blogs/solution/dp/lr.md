@@ -1,25 +1,26 @@
 ---
 title: 区间DP
 ---
-###  
+###
+
 <hr>
 
 ## 洛谷P1005_矩阵取数游戏
 
-
 #### 🔗
-  <a href="https://www.luogu.com.cn/record/61391875"><img src="https://i.loli.net/2021/11/08/xtfWkDi1KOBhFZH.png"></a>
-  
+
+<a href="https://www.luogu.com.cn/record/61391875"><img src="https://i.loli.net/2021/11/08/xtfWkDi1KOBhFZH.png"></a>
+
 #### 💡
-  
-由于每一行互不影响，所以我们一行一行分开处理  
-每行两个端点左右可以选左也可以选右  
-且每一个都有自己的权值，要求从选左选右序列中找到一个价值最大的  
-那么一看就有区间dp那味儿了  
-如果dp数组两个下标  <img src="https://latex.codecogs.com/svg.image?\inline&space;i,j" title="\inline i,j" />  维护的是选到  <img src="https://latex.codecogs.com/svg.image?\inline&space;[i,j]" title="\inline [i,j]" /> 时的最大值  
-那么这个是可以通过转移的，即  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j]=max(dp[i-1][j]+a[i]*2^k,dp[i][j+1]+a[j]*2^k)" title="\inline dp[i][j]=max(dp[i-1][j]+a[i]*2^k,dp[i][j+1]+a[j]*2^k)" /> 
- <img src="https://latex.codecogs.com/svg.image?\inline&space;k" title="\inline k" /> 表示已经选过的个数  
+
+由于每一行互不影响，所以我们一行一行分开处理
+每行两个端点左右可以选左也可以选右
+且每一个都有自己的权值，要求从选左选右序列中找到一个价值最大的
+那么一看就有区间dp那味儿了
+如果dp数组两个下标  <img src="https://latex.codecogs.com/svg.image?\inline&space;i,j" title="\inline i,j" />  维护的是选到  <img src="https://latex.codecogs.com/svg.image?\inline&space;[i,j]" title="\inline [i,j]" /> 时的最大值
+那么这个是可以通过转移的，即
+<img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j]=max(dp[i-1][j]+a[i]*2^k,dp[i][j+1]+a[j]*2^k)" title="\inline dp[i][j]=max(dp[i-1][j]+a[i]*2^k,dp[i][j+1]+a[j]*2^k)" />
+<img src="https://latex.codecogs.com/svg.image?\inline&space;k" title="\inline k" /> 表示已经选过的个数
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
 
@@ -69,50 +70,52 @@ int main () {
         Print_128(res);
 }
 ```
-</details>
 
 <hr>
 
 ## 洛谷P1220_关路灯
 
 #### 🔗
+
 <a href="https://www.luogu.com.cn/problem/P1220"><img src="https://i.loli.net/2021/12/02/jiWgtSOIUvEZoPN.png"></a>
 
 #### 💡
-  
-这种左右端点决策扩展的问题，应想到用区间DP  
-  
-人是一步步走的，那么这里就出现了四种转移方式  
-<img src="https://latex.codecogs.com/svg.image?\inline&space;1." title="\inline 1." />从<img src="https://latex.codecogs.com/svg.image?\inline&space;[i,j]" title="\inline [i,j]" />的  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  走向  <img src="https://latex.codecogs.com/svg.image?\inline&space;j+1" title="\inline j+1" />   
-<img src="https://latex.codecogs.com/svg.image?\inline&space;2." title="\inline 1." />从<img src="https://latex.codecogs.com/svg.image?\inline&space;[i,j]" title="\inline [i,j]" />的  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" />  走向  <img src="https://latex.codecogs.com/svg.image?\inline&space;j+1" title="\inline j+1" />   
-<img src="https://latex.codecogs.com/svg.image?\inline&space;3." title="\inline 1." />从<img src="https://latex.codecogs.com/svg.image?\inline&space;[i,j]" title="\inline [i,j]" />的  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  走向  <img src="https://latex.codecogs.com/svg.image?\inline&space;i-1" title="\inline i-1" />   
-<img src="https://latex.codecogs.com/svg.image?\inline&space;4." title="\inline 1." />从<img src="https://latex.codecogs.com/svg.image?\inline&space;[i,j]" title="\inline [i,j]" />的  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" />  走向  <img src="https://latex.codecogs.com/svg.image?\inline&space;i-1" title="\inline i-1" />   
-那么也对应了不同的影响  
-从  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" />  走向  <img src="https://latex.codecogs.com/svg.image?\inline&space;y" title="\inline y" />  这一段产生的影响为 "未关掉的灯泡数量的功率和  <img src="https://latex.codecogs.com/svg.image?\inline&space;\times" title="\inline \times" />   <img src="https://latex.codecogs.com/svg.image?\inline&space;x\rightarrow&space;y" title="\inline x" /> 的路程"  
-  
-功率和我们可以记录功率前缀和，然后总和减去关掉过的区间灯泡功率和 
+
+这种左右端点决策扩展的问题，应想到用区间DP
+
+人是一步步走的，那么这里就出现了四种转移方式
+<img src="https://latex.codecogs.com/svg.image?\inline&space;1." title="\inline 1." />从<img src="https://latex.codecogs.com/svg.image?\inline&space;[i,j]" title="\inline [i,j]" />的  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  走向  <img src="https://latex.codecogs.com/svg.image?\inline&space;j+1" title="\inline j+1" />
+<img src="https://latex.codecogs.com/svg.image?\inline&space;2." title="\inline 1." />从<img src="https://latex.codecogs.com/svg.image?\inline&space;[i,j]" title="\inline [i,j]" />的  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" />  走向  <img src="https://latex.codecogs.com/svg.image?\inline&space;j+1" title="\inline j+1" />
+<img src="https://latex.codecogs.com/svg.image?\inline&space;3." title="\inline 1." />从<img src="https://latex.codecogs.com/svg.image?\inline&space;[i,j]" title="\inline [i,j]" />的  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  走向  <img src="https://latex.codecogs.com/svg.image?\inline&space;i-1" title="\inline i-1" />
+<img src="https://latex.codecogs.com/svg.image?\inline&space;4." title="\inline 1." />从<img src="https://latex.codecogs.com/svg.image?\inline&space;[i,j]" title="\inline [i,j]" />的  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" />  走向  <img src="https://latex.codecogs.com/svg.image?\inline&space;i-1" title="\inline i-1" />
+那么也对应了不同的影响
+从  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" />  走向  <img src="https://latex.codecogs.com/svg.image?\inline&space;y" title="\inline y" />  这一段产生的影响为 "未关掉的灯泡数量的功率和  <img src="https://latex.codecogs.com/svg.image?\inline&space;\times" title="\inline \times" />   <img src="https://latex.codecogs.com/svg.image?\inline&space;x\rightarrow&space;y" title="\inline x" /> 的路程"
+
+功率和我们可以记录功率前缀和，然后总和减去关掉过的区间灯泡功率和
 
 ```cpp
 inline int Work ( int i, int j ) {
         return a[i - 1].y + a[n].y - a[j].y;
 }
 ```
-路程直接就距离相减即可  
+
+路程直接就距离相减即可
+
 ```cpp
 inline int WalkTime ( int i, int j ) {
         return abs(a[j].x - a[i].x);
 }
-```  
-  
-状态就记录区间，然后再记录一下当前在区间  <img src="https://latex.codecogs.com/svg.image?\inline&space;[i,j]" title="\inline [i,j]" />   的左侧  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  还是右侧  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> 
-那么转移方程为  
-<img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i-1][j][0]=min(dp[i][j][1]+walkTime(i-1,j)\times&space;work(i,j))" title="\inline dp[i-1][j][0]=min(dp[i-1][j][0],dp[i][j][1]+WalkTime(i-1,j)\times&space;Work(i,j))" /> 
-<img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i-1][j][0]=min(dp[i][j][0]+walkTime(i-1,i)\times&space;work(i,j))" title="\inline dp[i-1][j][0]=min(dp[i-1][j][0],dp[i][j][0]+WalkTime(i-1,i)\times&space;Work(i,j))" /> 
-<img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j+1][1]=min(dp[i][j][1]+walkTime(j,j+1)\times&space;work(i,j))" title="\inline dp[i][j+1][1]=min(dp[i][j+1][1],dp[i][j][1]+WalkTime(j,j+1)\times&space;Work(i,j))" /> 
-<img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j+1][1]=min(dp[i][j][0]+walkTime(i,j+1)\times&space;work(i,j))" title="\inline dp[i][j+1][1]=min(dp[i][j+1][1],dp[i][j][0]+WalkTime(i,j+1)\times&space;Work(i,j))" />   
+```
 
+状态就记录区间，然后再记录一下当前在区间  <img src="https://latex.codecogs.com/svg.image?\inline&space;[i,j]" title="\inline [i,j]" />   的左侧  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  还是右侧  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" />
+那么转移方程为
+<img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i-1][j][0]=min(dp[i][j][1]+walkTime(i-1,j)\times&space;work(i,j))" title="\inline dp[i-1][j][0]=min(dp[i-1][j][0],dp[i][j][1]+WalkTime(i-1,j)\times&space;Work(i,j))" />
+<img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i-1][j][0]=min(dp[i][j][0]+walkTime(i-1,i)\times&space;work(i,j))" title="\inline dp[i-1][j][0]=min(dp[i-1][j][0],dp[i][j][0]+WalkTime(i-1,i)\times&space;Work(i,j))" />
+<img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j+1][1]=min(dp[i][j][1]+walkTime(j,j+1)\times&space;work(i,j))" title="\inline dp[i][j+1][1]=min(dp[i][j+1][1],dp[i][j][1]+WalkTime(j,j+1)\times&space;Work(i,j))" />
+<img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j+1][1]=min(dp[i][j][0]+walkTime(i,j+1)\times&space;work(i,j))" title="\inline dp[i][j+1][1]=min(dp[i][j+1][1],dp[i][j][0]+WalkTime(i,j+1)\times&space;Work(i,j))" />
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+
 ```cpp
 # include <iostream>
 # include <algorithm>
@@ -127,9 +130,9 @@ using namespace std;
 const int N = 55;
 int dp[N][N][2];
 
-#### define pii pair<int, int>
-#### define x first
-#### define y second
+# define pii pair<int, int>
+# define x first
+# define y second
 
 int n, c;
 pii a[N];
@@ -143,7 +146,7 @@ int main () {
         cin >> n >> c;
         for ( int i = 1; i <= n; i ++ ) cin >> a[i].x >> a[i].y;
         for ( int i = 1; i <= n; i ++ ) a[i].y += a[i - 1].y;
-        
+  
         memset ( dp, 0x3f3f3f3f, sizeof dp );
         dp[c][c][0] = dp[c][c][1] = 0;
 
@@ -157,35 +160,261 @@ int main () {
         }
 
         cout << min ( dp[1][n][0], dp[1][n][1] ) << endl;
-        
+  
+}
+```
+
+
+
+<hr>
+
+## ICPC2014CERCL_OuterSpaceInvaders
+
+#### 🔗
+<a href="https://codeforces.com/gym/100543/attachments">![20220301143739](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220301143739.png)</a>
+
+#### 💡
+有几个位置信息，画一个坐标轴好看一些  
+![E990876D2F6FF111372120234B00724A](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/E990876D2F6FF111372120234B00724A.jpg)   
+我们必须做的事情是把 $d$ 最大的那个外星人给干碎     
+那么下面的有可能会一起被干碎  
+这里我们无法确定我们在哪攻击能使结果最小，考虑 $dp$   
+$dp[l][r]$ 为将完整存在于 $[l,r]$ 的外星人全部干碎的最小花费  
+那么可以 $DFS(l,r)$ 分治 $+$ 记忆化  
+每次去找 $[l,r]$ 内的最大 $d$ 的外星人 $x$，枚举在 $[x.l,x.r]$ 内的 $m$ 位置建立 $fire$ ，花费 $x.d$，那么剩余的外星人则在 $[l,m-1],[m+1,r]$  
+递归去查即可  
+  
+我们不可能每一次 $DFS$ 都暴力 $[1,n]$ 维护一遍完整在 $[l,r]$ 内的 $d$ 最大的外星人信息  
+可以提前预处理好 $mx[l][r],id[l][r]$ 作为最大 $d$ 和最大 $d$ 的外星人编号  
+虽然 $1\le l\lt r\le 10000$，但是可以想到这里 $[l,r]$ 离散化后并不会影响结果，该交叉交叉，该包含包含，该分离分离  
+所以将 $[l,r]$ 离散化后最大为 $600$  
+用离散化后的 $[l,r]$ 去更新这两个记录值即可  
+
+那么我们 $DFS$ 内就很好求了，只用一重循环在 $[id[l][r].l,id[l][r].r]$ 跑该区间内 $fire$ 的位置即可  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+
+<b>记忆化分治DFS写法</b>
+
+```cpp
+# define tpliii tuple<int, int, int>
+const int N = 305;
+int n;
+tpliii alien[N];
+vector<int> nums;
+ 
+int mx[N << 1][N << 1];
+int id[N << 1][N << 1];
+int dp[N << 1][N << 1];
+ 
+inline int DFS ( int l, int r ) {
+        if ( l == r ) return 0;
+        if ( dp[l][r] ) return dp[l][r];
+ 
+        int mxd = mx[l][r], mxid = id[l][r];
+        int res = 0x3f3f3f3f;
+        for ( int i = get<0>(alien[mxid]); i <= get<1>(alien[mxid]); i ++ ) {
+                int cur = 0;
+                if ( l < i - 1 && ~id[l][i - 1] ) cur += DFS(l, i - 1);
+                if ( i + 1 < r && ~id[i + 1][r] ) cur += DFS(i + 1, r);
+                res = min(res, cur);
+        }
+        res += mxd;
+        return dp[l][r] = res;
+}
+ 
+ 
+inline void Solve () {
+        nums.clear();
+        memset(mx, 0, sizeof mx);
+        memset(id, -1, sizeof id);
+        memset(dp, 0, sizeof dp);
+ 
+        scanf("%d", &n);
+        for ( int i = 0; i < n; i ++ ) {
+                int a, b, c; scanf("%d%d%d", &a, &b, &c);
+                alien[i] = {a, b, c};
+                nums.push_back(a); nums.push_back(b);
+        }
+ 
+        sort ( nums.begin(), nums.end() );
+        nums.erase(unique(nums.begin(), nums.end()), nums.end());
+        auto get_Id = [&]( int x ) { return lower_bound(nums.begin(), nums.end(), x) - nums.begin(); };
+        int L = 0x3f3f3f3f, R = 0;
+        for ( int i = 0; i < n; i ++ ) {
+                alien[i] = {get_Id(get<0>(alien[i])), get_Id(get<1>(alien[i])), get<2>(alien[i])};
+                L = min(L, get<0>(alien[i]));
+                R = max(R, get<1>(alien[i]));
+        }
+        for ( int l = L; l <= R; l ++ ) {
+                for ( int r = l; r <= R; r ++ ) {
+                        for ( int i = 0; i < n; i ++ ) {
+                                int al = get<0>(alien[i]), ar = get<1>(alien[i]), d = get<2>(alien[i]);
+                                if ( l <= al && ar <= r ) {
+                                        if ( mx[l][r] < d ) {
+                                                mx[l][r] = d;
+                                                id[l][r] = i;
+                                        }
+                                }
+                        }
+                }
+        }
+        printf("%d\n", DFS(L, R));
+}
+```
+
+<b>区间DP递推写法</b>  
+
+```cpp
+# define tpliii tuple<int, int, int>
+const int N = 305;
+int n;
+tpliii alien[N];
+vector<int> nums;
+int mx[N << 1][N << 1];
+int id[N << 1][N << 1];
+ 
+int dp[N << 1][N << 1];
+ 
+inline void Solve () {
+        mp.clear();
+        nums.clear();
+        memset(mx, 0, sizeof mx);
+        memset(id, -1, sizeof id);
+        memset(dp, 0x3f3f3f3f, sizeof dp);
+ 
+        scanf("%d", &n);
+        for ( int i = 0; i < n; i ++ ) {
+                int a, b, c; scanf("%d%d%d", &a, &b, &c);
+                alien[i] = {a, b, c};
+                nums.push_back(a); nums.push_back(b);
+        }
+ 
+        sort ( nums.begin(), nums.end() );
+        nums.erase(unique(nums.begin(), nums.end()), nums.end());
+        auto get_Id = [&]( int x ) { return lower_bound(nums.begin(), nums.end(), x) - nums.begin(); };
+        int L = 0x3f3f3f3f, R = 0;
+        for ( int i = 0; i < n; i ++ ) {
+                alien[i] = {get_Id(get<0>(alien[i])), get_Id(get<1>(alien[i])), get<2>(alien[i])};
+                L = min(L, get<0>(alien[i]));
+                R = max(R, get<1>(alien[i]));
+        }
+        for ( int l = L; l <= R; l ++ ) {
+                for ( int r = l; r <= R; r ++ ) {
+                        for ( int i = 0; i < n; i ++ ) {
+                                int al = get<0>(alien[i]), ar = get<1>(alien[i]), d = get<2>(alien[i]);
+                                if ( l <= al && ar <= r ) {
+                                        if ( mx[l][r] < d ) {
+                                                mx[l][r] = d;
+                                                id[l][r] = i;
+                                        }
+                                }
+                        }
+                }
+        }
+        for ( int i = L; i <= R; i ++ ) dp[i][i] = 0;
+        for ( int len = 1; len <= R - L + 1; len ++ ) {
+                for ( int l = L; l <= R; l ++ ) {
+                        int r = l + len - 1;
+                        if ( r > R ) continue;
+                        for ( int m = get<0>(alien[id[l][r]]); m <= get<1>(alien[id[l][r]]); m ++ ) {
+                                int cur = 0;
+                                if ( l < m - 1 && ~id[l][m - 1] ) cur += dp[l][m - 1];
+                                if ( m + 1 < r && ~id[m + 1][r] ) cur += dp[m + 1][r];
+                                dp[l][r] = min(dp[l][r], cur + mx[l][r]);
+                        }
+                }
+        }
+        printf("%d\n", dp[L][R]);
 }
 ```
 
 <hr>
 
+
+## ICPC2020南京站C_Cities
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/12548/C">![20220301143817](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220301143817.png)</a>
+
+#### 💡
+考虑这样一个最普遍的数列 $[1,2,3,4,5]$ ，它想变成同一个数一定要从左往右一次次变 $n-1$ 次  
+那么再看这样一个可以优化的数列 $[1,2,3,2,5]$ ，它想变成同一个数可以让两个 $2$ 中间的数向外扩展从而白嫖一次操作，也就是说每出现一次 $[x,\dots,x]$ 我们就可以完成一次匹配从而白嫖一次操作  
+
+::: warning
+注意这些匹配不可交叉，也就是说对于 $x\lt l,y\in [l,r]$ 我们又匹配 $[x,y]$
+:::  
+
+那么这就是一个区间问题，看一下数据范围 $1\le n\le 5000$ 那么就直接开区间 $dp$ 就行  
+我们令 $dp[l][r]$ 表示 $[l,r]$ 内的最大匹配数
+- $l$ 可以不配对，$dp[l][r]=max(dp[l+1][r])$  
+- $l$ 可以配对，对于 $[l+1,r]$ 的每一个和 $a[l]$ 相等的元素 $a[m]$ ，我们都可以让它和 $a[l]$ 配对，由于不交叉性，$dp[l][r]=max(dp[l+1][m-1]+dp[m][r]+1)$  
+
+那么最后就最大可以白嫖 $dp[1][n]$ 次，结果便是 $n-1-dp[1][n]$  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 5e3 + 10;
+vector<int> pos[N];
+int n;
+int a[N];
+int dp[N][N];
+
+
+inline void Solve () {
+        cin >> n;
+        memset(dp, 0, sizeof dp);
+        for ( int i = 1; i <= n; i ++ ) pos[i].clear();
+        for ( int i = 1; i <= n; i ++ ) {
+                cin >> a[i];
+                pos[a[i]].push_back(i);
+        }
+
+        for ( int len = 1; len <= n; len ++ ) {
+                for ( int l = 1; l <= n; l ++  ) {
+                        int r = l + len - 1; if ( r > n ) continue;
+
+                        dp[l][r] = max(dp[l + 1][r], dp[l][r]);
+
+                        auto beg = upper_bound(pos[a[l]].begin(), pos[a[l]].end(), l);
+
+                        for ( auto m = beg; m != pos[a[l]].end() && *m <= r; m ++ ) {
+                                dp[l][r] = max(dp[l][r], dp[l + 1][*m - 1] + dp[*m][r] + 1);
+                        }
+                }
+        }
+        cout << n - 1 - dp[1][n] << endl;
+}
+```
+<hr>
+
+
 ## NamomoCamp2022春季div1每日一题2_NoCrossing
 
 #### 🔗
+
 <a href="http://oj.daimayuan.top/problem/437"><img src="https://img-blog.csdnimg.cn/285cf76822ea4e18aa79fe8835b7250b.png"></a>
 
 #### 💡
-在图上画一画可行的走法便可得到  
-这个题要考虑好我们走的点在坐标上一定要是让 $[l,r]$ 不断下压的   
-这非常有区间 $dp$ 的味道  
-那么我们维护 $dp[s][l][r][to]$  
+
+在图上画一画可行的走法便可得到这个题要考虑好我们走的点在坐标上一定要是让 $[l,r]$ 不断下压的这非常有区间 $dp$ 的味道那么我们维护 $dp[s][l][r][to]$
+
 - $s$ 为滚动下标
 - $l,r$ 为我们维护的区间
-- $to$ 指方向，也意味着在 $[l,r]$ 区间内我们最终会停在 $0/1:l/r$  
-那么状态转移即为  
+- $to$ 指方向，也意味着在 $[l,r]$ 区间内我们最终会停在 $0/1:l/r$
+  那么状态转移即为
 
-$[l,mid]$ 一定是停在 $mid$ ，毕竟 $mid\to l$ 没有可转移的状态  
-$[mid,r]$ 同理也是停在 $mid$  
-$[l,mid],[mid,r]$ 都可以由 $l\to r\to mid$ 和 $r\to l\to mid$ 可以固定出来  
-所以 $dp[l,mid],dp[mid,r]$ 都由 $dp[l,r][1]+g[r][mid]$ 和 $dp[l,r][0]+g[l][mid]$ 维护最小值  
+$[l,mid]$ 一定是停在 $mid$ ，毕竟 $mid\to l$ 没有可转移的状态
+$[mid,r]$ 同理也是停在 $mid$
+$[l,mid],[mid,r]$ 都可以由 $l\to r\to mid$ 和 $r\to l\to mid$ 可以固定出来
+所以 $dp[l,mid],dp[mid,r]$ 都由 $dp[l,r][1]+g[r][mid]$ 和 $dp[l,r][0]+g[l][mid]$ 维护最小值
 
-更新 $k$ 次后我们即可得到我们想要的  
+更新 $k$ 次后我们即可得到我们想要的
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+
 ```cpp
 const int M = 2010,
           N = 110;
@@ -226,4 +455,5 @@ int main () {
         cout << (res == 0x3f3f3f3f ? -1 : res) << endl;
 }
 ```
+
 <hr>

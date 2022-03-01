@@ -1253,6 +1253,87 @@ int main () {
 
 <hr>
 
+## ICPC2021南京站J_Xingqiu'sJoke
+
+#### 🔗
+<a href="https://codeforces.com/gym/103470/problem/J">![20220301151547](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220301151547.png)</a>
+
+#### 💡
+第二个样例 `9 8` 提供的已经很接近了  
+假设 $a<b$, 设置 $d=b-a$，如果 $d=1$ ，那么步数即为 $a-1$  
+对于操作一二，我们不会让 $d$ 产生变化，但有可能让 $a$ 变成 $1$  
+由于操作三提供的效应是很明显的，那么我们可以让 $a,b$ 去上升或者下降到可除一个质数 $p$  
+由于 $a\equiv b(mod\;p)\Leftrightarrow d\equiv b-a\equiv0(mod\;p)$  
+也就是说这个 $p$ 一定是 $d$ 的质因数，而我们在除时也会让 $d$ 越来越靠近 $1$   
+所以对于 $f(a,d)$  我们可以枚举 $d$ 的质因数 $g$ ，每一步让 $a$ 去选择  
+$$min(a-1,\{f(\left\lfloor\frac ag\right\rfloor,\frac dg)+\stackrel{a}{\underset{p}{\downarrow}}+1,f(\left\lceil\frac ag\right\rceil,\frac dg)+\stackrel{a}{\underset{p}{\uparrow}}+1\})$$  
+对于 $f(a,d)$ 我们可以采用记忆化搜索的方式  
+出口便是 $a=1$  或者  $d=1$ 或者 $dp.count(\{a,d\})$ 
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+vector<ll> prime;
+int ntp[N];
+ 
+inline void Sieve () {
+        ntp[0] = ntp[1] = true;
+        for ( int i = 2; i < N; i ++ ) {
+                if ( !ntp[i] ) prime.push_back(i);
+                for ( int j = 0; j < prime.size() && i * prime[j] < N; j ++ ) {
+                        ntp[i * prime[j]] = true;
+                        if ( i % prime[j] == 0 ) break;
+                }
+        }
+}
+ 
+vector<int> divid;
+ 
+map<pair<int, int>, int> dp;
+ 
+inline int DFS ( int a, int d ) {
+        if ( a == 1 ) return 0;
+        if ( d == 1 ) return a - 1;
+        if ( dp.count({a, d}) ) return dp[{a, d}];
+        
+        int res = a - 1;
+        for ( auto x : divid ) {
+                if ( x > d ) break;
+                if ( d % x ) continue;
+                res = min({res, DFS(a / x, d / x) + a % x + 1, DFS(a / x + 1, d / x) + x - a % x + 1});
+        }
+        return dp[{a, d}] = res;
+}
+ 
+inline void Solve () {
+        int a, b; scanf("%d%d", &a, &b);
+        if ( b < a ) swap(a, b);
+        int d = b - a;
+        if ( a == 1 ) {
+                puts("0");
+                return;
+        }
+        divid.clear();
+        dp.clear(); // T点2，本来记忆化就没事，数据毒瘤会存非常多然后还大部分无关每次都要查询半天  
+        for ( int i = 0; i < prime.size() && prime[i] * prime[i] <= d; i ++ ) {
+                if ( d % prime[i] == 0 ) divid.push_back(prime[i]); // T点1，只存一个
+                while ( d % prime[i] == 0 ) 
+                        d /= prime[i];
+        }
+        if ( d > 1 ) divid.push_back(d);
+        printf("%d\n", DFS(a, b - a));
+}
+ 
+int main () {
+        Sieve();
+        int cass; scanf("%d", &cass); while ( cass -- ) {
+                Solve ();
+        }
+}
+```
+<hr>
+
+
 ## NCD2019C_HasanAndHisLazyStudents
 
 #### 🔗
