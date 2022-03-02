@@ -5,10 +5,10 @@ title: 鸽巢原理
 ###
 <hr>
 
-#
+## NamomoCamp2022春季每日一题4_选数
 
 #### 🔗
-<a href="http://oj.daimayuan.top/problem/456">![20220301130404](https://raw.githubusercontent.com/Chivas-Regal/BedsOfPic/master/20220301130404.png?token=AS2QXVBU6LXJUJIKUSPYNTLCDWUYE)</a>
+<a href="http://oj.daimayuan.top/problem/456">![20220302115716](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220302115716.png)</a>
 
 #### 💡
 $n$ 个数，范围很明显了，这里最多有 $n$ 个不同的模数  

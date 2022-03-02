@@ -1266,7 +1266,7 @@ int main () {
 由于 $a\equiv b(mod\;p)\Leftrightarrow d\equiv b-a\equiv0(mod\;p)$  
 也就是说这个 $p$ 一定是 $d$ 的质因数，而我们在除时也会让 $d$ 越来越靠近 $1$   
 所以对于 $f(a,d)$  我们可以枚举 $d$ 的质因数 $g$ ，每一步让 $a$ 去选择  
-$$min(a-1,\{f(\left\lfloor\frac ag\right\rfloor,\frac dg)+\stackrel{a}{\underset{p}{\downarrow}}+1,f(\left\lceil\frac ag\right\rceil,\frac dg)+\stackrel{a}{\underset{p}{\uparrow}}+1\})$$  
+$$min(a-1,\{f(\left\lfloor\frac ag\right\rfloor,\frac dg)+\stackrel{a}{\underset{g}{\downarrow}}+1,f(\left\lceil\frac ag\right\rceil,\frac dg)+\stackrel{g}{\underset{a}{\uparrow}}+1\})$$  
 对于 $f(a,d)$ 我们可以采用记忆化搜索的方式  
 出口便是 $a=1$  或者  $d=1$ 或者 $dp.count(\{a,d\})$ 
 

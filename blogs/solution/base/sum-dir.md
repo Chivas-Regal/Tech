@@ -953,3 +953,49 @@ int main () {
 ```
 
 <hr>
+
+## NamomoCamp2022春季每日一题5_序列操作
+
+#### 🔗
+<a href="http://oj.daimayuan.top/course/10/problem/452">![20220302120657](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220302120657.png)</a>
+
+#### 💡
+关注一下操作一，如果修改之后存在比这次操作一的那个数更大的操作二  
+那么就一定会被变成后面操作的最大的操作二  
+而操作二后面如果存在操作一，不影响操作一，所以看操作一的最后一个数   
+那么就对时间建立后缀操作二最大值  
+对每次操作一取 $max$ 这次操作一的值和后面操作二的最大值  
+为了方便可以将默认序列添加时间戳为 $-1$ 修改值为 $a_i$ 的操作一  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e6 + 10;
+int n, m, a[N];
+pair<int, int> ope1[N]; // first: time, second: val
+int suf[N];
+
+
+int main () {
+	ios::sync_with_stdio(false);
+	cin >> n >> m;
+	for ( int i = 1; i <= n; i ++ ) cin >> a[i], ope1[i] = {-1, a[i]};
+	for ( int i = 0; i < m; i ++ ) {
+		int op; cin >> op;
+		if ( op == 1 ) {
+			int x, y; cin >> x >> y;
+			ope1[x] = {i, y};
+		} else {
+			int y; cin >> y;
+			suf[i] = y;
+		}
+	}
+
+	for ( int i = m - 1; i >= 0; i -- ) suf[i] = max(suf[i + 1], suf[i]);
+
+	for ( int i = 1; i <= n; i ++ ) {
+		cout << max(ope1[i].second, suf[ope1[i].first + 1]) << " ";
+	}
+}
+```
+<hr>
