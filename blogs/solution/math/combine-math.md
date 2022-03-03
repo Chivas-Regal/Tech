@@ -915,6 +915,65 @@ int main () {
 ```
 <hr>
 
+## ARC136B_TripleShift
+
+#### 🔗
+<a href="https://atcoder.jp/contests/arc136/tasks/arc136_b?lang=en">![20220303014137](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220303014137.png)</a>
+
+#### 💡
+考虑进行一次操作会产生什么影响  
+三个不同的数数往后转一次  
+逆序对 $\pm2$  
+三个数存在两个相同的  
+逆序对改变可以包揽所有的  
+  
+那么考虑两个数组的逆序对奇偶即可  
+同奇偶性必然可以  
+不同奇偶性若存在相同的数也可以  
+否则不行  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int n;
+int a[5010], b[5010];
+int numa[5010];
+int mxnum = 0;
+ 
+int main () {
+        ios::sync_with_stdio(false);
+ 
+        cin >> n;
+        for ( int i = 1; i <= n; i ++ ) cin >> a[i], numa[a[i]] ++, mxnum = max(mxnum, numa[a[i]]);
+        for ( int i = 1; i <= n; i ++ ) {
+                cin >> b[i];
+                if ( numa[b[i]] == 0 ) {
+                        cout << "No" << endl;
+                        return 0;
+                }
+                numa[b[i]] --;
+        }
+        int reva = 0;
+        for ( int i = 1; i <= n; i ++ ) {
+                for ( int j = 1; j < i; j ++ ) {
+                        reva += a[j] > a[i];
+                }
+        }
+        int revb = 0;
+        for ( int i = 1; i <= n; i ++ ) {
+                for ( int j = 1; j < i; j ++ ) {
+                        revb += b[j] > b[i];
+                }
+        }
+        if ( reva % 2 == revb % 2 || mxnum >= 2 ) {
+                cout << "Yes" << endl;
+        } else {
+                cout << "No" << endl;
+        }
+}
+```
+<hr>
+
+
 
 ### CodeForces1536B_AdvertisingAgency
 
