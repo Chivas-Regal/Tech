@@ -128,6 +128,64 @@ int main () {
 
 <hr>
 
+## ABC234F_Reordering
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc234/tasks/abc234_f">![20220303170815](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220303170815.png)</a>
+
+#### 💡
+设 $'a'$ 有 $A$ 个， $'b'$ 有 $B$ 个 ...  
+那么答案即为  
+$$\sum\limits_{a=0}^A\sum\limits_{b=0}^B\sum\limits_{c=0}^C\dots\sum\limits_{z=0}^Z\frac{(a+b+c+\dots+z)!}{a!\times b!\times c!\times\dots\times z!}$$  
+观察分子分母性质  
+分母：计算下一个字符时枚举的个数可以直接乘阶乘  
+分子：同长度下分子相同  
+  
+那么我们先不看分子，先去枚举字符枚举个数进行递推  
+令 $dp[i][j]$ 表示枚举到第 $i$ 个字符时 ，长度为 $j$ 时 个数$/j!$ 的结果   
+那么在枚举第 $i$ 个字符用了 $j$ 个，之前有了 $k$ 个字符时  
+$dp[i][j+k]=dp[i][j+k]+dp[i-1][k]\times \frac1{j!}$    
+
+然后最后统计答案将当前长度的阶乘乘上即可  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int mod = 998244353;
+
+ll dp[30][5010];
+string s;
+ll num[30];
+
+inline ll ksm ( ll a, ll b ) { ll res = 1; while ( b ) { if ( b & 1 ) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv ( ll x ) { return ksm(x, mod - 2); }
+ll ivf[5010], f[5010];
+inline void get_F () {
+	f[0] = ivf[0] = 1;
+	for ( int i = 1; i < 5010; i ++ ) f[i] = f[i - 1] * i % mod, ivf[i] = ivf[i - 1] * inv(i) % mod;
+}
+
+int main () {
+	get_F();
+
+	cin >> s;
+	for ( auto i : s ) num[i - 'a' + 1] ++;
+
+	dp[0][0] = 1;
+	for ( int i = 1; i <= 27; i ++ ) {
+		for ( int j = 0; j <= s.size() - num[i]; j ++ ) {
+			for ( int k = 0; k <= num[i]; k ++ ) {
+				dp[i][j + k] = (dp[i][j + k] + dp[i - 1][j] * ivf[k] % mod) % mod;
+			}
+		}
+	}
+	ll res = 0;
+	for ( int i = 1; i <= s.size(); i ++ ) res = (res + dp[27][i] * f[i] % mod) % mod;
+	cout << res << endl;
+}
+```
+<hr>
+
 ## CodeForces1635D_InfiniteSet
 
 #### 🔗
@@ -205,6 +263,8 @@ int main () {
 }
 ```
 <hr>
+
+
 
 ## ICPC2021台湾省赛G_GardenPark
 
@@ -307,4 +367,86 @@ int main () {
 }
 ```
 
+<hr>
+
+
+## NamomoCamp2022春季div1每日一题9_路径计数2
+
+#### 🔗
+<a href="http://oj.daimayuan.top/course/10/problem/467">![20220307183909](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220307183909.png)</a>
+
+#### 💡
+直接从 $(1,1)$ 到 $(n,n)$ 很好求  
+::: tip
+观察矩阵 $f[i][j]=f[i][j-1]+f[i-1][j]\quad(i/j:0\to\infty)$ :  
+<table>
+<tr>
+<td>1</td><td>1</td><td>1</td><td>1</td>
+</tr>
+<tr>
+<td>1</td><td>2</td><td>3</td><td>4</td>
+</tr>
+<tr>
+<td>1</td><td>3</td><td>6</td><td>10</td>
+</tr>
+<tr>
+<td>1</td><td>4</td><td>10</td><td>14</td>
+</tr>
+</table>  
+易知 $f[n][m]=\binom{n+m}{n}$
+:::
+但是由于中间有障碍，要减去经过障碍到达 $(n,n)$ 的方案数    
+  
+而前后障碍路径会相互嵌套，等于说如果有两个障碍 $(x_1,y_1),(x_2,y_2)$ ，减去 $(1,1)\to(x_1,y_1)\to(n,n)$ 与 $(1,1)\to(x_2,y_2)\to(n,n)$ 会多减一个 $(1,1)\to(x_1,y_1)\to(x_2,y_2)\to(n,n)$ ，要加上，那么即为<b>容斥</b>    
+  
+由于在计算 $(1,1)$ 到 $i$ 个障碍物时，需要容斥掉前面的障碍物，所以我们需要一个状态去记录一下对于上述问题，前面障碍物的合法方案数  
+  
+令 $dp[i]$ 表示从 $(1,1)$ 到达 $(x_i,y_i)$ 在容斥掉 $1~(i-1)$ 这些障碍物的结果，也就是从 $(1,1)$ 不经过这些障碍物直接到达 $(x_i,y_i)$ 的方案数  
+我们用 $calc(\{x_1,y_1\},\{x_2,y_2\})$ 计算 $(x_1,y_1)\to(x_2,y_2)$ 的方案数  
+那么转移便是 $(1,1)\to(x_i,y_i)$ 的方案数容斥掉前面 $(x_j,y_j)\to(x_i,y_i)$ 的方案数乘上对应的 $dp[j]$    
+$dp[i]=calc(\{1,1\},\{x_i,y_i\})-\sum\limits_{j=1}^{i-1}calc(\{x_j,y_j\},\{x_i,y_i\})\times dp[j]$  
+  
+我们将 $(n,n)$ 设为最后一个障碍物，答案便易得了  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e6 + 10;
+const int M = 3e3 + 10;
+int n, m;
+vector<pair<int, int> > vec;
+
+const int mod = 1e9 + 7;
+inline ll ksm ( ll a, ll b ) { ll res = 1; while ( b ) { if ( b & 1 ) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv ( ll x ) { return ksm(x, mod - 2); }
+
+
+ll ivf[N], f[N];
+inline void get_F () { ivf[0] = f[0] = 1; for ( int i = 1; i < N; i ++ ) { ivf[i] = ivf[i - 1] * inv(i) % mod; f[i] = f[i - 1] * i % mod; } }
+inline ll C ( int n, int m ) { return f[n] * ivf[m] % mod * ivf[n - m] % mod; }
+inline ll calc ( pair<int, int> a, pair<int, int> b  ) { int curn = b.first - a.first + b.second - a.second; int curm = b.first - a.first; return C(curn, curm); }
+
+ll dp[M];
+int main () {
+        get_F();
+        scanf("%d%d", &n, &m);
+        for ( int i = 0; i < m; i ++ ) {
+                int x, y; scanf("%d%d", &x, &y);
+                vec.push_back({x, y});
+        }
+        vec.push_back({n, n});
+        sort ( vec.begin(), vec.end() );
+
+        for ( int i = 0; i <= m; i ++ ) {
+                dp[i] = calc({1, 1}, vec[i]);
+                for ( int j = 0; j <= m; j ++ ) {
+                        if ( i == j ) continue;
+                        if ( vec[j].second <= vec[i].second && vec[j].first <= vec[i].first ) {
+                                dp[i] -= dp[j] * calc(vec[j], vec[i]) % mod;
+                                dp[i] = (dp[i] % mod + mod) % mod;
+                        }
+                }
+        }
+        printf("%lld\n", dp[m]);
+}
+```
 <hr>

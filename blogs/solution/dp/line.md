@@ -1334,6 +1334,7 @@ int main () {
 <hr>
 
 
+
 ## NCD2019C_HasanAndHisLazyStudents
 
 #### 🔗

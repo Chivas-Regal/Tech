@@ -233,3 +233,105 @@ int main () {
 ```
 
 <hr>
+
+## ICPC2021南京站H_Crystalfly
+
+#### 🔗
+<a href="https://codeforces.com/gym/103470/problem/H">![20220303130117](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220303130117.png)</a>
+
+#### 💡
+考虑到有两种决策  
+- 对着 $u$ 的一个子节点 $v$ 走下去，别的子节点舍弃
+- 刚碰到 $u$ 的一个字节点 $v$ 立马掉头去碰 $t=3$ 的另一个子节点 $w$，$v$ 的子节点不管了
+
+我们设置 $dp_i$ 表示 $i$ 节点上已经失效，但 $i$ 的子节点们 $\{son_i\}$ 还未激活  
+令 $sum_u=\sum\limits_{v\in\{son_u\}}dp_v$  
+则对于一个节点的两种决策  
+- $c_{u1}=\underset{v\in\{son_u\}}{max}(sum_u+a_u)$
+- $c_{u2}=\underset{v\in\{son_u\},\;v\neq w,\;t_w=3}{max}(sum_u+a_v+a_w+sum_v-dp_v)$  
+  
+对于第二种决策我们找出最大的 $a_w$ 后让其更新所有同级点，同时为保正确性也让所有同级点更新它从而获得 $c_{u2}$  
+那么最后 $dp_u$ 取其中最大值即可  
+  
+最后答案就根据状态来，$a_1+dp_1$
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10,
+	  M = 2e5 + 10;
+int n, t[N]; ll a[N];
+
+struct Edge {
+        int nxt, to;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge ( int from, int to ) {
+        edge[++cnt] = { head[from], to };
+        head[from] = cnt;
+}
+
+ll dp[N], sum[N];
+
+inline void DFS ( int u, int fa ) {
+	if ( edge[head[u]].nxt == 0 && fa != u ) return;
+	for ( int i = head[u]; i; i = edge[i].nxt ) {
+		int v = edge[i].to;
+		if ( v == fa ) continue;
+		DFS(v, u);
+		sum[u] += dp[v];
+	}
+
+	ll t1 = 0, t2 = 0;
+
+	for ( int i = head[u]; i; i = edge[i].nxt ) {
+		int v = edge[i].to;
+		if ( v == fa ) continue;
+		t1 = max(t1, sum[u] + a[v]);
+	}
+
+	ll mxw = 0; int w = 0;
+	for ( int i = head[u]; i; i = edge[i].nxt ) {
+		int v = edge[i].to;
+		if ( v == fa || t[v] < 3 ) continue;
+		if ( a[v] > mxw ) mxw = a[v], w = v;
+	}
+
+	if ( w ) {
+		for ( int i = head[u]; i; i = edge[i].nxt ) {
+			int v = edge[i].to;
+			if ( v == fa || v == w ) continue;
+			t2 = max(t2, sum[u] - dp[v] + a[v] + sum[v] + a[w]);
+		}
+		for ( int i = head[u]; i; i = edge[i].nxt ) {
+			int v = edge[i].to;
+			if ( v == fa || v == w || t[v] < 3 ) continue;
+			t2 = max(t2, sum[u] - dp[w] + a[w] + sum[w] + a[v]);
+		}
+	}
+
+	dp[u] = max(t1, t2);
+}
+
+inline void Solve () {
+	scanf("%d", &n);
+	for ( int i = 1; i <= n; i ++ ) head[i] = -1, dp[i] = sum[i] = 0; cnt = 0;
+	for ( int i = 1; i <= n; i ++ ) scanf("%lld", &a[i]);
+	for ( int i = 1; i <= n; i ++ ) scanf("%d", &t[i]);
+	for ( int i = 1; i < n; i ++ ) {
+		int u, v; scanf("%d%d", &u, &v);
+		add_Edge(u, v);
+		add_Edge(v, u);
+	}
+	DFS(1, 1);
+	printf("%lld\n", dp[1] + a[1]);
+}
+
+int main () {
+	int cass; scanf("%d", &cass); while ( cass -- ) {
+		Solve ();
+	}
+
+}
+```
+<hr>
+

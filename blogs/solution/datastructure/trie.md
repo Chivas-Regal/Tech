@@ -214,3 +214,98 @@ CHIVAS_{
 ```
 
 <hr>
+
+## CodeForces1625D_BinarySpiders
+
+#### 🔗
+<a href="https://codeforces.com/contest/1625/problem/D">![20220304141042](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220304141042.png)</a>
+
+#### 💡
+考虑 $k$ 有 $m$ 位，若一对数 $m$ 以上的位存在不同的，那么必然可以  
+若一对数 $m$ 以上的位相同，那么去检查相同的内部是否存在两者 $\oplus\ge k$  
+那么存 $m$ 以上的前缀  
+- 不同，随便选
+- 相同，考虑 $a\oplus b\ge k,a\oplus c\ge k\Longrightarrow a_m\neq b_m,a_m\neq c_m\Longrightarrow b_m=c_m\Longrightarrow b\oplus c\lt k$，所以此时最多可以选两个，但至少可以选一个  
+  
+同前缀内可以用 $Trie$ 数去查每个数的最大异或  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 3e5 + 10;
+
+int n, k, m;
+map<int, int> id;
+map<int, vector<int> > pres;
+
+inline int Bits ( int x ) {
+        int res = 0;
+        while ( x ) x >>= 1, res ++;
+        return res;
+}
+
+namespace Trie {
+        int t[N * 30][2], idx;
+        inline void Init () { memset(t, 0, sizeof (int) * 2 * (idx + 1)); idx = 0; }
+        inline void Insert ( int x ) {
+                int p = 0;
+                for ( int i = 30; i >= 0; i -- ) {
+                        int u = x >> i & 1;
+                        if ( !t[p][u] ) t[p][u] = ++ idx;
+                        p = t[p][u];
+                }
+        }
+        inline int Query ( int x ) {
+                int res = 0, p = 0;
+                for ( int i = 30; i >= 0; i -- ) {
+                        int u = x >> i & 1;
+                        if ( !t[p][!u] ) {
+                                res = res << 1 | u;
+                                p = t[p][u];
+                        } else {
+                                res = res << 1 | (!u);
+                                p = t[p][!u];
+                        }
+                }
+                return res;
+        }
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+
+        cin >> n >> k; m = Bits(k);
+        for ( int i = 1; i <= n; i ++ ) {
+                int x; cin >> x;
+                pres[x >> m].push_back(x);
+                id[x] = i;
+        }
+        if ( k == 0 ) {
+                cout << n << endl;
+                for ( int i = 1; i <= n; i ++ ) cout << i << " ";
+                return 0;
+        }
+        vector<int> res; 
+        for ( auto pre : pres ) {
+                bool flag = false;
+                Trie::Init();
+                for ( auto x : pre.second ) {
+                        int t = Trie::Query(x);
+                        if ( (t ^ x) >= k ) {
+                                res.push_back(id[t]);
+                                res.push_back(id[x]);
+                                flag = true;
+                                break;
+                        }
+                        Trie::Insert(x);
+                }
+                if ( !flag ) res.push_back(id[pre.second[0]]);
+        }
+        if ( res.size() <= 1 ) cout << "-1" << endl;
+        else {
+                cout << res.size() << endl;
+                for ( auto i : res ) cout << i << " ";
+                cout << endl;
+        }
+}
+```
+<hr>

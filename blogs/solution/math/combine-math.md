@@ -915,7 +915,7 @@ int main () {
 ```
 <hr>
 
-## ARC136B_TripleShift
+### ARC136B_TripleShift
 
 #### 🔗
 <a href="https://atcoder.jp/contests/arc136/tasks/arc136_b?lang=en">![20220303014137](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220303014137.png)</a>
@@ -2703,4 +2703,93 @@ int main () {
 }
 ```
 
+<hr>
+
+
+## 鸽笼原理
+
+### CodeForces577B_ModuloSum
+
+#### 🔗
+<a href="https://codeforces.com/contest/577/problem/B">![20220303092428](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220303092428.png)</a>
+
+#### 💡
+首先根据鸽笼原理  
+若 $m<=n$  
+对于前 $m$ 个数有 $m$ 个前缀和  
+- 存在 $0$ ，显然可以
+- 不存在 $0$，$m$ 个数用 $sz\{1,2,\dots,m-1\}=m-1$ 个余数，必然有两重复，重复的前缀和构成的区间和为 $0$ ，也可以  
+
+若 $m>n$  
+那么 $n<m\le 1000$ ，则暴力跑一遍 $01$ 背包即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int n, m;
+bool dp[2][1000];
+
+int main () {
+	ios::sync_with_stdio(false);
+	cin >> n >> m;
+	if ( m <= n ) {
+		cout << "YES" << endl;
+		return 0;
+	}
+	for ( int i = 1; i <= n; i ++ ) {
+		int x; cin >> x; x %= m;
+		memset(dp[i & 1], false, sizeof dp[i & 1]);
+		dp[i & 1][x] = true;
+		for ( int j = 0; j < m; j ++ ) {
+			dp[i & 1][j]           |= dp[i - 1 & 1][j];
+			dp[i & 1][(j + x) % m] |= dp[i - 1 & 1][j];
+		} 
+		if ( dp[i & 1][0] ) { cout << "YES"; return 0; }
+	}
+	cout << "NO";
+}
+```
+<hr>
+
+
+### NamomoCamp2022春季每日一题4_选数
+
+#### 🔗
+<a href="http://oj.daimayuan.top/problem/456">![20220302115716](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220302115716.png)</a>
+
+#### 💡
+$n$ 个数，范围很明显了，这里最多有 $n$ 个不同的模数  
+考虑前缀和，一共有 $n$ 个前缀和，如果出现 $0$ 那么就直接输出这个前缀即可  
+有可能没有 $0$ ，那么 $n$ 个前缀和要用 $n-1$ 个数就必然存在两个前缀和相同  
+相同的两个前缀和减出来的区间和为 $0$ ，也能满足  
+  
+所以每次算前缀和，如果为 $0$ 直接输出，否则查看是否之前存在过这个前缀和，如果存在过，就从上一个该前缀和下标 $+1$ 一直到当前位置  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+int n, a[N];
+int id[N], sum;
+
+int main () {
+	ios::sync_with_stdio(false);
+    
+	cin >> n;
+	for ( int i = 1; i <= n; i ++ ) {
+		cin >> a[i];
+		sum = (sum + a[i]) % n;
+		if ( sum == 0 ) {
+			cout << i << endl;
+			for ( int j = 1; j <= i; j ++ ) cout << j << " ";
+			cout << endl;
+			return 0;
+		}
+		if ( id[sum] ) {
+			cout << i - id[sum] << endl;
+			for ( int j = id[sum] + 1; j <= i; j ++ ) cout << j << " ";
+			return 0;
+		}
+		id[sum] = i;
+	}
+}
+```
 <hr>
