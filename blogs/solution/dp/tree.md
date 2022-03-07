@@ -49,6 +49,106 @@ $
 <hr>
 
 
+## CodeForces1646D_WeightTheTree
+
+#### 🔗
+<a href="https://codeforces.com/contest/1646/problem/D">![20220307215104](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220307215104.png)</a>
+
+#### 💡
+考虑一下如何让 $sum\{w\}$ 最小：不选的节点为 $1$ ，选的节点为 $du$  
+用 $dp$ 转移出来最大独立集  
+但是在有多个最大独立集时我们想让我们的 $sum\{w\}$ 最小  
+那么我们要设置两个关键字 $\{$独立集个数贡献，$-w$ 贡献$\}$  
+令每一个节点存在两个 $dp$ 状态，$0/1$ 即不选与选  
+在 $dp$ 转移的时候 $dp[u][0]$ 可以通过 $dp[v][0],dp[v][1]$ 转移，累加其中最大的即可    
+$dp[u][1]$ 只可以通过 $dp[v][0]$ 转移  
+  
+那么我们可以向下 $DFS$ ，看这一位要是否选就让两个答案加上 $dp[u][0/1]$ ，并给 $w[u]$ 赋值     
+同时走子节点时，若这一位选了 $1$ 或者 $dp[v][0]>dp[v][1]$ ，那么子节点都要选 $0$   
+否则选 $1$  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+const int M = 4e5 + 10;
+ 
+int n, du[N];
+struct Edge {
+        int nxt, to;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge ( int from, int to ) {
+        edge[++cnt] = { head[from], to };
+        head[from] = cnt;
+}
+ 
+pair<int, int> dp[N][2];
+ 
+inline void DFS ( int u, int fa ) {
+        dp[u][1] = {1, -du[u]};
+        dp[u][0] = {0, -1};
+ 
+        for ( int i = head[u]; i; i = edge[i].nxt ) {
+                int v = edge[i].to;
+                if ( v == fa ) continue;
+                DFS(v, u);
+                dp[u][1].first += dp[v][0].first;
+                dp[u][1].second += dp[v][0].second;
+                pair<int, int> mx = max(dp[v][0], dp[v][1]);
+                dp[u][0].first += mx.first;
+                dp[u][0].second += mx.second;
+        }
+}
+ 
+int res1, res2;
+ 
+int w[N];
+inline void Solve ( int u, int fa, int op ) {
+        if ( op ) {
+                w[u] = du[u];
+                res1 ++;
+                res2 += du[u];
+        } else {
+                w[u] = 1;
+                res2 ++;
+        }
+ 
+        for ( int i = head[u]; i; i = edge[i].nxt ) {
+                int v = edge[i].to;
+                if ( v == fa ) continue;
+                if ( op == 1 || dp[v][0] > dp[v][1]) {
+                        Solve (v, u, 0);
+                } else {
+                        Solve (v, u, 1);
+                }
+        }
+}
+ 
+int main () {
+        scanf("%d", &n);
+        for ( int i = 1; i < n; i ++ ) {
+                int u, v; scanf("%d%d", &u, &v);
+                add_Edge(u, v);
+                add_Edge(v, u);
+                du[u] ++;
+                du[v] ++;
+        }
+        if ( n == 2 ) {
+                printf("%d %d\n%d %d", 2, 2, 1, 1);
+                return 0;
+        }
+ 
+        DFS(1, 0);
+ 
+        Solve (1, 0, dp[1][0] < dp[1][1]);
+ 
+        printf("%d %d\n", res1, res2);
+        for ( int i = 1; i <= n; i ++ ) printf("%d ", w[i]);
+}
+```
+<hr>
+
+
 ## gym103145C_VertexDeletion
 
 #### 🔗

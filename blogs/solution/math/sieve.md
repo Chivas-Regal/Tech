@@ -88,6 +88,70 @@ int main () {
 
 <hr>
 
+## CodeForces1646E_PowerBoard
+
+#### 🔗
+<a href="https://codeforces.com/contest/1646/problem/E">![20220307213243](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220307213243.png)</a>
+
+#### 💡
+思考一下什么时候会出现重复， $2^4=4^2=16^1$  
+那么我们考虑一下分组  
+对于一个正整数 $x$ ，令所有以 $x^k$ 开始的行归为一组 $Group(x)$  
+即:  
+$$Group(x)=\left\{\begin{aligned}
+k=1,\quad &x,x^2,x^3,\dots\newline
+k=2,\quad &x^2,x^4,x^6,\dots\newline
+k=3,\quad &x^3,x^6,x^9,\dots\newline
+\dotso
+\end{aligned}\right\}
+$$  
+显然，同一组内不同行不同列可能存在相同数，而 $x\neq y\Longrightarrow Group(x)\cap Group(y)=\empty$   
+那么对于每一组行为 $i$ ，列为 $j$ ，我们需要统计 $i\times j$ 的个数然后不同组进行累加即可  
+
+枚举 $x$ ，要想 $x^k\le n$ ，那么 $k\lt 20$    
+对于 $x$ 看它在 $n$ 内的 $max\_k$ ，也就意味着可以形成一个 $max\_k$ 行 $m$ 列矩阵  
+那么我们可以先处理出来 $n\_dif[i]$ 表示在一组内，一个 $i$ 行 $m$ 列矩阵的不同 $i\times j$ 的数量，这个可以用埃氏筛枚举倍数实现    
+然后在枚举 $x$ 计算完 $max\_k$ 后累加 $n\_dif[max\_k]$ 即可  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e6 + 10;
+int n, m;
+bool vis[N * 25];
+ll n_dif[25];
+
+int main () {
+        ios::sync_with_stdio(false);
+
+        cin >> n >> m;
+
+        for ( int i = 1; i <= 20; i ++ ) {
+                n_dif[i] += n_dif[i - 1];
+                for ( int j = 1; j <= m; j ++ ) {
+                        if ( !vis[i * j] ) 
+                                vis[i * j] = true,
+                                n_dif[i] ++;
+                }
+        }
+
+        memset(vis, 0, sizeof vis);
+
+        ll res = 1;
+        for ( int x = 2; x <= n; x ++ ) {
+                int row = 0;
+                for ( ll pw = x; pw <= n; pw *= x ) {
+                        if ( vis[pw] ) continue; vis[pw] = true;
+                        row ++;
+                }
+                res += n_dif[row];
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
+
 ### ICPC吉林站2020G_Matrix
 
 #### 🔗
