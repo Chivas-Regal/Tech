@@ -691,6 +691,65 @@ inline void Solve () {
 ```
 <hr>
 
+## CodeForces1649C_WeirdSum
+
+#### 🔗
+<a href="https://codeforces.com/contest/1649/problem/C">![20220308091913](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220308091913.png)</a>
+
+#### 💡
+对于这种没对产生一次贡献的，我们思考对于一个元素，它和前面配对的贡献  
+按这个顺序来  
+即如果有 $(a,b),(c,d),(e,f)$  
+价值为 $|c-a|+|d-b|+|e-a|+|e-c|+|f-b|+|f-d|=(|c-a|+|e-a|+|e-c|)+(|d-b|+|f-b|+|f-d|)$  
+可以发现我们完全可以将横纵坐标分开各自考虑  
+排一下序即可解除绝对值  
+那么对于 $i:1\to m (x_i,y_i)$ ，答案即为  
+$$\sum\limits_{i=1}^m(i-1)x_i-\sum\limits_{j=1}^{i-1}x_j$$  
+对于 $y$ 同理  
+那么后面的那个 $\sum\limits_{j=1}^{i-1}x_j$ 我们完全可以利用前缀和去记录  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+vector<ll> vec[100005][2];
+set<int> clr;
+ 
+inline void Solve () {
+        int n, m; scanf("%d%d", &n, &m);
+        for ( int i = 0; i < n; i ++ ) {
+                for ( int j = 0; j < m; j ++ ) {
+                        int x; scanf("%d", &x);
+                        vec[x][0].push_back(i);
+                        vec[x][1].push_back(j);
+                        clr.insert(x);
+                }
+        }
+ 
+ 
+        for ( auto i : clr ) sort ( vec[i][0].begin(), vec[i][0].end() ), sort ( vec[i][1].begin(), vec[i][1].end() );
+ 
+        ll res = 0;
+        for ( auto c : clr ) {
+                ll sum = vec[c][0][0];
+                for ( int i = 1; i < vec[c][0].size(); i ++ ) {
+                        res += vec[c][0][i] * i - sum;
+                        sum += vec[c][0][i];
+                }
+                sum = vec[c][1][0];
+                for ( int i = 1; i < vec[c][1].size(); i ++ ) {
+                        res += vec[c][1][i] * i - sum;
+                        sum += vec[c][1][i];
+                }
+        }
+ 
+        printf("%lld\n", res);
+ 
+ 
+ 
+        for ( auto i : clr ) vec[i][0].clear(), vec[i][1].clear();
+}
+```
+<hr>
+
 
 ## HDU2021多校(1)5_Minimumspanningtree
 

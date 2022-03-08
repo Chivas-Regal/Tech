@@ -1292,6 +1292,85 @@ inline void Solve () {
 ```
 <hr>
 
+## CodeForces1649E_TylerAndStrings
+
+#### 🔗
+<a href="https://codeforces.com/contest/1649/problem/E">![20220308115240](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220308115240.png)</a>
+
+#### 💡
+考虑一个没有任何限制的情况  
+若存在 $cnt[i]$ 个 $i$ ，构造出不同的数列的方案数 $=\frac{(\sum\limits_{i=1}^Ncnt[i])!}{\prod\limits_{i=1}^Ncnt[i]!}$  
+这里我们要让字典序 $a<b$  
+那么也就是说必须要含一串相同的前缀，然后对于第一个非前缀的位置，让 $a[i]<b[i]$  
+枚举从第 $i$ 个为第一个非同前缀的位置  
+- 前面由于相同，方案数为 $1$ 
+- 第 $i$ 个位置可以选的数的个数为小于 $b[i]$ 的数的个数 
+- 后面可以随意排列，为 $(n-i)!$
+- 最后要除 $\prod\limits_{i=1}^Ncnt[i]!$
+
+考虑一个递进的记录，这样可以防止每次我们要重新对每一个数算 $\prod\limits_{i=1}^Ncnt[i]!$ 与 $\sum\limits_{j=1}^{b[i]-1}cnt[j]$  
+
+$ifac,fac$ 都可以提前预处理  
+前者可以维护一个 $div\_permutation=\frac{1}{\prod\limits_{i=1}^Ncnt[i]!}$ ，每次使 $cnt[b[i]]-1$ 时意味着要少除一个 $cnt[b[i]]$ ，那么让 $div\_permutation\times cnt[b[i]]$ 即可  
+后者可以用树状数组去记录  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+const int mod = 998244353;
+struct modint{ /*.....*/ };
+# define mi modint
+
+int n, m;
+int a[N], b[N];
+int cnt[N];
+ 
+int t[N];
+inline int lowbit ( int x ) { return x & -x; }
+inline void Update ( int x, int c ) {
+        while ( x < N ) t[x] += c, x += lowbit(x);
+}
+inline mi Query ( int x ) {
+        mi res = 0;
+        while ( x > 0 ) res += t[x], x -= lowbit(x);
+        return res;
+}
+ 
+mi fac[N], ifac[N];
+ 
+int main () {
+        fac[0] = ifac[0] = 1;
+        for ( int i = 1; i < N; i ++ ) fac[i] = fac[i - 1] * i, ifac[i] = ifac[i - 1] / i;
+ 
+ 
+        scanf("%d%d", &n, &m);
+        for ( int i = 1; i <= n; i ++ ) scanf("%d", &a[i]), cnt[a[i]] ++, Update(a[i], 1);
+        for ( int i = 1; i <= n; i ++ ) scanf("%d", &b[i]);
+ 
+        mi div_permutation = 1;
+        for ( int i = 1; i < N; i ++ ) div_permutation *= ifac[cnt[i]];
+ 
+        mi res = 0;
+        bool flag = true;
+        for ( int i = 1; i <= min(n, m); i ++ ) {
+                res += Query(b[i] - 1) * fac[n - i] * div_permutation;
+                div_permutation *= cnt[b[i]];
+                cnt[b[i]] --;
+ 
+                if ( cnt[b[i]] < 0 ) {
+                        flag = false;
+                        break;
+                }
+ 
+                Update(b[i], -1);
+        }       
+        if ( flag && n < m ) res += 1;
+ 
+        printf("%d", res);
+}
+```
+<hr>
+
 
 ### ICPC2020上海站G_Fibonacci
 

@@ -4465,6 +4465,43 @@ int main () {
 ```
 <hr>
 
+## CodeForces1649B_GameOfPassing
+
+#### 🔗
+<a href="https://codeforces.com/contest/1649/problem/B">![20220308091422](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220308091422.png)</a>
+
+#### 💡
+如果出现一个 $1000,1$ 这种情况的传球  
+那么就只考虑最大的数额外分配需要的次数  
+所以我们定义一轮为以最大的数开始，向别的数传球  
+那么一轮我们可以让最大的数减 $1$ ，其余的任选几个减 $1$，注意最后可以让最大的再额外传出一个球    
+如果最大的大于其余的，那么剩下的我们就要单独给最大的分配次数，也就是需要 $mx-1-els+1$  
+如果小于等于，那么就只需要一个球  
+特判一下 $0$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void Solve () {
+        int n; cin >> n;
+        ll mx = 0;
+        ll sum = 0;
+        for ( int i = 0; i < n; i ++ ) {
+                ll x; cin >> x;
+                mx = max(mx, x);
+                sum = sum + x;
+        }
+        sum -= mx;
+        if ( mx == 0 ) {
+                cout << 0 << endl;
+        } else if ( mx <= sum ) {
+                cout << 1 << endl;
+        } else {
+                cout << mx - sum << endl;
+        }
+}
+```
+<hr>
+
 
 
 ## GYM102174F_风王之瞳

@@ -151,6 +151,55 @@ int main () {
 ```
 <hr>
 
+## CodeForces1649D_IntegralArray
+
+#### 🔗
+<a href="https://codeforces.com/contest/1649/problem/D">![20220308092829](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220308092829.png)</a>
+
+#### 💡
+分两步考虑了  
+由于 $a=\left\lfloor\frac xy\right\rfloor$ 要看对于 $y:1\to x$ 看其中每一个 $a$ 出现的情况，这些是会有很多重复的情况，那么我们可以开数论分块  
+对每一个出现过的 $a_i$ 数论分块，看一个块内 $y\in[l,r]\;(\left\lfloor\frac xl\right\rfloor=\left\lfloor\frac xr\right\rfloor)$ 是否有出现过数，出现过的话那么 $\left\lfloor\frac xl\right\rfloor$ 也必然要出现，这个如果没有出现就是 `No` 了  
+这个复杂度就是 $O(n\sqrt{m})$ ，是会超的    
+  
+既然我们可以对分母分块，那么也自然可以用埃氏筛枚举倍数的方式对分子分块  
+枚举分母 $a$，再枚举 $a$ 的倍数 $i$ ，那么一个块 $[l,r]=[a\times i,a\times(i+1)-1]$
+那么 $\left\lfloor\frac la\right\rfloor=\left\lfloor ra\right\rfloor=i$  
+如果 $[l,r]$ 出现过且 $i$ 每出现就是 `No`  
+复杂度均摊 $O(mlogm)$  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int sum[1000005]; // 记录区间数字个数
+int cnt[1000005]; // 记录单点数字个数
+ 
+inline void Solve () {
+        int n, c; cin >> n >> c; a.clear();
+        
+        for ( int i = 0; i <= c; i ++ ) sum[i] = cnt[i] = 0;
+        for ( int i = 0; i < n; i ++ ) {
+                int x; cin >> x;
+                sum[x] ++;
+                cnt[x] = 1;
+        }
+        for ( int i = 1; i <= c; i ++ ) sum[i] += sum[i - 1];
+ 
+ 
+        for ( int i = 1; i <= c; i ++ ) {
+                if ( !cnt[i] ) continue;
+                for ( int j = 1; j * i <= c; j ++ ) {
+                        int L = j * i, R = min(j * i + i - 1, c);
+                        if ( sum[R] - sum[L - 1] && !cnt[j] ) {
+                                cout << "No" << endl;
+                                return ;
+                        } 
+                }
+        }
+        cout << "Yes" << endl;
+}
+```
+<hr>
+
 
 ### ICPC吉林站2020G_Matrix
 
