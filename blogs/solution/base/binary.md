@@ -662,209 +662,6 @@ int main(){
 
 <hr>
 
-## CodeForces1632D_NewYearConcert
-
-#### 🔗
-
-<a href="https://codeforces.com/contest/1632/problem/D"><img src="https://img-blog.csdnimg.cn/6c8a4705c9164eb6aca81bb43163d0f8.png"></a>
-
-#### 💡
-思索一下，如果我们对一个从 $i$ 开始的前缀可以发现存在这样 $gcd=l-r+1$ 的，那么我们可以在 $i$ 的位置加一个很大的质数从而隔断 $i$ 到 $1$ 的位置  
-这样我们后面的任意一个位置到达 $i$ 都会变成 $gcd=1$ ，我们要从 $l=i+1$ 之后进行判断即可  
-所以隔断后我们在后面枚举 $i$ 时只需要判断 $\sum\limits_{j=l+1}^i[gcd=i-j+1]$ 是否 $\ge 1$ 即是否存在  
-注意一下单调性，对于固定的右端点，区间越长 $gcd$ 不会越来越大，同时区间长度越来越大，他们两个呈相遇状  
-那么我们找这个满足 $gcd(a[j\rightarrow i])=i-j+1$ 就可以采用二分左端点的形式  
-- 如果 $gcd(a[j\rightarrow i])<i-j+1$ 说明我们枚举的太长了，应该让左端点往右走  
-- 如果 $gcd(a[j\rightarrow i])>i-j+1$ 就说明要往左走  
-- 如果 $gcd(a[j\rightarrow i])=i-j+1$ 就说明找到了，存在这样的位置，我们对 $i$ 进行隔断然后让答案 $+1$ 即可   
-
-注意中间存在区间查询 $gcd$ 的操作，可以使用 $st$ 表预处理  
-
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
-```cpp
-const int N = 2e5 + 10;
-ll st[N][25];
-ll a[N];
-ll n;
-
-inline ll gcd ( ll a, ll b ) { return b ? gcd(b, a % b) : a; }
-inline void Build(){ // 构建ST
-        for ( int i = 1; i <= n; i ++ ) st[i][0] = a[i];
-        ll k = 32 - __builtin_clz(n) - 1;
-        for (ll j = 1; j <= k; j ++) {
-                for (ll i = 1; i + (1 << j) - 1 <= n; i ++) {
-                        st[i][j] = gcd(st[i][j - 1],st[i + (1 << (j - 1))][j - 1]);
-                }
-        }
-}
-ll Query(ll l, ll r){ // 查询
-        ll k = 32 - __builtin_clz(r - l + 1) - 1;
-        return gcd(st[l][k], st[r - (1 << k) + 1][k]);
-}
-
-inline int check ( ll p, ll i ) {
-        ll qry = Query(p, i);
-        if ( qry < i - p + 1 ) return -1;
-        else if ( qry == i - p + 1 ) return 0;
-        return 1;
-}
-
-inline void Solve () {
-        cin >> n;
-        for ( int i = 1; i <= n; i ++ ) cin >> a[i];
-        Build();
-        int l = 1, res = 0; // 隔断后面的第一个位置，答案
-        for ( int i = 1; i <= n; i ++ ) {
-                int R = i;
-                int L = l;
-                bool flg = 0;
-                while ( L <= R ) {
-                        int mid = (L + R) >> 1;
-                        if ( check(mid, i) == 0) {
-                                flg = true;
-                                break;
-                        } 
-                        if ( check(mid, i) == 1 ) R = mid - 1;
-                        else L = mid + 1;
-                }
-                if ( flg ) {
-                        l = i + 1;
-                        res ++;
-                }
-                cout << res << " ";
-        }
-}
-```
-<hr>
-
-
-## CodeForces1611F_ATMAndStudents
-
-#### 🔗
-<a href="https://codeforces.com/contest/1611/problem/F"><img src="https://i.loli.net/2021/11/26/piPkK8fFsSXBa5C.png"></a>
-
-#### 💡
-看到这个题首先会想一段区间会被前缀影响也会被后缀影响，那么我们可以采用区间求解的形式  
-  
-由于收益的累加是从前往后的，所以我们建立一个前缀和  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{sum\}" title="\inline \{sum\}" />  表示从  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" />  到  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  这一段的总收益为  <img src="https://latex.codecogs.com/svg.image?\inline&space;sum[i]" title="\inline sum[i]" />    
-如果我们选  <img src="https://latex.codecogs.com/svg.image?\inline&space;[l,r]" title="\inline [l,r]" />  这一段，因为不看前面的收益了，所以从  <img src="https://latex.codecogs.com/svg.image?\inline&space;l" title="\inline l" />  到  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" />  的准确收益会是  <img src="https://latex.codecogs.com/svg.image?\inline&space;sum[x]-sum[l-1]" title="\inline sum[x] - sum[l - 1]" />   
-而这一段能否被选择的关键在于**这一段准确收益的最小值是否低于<img src="https://latex.codecogs.com/svg.image?\inline&space;s" title="\inline s" />**  
-  
-好了， <img src="https://latex.codecogs.com/svg.image?\inline&space;\{sum\}" title="\inline \{sum\}" />  的**区间最小值**，可以开一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;ST" title="\inline ST" />  表  
-
-
-```cpp
-for ( int i = 1; i <= n; i ++ ) st[i][0] = sum[i];
-
-inline void Build () {
-        int k = 32 - __builtin_clz(n) - 1;
-        for ( int j = 1; j <= k; j ++ ) {
-                for ( int i = 1; i + (1 << j) - 1 <= n; i ++ ) {
-                        st[i][j] = min ( st[i][j - 1], st[i + (1 << (j - 1))][j - 1] );
-                }
-        }
-}
-inline ll Query ( int l, int r ) {
-        int k = 32 - __builtin_clz(r - l + 1) - 1;
-        return min ( st[l][k], st[r - (1 << k) + 1][k] );
-}
-```
-
-那么如何确定最多能选多长的区间呢？  
-由于区间长度的行于不行单调递增  
-那么可以采用**二分区间长度**，对每一个二分到的区间长度下的区间最小值（准确收益下的）逐一判断  
-如果不可行说明我们这个选的太长了，应该跑小的那一半，否则跑大的那一半  
-
-```cpp
-inline bool this_MinInLen ( int len ) {
-        for ( int i = 1; i + len - 1 <= n; i ++ ) {
-                ll cur = Query ( i, i + len - 1 );
-                if ( s + (cur - sum[i - 1]) >= 0 ) { // cur-sum[i-1]：准确收益
-                        if ( len > res.second - res.first + 1 ) res = {i, i + len - 1};
-                        return true;
-                }
-        }
-        return false;
-}
-
-
-int l = 1, r = n;
-while ( l <= r ) {
-        int mid = ( l + r ) >> 1;
-        if ( this_MinInLen(mid) ) l = mid + 1;
-        else                      r = mid - 1;
-}
-this_MinInLen ( l );
-```
-
-时间复杂度： $O(nlogn)$  
-
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
-```cpp
-const int N = 2e5 + 10;
-ll a[N], sum[N];
-ll st[N][100];
-int n;
-ll s;
-pair<int, int> res;
-
-inline void Build () {
-        int k = 32 - __builtin_clz(n) - 1;
-        for ( int j = 1; j <= k; j ++ ) {
-                for ( int i = 1; i + (1 << j) - 1 <= n; i ++ ) {
-                        st[i][j] = min ( st[i][j - 1], st[i + (1 << (j - 1))][j - 1] );
-                }
-        }
-}
-inline ll Query ( int l, int r ) {
-        int k = 32 - __builtin_clz(r - l + 1) - 1;
-        return min ( st[l][k], st[r - (1 << k) + 1][k] );
-}
-inline bool this_MinInLen ( int len ) {
-        for ( int i = 1; i + len - 1 <= n; i ++ ) {
-                ll cur = Query ( i, i + len - 1 );
-                if ( s + (cur - sum[i - 1]) >= 0 ) {
-                        if ( len > res.second - res.first + 1 ) res = {i, i + len - 1};
-                        return true;
-                }
-        }
-        return false;
-}
-
-inline void Solve () {
-        res = {0, -1};
-
-        cin >> n >> s;
-        for ( int i = 1; i <= n; i ++ ) {
-                cin >> a[i];
-                sum[i] = sum[i - 1] + a[i];
-                st[i][0] = sum[i];
-        }
-
-        Build ();
-
-        int l = 1, r = n;
-        while ( l <= r ) {
-                int mid = ( l + r ) >> 1;
-                if ( this_MinInLen(mid) ) l = mid + 1;
-                else                      r = mid - 1;
-        }
-        this_MinInLen ( l );
-        
-        if ( res.first <= res.second ) cout << res.first << " " << res.second << endl;
-        else                           cout << -1 << endl;
-}
-
-int main () {
-        ios::sync_with_stdio(false);
-        int cass; cin >> cass; while ( cass -- ) {
-                Solve ();
-        }
-}
-```
-
-<hr>
-
 ## CodeForces1512D_CorruptedArray
 
 #### 🔗
@@ -1063,6 +860,321 @@ int main(){
 ```
 
 <hr>
+
+## CodeForces1611F_ATMAndStudents
+
+#### 🔗
+<a href="https://codeforces.com/contest/1611/problem/F"><img src="https://i.loli.net/2021/11/26/piPkK8fFsSXBa5C.png"></a>
+
+#### 💡
+看到这个题首先会想一段区间会被前缀影响也会被后缀影响，那么我们可以采用区间求解的形式  
+  
+由于收益的累加是从前往后的，所以我们建立一个前缀和  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{sum\}" title="\inline \{sum\}" />  表示从  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" />  到  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  这一段的总收益为  <img src="https://latex.codecogs.com/svg.image?\inline&space;sum[i]" title="\inline sum[i]" />    
+如果我们选  <img src="https://latex.codecogs.com/svg.image?\inline&space;[l,r]" title="\inline [l,r]" />  这一段，因为不看前面的收益了，所以从  <img src="https://latex.codecogs.com/svg.image?\inline&space;l" title="\inline l" />  到  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" />  的准确收益会是  <img src="https://latex.codecogs.com/svg.image?\inline&space;sum[x]-sum[l-1]" title="\inline sum[x] - sum[l - 1]" />   
+而这一段能否被选择的关键在于**这一段准确收益的最小值是否低于<img src="https://latex.codecogs.com/svg.image?\inline&space;s" title="\inline s" />**  
+  
+好了， <img src="https://latex.codecogs.com/svg.image?\inline&space;\{sum\}" title="\inline \{sum\}" />  的**区间最小值**，可以开一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;ST" title="\inline ST" />  表  
+
+
+```cpp
+for ( int i = 1; i <= n; i ++ ) st[i][0] = sum[i];
+
+inline void Build () {
+        int k = 32 - __builtin_clz(n) - 1;
+        for ( int j = 1; j <= k; j ++ ) {
+                for ( int i = 1; i + (1 << j) - 1 <= n; i ++ ) {
+                        st[i][j] = min ( st[i][j - 1], st[i + (1 << (j - 1))][j - 1] );
+                }
+        }
+}
+inline ll Query ( int l, int r ) {
+        int k = 32 - __builtin_clz(r - l + 1) - 1;
+        return min ( st[l][k], st[r - (1 << k) + 1][k] );
+}
+```
+
+那么如何确定最多能选多长的区间呢？  
+由于区间长度的行于不行单调递增  
+那么可以采用**二分区间长度**，对每一个二分到的区间长度下的区间最小值（准确收益下的）逐一判断  
+如果不可行说明我们这个选的太长了，应该跑小的那一半，否则跑大的那一半  
+
+```cpp
+inline bool this_MinInLen ( int len ) {
+        for ( int i = 1; i + len - 1 <= n; i ++ ) {
+                ll cur = Query ( i, i + len - 1 );
+                if ( s + (cur - sum[i - 1]) >= 0 ) { // cur-sum[i-1]：准确收益
+                        if ( len > res.second - res.first + 1 ) res = {i, i + len - 1};
+                        return true;
+                }
+        }
+        return false;
+}
+
+
+int l = 1, r = n;
+while ( l <= r ) {
+        int mid = ( l + r ) >> 1;
+        if ( this_MinInLen(mid) ) l = mid + 1;
+        else                      r = mid - 1;
+}
+this_MinInLen ( l );
+```
+
+时间复杂度： $O(nlogn)$  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+ll a[N], sum[N];
+ll st[N][100];
+int n;
+ll s;
+pair<int, int> res;
+
+inline void Build () {
+        int k = 32 - __builtin_clz(n) - 1;
+        for ( int j = 1; j <= k; j ++ ) {
+                for ( int i = 1; i + (1 << j) - 1 <= n; i ++ ) {
+                        st[i][j] = min ( st[i][j - 1], st[i + (1 << (j - 1))][j - 1] );
+                }
+        }
+}
+inline ll Query ( int l, int r ) {
+        int k = 32 - __builtin_clz(r - l + 1) - 1;
+        return min ( st[l][k], st[r - (1 << k) + 1][k] );
+}
+inline bool this_MinInLen ( int len ) {
+        for ( int i = 1; i + len - 1 <= n; i ++ ) {
+                ll cur = Query ( i, i + len - 1 );
+                if ( s + (cur - sum[i - 1]) >= 0 ) {
+                        if ( len > res.second - res.first + 1 ) res = {i, i + len - 1};
+                        return true;
+                }
+        }
+        return false;
+}
+
+inline void Solve () {
+        res = {0, -1};
+
+        cin >> n >> s;
+        for ( int i = 1; i <= n; i ++ ) {
+                cin >> a[i];
+                sum[i] = sum[i - 1] + a[i];
+                st[i][0] = sum[i];
+        }
+
+        Build ();
+
+        int l = 1, r = n;
+        while ( l <= r ) {
+                int mid = ( l + r ) >> 1;
+                if ( this_MinInLen(mid) ) l = mid + 1;
+                else                      r = mid - 1;
+        }
+        this_MinInLen ( l );
+        
+        if ( res.first <= res.second ) cout << res.first << " " << res.second << endl;
+        else                           cout << -1 << endl;
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        int cass; cin >> cass; while ( cass -- ) {
+                Solve ();
+        }
+}
+```
+
+<hr>
+
+## CodeForces1622C_SetOrDecrease
+
+#### 🔗
+<a href="https://codeforces.com/contest/1622/problem/C">![20220309214915](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220309214915.png)</a>
+
+#### 💡
+两个操作  
+- 令 $a_i=a_j$  
+- 令 $a_i-1$  
+  
+分析一下这两个操作，对于操作一，我们肯定是贪心地想让 $a_i=min[a]$ ，并且是优先让最大的 $=min[a]$  
+对于操作二，我们肯定为了让操作一的收益更高，让最小的 $-1$  
+我们先令一个 $down=\sum\limits_{i=1}^na_i-k$ ，这样我们就是想让通过最少的步数让减去的值 $\le down$  
+  
+注意到一个性质，随着操作数的增大，我们减去的值可以越来越大，具备单调性  
+  
+发现两个操作对于操作总数 $x$ 的增减是相反的  
+并且如果有 $one$ 次操作一，$two$ 次操作二，就一定是先来 $one$ 次操作一再来 $two$ 次操作二    
+那么操作一没必要对一个位置上的数反复赋值，所以操作一最多有 $min(x,n-1)$ 次，最少有 $0$ 次  
+这个我们枚举操作一的次数就可以 $O(n)$ 地求出每一种操作分配情况下，我们所能减去的最大值  
+  
+既然这个非常容易，那么就二分操作次数去获得答案即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline bool check ( ll x, const vector<ll> a, const ll down ) {
+        ll cur = 0;
+        for ( ll i = a.size() - 1; i >= max(1ll, (ll)a.size() - x); i -- ) cur += a[i] - a[0];
+
+        ll two = min(x, (ll)a.size() - 1);
+        ll one = x - two;
+        if ( cur + one + two * one >= down ) return true;
+
+        for ( ll i = max(1ll, (ll)a.size() - x); i < a.size(); i ++ ) {
+                cur -= a[i] - a[0];
+                two --;
+
+                one = x - two;
+                if ( cur + one + two * one >= down ) return true;
+        }
+        return one >= down;
+}
+
+inline void Solve () {
+        ll n, k; cin >> n >> k;
+        ll down = 0;
+        vector<ll> a(n); for ( ll &i : a ) cin >> i, down += i;
+        down -= k;
+        sort(a.begin(), a.end());
+
+        ll l = 0, r = 1e15, res = 1e15;
+        while ( l <= r ) {
+                ll mid = (l + r) >> 1;
+                if ( check(mid, a, down) ) res = mid, r = mid - 1;
+                else l = mid + 1;
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
+## CodeForces1623C_BalancedStoneHeaps
+
+#### 🔗
+<a href="https://codeforces.com/problemset/problem/1623/C">![20220309220125](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220309220125.png)</a>
+
+#### 💡
+既然想让每一个都比答案 $res$ 大，那我们分配时肯定是贪心地让后面的在不低于 $res$ 的情况下尽可能向前分配  
+我们令 $b[i]$ 为第 $i$ 个位置上获取的值，后面的向前分配我们就可以倒着走，显然由于题上让从前往后走，那么我们前面的不能利用后面给的，但是可以考虑自己能往前分配多少  
+$a_i-giv\times3+b_i\ge res\rightarrow giv\le\frac{a_i+b_i-x}{3}$  
+$giv\le \frac{a_i}{3}$  
+在 $res$ 的限制下，肯定是 $res$ 越大越难得  
+所以我们可以二分答案进行求解  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline bool check ( int x, const vector<ll> a ) {
+        vector<ll> b(a.size());
+        vector<ll> aa = a;
+        for ( int i = aa.size() - 1; i >= 2; i -- ) {
+                if ( aa[i] + b[i] - x < 0 ) return false;
+                ll giv = min(aa[i] + b[i] - x, aa[i]) / 3;
+                aa[i] -= giv * 3;
+                b[i - 1] += giv;
+                b[i - 2] += giv * 2;
+        }
+        for ( int i = 0; i < aa.size(); i ++ ) {
+                if ( aa[i] + b[i] < x ) return false;
+        } 
+        return true;
+}
+
+inline void Solve () {
+        int n; cin >> n;
+        vector<ll> a(n); for ( auto &i : a ) cin >> i;
+        int l = 0, r = 1000000000;
+        int res = 0;
+        while ( l <= r ) {
+                int mid = (l + r) >> 1;
+                if ( check(mid, a) ) l = mid + 1, res = mid;
+                else r = mid - 1;
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
+
+
+## CodeForces1632D_NewYearConcert
+
+#### 🔗
+
+<a href="https://codeforces.com/contest/1632/problem/D"><img src="https://img-blog.csdnimg.cn/6c8a4705c9164eb6aca81bb43163d0f8.png"></a>
+
+#### 💡
+思索一下，如果我们对一个从 $i$ 开始的前缀可以发现存在这样 $gcd=l-r+1$ 的，那么我们可以在 $i$ 的位置加一个很大的质数从而隔断 $i$ 到 $1$ 的位置  
+这样我们后面的任意一个位置到达 $i$ 都会变成 $gcd=1$ ，我们要从 $l=i+1$ 之后进行判断即可  
+所以隔断后我们在后面枚举 $i$ 时只需要判断 $\sum\limits_{j=l+1}^i[gcd=i-j+1]$ 是否 $\ge 1$ 即是否存在  
+注意一下单调性，对于固定的右端点，区间越长 $gcd$ 不会越来越大，同时区间长度越来越大，他们两个呈相遇状  
+那么我们找这个满足 $gcd(a[j\rightarrow i])=i-j+1$ 就可以采用二分左端点的形式  
+- 如果 $gcd(a[j\rightarrow i])<i-j+1$ 说明我们枚举的太长了，应该让左端点往右走  
+- 如果 $gcd(a[j\rightarrow i])>i-j+1$ 就说明要往左走  
+- 如果 $gcd(a[j\rightarrow i])=i-j+1$ 就说明找到了，存在这样的位置，我们对 $i$ 进行隔断然后让答案 $+1$ 即可   
+
+注意中间存在区间查询 $gcd$ 的操作，可以使用 $st$ 表预处理  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+ll st[N][25];
+ll a[N];
+ll n;
+
+inline ll gcd ( ll a, ll b ) { return b ? gcd(b, a % b) : a; }
+inline void Build(){ // 构建ST
+        for ( int i = 1; i <= n; i ++ ) st[i][0] = a[i];
+        ll k = 32 - __builtin_clz(n) - 1;
+        for (ll j = 1; j <= k; j ++) {
+                for (ll i = 1; i + (1 << j) - 1 <= n; i ++) {
+                        st[i][j] = gcd(st[i][j - 1],st[i + (1 << (j - 1))][j - 1]);
+                }
+        }
+}
+ll Query(ll l, ll r){ // 查询
+        ll k = 32 - __builtin_clz(r - l + 1) - 1;
+        return gcd(st[l][k], st[r - (1 << k) + 1][k]);
+}
+
+inline int check ( ll p, ll i ) {
+        ll qry = Query(p, i);
+        if ( qry < i - p + 1 ) return -1;
+        else if ( qry == i - p + 1 ) return 0;
+        return 1;
+}
+
+inline void Solve () {
+        cin >> n;
+        for ( int i = 1; i <= n; i ++ ) cin >> a[i];
+        Build();
+        int l = 1, res = 0; // 隔断后面的第一个位置，答案
+        for ( int i = 1; i <= n; i ++ ) {
+                int R = i;
+                int L = l;
+                bool flg = 0;
+                while ( L <= R ) {
+                        int mid = (L + R) >> 1;
+                        if ( check(mid, i) == 0) {
+                                flg = true;
+                                break;
+                        } 
+                        if ( check(mid, i) == 1 ) R = mid - 1;
+                        else L = mid + 1;
+                }
+                if ( flg ) {
+                        l = i + 1;
+                        res ++;
+                }
+                cout << res << " ";
+        }
+}
+```
+<hr>
+
+
+
+
 
 ## ICPC2020上海站D_Walker
 
