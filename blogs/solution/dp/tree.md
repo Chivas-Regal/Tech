@@ -48,6 +48,52 @@ $
 ```
 <hr>
 
+## 牛客练习赛97D_月之暗面
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/11187/D">![20220315164431](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220315164431.png)</a>
+
+#### 💡
+对于每一个点选择同类别的每一个颜色的方案数都是相同的  
+那么我们就对于<b>一个点固定下来一个颜色</b>后，利用儿子进行转移  
+其在选普通颜色时儿子为哪一种颜色都可以  
+选特殊颜色时儿子的特殊颜色只能选 $y-1$ 种  
+向上转移最后 $dp[1][0]\times x+dp[1][1]\times y$ 就是答案了  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int n, x, y;
+modint dp[N][2];
+inline void DFS ( int u, int father ) {
+        for ( int i = head[u]; i; i = edge[i].nxt ) {
+                int v = edge[i].to;
+                if ( v == father ) continue;
+                DFS(v, u);
+                dp[u][0] *= dp[v][0] * x + dp[v][1] * y;
+                dp[u][1] *= dp[v][0] * x + dp[v][1] * (y - 1);
+        }
+}
+
+int main () {
+        cin.tie(0)->sync_with_stdio(0);
+        cin.exceptions(cin.failbit);
+
+        cin >> n >> x >> y;
+        for ( int i = 1; i < n; i ++ ) {
+                int u, v; cin >> u >> v;
+                add_Edge(u, v);
+                add_Edge(v, u);
+        }
+
+        for ( int i = 1; i <= n; i ++ ) dp[i][0] = dp[i][1] = 1;
+
+        DFS(1, 0);
+
+        cout << dp[1][0] * x + dp[1][1] * y << endl;
+}
+```
+<hr>
+
 
 ## CodeForces1646D_WeightTheTree
 

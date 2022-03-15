@@ -572,6 +572,64 @@ int main () {
 
 <hr>
 
+### NamomoCamp2022春季div1每日一题_整齐的数组2
+
+#### 🔗
+<a href="http://oj.daimayuan.top/course/10/problem/555">![20220315170232](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220315170232.png)</a>
+
+#### 💡
+思考 $a,b$ 每次减 $k$ 什么条件才有可能减到相同  
+即 $a-b\equiv0(mod\;k)$ ，也是 $a\equiv b(mod\;k)$  
+那么我们去收集一下每个 $a_i-a_j$ 的因数  
+对每个因数统计 $a_i\% k$ 的个数  
+如果出现一个个数 $\ge \frac n2$  
+那么就意味着可以选这个因数   
+走完所有的我们收集的因数维护最大值即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 50;
+int n;
+int a[N];
+int num[2000006];
+
+inline void Solve () {
+        cin >> n;
+        for ( int i = 1; i <= n; i ++ ) cin >> a[i];
+        sort ( a + 1, a + 1 + n ); a[0] = a[1];
+        for ( int i = 1; i <= n; i ++ ) a[i] -= a[0] - 1;
+
+        set<int> dif_set;
+        for ( int i = 1; i <= n; i ++ ) {
+                for ( int j = i + 1; j <= n; j ++ ) {
+                        if ( a[j] == a[i] ) continue;
+                        int dif = a[j] - a[i];
+                        for ( int p = 1; p * p <= dif; p ++ ) {
+                                if ( dif % p == 0 ) 
+                                        dif_set.insert(p),
+                                        dif_set.insert(dif / p);
+                        }
+                }
+        }
+        dif_set.insert(2000001);
+
+        int res = -1e6;
+        for ( int k : dif_set ) {
+                for ( int i = 1; i <= n; i ++ ) num[a[i] % k] ++;
+                bool flag = false;
+                for ( int i = 1; i <= n; i ++ ) {
+                        if ( num[a[i] % k] >= n / 2 ) flag = true;
+                        num[a[i] % k] = 0;
+                }
+                if ( flag ) res = k;
+        }
+        if ( res == 2000001 ) cout << "-1\n";
+        else cout << res << "\n";
+}
+```
+<hr>
+
+
 ## 欧拉函数
 
 ### 洛谷P2158_仪仗队

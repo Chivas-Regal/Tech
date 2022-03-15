@@ -49,6 +49,33 @@ inline void Solve () {
 ```
 <hr>
 
+## 牛客练习赛97B_野比大雄的作业
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/11187/B">![20220315153014](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220315153014.png)</a>
+
+#### 💡
+注意到对于两个数的一位  
+如果同为 $1$ ，那么这两位在与和且的时候都同为 $1$  
+如果一个 $0$ 一个 $1$ ，那么这两位在与和且的时候会变成 $0$ 和 $1$  
+如果同为 $0$ ，那么这两位会变成 $0$ 和 $0$   
+发现并没有数量上的增多减少，那么就选一个就行了  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int main () {
+        ios::sync_with_stdio(false);
+
+        int n; cin >> n;
+        vector<int> a(n);
+        int res = 0;
+        for ( int i = 0; i < n; i ++ ) cin >> a[i], res = max(res, a[i] * 2);
+        cout << res << endl;
+}
+```
+<hr>
+
+
 ## CodeForces1624G_MinOrTree
 
 #### 🔗

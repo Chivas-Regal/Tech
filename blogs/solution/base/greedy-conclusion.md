@@ -905,6 +905,80 @@ int main () {
 
 <hr>
 
+## 牛客练习赛97C_哦～唔西迪西小姐～
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/11187/C">![20220315163853](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220315163853.png)</a>
+
+#### 💡
+分开 $01$ 来看  
+我们首先默认走每个 $a_i>0$ 的格子  
+然后我们看看有没有什么地方可以后悔  
+对于是我们可以走的位置，如果 $\ge0$ 就意味着我们可以悔成 $-p_i-a_i$ 否则我们就只是变了一下并且走不了，$-p_i$  
+对于我们不能走的位置，我们可以变并且选择走不走，价值为 $max(a_i-p_i,-p_i)$  
+然后对这些存起来降序排序，取最大的 $m$ 个  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const ll N = 1e5 + 10;
+ll n, m;
+ll a[N], p[N], b[N];
+
+ll sum;
+
+vector<ll> vec;
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin >> n >> m;
+        for ( ll i = 0; i < n; i ++ ) cin >> a[i];
+        for ( ll i = 0; i < n; i ++ ) cin >> p[i];
+        for ( ll i = 0; i < n; i ++ ) cin >> b[i];
+
+        ll res = 0;
+
+        // 0
+        sum = 0;
+        for ( int i = 0; i < n; i ++ ) if ( b[i] == 0 && a[i] >= 0 ) sum += a[i];
+        for ( int i = 0; i < n; i ++ ) {
+                if ( b[i] == 0 ) {
+                        if ( a[i] >= 0 ) vec.push_back(-p[i] - a[i]);
+                        else vec.push_back(-p[i]);
+                } else {
+                        vec.push_back(max(a[i] - p[i], -p[i]));
+                }
+        }
+        sort ( vec.begin(), vec.end(), greater<ll>() );
+        for ( int i = 0; i < m && i < n; i ++ ) {
+                if ( vec[i] < 0 ) break;
+                sum += vec[i];
+        }
+        res = max(res, sum);
+        // 1
+        vec.clear();
+        sum = 0;
+        for ( int i = 0; i < n; i ++ ) if ( b[i] == 1 && a[i] >= 0 ) sum += a[i];
+        for ( int i = 0; i < n; i ++ ) {
+                if ( b[i] == 1 ) {
+                        if ( a[i] >= 0 ) vec.push_back(-p[i] - a[i]);
+                        else vec.push_back(-p[i]);
+                } else {
+                        vec.push_back(max(a[i] - p[i], -p[i]));
+                }
+        }
+        sort ( vec.begin(), vec.end(), greater<ll>() );
+        for ( int i = 0; i < m && i < n; i ++ ) {
+                if ( vec[i] < 0 ) break;
+                sum += vec[i];
+        }
+        res = max(res, sum);
+        
+        cout << res << endl;
+}
+```
+<hr>
+
+
 ## 牛客小白月赛44F_幽暗统领
 
 #### 🔗
@@ -1125,6 +1199,50 @@ int main () {
 ```
 
 <hr>
+
+## ABC242D_ABCTransform
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc242/tasks/abc242_d?lang=en">![20220315121725](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220315121725.png)</a>
+
+#### 💡
+一种构造建模方式  
+由于 $A\to BC\dots$ 看出 $C\to(C+1)(C+2)$  
+考虑建立一棵二叉树  
+左边操作为 $+1$ ，右边操作为 $+2$  
+这个左右边很好看出是 $k$ 的 $01$ 个数  
+那么就让 $k$ 向上走，固定出 $k$ 是属于哪个位置的  
+让这个位置加上我们向上走时获取的要加的数然后模 $3+'A'$ 即可   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+string s;
+ll q;
+
+inline void Solve () {
+        ll t, k; cin >> t >> k; k --;
+        ll sum = 0;
+        for ( int i = 1; i <= t; i ++ ) {
+                sum += k % 2 == 0 ? 1 : 2;
+                k >>= 1;
+                if ( k == 0 ) {
+                        sum += t - i;
+                        break;
+                }
+        }
+        cout << char((1ll * s[k] - 'A' + sum) % 3 + 'A') << endl;
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin >> s >> q;
+        while ( q -- ) {
+                Solve();
+        }
+}
+```
+<hr>
+
 
 ## ABC198D_SendMoreMoney
 
@@ -4501,6 +4619,49 @@ inline void Solve () {
 }
 ```
 <hr>
+
+
+## CodeForces1647D_MadokaAndChildishPranks
+
+#### 🔗
+<a href="https://codeforces.com/contest/1647/problem/C">![20220314160746](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220314160746.png)</a>
+
+#### 💡
+样例中一个构造方式就很明显了  
+一次选一个面积为 $2$ 的片，然后贴上去，横片的右侧为黑，竖片的下侧为黑  
+但是考虑到一次覆盖会有部分变白的因素，所以我们贴横片从右往左，贴竖片从下往上  
+横片可在从第二列开始的右侧进行贴，竖片则是去补第一列的  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+struct node { int a, b, c, d; };
+inline void Solve () {
+        int n, m; cin >> n >> m;
+        vector<string> s(n);
+        for ( int i = 0; i < n; i ++ ) cin >> s[i];
+
+        if ( s[0][0] == '1' ) { cout << "-1\n"; return;}
+
+        vector<node> res;
+        for ( int i = n - 1; i >= 0; i -- ) {
+                for ( int j = m - 1; j >= 1; j -- ) {
+                        if ( s[i][j] == '1' ) res.push_back({i, j - 1, i, j});
+                }
+        }
+        for ( int i = n - 1; i >= 1; i -- ) {
+                if ( s[i][0] == '1' ) {
+                        res.push_back({i - 1, 0, i, 0});
+                }
+        }
+
+        cout << res.size() << "\n";
+        for ( auto [a, b, c, d] : res ) {
+                cout << a << " " << b << " " << c << " " << d << "\n";
+        }
+}
+```
+<hr>
+
 
 
 

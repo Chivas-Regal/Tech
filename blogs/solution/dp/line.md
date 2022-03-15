@@ -613,6 +613,53 @@ int main () {
 ```
 <hr>
 
+## ABC243G_Sqrt
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc243/tasks/abc243_g?lang=en">![20220315115122](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220315115122.png)</a>
+
+#### 💡
+首先在 $O(n^{\frac 12})$ 一个很容易思考到的方式  
+用 $dp[x]$ 记录 $x$ 的答案  
+转移方程为 $dp[x]=\sum\limits_{i=1}^{\left\lfloor\sqrt x\right\rfloor}dp[i]$  
+但这个时间还是过长，考虑 $O(n^{\frac 14})$   
+思考对于每个 $x$ 第二层 $i$ 出现的次数  
+对于第二层的 $dp[i]$ ，在 $i*i\to \sqrt x$ 均会出现  
+那么 $dp[x]=\sum\limits_{i=1}^{\left\lfloor\sqrt{\sqrt{x}}\right\rfloor}dp[i]\times (\sqrt{x}-i\times i+1)$
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+ll dp[55000];
+
+inline void Solve () {
+        ll x; cin >> x;
+        ll sq = sqrt((long double)x);
+        ll res = 0;
+        for ( ll i = 1; i * i <= sq; i ++ ) {
+                res += dp[i] * (sq - i * i + 1);
+        }
+        cout << res << endl;
+}
+
+int main () {
+        cin.tie(0)->sync_with_stdio(0);
+        cin.exceptions(cin.failbit);
+
+        dp[1] = 1;
+        for ( int i = 2; i < 55000; i ++ ) {
+                for ( int j = 1; j * j <= i; j ++ ) {
+                        dp[i] += dp[j];
+                }
+        }
+
+        int cass; cin >> cass; while ( cass -- ) {
+                Solve ();
+        }
+}
+```
+<hr>
+
+
 
 ## AcWing895_最长上升子序列
 
@@ -883,6 +930,108 @@ int main () {
 ```
 
 <hr>
+
+## CodeForces1650G_CountingShortcuts
+
+#### 🔗
+<a href="https://codeforces.com/contest/1650/problem/G">![20220314154141](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220314154141.png)</a>
+
+#### 💡
+题目问的是很简单，就是问最短路和次短路(如果$dis1[t]=dis0[t]+1$)的个数和  
+由于边长均为一，所以没有什么必要去专门用最短路计数和次短路计数  
+我们可以采用一种递推的方式求解  
+  
+令 $dp[u][1]$ 为 $s\to u$ 的次短路计数， $dp[u][0]$ 则为最短路计数  
+若 $dis[u]=dis[v]$ 则说明将会出现一条 $v\to u$ 的次短路，（因为最短路从 $v\to u$ 加一了），$dp[u][1]=dp[u][1]+dp[v][0]$  
+若 $dis[u]>dis[v]$ 则说明 $v\to u$ 顺延下去即可，$dp[u][1]=dp[u][1]+dp[v][1]$  
+至于最短路计数，我们就可以和上一条一样， $dp[v][0]=dp[v][0]+dp[u][0]$  
+这里的递推顺序需要一点感性思考，现将一个点汇聚完再开下一个点，这样也就是用 $BFS$ 会更好实现  
+至于求 $dis$ 、 $dp0$ 、 $dp1$ 可以开做三个 $BFS$ 处理会更清晰  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+const int M = 4e5 + 10;
+const int mod = 1e9 + 7;
+
+struct Edge {
+        int nxt, to;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge ( int from, int to ) {
+        edge[++cnt] = { head[from], to };
+        head[from] = cnt;
+}
+
+int n, m;
+ll dp[N][2];
+int vis[N];
+int dis[N];
+
+inline void BFS1 ( int s ) { // 求 dis
+        memset(vis, 0, sizeof vis);
+        queue<pair<int, int> > que;
+        que.push({s, 0});
+        while ( que.size() ) {
+                pair<int, int> pu = que.front(); que.pop();
+                int u = pu.first, dep = pu.second;
+                if ( vis[u] ) continue; vis[u] = 1;
+                dis[u] = dep;
+                for ( int i = head[u]; i; i = edge[i].nxt ) {
+                        int v = edge[i].to;
+                        if ( vis[v] ) continue;
+                        que.push({v, dep + 1});
+                }
+        }
+}
+inline void BFS2 ( int s ) { // 求 dp0
+        queue<int > que;
+        memset(vis, 0, sizeof vis);
+        que.push(s);
+        dp[s][0] = 1;
+        while ( que.size() ) {
+                int u = que.front(); que.pop();
+                if ( vis[u] ) continue; vis[u] = 1;
+                for ( int i = head[u]; i; i = edge[i].nxt ) {
+                        int v = edge[i].to;
+                        if ( dis[v] > dis[u] ) (dp[v][0] += dp[u][0]) %= mod, que.push(v);
+                }
+        }
+}
+inline void BFS3 ( int s ) { // 求 dp1
+        memset(vis, 0, sizeof vis);
+        queue<int> que;
+        que.push(s);
+        while ( que.size() ) {
+                int u = que.front(); que.pop();
+                if ( vis[u] ) continue; vis[u] = 1;
+                for ( int i = head[u]; i; i = edge[i].nxt ) {
+                        int v = edge[i].to;
+                        if ( !vis[v] ) que.push(v);
+                        if ( dis[u] == dis[v] ) (dp[u][1] += dp[v][0]) %= mod;
+                        if ( dis[u] > dis[v] )  (dp[u][1] += dp[v][1]) %= mod;
+                }
+        }
+}
+
+inline void Solve () {
+        cnt = 0;    
+        scanf("%d%d", &n, &m);
+        for ( int i = 0; i <= n; i ++ ) head[i] = dp[i][0] = dp[i][1] = 0;
+        int s, t; scanf("%d%d", &s, &t); 
+        for ( int i = 0; i < m; i ++ ) {
+                int u, v; scanf("%d%d", &u, &v);
+                add_Edge(u, v);
+                add_Edge(v, u);
+        }
+        BFS1(s);
+        BFS2(s);
+        BFS3(s);
+        printf("%lld\n", (dp[t][0] + dp[t][1]) % mod);
+}
+```
+<hr>
+
 
 ## HDUOJ1176_免费馅饼
 

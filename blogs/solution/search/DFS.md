@@ -525,3 +525,64 @@ int main () {
 }
 ```
 <hr>
+
+## CodeForces1647D_MadokaAndTheBestSchoolInRussia
+
+#### 🔗
+<a href="https://codeforces.com/contest/1647/problem/D">![20220314171101](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220314171101.png)</a>
+
+#### 💡
+先将问题抽象出来  
+求 $a_1a_2\dots a_nd^n=x$ 其中 $a$ 均不为 $d$ 的倍数  
+问我们是否可以构造出来至少两组  
+这个 $a$ 可以采用爆搜，由于每次都是枚举的当前 $x$ 的因数，所以 $\sqrt{n}$ 即可  
+每次填入一个 $a$ 就代表 $x$ 要下降一层 $d$  
+若下降不了就只能退出  
+出口可以设置为我们已经找出来了两种构造方式或者我们当前的数过大  
+ 
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+ll x, d;
+int cnt;
+
+map<pair<ll, ll>, bool> mp;
+
+inline void DFS ( ll tgt, ll cur, ll bak ) {
+        if ( cnt == 2 || cur > tgt ) return;
+        if ( cur == tgt ) {
+                cnt ++;
+                return;
+        }
+
+        if ( mp.count({tgt, cur}) ) return; mp[{tgt, cur}] = true;
+        if ( tgt % d ) return; tgt /= d;
+
+        for ( ll i = bak; i * i <= tgt; i ++ ) {
+                if ( tgt % i == 0 ) {
+                        if (i % d)          DFS(tgt, cur * i, i);
+                        if (i * i != tgt && (tgt / i) % d)  DFS(tgt, cur * (tgt / i), tgt / i);
+                }
+        }
+}
+
+inline void Solve () {
+        cin >> x >> d;
+        cnt = 0;
+        mp.clear();
+
+        DFS(x, 1, 1);
+
+        if (cnt == 2) cout << "YES\n";
+        else cout << "NO\n";
+}
+
+int main () {
+        cin.tie(0)->sync_with_stdio(0);
+        cin.exceptions(cin.failbit);
+        int cass; cin >> cass; while ( cass -- ) {
+                Solve ();
+        }
+}
+```
+<hr>
+

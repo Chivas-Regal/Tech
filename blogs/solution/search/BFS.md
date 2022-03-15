@@ -623,3 +623,77 @@ int main () {
 ```
 <hr>
 
+## CodeForces1651D_NearestExcludedPoints
+
+#### 🔗
+<a href="https://codeforces.com/contest/1651/problem/D">![20220314155151](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220314155151.png)</a>
+
+#### 💡
+考虑一个点如果被包围住，意味着它无法<b>直接</b>获取答案，那么是否存在一种方式让它可以<b>间接</b>地获取答案  
+间接那么就是利用周围包围它的点，纸上模拟一下即可发现    
+<mark>它的最近空点一定是周围四个点中的一个点的最近空点</mark>  
+我们开反向 $BFS$ ，先把一个块内最外层的答案求出来，然后向内更新  
+处理方式可以使用对输入枚举周围是否存在空点，若存在的话就入队并且设置答案  
+向内更新的过程中对当前点扫描周围点，选择一个周围点答案中最近的设置为该点答案   
+  
+::: danger
+赛中想了个 $BFS$ 回溯， $WA$ 到最后发现  
+如果用左侧点开始搜索，那么左半部分点本应该由左侧进行递推，但是按照 $BFS$ 反向顺序这里则会由右半部分进行递推  
+:::
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+const int dx[4] = {0, 0, 1, -1};
+const int dy[4] = {1, -1, 0, 0};
+struct node {
+        int x, y;
+        inline friend bool operator < ( node a, node b ) { 
+                if ( a.x != b.x ) return a.x < b.x;
+                return a.y < b.y;
+        }
+        inline node move ( int op ) { return {x + dx[op], y + dy[op]}; }
+} a[N];
+int n;
+ 
+map<node, node> res;
+map<node, bool> vis;
+ 
+inline int dis ( node a, node b ) {
+        return abs(a.x - b.x) + abs(a.y - b.y);
+}
+ 
+int main () {
+        scanf("%d", &n);
+        queue<node> que;
+        for ( int i = 1; i <= n; i ++ ) {
+                scanf("%d%d", &a[i].x, &a[i].y);
+                vis[a[i]] = true;
+                res[a[i]] = {-10, -10};
+        }
+        for ( int i = 1; i <= n; i ++  ) {
+                node u = a[i];
+                for ( int j = 0; j < 4; j ++ ) {
+                        node v = u.move(j);
+                        if ( !vis[v] ) 
+                                res[v] = v, 
+                                que.push(v);
+                }
+        }
+ 
+        while ( !que.empty() ) {
+                node u = que.front(); que.pop();
+                for ( int op = 0; op < 4; op ++ ) {
+                        node v = u.move(op);
+                        if ( !vis[v] ) continue;
+                        res[v] = res[u];
+                        vis[v] = false;
+                        que.push(v);
+                }
+        }
+        for ( int i = 1; i <= n; i ++ ) printf("%d %d\n", res[a[i]].x, res[a[i]].y);
+}
+```
+<hr>
+
+

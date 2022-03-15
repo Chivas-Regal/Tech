@@ -356,6 +356,50 @@ int main () {
 ```
 <hr>
 
+## ABC243E_EdgeDeletion
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc243/tasks/abc243_e?lang=en">![20220315122137](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220315122137.png)</a>
+
+#### 💡
+$N$ 很小，这个关注出来是想让我们走 $n^3$ 的  
+考虑什么是我们不需要的边，即可以被替代的边    
+$Floyd$ 的更新操作  
+如果一条边可以被别的已知的边更新的话，那么这条边就没必要  
+走一遍把边的编号存入 $set$ 然后 $m-sz$ 即为答案  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 310;
+int n, m;
+ll dis[N][N];
+int id[N][N];
+set<int> st;
+ 
+int main () {
+        scanf("%d%d", &n, &m);
+        for ( int i = 1; i <= n; i ++ ) for ( int j = 1; j <= n; j ++ ) dis[i][j] = 1e15;
+        for ( int i = 1; i <= m; i ++ ) {
+                int a, b, c; scanf("%d%d%d", &a, &b, &c);
+                dis[a][b] = dis[b][a] = c;
+                id[a][b]  = id[b][a]  = i;
+        }
+        for ( int k = 1; k <= n; k ++ ) {
+                for ( int i = 1; i <= n; i ++ ) {
+                        for ( int j = 1; j <= n; j ++ ) {
+                                if ( dis[i][j] >= dis[i][k] + dis[k][j] ) {
+                                        if ( id[i][j] ) st.insert(id[i][j]);
+                                        dis[i][j] = dis[i][k] + dis[k][j];
+                                }
+                        }
+                }
+        }
+        printf("%d\n", (int)st.size());
+}
+```
+<hr>
+
+
 
 ## CodeForces1611E1_EscapeTheMaze(easyversion)
 
