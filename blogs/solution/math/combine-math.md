@@ -586,6 +586,36 @@ int main () {
 
 <hr>
 
+### 洛谷P5377_鸽鸽的分割
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P5377">![20220316215315](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220316215315.png)</a>
+
+#### 💡
+点和面通过建模为立体几何想欧拉公式：  
+$$F=E-V+2$$  
+其中 $F$ 为分割块数， $E$ 为边数， $V$ 为点数  
+$V=$ 原本点数 $+$ 任取四个点连线相交 $=n+\binom{n}{2}$  
+$E=$ 弧 $+$ 原本点之间相连 $+$ 连线交点分割出两条边 $=n+\binom{n}{2}+2\times\binom{n}{4}$  
+注意在立体几何上多了一个面为圆外的面，要减去一  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int main() {
+    int n;
+
+    while (scanf("%d", &n) != EOF) {
+        int Cn4 = n * (n - 1) * (n - 2) * (n - 3) / 24;
+        int Cn2 = n * (n - 1) / 2;
+        int E = n + Cn2 + 2 * Cn4;
+        int V = n + Cn4;
+        printf("%d\n", E - V + 2 - 1);
+    }
+}
+```
+<hr>
+
+
 ### 牛客2022寒假算法基础集训营4G_子序列权值乘积
 
 #### 🔗
@@ -1292,7 +1322,7 @@ inline void Solve () {
 ```
 <hr>
 
-## CodeForces1649E_TylerAndStrings
+### CodeForces1649E_TylerAndStrings
 
 #### 🔗
 <a href="https://codeforces.com/contest/1649/problem/E">![20220308115240](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220308115240.png)</a>

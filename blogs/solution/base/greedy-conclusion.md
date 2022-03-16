@@ -2838,6 +2838,69 @@ int main () {
 
 <hr>
 
+## CodeForces1482C_BasicDiplomacy
+
+#### 🔗
+<a href="https://codeforces.com/problemset/problem/1482/C">![20220316213202](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220316213202.png)</a>
+
+#### 💡  
+看到这个 $\left\lceil\frac m2\right\rceil$ 就可以往三角形定理上想，我们只用考虑出现次数最多的  
+但是发现这个次数是可以分配给别人的，并且不存在两个人都超过限制无法选中    
+即在可选状态下我们要么选第一个要么选第二个
+在两个可选条件下不会两个都超过限制
+但是存在必选的即这一天只能选一个，我们就要强制先给计入，看看是否成立  
+不成立的话就直接是 `NO`  
+成立的话对空出来的天去看第一个人是否能选，不能选的话就去选第二个  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+int day[N]; // day[i]: 第i天用的人
+vector<int> chos[N]; // chos[i]: 第i天可以用的人
+int use[N]; // use[i]: 第i个人使用的次数
+
+inline void Solve () {
+        int n, m; cin >> n >> m;
+        int lim = (m + 1) / 2 + 1;
+        for ( int i = 1; i <= n; i ++ ) use[i] = 0;
+        for ( int i = 1; i <= m; i ++ ) chos[i].clear();
+
+        bool flag = true;
+        for ( int i = 1; i <= m; i ++ ) {
+                day[i] = -1;
+                int num; cin >> num;
+                if ( num == 1 ) {
+                        int x; cin >> x;
+                        use[x] ++;
+                        if ( use[x] >= lim ) flag = false;
+                        day[i] = x;
+                } else {
+                        for ( int j = 1; j <= num; j ++ ) {
+                                int x; cin >> x;
+                                chos[i].push_back(x);
+                        }
+                }
+        }
+        if ( !flag ) { cout << "NO\n"; return; }
+
+        for ( int i = 1; i <= m; i ++ ) {
+                if ( day[i] != -1 ) continue;
+                if ( use[chos[i][0]] + 1 >= lim ) {
+                        use[chos[i][1]] ++;
+                        day[i] = chos[i][1];
+                } else {
+                        use[chos[i][0]] ++;
+                        day[i] = chos[i][0];
+                }
+        }
+        cout << "YES\n";
+        for ( int i = 1; i <= m; i ++ ) cout << day[i] << " ";
+        cout << "\n";
+}
+```
+<hr>
+
+
 ## CodeForces1511B_GCDLength
 
 #### 🔗
@@ -4065,6 +4128,43 @@ int main () {
 ```
 
 <hr>
+
+## CodeForces1618D_ArrayAndOperations
+
+#### 🔗
+<a href="https://codeforces.com/problemset/problem/1618/D">![20220316214534](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220316214534.png)</a>
+
+#### 💡
+注意到我们可以将 $2\times k$ 个最大的通过前除后降到 $0$  
+但是存在降不到零的情况，即相同的数过多的时候，我们肯定有一部分只能两两匹配而不能将其分配给别人  
+这也是三角形定理中的，我们统计出来相同的个数最多的数量 $mxnum$ ，如果它大于 $elnum$ 就只能用 $\frac{mxnum-elnum}{2}$  
+前面的数是一定被统计的   
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int a[110];
+ 
+inline void Solve () {
+        int n, k; cin >> n >> k;
+        for ( int i = 1; i <= n; i ++ ) cin >> a[i];
+        sort(a + 1, a + 1 + n);
+        int res = 0;
+        for ( int i = 1; i <= n - k * 2; i ++ ) res += a[i];
+ 
+        map<int, int> num;
+        int mxnum = 0;
+        for ( int i = n - k * 2 + 1; i <= n; i ++ ) {
+                num[a[i]] ++;
+                mxnum = max(mxnum, num[a[i]]);
+        }
+        int elnum = k * 2 - mxnum;
+        res += max(0, (mxnum - elnum) / 2);
+        cout << res << endl;
+}
+```
+<hr>
+
 
 ## CodeForces1621B_IntegersShop
 

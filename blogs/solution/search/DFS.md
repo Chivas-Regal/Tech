@@ -586,3 +586,51 @@ int main () {
 ```
 <hr>
 
+## ICPC2020沈阳D_JourneyToUn'Goro
+
+#### 🔗
+<a href="https://codeforces.com/gym/103202/problem/D">![20220315215209](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220315215209.png)</a>
+
+#### 💡
+从题中要求的 $1$ 的个数为奇数，我们从<b>奇偶性</b>入手  
+令 $P_i$ 表示前缀为 $i$ 的串的 $1$ 的个数  
+$P_i-P_j$ 为奇数，即 $P_i$ 与 $P_j$ 的奇偶性不同的对均满足  
+那么就意味着我们 $[P]$ 的奇偶要对半开  
+令参数 $cnt0$ 表示 $P_i$ 为偶数的个数，$cnt1$ 表示 $P_i$ 为奇数的个数，那么 $max(cnt0,cnt1)\le\left\lceil\frac{n+1}{2}\right\rceil$  
+利用这个条件进行前缀剪枝 $DFS$   
+要求字典序最小就优先开 $b$  
+  
+开 $b$ 时奇偶性不变，顺接上一层的奇偶状态  
+开 $r$ 后奇偶变化，改变奇偶状态  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int n;
+int nres;
+char s[100005];
+ 
+inline void DFS ( int idx, int cnt0, int cnt1, bool st ) {
+        if ( max(cnt0, cnt1) > (n + 2) / 2 ) return;
+        if ( idx == n ) {
+                cout << s << endl;
+                if ( ++ nres == 100 ) exit(0);
+                return;
+        }
+ 
+        s[idx] = 'b'; DFS(idx + 1, cnt0 + (!st), cnt1 + st, st);
+        s[idx] = 'r'; DFS(idx + 1, cnt0 + st, cnt1 + (!st), !st);
+}
+ 
+int main () {
+        cin.tie(0)->sync_with_stdio(0);
+        cin.exceptions(cin.failbit);
+ 
+        cin >> n;
+        ll res = 0; for ( int i = 1; i <= n; i += 2 ) res += 1ll * n - i + 1;
+        cout << res << endl;
+        DFS(0, 1, 0, 0);
+}
+```
+<hr>
+
+
