@@ -45,6 +45,128 @@ int main () {
 ```
 <hr>
 
+## CodeForces659F_PolycarpAndHay
+
+#### 🔗
+<a href="https://codeforces.com/problemset/problem/659/F">![20220317104320](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220317104320.png)</a>
+
+#### 💡
+注意到如果我们选 $x$ ，那么  
+$$a_{ij}\left\{
+    \begin{aligned}
+    &=0 \quad &<x\\
+    &=0\;or\;x\quad &\ge x 
+    \end{aligned}
+\right.$$
+一个连通块都要相同且有一个必须等于原始值，就意味着该连通快的每一个数值要么是 $0$ 要么是最小值，即它由最小值确定    
+那么我们将每一个位置存入，从大到小排序  
+然后遍历中维护一个连通块的个数、最小值  
+如果 $k\equiv 0(mod\;min)$ 并且连通块数量足够，就意味着可以构造出来，构造方式以最小值为中心开始 $BFS$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e3 + 10;
+const int dx[] = {0, 0, 1, -1};
+const int dy[] = {1, -1, 0, 0};
+
+int n, m;
+ll k;
+int a[N][N];
+
+struct node {
+        int val;
+        int x, y;
+        inline friend bool operator < ( node a, node b ) {
+                return a.val > b.val;
+        }
+}; vector<node> vec;
+
+namespace UnionSet {
+        const int SZ_NOD = 1e6 + 1e3 + 10;
+        int nod[SZ_NOD];
+        int val_nod[SZ_NOD];
+        int num_nod[SZ_NOD];
+        inline int Hash ( int x, int y ) { return x * 1000 + y; }
+        inline pair<int, int> hsaH ( int val ) { return {val / 10000, val % 1000}; }
+        inline void Init () { 
+                for ( int i = 1; i <= n; i ++ ) {
+                        for ( int j = 1; j <= m; j ++ ) {
+                                int hsh = Hash(i, j);
+                                nod[hsh] = hsh;
+                                num_nod[hsh] = 1;
+                                val_nod[hsh] = a[i][j];                
+                        }
+                }
+        }
+        inline int Find ( int x ) { 
+                return x == nod[x] ? x : nod[x] = Find(nod[x]); 
+        }
+        inline void Merge ( int x, int y ) { 
+                int fx = Find(x), fy = Find(y); 
+                if ( fx != fy) 
+                        nod[fx] = fy, 
+                        val_nod[fy] = min(val_nod[fy], val_nod[fx]),
+                        num_nod[fy] += num_nod[fx];
+        }
+        inline bool Check ( int x, int y ) { 
+                int fx = Find(x), fy = Find(y); 
+                return fx == fy; 
+        }
+} using namespace UnionSet;
+
+int res[N][N];
+int vis[N][N];
+inline void Solve ( int sx, int sy, ll val, int root ) {
+        queue<pair<int, int> > que;
+        que.push({sx, sy});
+
+        while ( !que.empty() ) {
+                auto [x, y] = que.front(); que.pop();
+                if ( vis[x][y] || !k ) continue; 
+                vis[x][y] = 1; res[x][y] = val; k -= val;
+                for ( int d = 0; d < 4; d ++ ) {
+                        int nx = x + dx[d];
+                        int ny = y + dy[d];
+                        if ( nx < 1 || nx > n || ny < 1 || ny > m ) continue;
+                        if ( Find(Hash(nx, ny)) != root ) continue;
+                        que.push({nx, ny});
+                }  
+        }
+
+        for ( int i = 1; i <= n; i ++, cout << "\n") for ( int j = 1; j <= m; j ++ ) cout << res[i][j] << ' ';
+}
+
+int main () {
+        cin.tie(0)->sync_with_stdio(0);
+        cin.exceptions(cin.failbit);
+
+        cin >> n >> m >> k;
+        for ( int i = 1; i <= n; i ++ ) for ( int j = 1; j <= m; j ++ ) cin >> a[i][j], vec.push_back({a[i][j], i, j});
+        sort ( vec.begin(), vec.end() );
+
+        Init();
+
+        for ( int i = 0; i < vec.size(); i ++ ) {
+                auto [x, y, v] = vec[i];
+                int hsh = Hash(x, y);
+                for ( int d = 0; d < 4; d ++ ) {
+                        int nx = x + dx[d], ny = y + dy[d];
+                        if ( nx < 1 || nx > n || ny < 1 || ny > m ) continue;
+                        if ( a[nx][ny] < v ) continue;
+                        int nhsh = Hash(nx, ny);
+                        Merge(hsh, nhsh);
+                }
+                if ( k % v == 0 && k / v <= num_nod[Find(hsh)] ) {
+                        cout << "YES\n";
+                        Solve ( x, y, v, Find(hsh) );
+                        exit(0);
+                }
+        }
+        cout << "NO\n";
+}
+```
+<hr>
+
 
 ## CodeForces1594D_TheNumberOfImposters
 
