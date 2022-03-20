@@ -4,6 +4,52 @@ title: 博弈论
 ###  
 <hr>
 
+## 贪心
+
+### ARC137C_DistinctNumbers
+
+#### 🔗
+<a href="https://atcoder.jp/contests/arc137/tasks/arc137_c?lang=en">![20220320185041](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220320185041.png)</a>
+
+#### 💡
+乍一看确实很像尼姆博弈，但是每次只能选最大的数这个条件我们很难处理  
+于是思考能不能使用这个限制去求解  
+在双人下，先手可以看看是否可以用这个限制去卡掉次手  
+  
+那么如果 $a_n$ 变成比 $a_{n-1}$ 小的为必败态，那么 $Alice$ 必胜  
+如果 $a_n$ 变成比 $a_{n-1}$ 小的为必胜态，那么考虑是否可以让自己必胜，那便是强制次手走到那一步，即让 $a_n= a_{n-1}+1$  
+这个是需要 $a_n\ge a_{n-1}+2$ 的  
+那么这个条件下先手必胜  
+  
+如果不满足这个条件，那么就是每次让 $a_n-1$ ，看一下 $a_n-(n-1)$ 是否为奇数即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void read_Array ( int *a, int beg, int end ) { for ( int i = beg; i <= end; i ++ ) cin >> a[i]; }
+inline void print_Array ( int *a, char c, int beg, int end ) { for ( int i = beg; i <= end; i ++ ) cout << a[i] << c; }
+ 
+const int N = 3e5 + 10;
+ 
+int main () {
+        cin.tie(0)->sync_with_stdio(0);
+        cin.exceptions(cin.failbit);
+ 
+        int n; cin >> n;
+        int a[n + 10]; read_Array(a, 1, n);
+ 
+        sort ( a + 1, a + n + 1 );
+        if ( a[n] - a[n - 1] >= 2 ) {
+                cout << "Alice";
+        } else if ( (a[n] - (n - 1)) & 1 ) {
+                cout << "Alice";
+        } else {
+                cout << "Bob" << endl;
+        }
+}
+```
+<hr>
+
+
 ## 棋盘
 
 ### HDU2021多校(9)2_AnotherBoardGame

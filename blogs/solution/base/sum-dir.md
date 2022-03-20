@@ -300,6 +300,59 @@ int main () {
 ```
 <hr>
 
+## ARC137B_Count1's
+
+#### 🔗
+<a href="https://atcoder.jp/contests/arc137/tasks/arc137_b?lang=en">![20220320184422](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220320184422.png)</a>
+
+#### 💡
+考虑到 $1$ 反转会让总和 $-1$ ，$0$ 则会 $+1$  
+那么我们要得到总和可以形成的区间即可  
+对 $a_i$ 重新赋值后，我们统计最大子段和即为可以上升的量，最小子段和即为可以下降的量  
+那么答案所在的区间即为 $[sum-min_sum,sum+max_sum]$  
+用前缀和统计一下 $min_sum,max_sum$ 即可   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+# include "bits/stdc++.h"
+
+using namespace std;
+using ll = long long;
+
+inline ll gcd ( ll a, ll b ) { return b ? gcd(b, a % b) : a; }
+
+int main () {
+        cin.tie(0)->sync_with_stdio(0);
+        cin.exceptions(cin.failbit);
+
+        int num = 0;
+
+        int n; cin >> n;
+        vector<int> a(n); for ( auto &i : a ) cin >> i;
+        vector<int> sum(n + 1);
+        for ( int i = 1; i <= n; i ++ ) {
+                sum[i] = sum[i - 1] + (a[i - 1] == 0 ? 1 : -1);
+        }
+
+        int mxsum = sum[0];
+        int mnres = 0x3f3f3f3f;
+        for ( int i = 1; i <= n; i ++ ) {
+                mxsum = max(mxsum, sum[i]);
+                mnres = min(mnres, sum[i] - mxsum);
+        }
+        int mnsum = sum[0];
+        int mxres = 0;
+        for ( int i = 1; i <= n; i ++ ) {
+                mnsum = min(mnsum, sum[i]);
+                mxres = max(mxres, sum[i] - mnsum);
+        }
+
+        cout << mxres - mnres + 1 << endl;
+}
+```
+<hr>
+
+
 
 ## CodeForces1629C_MeximumArray
 
