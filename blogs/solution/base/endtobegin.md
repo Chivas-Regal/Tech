@@ -148,6 +148,59 @@ inline void Solve () {
 ```
 <hr>
 
+## CodeForces1654C_AliceAndTheCake
+
+#### 🔗
+<a href="https://codeforces.com/contest/1654/problem/C">![20220321220720](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220321220720.png)</a>
+
+#### 💡
+一个一个组会很麻烦，因为有的是需要和自己同大小的组，有的是需要和不同大小的组  
+所以我们考虑瓜分，从大到小  
+如果当前数不存在就继续瓜分，存在的话就直接用了并且返回    
+如果瓜分不出来（也就是 $1$ ）还没有的话就不行  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+map<ll, int> num;
+bool flag = true;
+inline void DFS ( ll x ) {
+        if ( !flag ) {
+                return;
+        }
+        if ( num[x] ) {
+                num[x] --;
+                return;
+        }
+        if ( x == 1 ) {
+                flag = false;
+                return;
+        }
+        if ( x % 2 ) {
+                DFS(x / 2);
+                DFS(x / 2 + 1);
+        } else {
+                DFS(x / 2);
+                DFS(x / 2);
+        }
+}
+ 
+inline void Solve () {
+        int n; cin >> n;
+        num.clear(); ll sum = 0;
+        for ( int i = 0; i < n; i ++ ) {
+                ll x; cin >> x;
+                num[x] ++;
+                sum += x;
+        }
+        flag = true;
+        DFS(sum);
+        if ( !flag ) cout << "NO\n";
+        else cout << "YES\n";
+}
+```
+<hr>
+
+
 ## CCPC2021网络赛_JumpingMonkey
 
 #### 🔗

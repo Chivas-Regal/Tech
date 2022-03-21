@@ -862,6 +862,158 @@ int main () {
 ```
 <hr>
 
+### CodeForces1654D_PotionBrewingClass
+
+#### 🔗
+<a href="https://codeforces.com/contest/1654/problem/D">![20220321213650](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220321213650.png)</a>
+
+#### 💡
+在本题中，如果可以确定一个数，那么别的数也就出来了    
+注意到这是一个树  
+  
+第一遍 $DFS$ :  
+那么我们可以设计一个根节点，然后通过将路上的分子乘起来从而确定根节点的值  
+考虑到要最小，所以我们可以最后的时候通过求所有数的 $gcd$ 来化简  
+但是这是一个带模的数，所以我们需要通过 `map` 存每个数的质因数来让我们最后可以求出来 $gcd$  
+  
+第二遍 $DFS$ :  
+我们已经有了根节点的值，那么可以通过乘分数的方式推出来所有数的值  
+但这一遍 $DFS$ 还有一个要做的事情就是确定 $gcd$ ，那么要通过求得所有的数的质因数来确定  
+打表出来所有的 `map` 不合适，<b>map复制是 $O(nlogn)$ 的时间复杂度，但是 $DFS$ 的回溯特性，可以只设计一个 `map` ，然后在每一层操作完向下递推后将操作复原 </b>  
+每一个 $DFS$ 节点都取一下 $d$ 的最小值也不现实  
+后面 $d$ 的质因数可能会非常多，但是考虑到<b>在和分母约分的过程中会让 $gcd$ 质因数变少，可以在一个 `map` 路上和分母约分的时候化简 $gcd$ 的质因数表即可 </b>  
+  
+路上累加所有的 `res_map` ，最后再除一下 $gcd$ 的质因数表组成的数即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+const int M = 4e5 + 10;
+const int mod = 998244353;
+inline ll ksm ( ll a, ll b ) { ll res = 1; while ( b > 0 ) { if ( b & 1 ) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv ( ll x ) { return ksm(x, mod - 2); }
+
+namespace primeNumber {
+        vector<int> prime;
+        bool notprime[N];
+        inline void Sieve () {
+                notprime[0] = notprime[1] = 1; 
+                for ( int i = 2; i < N; i ++ ) {
+                        if ( !notprime[i] ) prime.push_back(i);
+                        for ( int j = 0; j < prime.size() && i * prime[j] < N; j ++ ) {
+                                notprime[i * prime[j]] = 1;
+                                if ( i % prime[j] == 0 ) break;
+                        }
+                }
+        }
+} using namespace primeNumber;
+vector<pair<int, int> > factor_table[N]; // 每个数的质因数表
+ll invv[N];
+inline void main_Pre () { // 预处理逆元与质因数表
+        Sieve(); invv[1] = inv(1);
+        for ( int i = 2; i < N; i ++ ) {
+                int tmp = i;
+                for ( int j = 0; prime[j] * prime[j] <= tmp; j ++ ) {
+                        if ( tmp % prime[j] == 0 ) {
+                                int num = 0;
+                                while ( tmp % prime[j] == 0 ) num ++, tmp /= prime[j];
+                                factor_table[i].push_back({prime[j], num});
+                        }
+                }
+                if ( tmp > 1 ) factor_table[i].push_back({tmp, 1});
+                invv[i] = inv(i);
+        }
+}
+inline void Division ( map<int, int> &mp, int val ) { // 质因数表为mp的数 除val
+        for ( auto [x, y] : factor_table[val] ) 
+                mp[x] -= y;
+}
+inline void Multiply ( map<int, int> &mp, int val ) { // 质因数表为mp的数 乘val
+        for ( auto [x, y] : factor_table[val] ) 
+                mp[x] += y;
+}
+inline ll toNumber ( map<int, int> mp ) { // 返回质因数表为mp的数
+        ll res = 1;
+        for ( auto [x, y] : mp ) res = res * ksm(x, y) % mod;
+        return res;
+}
+inline ll mul_Fraction ( ll x, ll up, ll down ) { // x * 分数(up/down)
+        return x * up % mod * invv[down] % mod;
+}
+
+struct Edge {
+        int nxt, to;
+        int up, down;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge ( int from, int to, int up, int down ) {
+        edge[++cnt] = { head[from], to, up, down };
+        head[from] = cnt;
+}
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------
+
+ll res_val[N]; // 所有数的值
+map<int, int> res_map; // 所有数的值的质因数表
+inline void DFS ( int u, int fa ) {
+        for ( int i = head[u], v = edge[i].to; i; i = edge[i].nxt, v = edge[i].to ) { if ( v == fa ) continue;
+                DFS(v, u);
+                Multiply(res_map, edge[i].up);
+        }
+}
+
+
+map<int, int> gcd_map; // 最大公因数的质因数表
+
+inline void getRES ( int u, int fa ) {
+        for ( int i = head[u], v = edge[i].to; i; i = edge[i].nxt, v = edge[i].to ) { if ( v == fa ) continue;
+                int up = edge[i].down, down = edge[i].up; 
+
+                Multiply(res_map, up);
+                Division(res_map, down);
+
+                for ( auto [x, y] : factor_table[down] ) gcd_map[x] = min(gcd_map[x], res_map[x]);
+                res_val[v] = mul_Fraction(res_val[u], up, down);
+                getRES(v, u);
+
+                Division(res_map, up);
+                Multiply(res_map, down);
+        }
+};
+
+inline void Solve () {
+        int n; scanf("%d", &n);
+        for ( int i = 1; i < n; i ++ ) {
+                int u, v, up, down;
+                scanf("%d%d%d%d", &u, &v, &up, &down);
+                function <int(int, int)> gcd = [&gcd](int a, int b) { return b ? gcd(b, a % b) : a; };
+                int d = gcd(up, down); up /= d, down /= d;
+                add_Edge(u, v, up, down);
+                add_Edge(v, u, down, up);
+        }
+
+        DFS(1, 0);
+        res_val[1] = toNumber(res_map);
+        gcd_map = res_map; 
+        getRES(1, 0); 
+
+        ll gcd_res = toNumber(gcd_map), iv_gcd_res = inv(gcd_res);       
+        ll RES = 0; for ( int i = 1; i <= n; i ++ ) RES = (RES + res_val[i] * iv_gcd_res % mod) % mod;
+        printf("%lld\n", RES); 
+
+        for ( int i = 0; i <= n; i ++ ) head[i] = 0; cnt = 0;
+        gcd_map.clear(); res_map.clear();
+}
+
+int main () {
+        main_Pre(); 
+        int cass; scanf("%d", &cass); while ( cass -- ) {
+                Solve ();
+        }
+}
+```
+<hr>
+
 
 ### HDUOJ2588_GCD
 
