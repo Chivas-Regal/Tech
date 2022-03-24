@@ -978,6 +978,61 @@ int main () {
 ```
 <hr>
 
+## 牛客小白月赛41F_小红的375
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/11218/F">![20220324205102](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220324205102.png)</a>
+
+#### 💡
+考虑什么样的数能被 $375$ 整除  
+（看起来有点乱啊  
+那就看看什么数具有简单的整除特性  
+$3$ 整除的特性是所有数的和是其倍数  
+又发现 $375$ 是 $3$ 的倍数  
+这样我们可以提前判完 $3$ 后去判 $125$  
+$125$ 的特性发现是后三位每八个数一轮，即 $000,125,250,375,500,625,750,875$  
+那么我们就先从 `s` 中拆出来其中一个，然后让剩下的最高位不为 $0$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+string s; cin >> s;
+function<int()> get_Sum = [&]() { int res = 0; for ( auto i : s ) res += i - '0'; return res; };
+if ( get_Sum() % 3 ) {
+        cout << "-1" << endl;
+        return 0;
+}
+
+vector<string> cans = {"000", "521", "052", "573", "005", "526", "057", "578"}; // 反着搞方便一些
+
+for ( string can : cans ) { // 拆 [can] 
+        string tmp = s, res;
+
+        for ( int idx = 0; idx < 3; idx ++ ) {
+                bool flag = false;
+                for ( int i = 0; i < tmp.size(); i ++ ) {
+                        if ( tmp[i] == can[idx] ) {
+                                flag = true;
+                                tmp.erase(i, 1);
+                                break;
+                        }
+                }
+                if ( !flag ) goto cannot;
+        }
+
+        sort(tmp.begin(), tmp.end()); // 剩下的让最高位不为 0
+        res = can + tmp;
+        reverse(res.begin(), res.end());
+        if ( res[0] == '0' ) continue; 
+
+        cout << res << endl;
+        return 0;
+        
+        cannot:;
+}
+cout << "-1\n";
+```
+<hr>
+
 
 ## 牛客小白月赛44F_幽暗统领
 
