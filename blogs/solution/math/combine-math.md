@@ -1429,6 +1429,136 @@ int main () {
 
 <hr>
 
+### NamomoCamp2022春季div1每日一题_拆拆
+
+#### 🔗
+<a href="http://oj.daimayuan.top/problem/611">![20220324221847](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220324221847.png)</a>
+
+#### 💡
+我们分解质因子  
+$$x=p_1^{a_1}\times p_2^{a_2}\times\dots\times p_k^{a_k}$$  
+由于每个因数不同且独立，对这个问题转化一下其实也就是将 $a_i$ 个 $p_i$ 放入 $y$ 个盒子内，球盒模型下表达式为 $\binom{a_i+y-1}{y-1}$  
+利用乘法原理得到结果  
+正数是要在 $y$ 中偶数个作为负数，即 $2^{y-1}$  
+让结果乘上这个数即可  
+  
+但是这道题时间卡的紧，考虑优化（看到了一堆黑科技  
+::: tip 快速拆分质因数
+令 `npt[i]` 表示筛出来 $i$ 不是质数的最小质因数  
+然后让 $x$ 不断 $x/ntp[x]$ 即可得到所有的质因数  
+```cpp
+int ntp[N], prime[N], idx;
+inline void Sieve () {
+        ntp[1] = 1;
+        for ( int i = 2; i < N; i ++ ) {
+                if ( !ntp[i] ) prime[idx ++] = i, ntp[i] = i;
+                for ( int j = 0; j < idx && 1ll * i * prime[j] < N; j ++ ) {
+                        if ( !ntp[i * prime[j]] ) {
+                                ntp[i * prime[j]] = prime[j];
+                        }
+                        if ( i % prime[j] == 0 ) break;
+                }
+        }
+}
+
+vector<int> table; // x 的质因数的指数表
+int lst = ntp[x], t = 1;
+x /= ntp[x];
+while ( ntp[x] > 1 ) {
+        if ( ntp[x] == lst ) {
+                t ++;
+        } else {
+                table.push_back(t);
+                lst = ntp[x];
+                t = 1;
+        }
+        x /= ntp[x];
+}
+if ( lst > 1 ) table.push_back(t);
+```
+:::
+
+::: tip 快速求阶乘逆元
+利用大阶乘做分母，然后向前化简
+```cpp
+ivf[n] = inv(f[n]);
+for ( int i = n - 1; i >= 0; i -- ) ivf[i] = ivf[i + 1] * (i + 1) % mod;
+```
+:::
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e6 + 10;
+const int mod = 1e9 + 7;
+
+inline ll ksm ( ll a, ll b ) { ll res = 1; while ( b ) { if ( b & 1 ) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv ( ll x ) { return ksm(x, mod - 2); }
+
+namespace Number {
+        int ntp[N], prime[N], idx;
+        inline void Sieve () {
+                ntp[1] = 1;
+                for ( int i = 2; i < N; i ++ ) {
+                        if ( !ntp[i] ) prime[idx ++] = i, ntp[i] = i;
+                        for ( int j = 0; j < idx && 1ll * i * prime[j] < N; j ++ ) {
+                                if ( !ntp[i * prime[j]] ) {
+                                        ntp[i * prime[j]] = prime[j];
+                                }
+                                if ( i % prime[j] == 0 ) break;
+                        }
+                }
+        }
+        ll f[N], ivf[N];
+        inline void get_F () {
+                f[0] = 1;
+                for ( int i = 1; i < N; i ++ ) f[i] = f[i - 1] * i % mod;
+                ivf[N - 1] = inv(f[N - 1]);
+                for ( int i = N - 2; i >= 0; i -- ) ivf[i] = ivf[i + 1] * (i + 1) % mod;
+        }
+} using namespace Number;
+
+inline ll C ( int n, int m ) {
+        return f[n] * ivf[m] % mod * ivf[n - m] % mod;
+}
+
+inline void Solve () {
+        int x, y; cin >> x >> y;
+
+        vector<int> table;
+        int lst = ntp[x], t = 1;
+        x /= ntp[x];
+        while ( ntp[x] > 1 ) {
+                if ( ntp[x] == lst ) {
+                        t ++;
+                } else {
+                        table.push_back(t);
+                        lst = ntp[x];
+                        t = 1;
+                }
+                x /= ntp[x];
+        }
+        if ( lst > 1 ) table.push_back(t);
+
+        ll res = 1;
+        for ( int i : table ) res = res * C(i + y - 1, y - 1) % mod;
+        res = res * ksm(2, y - 1) % mod;
+        cout << res << "\n";
+}
+
+int main () {
+        cin.tie(0)->sync_with_stdio(0);
+        cin.exceptions(cin.failbit);
+
+        Sieve(); get_F();
+
+        int cass; cin >> cass; while ( cass -- ) {
+                Solve ();
+        }
+}
+```
+<hr>
+
+
 ### POJ3734_Blocks
 
 #### 🔗
