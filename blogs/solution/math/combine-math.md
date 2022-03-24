@@ -2860,7 +2860,7 @@ int main () {
 <hr>
 
 
-### NamomoCamp2022春季每日一题4_选数
+### NamomoCamp2022春季每日一题_选数
 
 #### 🔗
 <a href="http://oj.daimayuan.top/problem/456">![20220302115716](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220302115716.png)</a>

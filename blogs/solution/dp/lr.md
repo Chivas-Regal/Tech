@@ -391,7 +391,7 @@ inline void Solve () {
 <hr>
 
 
-## NamomoCamp2022春季div1每日一题2_NoCrossing
+## NamomoCamp2022春季div1每日一题_NoCrossing
 
 #### 🔗
 

@@ -1207,7 +1207,7 @@ ll Query(int a, int b, int l, int r, int rt)
 
 <hr>
 
-## NamomoCamp2022春季div1每日一题1_子串最大差
+## NamomoCamp2022春季div1每日一题_子串最大差
 
 #### 🔗
 <a href="http://oj.daimayuan.top/problem/436"><img src="https://img-blog.csdnimg.cn/23167fc9bc9c433383b17cd3254672eb.png"></a>

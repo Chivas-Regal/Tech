@@ -370,7 +370,7 @@ int main () {
 <hr>
 
 
-## NamomoCamp2022春季div1每日一题9_路径计数2
+## NamomoCamp2022春季div1每日一题_路径计数2
 
 #### 🔗
 <a href="http://oj.daimayuan.top/course/10/problem/467">![20220307183909](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220307183909.png)</a>

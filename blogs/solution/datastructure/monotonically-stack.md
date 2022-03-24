@@ -274,6 +274,54 @@ CHIVAS_{
 
 <hr>
 
+## NamomoCamp2022春季每日一题_字典序最小
+
+#### 🔗
+<a href="http://oj.daimayuan.top/problem/608">![20220322154116](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220322154116.png)</a>
+
+#### 💡
+顺序遍历，如果这个数没有在我们的答案中出现过，并且比我们答案最后一个数要小，并且最后一个数后面还有  
+那么我们完全可以将最后一个数变成这个数  
+因为这样操作会让答案更小，并且失去的数在之后也能回来    
+操作完可能新的也会产生这种情况，所以使用一个单调栈，在栈内进行 `while`  
+最后栈内元素从底到顶便是我们的答案  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e6 + 10;
+int n, m, a[N];
+stack<int> stk;
+int lst[N], vis[N];
+
+int main () {
+        scanf("%d%d", &n, &m);
+        for ( int i = 1; i <= n; i ++ ) scanf("%d", &a[i]), lst[a[i]] = i;
+
+        for ( int i = 1; i <= n; i ++ ) {
+                if ( vis[a[i]] ) continue;
+                while ( !stk.empty() && a[i] < stk.top() && lst[stk.top()] > i ) {
+                        vis[stk.top()] = 0;
+                        stk.pop();
+                }
+                stk.push(a[i]);
+                vis[a[i]] = 1;
+        }
+
+        vector<int> res;
+        while ( !stk.empty() ) {
+                res.emplace_back(stk.top());
+                stk.pop();
+        }
+        reverse(res.begin(), res.end());
+        for ( int i = 0; i < res.size(); i ++ ) {
+                if ( i ) printf(" ");
+                printf("%d", res[i]);
+        }
+}
+```
+<hr>
+
+
 ## UVA1619_感觉不错FeelGood
 
 #### 🔗

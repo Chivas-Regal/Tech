@@ -18,7 +18,17 @@ module.exports = {
               presets: '\def\lr#1#2#3{\left#1#2\right#3}'
           }
       ],
-      [ 'markdown-it-mathjax3' ],
+      [ 
+          'markdown-it-mathjax3',
+          {
+              tex: {
+                  inlineMath :[['$', '$'], ['\\(', '\\)']]
+              },
+              svg: {
+                  FontCache: 'global'
+              }
+          }
+      ],
       [
           'vuepress-plugin-sponsor',
           {

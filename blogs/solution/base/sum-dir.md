@@ -1103,7 +1103,7 @@ int main () {
 
 <hr>
 
-## NamomoCamp2022春季每日一题5_序列操作
+## NamomoCamp2022春季每日一题_序列操作
 
 #### 🔗
 <a href="http://oj.daimayuan.top/course/10/problem/452">![20220302120657](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220302120657.png)</a>
@@ -1145,6 +1145,42 @@ int main () {
 	for ( int i = 1; i <= n; i ++ ) {
 		cout << max(ope1[i].second, suf[ope1[i].first + 1]) << " ";
 	}
+}
+```
+<hr>
+
+## NamomoCamp2022春季每日一题_平方计数
+
+#### 🔗
+<a href="http://oj.daimayuan.top/course/10/problem/607">![20220322102549](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220322102549.png)</a>
+
+#### 💡
+看到这种对数的就应该去想前缀计数找满足的对数  
+一个平方数加一个数仍然是平方数  
+有了这两个特征就考虑这个公式：  
+$$x^2+(2x+1)=(x+1)^2\\x^2+(4x+4)=(x+2)^2\\x^2+(6x+9)=(x+3)^2$$  
+看到后面的是倍数关系，可以通过对于每一个 $a_i$ 枚举后面括号的内容做一个 $O(nlogn)$ 的算法  
+后面的一定是比 $x$ 要大的，那么就从大到小扫 $a_i$ 然后扫完统计完就插入 $num[a_i]+1$  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e6 + 10;
+int num[N];
+int a[N];
+
+int main () {
+        int n; scanf("%d", &n);
+        for ( int i = 0; i < n; i ++ ) scanf("%d", &a[i]);
+        sort ( a, a + n, greater<ll>() );
+
+        int res = 0;
+        for ( int i = 0; i < n; i ++ ) {
+                for ( int j = 1; 2 * j * a[i] + j * j <= a[0]; j ++ ) {
+                        res +=  num[2 * j * a[i] + j * j];
+                }
+                num[a[i]] ++;
+        }
+        printf("%d\n", res);
 }
 ```
 <hr>
