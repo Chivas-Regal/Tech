@@ -1075,6 +1075,57 @@ inline void Solve () {
 
 <hr>
 
+## 牛客小白月赛46E_对决
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/11223/E">![20220326150223](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220326150223.png)</a>
+
+#### 💡
+由于 $k$ 的限制，我们肯定让 $x$ 干烂比他小和等于它的所有的人  
+如果个数小于 $k-2$ 意味着他需要干三个比他大的，只有两个道具肯定不行   
+  
+如果个数等于 $k-2$ 需要干两个，可以发现向下除 $2$ 效果是可以包含向上乘 $2$ 的效果的 ，那么我们干最厉害的用除$2$道具，另一个用乘$2$道具，必须都满足可以赢   
+  
+如果个数大于等于 $k-1$ 那么比 $x$ 大的人我们再干一个就行，首先考虑让最大的除 $2$ 让 $a[i]\times 2$ ，这个如果满足就一定可以  
+但是还有一种情况，考虑一下中转数值，即 $x,2x+1,4x+2$  
+这样 $2x+1$ 可以打败 $4x+2$ ，$x$ 可以打败 $2x+1$ ，但是 $x$ 用两个道具打不败 $4x+2$ ，这种情况下我们需要让 $2x+1$ 作为中转  
+我们检查一下中转是否存在以及利用中转是否能打败最大数即可   
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int main () {
+        cin.tie(0)->sync_with_stdio(0);
+        cin.exceptions(cin.failbit);
+
+        int n, k; cin >> n >> k;
+        vector<int> a(n);
+        vector<int> val;
+        map<int, bool> mp;
+        for ( int i = 0; i < n; i ++ ) {
+                cin >> a[i];
+                val.push_back(a[i]);
+                mp[a[i]] = true;
+        }
+        sort(val.begin(), val.end());
+        for ( int i = 0; i < n; i ++ ) {
+                int numles = upper_bound(val.begin(), val.end(), a[i]) - val.begin() - 1;
+                if ( numles < k - 2 ) {
+                        cout << "0 ";
+                } else if ( numles == k - 2 ) {
+                        if ( val[n - 1] / 2 > a[i] || val[n - 2] > a[i] * 2 ) cout << "0 ";
+                        else cout << "1 "; 
+                } else {
+                        if ( val[n - 1] / 2 <= a[i] * 2 ) cout << "1 ";
+                        else if ( mp[a[i] * 2 + 1] && (val[n - 1] / 2 <= a[i] * 2 + 1) ) cout << "1 ";
+                        else cout << "0 ";
+                }
+        }
+}
+```
+<hr>
+
+
 ## 省赛2021江苏C_MagicalRearrangement
 
 #### 🔗
@@ -4817,6 +4868,51 @@ inline void Solve () {
 ```
 <hr>
 
+## CodeForces1656D_K-good
+
+#### 🔗
+
+<a href="https://codeforces.com/contest/1656/problem/D">![20220326090954](https://img-blog.csdnimg.cn/img_convert/93db73f67a9993d6561c57ad6f616cc3.png)</a>
+
+#### 💡
+
+我们做一下公式
+$n=\frac{(1+k)\times k}{2}+mk$
+得到 $n\equiv \frac{(1+k)\times k}{2}(mod\;k)$ 且 $n\ge \frac{(1+k)\times k}2$
+  
+<b>若 $k$ 为偶数</b>  
+令 $k=2d$ ，则 $n\equiv \frac{2d+4d^2}{2}\equiv d+2d^2\equiv d+0(mod\; 2d)$   
+得 $n\equiv \frac k2(mod\;k)$  
+即 $2n$ 是 $k$ 的倍数但 $n$ 不是 $k$ 的倍数   
+让 $k$ 最小 ，令 $n=2^a\times b$  
+那么 $2^{a+1}$ 便是满足第一个条件，<b>令 $k_1=2^{a+1}$</b>  
+  
+<b>若 $k$ 为奇数</b>  
+注意到我们最后剩了一个 $b$ ，尝试利用一下  
+令 $k_2=\frac{2n}{k_1}$  
+因为 $k_2$  是 $n$ 的因数  
+则 $n\equiv 0\equiv k_2\frac{1+k_2}{2}(mod\;k_2)$  
+满足  
+  
+考虑他们俩是否可以选一个  
+若 $k_1$ 不满足第二个条件  
+则 $k_1(k_1+1)>2n\Rightarrow \frac{2n}{k_2}(k_1+1)>2n\Rightarrow k_2<k_1+1\Rightarrow k_2\le k_1-1$  
+$\therefore \frac{k_2(k_2+1)}{2}\le \frac{k_1k_2}{2}=n$  
+$\therefore k_2$ 满足  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+
+```cpp
+inline void Solve () {
+        ll n; cin >> n;
+        ll d = 1, x = n;
+        while ( !(x & 1) ) x >>= 1, d <<= 1;
+        if ( x == 1 ) cout << "-1\n";
+        else          cout << min(d << 1, x) << endl;
+}
+```
+
+<hr>
 
 
 

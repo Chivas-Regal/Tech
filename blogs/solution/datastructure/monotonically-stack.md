@@ -274,7 +274,7 @@ CHIVAS_{
 
 <hr>
 
-## NamomoCamp2022春季每日一题_字典序最小
+## NamomoCamp2022春季div1每日一题_字典序最小
 
 #### 🔗
 <a href="http://oj.daimayuan.top/problem/608">![20220322154116](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220322154116.png)</a>

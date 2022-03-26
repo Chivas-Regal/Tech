@@ -1103,7 +1103,7 @@ int main () {
 
 <hr>
 
-## NamomoCamp2022春季每日一题_序列操作
+## NamomoCamp2022春季div1每日一题_序列操作
 
 #### 🔗
 <a href="http://oj.daimayuan.top/course/10/problem/452">![20220302120657](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220302120657.png)</a>
@@ -1149,7 +1149,7 @@ int main () {
 ```
 <hr>
 
-## NamomoCamp2022春季每日一题_平方计数
+## NamomoCamp2022春季div1每日一题_平方计数
 
 #### 🔗
 <a href="http://oj.daimayuan.top/course/10/problem/607">![20220322102549](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220322102549.png)</a>

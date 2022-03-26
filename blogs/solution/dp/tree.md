@@ -94,6 +94,79 @@ int main () {
 ```
 <hr>
 
+## 牛客小白月赛46D_生活在树上
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/11223/D">![20220326145149](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220326145149.png)</a>
+
+#### 💡
+注意到一天移动的距离不超过 $2$  
+且边权 $\ge 1$  
+那么最多可以经过两条边转移  
+考虑可以到达点 $x$ 的点 $y$ 位置的三种可能性：  
+$1.$ $y$ 在 $x$ 的爷节点或者父节点  
+$2.$ $y$ 在 $x$ 的子节点或者孙节点  
+$3.$ $y$ 与 $x$ 同一个父亲且与父亲的边权都为 $1$  
+  
+第三种情况我们每个节点记录一下每一个距离为 $1$ 的儿子然后对儿子的第三个答案统一赋值  
+第二钟情况我们用两个记录数组（距离为 $1$ 的个数，距离为 $2$ 的个数）去往上回溯  
+第三种情况与第二种情况类似，往下推就行了  
+   
+最后答案是这三个加起来再加一  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e6 + 10;
+const int M = 2e6 + 10;
+
+struct Edge {
+        int nxt, to;
+        ll val;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge ( int from, int to, ll val ) {
+        edge[++cnt] = { head[from], to, val };
+        head[from] = cnt;
+}
+
+ll res_down1[N], res_down2[N];
+ll res_samefather[N];
+ll res_up1[N], res_up2[N];
+
+inline void DFS ( int u, int fa ) {
+        int num1 = 0;
+        for ( int i = head[u]; i; i = edge[i].nxt ) {
+                int v = edge[i].to;
+                if ( v == fa ) continue;
+
+                if ( edge[i].val == 1 ) res_down1[v] ++, res_down2[v] += res_down1[u];
+                else if ( edge[i].val == 2 ) res_down2[v] ++;
+                DFS(v, u);
+                if ( edge[i].val == 1 ) res_up2[u] += res_up1[v], res_up1[u] ++;
+                else if ( edge[i].val == 2 ) res_up2[u] ++;
+
+                num1 += edge[i].val == 1;
+        }
+        for ( int i = head[u]; i; i = edge[i].nxt ) {
+                int v = edge[i].to;
+                if ( v == fa || edge[i].val != 1 ) continue;
+                res_samefather[v] += num1 - 1;
+        }
+}
+int main () {
+        int n; scanf("%d", &n);
+        for ( int i = 2; i <= n; i ++ ) {
+                int f, w; scanf("%d%d", &f, &w);
+                add_Edge(i, f, w);
+                add_Edge(f, i, w);
+        }
+
+        DFS(1, 0);
+        for ( int i = 1; i <= n; i ++ ) printf("%lld\n", 1 + res_down1[i] + res_down2[i] + res_samefather[i] + res_up1[i] + res_up2[i]);
+}
+```
+<hr>
+
 
 ## CodeForces1646D_WeightTheTree
 
