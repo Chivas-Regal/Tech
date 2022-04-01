@@ -309,3 +309,83 @@ int main () {
 }
 ```
 <hr>
+
+## CodeForces1658D2_388535（Hard Version）
+
+#### 🔗
+<a href="https://codeforces.com/contest/1658/problem/D2">![20220331202954](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220331202954.png)</a>
+
+#### 💡
+首先 $[a]$ 中一定存在一个 $[l\oplus x]$   
+那么枚举 $[a]$ 看谁是就可以  
+但问题是如果去检查是否可以  
+考虑 $[l,r]$ 固定了一个最小值一个最大值  
+且由于不同的数异或同一个数得出的数也是不同的，那么如果知道最大值最小值我们就可以得到整个区间  
+而在字典树中我们可以去查找异或的最小值最大值  
+我们去检查对应的 $x$ 即 $a_i\oplus l$ 在整个字典树中的最小值最大值是不是 $l$ 和 $r$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+ 
+namespace Trie {
+        int t[N * 5][2], idx;
+        inline void Init () {
+                memset(t, 0, idx * 2 * sizeof(int));
+                idx = 0;
+        }
+        inline void Insert ( int val ) {
+                int p = 0;
+                for ( int i = 17; i >= 0; i -- ) {
+                        int u = val >> i & 1; 
+                        if ( !t[p][u] ) t[p][u] = ++ idx;
+                        p = t[p][u];
+                }
+        }
+        inline int Query_Max ( int val ) {
+                int p = 0, res = 0;
+                for ( int i = 17; i >= 0; i -- ) {
+                        int u = val >> i & 1;
+                        if ( t[p][!u] ) {
+                                res = res << 1 | 1;
+                                p = t[p][!u];
+                        } else {
+                                res = res << 1;
+                                p = t[p][u];
+                        }
+                }
+                return res;
+        }
+        inline int Query_Min ( int val ) {
+                int p = 0, res = 0;
+                for ( int i = 17; i >= 0; i -- ) {
+                        int u = val >> i & 1;
+                        if ( t[p][u] ) {
+                                res = res << 1;
+                                p = t[p][u];
+                        } else {
+                                res = res << 1 | 1;
+                                p = t[p][!u];
+                        }
+                }
+                return res;
+        }
+}
+ 
+inline void Solve() {
+        int l, r; cin >> l >> r;
+        Trie::Init();
+        vector<int> a(r - l + 1); for ( int &i : a ) cin >> i, Trie::Insert(i);
+ 
+        for ( int i : a ) {
+                int mn = Trie::Query_Min(i ^ l);
+                int mx = Trie::Query_Max(i ^ l);
+                if ( mn == l && mx == r ) {
+                        cout << (i ^ l) << endl;
+                        return;
+                }
+        }
+}
+```
+<hr>
+

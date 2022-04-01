@@ -660,6 +660,58 @@ int main(){
 }
 ```
 
+## CodeForces1486D_MaxMedian
+
+#### 🔗
+<a href="https://codeforces.com/problemset/problem/1486/D">![20220401083639](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220401083639.png)</a>
+
+#### 💡
+套路地看一眼是二分中位数，我们用分数规划对其进行重新赋值  
+$\ge mid$ 为 $1$ ，其余为 $0$ ，做前缀和 `sum`  
+这样的话我们评判一个区间能否比中位数大就仅看 $sum[r]\ge sum[l-1]$  
+套路出来这一点之后，我们就可以维护一个前缀的最小值，但是这个前缀必须是要在 $i-k$ 之前的  
+维护出来后每次对 $sum[i]$ 和 $min(sum)$ 进行比较，如果出现 $sum[i]\ge min(sum)$ 的情况就以为着 $check$ 成功    
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+int n, k;
+int a[N];
+ 
+int b[N];
+inline bool Check ( int x ) {
+        set<int> vis;
+        bool flag = false;
+        for ( int i = 1; i <= n; i ++ ) {
+                if ( i - k >= 0 ) vis.insert(b[i - k]);
+ 
+                if ( a[i] < x ) b[i] = b[i - 1] - 1;
+                else b[i] = b[i - 1] + 1;
+ 
+                if ( vis.size() && *vis.begin() < b[i] ) flag = true;
+        }
+        return flag;
+}
+ 
+int main () {
+        cin.tie(0)->sync_with_stdio(0);
+        cin.exceptions(cin.failbit);
+ 
+        cin >> n >> k;
+        for ( int i = 1; i <= n; i ++ ) cin >> a[i];
+ 
+        int l = 1, r = 200005, res = l;
+        while ( l <= r ) {
+                int mid = (l + r) >> 1;
+                if ( Check(mid) ) l = mid + 1, res = mid;
+                else r = mid - 1;
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
+
 <hr>
 
 ## CodeForces1512D_CorruptedArray

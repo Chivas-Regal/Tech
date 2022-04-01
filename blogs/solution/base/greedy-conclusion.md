@@ -2944,6 +2944,53 @@ int main () {
 
 <hr>
 
+## CodeForces1468D_Firecrackers
+
+#### 🔗
+<a href="https://codeforces.com/problemset/problem/1468/D">![20220401082725](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220401082725.png)</a>
+
+#### 💡
+这个题的主要问题就是在于<b>在哪放鞭炮</b>   
+首先我们肯定不想和警察对着走  
+这就意味着我们如果走到边界再往回走的话就一定与他对着走了，而对着走明显是很亏的  
+并且可以注意到如果我们一开始拉响几个鞭炮  
+那么我们后面会存在足够的时间让其进行燃烧  
+所以我们的策略就是 <b>先放鞭炮直到警察走到小偷的相邻点</b>，然后一只往边界去跑来争取时间  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void Solve () {
+        ll n, m, a, b; cin >> n >> m >> a >> b;
+        vector<ll> s(m); for ( ll &i : s ) cin >> i;
+        
+        ll dir = abs(a - b);
+        sort(s.begin(), s.end());
+        vector<ll> hasrun;
+        for ( ll i = 0; i < dir - 1 && i < m; i ++ ) {
+                hasrun.push_back(s[i]);
+        }
+        ll runtime;
+        if ( a < b ) runtime = a - 1;
+        else         runtime = n - a;
+ 
+        vector<ll> leavetime;
+        for ( ll i = 0; i < hasrun.size(); i ++ ) leavetime.push_back(dir - 1 - i + runtime);
+        sort(leavetime.begin(), leavetime.end());
+ 
+        ll res = 0;
+        for ( ll i = 0, j = 0; i < hasrun.size(); i ++ ) {
+                while ( j < leavetime.size() && leavetime[j] < hasrun[i] ) j ++;
+                if ( j != leavetime.size() ) {
+                        res ++;
+                        j ++;
+                }
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
+
 ## CodeForces1482C_BasicDiplomacy
 
 #### 🔗
