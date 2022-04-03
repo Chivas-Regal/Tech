@@ -732,6 +732,69 @@ int main()
 
 <hr>
 
+### 牛客挑战赛58B_清新题
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/11198/B">![20220403220303](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220403220303.png)</a>
+
+#### 💡
+首先考虑左 $>$ 右的方案数  
+同位数二进制大小可以看作字典序，即如果因为第 $i$ 位导致左大于右，则：<b>前相同，该位大，后随意</b>   
+
+首先预处理出 $n$ 个数选偶数个为 $chosev$ ，奇数个为 $chosod$       
+
+前相同：  
+左 $1$ 右 $1$ ：左 $n$ 个数至少有一个要选 $1$ 即 $2^n-1$ ，右侧 $n$ 个数选奇数个即 $chosod$   
+左 $0$ 右侧 $0$ ，左侧不选为 $1$ ，右侧选偶数个即 $chosev$   
+每一位均是如此，所以令方案数 $^{i-1}$    
+  
+该位大：  
+左为 $1$ ，即 $2^n-1$ 右为 $0$ ，即 $chosev$   
+
+后随意：  
+即每一位是 $2^n$ 共有 $m-i$ 位为 $(2^{2\times n})^{m-i}$   
+  
+最后要加上所有数均相等的情况，即前相同中每一位方案数 $^m$ 
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int mod = 1e9 + 7;
+inline ll ksm ( ll a, ll b ) { ll res = 1; while ( b ) { if ( b & 1 ) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv ( ll x ) { return ksm(x, mod - 2); }
+ 
+ll f[1000006];
+inline void pre_F () {
+        f[0] = 1;
+        for ( int i = 1; i < 1000006; i ++ ) f[i] = f[i - 1] * i % mod;
+}
+inline ll C ( ll n, ll m ) {
+        return f[n] * inv(f[m]) % mod * inv(f[n - m]) % mod;
+}
+ 
+int main () { pre_F();
+        ll n, m; cin >> n >> m;
+ 
+        ll chosod = 0, chosev = 0;
+        for ( int i = 0; i <= n; i ++ ) {
+                if ( i & 1 ) (chosod += C(n, i)) %= mod;
+                else (chosev += C(n, i)) %= mod;
+        }
+ 
+        ll ksm2nsub1 = ((ksm(2, n) - 1) % mod + mod) % mod;
+ 
+        ll res = ksm((ksm2nsub1 * chosod % mod + chosev) % mod, m);
+        for ( int i = 1; i <= m; i ++ ) {       
+                res += ksm((ksm2nsub1 * chosod % mod + chosev) % mod, i - 1) 
+                       * ksm2nsub1 % mod * chosev % mod
+                       * ksm(ksm(2, 2 * n), m - i) % mod;
+                res %= mod;
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
+
 ### ABC202D_aabababaa
 
 #### 🔗
