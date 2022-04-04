@@ -1154,6 +1154,8 @@ int main()
 #### 🔗
 <a href="https://codeforces.com/problemset/problem/1557/C"><img src="https://i.loli.net/2021/09/13/7RtnEshvGNxBioz.png"></a>
 
+::: details 思路一
+
 #### 💡
 首先把整个<img src="https://latex.codecogs.com/svg.image?n" title="n" />个k位数画成一个<img src="https://latex.codecogs.com/svg.image?n\times&space;k" title="n\times k" />的矩阵  
 然后对于每一列，也就是<img src="https://latex.codecogs.com/svg.image?n" title="n" />个数的每一位  
@@ -1229,6 +1231,61 @@ int main () {
         }
 }
 ```
+
+:::
+
+::: details 思路二
+
+#### 💡
+
+和 [清新题](#牛客挑战赛58b-清新题) 思路解法一样，使用对于每一位考虑前相同，此位大，后随意的方式  
+首先预处理出 $one\_one$ 和 $zero\_zero$ 表示左右均为 $0$ 和 $1$ 的方案数  
+前相同即 $(one\_one+zero\_zero)^{i-1}$   
+此位大就是这一位左侧为 $1$ 右侧为 $0$ ，当且仅当 $n$ 为偶数时可以  
+后随意就 $2^{k-i}$   
+最后加上所有相同即 $(one\_one+zero\_zero)^k$   
+  
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+
+```cpp
+const int mod = 1e9 + 7;
+ 
+inline ll ksm ( ll a, ll b ) { ll res = 1; while ( b ) { if ( b & 1 ) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv ( ll x ) { return ksm(x, mod - 2); }
+ll f[200005];
+inline ll C ( ll n, ll m ) { return f[n] * inv(f[m]) % mod * inv(f[n - m]) % mod; }
+ 
+inline void Solve () {
+        ll n, k; cin >> n >> k;
+        
+        ll one_one = n % 2;
+        ll zero_zero = 0;
+        for ( int i = 0; i <= n; i += 2 ) {
+                zero_zero += C(n, i);
+                zero_zero %= mod;
+        } if ( n % 2 == 0 ) zero_zero --, zero_zero = (zero_zero % mod + mod) % mod;
+ 
+        ll res = ksm((one_one + zero_zero) % mod, k);
+        for ( int i = 1; i <= k; i ++ ) {
+                res += ksm((one_one + zero_zero) % mod, i - 1)
+                       * (n % 2 == 0) % mod
+                       * ksm(ksm(2, n), k - i) % mod;
+                res %= mod;
+        }
+        cout << res << endl;
+}
+ 
+int main () {
+        cin.tie(0)->sync_with_stdio(0);
+        cin.exceptions(cin.failbit);
+        f[0] = 1; for ( int i = 1; i < 200005; i ++ ) f[i] = f[i - 1] * i % mod;
+        int cass; cin >> cass; while ( cass -- ) {
+                Solve ();
+        }
+}
+```
+
+:::
 
 <hr>
 
