@@ -68,6 +68,138 @@ int main () {
 
 <hr>
 
+## 洛谷P1357_花园
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P1357">![20220407161227](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220407161227.png)</a>
+
+#### 💡
+首先看到 $m\le \min(n,5)$ ，可以意识到这是为了可以二进制枚举状态，也就是把上一步的状态压缩为一个二进制数  
+$100\%$ 的 $n$ 的数据范围我们可以用矩阵加速来求 $dp$ ，那么先考虑正常情况的 $dp$ 递推式  
+  
+设前一位置包括自己的前 $m$ 个位置的状态为 $s$ （若 $idx=10,m=3$，那么 $s=[8,10]$的选用状态）      
+看一下转移情况 $abcd\to \_bcd$ （其中 $abcd$ 均表示每一个位置的状态      
+那么我们在这一位置对于前一位置的这个状态是会失去一位，那么即 $s\gg 1$  
+对于当前位置我们可以选择 $1$ 或者 $0$ ，第 $m-1$ 位空出来了可以在这个位上设置，那么就是 $s\gg 1\;|\;(1\ll (m-1))$ 或者 $s\gg 1$   
+但是这样转移我们要保证 $num1(s)\le k$ 与 $num1(ss\gg 1\;|\;(1\ll (m-1)))\le k$，做一个判断再决定是否进行计数转移   
+  
+但是还有一个要考虑的问题是：这是一个环  
+环意味着首位呼应，$1\to n$ 成环就是 $1$ 与 $n$ 呼应，那么我们可以拎出来一个 $s_0$ 设置为 $[n-m+1,n]$ 的状态，最后统计的时候统计 $s_n=s_0$ 时的方案数即可   
+  
+::: details 80分代码
+
+```cpp
+const int N = 1e5 + 10;
+const int mod = 1e9 + 7;
+
+int n, m, k;
+int64_t dp[N][1 << 5];
+
+int main () {
+        cin.tie(0)->sync_with_stdio(0);
+        cin.exceptions(cin.failbit);
+
+        cin >> n >> m >> k;
+
+        int64_t res = 0;
+        for (int s = 0; s < 1 << m; s ++) { // s_0 的状态
+                if (__builtin_popcount(s) > k) continue;
+                memset(dp, 0, sizeof dp);
+                dp[0][s] = 1;
+                for (int i = 1; i <= n; i ++) {
+                        for (int t = 0; t < 1 << m; t ++) { // 枚举 s_{i-1} 的状态
+                                if (__builtin_popcount(t) > k) continue;
+                                (dp[i][t >> 1] += dp[i - 1][t]) %= mod;
+                                if (__builtin_popcount(t >> 1 | (1 << (m - 1))) <= k) (dp[i][t >> 1 | (1 << (m - 1))] += dp[i - 1][t]) %= mod;
+                        }
+                }
+                (res += dp[n][s]) %= mod;
+        }
+        cout << res << endl;
+}
+```
+:::  
+  
+<b>开始优化</b>  
+由于之前已经想到这里 $n$ 太大可以用矩阵加速了，那么就是想矩阵  
+先看一波 $m=2,k=1$ 的转移关系  
+$u\;\to v$  
+$00\to 00\;(0\to 0)$   
+$00\to 10\;(0\to 2)$   
+$01\to 00\;(1\to 0)$   
+$01\to 10\;(1\to 2)$   
+$10\to 01\;(2\to 1)$    
+
+我们知道，每一个位置矩阵乘进制矩阵会变成下一个矩阵  
+在矩阵乘中是 左矩阵行 $\times$ 右矩阵列  
+右矩阵为进制矩阵，则如果产生了递推关系，应该是 $mat[v][u]=1$   
+在上面的例子即：  
+$\begin{matrix}
+&1&1&0&0\\
+&0&0&1&0\\
+&1&1&0&0\\
+&0&0&0&0
+\end{matrix}$   
+  
+那么对进制矩阵求 $n$ 次幂，然后以乘单位矩阵的方式求对角线即可   
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+const int mod = 1e9 + 7;
+
+int64_t n, m, k;
+int full; // 1 << m
+
+struct Matrix {
+        int64_t mat[34][34];
+        inline Matrix (int val) {
+                for (int i = 0; i < full; i ++) 
+                        for (int j = 0; j < full; j ++) 
+                                mat[i][j] = (i == j) * val;
+        }
+};
+inline Matrix mul_Matrix (Matrix a, Matrix b) {
+        Matrix res(0);
+        for (int i = 0; i < full; i ++) 
+                for (int j = 0; j < full; j ++) 
+                        for (int k = 0; k < full; k ++) 
+                                (res.mat[i][j] += a.mat[i][k] * b.mat[k][j] % mod) %= mod;
+        return res;
+}
+inline Matrix ksm_Matrix (Matrix a, int64_t b) {
+        Matrix res(1);
+        while (b) {
+                if (b & 1) res = mul_Matrix(res, a);
+                a = mul_Matrix(a, a);
+                b >>= 1;
+        }
+        return res;
+}
+
+int main () {
+        cin.tie(0)->sync_with_stdio(0);
+        cin.exceptions(cin.failbit);
+
+        cin >> n >> m >> k; full = 1 << m;
+
+        Matrix base(0);
+        for (int u = 0; u < full; u ++) {
+                if (__builtin_popcount(u) > k) continue;
+                int v1 = u >> 1, v2 = u >> 1 | (1 << (m - 1));
+                if (__builtin_popcount(v1) <= k) base.mat[v1][u] = 1;
+                if (__builtin_popcount(v2) <= k) base.mat[v2][u] = 1;
+        }
+        base = ksm_Matrix(base, n);
+
+        int64_t res = 0;
+        for (int i = 0; i < full; i ++) (res += base.mat[i][i]) %= mod;
+        cout << res << endl;
+}
+```
+<hr>
+
 ## 洛谷P5484_基因补全
 
 #### 🔗

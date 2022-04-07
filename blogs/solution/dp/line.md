@@ -255,6 +255,69 @@ int main () {
 
 ---
 
+
+## 洛谷P1437_敲砖块
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P1437">![20220406233901](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220406233901.png)</a>
+
+#### 💡
+::: danger
+首先想到对于每一个点，去枚举上一次敲掉的点  
+发现有很多点不可选，且对于枚举过的点的状态因为转移方式不同，很有可能让这个点失去了之前递推的意义，即产生后效性，这个思路或许行不通   
+那么我们根据这种打断线索的朴素情况画图  
+:::
+  
+![20220406235423](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220406235423.png)  
+其中绿色的为敲掉的砖，红色的是敲掉的砖形成的下界轮廓线  
+结合矩阵表示下： $a_{i-1,j}$ 与 $a_{i-1,j+1}$ 敲掉后，才可以敲 $a_{i,j}$ 得出：  
+<b>轮廓线从左到右的走向中：前一列的 $[0,i+1]$ 可以推出该列的 $i$</b>  
+那么对轮廓线走向做 $dp$  
+
+令   
+$$dp_{i,j,k}$$   
+表示第 $j$ 列轮廓线下界在第 $i$ 行，已经敲掉了 $k$ 块砖的最大价值  
+那么根据上面我们推的  
+枚举上一列的轮廓线下界为  
+$$t:[0,j+1]$$     
+枚举本列下界的花费为  
+$$k:[i,m]$$ 
+注意由于我们这一列下界选 $i$ 那么必定要花费 $i$ 个，如果 $k<i$ 则无法得出上一列状态   
+则转移方程便是：  
+$$dp[i][j][k]=max(dp[t][j-1][k-i]+sum[i][j])$$  
+其中 $sum[i][j]$ 表示我们第 $i$ 列从上到下选 $j$ 个的价值，可以预处理出来，不预处理的话要多开一重循环增大复杂度  
+总复杂度：$O(n^3m)$  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 51;
+int n, m, a[N][N];
+int dp[N][N][N * N];
+int sum[N][N];
+
+int main () {
+        cin.tie(0)->sync_with_stdio(0);
+        cin.exceptions(cin.failbit);
+        
+        cin >> n >> m;
+        for (int i = 1; i <= n; i ++) 
+                for (int j = 1; j <= n - i + 1; j ++) 
+                        cin >> a[i][j], 
+                        sum[i][j] = sum[i - 1][j] + a[i][j];
+                        
+        for (int j = 1; j <= n; j ++) 
+                for (int i = 0; i <= n - j + 1; i ++)
+                        for (int k = i; k <= m; k ++) 
+                                for (int t = 0; t <= i + 1; t ++) 
+                                        dp[i][j][k] = max(dp[i][j][k], dp[t][j - 1][k - i] + sum[i][j]);
+
+        cout << max(dp[0][n][m], dp[1][n][m]) << endl;
+}
+```
+<hr>
+
+
 ## 洛谷P2498_SkiLessonsG
 
 #### 🔗
