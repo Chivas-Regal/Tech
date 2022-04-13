@@ -318,6 +318,52 @@ int main () {
 ```
 <hr>
 
+## CodeForces1614D1Z_DivanAndKostomuksha（easy version）
+
+#### 🔗
+<a href="https://codeforces.com/contest/1614/problem/D1">![20220408090322](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220408090322.png)</a>
+
+#### 💡
+考虑前缀 $gcd$ 的特性，后者的因数集一定是前者因数集的子集，有了这个关系，我们用这个因数集做 $dp$     
+那么我们有一个递推关系就是用一个数去更新它的倍数  
+令 $dp[i]$ 表示 $i$ 与 $i$ 的因数所做出的贡献  
+其中 $i$ 一定是开始的 $gcd$ ，而 $i$ 的因数则是后面的数  
+即 $dp[1]=n$  
+对于递推，我们设置 $cnt[i]$ 表示为 $i$ 的倍数在 $[a]$ 中出现的次数    
+那么我们对于 $j$ 是 $i$ 的倍数  
+不难想到 $cnt[j]\le cnt[i]$   
+将 $i$ 转移到 $j$ 要更新的就是 $cnt[j]$ 的部分 ，在这一部分中将 $i$ 的贡献换为 $j$ ，那么 $dp[j]=max(dp[i]+(j-i)\times cnt[j])$   
+  
+由于是倍数关系，则我们在求 $[cnt]$ 与 $[dp]$ 时均可以使用埃氏筛求解  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int main () {
+        cin.tie(0)->sync_with_stdio(0);
+        cin.exceptions(cin.failbit);
+
+        int n; cin >> n;
+        vector<int> a(n); for (int &i : a) cin >> i;
+
+        int mx = *max_element(a.begin(), a.end());
+        vector<int> cnt(mx + 1, 0); for (int i : a) cnt[i] ++;
+        for (int i = 1; i <= mx; i ++) 
+                for (int j = i + i; j <= mx; j += i) 
+                        cnt[i] += cnt[j];
+        
+        vector<int64_t> dp(mx + 1, 0); dp[1] = n;
+        int64_t res = 0;
+        for (int i = 1; i <= mx; i ++) 
+                for (int j = i + i; j <= mx; j += i)
+                        dp[j] = max(dp[j], dp[i] + (int64_t)(j - i) * cnt[j]),
+                        res = max(res, dp[j]);
+        
+        cout << res << endl;
+}
+```
+<hr>
+
+
 ## CodeForces1635D_InfiniteSet
 
 #### 🔗

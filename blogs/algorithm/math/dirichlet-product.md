@@ -11,28 +11,28 @@ sidebar:
   nav: docs-en
 ---
 
-# 定义
+## 定义
 
 设 $f$ 和 $g$ 都是数论函数  
 定义 $f$ 和 $g$ 的狄利克雷卷积为 $H$ ，使得 $H=f*g$  
 
-# 公式表示
+## 公式表示
 
 $H(n)=\sum\limits_{i * j=n}f(i)\times g(j)$  
 $H(n)=\sum\limits_{i|n}f(i)\times g(\frac ni)$ 
  
-# 定理
+## 定理
   
-## 总览
+### 总览
 
 若 $f$ 和 $g$ 都是积性函数，则 $f * g$ 也是积性函数  
 $f * g=g * f$  
 $(f * g) * h=f * (g * h)$  
 $f * (g+h)=f * g+f * h$
 
-## 证明
+### 证明
 
-### 若 $f$ 和 $g$ 都是积性函数，则 $f * g$ 也是积性函数  
+#### 若 $f$ 和 $g$ 都是积性函数，则 $f * g$ 也是积性函数  
 
 $$\begin{aligned}
 &(f * g)(n)\times (f * g)(m)\\
@@ -44,7 +44,7 @@ $$\begin{aligned}
 \end{aligned}$$    
 得证   
 
-### $f * g=g * f$  
+#### $f * g=g * f$  
 
 $$\begin{aligned}
 &(f * g)(n)\\
@@ -54,7 +54,7 @@ $$\begin{aligned}
 \end{aligned}$$  
 得证 
 
-### $(f * g) * h=f * (g * h)$
+#### $(f * g) * h=f * (g * h)$
 
 $$\begin{aligned}
  &((f * g) * h)(n)\\
@@ -67,7 +67,7 @@ $$\begin{aligned}
  \end{aligned}$$  
 得证
  
-### $f * (g+h)=f * g+f * h$
+#### $f * (g+h)=f * g+f * h$
 
 $$\begin{aligned}
 &(f * (g+h))(n)\\
@@ -79,9 +79,9 @@ $$\begin{aligned}
 \end{aligned}$$  
 得证
 
-# 推论
+## 推论
 
-## 总览
+### 总览
 
 $\;1 * 1=d$  
 $\;1 * Id=\sigma$  
@@ -89,9 +89,9 @@ $\;\mu * 1=\varepsilon$
 $\;\phi * 1=Id$  
 $\;\mu * Id=\phi$
 
-## 证明
+### 证明
 
-### $1 * 1=d$
+#### $1 * 1=d$
 
 $$\begin{aligned}
 &(1 * 1)(n)\\
@@ -99,7 +99,7 @@ $$\begin{aligned}
 =&d(n)
 \end{aligned}$$
 
-### $1 * Id=\sigma$
+#### $1 * Id=\sigma$
 
 $$\begin{aligned}
 &(1 * Id)(n)\\
@@ -108,7 +108,7 @@ $$\begin{aligned}
 =&\sigma(n)
 \end{aligned}$$
 
-### $\mu * 1=\varepsilon$
+#### $\mu * 1=\varepsilon$
 
 设 $k$ 是 $n$ 的质因子个数  
 $$\begin{aligned}
@@ -121,14 +121,14 @@ $$\begin{aligned}
 =&\varepsilon(n)
 \end{aligned}$$
 
-### $\phi * 1=Id$
+#### $\phi * 1=Id$
 
 $\forall d|m,\;1\le a\le n,\;(a,n)=d\rightarrow(\frac ad,\frac nd)=1$    
 这样的 $a$ 可以选 $\phi(\frac md)$ 个  
 $\therefore n=\sum\limits_{d|n}\phi(\frac nd)$  
 $\therefore (\phi * 1)(n)=Id(n)$  
 
-### $\mu * Id=\phi$
+#### $\mu * Id=\phi$
 
 我们可以根据已有的推论  
 $\because\phi * 1=Id$  
@@ -140,8 +140,8 @@ $\therefore\phi * \varepsilon=Id * \mu$
 在 $d=n$ 有贡献 $=\phi(n)\times 1=\phi(n)$  
 $\therefore Id * \mu=\phi$
 
-# 例题
+## 例题
 
 **洛谷P1447**  
 [题目地址](https://www.luogu.com.cn/problem/P1447)  
-[题解地址]()
+[题解地址](https://tech.chivas-regal.top/blogs/solution/math/euler-inversion.html#%E6%B4%9B%E8%B0%B7p1447-%E8%83%BD%E9%87%8F%E9%87%87%E9%9B%86)

@@ -937,10 +937,53 @@ CHIVAS_{
 ```
 
 
+## CodeForces1583C_OmkarAndDetermination
+
+#### 🔗
+<a href="https://codeforces.com/contest/1583/problem/C">![20220408154148](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220408154148.png)</a>
+
+#### 💡
+由于我们每次是截取中间一部分子矩阵，则不需要某个位置继承左侧和上侧的可走情况     
+那么在不继承下，其实就归根于每个“不可走链”的最原始的点，那么就是左侧和右侧都为 $'X'$ 的点  
+这样我们可以对这样的点的贡献设置为 $1$   
+如果某列中存在这样的点，就将这一列的 $flag$ ，令 $sum[j]$ 为第 $j$ 列的 $flag$ 前缀和    
+  
+对与查询 $[l,r]$ ，$l$ 列是一定不存在不确定的点的，那么就查 $[l+1,r]$ 的区间和是否不为 $0$ ，如果是的话就说明这个矩阵内存在不确定的点 ，就输出 `NO` 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int main () {
+        cin.tie(0)->sync_with_stdio(0);
+        cin.exceptions(cin.failbit);
+
+        int n, m; cin >> n >> m;
+        vector<string> a(n + 1); a[0] = string(m + 1, '.');
+        for (int i = 1; i <= n; i ++) {
+                string s; cin >> s;
+                a[i] = "." + s;
+        }
 
 
+        vector<int> sum(m + 1, 0);
+        for (int j = 1; j <= m; j ++) {
+                for (int i = 1; i <= n; i ++) {
+                        sum[j] |= a[i - 1][j] == 'X' && a[i][j - 1] == 'X';
+                }
+                sum[j] += sum[j - 1];
+        }
 
+        int q; cin >> q;
+        while ( q -- ) {
+                int l, r; cin >> l >> r;
+                if (sum[r] - sum[l]) cout << "NO\n";
+                else cout << "YES\n";
+        }
+}
+```
 <hr>
+
+
+
 
 ## CodeForces1625C_RoadOptimization
 
