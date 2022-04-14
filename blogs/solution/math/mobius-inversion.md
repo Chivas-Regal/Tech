@@ -11,23 +11,30 @@ title: 莫比乌斯反演
 
 #### 💡
 
-看见 <img src="https://math.azureedge.net/$$/gcd"/> 首先把式子变成我们常用的莫反套路  
-<img src="https://latex.codecogs.com/svg.image?\begin{aligned}&space;&space;&space;&space;&space;&space;&space;&space;&\sum\limits_{i=1}^n\sum\limits_{j=i&plus;1}^ngcd(i,j)\\&space;&space;&space;&space;&space;&space;&space;=&\sum\limits_{k=1}^n\sum\limits_{i=1}^n\sum\limits_{j=i&plus;1}^n[gcd(i,j)=k]*k\\&space;&space;&space;&space;&space;&space;&space;&space;=&\sum\limits_{k=1}^nk\frac&space;{\sum\limits_{i=1}^n\sum\limits_{j=1}^n[gcd(i,j)=k]-1}2\\&space;&space;&space;&space;&space;&space;&space;&space;=&\sum\limits_{k=1}^nk\frac&space;{\sum\limits_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}\sum\limits_{j=1}^{\left\lfloor\frac{n}{k}\right\rfloor}[gcd(i,j)=1]-1}2&space;&space;&space;&space;&space;&space;&space;&space;\end{aligned}" title="\begin{aligned} &\sum\limits_{i=1}^n\sum\limits_{j=i+1}^ngcd(i,j)\\ =&\sum\limits_{k=1}^n\sum\limits_{i=1}^n\sum\limits_{j=i+1}^n[gcd(i,j)=k]*k\\ =&\sum\limits_{k=1}^nk\frac {\sum\limits_{i=1}^n\sum\limits_{j=1}^n[gcd(i,j)=k]-1}2\\ =&\sum\limits_{k=1}^nk\frac {\sum\limits_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}\sum\limits_{j=1}^{\left\lfloor\frac{n}{k}\right\rfloor}[gcd(i,j)=1]-1}2 \end{aligned}" />  
-减 <img src="https://math.azureedge.net/$$/1"> 是为了减去 <img src="https://math.azureedge.net/$$/i=j=1"> 的情况，除 <img src="https://math.azureedge.net/$$/2"> 是为了消除重复枚举一对的情况  
-  
+看见 $gcd$ 首先把式子变成我们常用的莫反套路  
+
+$$\begin{aligned}
+&\sum\limits_{i=1}^n\sum\limits_{j=i+1}^ngcd(i,j)\\
+=&\sum\limits_{k=1}^n\sum\limits_{i=1}^n\sum\limits_{j=i+1}^n[gcd(i,j)=k]*k\\
+=&\sum\limits_{k=1}^nk\frac{\sum\limits_{i=1}^n\sum\limits_{j=1}^n[gcd(i,j)=k]-1}2\\
+=&\sum\limits_{k=1}^nk\frac{\sum\limits_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}\sum\limits_{j=1}^{\left\lfloor\frac{n}{k}\right\rfloor}[gcd(i,j)=1]-1}2
+\end{aligned}$$  
+
+减 $1$ 是为了减去 $i=j=1$ 的情况，除 $2$ 是为了消除重复枚举一对的情况  
+
 那么对于里面的  
-<img src="https://math.azureedge.net/$$/\sum\limits_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}\sum\limits_{j=1}^{\left\lfloor\frac{n}{k}\right\rfloor}[gcd(i,j)=1]">  
+$\sum\limits_{i=1}^{\left\lfloor\frac{n}{k}\right\rfloor}\sum\limits_{j=1}^{\left\lfloor\frac{n}{k}\right\rfloor}[gcd(i,j)=1]$  
 我们让  
-<img src="https://math.azureedge.net/$$/n'=\left\lfloor\frac{n}{k}\right\rfloor">  
+$n'=\left\lfloor\frac{n}{k}\right\rfloor$  
 可以感性地利用莫比乌斯反演化简为  
-<img src="https://math.azureedge.net/$$/\sum\limits_{d=1}^{n'}\mu(d)\left \lfloor \frac {n'}d \right \rfloor \left \lfloor \frac {n'}d \right \rfloor">  
+$\sum\limits_{d=1}^{n'}\mu(d)\left \lfloor \frac {n'}d \right \rfloor \left \lfloor \frac {n'}d \right \rfloor$  
 <a href="https://github.com/Chivas-Regal/ACM/blob/main/Code/%E6%95%B0%E5%AD%A6/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/%E4%BB%AA%E4%BB%97%E9%98%9F.md">(具体操作看这里)</a>  
 
-由于 <img src="https://math.azureedge.net/$$/n'k=n"> 是一个曲线函数，则总时间复杂度不会太高  
-我们对上面化简后的式子写成一个函数 <img src="https://math.azureedge.net/$$/Solve()">   
+由于 $n'k=n$ 是一个曲线函数，则总时间复杂度不会太高  
+我们对上面化简后的式子写成一个函数 $Solve()$   
 则   
-<img src="https://math.azureedge.net/$$/res = \sum\limits_{k=1}^nk\frac{Solve()-1}{2}">  
-<img src="https://math.azureedge.net/$$/Solve()"> 里面随便杜教筛一下随便数论分块一下  
+$res = \sum\limits_{k=1}^nk\frac{Solve()-1}{2}$  
+$Solve()$ 里面随便杜教筛一下随便数论分块一下  
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
 
@@ -94,19 +101,19 @@ int main () {
 
 #### 💡
 这个和仪仗队那个很像啊  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;(i,j)" title="\inline (i,j)" /> 位置上的点它前面挡住的人数就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;gcd(i,j)" title="\inline gcd(i,j)" />   
+ $(i,j)$ 位置上的点它前面挡住的人数就是  $gcd(i,j)$   
 所以我们把柿子抽象出来  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}main(n,m)=&\sum\limits_{i=1}^n\sum\limits_{j=1}^m(2*(i,j)-1)\\=&2\sum\limits_{i=1}^n\sum\limits_{j=1}^m(i,j)-nm\end{aligned}" title="\inline main(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m2*gcd(i,j)-1)" />   
- 对于  <img src="https://latex.codecogs.com/svg.image?\inline&space;solve(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m(i,j)=\sum\limits_{k=1}^{mn}k\sum\limits_{i=1}^n\sum\limits_{j=1}^m[(i,j)=k]" title="\inline solve(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m(i,j)=\sum\limits_{k=1}^{mn}k\sum\limits_{i=1}^n\sum\limits_{j=1}^m[(i,j)=k]" />   
+ $\begin{aligned}main(n,m)=&\sum\limits_{i=1}^n\sum\limits_{j=1}^m(2*(i,j)-1)\\=&2\sum\limits_{i=1}^n\sum\limits_{j=1}^m(i,j)-nm\end{aligned}$   
+ 对于  $solve(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m(i,j)=\sum\limits_{k=1}^{mn}k\sum\limits_{i=1}^n\sum\limits_{j=1}^m[(i,j)=k]$   
  感性地莫反一下  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;f(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m[(i,j)=k]" title="\inline f(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m[(i,j)=k]" />   
-  <img src="https://latex.codecogs.com/svg.image?\inline&space;F(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m[k|(i,j)]=\frac&space;nk\frac&space;mk" title="\inline F(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m[k|(i,j)]=\frac nk\frac mk" />    
-  <img src="https://latex.codecogs.com/svg.image?\inline&space;f(k)=\sum\limits_{d=1}^{\frac{mn}k}\mu(d)\frac&space;n{dk}\frac&space;m{dk}" title="\inline f(k)=\sum\limits_{d=1}^{\frac{mn}k}\mu(d)\frac n{dk}\frac m{dk}" />   
-   
-  <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}&solve(n,m)\\=&\sum\limits_{k=1}^{mn}k\sum\limits_{d=1}^{\frac&space;nk}\mu(d)\frac&space;n{dk}\frac&space;m{dk}\quad\quad&(T=dk)\\=&\sum\limits_{k=1}^{mn}k\sum\limits_{\frac&space;Tk}^{\frac&space;{mn}k}\mu(\frac&space;Tk)\frac&space;nT\frac&space;mT\\=&\sum\limits_{T=1}^{mn}\frac&space;nT\frac&space;mT\sum\limits_{k|T}k\mu(\frac&space;Tk)\end{aligned}" title="\inline \begin{aligned}&solve(n,m)\\=&\sum\limits_{k=1}^{mn}k\sum\limits_{d=1}^{\frac nk}\mu(d)\frac n{dk}\frac m{dk}\quad\quad&(T=dk)\\=&\sum\limits_{k=1}^{mn}k\sum\limits_{\frac Tk}^{\frac {mn}k}\mu(\frac Tk)\frac nT\frac mT\\=&\sum\limits_{T=1}^{mn}\frac nT\frac mT\sum\limits_{k|T}k\mu(\frac Tk)\end{aligned}" />     
-  <img src="https://latex.codecogs.com/svg.image?\inline&space;\sum\limits_{k|T}k\mu(\frac&space;Tk)" title="\inline \sum\limits_{k|T}k\mu(\frac Tk)" />  感性地狄利克雷卷积一下  <img src="https://latex.codecogs.com/svg.image?\inline&space;=(\mu*Id)(T)=\phi(T)" title="\inline =(\mu*Id)(T)=\phi(T)" />   
-  <img src="https://latex.codecogs.com/svg.image?\inline&space;=\sum\limits_{T=1}^{mn}\frac&space;nT\frac&space;mT\phi(T)" title="\inline =\sum\limits_{T=1}^{mn}\frac nT\frac mT\phi(T)" />   
-   
+ $f(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m[(i,j)=k]$   
+  $F(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m[k|(i,j)]=\frac nk\frac mk$    
+  $f(k)=\sum\limits_{d=1}^{\frac{mn}k}\mu(d)\frac n{dk}\frac m{dk}$   
+
+  $\begin{aligned}&solve(n,m)\\=&\sum\limits_{k=1}^{mn}k\sum\limits_{d=1}^{\frac nk}\mu(d)\frac n{dk}\frac m{dk}\quad\quad&(T=dk)\\=&\sum\limits_{k=1}^{mn}k\sum\limits_{\frac Tk}^{\frac {mn}k}\mu(\frac Tk)\frac nT\frac mT\\=&\sum\limits_{T=1}^{mn}\frac nT\frac mT\sum\limits_{k|T}k\mu(\frac Tk)\end{aligned}$     
+  $\sum\limits_{k|T}k\mu(\frac Tk)$  感性地狄利克雷卷积一下  $=(\mu*Id)(T)=\phi(T)$   
+  $=\sum\limits_{T=1}^{mn}\frac nT\frac mT\phi(T)$   
+
 数不大直接暴力跑就行  
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
@@ -154,33 +161,33 @@ int main () {
 <a href="https://www.luogu.com.cn/problem/P1829"><img src="https://i.loli.net/2021/10/29/thDkJ42B71fyEVF.png"></a>
 
 #### 💡
-<img src="https://latex.codecogs.com/svg.image?(1)\\\begin{aligned}mian(n,m)=&\sum\limits_{i=1}^n\sum\limits_{j=1}^mlcm(i,j)\\=&\sum\limits_{k=1}^{mn}\sum\limits_{i=1}^n\sum\limits_{j=1}^m\frac&space;{i\times&space;j\times[(i,j)=k]}k\end{aligned}" title="(1)\\\begin{aligned}mian(n,m)=&\sum\limits_{i=1}^n\sum\limits_{j=1}^mlcm(i,j)\\=&\sum\limits_{k=1}^{mn}\sum\limits_{i=1}^n\sum\limits_{j=1}^m\frac {i\times j\times[(i,j)=k]}k\end{aligned}" />  
-  
-<img src="https://latex.codecogs.com/svg.image?i'=\frac&space;ik,\;j'=\frac&space;jk" title="i'=\frac ik,\;j'=\frac jk" />  
-  
-<img src="https://latex.codecogs.com/svg.image?{\color{red}main(n,m)}=\sum\limits_{k=1}^{mn}k\sum\limits_{i'=1}^{\left\lfloor\frac&space;nk\right\rfloor}\sum\limits_{j'=1}^{\left\lfloor\frac&space;mk\right\rfloor}i'\times&space;j'\times&space;[(i',j')=1]{\color{red}=\sum\limits_{k=1}^{mn}solve(\left\lfloor\frac&space;nk\right\rfloor,\left\lfloor\frac&space;mk\right\rfloor)}" title="{\color{red}main(n,m)}=\sum\limits_{k=1}^{mn}k\sum\limits_{i'=1}^{\left\lfloor\frac nk\right\rfloor}\sum\limits_{j'=1}^{\left\lfloor\frac mk\right\rfloor}i'\times j'\times [(i',j')=1]{\color{red}=\sum\limits_{k=1}^{mn}solve(\left\lfloor\frac nk\right\rfloor,\left\lfloor\frac mk\right\rfloor)}" />   
+$(1)\\\begin{aligned}mian(n,m)=&\sum\limits_{i=1}^n\sum\limits_{j=1}^mlcm(i,j)\\=&\sum\limits_{k=1}^{mn}\sum\limits_{i=1}^n\sum\limits_{j=1}^m\frac {i\times j\times[(i,j)=k]}k\end{aligned}$  
 
-<img src="https://latex.codecogs.com/svg.image?(2)\\solve(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^mi\times&space;j\times&space;[gcd(i,j)=1]" title="(2)\\solve(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^mi\times j\times [gcd(i,j)=1]" />
+$i'=\frac ik,\;j'=\frac jk$  
 
-<img src="https://latex.codecogs.com/svg.image?f(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m[(i,j)=k]ij" title="f(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m[(i,j)=k]ij" />
+${\color{red}main(n,m)}=\sum\limits_{k=1}^{mn}k\sum\limits_{i'=1}^{\left\lfloor\frac nk\right\rfloor}\sum\limits_{j'=1}^{\left\lfloor\frac mk\right\rfloor}i'\times j'\times [(i',j')=1]{\color{red}=\sum\limits_{k=1}^{mn}solve(\left\lfloor\frac nk\right\rfloor,\left\lfloor\frac mk\right\rfloor)}$   
 
-<img src="https://latex.codecogs.com/svg.image?F(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m[k\mid(i,j)]ij" title="F(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m[k\mid(i,j)]ij" />
+$(2)\\solve(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^mi\times j\times [gcd(i,j)=1]$
 
-<img src="https://latex.codecogs.com/svg.image?i',j'" title="i',j'" /> 枚举 <img src="https://latex.codecogs.com/svg.image?k" title="k" /> 倍数， <img src="https://latex.codecogs.com/svg.image?n'=\left\lfloor\frac&space;nk\right\rfloor,\;m'=\left\lfloor\frac&space;mk\right\rfloor,\;i'=\frac&space;ik,\;j'=\frac&space;jk,\;i=i'k,\;j=j'k" title="n'=\left\lfloor\frac nk\right\rfloor,\;m'=\left\lfloor\frac mk\right\rfloor,\;i'=\frac ik,\;j'=\frac jk,\;i=i'k,\;j=j'k" />
+$f(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m[(i,j)=k]ij$
 
-<img src="https://latex.codecogs.com/svg.image?F(k)=\sum\limits_{i'=1}^{n'}\sum\limits_{j'=1}^{m'}i'kj'k=k^2\frac{n'(1&plus;n')}2\frac{m'(1&plus;m')}2=\frac{k^2n'(1&plus;n')m'(1&plus;m')}4" title="F(k)=\sum\limits_{i'=1}^{n'}\sum\limits_{j'=1}^{m'}i'kj'k=k^2\frac{n'(1+n')}2\frac{m'(1+m')}2=\frac{k^2n'(1+n')m'(1+m')}4" /> 
+$F(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m[k\mid(i,j)]ij$
 
-<img src="https://latex.codecogs.com/svg.image?f(k)=\sum\limits_{k\mid&space;d}\mu(\frac&space;dk)F(d)" title="f(k)=\sum\limits_{k\mid d}\mu(\frac dk)F(d)" />
+$i',j'$ 枚举 $k$ 倍数， $n'=\left\lfloor\frac nk\right\rfloor,\;m'=\left\lfloor\frac mk\right\rfloor,\;i'=\frac ik,\;j'=\frac jk,\;i=i'k,\;j=j'k$
 
-<img src="https://latex.codecogs.com/svg.image?{\color{red}solve(n,m)}=f(1)=\sum\limits_{d=1}^{mn}\mu(d)F(d)=\sum\limits_{d=1}^{mn}\mu(d)\frac{d^2\left\lfloor\frac&space;nd\right\rfloor(1&plus;\left\lfloor\frac&space;nd\right\rfloor)\left\lfloor\frac&space;md\right\rfloor(1&plus;\left\lfloor\frac&space;md\right\rfloor)}4{\color{red}=\sum\limits_{d=1}^{mn}\mu(d)d^2calc(\left\lfloor\frac&space;nd\right\rfloor,\left\lfloor\frac&space;md\right\rfloor)}" title="{\color{red}solve(n,m)}=f(1)=\sum\limits_{d=1}^{mn}\mu(d)F(d)=\sum\limits_{d=1}^{mn}\mu(d)\frac{d^2\left\lfloor\frac nd\right\rfloor(1+\left\lfloor\frac nd\right\rfloor)\left\lfloor\frac md\right\rfloor(1+\left\lfloor\frac md\right\rfloor)}4{\color{red}=\sum\limits_{d=1}^{mn}\mu(d)d^2calc(\left\lfloor\frac nd\right\rfloor,\left\lfloor\frac md\right\rfloor)}" /> 
+$F(k)=\sum\limits_{i'=1}^{n'}\sum\limits_{j'=1}^{m'}i'kj'k=k^2\frac{n'(1+n')}2\frac{m'(1+m')}2=\frac{k^2n'(1+n')m'(1+m')}4$ 
 
-<img src="https://latex.codecogs.com/svg.image?(3)\\calc(n,m)=\frac{n(1&plus;n)m(1&plus;m)}4" title="(3)\\calc(n,m)=\frac{n(1+n)m(1+m)}4" />
+$f(k)=\sum\limits_{k\mid d}\mu(\frac dk)F(d)$
+
+${\color{red}solve(n,m)}=f(1)=\sum\limits_{d=1}^{mn}\mu(d)F(d)=\sum\limits_{d=1}^{mn}\mu(d)\frac{d^2\left\lfloor\frac nd\right\rfloor(1+\left\lfloor\frac nd\right\rfloor)\left\lfloor\frac md\right\rfloor(1+\left\lfloor\frac md\right\rfloor)}4{\color{red}=\sum\limits_{d=1}^{mn}\mu(d)d^2calc(\left\lfloor\frac nd\right\rfloor,\left\lfloor\frac md\right\rfloor)}$ 
+
+$(3)\\calc(n,m)=\frac{n(1+n)m(1+m)}4$
 
 **综上所述**
 
-<img src="https://latex.codecogs.com/svg.image?\left\{\begin{aligned}&main(n,m)=\sum\limits_{k=1}^{mn}solve(\left\lfloor\frac&space;nk\right\rfloor,\left\lfloor\frac&space;mk\right\rfloor)\\&solve(n,m)=\sum\limits_{d=1}^{mn}\mu(d)d^2calc(\left\lfloor\frac&space;nd\right\rfloor,\left\lfloor\frac&space;md\right\rfloor)\end{aligned}\right." title="\left\{\begin{aligned}&main(n,m)=\sum\limits_{k=1}^{mn}solve(\left\lfloor\frac nk\right\rfloor,\left\lfloor\frac mk\right\rfloor)\\&solve(n,m)=\sum\limits_{d=1}^{mn}\mu(d)d^2calc(\left\lfloor\frac nd\right\rfloor,\left\lfloor\frac md\right\rfloor)\end{aligned}\right." />
+$\left\{\begin{aligned}&main(n,m)=\sum\limits_{k=1}^{mn}solve(\left\lfloor\frac nk\right\rfloor,\left\lfloor\frac mk\right\rfloor)\\&solve(n,m)=\sum\limits_{d=1}^{mn}\mu(d)d^2calc(\left\lfloor\frac nd\right\rfloor,\left\lfloor\frac md\right\rfloor)\end{aligned}\right.$
 
-<img src="https://latex.codecogs.com/svg.image?\left\{\begin{aligned}&(1)\quad&space;mian(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^mlcm(i,j)\\&(2)\quad&space;solve(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^mi\times&space;j\times&space;[gcd(i,j)=1]\\&(3)\quad&space;calc(n,m)=\frac&space;{n(1&plus;n)m(1&plus;m)}4\end{aligned}\right." title="\left\{\begin{aligned}&(1)\quad mian(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^mlcm(i,j)\\&(2)\quad solve(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^mi\times j\times [gcd(i,j)=1]\\&(3)\quad calc(n,m)=\frac {n(1+n)m(1+m)}4\end{aligned}\right." />
+$\left\{\begin{aligned}&(1)\quad mian(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^mlcm(i,j)\\&(2)\quad solve(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^mi\times j\times [gcd(i,j)=1]\\&(3)\quad calc(n,m)=\frac {n(1+n)m(1+m)}4\end{aligned}\right.$
 
 
 剩下的就是利用这个公式进行两重数论分块写了
@@ -263,22 +270,22 @@ https://www.luogu.com.cn/problem/P2158
 
 #### 💡
 我们要求得：</br>
-<img src="https://latex.codecogs.com/svg.image?\bg_white&space;\sum\limits_{i&space;=&space;1}^n\sum\limits_{j=1}^n[gcd(i,&space;j)&space;=&space;1]" title="\bg_white \sum\limits_{i = 1}^n\sum\limits_{j=1}^n[gcd(i, j) = 1]" /></br></br>
+$\sum\limits_{i = 1}^n\sum\limits_{j=1}^n[gcd(i, j) = 1]$</br></br>
 所以设：</br>
-<img src="https://latex.codecogs.com/svg.image?f(x)&space;=\sum\limits_{i=1}^n\sum\limits_{j=1}^n[gcd(i,j)=x]" title="f(x) =\sum\limits_{i=1}^n\sum\limits_{j=1}^n[gcd(i,j)=x]" /></br></br>
+$f(x) =\sum\limits_{i=1}^n\sum\limits_{j=1}^n[gcd(i,j)=x]$</br></br>
 为使：</br>
-<img src="https://latex.codecogs.com/svg.image?F(x)&space;=&space;\sum\limits_{x|d}f(d)" title="F(x) = \sum\limits_{x|d}f(d)" /></br></br>
+$F(x) = \sum\limits_{x|d}f(d)$</br></br>
 设：</br>
-<img src="https://latex.codecogs.com/svg.image?F(x)=\sum\limits_{i=1}^n\sum\limits_{j=1}^n[x|gcd(i,j)]" title="F(x)=\sum\limits_{i=1}^n\sum\limits_{j=1}^n[x|gcd(i,j)]" /></br></br>
+$F(x)=\sum\limits_{i=1}^n\sum\limits_{j=1}^n[x|gcd(i,j)]$</br></br>
 根据莫比乌斯阿反演定理得</br>
-<img src="https://latex.codecogs.com/svg.image?f(x)=\sum\limits_{x|d}\mu(\frac&space;dx)F(d)" title="f(x)=\sum\limits_{x|d}\mu(\frac dx)F(d)" /></br></br>
+$f(x)=\sum\limits_{x|d}\mu(\frac dx)F(d)$</br></br>
 可以发现：</br>
-<img src="https://latex.codecogs.com/svg.image?F(d)=\sum\limits_{i=1}^n[d|i]&space;*&space;\sum\limits_{j=1}^n[d|j]&space;=&space;\left&space;\lfloor&space;\frac&space;nd&space;\right&space;\rfloor&space;*&space;\left&space;\lfloor&space;\frac&space;nd&space;\right&space;\rfloor" title="F(d)=\sum\limits_{i=1}^n[d|i] * \sum\limits_{j=1}^n[d|j] = \left \lfloor \frac nd \right \rfloor * \left \lfloor \frac nd \right \rfloor" /></br></br>
+$F(d)=\sum\limits_{i=1}^n[d|i] * \sum\limits_{j=1}^n[d|j] = \left \lfloor \frac nd \right \rfloor * \left \lfloor \frac nd \right \rfloor$</br></br>
 所以化简为：</br>
-<img src="https://latex.codecogs.com/svg.image?f(x)=\sum\limits_{x|d}\mu(\frac&space;dx)\left&space;\lfloor&space;\frac&space;nd&space;\right&space;\rfloor&space;&space;\left&space;\lfloor&space;\frac&space;nd&space;\right&space;\rfloor" title="f(x)=\sum\limits_{x|d}\mu(\frac dx)\left \lfloor \frac nd \right \rfloor \left \lfloor \frac nd \right \rfloor" /></br></br>
-我们要求的是<img src="https://latex.codecogs.com/svg.image?f(1)" title="f(1)" /></br></br>
+$f(x)=\sum\limits_{x|d}\mu(\frac dx)\left \lfloor \frac nd \right \rfloor  \left \lfloor \frac nd \right \rfloor$</br></br>
+我们要求的是$f(1)$</br></br>
 所以：</br>
-<img src="https://latex.codecogs.com/svg.image?f(1)=\sum\limits_{d=1}^{n}\mu(d)\left&space;\lfloor&space;\frac&space;nd&space;\right&space;\rfloor&space;&space;\left&space;\lfloor&space;\frac&space;nd&space;\right&space;\rfloor" title="f(1)=\sum\limits_{d=1}^{n}\mu(d)\left \lfloor \frac nd \right \rfloor \left \lfloor \frac nd \right \rfloor" /></br></br>
+$f(1)=\sum\limits_{d=1}^{n}\mu(d)\left \lfloor \frac nd \right \rfloor  \left \lfloor \frac nd \right \rfloor$</br></br>
 
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
@@ -458,31 +465,31 @@ CHIVAS_{
 
 #### 💡
 题意让求:  
-<img src="https://latex.codecogs.com/svg.image?f(k)=\sum_{x=A}^B\sum_{y=C}^D[gcd(x,y)=k]" title="f(k)=\sum_{x=A}^B\sum_{y=C}^D[gcd(x,y)=k]" />  
-  
+$f(k)=\sum_{x=A}^B\sum_{y=C}^D[gcd(x,y)=k]$  
+
 为了满足：  
-<img src="https://latex.codecogs.com/svg.image?F(k)=\sum_{n|d}f(d)" title="F(k)=\sum_{n|d}f(d)" />  
-  
+$F(k)=\sum_{n|d}f(d)$  
+
 设：  
-<img src="https://latex.codecogs.com/svg.image?F(k)=\sum_{x=A}^B\sum_{x=C}^D[k|gcd(x,y)]" title="F(k)=\sum_{x=A}^B\sum_{x=C}^D[k|gcd(x,y)]" />  
-  
-为使枚举的<img src="https://latex.codecogs.com/svg.image?x,y" title="x,y" />均为<img src="https://latex.codecogs.com/svg.image?k" title="k" />的倍数  
-令<img src="https://latex.codecogs.com/svg.image?x'&space;=&space;\frac&space;xk,\quad&space;y'&space;=&space;\frac&space;yk" title="x' = \frac xk,\quad y' = \frac yk" />，我们枚举倍数  
+$F(k)=\sum_{x=A}^B\sum_{x=C}^D[k|gcd(x,y)]$  
+
+为使枚举的$x,y$均为$k$的倍数  
+令$x' = \frac xk,\quad y' = \frac yk$，我们枚举倍数  
 则$F(k)=\sum_{x'=\frac{A - 1}{k}}^{\frac Bk}\sum_{y'=\frac{C-1}{k}}^{\frac Dk}=(\left \lfloor \frac Bk \right \rfloor-\left \lfloor \frac{A-1}k \right \rfloor)*(\left \lfloor \frac Dk\right \rfloor -\left \lfloor \frac{C-1}k \right \rfloor)$  
-  
+
 根据莫比乌斯反演定理得：  
-<img src="https://latex.codecogs.com/svg.image?f(k)=\sum_{k|d}\mu(\frac&space;dk)F(d)" title="f(k)=\sum_{k|d}\mu(\frac dk)F(d)" />  
+$f(k)=\sum_{k|d}\mu(\frac dk)F(d)$  
 为了使枚举到的d均为k的倍数  
-我们设<img src="https://latex.codecogs.com/svg.image?d'&space;=&space;\frac&space;dk\quad&space;H'=\frac&space;Hk" title="d' = \frac dk\quad H'=\frac Hk" />，此时<img src="https://latex.codecogs.com/svg.image?d=d'k" title="d=d'k" />  
-  
-则<img src="https://latex.codecogs.com/svg.image?f(k)=\sum_{d'=1}^{min(\frac&space;Bk,\frac&space;Dk)}\mu(d')F(d'k)" title="f(k)=\sum_{d'=1}^{min(\frac Bk,\frac Dk)}\mu(d')F(d'k)" />  
-  
-<img src="https://latex.codecogs.com/svg.image?\because&space;F(d'k)=(\left&space;\lfloor&space;\frac&space;B{d'k}&space;\right&space;\rfloor-\left&space;\lfloor&space;\frac{A-1}{d'k}&space;\right&space;\rfloor)*(\left&space;\lfloor&space;\frac&space;D{d'k}\right&space;\rfloor&space;-\left&space;\lfloor&space;\frac{C-1}{d'k}&space;\right&space;\rfloor" title="\because F(d'k)=(\left \lfloor \frac B{d'k} \right \rfloor-\left \lfloor \frac{A-1}{d'k} \right \rfloor)*(\left \lfloor \frac D{d'k}\right \rfloor -\left \lfloor \frac{C-1}{d'k} \right \rfloor" />  
-  
-令<img src="https://latex.codecogs.com/svg.image?A'=\frac{A-1}k,\quad&space;B'=\frac&space;Bk,\quad&space;C'=\frac{C-1}k,\quad&space;D'=\frac&space;Dk" title="A'=\frac{A-1}k,\quad B'=\frac Bk,\quad C'=\frac{C-1}k,\quad D'=\frac Dk" />  
-  
-<img src="https://latex.codecogs.com/svg.image?\therefore&space;f(k)=\sum_{d'=1}^{min(B',D')}\mu(d')(\left&space;\lfloor&space;\frac&space;{B'}{d'}&space;\right&space;\rfloor-\left&space;\lfloor&space;\frac{A'}{d'}&space;\right&space;\rfloor)(\left&space;\lfloor&space;\frac&space;{D'}{d'}\right&space;\rfloor&space;-\left&space;\lfloor&space;\frac{C'}{d'}&space;\right&space;\rfloor" title="\therefore f(k)=\sum_{d'=1}^{min(B',D')}\mu(d')(\left \lfloor \frac {B'}{d'} \right \rfloor-\left \lfloor \frac{A'}{d'} \right \rfloor)(\left \lfloor \frac {D'}{d'}\right \rfloor -\left \lfloor \frac{C'}{d'} \right \rfloor" />  
-  
+我们设$d' = \frac dk\quad H'=\frac Hk$，此时$d=d'k$  
+
+则$f(k)=\sum_{d'=1}^{min(\frac Bk,\frac Dk)}\mu(d')F(d'k)$  
+
+$\because F(d'k)=(\left \lfloor \frac B{d'k} \right \rfloor-\left \lfloor \frac{A-1}{d'k} \right \rfloor)*(\left \lfloor \frac D{d'k}\right \rfloor -\left \lfloor \frac{C-1}{d'k} \right \rfloor$  
+
+令$A'=\frac{A-1}k,\quad B'=\frac Bk,\quad C'=\frac{C-1}k,\quad D'=\frac Dk$  
+
+$\therefore f(k)=\sum_{d'=1}^{min(B',D')}\mu(d')(\left \lfloor \frac {B'}{d'} \right \rfloor-\left \lfloor \frac{A'}{d'} \right \rfloor)(\left \lfloor \frac {D'}{d'}\right \rfloor -\left \lfloor \frac{C'}{d'} \right \rfloor$  
+
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
 
 ```cpp
@@ -555,12 +562,12 @@ CHIVAS_{Mobius();
 <a href="https://www.luogu.com.cn/problem/P2568"><img src="https://img-blog.csdnimg.cn/53942c61c3b14914bd7b5edc3762772c.png"></a>
 
 #### 💡
-<img src="https://latex.codecogs.com/svg.image?\begin{aligned}&\sum\limits_{i=1}^n\sum\limits_{j=1}^n[gcd(i,j)\in\{prime\}]\\=&\sum\limits_{p\in&space;\{prime\}}^{\le&space;n}\sum\limits_{i=1}^n\sum\limits_{j=1}^n[gcd(i,j)=p]\\=&\sum\limits_{p\in\{prime\}}^{\le&space;n}\sum\limits_{i=1}^{\left\lfloor\frac&space;np\right\rfloor}\sum\limits_{j=1}^{\left\lfloor\frac&space;np\right\rfloor}[gcd(i,j)=1]\end{aligned}" title="\begin{aligned}&\sum\limits_{i=1}^n\sum\limits_{j=1}^n[gcd(i,j)\in\{prime\}]\\=&\sum\limits_{p\in \{prime\}}^{\le n}\sum\limits_{i=1}^n\sum\limits_{j=1}^n[gcd(i,j)=p]\\=&\sum\limits_{p\in\{prime\}}^{\le n}\sum\limits_{i=1}^{\left\lfloor\frac np\right\rfloor}\sum\limits_{j=1}^{\left\lfloor\frac np\right\rfloor}[gcd(i,j)=1]\end{aligned}" />  
-对于<img src="https://latex.codecogs.com/svg.image?\sum\limits_{i=1}^{\left\lfloor\frac&space;np\right\rfloor}\sum\limits_{j=1}^{\left\lfloor\frac&space;np\right\rfloor}[gcd(i,j)=1]" title="\sum\limits_{i=1}^{\left\lfloor\frac np\right\rfloor}\sum\limits_{j=1}^{\left\lfloor\frac np\right\rfloor}[gcd(i,j)=1]" />  
-我们可以使用莫反变成<img src="https://latex.codecogs.com/svg.image?\mu(d)\left\lfloor\frac&space;nd\right\rfloor^2" title="\mu(d)\left\lfloor\frac nd\right\rfloor^2" />    
+$\begin{aligned}&\sum\limits_{i=1}^n\sum\limits_{j=1}^n[gcd(i,j)\in\{prime\}]\\=&\sum\limits_{p\in \{prime\}}^{\le n}\sum\limits_{i=1}^n\sum\limits_{j=1}^n[gcd(i,j)=p]\\=&\sum\limits_{p\in\{prime\}}^{\le n}\sum\limits_{i=1}^{\left\lfloor\frac np\right\rfloor}\sum\limits_{j=1}^{\left\lfloor\frac np\right\rfloor}[gcd(i,j)=1]\end{aligned}$  
+对于$\sum\limits_{i=1}^{\left\lfloor\frac np\right\rfloor}\sum\limits_{j=1}^{\left\lfloor\frac np\right\rfloor}[gcd(i,j)=1]$  
+我们可以使用莫反变成$\mu(d)\left\lfloor\frac nd\right\rfloor^2$    
 <a href="https://github.com/Chivas-Regal/ACM/blob/main/Code/%E6%95%B0%E5%AD%A6/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/%E4%BB%AA%E4%BB%97%E9%98%9F.md">（具体操作请看这里）</a>
 那么就是让求  
-<img src="https://latex.codecogs.com/svg.image?\sum\limits_{p\in\{prime\}}^{\le&space;n}\sum\limits_{d=1}^{\left\lfloor\frac&space;np\right\rfloor}\mu(d)\left\lfloor\frac&space;nd\right\rfloor^2" title="\sum\limits_{p\in\{prime\}}^{\le n}\sum\limits_{d=1}^{\left\lfloor\frac np\right\rfloor}\mu(d)\left\lfloor\frac nd\right\rfloor^2" />  
+$\sum\limits_{p\in\{prime\}}^{\le n}\sum\limits_{d=1}^{\left\lfloor\frac np\right\rfloor}\mu(d)\left\lfloor\frac nd\right\rfloor^2$  
 素数表直接用莫比乌斯函数打表得到的即可  
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
@@ -630,39 +637,39 @@ https://www.luogu.com.cn/problem/P3172
 
 #### 💡
 题目让求  
-<img src="https://latex.codecogs.com/svg.image?\sum\limits_{i_1=L}^H\sum\limits_{i_2=L}^H....\sum\limits_{i_n=L}^H[gcd=k]" title="\sum\limits_{i_1=L}^H\sum\limits_{i_2=L}^H....\sum\limits_{i_n=L}^H[gcd=k]" />
-  
+$\sum\limits_{i_1=L}^H\sum\limits_{i_2=L}^H....\sum\limits_{i_n=L}^H[gcd=k]$
+
 所以我们令:  
-<img src="https://latex.codecogs.com/svg.image?f(k)=\sum\limits_{i_1=L}^H\sum\limits_{i_2=L}^H....\sum\limits_{i_n=L}^H[gcd=k]" title="f(k)=\sum\limits_{i_1=L}^H\sum\limits_{i_2=L}^H....\sum\limits_{i_n=L}^H[gcd=k]" />
+$f(k)=\sum\limits_{i_1=L}^H\sum\limits_{i_2=L}^H....\sum\limits_{i_n=L}^H[gcd=k]$
 
 为满足:  
-<img src="https://latex.codecogs.com/svg.image?F(k)=\sum\limits_{k|d}f(d)" title="F(k)=\sum\limits_{k|d}f(d)" />
+$F(k)=\sum\limits_{k|d}f(d)$
 
 令：  
-<img src="https://latex.codecogs.com/svg.image?F(k)&space;=&space;\sum\limits_{i_1=L}^H\sum\limits_{i_2=L}^H....\sum\limits_{i_n=L}^H[k|gcd]" title="F(k) = \sum\limits_{i_1=L}^H\sum\limits_{i_2=L}^H....\sum\limits_{i_n=L}^H[k|gcd]" />
+$F(k) = \sum\limits_{i_1=L}^H\sum\limits_{i_2=L}^H....\sum\limits_{i_n=L}^H[k|gcd]$
 
-为了使每个i都是k的倍数保证每次枚举都是可以使得<img src="https://latex.codecogs.com/svg.image?[k|gcd]=1" title="[k|gcd]=1" />  
-我们设<img src="https://latex.codecogs.com/svg.image?i'=\frac&space;ik" title="i'=\frac ik" />，枚举<img src="https://latex.codecogs.com/svg.image?i'" title="i'" />，也就是k的倍数  
+为了使每个i都是k的倍数保证每次枚举都是可以使得$[k|gcd]=1$  
+我们设$i'=\frac ik$，枚举$i'$，也就是k的倍数  
 得到：  
-<img src="https://latex.codecogs.com/svg.image?F(k)&space;=&space;\sum\limits_{i_1'=\frac{L-1}{k}}^\frac&space;Hk\sum\limits_{i_2'=\frac{L-1}{k}}^\frac&space;Hk....\sum\limits_{i_n'=\frac{L-1}{k}}^\frac&space;Hk1" title="F(k) = \sum\limits_{i_1'=\frac{L-1}{k}}^\frac Hk\sum\limits_{i_2'=\frac{L-1}{k}}^\frac Hk....\sum\limits_{i_n'=\frac{L-1}{k}}^\frac Hk1" />  
-  
+$F(k) = \sum\limits_{i_1'=\frac{L-1}{k}}^\frac Hk\sum\limits_{i_2'=\frac{L-1}{k}}^\frac Hk....\sum\limits_{i_n'=\frac{L-1}{k}}^\frac Hk1$  
+
 可以化简为：  
-<img src="https://latex.codecogs.com/svg.image?F(k)=(\left&space;\lfloor&space;\frac{H}{k}&space;\right&space;\rfloor&space;-&space;\left&space;\lfloor&space;\frac{L-1}{k}&space;\right&space;\rfloor&space;&space;)^n" title="F(k)=(\left \lfloor \frac{H}{k} \right \rfloor - \left \lfloor \frac{L-1}{k} \right \rfloor )^n" />  
-  
+$F(k)=(\left \lfloor \frac{H}{k} \right \rfloor - \left \lfloor \frac{L-1}{k} \right \rfloor  )^n$  
+
 由莫反定理得：  
-<img src="https://latex.codecogs.com/svg.image?f(k)=\sum\limits_{k|d}\mu(\frac&space;dk)F(d)" title="f(k)=\sum\limits_{k|d}\mu(\frac dk)F(d)" />  
+$f(k)=\sum\limits_{k|d}\mu(\frac dk)F(d)$  
 为了使枚举到的d均为k的倍数  
-我们设<img src="https://latex.codecogs.com/svg.image?d'&space;=&space;\frac&space;dk\quad&space;H'=\frac&space;Hk\quad&space;L'=\frac{L-1}{k}" title="d' = \frac dk\quad H'=\frac Hk\quad L'=\frac{L-1}{k}" />，此时<img src="https://latex.codecogs.com/svg.image?d=d'k" title="d=d'k" />  
-  
+我们设$d' = \frac dk\quad H'=\frac Hk\quad L'=\frac{L-1}{k}$，此时$d=d'k$  
+
 则：  
-<img src="https://latex.codecogs.com/svg.image?f(k)=\sum\limits_{d'=1}^{H'}\mu(d')F(d'k)" title="f(k)=\sum\limits_{d'=1}^{H'}\mu(d')F(d'k)" />  
-  
-此时<img src="https://latex.codecogs.com/svg.image?F(d'k)=(\left&space;\lfloor&space;\frac{H}{d'k}&space;\right&space;\rfloor&space;-&space;\left&space;\lfloor&space;\frac{L-1}{d'k}&space;\right&space;\rfloor&space;&space;)^n" title="F(d'k)=(\left \lfloor \frac{H}{d'k} \right \rfloor - \left \lfloor \frac{L-1}{d'k} \right \rfloor )^n" />  
-  
+$f(k)=\sum\limits_{d'=1}^{H'}\mu(d')F(d'k)$  
+
+此时$F(d'k)=(\left \lfloor \frac{H}{d'k} \right \rfloor - \left \lfloor \frac{L-1}{d'k} \right \rfloor  )^n$  
+
 所以：  
-<img src="https://latex.codecogs.com/svg.image?f(k)=\sum_{d'=1}^{H'}\mu(d')(\left&space;\lfloor&space;\frac{H'}{d'}&space;\right&space;\rfloor&space;-&space;\left&space;\lfloor&space;\frac{L'}{d'}&space;\right&space;\rfloor&space;&space;)^n" title="f(k)=\sum_{d'=1}^{H'}\mu(d')(\left \lfloor \frac{H'}{d'} \right \rfloor - \left \lfloor \frac{L'}{d'} \right \rfloor )^n" />  
-  
-因为<img src="https://latex.codecogs.com/svg.image?H'" title="H'" />可能会很大，所以我们整除分块  
+$f(k)=\sum_{d'=1}^{H'}\mu(d')(\left \lfloor \frac{H'}{d'} \right \rfloor - \left \lfloor \frac{L'}{d'} \right \rfloor  )^n$  
+
+因为$H'$可能会很大，所以我们整除分块  
 同时需要前缀和以便得到很大的数的莫比乌斯函数  
 这里用杜教筛计算前缀和即可  
 
@@ -738,6 +745,93 @@ int main () { Mobius();
 
 <hr>
 
+## 洛谷P3327_约数个数和
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P3327">![20220413213124](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220413213124.png)</a>
+
+#### 💡
+$\begin{aligned}
+&\sum\limits_{i=1}^n\sum\limits_{j=1}^md(ij)\\
+=&\sum\limits_{i=1}^n\sum\limits_{j=1}^m\sum\limits_{a|i}\sum\limits_{b|j}[(a,b)=1]\qquad&(d(ij)=\sum\limits_{a|i}\sum\limits_{b|j}[(a,b)=1])\\
+=&\sum\limits_{i=1}^n\sum\limits_{j=1}^m\sum\limits_{a|i}\sum\limits_{b|j}\sum\limits_{x|(a,b)}\mu(x)&(\sum\limits_{y|x}\mu(y)=[x=1])\end{aligned}$  
+将 $x$ 提前，$i,j$ 枚举 $x$ 倍数  
+中间跳过了 $a,b$ 所以对于 $i$ 是要出现 $d(\frac ix)$ 次，对于 $j$ 是要出现 $d(\frac jx)$ 次  
+则原式  
+$=\sum\limits_{i=1}^n\sum\limits_{j=1}^m\sum\limits_{x|i,x|j}\mu(x)d(\frac ix)d(\frac jx)$  
+$=\sum\limits_{x=1}^{min(n,m)}\mu(x)\sum\limits_{x|i}d(\frac xi)\sum\limits_{x|j}d(\frac xj)$  
+令 $i=\frac ix,j=\frac jx$ 则原式  
+$=\sum\limits_{x=1}^{min(n,m)}\mu(x)\sum\limits_{i=1}^{\left\lfloor\frac nx\right\rfloor}d(i)\sum\limits_{j=1}^{\left\lfloor\frac mx\right\rfloor}d(j)$   
+令 $sumd(x)=\sum\limits_{i=1}^xd(i)$   
+则原式  
+$=\sum\limits_{x=1}^{min(n,m)}\mu(x)sumd(\left\lfloor\frac nx\right\rfloor)sumd(\left\lfloor\frac mx\right\rfloor)$  
+
+我们求 $d(i)$ 可以使用唯一分解定理 $i=p_1^{a_1}p_2^{a_2}...p_k^{a_k}\rightarrow d(i)=\sum\limits_{i=1}^k(a_i+1)$ 进行预处理，$sumd(i)$ 即为前缀和  
+这样我们就可以对这个最终式子进行数论分块了  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 5e4 + 10;
+
+namespace Number {
+        bool ntp[N];
+        vector<int> prime;
+        int mu[N];
+        ll d[N];
+        map<int, int> cntp[N];
+        inline void Sieve () {
+                ntp[0] = ntp[1] = true;
+                mu[1] = 1;
+                for (int i = 2; i < N; i ++) {
+                        if (!ntp[i]) prime.push_back(i), mu[i] = -1;
+                        for (int j = 0; j < prime.size() && i * prime[j] < N; j ++) {
+                                ntp[i * prime[j]] = 1;
+                                if (i % prime[j] == 0) break;
+                                mu[i * prime[j]] = -mu[i];
+                        }
+                }
+                for (int i = 1; i < N; i ++) d[i] = 1;
+                for (int p : prime) {
+                        for (int j = p; j < N; j += p) {
+                                int tmp = j;
+                                while (tmp % p == 0) tmp /= p, cntp[j][p] ++;
+                        }
+                }
+                for (int i = 1; i < N; i ++) {
+                        for (auto j : cntp[i]) {
+                                d[i] *= 1ll * j.second + 1;
+                        }
+                }
+                for (int i = 1; i < N; i ++) mu[i] += mu[i - 1], d[i] += d[i - 1];
+        }
+} using namespace Number;
+
+inline int g (int k, int x) {return k / (k / x);}
+
+inline void Solve () {
+        int n, m; cin >> n >> m;
+        ll res = 0; int mn = min(n, m);
+        for (int l = 1, r; l <= mn; l = r + 1) {
+                r = min(g(n, l), g(m, l));
+                res += 1ll * (mu[r] - mu[l - 1]) * d[n / l] * d[m / l];
+        }
+        cout << res << endl;
+}
+
+int main () {
+        cin.tie(0)->sync_with_stdio(0);
+        cin.exceptions(cin.failbit);
+
+        Sieve();
+
+        int cass; cin >> cass; while (cass --) {
+                Solve();
+        }
+}
+```
+<hr>
+
+
 ## 洛谷P3455_ZAP-Queries
 
 #### 🔗
@@ -745,35 +839,35 @@ int main () { Mobius();
 
 #### 💡
 题意让求:  
-<img src="https://latex.codecogs.com/svg.image?\sum\limits_{x=1}^a\sum\limits_{y=1}^b[gcd(x,&space;y)=k]" title="\sum\limits_{x=1}^a\sum\limits_{y=1}^b[gcd(x, y)=k]" />  
-  
+$\sum\limits_{x=1}^a\sum\limits_{y=1}^b[gcd(x, y)=k]$  
+
 我们只需要设置：  
-<img src="https://latex.codecogs.com/svg.image?f(k)=\sum\limits_{x=1}^a\sum\limits_{y=1}^b[gcd(x,&space;y)=k]" title="f(k)=\sum\limits_{x=1}^a\sum\limits_{y=1}^b[gcd(x, y)=k]" />  
-  
-为使<img src="https://latex.codecogs.com/svg.image?F(n)=\sum\limits_{n|d}f(d)" title="F(n)=\sum\limits_{n|d}f(d)" />成立  
-  
+$f(k)=\sum\limits_{x=1}^a\sum\limits_{y=1}^b[gcd(x, y)=k]$  
+
+为使$F(n)=\sum\limits_{n|d}f(d)$成立  
+
 我们设置  
-<img src="https://latex.codecogs.com/svg.image?F(k)=\sum\limits_{x=1}^a\sum\limits_{y=1}^b[k|gcd(x,&space;y)]" title="F(k)=\sum\limits_{x=1}^a\sum\limits_{y=1}^b[k|gcd(x, y)]" />  
-  
-为了准确计算所有<img src="https://latex.codecogs.com/svg.image?[k|gcd(x,y)]=1" title="[k|gcd(x,y)]=1" />的情况  
-我们用<img src="https://latex.codecogs.com/svg.image?x'=\frac&space;xk,\quad&space;y'=\frac&space;yk" title="x'=\frac xk,\quad y'=\frac yk" />来表示我们枚举的都是k的倍数  
-  
-则此时<img src="https://latex.codecogs.com/svg.image?F(k)=\sum\limits_{x'=1}^{\frac&space;ak}\sum\limits_{y'=1}^{\frac&space;bk}1&space;=&space;\left&space;\lfloor&space;\frac&space;ak&space;\right&space;\rfloor&space;*&space;\left&space;\lfloor\frac&space;bk&space;&space;\right&space;\rfloor" title="F(k)=\sum\limits_{x'=1}^{\frac ak}\sum\limits_{y'=1}^{\frac bk}1 = \left \lfloor \frac ak \right \rfloor * \left \lfloor\frac bk \right \rfloor" />  
-  
+$F(k)=\sum\limits_{x=1}^a\sum\limits_{y=1}^b[k|gcd(x, y)]$  
+
+为了准确计算所有$[k|gcd(x,y)]=1$的情况  
+我们用$x'=\frac xk,\quad y'=\frac yk$来表示我们枚举的都是k的倍数  
+
+则此时$F(k)=\sum\limits_{x'=1}^{\frac ak}\sum\limits_{y'=1}^{\frac bk}1 = \left \lfloor \frac ak \right \rfloor * \left \lfloor\frac bk  \right \rfloor$  
+
 根据莫比乌斯反演定理得  
-<img src="https://latex.codecogs.com/svg.image?f(k)=\sum\limits_{k|d}\mu(\frac&space;dk)F(d)" title="f(k)=\sum\limits_{k|d}\mu(\frac dk)F(d)" />  
-  
-我们枚举k的倍数，所以设<img src="https://latex.codecogs.com/svg.image?d'=\frac&space;dk,\quad&space;d=d'k" title="d'=\frac dk,\quad d=d'k" />，枚举<img src="https://latex.codecogs.com/svg.image?d'" title="d'" />  
-并设<img src="https://latex.codecogs.com/svg.image?a'=\left&space;\lfloor&space;\frac&space;ak\right&space;\rfloor,b'=\left&space;\lfloor&space;\frac&space;bk\right&space;\rfloor" title="a'=\left \lfloor \frac ak\right \rfloor,b'=\left \lfloor \frac bk\right \rfloor" />  
-  
-则<img src="https://latex.codecogs.com/svg.image?f(k)=\sum\limits_{d'=1}^{min(a',b')}\mu(d')F(d'k)" title="f(k)=\sum\limits_{d'=1}^{min(a',b')}\mu(d')F(d'k)" />   
-  
-<img src="https://latex.codecogs.com/svg.image?\because&space;F(d'k)=&space;\left&space;\lfloor&space;\frac&space;a{d'k}&space;\right&space;\rfloor&space;*&space;\left&space;\lfloor\frac&space;b{d'k}&space;&space;\right&space;\rfloor" title="\because F(d'k)= \left \lfloor \frac a{d'k} \right \rfloor * \left \lfloor\frac b{d'k} \right \rfloor" />  
-   
-则<img src="https://latex.codecogs.com/svg.image?F(d'k)=\left&space;\lfloor&space;\frac&space;{a'}{d'}&space;\right&space;\rfloor&space;*&space;\left&space;\lfloor\frac&space;{b'}{d'}&space;&space;\right&space;\rfloor" title="F(d'k)=\left \lfloor \frac {a'}{d'} \right \rfloor * \left \lfloor\frac {b'}{d'} \right \rfloor" />  
-  
-<img src="https://latex.codecogs.com/svg.image?f(k)=\sum\limits_{d'=1}^{min(a',b')}\mu(d')\left&space;\lfloor&space;\frac&space;{a'}{d'}\right&space;\rfloor\left&space;\lfloor&space;\frac{b'}{d'}\right&space;\rfloor" title="f(k)=\sum\limits_{d'=1}^{min(a',b')}\mu(d')\left \lfloor \frac {a'}{d'}\right \rfloor\left \lfloor \frac{b'}{d'}\right \rfloor" />
-  
+$f(k)=\sum\limits_{k|d}\mu(\frac dk)F(d)$  
+
+我们枚举k的倍数，所以设$d'=\frac dk,\quad d=d'k$，枚举$d'$  
+并设$a'=\left \lfloor \frac ak\right \rfloor,b'=\left \lfloor \frac bk\right \rfloor$  
+
+则$f(k)=\sum\limits_{d'=1}^{min(a',b')}\mu(d')F(d'k)$   
+
+$\because F(d'k)= \left \lfloor \frac a{d'k} \right \rfloor * \left \lfloor\frac b{d'k}  \right \rfloor$  
+
+则$F(d'k)=\left \lfloor \frac {a'}{d'} \right \rfloor * \left \lfloor\frac {b'}{d'}  \right \rfloor$  
+
+$f(k)=\sum\limits_{d'=1}^{min(a',b')}\mu(d')\left \lfloor \frac {a'}{d'}\right \rfloor\left \lfloor \frac{b'}{d'}\right \rfloor$
+
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
 
@@ -830,21 +924,21 @@ CHIVAS_{Mobius();
 <a href="https://www.luogu.com.cn/problem/P3704"><img src="https://i.loli.net/2021/10/29/6Y3v9ZCJsmfwch5.png"></a>
 
 #### 💡
-<img src="https://latex.codecogs.com/svg.image?\begin{aligned}&main(n,m)\\=&\prod\limits_{i=1}^n\prod\limits_{j=1}^mf_{(i,j)}\\=&\prod_{k=1}^{mn}f_k^{\sum\limits_{i=1}^n\sum\limits_{j=1}^m[(i,j)=k]}\\=&\prod\limits_{k=1}^{mn}f_k^{\sum\limits_{d=1}^{\left\lfloor\frac&space;{mn}k\right\rfloor}\mu(d)\left\lfloor\frac&space;{n}{dk}\right\rfloor\left\lfloor\frac&space;{m}{dk}\right\rfloor}\end{aligned}" title="\begin{aligned}&main(n,m)\\=&\prod\limits_{i=1}^n\prod\limits_{j=1}^mf_{(i,j)}\\=&\prod_{k=1}^{mn}f_k^{\sum\limits_{i=1}^n\sum\limits_{j=1}^m[(i,j)=k]}\\=&\prod\limits_{k=1}^{mn}f_k^{\sum\limits_{d=1}^{\left\lfloor\frac {mn}k\right\rfloor}\mu(d)\left\lfloor\frac {n}{dk}\right\rfloor\left\lfloor\frac {m}{dk}\right\rfloor}\end{aligned}" />  
-  
-两个变量换成一个 <img src="https://latex.codecogs.com/svg.image?T=dk,\;k=\frac&space;Td,\;d=\frac&space;Tk" title="T=dk,\;k=\frac Td,\;d=\frac Tk" />  
-  
-<img src="https://latex.codecogs.com/svg.image?=\prod\limits_{k=1}^{mn}f_k^{\sum\limits_{\frac&space;Tk=1}^{mn}\mu(\frac&space;Tk)\left\lfloor\frac&space;mT\right\rfloor\left\lfloor\frac&space;nT\right\rfloor}" title="=\prod\limits_{k=1}^{mn}f_k^{\sum\limits_{\frac Tk=1}^{mn}\mu(\frac Tk)\left\lfloor\frac mT\right\rfloor\left\lfloor\frac nT\right\rfloor}" />  
-  
-指数可以看做 <img src="https://latex.codecogs.com/svg.image?T" title="T" /> 枚举 <img src="https://latex.codecogs.com/svg.image?k" title="k" /> 倍数  
-  
-<img src="https://latex.codecogs.com/svg.image?=\prod\limits_{T=1}^{mn}\prod\limits_{k\mid&space;T}f_k^{\mu(\frac&space;Tk)\left\lfloor\frac&space;mT\right\rfloor\left\lfloor\frac&space;nT\right\rfloor}" title="=\prod\limits_{T=1}^{mn}\prod\limits_{k\mid T}f_k^{\mu(\frac Tk)\left\lfloor\frac mT\right\rfloor\left\lfloor\frac nT\right\rfloor}" />  
-  
-令 <img src="https://latex.codecogs.com/svg.image?g(T)=\prod\limits_{k\mid&space;T}f_k^{\mu(\frac&space;Tk)}" title="g(T)=\prod\limits_{k\mid T}f_k^{\mu(\frac Tk)}" />  
-  
-<img src="https://latex.codecogs.com/svg.image?=\prod\limits_{T=1}^{mn}g(T)^{\left\lfloor\frac&space;mT\right\rfloor\left\lfloor\frac&space;nT\right\rfloor}" title="=\prod\limits_{T=1}^{mn}g(T)^{\left\lfloor\frac mT\right\rfloor\left\lfloor\frac nT\right\rfloor}" />  
-  
-<img src="https://latex.codecogs.com/svg.image?g(T)" title="g(T)" /> 可以预处理，外层数论分块  
+$\begin{aligned}&main(n,m)\\=&\prod\limits_{i=1}^n\prod\limits_{j=1}^mf_{(i,j)}\\=&\prod_{k=1}^{mn}f_k^{\sum\limits_{i=1}^n\sum\limits_{j=1}^m[(i,j)=k]}\\=&\prod\limits_{k=1}^{mn}f_k^{\sum\limits_{d=1}^{\left\lfloor\frac {mn}k\right\rfloor}\mu(d)\left\lfloor\frac {n}{dk}\right\rfloor\left\lfloor\frac {m}{dk}\right\rfloor}\end{aligned}$  
+
+两个变量换成一个 $T=dk,\;k=\frac Td,\;d=\frac Tk$  
+
+$=\prod\limits_{k=1}^{mn}f_k^{\sum\limits_{\frac Tk=1}^{mn}\mu(\frac Tk)\left\lfloor\frac mT\right\rfloor\left\lfloor\frac nT\right\rfloor}$  
+
+指数可以看做 $T$ 枚举 $k$ 倍数  
+
+$=\prod\limits_{T=1}^{mn}\prod\limits_{k\mid T}f_k^{\mu(\frac Tk)\left\lfloor\frac mT\right\rfloor\left\lfloor\frac nT\right\rfloor}$  
+
+令 $g(T)=\prod\limits_{k\mid T}f_k^{\mu(\frac Tk)}$  
+
+$=\prod\limits_{T=1}^{mn}g(T)^{\left\lfloor\frac mT\right\rfloor\left\lfloor\frac nT\right\rfloor}$  
+
+$g(T)$ 可以预处理，外层数论分块  
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
 
@@ -914,27 +1008,27 @@ int main () {
 
  # 🔗
 <a href="https://www.luogu.com.cn/problem/P3768"><img src="https://i.loli.net/2021/11/16/zA7s3d9DSEl8eVx.png"></a>
- 
- # 💡 
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}main(n)=&\sum\limits_{i=1}^n\sum\limits_{j=1}^nij(i,j)\\=&\sum\limits_{k=1}^nk\sum\limits_{i=1}^ni\sum\limits_{j=1}^nj[(i,j)=k]\\=&\sum\limits_{k=1}^nk{\color{red}f(k)}\end{aligned}" title="\inline \begin{aligned}main(n)=&\sum\limits_{i=1}^n\sum\limits_{j=1}^nij(i,j)\\=&\sum\limits_{k=1}^nk\sum\limits_{i=1}^ni\sum\limits_{j=1}^nj[(i,j)=k]\\=&\sum\limits_{k=1}^nk{\color{red}f(k)}\end{aligned}" />     
-  
-**莫比乌斯反演**一下  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;f(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^n[(i,j)=k]" title="\inline f(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^n[(i,j)=k]" /> 
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}F(k)=&\sum\limits_{i=1}^n\sum\limits_{j=1}^n[k\mid(i,j)]\\=&\sum\limits_{i=1}^{\frac&space;nk}ik\sum\limits_{j=1}^{\frac&space;nk}jk\\=&k^2(\frac{(1+\frac&space;nk)\frac&space;nk}2)^2\end{aligned}" title="\inline \begin{aligned}F(k)=&\sum\limits_{i=1}^n\sum\limits_{j=1}^n[k\mid(i,j)]\\=&\sum\limits_{i=1}^{\frac nk}ik\sum\limits_{j=1}^{\frac nk}jk\\=&k^2(\frac{(1+\frac nk)\frac nk}2)^2\end{aligned}" />   
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}\therefore&space;f(k)=&\sum\limits_{d=1}^n\mu(\frac&space;dk)F(d)\\=&\sum\limits_{d=1}^{\frac&space;nk}\mu(d)F(dk)\\=&\sum\limits_{d=1}^{\frac&space;nk}\mu(d)(dk)^2(\frac{(1+\frac&space;n{dk})\frac&space;n{dk}}2)^2\\=&\sum\limits_{d=1}^{\frac&space;nk}\mu(d)(dk)^2{\color{red}sum(\frac&space;n{dk})}^2\end{aligned}" title="\inline \begin{aligned}\therefore f(k)=&\sum\limits_{d=1}^n\mu(\frac dk)F(d)\\=&\sum\limits_{d=1}^{\frac nk}\mu(d)F(dk)\\=&\sum\limits_{d=1}^{\frac nk}\mu(d)(dk)^2(\frac{(1+\frac n{dk})\frac n{dk}}2)^2\\=&\sum\limits_{d=1}^{\frac nk}\mu(d)(dk)^2{\color{red}sum(\frac n{dk})}^2\end{aligned}" />    
- <img src="https://latex.codecogs.com/svg.image?\inline&space;main(n)=\sum\limits_{k=1}^nk\sum\limits_{d=1}^{\frac&space;nk}\mu(d)(dk)^2sum(\frac&space;n{dk})^2" title="\inline main(n)=\sum\limits_{k=1}^nk\sum\limits_{d=1}^{\frac nk}\mu(d)(dk)^2sum(\frac n{dk})^2" />   
-令  <img src="https://latex.codecogs.com/svg.image?\inline&space;T=dk" title="\inline T=dk" />   
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}main(n)=&\sum\limits_{k=1}^nk\sum\limits_{\frac&space;Tk=1}^{\frac&space;nk}\mu(\frac&space;Tk)T^2sum(\frac&space;nT)^2\\=&\sum\limits_{T=1}^nT^2sum(\frac&space;nT)\sum\limits_{k|T}k\mu(\frac&space;Tk)\end{aligned}" title="\inline \begin{aligned}main(n)=&\sum\limits_{k=1}^nk\sum\limits_{\frac Tk=1}^{\frac nk}\mu(\frac Tk)T^2sum(\frac nT)^2\\=&\sum\limits_{T=1}^nT^2sum(\frac nT)\sum\limits_{k|T}k\mu(\frac Tk)\end{aligned}" />    
-  
-对于  <img src="https://latex.codecogs.com/svg.image?\inline&space;\sum\limits_{k|T}k\mu(\frac&space;Tk)" title="\inline \sum\limits_{k|T}k\mu(\frac&space;Tk)" />  这部分，应该很感性地认识到这是狄利克雷卷积里的性质  
-那么直接
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}&\sum\limits_{k|T}k\mu(\frac&space;Tk)\\=&(\mu*Id)(T)\\=&\phi(T)\end{aligned}" title="\inline \begin{aligned}&\sum\limits_{k|T}k\mu(\frac&space;Tk)\\=&(\mu*Id)(T)\\=&\phi(T)\end{aligned}" /> 
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\therefore&space;main(n)=\sum\limits_{T=1}^nT^2sum(\frac&space;nT)\phi(T)" title="\inline \therefore main(n)=\sum\limits_{T=1}^nT^2sum(\frac nT)\phi(T)" />   
-  
-注意到  <img src="https://latex.codecogs.com/svg.image?\inline&space;T^2" title="\inline T^2" />  不可数论分块相等  
-所以我们考虑与  <img src="https://latex.codecogs.com/svg.image?\inline&space;\phi(T)" title="\inline \phi(T)" />  放在一起进行杜教筛
 
- 
+ # 💡 
+ $\begin{aligned}main(n)=&\sum\limits_{i=1}^n\sum\limits_{j=1}^nij(i,j)\\=&\sum\limits_{k=1}^nk\sum\limits_{i=1}^ni\sum\limits_{j=1}^nj[(i,j)=k]\\=&\sum\limits_{k=1}^nk{\color{red}f(k)}\end{aligned}$     
+
+**莫比乌斯反演**一下  
+ $f(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^n[(i,j)=k]$ 
+ $\begin{aligned}F(k)=&\sum\limits_{i=1}^n\sum\limits_{j=1}^n[k\mid(i,j)]\\=&\sum\limits_{i=1}^{\frac nk}ik\sum\limits_{j=1}^{\frac nk}jk\\=&k^2(\frac{(1+\frac nk)\frac nk}2)^2\end{aligned}$   
+ $\begin{aligned}\therefore f(k)=&\sum\limits_{d=1}^n\mu(\frac dk)F(d)\\=&\sum\limits_{d=1}^{\frac nk}\mu(d)F(dk)\\=&\sum\limits_{d=1}^{\frac nk}\mu(d)(dk)^2(\frac{(1+\frac n{dk})\frac n{dk}}2)^2\\=&\sum\limits_{d=1}^{\frac nk}\mu(d)(dk)^2{\color{red}sum(\frac n{dk})}^2\end{aligned}$    
+ $main(n)=\sum\limits_{k=1}^nk\sum\limits_{d=1}^{\frac nk}\mu(d)(dk)^2sum(\frac n{dk})^2$   
+令  $T=dk$   
+ $\begin{aligned}main(n)=&\sum\limits_{k=1}^nk\sum\limits_{\frac Tk=1}^{\frac nk}\mu(\frac Tk)T^2sum(\frac nT)^2\\=&\sum\limits_{T=1}^nT^2sum(\frac nT)\sum\limits_{k|T}k\mu(\frac Tk)\end{aligned}$    
+
+对于  $\sum\limits_{k|T}k\mu(\frac Tk)$  这部分，应该很感性地认识到这是狄利克雷卷积里的性质  
+那么直接
+ $\begin{aligned}&\sum\limits_{k|T}k\mu(\frac Tk)\\=&(\mu*Id)(T)\\=&\phi(T)\end{aligned}$ 
+ $\therefore main(n)=\sum\limits_{T=1}^nT^2sum(\frac nT)\phi(T)$   
+
+注意到  $T^2$  不可数论分块相等  
+所以我们考虑与  $\phi(T)$  放在一起进行杜教筛
+
+
  # <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
 
  ```cpp
@@ -993,7 +1087,7 @@ int main () {
         cout << res << endl;
 }
  ```
- 
+
 
 <hr>
 
@@ -1004,16 +1098,16 @@ int main () {
 
 #### 💡
 先变一下柿子  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}&\sum\limits_{i=1}^n\sum\limits_{j=1}^nlcm(a_i,a_j)\\=&\sum\limits_{i=1}^n\sum\limits_{j=1}^na_ia_j\frac1{(a_i,a_j)}\\=&\sum\limits_{k=1}^{mx}\frac&space;1k\sum\limits_{i=1}^n\sum\limits_{j=1}^na_ia_j[(a_i,a_j)=k]\\=&\sum\limits_{k=1}^{mx}\frac&space;1kf(k)\end{aligned}" title="\inline \begin{aligned}&\sum\limits_{i=1}^n\sum\limits_{j=1}^nlcm(a_i,a_j)\\=&\sum\limits_{i=1}^n\sum\limits_{j=1}^na_ia_j\frac1{(a_i,a_j)}\\=&\sum\limits_{k=1}^{mx}\frac 1k\sum\limits_{i=1}^n\sum\limits_{j=1}^na_ia_j[(a_i,a_j)=k]\\=&\sum\limits_{k=1}^{mx}\frac 1kf(k)\end{aligned}" />   
+ $\begin{aligned}&\sum\limits_{i=1}^n\sum\limits_{j=1}^nlcm(a_i,a_j)\\=&\sum\limits_{i=1}^n\sum\limits_{j=1}^na_ia_j\frac1{(a_i,a_j)}\\=&\sum\limits_{k=1}^{mx}\frac 1k\sum\limits_{i=1}^n\sum\limits_{j=1}^na_ia_j[(a_i,a_j)=k]\\=&\sum\limits_{k=1}^{mx}\frac 1kf(k)\end{aligned}$   
 接下来就是感性的莫反  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;F(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^na_ia_j[k|(a_i,a_j)]" title="\inline F(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^na_ia_j[k|(a_i,a_j)]" />   
-可以发现这个  <img src="https://latex.codecogs.com/svg.image?\inline&space;F(k)" title="\inline F(k)" />  是可以通过埃氏筛预处理出来的  
+ $F(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^na_ia_j[k|(a_i,a_j)]$   
+可以发现这个  $F(k)$  是可以通过埃氏筛预处理出来的  
 那么就直接   
-<img src="https://latex.codecogs.com/svg.image?\inline&space;f(k)=\sum\limits_{d=1}^{\frac&space;Nk}\mu(d)F(dk)" title="\inline f(k)=\sum\limits_{d=1}^{\frac Nk}\mu(d)F(dk)" />   
+$f(k)=\sum\limits_{d=1}^{\frac Nk}\mu(d)F(dk)$   
 则原柿就是  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\sum\limits_{k=1}^N\frac 1k\sum\limits_{d=1}^{\frac Nk}\mu(d)F(dk)" title="\inline =\sum\limits_{k=1}^N\frac 1k\sum\limits_{d=1}^{\frac Nk}\mu(d)F(dk)" />   
-  
-发现线性增长的  <img src="https://latex.codecogs.com/svg.image?\inline&space;k" title="\inline k" />  对应的  <img src="https://latex.codecogs.com/svg.image?\inline&space;T" title="\inline T" />  的范围递减得很快  
+ $\sum\limits_{k=1}^N\frac 1k\sum\limits_{d=1}^{\frac Nk}\mu(d)F(dk)$   
+
+发现线性增长的  $k$  对应的  $T$  的范围递减得很快  
 所以直接暴力就行了  
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
@@ -1068,21 +1162,165 @@ int main () {
 
 <hr>
 
+## 洛谷P4619_旧试题
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P4619">![20220414144100](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220414144100.png)</a>
+
+#### 💡
+拆法与 [洛谷P3327_约数个数和](#洛谷p3327_约数个数和) 类似  
+$\begin{aligned}
+&\sum\limits_{i=1}^A\sum\limits_{j=1}^B\sum\limits_{k=1}^Cd(ijk)\\
+=&\sum\limits_{i=1}^A\sum\limits_{j=1}^B\sum\limits_{k=1}^C\sum\limits_{a|i}\sum\limits_{b|j}\sum\limits_{c|k}[(a,b)=1][(a,c)=1][(b,c)=1]\\
+=&\sum\limits_{a=1}^A\left\lfloor\frac Aa\right\rfloor\sum\limits_{b=1}^B\left\lfloor\frac Bb\right\rfloor\sum\limits_{c=1}^C\left\lfloor\frac Cc\right\rfloor[(a,b)=1][(a,c)=1][(b,c)=1]\\
+=&\sum\limits_{a=1}^A\left\lfloor\frac Aa\right\rfloor\sum\limits_{b=1}^B\left\lfloor\frac Bb\right\rfloor\sum\limits_{c=1}^C\left\lfloor\frac Cc\right\rfloor\sum\limits_{x|(a,b)}\mu(x)\sum\limits_{y|(a,c)}\mu(y)\sum\limits_{z|(b,c)}\mu(z)\\
+=&\sum\limits_{x=1}^{min(A,B)}\mu(x)\sum\limits_{y=1}^{min(A,C)}\mu(y)\sum\limits_{z=1}^{min(B,C)}\mu(z)\sum\limits_{[x,y]|a}\left\lfloor\frac Aa\right\rfloor\sum\limits_{[x,z]|b}\left\lfloor\frac Bb\right\rfloor\sum\limits_{[y,z]|c}\left\lfloor\frac Cc\right\rfloor
+\end{aligned}$   
+后面的 $\sum\limits_{[x,y]|a}\left\lfloor\frac Aa\right\rfloor$ 可以通过 $O(nlogn)$ 预处理出来  
+令  
+$f_a[x]=\sum\limits_{x|i}\left\lfloor\frac Ax\right\rfloor$  
+$f_b[x]=\sum\limits_{x|i}\left\lfloor\frac Bx\right\rfloor$  
+$f_c[x]=\sum\limits_{x|i}\left\lfloor\frac Cx\right\rfloor$  
+则原式  
+$=\sum\limits_{x=1}^{min(A,B)}\mu(x)\sum\limits_{y=1}^{min(A,C)}\mu(y)\sum\limits_{z=1}^{min(B,C)}\mu(z)f_a([x,y])f_b([x,z])f_c([y,z])$  
+    
+这样的话硬枚举依旧是 $O(n^3)$  
+但是硬枚举的话也能想到用 $mu[x]\neq 0$ 以及 $[x,y]\le A$ 这样去剪枝  
+那么可以开一波 <b>三元环</b> 优化   
+在统计完 $a=b=c$ 以及 $a=b\;\or\;a=c\;\or\;b=c$ 后  
+利用 $\mu[u]\neq 0,\mu[v]\neq 0,[u,v]\le \max(A,B,C)$ 建边  
+权值设置为 $[u,v]$   
+然后跑一下三元环计数即可，时间降为 $O(m\sqrt m)$ ，$m$ 不会很大  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 5e5 + 10;
+
+namespace Number {
+        bool ntp[N];
+        vector<int> prime;
+        int mu[N];
+        inline void Sieve () {
+                mu[1] = ntp[0] = ntp[1] = 1;
+                for (int i = 2; i < N; i ++) {
+                        if (!ntp[i]) prime.push_back(i), mu[i] = -1;
+                        for (int j = 0; j < prime.size() && i * prime[j] < N; j ++) {
+                                ntp[i * prime[j]] = 1;
+                                if (i % prime[j] == 0) break;
+                                mu[i * prime[j]] = -mu[i];
+                        }
+                }
+        }
+} using namespace Number;
+
+const int M = 1e7 + 10;
+struct Edge {
+        int nxt, to;
+        int val;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge (int from, int to, int val) {
+        edge[++cnt] = {head[from], to, val};
+        head[from] = cnt;
+}
+
+inline int gcd (int a, int b) { return b ? gcd(b, a % b) : a; }
+
+inline void Solve () {
+        int A, B, C; cin >> A >> B >> C;
+
+        int mx = max({A, B, C}), mn = min({A, B, C});
+        for (int i = 1; i <= mx; i ++) head[i] = 0; cnt = 0;
+        vector<ll> fa(mx + 1, 0), fb(mx + 1, 0), fc(mx + 1, 0);
+        for (int x = 1; x <= A; x ++) for (int i = x; i <= A; i += x) fa[x] += A / i;
+        for (int x = 1; x <= B; x ++) for (int i = x; i <= B; i += x) fb[x] += B / i;
+        for (int x = 1; x <= C; x ++) for (int i = x; i <= C; i += x) fc[x] += C / i;
+
+        ll res = 0;
+
+        for (int i = 1; i <= mn; i ++) if (mu[i]) res += mu[i] * mu[i] * mu[i] * fa[i] * fb[i] * fc[i];
+
+        vector<tuple<int, int, int> > graph;
+        vector<int> deg(mx + 1, 0);
+        for (int g = 1; g <= mx; g ++) {
+                for (int i = 1; 1ll * i * g <= mx; i ++) {
+                        if (!mu[i * g]) continue;
+                        for (int j = i + 1; 1ll * i * j * g <= mx; j ++) {
+                                if (!mu[i * j * g]) continue;
+                                if (gcd(i, j) != 1) continue;
+                                int u = i * g, v = j * g, lcm = i * j * g;
+                                res += mu[v] * mu[v] * mu[u] * (fa[v] * fb[lcm] * fc[lcm] + fa[lcm] * fb[v] * fc[lcm] + fa[lcm] * fb[lcm] * fc[v]);
+                                res += mu[u] * mu[u] * mu[v] * (fa[u] * fb[lcm] * fc[lcm] + fa[lcm] * fb[u] * fc[lcm] + fa[lcm] * fb[lcm] * fc[u]);
+                                deg[u] ++; deg[v] ++;
+                                graph.push_back({u, v, lcm});                               
+                        }
+                }
+        }
+
+        for (auto [u, v, w] : graph) {
+                if (deg[u] > deg[v]) {
+                        add_Edge(u, v, w);
+                } else if (deg[u] == deg[v]) {
+                        add_Edge(min(u, v), max(u, v), w);
+                } else {
+                        add_Edge(v, u, w);
+                }
+        }
+        vector<int> vis(mx + 1, 0);
+        for (int a = 1; a <= mx; a ++) {
+                for (int i = head[a]; i; i = edge[i].nxt) vis[edge[i].to] = edge[i].val;
+                for (int i = head[a]; i; i = edge[i].nxt) {
+                        int b = edge[i].to;
+                        int val1 = edge[i].val;
+                        for (int j = head[b]; j; j = edge[j].nxt) {
+                                int c = edge[j].to;
+                                int val2 = edge[j].val;
+                                if (vis[c]) {
+                                        int val3 = vis[c];
+                                        res += mu[a] * mu[b] * mu[c] * (
+                                                fa[val1] * fb[val2] * fc[val3] + 
+                                                fa[val1] * fb[val3] * fc[val2] +
+                                                fa[val2] * fb[val1] * fc[val3] + 
+                                                fa[val2] * fb[val3] * fc[val1] +
+                                                fa[val3] * fb[val1] * fc[val2] + 
+                                                fa[val3] * fb[val2] * fc[val1]
+                                        );
+                                }
+                        }
+                }
+                for (int i = head[a]; i; i = edge[i].nxt) vis[edge[i].to] = 0;
+        }
+
+        cout << res % 1000000007 << endl;
+}
+
+int main () {
+        Sieve();
+        ios::sync_with_stdio(false);
+        int cass; cin >> cass; while (cass --) {
+                Solve();
+        }
+}
+```
+<hr>
+
+
 ## 洛谷P6055_GCD
 
 #### 🔗
 <a href="https://www.luogu.com.cn/problem/P6055"><img src="https://i.loli.net/2021/10/23/SgjYq5Xhl9AiJaH.png"></a>
 
 #### 💡
-<img src="https://latex.codecogs.com/svg.image?\begin{aligned}&\sum\limits_{i=1}^N\sum\limits_{j=1}^N\sum\limits_{p=1}^{\left&space;\lfloor&space;\frac&space;Nj\right&space;\rfloor}\sum\limits_{q=1}^{\left&space;\lfloor&space;\frac&space;Nj\right&space;\rfloor}[gcd(i,j)=1][gcd(p,q)=1]\\=&\sum\limits_{i=1}^N\sum\limits_{j=1}^N\sum\limits_{p=1}^N\sum\limits_{q=1}^N[gcd(i,j)=1]j[gcd(p,q)=j]\\=&\sum\limits_{i=1}^N\sum\limits_{p=1}^N\sum\limits_{q=1}^N[gcd(i,p,q)=1]\end{aligned}" title="\begin{aligned}&\sum\limits_{i=1}^N\sum\limits_{j=1}^N\sum\limits_{p=1}^{\left \lfloor \frac Nj\right \rfloor}\sum\limits_{q=1}^{\left \lfloor \frac Nj\right \rfloor}[gcd(i,j)=1][gcd(p,q)=1]\\=&\sum\limits_{i=1}^N\sum\limits_{j=1}^N\sum\limits_{p=1}^N\sum\limits_{q=1}^N[gcd(i,j)=1]j[gcd(p,q)=j]\\=&\sum\limits_{i=1}^N\sum\limits_{p=1}^N\sum\limits_{q=1}^N[gcd(i,p,q)=1]\end{aligned}" />  
-令<img src="https://latex.codecogs.com/svg.image?f(k)=\sum\limits_{i=1}^N\sum\limits_{p=1}^N\sum\limits_{q=1}^N[gcd(i,p,q)=k]" title="f(k)=\sum\limits_{i=1}^N\sum\limits_{p=1}^N\sum\limits_{q=1}^N[gcd(i,p,q)=k]" />  
-<img src="https://latex.codecogs.com/svg.image?F(k)=\sum\limits_{i=1}^N\sum\limits_{p=1}^N\sum\limits_{q=1}^N[k|gcd(i,p,q)]" title="F(k)=\sum\limits_{i=1}^N\sum\limits_{p=1}^N\sum\limits_{q=1}^N[k|gcd(i,p,q)]" />  
-设<img src="https://latex.codecogs.com/svg.image?i'=\frac&space;ik,p'=\frac&space;pk,q'=\frac&space;qk" title="i'=\frac ik,p'=\frac pk,q'=\frac qk" />进行枚举倍数  
-则<img src="https://latex.codecogs.com/svg.image?\begin{aligned}F(k)=\sum\limits_{i'=1}^{\left&space;\lfloor&space;\frac&space;Nk\right&space;\rfloor}\sum\limits_{p'=1}^{\left&space;\lfloor&space;\frac&space;Nk\right&space;\rfloor}\sum\limits_{q'=1}^{\left&space;\lfloor&space;\frac&space;Nk\right&space;\rfloor}1=\left&space;\lfloor&space;\frac&space;Nk\right&space;\rfloor^3\end{aligned}" title="\begin{aligned}F(k)=\sum\limits_{i'=1}^{\left \lfloor \frac Nk\right \rfloor}\sum\limits_{p'=1}^{\left \lfloor \frac Nk\right \rfloor}\sum\limits_{q'=1}^{\left \lfloor \frac Nk\right \rfloor}1=\left \lfloor \frac Nk\right \rfloor^3\end{aligned}" />  
-根据<img src="https://latex.codecogs.com/svg.image?f(k)=\sum\limits_{k\mid&space;d}\mu(\frac&space;dk)F(d)" title="f(k)=\sum\limits_{k\mid d}\mu(\frac dk)F(d)" />  
-设<img src="https://latex.codecogs.com/svg.image?d'=\frac&space;dk,d=d'k" title="d'=\frac dk,d=d'k" />枚举倍数  
-<img src="https://latex.codecogs.com/svg.image?f(k)=\sum\limits_{d'=1}^{\left&space;\lfloor&space;\frac&space;Nk\right&space;\rfloor}\mu(d')F(d'k)=\sum\limits_{d'=1}^{\left&space;\lfloor&space;\frac&space;Nk\right&space;\rfloor}\mu(d')\left&space;\lfloor&space;\frac&space;N{d'k}\right&space;\rfloor^3" title="f(k)=\sum\limits_{d'=1}^{\left \lfloor \frac Nk\right \rfloor}\mu(d')F(d'k)=\sum\limits_{d'=1}^{\left \lfloor \frac Nk\right \rfloor}\mu(d')\left \lfloor \frac N{d'k}\right \rfloor^3" />  
-本题让求<img src="https://latex.codecogs.com/svg.image?f(1)=\sum\limits_{d'=1}^N\mu(d')\left&space;\lfloor&space;\frac&space;N{d'}\right&space;\rfloor^3" title="f(1)=\sum\limits_{d'=1}^N\mu(d')\left \lfloor \frac N{d'}\right \rfloor^3" />  
+$\begin{aligned}&\sum\limits_{i=1}^N\sum\limits_{j=1}^N\sum\limits_{p=1}^{\left \lfloor \frac Nj\right \rfloor}\sum\limits_{q=1}^{\left \lfloor \frac Nj\right \rfloor}[gcd(i,j)=1][gcd(p,q)=1]\\=&\sum\limits_{i=1}^N\sum\limits_{j=1}^N\sum\limits_{p=1}^N\sum\limits_{q=1}^N[gcd(i,j)=1]j[gcd(p,q)=j]\\=&\sum\limits_{i=1}^N\sum\limits_{p=1}^N\sum\limits_{q=1}^N[gcd(i,p,q)=1]\end{aligned}$  
+令$f(k)=\sum\limits_{i=1}^N\sum\limits_{p=1}^N\sum\limits_{q=1}^N[gcd(i,p,q)=k]$  
+$F(k)=\sum\limits_{i=1}^N\sum\limits_{p=1}^N\sum\limits_{q=1}^N[k|gcd(i,p,q)]$  
+设$i'=\frac ik,p'=\frac pk,q'=\frac qk$进行枚举倍数  
+则$\begin{aligned}F(k)=\sum\limits_{i'=1}^{\left \lfloor \frac Nk\right \rfloor}\sum\limits_{p'=1}^{\left \lfloor \frac Nk\right \rfloor}\sum\limits_{q'=1}^{\left \lfloor \frac Nk\right \rfloor}1=\left \lfloor \frac Nk\right \rfloor^3\end{aligned}$  
+根据$f(k)=\sum\limits_{k\mid d}\mu(\frac dk)F(d)$  
+设$d'=\frac dk,d=d'k$枚举倍数  
+$f(k)=\sum\limits_{d'=1}^{\left \lfloor \frac Nk\right \rfloor}\mu(d')F(d'k)=\sum\limits_{d'=1}^{\left \lfloor \frac Nk\right \rfloor}\mu(d')\left \lfloor \frac N{d'k}\right \rfloor^3$  
+本题让求$f(1)=\sum\limits_{d'=1}^N\mu(d')\left \lfloor \frac N{d'}\right \rfloor^3$  
 那么公式出来了，剩下的就是杜教筛数论分块乱搞了  
 
 
@@ -1140,18 +1378,18 @@ int main () {
 <a href="https://codeforces.com/gym/102800/attachments"><img src="https://i.loli.net/2021/11/11/Vj3r1pPbgXq4nN5.png"></a>
 
 #### 💡
-题目大意是给定一个序列  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{a\}" title="\inline \{a\}" />   
-每一次询问给定一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" />  
-问  <img src="https://latex.codecogs.com/svg.image?\inline&space;\sum\limits_{i=1}^n\sum\limits_{j=1}^n[(a_i,a_j)=x]" title="\inline \sum\limits_{i=1}^n\sum\limits_{j=1}^n[(a_i,a_j)=x]" />   
-我们可以感性地想到这一题  <img src="https://latex.codecogs.com/svg.image?\inline&space;\sum\limits_{i=1}^n\sum\limits_{j=1}^n[(i,j)=k]" title="\inline \sum\limits_{i=1}^n\sum\limits_{j=1}^n[(i,j)=k]" />  
-想到我们后面在处理  <img src="https://latex.codecogs.com/svg.image?\inline&space;F(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^n[k\mid(i,j)]" title="\inline F(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^n[k\mid(i,j)]" /> 时使用的是让  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 和  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> 都是枚举的是  <img src="https://latex.codecogs.com/svg.image?\inline&space;k" title="\inline k" /> 的倍数  
-从而得到  <img src="https://latex.codecogs.com/svg.image?\inline&space;F(k)=\left\lfloor\frac&space;nk\right\rfloor^2" title="\inline F(k)=\left\lfloor\frac&space;nk\right\rfloor^2" />  
-其实也就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" /> 以下  <img src="https://latex.codecogs.com/svg.image?\inline&space;k" title="\inline k" /> 的倍数个数的平方  
+题目大意是给定一个序列  $\{a\}$   
+每一次询问给定一个  $x$  
+问  $\sum\limits_{i=1}^n\sum\limits_{j=1}^n[(a_i,a_j)=x]$   
+我们可以感性地想到这一题  $\sum\limits_{i=1}^n\sum\limits_{j=1}^n[(i,j)=k]$  
+想到我们后面在处理  $F(k)=\sum\limits_{i=1}^n\sum\limits_{j=1}^n[k\mid(i,j)]$ 时使用的是让  $i$ 和  $j$ 都是枚举的是  $k$ 的倍数  
+从而得到  $F(k)=\left\lfloor\frac nk\right\rfloor^2$  
+其实也就是  $n$ 以下  $k$ 的倍数个数的平方  
 而我们此时也可以使用这个  
-我们预处理一个数组  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{A\}" title="\inline \{A\}" /> ，其中  <img src="https://latex.codecogs.com/svg.image?\inline&space;A[i]" title="\inline A[i]" /> 表示对于  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{a\}" title="\inline \{a\}" /> 中是  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 倍数的个数  
-这个可以通过对  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{a\}" title="\inline \{a\}" />  埃氏筛  <img src="https://latex.codecogs.com/svg.image?\inline&space;O(nlogn)" title="\inline O(nlogn)" /> 地得到  
-那么我们的  <img src="https://latex.codecogs.com/svg.image?\inline&space;F(k)=A[k]^2" title="\inline F(k)=A[k]^2" />   
- <img src="https://latex.codecogs.com/svg.image?\inline&space;f(k)=\sum\limits_{d=1}^{\left\lfloor\frac&space;mk\right\rfloor}\mu(d)A[d\times&space;k]^2" title="\inline&space;f(k)=\sum\limits_{d=1}^{\left\lfloor\frac&space;mk\right\rfloor}\mu(d)A[d\times&space;k]^2" />  
+我们预处理一个数组  $\{A\}$ ，其中  $A[i]$ 表示对于  $\{a\}$ 中是  $i$ 倍数的个数  
+这个可以通过对  $\{a\}$  埃氏筛  $O(nlogn)$ 地得到  
+那么我们的  $F(k)=A[k]^2$   
+ $f(k)=\sum\limits_{d=1}^{\left\lfloor\frac mk\right\rfloor}\mu(d)A[d\times k]^2$  
  然后什么都不用，暴力跑一遍这个式子就行了  
 
 
