@@ -165,7 +165,7 @@ $(1)\\\begin{aligned}mian(n,m)=&\sum\limits_{i=1}^n\sum\limits_{j=1}^mlcm(i,j)\\
 
 $i'=\frac ik,\;j'=\frac jk$  
 
-${\color{red}main(n,m)}=\sum\limits_{k=1}^{mn}k\sum\limits_{i'=1}^{\left\lfloor\frac nk\right\rfloor}\sum\limits_{j'=1}^{\left\lfloor\frac mk\right\rfloor}i'\times j'\times [(i',j')=1]{\color{red}=\sum\limits_{k=1}^{mn}solve(\left\lfloor\frac nk\right\rfloor,\left\lfloor\frac mk\right\rfloor)}$   
+${\color{red}main(n,m)}=\sum\limits_{k=1}^{mn}\sum\limits_{i'=1}^{\left\lfloor\frac nk\right\rfloor}\sum\limits_{j'=1}^{\left\lfloor\frac mk\right\rfloor}i'\times j'\times [(i',j')=1]{\color{red}=\sum\limits_{k=1}^{mn}solve(\left\lfloor\frac nk\right\rfloor,\left\lfloor\frac mk\right\rfloor)}$   
 
 $(2)\\solve(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^mi\times j\times [gcd(i,j)=1]$
 
