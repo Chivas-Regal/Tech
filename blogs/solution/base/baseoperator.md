@@ -357,3 +357,87 @@ inline void Solve() {
 }
 ```
 <hr>
+
+## CodeForces1659E_AND-MEXWalk
+
+#### 🔗
+<a href="https://codeforces.com/contest/1659/problem/E">![20220419130802](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220419130802.png)</a>
+
+#### 💡
+首先从样例中猜测答案不会大于 $2$ ，证明一下发现在与操作中，$10_2$ 是不可能变成一个完全相反的数的即 $01_2$，那么也就是说 $1$ 和 $2$ 不会同时出现在数列的前缀与中的  
+  
+那么答案就变成了三种情况： $0,1,2$   
+<b>首先看一下 $0$ 的情况：</b>  
+考虑一下与操作的特性：全 $1$ 则 $1$ ，否则为 $0$   
+要想为 $0$ ，首先保证最后一个数不为 $0$   
+这也就意味着必须要有一位从头到尾都出现  
+这个判断可以通过对每一位维护一个连通块，如果存在一位的连通块能把 $u,v$ 都连接起来，就说明答案为 $0$   
+<b>然后看一下 $1$ 的情况：</b>  
+这就是说我们要从一个大于 $1$ 的数直接跳到 $0$   
+可以在不为 $1$ 的时候通过一个偶数将第 $0$ 位关闭  
+这个就意味着我们在遇见第一个偶数的时候，答案还不为 $0$   
+化简一下任务，也就是说我们在存在除了第 $0$ 位以外别的位为 $1$ 的时候，突然出现一个偶数把第 $0$ 位为 $1$ 的可能性关闭了    
+这样可以先标记一下哪些点的邻边为偶数  
+然后用这些点去标记除了 $0$ 位之外每一位连通块中的每一个点（其实就更新该连通块内的首点即可）  
+意味着这些点完全可以走到我们一开始标记的点来关闭掉出现 $1$ 的可能性，然后再继续它的任务走到 $v$     
+<b>除此之外也就是 $2$ 了</b>  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+
+struct DSU {
+        std::vector<int> f;
+        DSU (int n) : f(n) { std::iota(f.begin(), f.end(), 0); }
+        inline int leader (int x) { return x == f[x] ? x : f[x] = leader(f[x]); }
+        inline bool same (int x, int y) { return leader(x) == leader(y); }
+        inline void merge (int x, int y) {
+                x = leader(x);
+                y = leader(y);
+                if (x == y) return;
+                f[y] = x;
+        }
+};
+
+int main () {
+        std::ios::sync_with_stdio(false);
+        std::cin.tie(nullptr);
+
+        int n, m; std::cin >> n >> m;
+
+        std::vector dsu(30, DSU(n + 1));
+        std::vector near_eve(n + 1, false);
+
+        for (int i = 0; i < m; i ++) {
+                int u, v, w; std::cin >> u >> v >> w;
+                if (w % 2 == 0) {
+                        near_eve[u] = near_eve[v] = true;
+                }
+                for (int j = 0; j < 30; j ++) {
+                        if (w >> j & 1) {
+                                dsu[j].merge(u, v);
+                        }
+                }
+        }
+
+        std::vector close0(30, std::vector<bool>(n + 1));
+        for (int i = 1; i <= n; i ++) {
+                if (near_eve[i]) {
+                        for (int j = 1; j < 30; j ++) {
+                                close0[j][dsu[j].leader(i)] = true;
+                        }
+                }
+        }
+
+        int q; std::cin >> q;
+        while (q --) {
+                int u, v; std::cin >> u >> v;
+                int res = 2;
+                for (int i = 0; i < 30; i ++) if (dsu[i].same(u, v)) res = std::min(res, 0);
+                for (int i = 1; i < 30; i ++) if (close0[i][dsu[i].leader(u)]) res = std::min(res, 1);
+                std::cout << res << "\n";
+        }
+}
+```
+<hr>
+
