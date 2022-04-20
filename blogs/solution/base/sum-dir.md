@@ -659,6 +659,36 @@ int main () {
 }
 ```
 
+
+## CodeForces1634F_FibonacciAdditions
+
+#### 🔗
+<a href="https://codeforces.com/contest/1634/problem/F">![20220420202813](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220420202813.png)</a>
+
+#### 💡
+让两数相同也就是差为 $0$ ，那么令 $c_i=a_i-b_i$     
+  
+只要让所有的 $c_i$ 都满足 $c_i=0$ 即可   
+区间加可以联想到线段树 $O(logn)$ 或者差分数值的 $O(1)$ 的修改方式   
+考虑如果不是区间加 $fibonacci$ ，而是区间加一个固定的数，那么只要让 $c_i$ 的差分数组都为 $0$ 就行    
+
+朴素差分下 $d_i=c_i-c_{i-1}$    
+而由于这个区间加的是 $fibonacci$ 如果还按朴素的差分了话，我们每一个位置都要修改（那恭喜你白差分了！）    
+所以要考虑一种更为方便的差分形式   
+关注一波 $fibonacci$ 的公式：$fibo_i=fibo_{i-1}+fibo_{i-2}$  
+需要一种方式，在区间修改后，区间内部的 $d$ 是不变的   
+那么让 $d_i=c_i-c_{i-1}-c_{i-2}$  
+
+ 
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+
+```
+<hr>
+
+
 ## CodeForces1638C_InversionGraph
 
 #### 🔗
