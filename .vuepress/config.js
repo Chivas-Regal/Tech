@@ -51,6 +51,12 @@ module.exports = {
           duration: 1250
         }
       ],
+      [
+        'sitemap',
+        {
+          hostname: 'https://tech.chivas-regal.top/'
+        }
+      ]
   ],
   theme: 'reco',
   sidebarDepth: 3,
