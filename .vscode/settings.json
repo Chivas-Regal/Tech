@@ -2,4 +2,5 @@
     "editor.fontSize": 16,
     "editor.fontFamily": "fira code",
     "editor.cursorStyle": "block",
+    "editor.tabSize": 8
 }
