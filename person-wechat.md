@@ -1,4 +1,4 @@
 <img style="
-    weight: 30%;
-    margin-left: 35%;
-" src="/.vuepress/public/person-wechat.png">
+    weight: 50%;
+" src="https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/person_wechat.png">  
+  

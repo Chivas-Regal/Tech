@@ -24,6 +24,7 @@ title: 指南
 由作者在做题时选出的较好的题目进行收录与编写题解  
 - 思维度较高
 - 算法应用度广泛
+- 具有一定的启发性
 
 点开一个算法文档后，右侧的目录即为题单  
   
@@ -33,3 +34,25 @@ title: 指南
 所以本文档很多 $\LaTeX$ 字体为黑色，因此若开启黑暗模式浏览时遇见了不清晰的文字，请打开明亮模式浏览 
 
 :::
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<hr>
+
+::: tip
+:::: details 如果有什么希望作者更新的题解可以私戳👇这里   
+<br>
+<br>
+<br>
+<img src="https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/person_wechat.png" style="width: 40%; margin-left:30%">
+<br>
+<br>
+<br>
+::::

@@ -77,7 +77,7 @@ module.exports = {
             text: '个人',
             items: [
                 { text: 'Github', link: 'https://github.com/Chivas-Regal', icon: 'reco-github' },
-                { text: 'WeChat', link: './person-wechat.md', icon: 'reco-wechat' },
+                { text: 'WeChat', link: '/person-wechat.html', icon: 'reco-wechat' },
                 { text: 'CodeForces', link: 'https://codeforces.com/profile/Chivas_Regal', icon: 'reco-api' }
             ],
             icon: 'reco-account'

@@ -677,14 +677,73 @@ int main () {
 所以要考虑一种更为方便的差分形式   
 关注一波 $fibonacci$ 的公式：$fibo_i=fibo_{i-1}+fibo_{i-2}$  
 需要一种方式，在区间修改后，区间内部的 $d$ 是不变的   
-那么让 $d_i=c_i-c_{i-1}-c_{i-2}$  
+那么让 $d_i=c_i-c_{i-1}-c_{i-2}$   
+  
+考虑这样的差分下，如何去区间修改    
+先看令 $a$ 数组修改区间 $[l,r]$   
+发现 $c_l$ 依旧是 $+1$ 这样就让 $d_l+1$ 即可   
+由于 $c_{r-1}+fibo_{r-l},\;c_{r}+fibo_{r-l+1}$   
+则 $d_{r+1}-fibo_{r-l}-fibo_{r-l+1}=d_{r+1}-fibo_{r-l+2}$  
+则 $d_{r+2}-fibo_{r-l+1}$  
+这样修改即可  
+而对 $b$ 数组的修改就反过来即可  
 
- 
+一边修改一边统计修改后对 $0$ 个数的贡献   
+每次当 $0$ 的个数为 $n$ 时即 `Yes`  
+否则是 `No`   
 
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
 ```cpp
+int main () {
+        std::ios::sync_with_stdio(false);
+        std::cin.tie(nullptr);
 
+        int n, q, mod; std::cin >> n >> q >> mod;
+
+        std::vector<int> fibo(n + 10, 0);
+        fibo[1] = fibo[2] = 1;
+        for (int i = 3; i <= n; i ++) fibo[i] = (1ll * fibo[i - 2] + fibo[i - 1]) % mod;
+
+        std::vector<int> a(n), b(n), c(n), d(n);
+        int num_zero = 0;
+
+        std::function <void(int, int)> Update = [&](int i, int val) {
+                num_zero -= d[i] == 0;
+                d[i] = (1ll * d[i] + val + mod) % mod;
+                num_zero += d[i] == 0;
+        };
+
+        for (int &i : a) std::cin >> i, i %= mod;
+        for (int &i : b) std::cin >> i, i %= mod;
+        for (int i = 0; i < n; i ++) c[i] = (1ll * a[i] - b[i] + mod) % mod;
+        for (int i = 0; i < n; i ++) {
+                if (i == 0) d[i] = c[i];
+                else if (i == 1) d[i] = (1ll * c[i] - c[i - 1] + mod) % mod;
+                else d[i] = (1ll * c[i] - c[i - 1] - c[i - 2] + 2 * mod) % mod;
+        }
+
+        for (int i = 0; i < n; i ++) num_zero += d[i] == 0;
+
+        for (int i = 0; i < q; i ++) {
+                char op; std::cin >> op;
+                int l, r; std::cin >> l >> r;
+                l --, r --;
+                
+                if (op == 'A') {
+                        Update(l, fibo[1]);
+                        if (r + 1 < n) Update(r + 1, -fibo[r - l + 2]);
+                        if (r + 2 < n) Update(r + 2, -fibo[r - l + 1]);
+                } else {
+                        Update(l, -fibo[1]);
+                        if (r + 1 < n) Update(r + 1, fibo[r - l + 2]);
+                        if (r + 2 < n) Update(r + 2, fibo[r - l + 1]);
+                }
+
+                if (num_zero == n) std::cout << "Yes\n";
+                else std::cout << "No\n";
+        }
+}
 ```
 <hr>
 
