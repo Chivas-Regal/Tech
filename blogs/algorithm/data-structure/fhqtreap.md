@@ -114,7 +114,7 @@ inline void Split (int now, int val, int &x, int &y) {
         if (!now) {
                 x = y = 0; // 出口，到了空节点，不存在左右树
         } else {
-                if (val <= fhq[fhq[now].l].val) { // 往左走
+                if (val < fhq[now].val) { // 往左走
                         y = now;
                         Split(fhq[now].l, val, x, fhq[now].l);
                         Update(y);

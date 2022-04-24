@@ -1564,6 +1564,69 @@ int main () {
 ```
 <hr>
 
+## ABC249F_IgnoreOperations
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc249/tasks">![20220424154108](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220424154108.png)</a>
+
+#### 💡
+首先需考虑到的是操作一，这里直接让 $x$ 替换为 $y$ ，那么就代表我们之前做的所有操作就前功尽弃，那么在这里我们可以枚举最后一个操作一在哪  
+这之后的操作一都不统计，则我们剩下的可以跳步的次数 $num$ 为 $k-$ 后面的操作一个数  
+这样的话我们肯定是要跳过操作二里面最小的 $num$ 个负数  
+  
+正着去查肯定是非常麻烦的，还要去写一个线段树或者平衡树  
+那么我们可以倒着去查，维护后面的所有操作二的 $y$ 的和  
+至于最小的 $num$ 个负数我们可以用一个大根堆去维护，遇见比当前最大值小的都要替换掉，同时用 $sum\_heap$ 去维护这个大根堆的和  
+在遇见操作一的时候，我们首先要看一下 $a[i].x+sum-sum\_heap$ 是否可以更大  
+然后意味着我们再往前走就要多跳一个操作一，少跳一个操作二  
+让堆顶弹出一个即可  
+   
+注意如果我们后面能跳的操作二的数量变成了负数，就说明我们没有再往前枚举的必要了，及时退出就行  
+还有就是我们往前走在走完其实还要判一下，但是如果我们是退出循环了话就不需要判了。所以我们可以开一个队首哨兵去帮助我们统计第一个  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int main () {
+        ios::sync_with_stdio(false);
+ 
+        int n, k; cin >> n >> k;
+        vector<pair<int, int> > a(n + 1);
+        for (int i = 1; i <= n; i ++) cin >> a[i].first >> a[i].second;
+        a[0] = {1, 0};
+        
+        priority_queue<int> heap;
+        int maxsize = k; ll sumheap = 0;
+        ll sum = 0;
+ 
+        ll res = -1e18;
+        for (int i = n; i >= 0; i --) {
+                if (a[i].first == 1) {
+                        res = max(res, a[i].second + sum - sumheap);
+                        if (maxsize == 0) break;
+                        maxsize --;
+                        if (heap.size() > maxsize) 
+                                sumheap -= heap.top(),
+                                heap.pop();
+                } else {
+                        if (a[i].second < 0) {
+                                if (heap.size() < maxsize) {
+                                        heap.push(a[i].second);
+                                        sumheap += a[i].second;
+                                } else if (heap.size() && heap.top() > a[i].second) {
+                                        sumheap -= heap.top();
+                                        heap.pop();
+                                        sumheap += a[i].second;
+                                        heap.push(a[i].second);
+                                }
+                        }
+                        sum += a[i].second;
+                }
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
 
 ## AcWing3766_数字矩阵
 

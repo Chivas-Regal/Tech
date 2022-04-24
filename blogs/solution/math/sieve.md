@@ -6,6 +6,48 @@ title: 筛法
 
 ## 埃氏筛
 
+### ABC249D_IndexTrio
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc249/tasks/abc249_d">![20220424153347](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220424153347.png)</a>
+
+#### 💡
+化简柿子  
+$$\frac {A_i}{A_j}=A_k=A_kA_j=A_i$$   
+发现三元组的通用解法（一边存一边统计）似乎并没有合适的进展  
+但是可以看到 $A_i$ 是 $A_k$ 的 $A_j$ 倍  
+对于这种倍数计数问题，可以放前面考虑就是埃氏筛  
+我们先统计完所有的数的出现情况，然后用埃氏筛去枚举每一个数与其倍数，这样三个数都出来了，那么就累加计算一下这三个数出现次数的乘积即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 200005;
+
+int num[N];
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        int n; cin >> n;
+        for (int i = 0; i < n; i ++) {
+                int x; cin >> x;
+                num[x] ++;
+        }
+        ll res = 0;
+        for (int i = 1; i < N; i ++) {
+                if (!num[i]) continue;
+                for (int j = i; j < N; j += i) {
+                        int k = j / i;
+                        res += 1ll * num[i] * num[j] * num[k];
+                }
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
+
 ### CodeForces1512G_ShortTask
 
 #### 🔗
