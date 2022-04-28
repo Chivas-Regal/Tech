@@ -525,6 +525,131 @@ int main () {
 
 <hr>
 
+### 洛谷P3048_CowIDsS
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P3048">![20220428161753](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220428161753.png)</a>
+
+#### 💡
+由于数从小到大，首先考虑跳过一些长度的数  
+对于长度 $x$ ，我们将一个 $1$ 拿出来放到第一个位置，后面的 $x-1$ 个位置放置 $k-1$ 个 $1$ 有 $C_{x-1}^{k-1}$ 中分布方式  
+那么就可以通过这样一步步对 $N$ 减小来固定出答案的长度是多少  
+然后剩下了 $N$ 个排名，考虑每一位如果放了 $1$ 会提升多少排名，我们只要让排名提升到等于 $N$ 即可  
+至于每一位放置 $1$ 提升的排名，令 $n-i$ 为后面的位置数，$one$ 为剩下还没有放置的 $1$ 的个数   
+那么提升的排名为 $C_{n-i}^{one}$   
+如果这个数比 $N$ 小的话就让 $N$ 减去它就行了，并且剩余未放置的 $1$ 的个数减一  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline int C (int n, int m) {
+        if (m < 0 || n < m) return 0;
+        if (m == 0 || n == m) return 1;
+        int res = 1;
+        int idx = 1;
+        for (int i = m + 1; i <= n; i ++) {
+                res *= i;
+                while (idx <= n - m && res % idx == 0) {
+                        res /= idx;
+                        ++ idx;
+                }
+        }
+        return res;
+}
+
+int main () {
+        int N, K; scanf("%d%d", &N, &K);
+        N --;
+        int n = K - 1, m = 0;
+        int Cnm = C(n, m);
+        while (N - Cnm >= 0) {
+                N -= Cnm; 
+                ++ n, ++ m;
+                Cnm = C(n, m);
+        }
+        int one = n - m;
+
+        putchar('1');
+        for (int i = 1; i <= n; ++ i) {
+                int cur = C(n - i, one);
+                if (cur <= N) {
+                        N -= cur;
+                        putchar('1');
+                        one --;
+                } else {
+                        putchar('0');
+                }
+        } 
+}
+```
+<hr>
+
+
+### 洛谷P3904_三只小猪
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P3904">![20220427215637](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220427215637.png)</a>
+
+#### 💡
+根据图片就能看出，$n$ 个不同的小猪放到 $m$ 个相同的房间里面，这不就是球盒模型吗？  
+看到数据量大力 $\begin{Bmatrix}n\\m\end{Bmatrix}$   
+（不过要开高精就是了
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```java
+public class Main{
+        static int N = 2005;
+        static BigInteger zero = BigInteger.ZERO;
+        static BigInteger one = BigInteger.ONE;
+        static BigInteger two = BigInteger.valueOf(2);
+        static BigInteger six = BigInteger.valueOf(6);
+        static BigInteger ten = BigInteger.TEN;
+        static BigInteger five = BigInteger.valueOf(5);
+        static BigInteger[][] s = new BigInteger[100][100];
+        public static void main(String[] args) {
+                Scanner input = new Scanner(System.in);
+                int n = input.nextInt(), m = input.nextInt();
+                for (int i = 0; i <= n; i ++) for (int j = 0; j <= m; j ++) s[i][j] = zero;
+                for (int i = 1; i <= n; i ++) {
+                        for (int j = 1; j <= i; j ++) {
+                                if (j == i || j == 1) s[i][j] = one;
+                                else s[i][j] = BigInteger.valueOf(j).multiply(s[i - 1][j]).add(s[i - 1][j - 1]);
+                        }
+                }
+                System.out.println(s[n][m]);
+                input.close();
+        }
+}
+```
+<hr>
+
+### 洛谷P3937_Changing
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P3937">![20220428162711](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220428162711.png)</a>
+
+#### 💡
+分析第 $a_{t,i}$ 的转移关系  
+$\begin{aligned}
+&1a_{t,i}\\
+=&1a_{t-1,i}+1a_{t-1,i+1}\\
+=&1a_{t-2,i}+2a_{t-2,i+1}+1a_{t-2,i+2}\\
+=&1a_{t-3,i}+3a_{t-3,i+1}+3a_{t-3,i+2}+1a_{t-3,i+3}\\
+...
+\end{aligned}(mod\;2)$  
+换句话说 $a_{t,k}=a_{t-1,k}+a_{t-1,k+1}$ 这个式子就很容易让人联想到杨辉三角  
+那么可以推出来式子 $a_{t,k}=\sum\limits_{i=0}^tC_t^ia_{0,k+i}$  
+等于说如果 $C_t^i=1$ 那么 $a_{0,k+i}$ 就会产生贡献  
+模 $2$ 的杨辉三角考虑     
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+
+```
+<hr>
+
+
+
 ### 洛谷P4936_Agent1
 
 #### 🔗

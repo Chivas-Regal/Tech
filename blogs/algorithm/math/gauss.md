@@ -67,10 +67,10 @@ $inv$是当前排列$P$的逆序对数量
 
 ## 行列式性质 
 
-$1.$ 交换行列式两行(列)，行列式的值<span style="color: red;">变号</span>  
-$2.$ 一个上三角行列式的值是<span style="color: red;">主对角线的累乘</span>  
-$3.$ 行列式一行(列)乘或除任意数值不影响整个行列式的值  
-$4.$ 行列式一行(列)减去另一行(列)后不影响整个行列式的值
+$1.$ 交换行列式两行(列)，行列式的值<span style="color: red;">变号</span>    
+$2.$ 一个上三角行列式的值是<span style="color: red;">主对角线的累乘</span>   
+$3.$ 行列式一行(列)乘或除任意数值不影响整个行列式的值    
+$4.$ 行列式一行(列)减去另一行(列)后不影响整个行列式的值  
 
 
 # 例方程组与过程
@@ -93,11 +93,11 @@ $$\left[\begin{matrix}
 **高斯消元：**  
 
 枚举每一列c  
-$1.$  找到当前列绝对值最大一行 
-$2.$  将该行换到最上面  
-$3.$  将该行第一个数变成1 
-$4.$  将下面所有行的当前列消为0    
-向上消元，将每一列只保留前面的1，后面的消为0 
+$1.$  找到当前列绝对值最大一行   
+$2.$  将该行换到最上面    
+$3.$  将该行第一个数变成1   
+$4.$  将下面所有行的当前列消为0     
+向上消元，将每一列只保留前面的1，后面的消为0   
    
 
 $$
@@ -109,7 +109,7 @@ $$
 \Rightarrow
 \left[\begin{matrix}
 &1&\frac12&-\frac32&-\frac92\\
-&1&2&-1&-6\\
+&1&2&-1&6\\
 &-1&-1&2&7
 \end{matrix}\right].
 \stackrel{\begin{aligned}
@@ -121,11 +121,50 @@ row_2-row_1\end{aligned}}
 &0&-\frac12&\frac12&\frac52
 \end{matrix}\right].$$  
 
-$$\left[\begin{matrix} &1&\frac12&-\frac32&-\frac92\ &0&\frac32&\frac12&-\frac32\\ &0&-\frac12&\frac12&\frac52 \end{matrix}\right]. \Rightarrow \left[\begin{matrix} &1&\frac12&-\frac32&-\frac92\\ &0&1&\frac13&-1\\ &0&-\frac12&\frac12&\frac52 \end{matrix}\right]. \stackrel{row_3+\frac{row_2}2}{\Rightarrow} \left[\begin{matrix} &1&\frac12&-\frac32&-\frac92\\ &0&1&\frac13&-1\\ &0&0&\frac23&2 \end{matrix}\right].$$  
+$$\left[\begin{matrix} 
+&1&\frac12&-\frac32&-\frac92\\ 
+&0&\frac32&\frac12&-\frac32\\ 
+&0&-\frac12&\frac12&\frac52 \end{matrix}\right]. 
+\Rightarrow 
+\left[\begin{matrix} 
+&1&\frac12&-\frac32&-\frac92\\ 
+&0&1&\frac13&-1\\ 
+&0&-\frac12&\frac12&\frac52 \end{matrix}\right]. 
+\stackrel{row_3+\frac{row_2}2}{\Rightarrow} 
+\left[\begin{matrix} &1&\frac12&-\frac32&-\frac92\\ 
+&0&1&\frac13&-1\\ 
+&0&0&\frac23&2 
+\end{matrix}\right].$$  
 
-$$\left[\begin{matrix}&1&\frac12&-\frac32&-\frac92\\&0&1&\frac13&-1\\&0&0&\frac23&2\end{matrix}\right].\Rightarrow \left[\begin{matrix}&1&\frac12&-\frac32&-\frac92\\&0&1&\frac13&-1\\&0&0&1&3\end{matrix}\right].$$  
+$$\left[\begin{matrix}
+&1&\frac12&-\frac32&-\frac92\\
+&0&1&\frac13&-1\\
+&0&0&\frac23&2\end{matrix}\right].
+\Rightarrow 
+\left[\begin{matrix}
+&1&\frac12&-\frac32&-\frac92\\
+&0&1&\frac13&-1\\
+&0&0&1&3\end{matrix}\right].$$  
 
-$$\left[\begin{matrix} &1&\frac12&-\frac32&-\frac92\\ &0&1&\frac13&-1\\ &0&0&1&3 \end{matrix}\right]. \stackrel{row_2-\frac{row_3}3}{\Rightarrow} \left[\begin{matrix} &1&\frac12&-\frac32&-\frac92\\ &0&1&0&-2\\ &0&0&1&3 \end{matrix}\right]. \stackrel{row\_1-\frac{row_2}3}{\Rightarrow} \left[\begin{matrix} &1&0&-\frac32&-\frac72\\ &0&1&0&-2\\ &0&0&1&3 \end{matrix}\right]. \stackrel{row_1-\frac{3*row_3}2}{\Rightarrow} \left[\begin{matrix} &1&0&0&1\\ &0&1&0&-2\\ &0&0&1&3 \end{matrix}\right].$$      
+$$\left[\begin{matrix} 
+&1&\frac12&-\frac32&-\frac92\\ 
+&0&1&\frac13&-1\\ 
+&0&0&1&3 \end{matrix}\right]. 
+\stackrel{row_2-\frac{row_3}3}{\Rightarrow} 
+\left[\begin{matrix} 
+&1&\frac12&-\frac32&-\frac92\\ 
+&0&1&0&-2\\ &0&0&1&3 
+\end{matrix}\right]. 
+\stackrel{row\_1-\frac{row_2}3}{\Rightarrow} 
+\left[\begin{matrix} &1&0&-\frac32&-\frac72\\ 
+&0&1&0&-2\\ &0&0&1&3 
+\end{matrix}\right]. 
+\stackrel{row_1-\frac{3*row_3}2}{\Rightarrow} 
+\left[\begin{matrix} 
+&1&0&0&1\\ 
+&0&1&0&-2\\ 
+&0&0&1&3 
+\end{matrix}\right].$$      
 
 解得方程：$(x_1,x_2,x_3)=(1,-2,3)$
 

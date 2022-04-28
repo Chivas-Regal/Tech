@@ -39,10 +39,10 @@ inline ll ksm(ll a, ll b, ll mod){
   
 <table>
     <tr>
-        <td>$A[1][1]$</td><td>$A[1][2]$</td><th rowspan="2">$\times$</th><td>$B[1][1]$</td><td>$B[1][2]$</td><th rowspan="2">$=$</th><td>$A[1][1]\times B[1][1]+A[1][2]\times B[2][1]$</td><td>$A[1][1]\times B[1][2]+A[1][2]\times B[2][2]$</td>
+        <td>A[1][1]</td><td>A[1][2]</td><th rowspan="2">*</th><td>B[1][1]</td><td>B[1][2]</td><th rowspan="2">=</th><td>A[1][1]* B[1][1]+A[1][2]* B[2][1]</td><td>A[1][1]* B[1][2]+A[1][2]* B[2][2]</td>
     </tr>
     <tr>
-        <td>$A[2][1]$</td><td>$A[2][2]$</td><td>$B[2][1]$</td><td>$B[2][2]$</td><td>$A[2][1]\times B[1][1]+A[2][2]\times B[2][1]$</td><td>$A[1][2]\times B[1][2]+A[2][2]\times B[2][2]$</td>
+        <td>A[2][1]</td><td>A[2][2]</td><td>B[2][1]</td><td>B[2][2]</td><td>A[2][1]* B[1][1]+A[2][2]* B[2][1]</td><td>A[1][2]* B[1][2]+A[2][2]* B[2][2]</td>
     </tr>
 </table>
 
@@ -82,13 +82,13 @@ $（5）$就是求答案
 
 <table>
     <tr>
-        <th>$C[n]$</th><th rowspan="3">$=$</th><th colspan="2">$B$</th><th rowspan="3">$\times$</th><th>$C[n-1]$</th><th rowspan = "3">$=...= B^{n - 1} \times $</th><th>$C[1]$</th>
+        <th>C[n]</th><th rowspan="3">=</th><th colspan="2">B</th><th rowspan="3">*</th><th>C[n-1]</th><th rowspan = "3">=...= B^{n - 1} * </th><th>C[1]</th>
     </tr>
     <tr>
-        <td>$f[n]$</td><td>$1$</td><td>$1$</td><td>$f[n - 1]$</td><td>$f[1]$</td>
+        <td>f[n]</td><td>1</td><td>1</td><td>f[n - 1]</td><td>f[1]</td>
     </tr>
     <tr>
-        <td>$f[n-1]$</td><td>$1$</td><td>$0$</td><td>$f[n - 2]$</td><td>$f[0]$</td>
+        <td>f[n-1]</td><td>1</td><td>0</td><td>f[n - 2]</td><td>f[0]</td>
     </tr>
 </table>
 
@@ -107,10 +107,10 @@ B矩阵为
 
 <table>
     <tr>
-        <td>$a$</td><td>$b$</td>
+        <td>a</td><td>b</td>
     </tr>
     <tr>
-        <td>$1$</td><td>$0$</td>
+        <td>1</td><td>0</td>
     </tr>
 </table>
 
@@ -121,16 +121,16 @@ B矩阵为
 
 <table>
 <tr>
-<td>$3$</td><td>$0$</td><td>$5$</td><td>$9$</td>
+<td>3</td><td>0</td><td>5</td><td>9</td>
 </tr>
 <tr>
-<td>$1$</td><td>$0$</td><td>$0$</td><td>$0$</td>
+<td>1</td><td>0</td><td>0</td><td>0</td>
 </tr>
 <tr>
-<td>$0$</td><td>$1$</td><td>$0$</td><td>$0$</td>
+<td>0</td><td>1</td><td>0</td><td>0</td>
 </tr>
 <tr>
-<td>$0$</td><td>$0$</td><td>$1$</td><td>$0$</td>
+<td>0</td><td>0</td><td>1</td><td>0</td>
 </tr>
 </table>
 
@@ -140,16 +140,16 @@ B矩阵为
 
 <table>
 <tr>
-<td>$f[n]$</td><th rowspan="4">$=$</th><td>$a$</td><td>$0$</td><td>$b$</td><td>$1$</td><th rowspan="4">$\times$</th><td>$f[n-1]$</td><th rowspan="4">$=$</th><td>$a$</td><td>$0$</td><td>$b$</td><td>$1$</td><td rowspan="4" valign="top">^$(n-2)$</td><th rowspan="4">$\times $</th><td>$f[2]$</td>
+<td>f[n]</td><th rowspan="4">=</th><td>a</td><td>0</td><td>b</td><td>1</td><th rowspan="4">*</th><td>f[n-1]</td><th rowspan="4">=</th><td>a</td><td>0</td><td>b</td><td>1</td><td rowspan="4" valign="top">^(n-2)</td><th rowspan="4">* </th><td>f[2]</td>
 </tr>
 <tr>
-<td>$f[n-1]$</td><td>$1$</td><td>$0$</td><td>$0$</td><td>$0$</td><td>$f[n-2]$</td><td>$1$</td><td>$0$</td><td>$0$</td><td>$0$</td><td>$f[1]$</td>
+<td>f[n-1]</td><td>1</td><td>0</td><td>0</td><td>0</td><td>f[n-2]</td><td>1</td><td>0</td><td>0</td><td>0</td><td>f[1]</td>
 </tr>
 <tr>
-<td>$f[n-2]$</td><td>$0$</td><td>$1$</td><td>$0$</td><td>$0$</td><td>$f[n-3]$</td><td>$0$</td><td>$1$</td><td>$0$</td><td>$0$</td><td>$f[0]$</td>
+<td>f[n-2]</td><td>0</td><td>1</td><td>0</td><td>0</td><td>f[n-3]</td><td>0</td><td>1</td><td>0</td><td>0</td><td>f[0]</td>
 </tr>
 <tr>
-<td>$c$</td><td>$0$</td><td>$0$</td><td>$0$</td><td>$1$</td><td>$c$</td><td>$0$</td><td>$0$</td><td>$0$</td><td>$1$</td><td>$c$</td>
+<td>c</td><td>0</td><td>0</td><td>0</td><td>1</td><td>c</td><td>0</td><td>0</td><td>0</td><td>1</td><td>c</td>
 </tr>
 </table>
 
@@ -160,22 +160,22 @@ B矩阵为
 
 <table>
 <tr>
-<td>$f[n]$</td><th rowspan="6">$=$</th><td>$1$</td><td>$2$</td><td>$1$</td><td>$3$</td><td>$3$</td><td>$1$</td><td rowspan="6" valign="top">^$(n-2)$</td><td>$f[2]$</td>
+<td>f[n]</td><th rowspan="6">=</th><td>1</td><td>2</td><td>1</td><td>3</td><td>3</td><td>1</td><td rowspan="6" valign="top">^(n-2)</td><td>f[2]</td>
 </tr>
 <tr>
-<td>$f[n-1]$</td><td>$1$</td><td>$0$</td><td>$0$</td><td>$0$</td><td>$0$</td><td>$0$</td><td>$f[1]$</td>
+<td>f[n-1]</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>f[1]</td>
 </tr>
 <tr>
-<td>$n^3$</td><td>$0$</td><td>$0$</td><td>$1$</td><td>$3$</td><td>$3$</td><td>$1$</td><td>$8$</td>
+<td>n^3</td><td>0</td><td>0</td><td>1</td><td>3</td><td>3</td><td>1</td><td>8</td>
 </tr>
 <tr>
-<td>$n^2$</td><td>$0$</td><td>$0$</td><td>$0$</td><td>$1$</td><td>$2$</td><td>$1$</td><td>$4$</td>
+<td>n^2</td><td>0</td><td>0</td><td>0</td><td>1</td><td>2</td><td>1</td><td>4</td>
 </tr>
 <tr>
-<td>$n$</td><td>$0$</td><td>$0$</td><td>$0$</td><td>$0$</td><td>$1$</td><td>$1$</td><td>$2$</td>
+<td>n</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>2</td>
 </tr>
 <tr>
-<td>$1$</td><td>$0$</td><td>$0$</td><td>$0$</td><td>$0$</td><td>$0$</td><td>$1$</td><td>$1$</td>
+<td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td>
 </tr>
 </table>
 
@@ -187,15 +187,15 @@ $f_{0} = f_{1} = f_{2} = 1,\qquad f_{n} = f_{n - 1} + f_{n - 2} + f_{n - 3}$， 
 
 <table>
 <tr>
-<td>$S[n]$</td><th rowspan="4">=</th><td>$1$</td><td>$1$</td><td>$1$</td><td>$1$</td><th rowspan="4"></th><td>$S[n-1]$</td><th rowspan="4">=</th><td>$1$</td><td>$1$</td><td>$1$</td><td>$1$</td><td rowspan="4" valign="top">$\^(n-2)$</td><td>$S[2]$</td>
+<td>S[n]</td><th rowspan="4">=</th><td>1</td><td>1</td><td>1</td><td>1</td><th rowspan="4"></th><td>S[n-1]</td><th rowspan="4">=</th><td>1</td><td>1</td><td>1</td><td>1</td><td rowspan="4" valign="top">^(n-2)</td><td>S[2]</td>
 </tr>
 <tr>
-<td>$f[n]$</td><td>$0$</td><td>$1$</td><td>$1$</td><td>$1$</td><td>$f[n-1]$</td><td>$0$</td><td>$1$</td><td>$1$</td><td>$1$</td><td>$f[2]$</td>
+<td>f[n]</td><td>0</td><td>1</td><td>1</td><td>1</td><td>f[n-1]</td><td>0</td><td>1</td><td>1</td><td>1</td><td>f[2]</td>
 </tr>
 <tr>
-<td>$f[n-1]$</td><td>$0$</td><td>$1$</td><td>$0$</td><td>$0$</td><td>$f[n-2]$</td><td>$0$</td><td>$1$</td><td>$0$</td><td>$0$</td><td>$f[1]$</td>
+<td>f[n-1]</td><td>0</td><td>1</td><td>0</td><td>0</td><td>f[n-2]</td><td>0</td><td>1</td><td>0</td><td>0</td><td>f[1]</td>
 </tr>
-<td>$f[n-2]$</td><td>$0$</td><td>$0$</td><td>$1$</td><td>$0$</td><td>$f[n-3]$</td><td>$0$</td><td>$0$</td><td>$1$</td><td>$0$</td><td>$f[0]$</td>
+<td>f[n-2]</td><td>0</td><td>0</td><td>1</td><td>0</td><td>f[n-3]</td><td>0</td><td>0</td><td>1</td><td>0</td><td>f[0]</td>
 </table>
 
 ### 😄平方前缀和并含乘法项的表达式
@@ -205,15 +205,15 @@ $f_{0} = 1,\qquad f_{1} = 1,\qquad f_{n} = x \times f_{n - 1} + y \times f_{n - 
   
 <table>
 <tr>
-<td>$S[n]$</td><th rowspan="4">=</th><td>$1$</td><td>$x^2$</td><td>$2\times x\times y$</td><td>$y^2$</td><th rowspan="4"></th><td>$S[n-1]$</td><th rowspan="4">=</th><td>$1$</td><td>$x^2$</td><td>$2\times x\times y$</td><td>$y^2$</td><td rowspan="4" valign="top">$\^(n-1)$</td><td>$S[1]$</td>
+<td>S[n]</td><th rowspan="4">=</th><td>1</td><td>x^2</td><td>2xy</td><td>y^2</td><th rowspan="4"></th><td>S[n-1]</td><th rowspan="4">=</th><td>1</td><td>x^2</td><td>2xy</td><td>y^2</td><td rowspan="4" valign="top">^(n-1)</td><td>S[1]</td>
 </tr>
 <tr>
-<td>$f[n]^2$</td><td>$0$</td><td>$x^2$</td><td>$2\times x\times y$</td><td>$y^2$</td><td>$f[n-1]^2$</td><td>$0$</td><td>$x^2$</td><td>$2\times x\times y$</td><td>$y^2$</td><td>$f[1]^2$</td>
+<td>f[n]^2</td><td>0</td><td>x^2</td><td>2xy</td><td>y^2</td><td>f[n-1]^2</td><td>0</td><td>x^2</td><td>2xy</td><td>y^2</td><td>f[1]^2</td>
 </tr>
 <tr>
-<td>$f[n]\times f[n-1]$</td><td>$0$</td><td>$x$</td><td>$y$</td><td>$0$</td><td>$f[n]\times f[n-2]$</td><td>$0$</td><td>$x$</td><td>$y$</td><td>$0$</td><td>$f[1]\times f[0]$</td>
+<td>f[n]* f[n-1]</td><td>0</td><td>x</td><td>y</td><td>0</td><td>f[n]* f[n-2]</td><td>0</td><td>x</td><td>y</td><td>0</td><td>f[1]* f[0]</td>
 </tr>
-<td>$f[n-1]^2$</td><td>$0$</td><td>$1$</td><td>$0$</td><td>$0$</td><td>$f[n-2]^2$</td><td>$0$</td><td>$1$</td><td>$0$</td><td>$0$</td><td>$f[0]^2$</td>
+<td>f[n-1]^2</td><td>0</td><td>1</td><td>0</td><td>0</td><td>f[n-2]^2</td><td>0</td><td>1</td><td>0</td><td>0</td><td>f[0]^2</td>
 </table>
 
 ### 😄应用

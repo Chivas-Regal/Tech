@@ -318,6 +318,68 @@ int main () {
 ```
 <hr>
 
+## ABC249E_RLE
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc249/tasks/abc249_e">![20220425125439](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220425125439.png)</a>
+
+#### 💡
+
+比赛的时候想的是用组合数学的插板法去分割，后来发现其实 $check()$ 的时候没法做到全面  
+计数问题组不出来就试着用 $dp$   
+注意到这个数据范围是想让用 $O(n^2)$ 的  
+那么我们可以开两个同级状态  
+$dp[i][j]$ 表示本来长度为 $i$ ，压缩为 $j$ 的方案数  
+由于长度不过四位数，那么我们可以得到下面的转移：  
+从 $[i-9,i-1]$ 到 $i$ ，令 $j$ 多了 $2$   
+从 $[i-99,i-10]$ 到 $i$ ，令 $j$ 多了 $3$  
+从 $[i-999,i-100]$ 到 $i$ ，令 $j$ 多了 $4$  
+从 $[i-9999,i-1000]$ 到 $i$ ，令 $j$ 多了 $5$   
+注意到若非第一次选择字符，后面的选择字符的方案只有 $25$ 个  
+即 $dp[i][j]=25\times(\sum\limits_{a=i-9}^{i-1}dp[a][j-2]+\sum\limits_{b=i-99}^{i-10}dp[b][j-3]+\sum\limits_{c=i-999}^{i=100}dp[c][j-4]+\sum\limits_{d=i-9999}^{i-1000}dp[d][j-5])$  
+要考虑一下第一次选择字符的情况，即 $j=to\_string(i).size()+1$ 时，此时我们要让 $dp[i][j]+1$       
+
+连加符号一个个算会很费时间，这里可以用 $dp$ 的前缀和得出区间和来进行计算，最后统计的时候用区间和得出第一个维度为 $n$ 的 $dp$ 即可        
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 3003;
+ll dp[N][N << 1]; // len:i->j
+ll n, mod;
+
+inline ll sum (int l, int r, int j) {
+        if (l > r || r < 0 || j < 0) return 0;
+        if (l <= 0) return dp[r][j];
+        else return ((dp[r][j] - dp[l - 1][j]) % mod + mod) % mod;
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        cin >> n >> mod;
+
+        dp[0][0] = 1;
+        for (int i = 1; i <= n; i ++) {
+                int len = to_string(i).size() + 1;
+                for (int j = 0; j <= 2 * n; j ++) {
+                        (dp[i][j] += 25 * sum(i - 9, i - 1, j - 2) % mod) %= mod;
+                        (dp[i][j] += 25 * sum(i - 99, i - 10, j - 3) % mod) %= mod;
+                        (dp[i][j] += 25 * sum(i - 999, i - 100, j - 4) % mod) %= mod;
+                        (dp[i][j] += 25 * sum(i - 9999, i - 1000, j - 5) % mod) %= mod;
+                        if (j == len) (dp[i][j] += 1) %= mod;
+                        (dp[i][j] += dp[i - 1][j]) %= mod;
+                }
+        }
+
+        ll res = 0;
+        for (int i = 0; i < n; i ++) (res += ((dp[n][i] - dp[n - 1][i]) % mod + mod) % mod) %= mod;
+        cout << res << endl;
+}
+```
+<hr>
+
+
 ## CodeForces1614D1Z_DivanAndKostomuksha（easy version）
 
 #### 🔗

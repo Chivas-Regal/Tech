@@ -13,7 +13,7 @@ sidebar:
 
 # 核心公式
 
-$$n=\sum\limits_{d|n}phi(d)$$  
+$$n=\sum\limits_{d|n}\phi(d)$$  
   
 其在狄利克雷卷积中表示为 $\phi*1=Id$    
 [证明在这里](http://www.chivas-regal.top/%E6%95%B0%E5%AD%A6/2021/11/16/%E7%8B%84%E5%88%A9%E5%85%8B%E9%9B%B7%E5%8D%B7%E7%A7%AF.html#phi--1id)  
