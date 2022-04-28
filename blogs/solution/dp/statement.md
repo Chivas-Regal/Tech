@@ -66,6 +66,54 @@ int main () {
 
 <hr>
 
+
+## 洛谷P4163_排列
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P4163">![20220428175354](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220428175354.png)</a>
+
+#### 💡
+想暴力 `next_permutation()` 写，但是时间差一点  
+$|s|$ 不是很大，开状压  
+我们枚举每一个数的选择状态 $s$ ，然后枚举 $cur=[0,d-1]$ 为该选择状态下得到的余数  
+然后枚举下一个应该塞哪个下标（设为 $i$），则 下一个状态为 $s|(1<<i)$ ，下一个余数为 $cur*10+a[i]$  
+这样转移过程就出来了  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void Solve () {
+        string s; cin >> s;
+        int d; cin >> d;
+
+        vector<int> cnt(10, 0);
+        for (char c : s) cnt[c - '0'] ++;
+
+        vector<vector<int> > dp((1 << s.size()), vector<int>(d));
+
+        dp[0][0] = 1;
+        for (int S = 0; S < (1 << s.size()); S ++) {
+                for (int i = 0; i < s.size(); i ++) {
+                        if (!(S & (1 << i))) {
+                                for (int cur = 0; cur < d; cur ++) {
+                                        int nxt = (cur * 10 % d + s[i] - '0') % d;
+                                        dp[S | (1 << i)][nxt] += dp[S][cur];
+                                }
+                        }
+                }
+        }
+        
+        int res = dp[(1 << s.size()) - 1][0];
+        for (int i = 0; i < 10; i ++) {
+                if (cnt[i]) {
+                        for (int j = 2; j <= cnt[i]; j ++) res /= j;
+                }
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
+
 ## CCPC2021女生赛C_连锁商店
 
 #### 🔗

@@ -639,12 +639,104 @@ $\begin{aligned}
 换句话说 $a_{t,k}=a_{t-1,k}+a_{t-1,k+1}$ 这个式子就很容易让人联想到杨辉三角  
 那么可以推出来式子 $a_{t,k}=\sum\limits_{i=0}^tC_t^ia_{0,k+i}$  
 等于说如果 $C_t^i=1$ 那么 $a_{0,k+i}$ 就会产生贡献  
-模 $2$ 的杨辉三角考虑     
-
+模 $2$ 的杨辉三角考虑 [Sierpinski三角形推出来的杨辉三角与进制关系](https://tech.chivas-regal.top/blogs/algorithm/math/sierpinski-triangle.html#%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92-%E4%B8%8E-%E8%BF%9B%E5%88%B6)  
+可以发发现当 $t\&i=i$ 时 $a_{k+i}$ 是有贡献的，加上即可  
+最后看答案的奇偶性 
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
 ```cpp
+int n, t, k;
+inline int add (int x, int y) {return (x + y) % n;}
 
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        cin >> n >> t >> k; k --;
+        vector<int> a(n); for (int i = 0; i < n; i ++) cin >> a[i];
+
+        int res = 0;
+        for (int i = 0; i <= t; i ++) {
+                if ((t | i) == t) res ^= a[add(k, i)];
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
+### 洛谷P4562_游戏
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P4562">![20220428164821](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220428164821.png)</a>
+
+#### 💡
+分析一波题意，<b>$t(p)$ 就是对于排列 $p$ ，没有因子的数出现的最后位置</b>   
+  
+那么我们将所有数分为  
+$div_1$：无因子的数的数量  
+$div_2$：有因子的数的数量  
+这个可以通过埃氏筛求得   
+  
+对于答案，考虑贡献，即为对于每一个位置 $i$，求它能作为 $t(p)$ 的排列数量 $num$   
+那么答案便是 $\sum\limits_i(i\times num)$   
+  
+对于 $num$ 的求法:  
+- 我们让 $div_1$ 其中一个卡在第 $i$ 个位置  
+- 其余的 $div_1-1$ 个数在 $[1,i)$ 里面任意分布  
+- 这里我们只是考虑了位置。还要考虑方案数 所以 $div_1,div_2$ 也都要全排列一下 
+
+那么 $num=1\times \binom{i-1}{div_1-1}\times (div_1!)\times (div_2!)$  
+
+由于前 $i$ 个位置要存放完 $div_1$ 个数，所以 $i\in[div_1,n]$  
+所以答案为  
+$$\sum\limits_{i=div_1}^n(1\times\binom{i-1}{div_1-1}\times (div_1!)\times (div_2!)\times i)$$
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e7 + 10;
+const int mod = 1e9 + 7;
+
+inline ll ksm (ll a, ll b) { ll res = 1; while (b) { if (b & 1) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv (ll x) { return ksm(x, mod - 2); }
+
+ll f[N], ivf[N];
+inline void Pre () {
+        f[0] = 1;
+        for (int i = 1; i < N; i ++) f[i] = f[i - 1] * i % mod;
+        ivf[N - 1] = inv(f[N - 1]);
+        for (int i = N - 2; i >= 0; i --) ivf[i] = ivf[i + 1] * (i + 1) % mod;
+}
+inline ll C (int n, int m) {
+        return f[n] * ivf[m] % mod * ivf[n - m] % mod;
+}
+
+bool vis[N];
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        Pre();
+
+        int l, r; cin >> l >> r;
+        int n = r - l + 1;
+
+        int div1 = 0, div2 = n;
+        for (int i = l; i <= r; i ++) {
+                if (!vis[i]) {
+                        div1 ++;
+                        div2 --;
+                        for (int j = i + i; j <= r; j += i) vis[j] = true;
+                }
+        }
+
+        ll res = 0;
+        for (int i = div1; i <= n; i ++) {
+                res += C(i - 1, div1 - 1) * f[div1] % mod * f[div2] % mod * i % mod;
+                res %= mod;
+        }
+        cout << res << endl;
+}
 ```
 <hr>
 
@@ -739,6 +831,61 @@ int main() {
 }
 ```
 <hr>
+
+### 洛谷P6162_四角链
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P6162">![20220428165151](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220428165151.png)</a>
+
+#### 💡  
+每一个数 $x$ 可以填的数字一定是 $x$ 减去前面选中的数的个数  
+  
+我们先来尝试一个 $O(n^2)$ 的算法  
+令 $dp[n][m]$ 表示前 $n$ 个位置选了 $m$ 个填数  
+那么对于 $n$ 可以填数，$dp[n][m]+\quad (n-m+1)\times dp[n-1][m-1]$   
+也可以不填数，$dp[n][m]+\quad dp[n-1][m]$  
+也就是说 $dp[n][m]=dp[n-1][m]+(n-m+1)\times dp[n-1][m-1]$  
+可以感觉到这个东西就是一个项带了系数的组合数递推，很像第二类斯特林数 $\begin{Bmatrix}n\\m\end{Bmatrix}=\begin{Bmatrix}n-1\\m-1\end{Bmatrix}+m\begin{Bmatrix}n-1\\m\end{Bmatrix}$   
+只不过系数带错了位置且不是结尾，那么我们让 $n$ 上升 $1$ ，同时系数要变成 $m$ ，那么就让 $m$ 变成 $(n+1)-m$  ，也就是说 $dp[n][m]=\begin{Bmatrix}n+1\\n+1-m\end{Bmatrix}$  
+发现这样转移过来就是 $\begin{Bmatrix}n+1\\n+1-m\end{Bmatrix}=\begin{Bmatrix}n\\n-m\end{Bmatrix}+(n-m+1)\times \begin{Bmatrix}n\\n+1-m\end{Bmatrix}$   
+和第二类斯特林数的公式一样了  
+那么我们就是 $O(n)$ 地求一下 $\begin{Bmatrix}n+1\\n+1-m\end{Bmatrix} 即可  
+$\begin{Bmatrix}n\\m\end{Bmatrix}=\sum\limits_{i=0}^m\frac{(-1)^{m-i}i^n}{i!(m-i)!}$
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int mod = 998244353;
+const int N = 1e6 + 10;
+
+inline ll ksm (ll a, ll b) { ll res = 1; while (b) { if (b & 1) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv (ll x) { return ksm(x, mod - 2); }
+
+ll f[N], ivf[N];
+inline void Pre () {
+        f[0] = 1;
+        for (int i = 1; i < N; i ++) f[i] = f[i - 1] * i % mod;
+        ivf[N - 1] = inv(f[N - 1]);
+        for (int i = N - 2; i >= 0; i --) ivf[i] = ivf[i + 1] * (i + 1) % mod;
+}
+inline ll S (int n, int m) {
+        ll res = 0;
+        for (int i = 0; i <= m; i ++) {
+                (res += ((m - i) & 1 ? -1ll : 1ll) * ksm(i, n) % mod * ivf[i] % mod * ivf[m - i] % mod) %= mod;
+                res = (res + mod) % mod;
+        }
+        return res;
+}
+
+int main () {      
+        cin.tie(nullptr);
+        Pre();
+        int n, k; cin >> n >> k; n --;
+        cout << S(n + 1, n + 1 - k);
+}
+```
+<hr>
+
 
 
 ### 牛客2022寒假算法基础集训营4G_子序列权值乘积
