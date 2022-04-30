@@ -849,7 +849,8 @@ int main() {
 只不过系数带错了位置且不是结尾，那么我们让 $n$ 上升 $1$ ，同时系数要变成 $m$ ，那么就让 $m$ 变成 $(n+1)-m$  ，也就是说 $dp[n][m]=\begin{Bmatrix}n+1\\n+1-m\end{Bmatrix}$  
 发现这样转移过来就是 $\begin{Bmatrix}n+1\\n+1-m\end{Bmatrix}=\begin{Bmatrix}n\\n-m\end{Bmatrix}+(n-m+1)\times \begin{Bmatrix}n\\n+1-m\end{Bmatrix}$   
 和第二类斯特林数的公式一样了  
-那么我们就是 $O(n)$ 地求一下 $\begin{Bmatrix}n+1\\n+1-m\end{Bmatrix} 即可  
+那么我们就是 $O(n)$ 地求一下 $\begin{Bmatrix}n+1\\n+1-m\end{Bmatrix}$ 即可  
+  
 $\begin{Bmatrix}n\\m\end{Bmatrix}=\sum\limits_{i=0}^m\frac{(-1)^{m-i}i^n}{i!(m-i)!}$
 
 
