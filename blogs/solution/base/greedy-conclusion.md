@@ -5643,7 +5643,7 @@ int main () {
 
 <hr>
 
-## ICPC上海站2020M_Gitignore
+## ICPC2020上海M_Gitignore
 
 #### 🔗
 <a href="https://codeforces.com/gym/102900/problem/M"><img src="https://s2.loli.net/2022/01/02/Qnus9vBJf4zgCG1.png"></a>
@@ -5711,6 +5711,74 @@ int main () {
 ```
 
 <hr>
+
+## ICPC2021台北J_TransportationNetwork
+
+#### 🔗
+<a href="https://codeforces.com/gym/103443/problem/J">![20220501220824](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220501220824.png)</a>
+
+#### 💡
+首先要知道如何求这个贡献  
+每条边的贡献为两端点数相乘再乘上这个点的权值  
+已知 $2\times x\times(n-x)\ge 1\times(n-1)$  
+所以我们想让 $s$ 尽可能去连接 $rt$   
+所以：  
+<b>如果 $s\le p$</b>   
+那么就让所有的 $s$ 放在 $rt$ 下面      
+然后让所有的 $u$ 连接到一个 $s$ 点上   
+<b>如果 $s\gt p$</b>  
+那么要考虑一下让 $s$ 去占完所有的 $p$ 的话，后面可能会出现很多个 $s\leftrightarrow u$ 的情况  
+这种贡献也是 $2$ 是我们不想出现的  
+就挑出来一个 $u$ 让其连接上 $rt$   
+然后剩下的所有的 $s$ 连接到这个 $u$ 下面，所有的 $u$ 连接到一个 $s$ 下面    
+  
+::: tip
+这里有一个比较轻松点的统计方法  
+即第二种情况下，可能会出现没有 $u$ 的情况  
+我们可以对第一层的 $u$ 取一个 $min(n-1-s,1)$ ，即如果没有 $u$ 的话就是没有贡献  
+:::
+ 
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+ll n, s, p;
+ 
+ 
+inline ll Solve () {
+	if (s <= p) {
+		ll res = 0;
+		ll s1 = s;
+		ll u1 = p - s;
+		ll u2 = n - 1 - p;
+		res += (n - u2 - 1) * (u2 + 1);
+		res += (s1 - 1) * (n - 1);
+		res += 2ll * u1 * (n - 1);
+		res += u2 * (n - 1);
+		return res * 2;
+	} else {
+		ll res = 0;
+		ll s1 = p - 1, s2 = s - s1;
+		ll u1 = min(n - s - 1, 1ll), u2 = n - 1 - s - u1;
+		res += (u2 + 1) * (n - u2 - 1) * 1;
+		res += (s2 + 1) * (n - s2 - 1) * 2;
+		res += (n - u2 - s2) * (n - 1) * 1;
+		return res * 2;
+	}
+}
+int main() {
+	ios::sync_with_stdio(false);
+	int cass; cin >> cass; while (cass --) {
+		cin >> n >> s >> p;
+		for (int i = 0; i < s; i ++) {
+			int x; cin >> x;
+		}
+		cout<<Solve()<<"\n";
+	}
+	return 0;
+}
+```
+<hr>
+
 
 ## NCD2019M_GCDSalary
 

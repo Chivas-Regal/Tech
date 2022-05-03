@@ -1005,6 +1005,94 @@ int main()
 
 <hr>
 
+### 牛客练习赛98D_SonString
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/11188/D">![20220501213543](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220501213543.png)</a>
+
+#### 💡
+由于是连续数列的瓜分，考虑一下隔板法  
+那么需要考虑的就是两个相邻奇数的偶数之间要存在多少个隔板，同时相对应的是它对称的两个奇数之间的偶数的隔板数要一样  
+我们存一下奇数的位置  
+通过两个奇数的位置可以快速得到这两个奇数之间有多少个偶数，与其对称的奇数信息  
+由于存在乘法原理的转移关系，那么我们令 $dp[i]$ 表示转移到第 $i$ 个奇数有多少种方案数  
+第 $i-1$ 到第 $i$ 个奇数之间设存在 $f1$ 个偶数，对称有 $f2$ 个偶数  
+那么除了第一位有 $f1$ 种插法之外，别的都有 $f1+1$ 种插法  
+所以  
+$dp[0]=\sum\limits_{j=0}^{min(f1,f2)}\binom{f1}{j}\binom{f2}{j}$   
+$dp[i]=dp[i-1]\times\sum\limits_{j=0}^{min(f1,f2)+1}\binom{f1+1}{j}\binom{f2+1}{j}$  
+
+注意如果有偶数个奇数的情况了话，我们中间两个奇数之间的偶数（设有 $num$ 个）是没有算过的，而这些偶数可以随便插板，也就是 $dp[mid]\times2^{num}$  
+而且奇数个数是 $0$ 个也要特殊处理一下，同理 $2^{n-1}$  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int mod = 998244353;
+
+
+inline ll ksm (ll a, ll b) { ll res = 1; while (b > 0) { if (b & 1) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv (ll x) { return ksm(x, mod - 2); }
+
+int f[510], ivf[510];
+inline ll C (int n, int m) {
+        if (n < m) return 0;
+        return 1ll * f[n] * ivf[n - m] % mod * ivf[m] % mod;
+}
+
+ll dp[510];
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        string s; cin >> s;
+        int n = s.size();
+
+        f[0] = 1;
+        for (int i = 1; i <= n; i ++) 
+                f[i] = 1ll * f[i - 1] * i % mod;
+        ivf[n] = inv(f[n]);
+        for (int i = n - 1; i >= 0; i --) 
+                ivf[i] = 1ll * ivf[i + 1] * (i + 1) % mod;
+        
+        vector<int> id1;
+        for (int i = 1; i <= n; i ++) 
+                if ((s[i - 1] - '0') % 2 == 1) 
+                        id1.push_back(i);
+
+        if (id1.size() == 0) {
+                cout << ksm(2, n - 1) << endl;
+                return 0;
+        } 
+
+        for (int i = 0; i < id1.size() / 2 + (id1.size() % 2); i ++) { // 枚举一半
+                if (i == 0) {
+                        int f1 = id1[i] - 1;
+                        int f2 = n - id1.back();
+                        for (int j = 0; j <= min(f1, f2); j ++) {
+                                dp[i] += C(f1, j) * C(f2, j) % mod;
+                                dp[i] %= mod;
+                        }
+                } else {        
+                        int f1 = id1[i] - id1[i - 1] - 1;
+                        int f2 = id1[id1.size() - i] - id1[id1.size() - i - 1] - 1;
+                        for (int j = 0; j <= min(f1, f2) + 1; j ++) {
+                                dp[i] += dp[i - 1] * C(f1 + 1, j) % mod * C(f2 + 1, j) % mod;   
+                                dp[i] %= mod;
+                        }
+                }
+        } 
+
+        if (id1.size() % 2 == 0) {
+                int num = id1[id1.size() / 2] - id1[id1.size() / 2 - 1];
+                cout << dp[id1.size() / 2 - 1] * ksm(2, num) % mod;
+        } else {
+                cout << dp[id1.size() / 2] << endl;
+        }
+}
+```
+<hr>
+
+
 ### 牛客挑战赛58B_清新题
 
 #### 🔗

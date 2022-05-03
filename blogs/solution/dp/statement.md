@@ -201,3 +201,61 @@ int main () {
 ```
 
 <hr>
+
+## ICPC2021台北D_LargestRemainder
+
+#### 🔗
+<a href="https://codeforces.com/gym/103443/problem/D">![20220501215553](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220501215553.png)</a>
+
+#### 💡
+（训练赛，看见 $D$ 这么小果断状压  
+既然让余数最大时排列出来的数最大，排列出来的数做限制的话太大了，那么就用余数做限制。（这个其实分析一下时间复杂度也能看出来出题人想让用余数做限制吧  
+我们令第一维表示每一个下标选择的状态，第二维表示余数。  
+那么对于所有数的选择情况都已经出来了   
+  
+第一重套路地枚举状态 $s$，然后找出来 $s$ 中没有用过的下标  
+里面套一重枚举余数 $d$   
+那么对于以前没选过 $i$ ，此时要选 $i$ ，新余数就是 $(d\times10+a[i])%k$  
+我们此时有了新状态，有了新余数，转移维护最大排列值即可   
+  
+最后找答案就从大到小枚举满状态下的余数，如果存在的话就输出即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+ll dp[1 << 17][210];
+int D, K;
+vector<int> a;
+ 
+int main() {
+	ios::sync_with_stdio(false); cin.tie(0);
+	scanf("%d%d", &D, &K);
+	for (int i = 0; i < D; i ++) {
+		int x; scanf("%d", &x);
+		a.push_back(x);
+	}
+	for (int S = 0; S < (1 << D); S ++) {
+		for (int i = 0; i < K; i ++) dp[S][i] = -1;
+	}
+	dp[0][0] = 0;
+ 
+	for (int S = 0; S < (1 << D); S ++) {
+		vector<int> s0; // 没有选的位置 
+		for (int i = 0; i < D; i ++) if (!(S & (1 << i))) s0.push_back(i); 
+		for (int cur = 0; cur < K; cur ++) {
+			if (dp[S][cur] == -1) continue;
+			for (int j = 0; j < s0.size(); j ++) {
+				int nxt = (cur * 10 % K + a[s0[j]]) % K;
+				dp[S | (1 << s0[j])][nxt] = max(dp[S | (1 << s0[j])][nxt], dp[S][cur] * 10 + a[s0[j]]);
+			}
+		}
+	}
+	for (int k = K - 1; k >= 0; k --) {
+		if (dp[(1 << D) - 1][k] >= 0) {
+			printf("%lld", dp[(1 << D) - 1][k]);
+			return 0;
+		}
+	}
+	return 0;
+}
+```
+<hr>
