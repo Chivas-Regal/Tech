@@ -4,6 +4,112 @@ title: 线段树
 ###  
 <hr>
 
+### 洛谷P2216_理想正方形
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P2216">![20220504180644](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220504180644.png)</a>
+
+#### 💡
+转化成对于一个 $(x-n+1,y-n+1)\to(x,y)$ 的  $RMQ$ 问题为：查询行区间为 $[x-n+1,x]$ 且列区间为 $[y-n+1,y]$ 的最大值与最小值    
+  
+可以预处理存 $b$ 个区间数据结构，每个数据结构都能查找 $[l,r]$ 的最大值最小值信息，其实就是存每一列的信息   
+注意到这个预处理即可，因为后面只有读取没有更改，那么就用 $st$ 表，这样后期可以 $O(1)$ 地查询  
+  
+然后对于每一行 $i$ ，都先设置这一行的所有元素，第 $j$ 个元素表示第 $j$ 列区间 $[i-n+1,i]$ 的最大值和最小值  
+对于这一行的每一列 $j$ 用另一个数据结构区间查询 $[j-n+1,j]$ 的最小值最大值，即为这一个 $n*n$ 正方形的最小值最大值   
+  
+一个变量维护其的最小差值即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1003;
+const int M = N * N;
+
+int a, b, n;
+int res[N][N];
+int g[N][N];
+int RES = 0x3f3f3f3f;
+
+struct ST_Table {
+        int mx, mn;
+} st[N][N][10];
+inline void Init () {
+        int k = 32 - __builtin_clz(a) - 1;
+        for (int l = 1; l <= b; l ++) {
+                for (int i = 1; i <= a; i ++) st[l][i][0] = {g[i][l], g[i][l]};
+                for (int j = 1; j <= k; j ++) {
+                        for (int i = 1; i + (1 << j) - 1 <= a; i ++) {
+                                st[l][i][j].mx = max(st[l][i][j - 1].mx, st[l][i + (1 << (j - 1))][j - 1].mx);
+                                st[l][i][j].mn = min(st[l][i][j - 1].mn, st[l][i + (1 << (j - 1))][j - 1].mn);
+                        }
+                }
+        }
+}
+inline int max_inCol (int l, int r, int col) {
+        int k = 32 - __builtin_clz(r - l + 1) - 1;
+        return max(st[col][l][k].mx, st[col][r - (1 << k) + 1][k].mx);
+}
+inline int min_inCol (int l, int r, int col) {
+        int k = 32 - __builtin_clz(r - l + 1) - 1;
+        return min(st[col][l][k].mn, st[col][r - (1 << k) + 1][k].mn);
+}
+
+
+struct SqrtTree {
+        int mx, mn;
+} tr[N << 2];
+inline void pushUp_Row (int rt) {
+        tr[rt].mn = min(tr[rt << 1].mn, tr[rt << 1 | 1].mn);
+        tr[rt].mx = max(tr[rt << 1].mx, tr[rt << 1 | 1].mx);
+}
+inline void Update_Row (int id, int mx, int mn, int l, int r, int rt) {
+        if (l == id && id == r) {
+                tr[rt] = {mx, mn};
+                return;
+        }
+        int mid = (l + r) >> 1;
+        if (id <= mid) Update_Row(id, mx, mn, l, mid, rt << 1);
+        else Update_Row(id, mx, mn, mid + 1, r, rt << 1 | 1);
+        pushUp_Row(rt);
+}
+inline int Query_max_Row (int a, int b, int l, int r, int rt) {
+        if (a <= l && r <= b) return tr[rt].mx;
+        else if (r < a || b < l) return 0;
+        int mid = (l + r) >> 1;
+        int res = 0;
+        if (a <= mid) res = max(res, Query_max_Row(a, b, l, mid, rt << 1));
+        if (mid <= b) res = max(res, Query_max_Row(a, b, mid + 1, r, rt << 1 | 1));
+        return res;
+}
+inline int Query_min_Row (int a, int b, int l, int r, int rt) {
+        if (a <= l && r <= b) return tr[rt].mn;
+        else if (r < a || b < l) return 0x3f3f3f3f;
+        int mid = (l + r) >> 1;
+        int res = 0x3f3f3f3f;
+        if (a <= mid) res = min(res, Query_min_Row(a, b, l, mid, rt << 1));
+        if (mid <= b) res = min(res, Query_min_Row(a, b, mid + 1, r, rt << 1 | 1));
+        return res;
+}
+
+int main () {
+        scanf("%d%d%d", &a, &b, &n);
+        for (int i = 1; i <= a; i ++) 
+                for (int j = 1; j <= b; j ++) 
+                        scanf("%d", &g[i][j]);
+        Init();
+        for (int i = n; i <= a; i ++) {
+                for (int j = 1; j <= b; j ++) {
+                        Update_Row(j, max_inCol(i - n + 1, i, j), min_inCol(i - n + 1, i, j), 1, b, 1);
+                        if (j >= n) 
+                                RES = min(RES, Query_max_Row(j - n + 1, j, 1, b, 1) - Query_min_Row(j - n + 1, j, 1, b, 1));
+                } 
+        }
+        printf("%d\n", RES);
+}
+```
+<hr>
+
+
 ## 洛谷P6327_区间加区间sin和
 
 #### 🔗

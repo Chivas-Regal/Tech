@@ -458,6 +458,79 @@ CHIVAS_{
 ```
 
 
+## ABC250F_OneFourth
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc250/tasks/abc250_f">![20220509144741](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220509144741.png)</a>
+
+#### 💡
+首先要留意这个公式：  
+对于按顺序给出的点 $[x,y]$ ，围出的多边形面积 $S=\sum\limits_{i=0}^{n-1}x_iy_{(i+1)\%n}-x_{(i+1)\%n}y_i$  
+由于题目是在某种意义上让 整个凸多边形面积的四分之一 与 我们选出的相邻点组成的凸多边形的面积 差最小  
+  
+而思考一下上面的公式，在已有凸多边形面积的情况下，向尾部添加一个点或者向开头删去一个点都可以 $O(1)$ 求的:  
+- 尾部加点
+  - 断掉最后一个点和第一个点的关系  
+  - 添加最后一个点和新加入点的关系
+  - 添加新加入点和第一个点的关系
+- 开头删点
+  - 断掉第一个点和第二个点的关系
+  - 断掉最后一个点和第一个点的关系
+  - 添加最后一个点和第一个点的关系
+
+那么我们可以用上面两个元素进行尺取   
+维护一下让我们选出的面积要小于等于总面积的四分之一即可     
+  
+尺取我们 $r$ 是可以一直走的，但是 $l$ 走一轮就行了，所以 $l$ 不会进行模 $n$ ，特判 $l=n$ 时停止  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        ll n; cin >> n; 
+        auto add = [&](ll x, ll val) { return (x + val) % n; }; // 下一个点
+        auto sub = [&](ll x, ll val) { return (x - val + n) % n; }; // 上一个点
+
+        vector<ll> x(n), y(n);
+        for (ll i = 0; i < n; i ++) cin >> x[i] >> y[i];
+
+        ll S = 0;
+        for (ll i = 0; i < n; i ++) {
+                S += x[i] * y[add(i, 1)] - x[add(i, 1)] * y[i];
+        } S = llabs(S);
+
+
+        ll res = __LONG_LONG_MAX__;
+        auto update_Min = [&](ll sum) { // 切出来的一块面积为 sum ，更新答案
+                ll cura = 4ll * (S - llabs(sum));
+                ll curb = 4ll * llabs(sum);
+                res = min({res, llabs(S - cura), llabs(S - curb)});      
+        };
+
+        ll sum = (x[0] * y[1] - x[1] * y[0]) + (x[1] * y[2] - x[2] * y[1]) + (x[2] * y[0] - x[0] * y[2]); // 先放入三个点  
+
+        for (ll l = 0, r = 3; l < n; r = add(r, 1)) {
+                // 尾部加点
+                sum -= x[sub(r, 1)] * y[l] - x[l] * y[sub(r, 1)];
+                sum += x[sub(r, 1)] * y[r] - x[r] * y[sub(r, 1)];
+                sum += x[r] * y[l] - x[l] * y[r];
+                update_Min(sum);
+                while (sum * 4 > S) { // 开头删点
+                        sum -= x[r] * y[l] - x[l] * y[r];
+                        sum -= x[l] * y[add(l, 1)] - x[add(l, 1)] * y[l];
+                        l ++;
+                        if (l == n) break;
+                        sum += x[r] * y[l] - x[l] * y[r];
+                        update_Min(sum);
+                }
+        }
+
+        cout << res << endl;
+}
+```
+<hr>
 
 
 

@@ -92,6 +92,243 @@ BigInteger:
 
 <hr>
 
+### 洛谷P3321_序列统计
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P3321">![20220507165406](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220507165406.png)</a>
+
+#### 💡
+首先写一个递推式：用 $dp[i][j]$ 表示选 $i$ 个数，乘积模 $m$ 为 $j$ 的方案数  
+则有转移 $dp[2\times i][c]=\sum\limits_{a\times b\% m=c}dp[i][a]\times dp[i][b]$  
+可以看到如果连加符下面是 $a+b$ 相关的话就可以直接卷积了，乘法变加法考虑替换为指数  
+令 $g$ 为 $m$ 的原根，这样的话对于任意的 $i,j\in[0,m-2],i\neq j$ 都能满足 $g^i\neq g^j$   
+令 $a=g^A,b=g^B,c=g^C\quad\rightarrow\quad A=log_ga,B=log_gb,C=log_gc$ ，则    
+  
+$$\begin{aligned}
+dp[2\times i][C]=&\sum\limits_{g^A\times g^B \% m=g^C}dp[i][A]dp[i][B]\\
+=&\sum\limits_{g^{(A+B)\%(m-1)=g^{C}}}dp[i][A]dp[i][B]\\
+=&\sum\limits_{(A+B)\%(m-1)=C}dp[i][A]dp[i][B]
+\end{aligned}$$   
+  
+这样看起来已经圆满了，把公式弄清晰一点  
+令 $f[C]=\sum\limits_{A+B=C}dp[i][A]dp[i][B]$  
+则 $dp[i][C]=f[C]+f[C+m-1]$    
+这样答案就成了 $f^n[log_gx]$   
+  
+注意我们特判掉输入的 $\{S\}$ 中模 $m$ 为 $0$ 的数后，对每一个 $f[s[i]\%m]$ 都要 $+1$ 成为方案数  
+然后计算 $f$ 的幂可以使用快速幂多项式乘法    
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int mod = 1004535809;
+
+int n, m, x, sz;
+int lg[10004];
+int g;
+
+namespace Number {
+        inline int Ksm (int a, int b, int mod) {
+                int res = 1;
+                while (b) {
+                        if (b & 1) res = 1ll * res * a % mod;
+                        a = 1ll * a * a % mod;
+                        b >>= 1;
+                }
+                return res;
+        }
+        inline int Inv (int x) {
+                return Ksm(x, mod - 2, mod);
+        }
+        inline int Phi (int x) {
+                int res = x;
+                for (int i = 2; 1ll * i * i <= x; i ++) {
+                        if (x % i == 0) {
+                                res = res / i * (i - 1);
+                                while (x % i == 0) x /= i;
+                        }
+                }
+                if (x > 1) res = res / x * (x - 1);
+                return res;
+        }
+        
+        vector<ll> sep;
+        inline void Seperator (int x) {
+                x = Phi(x);
+                for (int i = 2; i * i <= x; i ++) {
+                        if (x % i == 0) sep.push_back(i);
+                        while (x % i == 0) x /= i;
+                }
+                if (x > 1) sep.push_back(x);
+        }
+        inline bool Check (int x, int n) {
+                int phin = Phi(n);
+                if (Ksm(x, phin, n) != 1) return 0;
+                for (int i = 0; i < sep.size(); i ++) if (Ksm(x, phin / sep[i], n) == 1) return 0;
+                return 1;
+        }
+        inline int Root (int x) {
+                sep.clear(); Seperator(x);
+                for (int i = 1; i <= x; i ++) if (Check(i, x)) return i;
+                return 0;
+        }
+}
+namespace Poly {
+        const int N = 3e4 + 10;
+        int bit, tot, rev[N];
+        int F[N];
+        inline void Init () {
+                bit = 0; while ((1 << bit) < (m << 1)) bit ++; tot = 1 << bit;
+                for (int i = 0; i < tot; i ++) rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (bit - 1));
+        }
+        inline void NTT (int a[], int op) {
+                for (int i = 0; i < tot; i ++) if (i < rev[i]) swap(a[i], a[rev[i]]);
+                for (int mid = 1; mid < tot; mid <<= 1) {
+                        int g1 = Number::Ksm(3, (mod - 1) / (mid << 1), mod);
+                        if (op == -1) g1 = Number::Inv(g1);
+                        for (int i = 0; i < tot; i += mid << 1) {
+                                int gk = 1;
+                                for (int j = 0; j < mid; j ++, gk = 1ll * gk * g1 % mod) {
+                                        int x = a[i + j], y = 1ll * gk * a[i + mid + j] % mod;
+                                        a[i + j] = (x + y) % mod;
+                                        a[i + j + mid] = ((x - y) % mod + mod) % mod;
+                                }
+                        }
+                }
+                if (op == -1) {
+                        int iv = Number::Inv(tot);
+                        for (int i = 0; i < tot; i ++) a[i] = 1ll * a[i] * iv % mod;
+                }
+        }
+        inline void Mul (int A[], int B[], int C[]) {
+                int a[N], b[N];
+                for (int i = 0; i < tot; i ++) a[i] = A[i], b[i] = B[i];
+                NTT(a, 1); NTT(b, 1);
+                for (int i = 0; i < tot; i ++) a[i] = 1ll * a[i] * b[i] % mod;
+                NTT(a, -1);
+                for (int i = 0; i < m - 1; i ++) C[i] = (a[i] + a[i + m - 1]) % mod;
+        }
+        int res[N];
+        inline void Ksm (int A[], int b) {
+                res[0] = 1;
+                while (b) {
+                        if (b & 1) Mul(res, A, res);
+                        Mul(A, A, A);
+                        b >>= 1;
+                }
+        }
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        cin >> n >> m >> x >> sz;
+        g = Number::Root(m); 
+        for (int i = 0; i < m - 1; i ++) lg[Number::Ksm(g, i, m)] = i;
+        for (int i = 0; i < sz; i ++) {
+                int num; cin >> num; num %= m;
+                if (num) Poly::F[lg[num]] ++;
+        }
+        Poly::Init();
+        Poly::Ksm(Poly::F, n);
+        cout << Poly::res[lg[x]] << endl;
+}
+```
+<hr>
+
+
+### 洛谷P3338_力
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P3338">![20220503201402](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220503201402.png)</a>
+
+#### 💡
+<b>首先回顾多项式卷积公式</b>  
+令 $f(x)$ 为多项式， $f[i]$ 为其指数为 $i$ 的系数  
+$f(x)*g(x)=\sum\limits_{i=0}^nf[i]g[n-i]$    
+  
+<b>化简式子</b>  
+$\begin{aligned}
+E_i=&\frac{F_i}{q_i}\\
+=&\frac{\sum\limits_{j=1}^i\frac{q_iq_j}{(i-j)^2}-\sum\limits_{j=i}^n\frac{q_iq_j}{(i-j)^2}}{q_i}\\
+=&\sum\limits_{j=1}^i\frac{q_j}{(i-j)^2}-\sum\limits_{j=i}^n\frac{q_j}{(i-j)^2}
+\end{aligned}$  
+可以发现对于一块也就是 $\frac{q_j}{(i-j)^2}$ 这是两个部分并且上面是 $j$ 下面是 $i-j$ ，那么令 $f[i]=q_i,g[i]=\frac1{i^2}$  
+则原式 $=\sum\limits_{j=1}^if[i]g[i-j]-\sum\limits_{j=i}^nf[i]g[i-j]$  
+前面成卷积的形式了，展开一下后面看看： $\sum\limits_{j=i}^nf[i]g[i-j]=f[i]g[0]+f[i+1]g[1]+...=\sum\limits_{j=0}^{n-i}f[i+j]g[j]$  
+令 $t=n-i,\;f'[\alpha]=f[n-\alpha]=f[t+i-\alpha]$  
+则后者 $=\sum\limits_{j=0}^tf'[t-j]g[j]$ 成了  
+所以原式 $=\sum\limits_{j=1}^if[i]g[i-j]-\sum\limits_{j=0}^tf'[t-j]g[j]$     
+令 $f[0]=g[0]=0$  
+则原式 $=\sum\limits_{j=0}^if[i]g[i-j]-\sum\limits_{j=0}^tf'[t-j]g[j]$  
+
+<b>固定任务</b>  
+设多项式 $A(x)=\sum\limits_{i=0}^nf[i],\;B(x)=\sum\limits_{i=0}^ng[i],\;C(x)=\sum\limits_{i=0}^nf'[i]$  
+则原式 $=(A*B)(x)[i]-(B*C)(x)[n-i]$  
+用 $FFT$ 优化即可     
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 3e5 + 10;
+const double PI = acos(-1.0);
+
+struct Complex {
+        double x, y;
+        inline friend Complex operator + (Complex a, Complex b) { return {a.x + b.x, a.y + b.y}; }
+        inline friend Complex operator - (Complex a, Complex b) { return {a.x - b.x, a.y - b.y}; }
+        inline friend Complex operator * (Complex a, Complex b) { return {a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x}; }
+} a[N], b[N], c[N];
+int tot, bit, rev[N];
+
+inline void FFT (Complex a[], int inv) {
+        for (int i = 0; i < tot; i ++) 
+                if (i < rev[i])
+                        swap(a[i], a[rev[i]]);
+        for (int mid = 1; mid < tot; mid <<= 1) {
+                Complex w1 = {cos(PI / mid), inv * sin(PI / mid)};
+                for (int i = 0; i < tot; i += mid << 1) {
+                        Complex wk = {1, 0};
+                        for (int j = 0; j < mid; j ++, wk = wk * w1) {
+                                Complex x = a[i + j], y = wk * a[i + j + mid];
+                                a[i + j] = x + y, a[i + j + mid] = x - y;
+                        }
+                }
+        }
+        if (inv == -1) {
+                for (int i = 0; i < tot; i ++) a[i].x = a[i].x / tot;
+        }
+}
+
+int n;
+double p[N];
+
+int main () {
+        scanf("%d", &n);
+        for (int i = 1; i <= n; i ++) scanf("%lf", &p[i]);
+        
+        while ((1 << bit) < n + n + 1) bit ++; tot = 1 << bit;
+        for (int i = 0; i < tot; i ++) rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (bit - 1));
+
+        for (int i = 1; i <= n; i ++) {
+                a[i].x = p[i];
+                b[i].x = 1.0 / i / i;
+                c[n - i].x = p[i];
+        }
+
+        FFT(a, 1); FFT(b, 1); FFT(c, 1);
+        for (int i = 0; i < tot; i ++) a[i] = a[i] * b[i], b[i] = b[i] * c[i];
+        FFT(a, -1); FFT(b, -1);
+
+        for (int i = 1; i <= n; i ++) {
+                printf("%.3f\n", a[i].x - b[n - i].x);
+        }
+}
+```
+<hr>
+
+
 ### 洛谷P3803_【模板】多项式乘法（FFT）
 
 #### 🔗
@@ -147,7 +384,196 @@ int main() {
 
 <hr>
 
-### CodeForces608B_HammingDistance Sum
+### 洛谷P4173_残缺的字符串
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P4173">![20220509185341](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220509185341.png)</a>
+
+#### 💡
+含有通配符， $KMP$ 难以做到  
+如果让通配符为 $0$ ，他乘任何的数都是 $0$ ，那么可以用字符串乘法操作  
+不仅与通配符有关，还与两个字符有关  
+那么我们令 $dis(s,t)=\sum\limits_{i=0}^{m-1}(s_i-t_i)^2s_it_i$ ，完全匹配意味着 $dis=0$  
+令 $i$ 表示 $s$ 与 $t$ 进行匹配的开始位置  
+则   
+$$\begin{aligned}
+f_i=&dis_i(s_{[i,i+m-1]},t)\\
+=&\sum\limits_{j=0}^{m-1}(s_{i+j}-t_j)s_{i+j}t_j\\
+=&\sum\limits_{j=0}^{m-1}s_{i+j}^3t_{j}-2\times\sum\limits_{j=0}^{m-1}s_{i+j}^2t_j^2+\sum\limits_{j=0}^{m-1}s_{i+j}t_j^3
+\end{aligned}$$  
+发现每一部分都可以成为卷积，那么套路地翻转字符串 $t$ ，公式变为  
+$$\sum\limits_{j=0}^{m-1}s_{i+j}^3t_{m-1-j}-2\sum\limits_{j=0}^{m-1}s_{i+j}^2t_{m-1-j}^2+\sum\limits_{j=0}^{m-1}s_{i+j}t_{m-1-j}^3$$  
+卷积形式，将下标视作指数，下标相加 $=i+j+m-1-j=i+m-1$  
+$i\in[0,n-m]$ ，对应上面相加后的幂为 $[m-1,n-1]$  
+即对应 $f[m-1,n-1]$ 中为 $0$ 的位置表示全部匹配  
+即扫描 $i\in[m-1,n-1]$ 如果匹配了输出 $i-m+2$  
+  
+（屑题卡常开个 $O2$）  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2000006;
+const double PI = acos(-1.0);
+
+struct Complex {
+        double x, y;
+        inline friend Complex operator + (Complex a, Complex b) { return {a.x + b.x, a.y + b.y}; }
+        inline friend Complex operator - (Complex a, Complex b) { return {a.x - b.x, a.y - b.y}; }
+        inline friend Complex operator * (Complex a, Complex b) { return {a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x}; }
+        inline friend Complex operator * (Complex a, double b)  { return {a.x * b, a.y * b}; }
+} a1[N], a2[N], a3[N], b1[N], b2[N], b3[N], c[N];
+int bit, tot, rev[N];
+
+inline void FFT (Complex a[], int op) {
+        for (int i = 0; i < tot; i ++) if (i < rev[i]) swap(a[i], a[rev[i]]);
+        for (int mid = 1; mid < tot; mid <<= 1) {
+                Complex w1 = {cos(PI / mid), op * sin(PI / mid)};
+                for (int i = 0; i < tot; i += mid << 1) {
+                        Complex wk = {1, 0};
+                        for (int j = 0; j < mid; j ++, wk = wk * w1) {
+                                Complex x = a[i + j], y = wk * a[i + j + mid];
+                                a[i + j] = x + y, a[i + j + mid] = x - y;
+                        }
+                }
+        }
+}
+
+char a[300005], b[300005];
+int res[300005], idx;
+
+int main () {
+        int n, m; scanf("%d%d", &m, &n);
+        scanf("%s%s", b, a);
+        n --, m --;
+
+        while ((1 << bit) < (n + m)) bit ++; tot = 1 << bit;
+        for (int i = 0; i < tot; i ++) rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (bit - 1));
+
+        for (int i = 0; i <= n; i ++) {
+                if (a[i] != '*')
+                        a1[i].x = (a[i] - 'a' + 1),
+                        a2[i].x = (a[i] - 'a' + 1) * (a[i] - 'a' + 1),
+                        a3[i].x = (a[i] - 'a' + 1) * (a[i] - 'a' + 1) * (a[i] - 'a' + 1);
+        }
+        for (int i = 0; i <= m; i ++) {
+                if (b[m - i] != '*') 
+                        b1[i].x = (b[m - i] - 'a' + 1),
+                        b2[i].x = (b[m - i] - 'a' + 1) * (b[m - i] - 'a' + 1),
+                        b3[i].x = (b[m - i] - 'a' + 1) * (b[m - i] - 'a' + 1) * (b[m - i] - 'a' + 1);
+        }
+        
+        FFT(a1, 1); FFT(a2, 1); FFT(a3, 1);
+        FFT(b1, 1); FFT(b2, 1); FFT(b3, 1);
+        for (int i = 0; i < tot; i ++) 
+                c[i] = a3[i] * b1[i] - a2[i] * b2[i] * 2 + a1[i] * b3[i];
+        FFT(c, -1);
+
+
+        for (int i = m; i <= n; i ++) {
+                if (fabs((int)(c[i].x / tot + 0.5)) < 1e-3) {
+                        res[idx ++] = i - m + 1;
+                }
+        }
+
+        printf("%d\n", idx);
+        for (int i = 0; i < idx; i ++) printf("%d ", res[i]);
+}
+```
+<hr>
+
+### 洛谷P6300_悔改
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P6300">![20220510102552](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220510102552.png)</a>
+
+#### 💡
+首先把这个问题换成一个式子  
+令 $a_i$ 为长度为 $i$ 的木棍个数  
+拼成 $k$ 的方案数为 $f_k=\left\lfloor\frac{\sum\limits_{i+j=k}\min(a_i,a_j)}2\right\rfloor$  
+其中去掉 $(i,j)$ 和 $(j,i)$ 这种因顺序不同导致的重复与 两个相同的木棍拼成 $k$ 的方案数，所以要除 $2$ 下取整  
+<span style="color: red;">
+那么注意到上面这一块也就是 $\sum\limits_{i+j=k}\min(a_i,a_j)$ 是一个类似于卷积形式的卷$\min$  
+考虑如何将这一部分转化为卷积  
+$$\begin{aligned}
+&\sum\limits_{i+j=k}\min(a_i,a_j)\\
+=&\sum\limits_{i+j=k}\sum\limits_{d=1}[a_i\ge d][a_j\ge d]\\
+=&\sum\limits_{d=1}\sum\limits_{i+j=k}[a_i\ge d][a_j\ge d]
+\end{aligned}$$  
+这样枚举 $d$ 后面就是一个卷积了  
+</span>
+但是如果 $d$ 是暴力 $[1,2m]$ 了话时间复杂度还是过不去，注意到这都是 $\ge$ ，考虑区间跳跃优化  
+我们将所有出现的次数存入一个数组 $b$ ，将其排序去重  
+我们 $d$ 只枚举 $b$ 中的元素  
+如果当前枚举到 $b_d$ ，如果卷出来系数不为 $0$ 的地方，那么对于 $b_d-b_{d-1}$ 这一部分是我们之前没有计算到的地方也是这一次卷积满足的地方，就要让系数乘上 $b_d-b_{d-1}$ 累加入这一位的计数数组 $[res]$ 中  
+最后从小往大枚举指数 $i$ ，找最大的且是第一次出现的 $\left\lfloor\frac{res_i}2\right\rfloor$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 4e5 + 10;
+const int mod = 998244353;
+inline ll ksm (ll a, ll b) { ll res = 1; while (b) { if (b & 1) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv (ll x) { return ksm(x, mod - 2); }
+
+int f[N], rev[N], tot, bit;
+int res[N];
+inline void NTT (int a[], int op) {
+        for (int i = 0; i < tot; i ++) if (i < rev[i]) swap(a[i], a[rev[i]]);
+        for (int mid = 1; mid < tot; mid <<= 1) {
+                int g1 = ksm(3, (mod - 1) / (mid << 1));
+                if (op == -1) g1 = inv(g1);
+                for (int i = 0; i < tot; i += mid << 1) {
+                        int gk = 1;
+                        for (int j = 0; j < mid; j ++, gk = 1ll * gk * g1 % mod) {
+                                int x = a[i + j], y = 1ll * gk * a[i + j + mid] % mod;
+                                a[i + j] = (x + y) % mod;
+                                a[i + j + mid] = ((x - y) % mod + mod) % mod;
+                        }
+                }
+        }
+        if (op == -1) {
+                int iv = inv(tot);
+                for (int i = 0; i < tot; i ++) a[i] = 1ll * a[i] * iv % mod;
+        }
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(0);
+
+        int n, m; cin >> n >> m;
+        vector<int> a(m * 2 + 1, 0), b(m * 2 + 1, 0);
+        for (int i = 0; i < n; i ++) {
+                int x; cin >> x;
+                a[x] ++;
+                b[x] = a[x];
+        }
+        sort(b.begin(), b.end());
+        b.erase(unique(b.begin(), b.end()), b.end());
+
+        while ((1 << bit) < (m << 1)) bit ++; tot = 1 << bit;
+        for (int i = 0; i < tot; i ++) rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (bit - 1));
+
+        for (int d = 1; d < b.size(); d ++) {
+                memset(f, 0, sizeof f);
+                for (int i = 1; i <= m * 2; i ++) f[i] = a[i] >= b[d];
+                NTT(f, 1);
+                for (int i = 0; i < tot; i ++) f[i] = 1ll * f[i] * f[i] % mod;
+                NTT(f, -1);
+                for (int i = 1; i <= m * 2; i ++) res[i] += 1ll * (b[d] - b[d - 1]) * f[i] % mod;
+        }
+        
+        pair<int, int> RES = {0, 0x3f3f3f3f};
+        for (int i = 1; i <= m * 2; i ++) {
+                if (RES.first < res[i] / 2) RES = {res[i] / 2, i};
+        }
+        cout << RES.first << " " << RES.second << endl;
+}
+```
+<hr>
+
+
+
+### CodeForces608B_HammingDistanceSum
 
 #### 🔗
 <a href="https://codeforces.com/problemset/problem/608/B"><img src="https://i.loli.net/2021/09/09/rladEgOGcVRpSxH.png"></a>

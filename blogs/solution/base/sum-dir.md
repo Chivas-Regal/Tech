@@ -264,6 +264,62 @@ int main(){
 
 <hr>
 
+## ABC250E_PrefixEquality
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc250/tasks/abc250_e![20220509152217](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220509152217.png)"></a>
+
+#### 💡
+由于查询的时候都是前缀，那么我们肯定希望 $a$ 中的每一个数在 $b$ 中出现的越早越好  
+那么就存一个对于每一个 $i$ ， $a_i$ 在 $b$ 中出现的最小下标  
+对于一次查询 $X,Y$  
+我们只要保证在 $X$ 以前的 $i$ 的 $a_i$ 出现的最小下标均小于 $Y$ 即可    
+那么我们现在只需要知道对于每一个 $a$ 的前缀，最后出现的最小下标在哪，这个前缀设置为 $mxa$   
+这样对于上面的问题转换就是 $mxa[X]\le Y$ 即可  
+对于 $b$ 同理  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+int a[N], b[N];
+int n;
+int q;
+ 
+map<int, int> ainb, bina;
+int mxa[N], mxb[N];
+ 
+int main () {
+        scanf("%d", &n);
+        for (int i = 1; i <= n; i ++) {
+                scanf("%d", &a[i]);
+                if (!bina.count(a[i])) bina[a[i]] = i;
+        }
+        for (int i = 1; i <= n; i ++) {
+                scanf("%d", &b[i]);
+                if (!ainb.count(b[i])) ainb[b[i]] = i;
+        }
+ 
+        for (int i = 1; i <= n; i ++) {
+                if (i == 1) {
+                        mxa[i] = ainb.count(a[i]) ? ainb[a[i]] : 0x3f3f3f3f;
+                        mxb[i] = bina.count(b[i]) ? bina[b[i]] : 0x3f3f3f3f;
+                } else {
+                        mxa[i] = max(mxa[i - 1], ainb.count(a[i]) ? ainb[a[i]] : 0x3f3f3f3f);
+                        mxb[i] = max(mxb[i - 1], bina.count(b[i]) ? bina[b[i]] : 0x3f3f3f3f);
+                }
+        }
+ 
+        scanf("%d", &q);
+        while (q --) {
+                int x, y; scanf("%d%d", &x, &y);
+                if (mxa[x] > y || mxb[y] > x) puts("No");
+                else puts("Yes");
+        }
+}
+```
+<hr>
+
+
 ## ARC136C_CircularAddition
 
 #### 🔗
