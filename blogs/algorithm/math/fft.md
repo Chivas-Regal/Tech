@@ -71,25 +71,25 @@ $a+bi$
 <img src="https://img-blog.csdnimg.cn/b99ffea1374f4512b9271c2c7ee2c557.png">  
 将单位圆从 $x$ 轴 $n$ 等分，获得 $n$ 次单位根  
 $e^{i\theta}=cos\theta+isin\theta$  
-$w_n^k=cos(2\pi\frac kn)+i\sin(2\pi\frac kn)=e^{2\pi\frac kn i}$
+$\omega_n^k=cos(2\pi\frac kn)+i\sin(2\pi\frac kn)=e^{2\pi\frac kn i}$
 
   
 ### 单位根性质  
   
-$1.w_n^k=w_{2n}^{2k}$  
+$1.\omega_n^k=\omega_{2n}^{2k}$  
 ::: tip
 分成 $n$ 份第 $k$ 个和分成 $2n$ 份第 $2k$ 个是相同的
 :::  
-$2.w_n^{k+\frac n2}=-w_n^k$  
+$2.\omega_n^{k+\frac n2}=-\omega_n^k$  
 ::: tip
 相当于跨越了半个圆
 :::
-$3.w_n^kw_n^l=w_n^{k+l}$  
+$3.\omega_n^k\omega_n^l=\omega_n^{k+l}$  
 ::: tip
 可以代入欧拉公式证明  
-$w_n^k=e^{2\pi\frac kni}$  
-$w_n^l=e^{2\pi\frac lni}$  
-$w_n^kw_n^l=e^{\frac 2\pi in(k+l)}=w_n^{k+l}$ 
+$\omega_n^k=e^{2\pi\frac kni}$  
+$\omega_n^l=e^{2\pi\frac lni}$  
+$\omega_n^k\omega_n^l=e^{\frac 2\pi in(k+l)}=\omega_n^{k+l}$ 
 :::  
   
 其实之所以引入单位根也是因为这个特性，相乘等于系数相加，和 $x^ix^j=x^{i+j}$ 的特性一样  
@@ -99,7 +99,7 @@ $w_n^kw_n^l=e^{\frac 2\pi in(k+l)}=w_n^{k+l}$
 ### 思想
 
 $A(x)$ 系数：$(a_0,a_1,\dots,a_{n-1})$  
-代入一组单位根： $(w_n^0,w_n^1,\dots,w_n^{n-1})$ 快速求出 $(A(w_n^0),A(w_n^1),\dots,A(w_n^{n-1}))$  
+代入一组单位根： $(\omega_n^0,\omega_n^1,\dots,\omega_n^{n-1})$ 快速求出 $(A(\omega_n^0),A(\omega_n^1),\dots,A(\omega_n^{n-1}))$  
 在 $A(x)$ 中看    
 我们可以用分治的方式将其划分为两个相等的部分，对于每一部分求完直接合并  
   
@@ -119,51 +119,51 @@ $A_2(x)=a_1+a_3x+a_5x^2+\dots+a_{n-1}x^{\frac n2-1}$
 分类讨论一下    
   
 $k\in[0,\frac n2)$  
-$\begin{aligned}A(w_n^k)&=A_1((w_n^k)^2)+w_n^kA_2((x_n^k)^2)\\&=A_1(w_{\frac n2}^k)+w_n^kA_2(w_{\frac n2}^k)\end{aligned}$  
+$\begin{aligned}A(\omega_n^k)&=A_1((\omega_n^k)^2)+\omega_n^kA_2((x_n^k)^2)\\&=A_1(\omega_{\frac n2}^k)+\omega_n^kA_2(\omega_{\frac n2}^k)\end{aligned}$  
   
 $k\in[\frac n2,n-1]$  
 $\begin{aligned}
-A(w_n^{k+\frac n2})=&A_1((w_n^{k+\frac n2})^2)+w_n^{k+\frac n2}((w_n^k)^2)\\
-=&A_1(w_n^{2k+n})-w_n^kA_2(w_n^{2k+n})\\
-=&A_1(w_n^{2k}w_n^n)-w_n^kA_2(w_n^{2k}w_n^n)\\
-=&A_1(w_{\frac n2}^k)-w_n^kA_2(w_{\frac n2}^k)
+A(\omega_n^{k+\frac n2})=&A_1((\omega_n^{k+\frac n2})^2)+\omega_n^{k+\frac n2}((\omega_n^k)^2)\\
+=&A_1(\omega_n^{2k+n})-\omega_n^kA_2(\omega_n^{2k+n})\\
+=&A_1(\omega_n^{2k}\omega_n^n)-\omega_n^kA_2(\omega_n^{2k}\omega_n^n)\\
+=&A_1(\omega_{\frac n2}^k)-\omega_n^kA_2(\omega_{\frac n2}^k)
 \end{aligned}$
   
 这样分类进行递归，时间复杂度为 $O(nlogn)$  
   
 ## IDFT
 
-$(w_n^k,A(w_n^k))\quad A(x)=c_0+c_1x+\dots+c_{n-1}x^{n-1}$  
-令 $y_k=A(w_n^k)$ ，则 $c_k=\sum\limits_{i=0}^{n-1}y_i(w_n^{-k})^i$  
+$(\omega_n^k,A(\omega_n^k))\quad A(x)=c_0+c_1x+\dots+c_{n-1}x^{n-1}$  
+令 $y_k=A(\omega_n^k)$ ，则 $c_k=\sum\limits_{i=0}^{n-1}y_i(\omega_n^{-k})^i$  
 原系数 $a_k=\frac{c_k}n$  
 想快速求出上面的 $c_{[0,n-1]}$ ，可以把式子当做一个关于 $y$ 的多项式  
 则 $B(x)=y_0+y_1x+\dots+y_{n-1}x^{n-1}$  
-则 $c_k=B(w_n^{-k})$ 而 $B(w_n^{-k})$ 的一个个求解还需 $FFT$ 从而推出 $c_k$ 与 $A(x)$  
+则 $c_k=B(\omega_n^{-k})$ 而 $B(\omega_n^{-k})$ 的一个个求解还需 $FFT$ 从而推出 $c_k$ 与 $A(x)$  
 那么本质就是一遍 $FFT$ 推出点表示，再来一遍推出系数表示  
-第一遍求 $A(w_n^0)\rightarrow A(x_n^{n-1})$  
-第二遍求 $B(w_n^0)\rightarrow B(w_n^{-(n-1)})$  
+第一遍求 $A(\omega_n^0)\rightarrow A(x_n^{n-1})$  
+第二遍求 $B(\omega_n^0)\rightarrow B(\omega_n^{-(n-1)})$  
   
 $$\begin{aligned}
 c_k &=\sum_{i=0}^{n-1} y_k\left(\omega_n^{-k}\right)^i \\
 &=\sum_{i=0}^{n-1}\left(\sum\limits_{j=0}^{n-1} a_j\left(\omega_n^i\right)^j\right)\left(\omega_n^{-k}\right)^i \\
 &=\sum_{i=0}^{n-1}\left(\sum\limits_{j=0}^{n-1} a_j\left(\omega_n^{j-k}\right)^i\right) \\
-&=\sum_{j=0}^{n-1} a_j\left(\sum_{i=0}^{n-1}\left(w_{n}^{j-k}\right)^i\right)
+&=\sum_{j=0}^{n-1} a_j\left(\sum_{i=0}^{n-1}\left(\omega_{n}^{j-k}\right)^i\right)
 \end{aligned}$$  
   
 ::: tip
 令 $S(x)=1+x+x^2+\dots+x^n$  
 则   
-$$S(w_n^k):k\left\{\begin{aligned}
-\neq 0&\quad &S(w_n^k)=1+w_n^k+w_n^{2k}+\dots+w_n^{(n-1)k}\\
-&&w_n^k(S(w_n^k))=w_n^k+w_n^{2k}+\dots+w_n^0\\
-&&(1-w_n^k)S=0\\
-&&\because k\neq 0:w_n^k\neq 1\quad \therefore S=0\\
+$$S(\omega_n^k):k\left\{\begin{aligned}
+\neq 0&\quad &S(\omega_n^k)=1+\omega_n^k+\omega_n^{2k}+\dots+\omega_n^{(n-1)k}\\
+&&\omega_n^k(S(\omega_n^k))=\omega_n^k+\omega_n^{2k}+\dots+\omega_n^0\\
+&&(1-\omega_n^k)S=0\\
+&&\because k\neq 0:\omega_n^k\neq 1\quad \therefore S=0\\
 \\
-=0 &&S(w_n^k)=S(1)=n
+=0 &&S(\omega_n^k)=S(1)=n
 \end{aligned}\right.$$
 :::  
   
-$$=\sum\limits_{j=0}^{n-1}(S(w_n^{j-k}))$$  
+$$=\sum\limits_{j=0}^{n-1}(S(\omega_n^{j-k}))$$  
   
 ::: tip
 因为只有在 $j=k$ 时候不得 $0$ 会被记入后面是 $n$  
@@ -200,9 +200,9 @@ const double PI = acos(-1.0);
 int n, m;
 struct Complex { // 复数结构体
         double x, y;
-        Complex friend operator + ( Complex a, Complex b ) { return {a.x + b.x, a.y + b.y}; }
-        Complex friend operator - ( Complex a, Complex b ) { return {a.x - b.x, a.y - b.y}; }
-        Complex friend operator * ( Complex a, Complex b ) { return { a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x}; }
+        Complex friend operator + (Complex a, Complex b) { return {a.x + b.x, a.y + b.y}; }
+        Complex friend operator - (Complex a, Complex b) { return {a.x - b.x, a.y - b.y}; }
+        Complex friend operator * (Complex a, Complex b) { return {a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x}; }
 } a[N], b[N]; // 两个多项式的点表示
 int rev[N];   // 分治时候的二进制表示对应的结果二进制表示，即反过来了
 int bit, tot; // 二进制上的位数，总个数
@@ -223,15 +223,15 @@ inline void FFT (Complex a[], int inv) {
 
 int main() {
         cin >> n >> m;
-        for ( int i = 0; i <= n; i ++ ) cin >> a[i].x; // 把输入的系数塞入实部
-        for ( int i = 0; i <= m; i ++ ) cin >> b[i].x; // 把输入的系数塞入虚部
-        while ( (1 << bit) < n + m + 1 ) bit ++; // 次数最多到n+m+1，所以利用n+m+1记录二进制位数
+        for (int i = 0; i <= n; i ++) cin >> a[i].x; // 把输入的系数塞入实部
+        for (int i = 0; i <= m; i ++) cin >> b[i].x; // 把输入的系数塞入虚部
+        while ((1 << bit) < n + m + 1) bit ++; // 次数最多到n+m+1，所以利用n+m+1记录二进制位数
         tot = 1 << bit; // 在二进制位数下计算刚好达不到的那个位数的数
-        for ( int i = 0; i < tot; i ++ ) rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (bit - 1)); // 每个rev[i]初始化为i的二进制逆转
-        FFT( a, 1 ); FFT( b, 1 ); // 完成a和b的点表示
-        for ( int i = 0; i < tot; i ++ ) a[i] = a[i] * b[i]; // 点表示法内完成两方程合并
-        FFT( a, -1 ); // 逆向做一遍得到系数表示
-        for ( int i = 0; i <= n + m; i ++ ) cout << (int)(a[i].x / tot + 0.5) << " "; // 防止精度丢失，要向上0.5再强转扔精度
+        for (int i = 0; i < tot; i ++) rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (bit - 1)); // 每个rev[i]初始化为i的二进制逆转
+        FFT(a, 1); FFT(b, 1); // 完成a和b的点表示
+        for (int i = 0; i < tot; i ++) a[i] = a[i] * b[i]; // 点表示法内完成两方程合并
+        FFT(a, -1); // 逆向做一遍得到系数表示
+        for (int i = 0; i <= n + m; i ++) cout << (int)(a[i].x / tot + 0.5) << " "; // 防止精度丢失，要向上0.5再强转扔精度
         return 0;
 }
 ```
