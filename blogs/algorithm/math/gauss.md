@@ -210,25 +210,35 @@ inline int Gauss () {
 然后再进行两行相减即可  
 
 ```cpp
-inline int Gcd ( int a, int b ) { return b ? Gcd ( b, a % b ) : a; }
-inline void Gauss () {
-        for ( int r = 0, c = 0; c < n; c ++ ) {
+inline int gcd (int a, int b) { return b ? gcd(b, a % b) : a; }
+inline int Gauss () {
+        int r, c;
+        for (r = c = 0; c < n; c ++) {
                 int t = r;
-                for ( int i = r; i < n; i ++ ) if ( abs(A[i][c]) > abs(A[t][c]) ) t = i;
-                if ( A[t][c] == 0 ) continue;
-                swap ( A[r], A[t] ); 
-                for ( int i = 0; i < n; i ++ ) {
-                        if ( i == r ) continue;
-                        if ( A[i][c] ) {
-                                int t1 = A[i][c] / Gcd ( A[i][c], A[r][c] );
-                                int t2 = A[r][c] / Gcd ( A[i][c], A[r][c] );
-                                for ( int j = 0; j < n; j ++ ) 
-                                        A[r][j] *= t1, 
-                                        A[i][j] = A[i][j] * t2 - A[r][j];
+                for (int i = r; i < n; i ++) if (abs(a[i][c]) > abs(a[t][c])) t = i;
+                if (!a[t][c]) continue;
+                swap(a[r], a[t]);
+                for (int i = r + 1; i < n; i ++) {
+                        int t1 = a[i][c] / gcd(a[i][c], a[r][c]);
+                        int t2 = a[r][c] / gcd(a[i][c], a[r][c]);
+                        for (int j = n; j >= c; j --) {
+                                a[i][j] = a[i][j] * t2 - a[r][j] * t1;
                         }
                 }
                 r ++;
         }
+        if (r < n) {
+                for (int i = 0; i < n; i ++) if (a[i][n]) return -1;
+        }
+        for (int i = n - 1; i >= 0; i --) {
+                for (int j = i + 1; j < n; j ++) {
+                        a[i][n] -= a[i][j] * a[j][n];
+                }
+                if (a[i][n] % a[i][i]) return -1;
+                a[i][n] /= a[i][i];
+        }
+        if (r < n) return 1;
+        else return 0;
 }
 ```
 
