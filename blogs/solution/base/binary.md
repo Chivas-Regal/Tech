@@ -660,6 +660,231 @@ int main(){
 }
 ```
 
+<hr>
+
+## CodeForces1141G_PrivatizationOfRoadsInTreeland
+
+#### 🔗
+<a href="https://codeforces.com/contest/1141/problem/G">![20220517153827](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220517153827.png)</a>
+
+#### 💡
+首先根据鸽巢原理，如果一个点接了 $x$ 条边，我们有 $y$ 个公司，当 $x>y$ 时，这个点必会被两个相同公司的边连接。    
+那么我们判断最少需要用多少个公司就有方法了，由于每个点的 $x$ 是固定的也就是 $deg_i$ ，我们最多坏点个数也是确定的，且公司越多坏点越少，单调性也有了，那么可以直接二分出来。  
+对于 `check(mid)` 的时候，我们去看有多少个点的度数 $>mid$ 也就是有多少个坏点，如果有超过 $k$ 个坏点，那么就是 `false` ，否则是 `true`    
+  
+那么染色的方式就比较多了，思考一下省事点就是 $dfs$ ，一个点连接向儿子的边的公司，在与连接父亲的边的公司不同的情况下尽量不重复地去选即可
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+const int M = N << 1;
+struct Edge {
+        int nxt, to, id;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge (int from, int to, int id) {
+        edge[++cnt] = {head[from], to, id};
+        head[from] = cnt;
+}
+ 
+int du[N];
+int n, m;
+int res, col[M];
+ 
+inline bool Check (int val) {
+        int num = 0;
+        for (int i = 1; i <= n; i ++) num += du[i] > val; // 坏点就 +1 
+        return num <= m;
+}
+inline void col_Dfs (int u, int fa) {
+        int colidx = 0;
+        int colgrand; for (int i = head[u]; i; i = edge[i].nxt) if (edge[i].to == fa && fa != -1) colgrand = col[edge[i].id];
+        for (int i = head[u]; i; i = edge[i].nxt) {
+                int v = edge[i].to; if (v == fa) continue;
+                if (colidx == colgrand) colidx = (colidx + 1) % res; // 与连接父亲的边的公司不同
+                col[edge[i].id] = colidx;
+                col_Dfs(v, u);
+                colidx = (colidx + 1) % res;
+        }
+}
+ 
+int main () {
+        scanf("%d%d", &n, &m);
+        for (int i = 1; i < n; i ++) {
+                int u, v; scanf("%d%d", &u, &v);
+                add_Edge(u, v, i);
+                add_Edge(v, u, i);
+                du[u] ++, du[v] ++;
+        }
+ 
+        int l = 1, r = n - 1; res = r;
+        while (l <= r) {
+                int mid = (l + r) >> 1;
+                if (Check(mid)) res = mid, r = mid - 1;
+                else l = mid + 1;
+        }
+ 
+        col_Dfs(1, -1);
+        printf("%d\n", res);
+        for (int i = 1; i < n; i ++) printf("%d ", col[i] + 1);
+ 
+}
+```
+<hr>
+
+
+## CodeForces1208D_RestorePermutation
+
+#### 🔗
+<a href="https://codeforces.com/contest/1208/problem/D">![20220517151604](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220517151604.png)</a>
+
+#### 💡
+拿到题肯定先是正着看，发现正着看了话也就是能确定 $a$ 连续的相同的位置，它们对应的排列数是单调递减的。还有就是第一个非 $0$ 的位置是前面 $0$ 的部分位置上的数的累加和。别的没什么性质了，思路断了，考虑倒着看。    
+  
+首先对于第三个样例，最后一个位置 $10=1+2+3+4$  ，这个位置一定是 $5$ 。然后倒数第二个位置 $1=1$ ，这个位置可以选 $2,3,4$ ，由于如果选了 $3$ 了话这里 $a[i]$ 还要加一个 $2$ ，因为 $2$ 在前面，所以说明是选前缀 $sum[x-1]\ge a[i]$ 的数 $x$，这里 $[sum]$ 是指除掉后面确定的数后 剩余的数的前缀和。  
+  
+这样就很明确了，我们有一个数组 $[b]$ ，其中如果 $b[i]$ 被后面的位置确定了那么就是 $0$ ，如果没有那么 $b[i]=i$ ，然后 $[sum]$ 是 $[b]$ 的前缀和  
+我们倒着枚举 $i$ ，在 $[1,n]$ 中二分出来 $b[x]\neq 0$ 且 $sum[x-1]\ge a[i]$ 的位置 ，然后将 $b[x]$ 设置为 $0$ 并且更新 $[sum]$   
+这里这两个更新操作如果暴力操作都会很费时间，可以使用线段树或树状数组进行更新，查询也是。  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const ll N = 5e5 + 10;
+ 
+ll t[N];
+inline ll lowbit (ll x) { return x & -x; }
+inline void update (ll id, ll c) {
+        while (id < N) t[id] += c, id += lowbit(id);
+}
+inline ll query (ll id) {
+        ll res = 0;
+        while (id > 0) res += t[id], id -= lowbit(id);
+        return res;
+}
+ 
+ll n, a[N], p[N];
+ 
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+        
+        cin >> n;
+        for (ll i = 1; i <= n; i ++) cin >> a[i], update(i, i);
+ 
+        for (ll i = n; i >= 1; i --) {
+                ll l = 1, r = n, res = n;
+                while (l <= r) {
+                        ll mid = (l + r) >> 1;
+                        ll qm = query(mid - 1);
+                        if (query(mid) - qm == 0) { // 注意如果 mid 不存在，那么要根据 sum 直接调整区间
+                                if (qm > a[i]) {
+                                        r = mid - 1;
+                                } else {
+                                        l = mid + 1;
+                                }
+                        } else { // 如果存在， qm=a[i]时说明找到了便可直接 break
+                                if (qm > a[i]) r = mid - 1;
+                                else if (qm == a[i]) { res = mid; break; }
+                                else l = mid + 1;
+                        }
+                } 
+                p[i] = res;
+                update(res, -res);
+        }
+        for (ll i = 1; i <= n; i ++) cout << p[i] << " ";
+}
+```
+<hr>
+
+## CodeForces1358D_TheBestVacation
+
+#### 🔗
+<a href="https://codeforces.com/contest/1358/problem/D">![20220517155203](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220517155203.png)</a>
+
+#### 💡
+首先能分析出来的信息是，左端点一定存在于某一个块的某一个位置上，右端点也能通过左端点快速求出来。  
+那么我们可以枚举每一个块，看看左端点在这个块内的哪个位置可以让答案最大。  
+当左端点从一个块的位置 $L$ 往右移动一个位置，右端点也要移动一个位置，其价值变化为 $-L+R$ ，这里 $L,R$ 都是块内位置  
+那么把加减情况列出来：  
+$\begin{aligned}
+&-1-2-3-4-5-6-7\dots\\
+&+3+4+5+1+2+3+1\dots\\
+=&+2+2+2-3-3-3-6\dots
+\end{aligned}$  
+思考一下就能看出来在加减上存在单调性，因为如果出现 $R=1$ ，那么 $R$ 将会再也追不上 $L$ ，那么一定是先加后减（当然也可能不加），所以我们可以二分 $L$ 求出来最后一个加的数$\ge$减的数的位置  
+这样也就是我们在这个块内答案的峰值  
+然后维护一下每一个块我们求出来 $L$ 所得的 `calc(L,R)` 的最大值即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+# define int ll // 雾
+ 
+int n, m;
+int d[200005];
+int sum[200005];
+int val[200005];
+ 
+// pair<int, int> 第first个块的第second个
+ 
+inline int toint (pair<int, int> x) { // 将二维位置换成一维
+        return sum[x.first - 1] + x.second;
+} 
+inline pair<int, int> topair (int x) { // 将一维位置换成二维
+        pair<int, int> res;
+        res.first = lower_bound(sum + 1, sum + 1 + n, x) - sum; // 找出第一个大于等于 x 的块
+        res.second = x - sum[res.first - 1];
+        return res;
+}
+ 
+inline pair<int, int> get_r (pair<int, int> l) { // 对于二维的 l，用区间长度 m 求出二维的 r
+        int intr = toint(l) + m - 1;
+        if (intr > sum[n]) intr -= sum[n]; // 注意这是一个环， r 有可能会绕到前面
+        return topair(intr);
+}
+inline int calc (pair<int, int> L, pair<int, int> R) { // 计算二维下 l->r 的值
+        if (R.first == L.first) {
+                return (L.second + R.second) * (R.second - L.second + 1) / 2;
+        } else if (R.first > L.first) {
+                int mid = val[R.first - 1] - val[L.first];
+                int l = (L.second + d[L.first]) * (d[L.first] - L.second + 1) / 2;
+                int r = (1 + R.second) * R.second / 2;
+                return l + mid + r;
+        } else {
+                int mid = (val[n] - val[L.first]) + (val[R.first - 1]);
+                int l = (L.second + d[L.first]) * (d[L.first] - L.second + 1) / 2;
+                int r = (1 + R.second) * R.second / 2;
+                return l + mid + r;
+        }
+}
+ 
+ 
+signed main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+ 
+        cin >> n >> m;
+        for (int i = 1; i <= n; i ++) 
+                cin >> d[i], 
+                sum[i] = sum[i - 1] + d[i], 
+                val[i] = val[i - 1] + d[i] * (d[i] + 1) / 2;
+ 
+        int RES = 0;
+        for (int i = 1; i <= n; i ++) {
+                int l = 1, r = d[i], res = 1;
+                while (l <= r) {
+                        int mid = (l + r) >> 1;
+                        if (get_r({i, mid}).second < mid) r = mid - 1;
+                        else l = mid + 1, res = mid;
+                }
+                RES = max(RES, calc({i, res}, get_r({i, res})));
+        }
+        cout << RES << endl;
+}
+```
+<hr>
+
+
+
 ## CodeForces1486D_MaxMedian
 
 #### 🔗
@@ -711,13 +936,73 @@ int main () {
 ```
 <hr>
 
+## CodeForces1490G_OldFloppyDrive
 
+#### 🔗
+<a href="https://codeforces.com/contest/1490/problem/G">![20220517161350](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220517161350.png)</a>
+
+#### 💡  
+画一个图来辅助分析一下  
+
+![IMG_0918](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/IMG_0918.jpg)  
+  
+图中蓝线为每一轮的走势    
+如果 $\sum\limits_{i=1}^na_i>0$ 了话，这个线是一点点向上平移的   
+如果设置一个前缀和 $sum[i]$ ，那么如果第 $t$ 轮 $[sum]$ 的最大值 $mx+(t-1)\times sum[n]$ 大于等于我们查询的值了话，这一轮就一定是可以满足情况的  
+  
+对于查询 $x$   
+是哪一轮可以做到，我们把上面的公式 $mx+(t-1)\times sum[n]\ge x$ 变化一下直接做除法就可以 $O(1)$ 求得  
+问题在于是在这一轮中哪一个位置可以做到，我们可以求一个前缀和 $[sum]$ 的前缀 $[mx]$ ，这个前缀 $[mx]$ 是具有单调性的，我们既然要求第一个 $mx[i]\le x$ 的位置，可以直接二分    
+不过要注意提前特判一下达不到的情况  
+ 
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+int n, m;
+ll a[N], sum[N], mxsum[N];
+ll mx;
+ 
+inline void Solve () {
+        cin >> n >> m; mx = -1e18;
+        for (int i = 1; i <= n; i ++) 
+                cin >> a[i], 
+                sum[i] = sum[i - 1] + a[i],
+                mx = max(mx, sum[i]),
+                mxsum[i] = max(mxsum[i - 1], sum[i]);
+ 
+        while (m --) {
+                ll ned; cin >> ned;
+                if (mx < ned && sum[n] <= 0) { // 要往上走但每做一轮都会往下跑
+                        cout << "-1 ";
+                        continue;
+                } else if (ned <= mx) { // 就在第一轮
+                        int l = 1, r = n, res = n;
+                        while (l <= r) {
+                                int mid = (l + r) >> 1;
+                                if (mxsum[mid] >= ned) res = mid, r = mid - 1;
+                                else l = mid + 1;
+                        }
+                        cout << res - 1 << " ";
+                } else {
+                        ll ret_t = (ned - mx) / sum[n] + ((ned - mx) % sum[n] != 0); // 看看要做几轮
+                        int l = 1, r = n, res = n; 
+                        while (l <= r) {
+                                int mid = (l + r) >> 1;
+                                if (mxsum[mid] + ret_t * sum[n] >= ned) res = mid, r = mid - 1;
+                                else l = mid + 1;
+                        }
+                        cout << ret_t * n + res - 1 << " ";
+                } 
+        } cout << endl;
+}
+```
 <hr>
+
 
 ## CodeForces1512D_CorruptedArray
 
 #### 🔗
-<a href="https://codeforces.com/problemset/problem/1512/D在b排列中我们想舍弃一个数，然后将排列的前n个数的和等于第n+1个数，我们只需要求出整个b排列的sum，然后去寻找sum减去哪个数再/2可以在其中找到（而且不能是当前减去的那个数），删去的那个数为x，找到的那个数为b[n+1]"><img src="https://img-blog.csdnimg.cn/20210411083143257.png"></a>
+<a href="https://codeforces.com/problemset/problem/1512/D"><img src="https://img-blog.csdnimg.cn/20210411083143257.png"></a>
 
 #### 💡
 在b排列中我们想舍弃一个数，然后将排列的前n个数的和等于第n+1个数，我们只需要求出整个b排列的sum，然后去寻找sum减去哪个数再/2可以在其中找到（而且不能是当前减去的那个数），删去的那个数为x，找到的那个数为b[n+1]

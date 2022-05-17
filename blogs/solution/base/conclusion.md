@@ -236,6 +236,81 @@ int main () {
 ```
 <hr>
 
+## ABC251F_TwoSpanningTrees
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc251/tasks/abc251_f">![20220515171905](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220515171905.png)</a>
+
+#### 💡
+第一问中，让我们删去的边在生成树中为祖孙关系，那么就是要一条链  
+在构造的时候肯定也是希望尽可能是一条链最好（如果不是一条链那就再加一条链），这样的话如果删去的边肯定会连接一条链的某两个点，也就能满足要求  
+就是一条路走到尽头的方法，就直接上 $DFS(1)$ 即可  
+  
+与之相对的，第二问肯定希望越浅越好，那就上 $BFS(1)$  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+
+int n, m;
+vector<pair<int, int> > graph;
+
+const int M = 4e5 + 10;
+struct Edge {
+        int nxt, to;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge (int from, int to) {
+        edge[++cnt] = {head[from], to};
+        head[from] = cnt;
+}
+
+int vis[N];
+
+vector<pair<int, int> > res1;
+inline void dfs (int u) {
+        if (vis[u]) return; vis[u] = 1;
+        for (int i = head[u]; i; i = edge[i].nxt) {
+                int v = edge[i].to;
+                if (!vis[v]) 
+                        res1.push_back({u, v}),
+                        dfs(v);
+        }
+}
+
+vector<pair<int, int> > res2;
+inline void bfs (int u) {
+        memset(vis, 0, sizeof vis);
+        queue<int> que;
+        que.push(u); vis[u] = 1;
+        while (!que.empty()) {
+                int u = que.front(); que.pop();
+                for (int i = head[u]; i; i = edge[i].nxt) {
+                        int v = edge[i].to;
+                        if (!vis[v]) 
+                                res2.push_back({u, v}),
+                                que.push(v),
+                                vis[v] = 1;
+                }
+        }
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        cin >> n >> m;
+        graph = vector<pair<int, int> >(m); 
+        for (auto &[x, y] : graph) 
+                cin >> x >> y, 
+                add_Edge(x, y), add_Edge(y, x);
+        dfs(1);
+        for (auto [x, y] : res1) cout << x << " " << y << "\n";
+        bfs(1);
+        for (auto [x, y] : res2) cout << x << " " << y << "\n";
+}
+```
+<hr>
 
 ## CodeForces507C_GuessYourWayOut
 

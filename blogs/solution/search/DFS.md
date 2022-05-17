@@ -526,6 +526,7 @@ int main () {
 ```
 <hr>
 
+
 ## CodeForces1647D_MadokaAndTheBestSchoolInRussia
 
 #### 🔗

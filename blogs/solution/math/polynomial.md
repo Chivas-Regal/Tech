@@ -328,6 +328,283 @@ int main () {
 ```
 <hr>
 
+### 洛谷P3702_序列计数
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P3702">![20220517164013](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220517164013.png)</a>
+
+#### 💡
+很多限制，考虑容斥  
+首先数都是不超过 $m$ 的正整数这个要求是帮我们固定了枚举系数的范围，如果没有别的要求，我们把 $1\rightarrow m$ 扫一遍  
+然后看到让和为 $p$ 的倍数，幂乘法本来就是指数加，这样的话让序列这个位置 $[0,p-1]$ 每一个数作为指数，可选的方案数作为系数，通过转化为余数为 $0$ 可以知道，我们的指数只需要用到 $[0,p-1]$ ，那么扫 $[1,m]$ 时所有的数的时候也要转换成对 $p$ 的余数来计算    
+      
+这个长度为 $n$ 的序列每一个位置下 都有一套指数对应系数的可选性 ，而我们扫 $1\rightarrow m$ 做出来的初始多项式设为 $f(x)$ ，那么答案就让求 $(f(x))^n$ 在 $x$ 的指数为 $0$ 时的系数  
+  
+而对于容斥掉的部分，是我们所有位置都不用质数的情况，那么做初始多项式扫指数的时候，如果指数是质数，就直接将这一位的方案数也就是系数设置为 $0$ 即可  
+
+让两个多项式求完 $n$ 次幂后 $0$ 位置相减就是答案  
+
+多项式的幂可以写一个乘法函数然后用快速幂去计算， $p$ 小的离谱，乘法函数暴力写都行   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int mod = 20170408;
+
+int n, m, p;
+
+namespace Number {
+        const int N = 2e7 + 10;
+        int ntp[N];
+        vector<int> prime;
+        inline void Sieve () {
+                ntp[0] = ntp[1] = 1;
+                for (int i = 2; i < N; i ++) {
+                        if (!ntp[i]) prime.push_back(i);
+                        for (int j = 0; j < prime.size() && 1ll * i * prime[j] < N; j ++) {
+                                ntp[i * prime[j]] = 1;
+                                if (i % prime[j] == 0) break;
+                        }
+                }
+        }
+}
+
+namespace Poly {
+        const int N = 1e3;
+        int F[N];
+        int res[N];
+        inline void Init () {
+                memset(F, 0, sizeof F);
+                memset(res, 0, sizeof res);
+        }
+        inline void Mul (int A[], int B[], int C[]) {
+                int c[N] = {0};
+                for (int i = 0; i < p; i ++) 
+                        for (int j = 0; j < p; j ++)
+                                c[(i + j) % p] = (1ll * c[(i + j) % p] + 1ll * A[i] * B[j] % mod) % mod;
+                for (int i = 0; i < p; i ++) C[i] = c[i];
+        }
+        inline void Ksm (int a[], int b) {
+                res[0] = 1;
+                while (b) {
+                        if (b & 1) Mul(res, a, res);
+                        Mul(a, a, a);
+                        b >>= 1;
+                }
+        }
+}
+
+inline int Solve_all () {
+        Poly::Init();
+        for (int i = 1; i <= m; i ++) {
+                Poly::F[i % p] ++;
+        }
+        Poly::Ksm(Poly::F, n);
+        return Poly::res[0];
+}
+inline int Solve_del () {
+        Poly::Init();
+        for (int i = 1; i <= m; i ++) {
+                if (Number::ntp[i]) Poly::F[i % p] ++;
+        }
+        Poly::Ksm(Poly::F, n);
+        return Poly::res[0];
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(0);
+
+        Number::Sieve();
+
+        cin >> n >> m >> p;
+        cout << ((Solve_all() - Solve_del()) % mod + mod) % mod << endl;
+}
+```
+<hr>
+
+### 洛谷P3723_礼物
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P3723">![20220517170457](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220517170457.png)</a>
+
+#### 💡
+公式转化一下就是   
+$\begin{aligned}
+&\sum\limits_{i=1}^n(a_i-b_i+x)^2\\
+=&\sum\limits_{i=1}^n(a_i^2+2a_ix-2a_ib_i+x^2-2xb_i+b_i^2)\\
+=&\sum\limits_{i=1}^n(a_i^2+b_i^2)+(2x\sum\limits_{i=1}^na_i-2x\sum\limits_{i=1}^nb_i)+(nx^2)-(2\sum\limits_{i=1}^na_ib_i)
+\end{aligned}$  
+除了 $x$ ，前三部分都可以预处理出来，但由于可以移动位置，那么最后一个 $\sum\limits_{i=1}^na_ib_i$ 就需要套路地对 $b$ 翻转后与 $[a]$ 凑卷积形式  
+处理出来每一个之后对每一个位置的匹配（也就是卷积后的指数）去扫 $x$ ，维护最小值即可    
+  
+注意这里匹配成环，环化作链，让 $a[i+n]=a[i]$ 即可   
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 300005;
+const double PI = acos(-1.0);
+
+int n, m;
+struct Complex {
+        double x, y;
+        inline friend Complex operator + (Complex a, Complex b) { return {a.x + b.x, a.y + b.y}; }
+        inline friend Complex operator - (Complex a, Complex b) { return {a.x - b.x, a.y - b.y}; }
+        inline friend Complex operator * (Complex a, Complex b) { return {a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x}; }
+} a[N], b[N];
+int bit, tot, rev[N];
+
+inline void FFT (Complex a[], int op) {
+        for (int i = 0; i < tot; i ++) if (i < rev[i]) swap(a[i], a[rev[i]]);
+        for (int mid = 1; mid < tot; mid <<= 1) {
+                Complex w1 = {cos(PI / mid), op * sin(PI / mid)};
+                for (int i = 0; i < tot; i += mid << 1) {
+                        Complex wk = {1, 0};
+                        for (int j = 0; j < mid; j ++, wk = wk * w1) {
+                                Complex x = a[i + j], y = wk * a[i + j + mid];
+                                a[i + j] = x + y, a[i + j + mid] = x - y;
+                        }
+                }
+        }
+        if (op == -1) for (int i = 0; i < tot; i ++) a[i].x = (int)(a[i].x / tot + 0.5);
+}
+
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        cin >> n >> m;
+        vector<int> ina(n + 1), inb(n + 1);
+        for (int i = 1; i <= n; i ++) {
+                cin >> ina[i];
+                a[i].x = a[i + n].x = ina[i];
+        }
+        for (int i = 1; i <= n; i ++) {
+                cin >> inb[i];
+                b[n - i + 1].x = inb[i];
+        }
+
+        while ((1 << bit) < (n + n + n)) bit ++; tot = 1 << bit;
+        for (int i = 0; i < tot; i ++) rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (bit - 1));
+
+        FFT(a, 1); FFT(b, 1);
+        for (int i = 0; i < tot; i ++) a[i] = a[i] * b[i];
+        FFT(a, -1);
+
+        int res1 = 0;
+        for (int i = 1; i <= n; i ++) res1 += ina[i] * ina[i] + inb[i] * inb[i];
+        int res2 = 0;
+        for (int i = 1; i <= n; i ++) res2 += ina[i] - inb[i]; res2 *= 2;
+        int res3 = n;
+        int res4 = 2;
+
+        int RES = 0x3f3f3f3f;
+        for (int i = n + 1; i <= 2 * n; i ++) {
+                for (int x = -m; x <= m; x ++) {
+                        RES = min(RES, res1 + x * res2 + res3 * x * x - res4 * (int)a[i].x);
+                }
+        }
+        cout << RES << endl;
+}
+```
+<hr>
+
+
+### 洛谷P3763_DNA
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P3763">![20220517165259](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220517165259.png)</a>
+
+#### 💡
+看到这个先把其中一个序列转义一下  
+那么问题就变成了，从多少个位置开始匹配两个字符串，不相似度可以 $\le 3$ ，这种字符串匹配下相似度的问题，可以直接用 $fft$ 实现    
+   
+相似度可以转化为所有字符的重合度  
+对于匹配字符 $a$ 的重合度   
+将模式串字符是不是 $a$ 作为系数，下标翻转后作为指数传入，那么如果从主串的 $i$ 位置开始匹配，则匹配方式为：  
+$\begin{aligned}
+&i &i+1 &i+2 &i+3 \dots\\
+&m-1 &m-2 &m-3 &m-4 \dots
+\end{aligned}$  
+这样下来，匹配出来相似度的所有结果将会存入 $m-1+i$ 这个指数的系数上  
+我们对四个字符做多项式乘，那么从每一个位置开始匹配的相似度就可以加出来    
+如果这个值超过 $m-3$ 那么就说明不相似度满足了  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 5e5 + 10;
+const double PI = acos(-1.0);
+
+struct Complex {
+        double x, y;
+        inline friend Complex operator + (Complex a, Complex b) { return {a.x + b.x, a.y + b.y}; }
+        inline friend Complex operator - (Complex a, Complex b) { return {a.x - b.x, a.y - b.y}; }
+        inline friend Complex operator * (Complex a, Complex b) { return {a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x}; }
+} a1[N], a2[N], t1[N], t2[N], c1[N], c2[N], g1[N], g2[N];
+int bit, tot, rev[N];
+int same[N];
+
+inline void FFT (Complex a[], int inv) {
+        for (int i = 0; i < tot; i ++) if (i < rev[i]) swap(a[i], a[rev[i]]);
+        for (int mid = 1; mid < tot; mid <<= 1) {
+                Complex w1 = {cos(PI / mid), inv * sin(PI / mid)};
+                for (int i = 0; i < tot; i += mid << 1) {
+                        Complex wk = {1, 0};
+                        for (int j = 0; j < mid; j ++, wk = wk * w1) {
+                                Complex x = a[i + j], y = wk * a[i + mid + j];
+                                a[i + j] = x + y;
+                                a[i + j + mid] = x - y;
+                        }
+                }
+        }
+        if (inv == -1) {
+                for (int i = 0; i < tot; i ++) same[i] += (int)(a[i].x / tot + 0.5);
+        }
+}
+
+inline void Solve () {
+        for (int i = 0; i < N; i ++) a1[i] = a2[i] = t1[i] = t2[i] = c1[i] = c2[i] = g1[i] = g2[i] = {0, 0}, same[i] = 0;
+
+        string a, b; cin >> a >> b;
+        int n = a.size(), m = b.size();
+        n --, m --;
+        reverse(b.begin(), b.end());
+
+        bit = 0; while ((1 << bit) < n + m + 1) bit ++; tot = 1 << bit;
+        for (int i = 0; i < tot; i ++) rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (bit - 1));
+
+        for (int i = 0; i <= n; i ++) {
+                a1[i].x = a[i] == 'A';
+                t1[i].x = a[i] == 'T';
+                c1[i].x = a[i] == 'C';
+                g1[i].x = a[i] == 'G';
+        }
+        for (int i = 0; i <= m; i ++) {
+                a2[i].x = b[i] == 'A';
+                t2[i].x = b[i] == 'T';
+                c2[i].x = b[i] == 'C';
+                g2[i].x = b[i] == 'G';
+        }
+        FFT(a1, 1); FFT(t1, 1); FFT(c1, 1); FFT(g1, 1);
+        FFT(a2, 1); FFT(t2, 1); FFT(c2, 1); FFT(g2, 1);
+        for (int i = 0; i < tot; i ++) {
+                a1[i] = a1[i] * a2[i];
+                t1[i] = t1[i] * t2[i];
+                c1[i] = c1[i] * c2[i];
+                g1[i] = g1[i] * g2[i];
+        }
+        FFT(a1, -1); FFT(t1, -1); FFT(c1, -1); FFT(g1, -1);
+
+        int res = 0;
+        for (int i = m; i <= n; i ++) {
+                if (same[i] >= m - 2) res ++;
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
 
 ### 洛谷P3803_【模板】多项式乘法（FFT）
 
@@ -383,6 +660,7 @@ int main() {
 ```
 
 <hr>
+
 
 ### 洛谷P4173_残缺的字符串
 
@@ -480,6 +758,100 @@ int main () {
 }
 ```
 <hr>
+
+### 洛谷P4986_逃离
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P4986">![20220517171927](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220517171927.png)</a>
+
+#### 💡
+根据勾股定理，令 $F(x)=A(x)^2+B(x)^2-C(x)^2=0$ 时即相等  
+那么我们先用 $FFT$ 求出 $F(x)$ 的表示     
+我们要求 $F(x)=0$ 时候的 $x$    
+发现这个指数为整数的多项式是一个一阶可导函数，我们对其求导为 $f'(x)$ ，然后使用 [牛顿迭代法](https://tech.chivas-regal.top/blogs/algorithm/math/newton-Iteration.html) 求 $[l,r]$ 范围内的零点即可     
+初始点可以设置为 $\left\lfloor\frac{l+r}2\right\rfloor$   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 4e5 + 10;
+const double PI = acos(-1.0);
+
+struct Complex {
+        double x, y;
+        inline friend Complex operator + (Complex a, Complex b) { return {a.x + b.x, a.y + b.y}; }
+        inline friend Complex operator - (Complex a, Complex b) { return {a.x - b.x, a.y - b.y}; }
+        inline friend Complex operator * (Complex a, Complex b) { return {a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x}; }
+} A[N], B[N], C[N];
+int tot, bit, rev[N];
+int F[N], f1[N], n;
+
+inline void FFT (Complex a[], int op) {
+        for (int i = 0; i < tot; i ++) if (i < rev[i]) swap(a[i], a[rev[i]]);
+        for (int mid = 1; mid < tot; mid <<= 1) {
+                Complex w1 = {cos(PI / mid), op * sin(PI / mid)};
+                for (int i = 0; i < tot; i += mid << 1) {
+                        Complex wk = {1, 0};
+                        for (int j = 0; j < mid; j ++, wk = wk * w1) {
+                                Complex x = a[i + j], y = wk * a[i + j + mid];
+                                a[i + j] = x + y;
+                                a[i + j + mid] = x - y;
+                        }
+                }
+        }
+        if (op == -1) {
+                for (int i = 0; i < tot; i ++) a[i].x = (int)(a[i].x / tot + 0.5);
+        }
+}
+inline double _F (double x) {
+        double res = 0, cur = 1;
+        for (int i = 0; i <= n; i ++) {
+                res += cur * F[i];
+                cur = cur * x;
+        } 
+        return res;
+}
+inline double _f1 (double x) {
+        double res = 0, cur = 1;
+        for (int i = 0; i < n; i ++) {
+                res += cur * f1[i];
+                cur = cur * x;
+        }
+        return res;
+}
+
+inline double Newton_Iteration (double x, int tim, const double l, const double r) {
+        while (tim --) {
+                if (fabs(_F(x)) < 1e-9) return x;
+                x -= _F(x) / _f1(x);
+                x = max(x, l); x = min(x, r);
+        }
+        return -4;
+}
+
+int main () {
+        int a, b, c; scanf("%d%d%d", &a, &b, &c);
+        double l, r; scanf("%lf%lf", &l, &r);
+        n = max({a, b, c}) << 1;
+        bit = 0; while ((1 << bit) <= n) bit ++; tot = 1 << bit;
+        for (int i = 0; i < tot; i ++) rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (bit - 1));
+
+        for (int i = 0; i <= a; i ++) scanf("%lf", &A[i].x);
+        FFT(A, 1); for (int i = 0; i < tot; i ++) A[i] = A[i] * A[i]; FFT(A, -1);
+        for (int i = 0; i <= b; i ++) scanf("%lf", &B[i].x);
+        FFT(B, 1); for (int i = 0; i < tot; i ++) B[i] = B[i] * B[i]; FFT(B, -1);
+        for (int i = 0; i <= c; i ++) scanf("%lf", &C[i].x);
+        FFT(C, 1); for (int i = 0; i < tot; i ++) C[i] = C[i] * C[i]; FFT(C, -1);
+
+        for (int i = 0; i < tot; i ++) F[i] = (int)(A[i].x + 0.5) + (int)(B[i].x + 0.5) - (int)(C[i].x + 0.5);
+        for (int i = 0; i + 1 < tot; i ++) f1[i] = F[i + 1] * (i + 1);
+        
+        double res = Newton_Iteration((l + r) / 2, 30, l, r);
+        if (res > l) printf("%.10f", res);
+        else puts("Inconsistent!");
+}
+```
+<hr>
+
 
 ### 洛谷P6300_悔改
 

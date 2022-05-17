@@ -317,6 +317,77 @@ int main () {
 ```
 <hr>
 
+## 洛谷P2331_最大子矩阵
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P2331">![20220514163023](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220514163023.png)</a>
+
+#### 💡
+注意 $m$ 要么是 $1$ 要么是 $2$ ，可以以这个作为突破口  
+  
+<b>$m=1$：</b>  
+这就是一个 $K$ 个连续不想交子段和问题  
+多了一维而已  
+令 $dp[i][k]$ 表示到第 $i$ 个，选了 $k$ 个子段的最大值  
+$dp[i][k]=\max\limits_{j\in[0,i-1]}dp[j][k-1]+sum[i]-sum[j]$  
+当然还要维护一下不选的最大值 $dp[i][k]=\max(dp[i][k],dp[i-1][k])$
+  
+<b>$m=2$：</b>  
+比上一个情况多一行，那么就设 $dp[i][j][k]$ 表示第一行到第 $i$ 个，第二行到第 $j$ 个，选了 $k$ 个子矩阵的最大值  
+那么我们分开看这两行  
+$dp[i][j][k]=\max\limits_{l\in[0,i-1]}dp[l][j][k-1]+sum1[i]-sum1[l]$  
+$dp[i][j][k]=\max\limits_{l\in[0,j-1]}dp[i][l][k-1]+sum2[j]-sum2[l]$  
+当然如果 $i=j$ 时，我们可以用一个高为 $2$ 的子矩阵填满  
+$dp[i][j][k]=\max\limits_{l\in[0,i-1]}dp[l][l][k-1]+sum1[i]+sum2[j]-sum1[l]-sum2[l]$  
+还要维护一下不选的最大值 $dp[i][j][k]=\max(dp[i][j][k],dp[i-1][j][k],dp[i][j-1][k])$  
+
+最后看位置维为 $n$ ，个数维为 $K$ 时的值即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int dp1[102][11];
+int dp2[102][102][11];
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        int n, m, K; cin >> n >> m >> K;
+        if (m == 1) {
+                vector<int> a(n + 1); for (int i = 1; i <= n; i ++) cin >> a[i];
+                vector<int> sum(n + 1, 0); for (int i = 1; i <= n; i ++) sum[i] = sum[i - 1] + a[i];
+                for (int i = 1; i <= n; i ++) {
+                        for (int j = 0; j < i; j ++) {
+                                for (int k = 1; k <= K; k ++) {
+                                        dp1[i][k] = max(dp1[i][k], dp1[i - 1][k]);
+                                        dp1[i][k] = max(dp1[i][k], dp1[j][k - 1] + sum[i] - sum[j]);
+                                }
+                        }
+                }
+                cout << dp1[n][K] << endl;          
+        } else {
+                vector<int> a1(n + 1), a2(n + 1); for (int i = 1; i <= n; i ++) cin >> a1[i] >> a2[i];
+                vector<int> sum1(n + 1, 0), sum2(n + 1, 0); for (int i = 1; i <= n; i ++) sum1[i] = sum1[i - 1] + a1[i], sum2[i] = sum2[i - 1] + a2[i];
+                for (int i = 1; i <= n; i ++) {
+                        for (int j = 1; j <= n; j ++) {
+                                for (int k = 1; k <= K; k ++) {
+                                        dp2[i][j][k] = max(dp2[i - 1][j][k], dp2[i][j - 1][k]);
+                                        for (int l = 0; l < i; l ++) 
+                                                dp2[i][j][k] = max(dp2[i][j][k], dp2[l][j][k - 1] + sum1[i] - sum1[l]);
+                                        for (int l = 0; l < j; l ++) 
+                                                dp2[i][j][k] = max(dp2[i][j][k], dp2[i][l][k - 1] + sum2[j] - sum2[l]);
+                                        if (i == j) 
+                                                for (int l = 0; l < i; l ++) 
+                                                        dp2[i][j][k] = max(dp2[i][j][k], dp2[l][l][k - 1] + sum1[i] + sum2[j] - sum1[l] - sum2[l]);
+                                }
+                        }
+                }
+                cout << dp2[n][n][K] << endl;
+        }
+}
+```
+<hr>
+
 
 ## 洛谷P2498_SkiLessonsG
 
@@ -721,6 +792,57 @@ int main () {
 }
 ```
 <hr>
+
+## ABC251E_TakahashiAndAnimals
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc251/tasks/abc251_e">![20220515134419](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220515134419.png)</a>
+
+#### 💡
+这个就是相邻两位不能都不选的一个问题，经典了，直接上 $dp$   
+$dp[i][0/1]$ 分别表示在第 $i$ 位上，不选和选的情况  
+那么 $dp[i][0]=min(dp[i-1][1])$   
+$dp[i][1]=min(dp[i][1],min(dp[i-1][0],dp[i-1][1])+a[i])$  
+但是这里多了一个要求就是一个环，第 $0$ 位和第 $n$ 位选取状态必须相同  
+  
+可以 $dp$ 两次，一次初始值设置为 $dp[0][0]=0$ ，一次 $dp[0][1]=a[0]$   
+然后 $dp$ 从 $0$ 到 $n$ ，求一下 $n$ 第一种情况的 $dp[n][0]$ 和第二种情况的 $dp[n][1]$ 的最小值即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 3e5 + 10;
+int n; ll a[N];
+ll dp[N][2];
+ll res = 1e18;
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        cin >> n;
+        for (int i = 0; i < n; i ++) cin >> a[i]; a[n] = 0;
+
+        for (int i = 0; i < N; i ++) dp[i][0] = dp[i][1] = 1e18;
+        dp[0][1] = a[0];
+        for (int i = 1; i <= n; i ++) {
+                dp[i][1] = min(dp[i][1], min(dp[i - 1][0], dp[i - 1][1]) + a[i]);
+                dp[i][0] = min(dp[i][0], dp[i - 1][1]);
+        }
+        res = min(res, dp[n][1]);
+
+        for (int i = 0; i < N; i ++) dp[i][0] = dp[i][1] = 1e18;
+        dp[0][0] = 0;
+        for (int i = 1; i <= n; i ++) {
+                dp[i][1] = min(dp[i][1], min(dp[i - 1][0], dp[i - 1][1]) + a[i]);
+                dp[i][0] = min(dp[i][0], dp[i - 1][1]);
+        }
+        res = min(res, dp[n][0]);
+
+        cout << res << endl;
+}
+```
+<hr>
+
 
 
 

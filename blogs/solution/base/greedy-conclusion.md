@@ -1627,6 +1627,39 @@ int main () {
 ```
 <hr>
 
+## ABC251D_AtMost3(ContestantVer.)
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc251/tasks/abc251_d?lang=en">![20220515145937](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220515145937.png)</a>
+
+#### 💡
+一个比较有趣的构造方式  
+众所周知如果集完所有的二进制，那么任意一个数都能拼出来  
+但是这里我们最多只能用三个数，要构造出 $[1,10^6]$ 以内的任何数  
+又发现我们最多有 $300$ 的数组  
+六位数，要拆成三个数，在字符串下可以拆成三个两位数  
+在数字下则是 $abcdef=ab0000+cd00+ef$ ，那么这样看基本上就很明确了，一百进制即可  
+将 $[1,99]\times10000,[1,99]\times100,[1,99]\times1$ 都给弄出来，这样的话每一个数可以最多这三个集合任意取一个就可以    
+（比同场 $E$ 题思维量大多了好吧 -_-||）
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        int w; cin >> w;
+        vector<int> res; 
+        for (int bas = 1; bas <= 10000; bas *= 100) 
+                for (int i = 1; i <= 99; i ++) 
+                        res.push_back(bas * i);
+        cout << res.size() << endl;
+        for (int i : res) cout << i << " ";
+}
+```
+<hr>
+
+
 
 ## AcWing3766_数字矩阵
 
