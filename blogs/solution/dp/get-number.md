@@ -379,6 +379,58 @@ int main () {
 ```
 <hr>
 
+## ABC253E_DistanceSequence
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc253/tasks/abc253_e?lang=en">![20220529021643](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220529021643.png)</a>
+
+#### 💡
+这个一看数据量就是一个方案型 $dp$ ，枚举 $i$ 为 $a_i$ 的下标，枚举 $j$ 为 $a_i=j$ 时的方案数  
+如果 $j-k\ge 1$ 那么我们可以利用前面求得的 $\sum dp[i-1][1\rightarrow j-k]$  
+如果 $j+k\le m$ 那么我们可以利用前面求得的 $\sum dp[i-1][j+k\rightarrow m]$  
+由于是区间和，我们可以每一次预处理出来 $dp[i-1][]$ 的前缀和 ，然后求区间和直接用前缀相减即可  
+不过这里要注意 $k=0$ 时我们 $dp[i-1][j]$ 会被算两遍，要减去  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int mod = 998244353;
+const int N = 1003;
+const int M = 5003;
+ 
+ll dp[N][M], n, m, k;
+ll sum[M];
+ 
+inline ll add (ll a, ll b) {
+        return (a + b) % mod;
+}
+inline ll sub (ll a, ll b) {
+        return ((a - b) % mod + mod) % mod;
+}
+ 
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+ 
+        cin >> n >> m >> k;
+        for (int j = 1; j <= m; j ++) dp[1][j] = 1;
+        for (int i = 2; i <= n; i ++) {
+                for (int j = 1; j <= m; j ++) sum[j] = add(sum[j - 1], dp[i - 1][j]);
+                for (int j = 1; j <= m; j ++) {
+                        if (j - k >= 1) dp[i][j] = add(dp[i][j], sub(sum[j - k], sum[0]));
+                        if (j + k <= m) dp[i][j] = add(dp[i][j], sub(sum[m], sum[j + k - 1]));
+                        if (k == 0) dp[i][j] = sub(dp[i][j], sub(sum[j], sum[j - 1]));
+                }
+        }
+ 
+        ll res = 0;
+        for (int j = 1; j <= m; j ++) {
+                res = add(res, dp[n][j]);
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
 
 ## CodeForces1614D1Z_DivanAndKostomuksha（easy version）
 

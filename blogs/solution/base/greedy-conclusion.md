@@ -4414,6 +4414,65 @@ inline void Solve () {
 ```
 <hr>
 
+## CodeForces1620D_ExactChange
+
+#### 🔗
+<a href="https://codeforces.com/contest/1620/problem/D">![20220531111235](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220531111235.png)</a>
+
+#### 💡
+首先注意到， $1$ 的个数和 $2$ 的个数一定不会超过两个，因为三个 $1$ 可以用一个 $3$ 代替， $2$ 同理  
+而 $3$ 的个数的范围也是在三个，即 $\left\lceil\frac{max[a]}3\right\rceil$   
+那么我们可以暴力检查这三个硬币各用多少个  
+再检查一个数是否能被构造出来的时候，由于我们枚举出来了前两种硬币的上界了，这里就直接再暴力这两种硬币看看它们各自用多少个来构造这一个数  
+由于有了这两个硬币的数量了，第三种硬币需要多少个也可以直接算出来了，就可以检查出来这个数是否能被这些硬币构造出来  
+对于枚举的上界，这一套数都被构造出来才算成功  
+如果成功的话，维护使用硬币个数的最小值即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int n; 
+vector<ll> a;
+
+inline bool Joint (ll c1, ll c2, ll c3, ll v) {
+        for (ll i = 0; i <= c1; i ++) {
+                for (ll j = 0; j <= c2; j ++) {
+                        if (i + j * 2 > v) continue;
+                        if ((v - i - j * 2) % 3 != 0) continue;
+                        if ((v - i - j * 2) / 3 <= c3) return true;
+                }
+        }
+        return false;
+}
+inline bool Check (ll c1, ll c2, ll c3) {
+        for (ll v : a) {
+                if (!Joint(c1, c2, c3, v)) return false;
+        }
+        return true;
+}
+
+inline void Solve () {
+        cin >> n;
+        a.resize(n); for (ll &i : a) cin >> i;
+        sort(a.begin(), a.end(), greater<ll>());
+        
+        ll up12 = 3;
+        ll up3 = a[0] / 3 + 1;
+        ll res = 1e18;
+        for (ll c1 = 0; c1 <= up12; c1 ++) {
+                for (ll c2 = 0; c2 <= up12; c2 ++) {
+                        for (ll c3 = max(0ll, up3 - 3); c3 <= up3; c3 ++) {
+                                if (Check(c1, c2, c3)) {
+                                        res = min(res, c1 + c2 + c3);
+                                }
+                        }
+                }
+        }
+
+        cout << res << endl;
+}
+```
+<hr>
+
 
 ## CodeForces1621B_IntegersShop
 
@@ -5103,6 +5162,63 @@ inline void Solve () {
 ```
 <hr>
 
+## CodeForces1691C_SumOfSubstrings
+
+#### 🔗
+<a href="https://codeforces.com/contest/1691/problem/C">![20220602001954](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220602001954.png)</a>
+
+#### 💡
+注意到如果 $1$ 不在首尾的话，每一个都会作为 $\_1$ 算一次 $1$ ，作为 $1\_$ 算一次 $10$   
+那么题目就是想让我们将 $1$ 填在首尾  
+并且注意到如果填在首位的话是会算一次 $10$ ，但填在尾部就只会算一次 $1$ ，所以肯定是优先希望填在尾部的  
+那么就先判断尾部，如果尾部不是 $1$ 并且最后一个 $1$ 可以移动过去，就移动过去，并扣掉 $k$ 移动的花费  
+然后用剩下的 $k$ 去将第一个 $1$ 移动到首位
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void Solve () {
+        int n, k; cin >> n >> k;
+        string s; cin >> s;
+        int cnt0 = 0, cnt1 = 0;
+        for (char c : s) cnt0 += c == '0', cnt1 += c == '1';
+        if (cnt0 == n) {
+                cout << "0\n";
+                return;
+        }
+ 
+        int lsid = n - 1; // 最后一个 1
+        while (s[lsid] == '0') lsid --;
+ 
+        if (cnt1 == 1) {
+                if (n - 1 - lsid <= k) cout << 1 << endl;
+                else if (lsid <= k) cout << 10 << endl;
+                else cout << 11 << endl;
+                return;
+        }
+ 
+        int len2 = n - 1 - lsid; // 最后一个 1 移动到末尾需要的花费
+ 
+        int bgid = 0; // 第一个 1
+        while (s[bgid] == '0') bgid ++;
+        int len1 = bgid; // 第一个 1 移动到首位需要的花费
+ 
+        if (len2 <= k && s[n - 1] != '1') {
+                swap(s[lsid], s[n - 1]);
+                k -= len2;
+        }
+        if (len1 <= k && s[0] != '1') {
+                swap(s[0], s[bgid]);
+        }
+ 
+        int res = 0;
+        for (int i = 1; i < n; i ++) {
+                res += stoi(s.substr(i - 1, 2));
+        }
+        cout << res << endl;
+}
+```
+<hr>
 
 
 ## GYM102174F_风王之瞳

@@ -843,6 +843,65 @@ int main () {
 ```
 <hr>
 
+## ABC252G_Pre-Order
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc252/tasks/abc252_g">![20220522092629](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220522092629.png)</a>
+
+#### 💡
+首先获取一个冷知识：对于给定的一个先序遍历序列，有卡特兰数 $n$ 个树 （虽然对这题没什么用处  
+对于这个题，其实很容易想到是dp，因为对于根为 $A_x$ ，形成 $A_{[x,y]}$ 的子树如果已知的话，可以直接接在右链任何一个节点的右侧  
+但是比赛的时候转移方程推不出来  
+  
+这里默认 $0$ 为根，设置 $dp[l][r]$ 为 $0,A_l,A_{l+1},\dots,A_{r-1}$ 即 $r-l+1$ 个节点形成的树的方案数  
+其中 $0$ 和 $1$ 为根是一样的，那么我们省去 $1$ 这个点，对于输入 $A_{[0,n-1]}$ 求的是 $dp[1][n]$   
+转移是：
+- $A_l$ 是 $0$ 唯一的子节点，则有 $dp[l+1][r]$ 种  
+- $0$ 有别的后代 $A_k$ ，那么 $A_l<A_k$ ，这种情况为
+  - $l$ 的子树有 $dp[l+1][k]$ 种
+  - $k$ 的子树有 $dp[k][r]$ 种
+  即一共 $dp[l+1][k]\times dp[k][r]$ 种  
+
+所以转移方程为 $dp[l][r]=dp[l+1][r]+\sum\limits_{k>l,a[l]<a[k]}dp[l+1][k]\times dp[k][r]$   
+  
+初始化为 $dp[l][l]=1$ 
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+# include "bits/stdc++.h"
+
+using namespace std;
+using ll = long long;
+
+const int mod = 998244353;
+const int N = 510;
+
+int n, a[N];
+ll dp[N][N];
+
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        cin >> n;
+        for (int i = 0; i < n; i ++) cin >> a[i];
+
+        for (int l = n; l >= 1; l --) {
+                dp[l][l] = 1;
+                for (int r = l + 1; r <= n; r ++) {
+                        dp[l][r] = dp[l + 1][r];
+                        for (int k = l + 1; k < r; k ++) {
+                                if (a[l] < a[k])
+                                        (dp[l][r] += dp[l + 1][k] * dp[k][r] % mod) %= mod;
+                        }
+                }
+        }
+
+        cout << dp[1][n] << endl;
+}
+```
+<hr>
 
 
 

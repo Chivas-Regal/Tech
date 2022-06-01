@@ -1092,6 +1092,87 @@ int main () {
 ```
 <hr>
 
+### 牛客练习赛99D_礼物
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/34330/D">![20220528004722](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220528004722.png)</a>
+
+#### 💡
+如果给定根是谁，那么会很好算，一个点被当做 $LCA$ 的次数为
+- 每个子树所有点与其他子树的所有点互相配对的方案数：$\sum\limits_{v\in son_u}sz_v\times(sz[u]-1-sz[v])$
+- 每个子树所有点与 $u$ 互相配对：$\sum\limits_{v\in son_u}sz[v]$  
+  
+但问题是现在没有给根  
+不过我们如果固定出来了一个根了，将根从 $u$ 推到其中一个子节点 $v$ 后答案的变化是可以快速求得的  
+即将 $LCA$ 为 $u$ 的换为 $LCA$ 为 $v$ 的情况，那么就是 $v$ 的子树所有点与非 $v$ 的子树的所有点， $sz[v]\times (n-sz[v])$ ，将他们乘的权值改为 $v$ 即可  
+这个可以通过每次传入一个以父节点为根时的参数，将根从父节点换为本次遍历节点，并维护最大值   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e6 + 10;
+const int M = N * 2;
+struct Edge {
+        int nxt, to;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge (int from, int to) {
+        edge[++cnt] = {head[from], to};
+        head[from] = cnt;
+}
+int n;
+int sz[N];
+ll resv, resid;
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        cin >> n;
+        for (int i = 0; i < n - 1; i ++) {
+                int u, v; cin >> u >> v;
+                add_Edge(u, v);
+                add_Edge(v, u);
+        }
+
+        function<ll(int, int)> dfs = [&](int u, int fa) ->ll {
+                ll cur = 0;
+                sz[u] = 1;
+                for (int i = head[u]; i; i = edge[i].nxt) {
+                        int v = edge[i].to;
+                        if (v == fa) continue;
+                        cur += dfs(v, u);
+                        sz[u] += sz[v];
+                }
+                int sum = 0;
+                for (int i = head[u]; i; i = edge[i].nxt) {
+                        int v = edge[i].to;
+                        if (v == fa) continue;
+                        cur += 1ll * sz[v] * (sum + 1) * u;
+                        sum += sz[v];
+                }
+                return cur;
+        };
+
+        function<void(int, int, ll)> find_Root = [&](int u, int fa, ll cur) ->void {
+                if (fa != -1) { // 换根
+                        cur -= 1ll * sz[u] * (n - sz[u]) * fa;
+                        cur += 1ll * sz[u] * (n - sz[u]) * u;
+                        if (cur > resv) resid = u, resv = cur;
+                } else resid = u, resv = cur;
+
+                for (int i = head[u]; i; i = edge[i].nxt) {
+                        int v = edge[i].to;
+                        if (v == fa) continue;
+                        find_Root(v, u, cur);
+                }
+        };
+
+        find_Root(1, -1, dfs(1, -1));
+        cout << resid << " " << resv * 2 + 1ll * n * (n + 1) / 2 << endl;
+}
+```
+<hr>
+
 
 ### 牛客挑战赛58B_清新题
 
@@ -1151,6 +1232,66 @@ int main () { pre_F();
                 res %= mod;
         }
         cout << res << endl;
+}
+```
+<hr>
+
+### 牛客小白月赛50D_生日
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/11227/D">![20220528234719](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220528234719.png)</a>
+
+#### 💡
+首先要注意到的是，选第 $i$ 天过生日的人只可能有 $i,2i,2i+1$ 这三个  
+那么也就是说，我们可以对每一天维护一个权值集  
+第 $i$ 天的权值即为它的权值集的异或和乘上 $2$ 的“别的不确定的人数”次方
+如果说里面有两个人会选它，那么就是 $(a_i\oplus a_{2i})\times2^{n-2}$  
+如果有三个人会选它，那么就需要分开计算一下有两个人选和有三个人选的情况了  
+即 $((a_i\oplus a_{2i})+(a_i\oplus a_{2i+1})+(a_{2i}\oplus a_{2i+1}))\times 2^{n-2}$  
+与 $(a_i\oplus a_{2i}\oplus a_{2i+1})\times 2^{n-3}$     
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int mod = 1e9 + 7;
+inline ll ksm (ll a, ll b) {
+        ll res = 1;
+        while (b) {
+                if (b & 1) res = res * a % mod;
+                a = a * a % mod;
+                b >>= 1;
+        }
+        return res;
+}
+vector<ll> g[100005];
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        int n; cin >> n;
+        vector<int> a(n + 1); for (int i = 1; i <= n; i ++) cin >> a[i];
+
+        for (int i = 1; i <= n; i ++) {
+                g[i / 2].push_back(a[i]);
+                g[i].push_back(a[i]);
+        }
+
+        ll res = 0;
+        for (int i = 0; i <= n; i ++) {
+                if (g[i].size() <= 1) continue;
+                ll cur = 0;
+                if (g[i].size() == 2) {
+                        cur = (g[i][0] ^ g[i][1]) % mod * ksm(2, n - 2) % mod;
+                } else {
+                        cur += ((g[i][0] ^ g[i][1]) + (g[i][1] ^ g[i][2]) + (g[i][0] ^ g[i][2])) % mod * ksm(2, n - 3) % mod;
+                        cur += (g[i][0] ^ g[i][1] ^ g[i][2]) % mod * ksm(2, n - 3) % mod;
+                        cur %= mod;
+                }
+                res += cur;
+                res %= mod;
+        }
+        cout << res << endl;
+
 }
 ```
 <hr>

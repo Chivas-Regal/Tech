@@ -948,6 +948,86 @@ inline void Solve () {
 ```
 <hr>
 
+## CodeForces1691D_MaxGEQSum
+
+#### 🔗
+<a href="https://codeforces.com/contest/1691/problem/D">![20220602003452](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220602003452.png)</a>
+
+#### 💡
+首先看到这个区间最大值要大于某个条件，那么就可以通过单调栈先预处理出来每一个 $a_i$ 作为最大值所能覆盖的区间 $[l_i,r_i]$  
+我们变一下题目中要求的式子，让两侧同时减去 $max$   
+即: $\sum\limits_{j=l_i}^{r_i}a_j-a_i\le 0$  
+这是一个很像前缀和相减的式子  
+分析一下 $l_i,i,r_i$ 这个段，从 $i$ 走到 $l_i$ 并不断累加路上的值，每一个位置都不能大于 $a_i$ 。从 $i$ 走到 $r_i$ 累加，每一个位置也不能大于 $a_i$   
+那么我们维护一个前缀和 $sum_1$ 一个后缀和 $sum_2$ ，这也就是说前缀和的 $\max(sum1[i,r_i])$ 绝对不能超过 $sum1_i$ ，同时后缀和的 $\max(sum2[l_i,i])$ 也绝对不能超过 $sum2_i$   
+这又要加一个区间最大值的工具，由于只有查询，可以开两个 $st$ 表分别维护前缀和的区间最大值和后缀和的区间最大值  
+然后每次按上面推出来的查一下就行      
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+ll sum1[N], sum2[N], n, a[N];
+ll st1[N][30], st2[N][30];
+int l[N], r[N];
+stack<ll> stk;
+ 
+inline void Build () {
+        for (int i = 1; i <= n; i ++) st1[i][0] = sum1[i], st2[i][0] = sum2[i];
+        int k = 32 - __builtin_clz(n) - 1;
+        for ( int j = 1; j <= k; j ++ ) {
+                for ( int i = 1; i + (1 << j) - 1 <= n; i ++ ) {
+                        st1[i][j] = max(st1[i][j - 1],st1[i + (1 << (j - 1))][j - 1]);
+                        st2[i][j] = max(st2[i][j - 1],st2[i + (1 << (j - 1))][j - 1]);
+                }
+        }
+}
+inline ll Query1 ( int l, int r ) {
+        int k = 32 - __builtin_clz(r - l + 1) - 1;
+        return max(st1[l][k], st1[r - (1 << k) + 1][k]);
+}
+inline ll Query2 ( int l, int r ) {
+        int k = 32 - __builtin_clz(r - l + 1) - 1;
+        return max(st2[l][k], st2[r - (1 << k) + 1][k]);
+}
+ 
+inline void Solve () {
+        cin >> n;
+        for (int i = 1; i <= n; i ++) cin >> a[i], sum1[i] = sum1[i - 1] + a[i];
+        sum2[n + 1] = 0;
+        for (int i = n; i >= 1; i --) sum2[i] = sum2[i + 1] + a[i];
+ 
+        Build();
+ 
+        // 单调栈求 l[i],r[i]
+        stk = stack<ll>();
+        for (ll i = 1; i <= n; i ++) {
+                while ( stk.size() && a[i] >= a[stk.top()] ) stk.pop();
+                l[i] = (stk.size() ? stk.top() + 1 : 1);
+                stk.push(i);
+        }
+        stk = stack<ll>();
+        for (ll i = n; i >= 1; i --) {
+                while ( stk.size() && a[i] >= a[stk.top()] ) stk.pop();
+                r[i] = (stk.size() ? stk.top() - 1 : n);
+                stk.push(i);
+        }
+ 
+        for (int i = 1; i <= n; i ++) {
+                if (Query2(l[i], i) - sum2[i] > 0) {
+                        cout << "NO\n";
+                        return;
+                }
+                if (Query1(i, r[i]) - sum1[i] > 0) {
+                        cout << "NO\n";
+                        return;
+                }
+        }
+ 
+        cout << "YES\n";
+}
+```
+<hr>
+
 
 ## HDU2021多校(1)5_Minimumspanningtree
 

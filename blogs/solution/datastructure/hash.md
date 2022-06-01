@@ -96,6 +96,142 @@ Chivas{
 
 <hr>
 
+### CCPC湖北省赛J_PalindromeReversion
+
+#### 🔗
+<a href="https://codeforces.com/gym/103729/problem/J">![20220526155648](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220526155648.png)</a>
+
+#### 💡
+首先可以把首位回文的部分给去掉，如果 $s[1]=s[n]$ 且翻转 $[1,i]$ 可以回文，说明 $s[i]=s[n]=s[1]$ ，那么其实翻转 $[2,i]$ 就可以了  
+令 $P$ 为回文串  
+删去回文首尾后，如果出现形如 $abc\;P\;abc$ 这样一个回文串左右两侧子串相同的字符串，那么我们翻转左边或者右边的子串即可，也就是 $cba\;P\;abc$  
+我们让它更朴素一点，将相同的字符串设置为 $A$ ，那么上面讨论的就是 $APA$ 这样的字符串    
+  
+既然 $APA\rightarrow \tilde{A}PA$ 可以成立，考虑什么样的字符串也可以变换为这样  
+即 $PAA$ 通过翻转 $PA$ 也可以实现，以及 $AAP$ 通过翻转 $AP$ 也可以实现  
+  
+那么具体一下，首先删去首尾回文的部分，开始分讨  
+- $\underline{A}PA$
+- $\underline{PA}A$
+- $A\underline{AP}$  
+  
+第一种情况可以通过从中心往外扩展并保证中间回文，然后检查两侧是否相同  
+第二种情况可以通过从右端枚举字符串长度，检查相邻左侧同长度的字符串是否和它相等，以及剩下的最左侧的字符串是否回文  
+第三种情况可以通过从左侧枚举字符串长度，检查相邻右侧同长度字符串是否和它相等，以及剩下的最右侧的字符串是否回文  
+检查相等和回文都可以使用 字符串$Hash$ 来实现  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int base = 131;
+const int mod = 1e9 + 7;
+const int N = 100005;
+
+inline ll ksm (ll a, ll b) {
+        ll res = 1;
+        while (b) {
+                if (b & 1) res = res * a % mod;
+                a = a * a % mod;
+                b >>= 1;
+        }
+        return res;
+}
+inline ll inv (ll x) {
+        return ksm(x, mod - 2);
+}
+
+ll h1[N], h2[N];
+inline ll get1 (int l, int r) { // 正哈希求区间
+        if (l == 0) {
+                return h1[r];
+        } else {
+                return ((h1[r] - h1[l - 1] * ksm(base, r - l + 1) % mod) % mod + mod) % mod;
+        }
+}
+inline ll get2 (int l, int r) { // 反哈希求区间
+        return ((h2[l] - h2[r + 1] * ksm(base, r - l + 1) % mod) % mod + mod) % mod;
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        string s; cin >> s;
+        int n = s.size();
+
+        // 删去首尾回文部分
+        int beg_s = 0; for (; beg_s < n; beg_s ++) {
+                if (s[beg_s] != s[n - beg_s - 1]) break;
+        }
+        int end_s = n - beg_s - 1;
+        if (beg_s == n) { cout << "1 1\n"; return 0; }
+        else s = s.substr(beg_s, end_s - beg_s + 1);
+
+        // 预处理正哈希和反哈希
+        for (int i = 0; i < s.size(); i ++) {
+                if (i == 0) h1[i] = s[i] - 'a';
+                else h1[i] = h1[i - 1] * base % mod + (s[i] - 'a');
+                h1[i] %= mod;
+        }
+        for (int i = s.size() - 1; i >= 0; i --) {
+                if (i == s.size() - 1) h2[i] = s[i] - 'a';
+                else h2[i] = h2[i + 1] * base % mod + (s[i] - 'a');
+                h2[i] %= mod;
+        }
+
+        // 开始分讨
+        // AA
+        if (s.size() % 2 == 0) {
+                int l = 0, r = s.size() - 1;
+                int mid = (l + r) >> 1;
+                if (get1(l, mid) == get1(mid + 1, r)) {
+                        cout << beg_s + 1 << " " << beg_s + mid + 1 << endl;
+                        return 0;
+                }
+        }
+
+        // PAA
+        for (int i = 0; i < s.size(); i ++) {
+                if (get1(0, i) == get2(0, i)) {
+                        int l = i + 1, r = s.size() - 1;
+                        if (r < l) continue;
+                        if ((r - l + 1) & 1) continue;
+                        int mid = (l + r) >> 1;
+                        if (get1(l, mid) == get1(mid + 1, r)) {
+                                cout << beg_s + 1 << " " << beg_s + mid + 1 << endl;
+                                return 0;
+                        }
+                }
+        }
+
+        // AAP
+        for (int i = s.size() - 1; i >= 0; i --) {
+                if (get1(i, s.size() - 1) == get2(i, s.size() - 1)) {
+                        int l = 0, r = i - 1;
+                        if (r < l) continue;
+                        if ((r - l + 1) & 1) continue;
+                        int mid = (l + r) >> 1;
+                        if (get1(l, mid) == get1(mid + 1, r)) {
+                                cout << beg_s + mid + 1 + 1 << " " << beg_s + s.size() - 1 + 1 << endl;
+                                return 0;
+                        }
+                }
+        }
+
+        // APA
+        for (int i = s.size() / 2 - (s.size() % 2 == 0); i >= 0; i --) {
+                if (s[i] != s[s.size() - i - 1]) break;
+                if (get1(0, i - 1) == get1(s.size() - i, s.size() - 1)) {
+                        cout << beg_s + 1 << " " << beg_s + i - 1 + 1 << endl;
+                        return 0;
+                }
+        }
+
+        cout << "-1 -1\n";
+}
+```
+<hr>
+
+
 ### HDUOJ1425_sort
 
 #### 🔗

@@ -1182,6 +1182,309 @@ int main () {
 
 <hr>
 
+## ABC253F_OperationsOnAMatrix
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc253/tasks/abc253_f">![20220529020522](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220529020522.png)</a>
+
+#### 💡
+拿到这个题第一反应就是那种记录时间戳的操作，因为修改行相当于直接覆盖  
+那么问题是，对于查询 $(x,y)$ ，我最后一次覆盖行 $x$ 的时间 $t_1$ 与查询的时间 $t_2$ 之间，对 $y$ 这一列的修改如何得知  
+考虑前缀和相减等于区间和，我们在 $t_1$ 时令 $(x,y)$ 的查询结果减去对 $y$ 列的单点查询 $v_1$ ，然后在 $t_2$ 时令查询结果加上对 $y$ 的单点查询 $v_2$ ，那么就可以得到这一个区间的修改，当然结果也要加上我们对 $x$ 行覆盖的值   
+所以我们要对每一个查询 $(x_i,y_i)$ 获取最后一次覆盖第 $x_i$ 行的操作的时间戳，并且对这个时间戳存一个数组，内容为它影响了哪些查询（这里为存入 $i$）  
+这样的话我们可以在每一次覆盖时遍历它的数组，令这些时间戳的查询加上 $c$ 并减去对 $y$ 的单点查询  
+如果是查询操作，就加上对 $y$ 的单点查询并输出结果  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+# define mid ((l + r) >> 1)
+const int N = 2e5 + 10;
+# define int ll
+ 
+int n, m, Q;
+struct qry {
+        int op;
+        int a, b, c;
+        int res;
+} q[N];
+pair<int, int> LASTX[N]; // 对于第i个查询(x,y)，最后一次覆盖x的时间戳与值
+ 
+ll t[N << 2], laz[N << 2];
+inline void pushup (int rt) {
+        t[rt] = t[rt << 1] + t[rt << 1 | 1];
+}
+inline void pushdown (int l, int r, int rt) {
+        if (!laz[rt]) return;
+        t[rt << 1] += laz[rt] * (mid - l + 1);
+        t[rt << 1 | 1] += laz[rt] * (r - mid);
+        laz[rt << 1] += laz[rt];
+        laz[rt << 1 | 1] += laz[rt];
+        laz[rt] = 0;
+}
+inline void update (int a, int b, ll c, int l = 1, int r = m, int rt = 1) {
+        if (a <= l && r <= b) {
+                t[rt] += c * (r - l + 1);
+                laz[rt] += c;
+                return;
+        }
+        if (a > r || b < l) return;
+        pushdown(l, r, rt);
+        update(a, b, c, l, mid, rt << 1);
+        update(a, b, c, mid + 1, r, rt << 1 | 1);
+        pushup(rt);
+}
+inline ll query (int id, int l = 1, int r = m, int rt = 1) {
+        if (l == id && id == r) return t[rt];
+        pushdown(l, r, rt);
+        if (id <= mid) return query(id, l, mid, rt << 1);
+        else return query(id, mid + 1, r, rt << 1 | 1);
+}
+ 
+vector<int> ned[N]; // 每一个覆盖真正影响的查询时间戳
+ 
+signed main () {
+        scanf("%lld%lld%lld", &n, &m, &Q);
+        for (int i = 1; i <= Q; i ++) {
+                scanf("%lld", &q[i].op);
+                if (q[i].op == 1) {
+                        scanf("%lld%lld%lld", &q[i].a, &q[i].b, &q[i].c);
+                } else {
+                        scanf("%lld%lld", &q[i].a, &q[i].b);
+                        if (q[i].op == 3) {
+                                q[i].res = LASTX[q[i].a].second;
+                                ned[LASTX[q[i].a].first].push_back(i); // 对这个查询最后一次行覆盖的时间戳，存入这个查询的时间戳
+                        } else {
+                                LASTX[q[i].a] = {i, q[i].b};
+                        }
+                }
+        }
+        for (int i = 0; i < N; i ++) LASTX[i] = {0, 0};
+ 
+        for (int i = 1; i <= Q; i ++) {
+                if (q[i].op == 1) {
+                        update(q[i].a, q[i].b, q[i].c);
+                } else {
+                        if (q[i].op == 3) {
+                                q[i].res += query(q[i].b);
+                                printf("%lld\n", q[i].res);
+                        } else {
+                                LASTX[q[i].a] = {i, q[i].b};
+                                for (auto id : ned[i]) {
+                                        q[id].res -= query(q[id].b);
+                                }
+                        }
+                }
+        }
+}
+```
+<hr>
+
+
+## CCPC湖北省赛L_ChthollyAndTheBrokenChronograph
+
+#### 🔗
+<a href="https://codeforces.com/gym/103729/">![20220527173936](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220527173936.png)</a>
+
+#### 💡
+一个单点上锁解锁、区间更新、区间查询的问题  
+区间加我们要知道这个区间有多少个需要被加的点才能快速在进入这个区间后立刻停止  
+那么就线段树结构体也维护一个区间上锁个数 $lock$ ，那么对于已经走到并要修改的区间修改 $l,r$ ，我们需要加的为 $(r-l+1-lock)\times c$  
+考虑上锁与解锁都需要将所有的懒标记推下去才可以，但其实可以注意到其实更新就需要每一次都往下推，这就是一个单点更新的过程，在走到点之前就一直往下推懒标记就行了，也就是单点更新更新的是 $s$ ，区间更新更新的是 $a$   
+查询就暴力查就行
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+struct SegmentTree {
+        ll val, lazy;
+        int lock;
+} t[N << 2];
+int n, q, s[N];
+ll a[N];
+ 
+inline void pushUp (int rt) {
+        t[rt].val = t[rt << 1].val + t[rt << 1 | 1].val;
+        t[rt].lock = t[rt << 1].lock + t[rt << 1 | 1].lock;
+}
+inline void pushDown (int l, int r, int rt) {
+        if (!t[rt].lazy) return;
+        int mid = (l + r) >> 1;
+        t[rt << 1].val += (1ll * mid - l + 1 - t[rt << 1].lock) * t[rt].lazy;
+        t[rt << 1 | 1].val += (1ll * r - mid - t[rt << 1 | 1].lock) * t[rt].lazy;
+        t[rt << 1].lazy += t[rt].lazy;
+        t[rt << 1 | 1].lazy += t[rt].lazy;
+        t[rt].lazy = 0;
+}
+inline void Build (int l, int r, int rt) {
+        t[rt].lazy = 0;
+        if (l == r) {
+                t[rt] = {a[l], 0, !s[l]};
+                return;
+        }
+        int mid = (l + r) >> 1;
+        Build(l, mid, rt << 1);
+        Build(mid + 1, r, rt << 1 | 1);
+        pushUp(rt);
+}
+inline void Update (int a, int b, ll c, int l, int r, int rt) {
+        if (a <= l && r <= b) {
+                t[rt].val += (1ll * r - l + 1 - t[rt].lock) * c;
+                t[rt].lazy += c;
+                return;
+        }
+        if (a > r || b < l) return;
+        pushDown(l, r, rt);
+        int mid = (l + r) >> 1;
+        Update(a, b, c, l, mid, rt << 1);
+        Update(a, b, c, mid + 1, r, rt << 1 | 1);
+        pushUp(rt);
+}
+inline void Lock (int id, int l, int r, int rt) {
+        if (l == id && id == r) {
+                t[rt].lock = 1;
+                return;
+        }
+        pushDown(l, r, rt);
+        int mid = (l + r) >> 1;
+        if (id <= mid) Lock(id, l, mid, rt << 1);
+        else Lock(id, mid + 1, r, rt << 1 | 1);
+        pushUp(rt);
+}
+inline void unLock (int id, int l, int r, int rt) {
+        if (l == id && id == r) {
+                t[rt].lock = 0;
+                return;
+        }
+        pushDown(l, r, rt);
+        int mid = (l + r) >> 1;
+        if (id <= mid) unLock(id, l, mid, rt << 1);
+        else unLock(id, mid + 1, r, rt << 1 | 1);
+        pushUp(rt);
+}
+inline ll Query (int a, int b, int l, int r, int rt) {
+        if (a <=l && r <= b) return t[rt].val;
+        if (a > r || b < l) return 0;
+        pushDown(l, r, rt);
+        int mid = (l + r) >> 1;
+        return Query(a, b, l, mid, rt << 1) + Query(a, b, mid + 1, r, rt << 1 | 1);
+}
+ 
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+ 
+        scanf("%d%d", &n, &q);
+        for (int i = 1; i <= n; i ++) scanf("%lld", &a[i]);
+        for (int i = 1; i <= n; i ++) scanf("%d", &s[i]);
+        Build(1, n, 1);
+        while (q --) {
+                int op; scanf("%d", &op);
+                if (op == 1) {
+                        int x; scanf("%d", &x);
+                        Lock(x, 1, n, 1);
+                } else if (op == 2) {
+                        int x; scanf("%d", &x);
+                        unLock(x, 1, n, 1);
+                } else if (op == 3) {
+                        int l, r; ll c; scanf("%d%d%lld", &l, &r, &c);
+                        Update(l, r, c, 1, n, 1);
+                } else {
+                        int l, r; scanf("%d%d", &l, &r);
+                        printf("%lld\n", Query(l, r, 1, n, 1));
+                }
+        }
+}
+```
+<hr>
+
+
+## CodeForces1668D_OptimalPartition
+
+#### 🔗
+<a href="https://codeforces.com/contest/1668/problem/D">![20220525165134](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220525165134.png)</a>
+
+#### 💡
+看到这个其实很想维护完前缀和后，对于每个 $r$ 扫描每个在它之前的 $sum_l$ 然后按照规则维护 $dp[l]+$贡献 的最大值  
+对于规则一和规则三可以两个线段树来实现，将 $l,r$ 贡献分开维护，每一个 $sum[i]$ 位置插入为 $dp[i]-i$ 和 $dp[i]+i$ ，这也就是 $dp[l]-l$ 和 $dp[l]+l$ ，这样的话在统计的时候可以把 $r$ 的贡献加上，边记录边统计  
+当然因为是线段树区间维护数值可能会到 $10^9$ 和负数，所以这里需要离散化一下  
+在维护最大值的时候对于规则一就查第一棵里面大于 $sum[i]$ 的位置上的最大值 $+i$ ，第二棵小于 $sum[i]$ 的位置上的最大值 $-i$   
+此时规则二要查 $sum$ 相等的里面的最大值，这个用一个数组进行更新即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 5e5 + 30;
+pair<int, int> t[N << 2];
+# define mid ((l + r) >> 1)
+inline void push_Up (int rt) {
+        t[rt].first = max(t[rt << 1].first, t[rt << 1 | 1].first);
+        t[rt].second = max(t[rt << 1].second, t[rt << 1 | 1].second);
+}
+inline void Build (int l, int r, int rt) {
+        t[rt] = {-0x3f3f3f3f, -0x3f3f3f3f};
+        if (l == r) return;
+        Build(l, mid, rt << 1);
+        Build(mid + 1, r, rt << 1 | 1);
+}
+inline void Update (int id, int c1, int c2, int l, int r, int rt) {
+        if (l == id && id == r) {
+                t[rt] = {max(t[rt].first, c1), max(t[rt].second, c2)};
+                return;
+        }
+        if (id <= mid) Update(id, c1, c2, l, mid, rt << 1);
+        else Update(id, c1, c2, mid + 1, r, rt << 1 | 1);
+        push_Up(rt);
+}
+inline int Query1 (int a, int b, int l, int r, int rt) {
+        if (a <= l && r <= b) return t[rt].first;
+        if (a > r || b < l) return -0x3f3f3f3f;
+        return max(Query1(a, b, l, mid, rt << 1), Query1(a, b, mid + 1, r, rt << 1 | 1));
+}
+inline int Query2 (int a, int b, int l, int r, int rt) {
+        if (a <= l && r <= b) return t[rt].second;
+        if (a > r || b < l) return -0x3f3f3f3f;
+        return max(Query2(a, b, l, mid, rt << 1), Query2(a, b, mid + 1, r, rt << 1 | 1));
+}
+
+int n;
+ll a[N];
+ll sum[N];
+int dp[N], dp1[N];
+
+inline void Solve () {
+        cin >> n;
+        for (int i = 1; i <= n; i ++) cin >> a[i];
+
+        for (int i = 1; i <= n; i ++) sum[i] = sum[i - 1] + a[i];
+        vector<ll> nums; for (int i = 0; i <= n; i ++) nums.push_back(sum[i]);
+        sort(nums.begin(), nums.end());
+        nums.erase(unique(nums.begin(), nums.end()), nums.end());
+        auto id = [&](ll x) { return lower_bound(nums.begin(), nums.end(), x) - nums.begin() + 1; };
+
+        int up = nums.size() + 1;
+        for (int i = 0; i <= n; i ++) dp[i] = -0x3f3f3f3f;
+        for (int i = 0; i <= up + 1; i ++) dp1[i] = -0x3f3f3f3f;
+        Build(0, up + 1, 1);
+        Update(id(0), 0, 0, 0, up + 1, 1); dp1[id(0)] = 0;
+        for (int i = 1; i <= n; i ++) {
+                int val = id(sum[i]);       
+                dp[i] = max({Query1(0, val - 1, 0, up + 1, 1) + i, dp1[val], Query2(val + 1, up + 1, 0, up + 1, 1) - i});
+                Update(val, dp[i] - i, dp[i] + i, 0, up + 1, 1);
+                dp1[val] = max(dp1[val], dp[i]);
+        }
+        cout << dp[n] << endl;
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+        int cass; cin >> cass; while ( cass -- ) {
+                Solve ();
+        }
+}
+```
+<hr>
+
+
 ## HDU1394_MinimumInversionNumber
 
 #### 🔗

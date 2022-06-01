@@ -76,9 +76,16 @@ module.exports = {
         {
             text: '个人',
             items: [
-                { text: 'Github', link: 'https://github.com/Chivas-Regal', icon: 'reco-github' },
-                { text: 'WeChat', link: '/person-wechat.html', icon: 'reco-wechat' },
-                { text: 'CodeForces', link: 'https://codeforces.com/profile/Chivas_Regal', icon: 'reco-api' }
+                { text: '开发', items: [
+                        { text: 'Github', link: 'https://github.com/Chivas-Regal' }
+                ]},
+                { text: '社交', items:[
+                        { text: 'We-Chat', link: '/person-wechat.html' }
+                ]},
+                { text: 'CodeForces', items: [
+                        { text: 'Pepsi_Cola', link: 'https://codeforces.com/profile/Pepsi_Cola'},
+                        { text: 'Chivas_Regal', link: 'https://codeforces.com/profile/Chivas_Regal'},
+                ]}
             ],
             icon: 'reco-account'
         }

@@ -239,6 +239,80 @@ int main () {
 
 <hr>
 
+## CodeForces1691E_NumberOfGroups
+
+#### 🔗
+<a href="https://codeforces.com/contest/1691/problem/E">![20220602005409](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220602005409.png)</a>
+
+#### 💡
+其实考虑一下有一个很明显的事情，如果每个蓝色连接自己后面第一个满足条件的红色，红色连接自己后面第一个满足条件的蓝色，那么就可以正确连接  
+所以我们对每一个颜色集按第一关键字 $l$ 升序，第二关键字 $r$ 降序后  
+  
+看红色连接范围在红色 $l$ 后面的蓝色  
+先对蓝色 $r$ 升序存储，这样保证每一个蓝色 $r$ 都保留的是最小的蓝色 $l$ ，且蓝色 $r$ 越小，蓝色 $l$ 也越小    
+对于一个红色，我们找到第一个满足蓝色 $r$ 超过红色 $l$ 的点，如果该蓝色点的 $l$ 不大于该红色 $r$ ，说明满足条件，可以连接  
+  
+然后反过来也一样操作
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+int nod[N];
+inline void Init (int n) { iota(nod, nod + n, 0); }
+inline int Find (int x) { return x == nod[x] ? x : nod[x] = Find(nod[x]); }
+inline void Merge (int x, int y) {
+        x = Find(x);
+        y = Find(y);
+        if (x == y) return;
+        nod[x] = y;
+}
+ 
+inline void Solve () {
+        int n; cin >> n;
+        vector<int> l(n), r(n), c(n);
+        vector<int> p[2];
+        for (int i = 0; i < n; i ++) {
+                cin >> c[i] >> l[i] >> r[i];
+                p[c[i]].push_back(i);
+        }
+ 
+        Init(n);
+ 
+        for (int i = 0; i < 2; i ++) {
+                sort(p[i].begin(), p[i].end(), [&](int a, int b) {
+                        if (l[a] != l[b]) return l[a] < l[b];
+                        return r[a] > r[b];
+                });
+        }
+ 
+        function<void(void)> Link = [&]() {
+                vector<int> a;
+                for (int i : p[0]) {
+                        if (a.empty() || r[i] > r[a.back()]) 
+                                a.push_back(i);
+                }
+                for (int i : p[1]) {
+                        auto id = partition_point(a.begin(), a.end(), [&](int j) {
+                                return r[j] < l[i];
+                        });
+                        if (id == a.end() || l[*id] > r[i]) continue;
+                        Merge(*id, i);
+                }
+        };
+ 
+        Link();
+        swap(p[0], p[1]);
+        Link();
+ 
+        int res = 0;
+        for (int i = 0; i < n; i ++) res += Find(i) == i;
+        printf("%d\n", res);
+}
+```
+<hr>
+
+
 
 ## HDUOJ2844_食物链
 
