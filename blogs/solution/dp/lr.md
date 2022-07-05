@@ -168,6 +168,52 @@ int main () {
 
 <hr>
 
+## CodeForces1132F_ClearTheString
+
+#### 🔗
+<a href="https://codeforces.com/contest/1132/problem/F">![20220607201413](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220607201413.png)</a>
+
+#### 💡
+一眼区间 $dp$ ，但是有地方没考虑清楚 $wa$ 半天 ...
+首先一个正常扩张就是，如果 $l=r$ ，那么 $l$ 可以和 $r$ 一起从 $[l+1,r]$ 向外扩，或者 $r$ 与 $l$ 一起从 $[l,r-1]$ 向外扩，这一步是不费次数的  
+所以 $if\;(s_l=s_r):\quad dp_{l,r}=\min(dp_{l,r},dp_{l+1,r},dp_{l,r-1})$   
+如果 $l\neq r$ 那么就需要多加一次操作了，原理和上面一样  
+所以 $else:\quad dp_{l,r}=\min(dp_{l,r},dp_{l+1,r}+1,dp_{l,r-1}+1)$     
+  
+当然用 $l=r$ 去判断是不全面的，因为有可能会出现分区域的可能性，即有很多个部分，每个部分都是从其中一个点开始向外扩散  
+比如 $abaccdc$    
+这样就要取一个区间被划分为两个部分的 $\min$ ，也就是枚举这个区间的断点 $k$ ，维护 $dp_{l,r}=\min(dp_{l,r},dp_{l,k}+dp_{k,r}-1)$   
+之所以不是取 $dp_{l,k}+dp_{k+1,r}$ ，是因为有可能 $l,k,r$ 是一起删掉的，所以重复算 $k$ 不管是不是一起都稳定 $+1$ ，就 $dp_{l,k}+dp_{k,r}$ 减掉一个 $1$ 即可   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int n; 
+char s[510];
+int dp[510][510];
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        cin >> n >> (s + 1);
+        memset(dp, 0x3f, sizeof dp);
+        for (int i = 1; i <= n; i ++) dp[i][i] = 1;
+        for (int len = 2; len <= n; len ++) {
+                for (int l = 1; l + len - 1 <= n; l ++) {
+                        int r = l + len - 1;
+                        if (s[l] == s[r]) dp[l][r] = min({dp[l][r], dp[l + 1][r], dp[l][r - 1]});
+                        else dp[l][r] = min({dp[l][r], dp[l + 1][r] + 1, dp[l][r - 1] + 1});
+                        for (int i = l; i <= r; i ++) {
+                                dp[l][r] = min(dp[l][r], dp[l][i] + dp[i][r] - 1);
+                        }
+                }
+        }
+        cout << dp[1][n] << endl;
+}
+```
+<hr>
+
+
 ## ICPC2014CERCL_OuterSpaceInvaders
 
 #### 🔗

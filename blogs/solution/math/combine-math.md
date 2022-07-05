@@ -1568,6 +1568,66 @@ int main () {
 ```
 <hr>
 
+### CodeForces1422C_Bargain
+
+#### 🔗
+<a href="https://codeforces.com/contest/1422/problem/C">![20220705154656](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220705154656.png)</a>
+
+#### 💡
+这种对数进行操作，算所有结果的和的，直接算每一个数做出贡献的次数  
+但是由于我们可以删一位后面的数，它所在的位数会发生改变，所以我们要算的是它作为第几位所做出的贡献是多少  
+  
+对第 $k$ 位的数 $x$ 做一下分类讨论：  
+作为第 $1$ 位：后面全删  
+作为第 $2$ 位：后面删到剩 $1$ 个  
+作为第 $3$ 位：后面删到剩 $2$ 个  
+$...$   
+作为第 $k$ 位：前面删任意子段  
+如果数有 $n$ 位，那么第 $k$ 位作为 $[1,k-1]$ 位的贡献为 $a_k\times (k-1)(k-2)...321$ 这样的数，我们可以预处理出来一个 $1,21,321,4321,...$ 这样的数组 `\_dots321`  
+而作为第 $k$ 位的贡献次数，前面有 $n-k$ 个数，所以有 $\binom{n-k}{2}$ 种子段截取方式，再乘上它对应的位数即 $10^{k}$ ，则贡献是 $a_k\times \binom{n-k}{2}10^k$   
+  
+由于上面说的是“位”不是“下标”  
+则转换为下标的最终结果为：  
+$$\sum\limits_{i=1}^n(\binom{i-1}{2}10^{n-i}+\_dots321_{n-i})s_i$$
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const ll N = 1e5 + 10;
+const ll mod = 1e9 + 7;
+inline ll ksm (ll a, ll b) { ll res = 1; while (b) { if (b & 1) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv (ll x) { return ksm(x, mod - 2); }
+
+ll _dots321[N];
+ll pw10[N];
+ll iv2;
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        _dots321[0] = 0;
+        _dots321[1] = 1;
+        for (int i = 2; i < N; i ++) _dots321[i] = (_dots321[i - 1] * 10 % mod + 1) % mod;
+        for (int i = 2; i < N; i ++) _dots321[i] = (_dots321[i - 1] * 10 % mod + _dots321[i]) % mod;
+        pw10[0] = 1;
+        for (int i = 1; i < N; i ++) pw10[i] = pw10[i - 1] * 10 % mod;
+        iv2 = inv(2);
+
+
+        ll res = 0;
+
+        string s; cin >> s; s = "0" + s;
+        ll n = s.size() - 1;
+        for (int i = n; i >= 1; i --) {
+                ll pre = 1ll * (i - 1) * i % mod * iv2 % mod * pw10[n - i] % mod;
+                res += (pre + _dots321[n - i]) % mod * (s[i] - '0') % mod;
+                res %= mod;
+        }
+        cout << res << endl;
+}
+```
+<hr>
 
 
 ### CodeForces1536B_AdvertisingAgency
@@ -2019,6 +2079,44 @@ int main () {
         if ( flag && n < m ) res += 1;
  
         printf("%d", res);
+}
+```
+<hr>
+
+### CodeForces1699C_TheThirdProblem
+
+#### 🔗
+<a href="https://codeforces.com/contest/1699/problem/C">![20220705103135](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220705103135.png)</a>
+
+#### 💡
+首先 $0、1$ 的位置一定是固定的，因为要通过 $0、1$ 的 $[l,r]$ 确定出来 $mex=2$   
+所以可以往数值从 $1,2,3,4,5,...$ 考虑的方式着手  
+考虑这样的序列 $[0,2,3,4,1]$ ，其中对于 $x\in\{2,3,4\}$ 怎么摆都不会影响 $[l=1,r=5]$ 也不会影响 $1$ 到 $x$ 和 $0$ 到 $x$ 形成的 $mex[l,r]$ ，因为稳定上升 $mex$ 的区间已经固定了，里面的数值不管怎么摆都不会影响这个 $mex[l,r]$     
+而如果考虑 $[0,3,4,1,2]$ ，由于 $2$ 会让 $[l,r]$ 向外更新，所以由 $0,1,2$ 固定的区间 $[l=1,r=5]$ 是固定的，那么 $2$ 的位置也是固定的    
+  
+在往上同理，得到这样一个性质：  
+如果对于当前扫描的 $x$ 在 $[l,r]$ 内，则 $[l,r]$ 内的空位都可以供 $x$ 选择  
+如果对于当前扫描的 $x$ 不在 $[l,r]$ 内，则 $x$ 是固定的，同时向外扩张 $[l,r]$   
+用这个性质求解即可    
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void Solve () {
+        int n; cin >> n;
+        int l, r;
+        vector<int> id(n);
+        vector<int> a(n); for (int i = 0; i < n; i ++) {
+                cin >> a[i];
+                id[a[i]] = i;
+                if (!a[i]) l = r = i;
+        }
+        ll res = 1;
+        for (int i = 1; i < n; i ++) {
+                if (id[i] < l || id[i] > r) l = min(l, id[i]), r = max(r, id[i]);
+                else res = res * (1ll * r - l + 1 - i) % mod;
+        }
+        cout << res << endl;
 }
 ```
 <hr>

@@ -1306,6 +1306,66 @@ int main () {
 
 <hr>
 
+## 省赛2022江苏L_CollectingDiamonds
+
+#### 🔗
+<a href="https://codeforces.com/gym/103743/problem/L">![20220605162115](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220605162115.png)</a>
+
+#### 💡
+注意一个形如 $AA\dots ABCC\dots C$  这样的串，我们一旦拿掉 $B$ ，那么便不能再拿这一个部分里面任意一个 $AC$ 或 $B$ 了  
+拿谁也与奇偶性有关，那么来分析一下对于每个操作奇偶性的变化。  
+拿 $AC$ ：改变本块的奇偶性，不改变后面块的奇偶性  
+拿 $B$ ： 断掉本块，改变后面所有块的奇偶性  
+由于存在能改变奇偶性的操作，那么就存在可以反复拿 $AC$ 的情况（即该块为偶数，前面需要一个拿 $B$ 的操作让本块变成奇数，然后再拿一次 $AC$ 变成偶数）  
+所以对每一块贪心的方法是：尽量在最后拿一次 $B$ ，在拿 $B$ 之前尽可能地拿 $AC$   
+这样就可以用一个变量 `lazy` 记录前面拿过多少次 $B$   
+如果本块是奇数块，就可以拿 $lazy+1$ 次 $AC$ ，但不能超过本块的 $AC$ 数量 $-1$ ，因为我们要让最后一次操作为拿 $B$ ，对答案的贡献要 $+1$ 表示拿一次 $B$     
+如果本块是奇数块，就可以拿 $lazy$ 次 $AC$ ，同样不能超过本块 $AC$ 数量 $-1$ ，对答案的贡献要 $+1$ 表示拿一次 $B$   
+同时要注意如果前面没有能拿 $B$ 的，且本块是奇数块且只有一套 $AC$ ，那么就被迫去拿一次 $AC$ 就停止了  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e6 + 10;
+vector<pair<int, ll> > vec; // first:od/ev second:num
+int n;
+ 
+int main () {
+        ios::sync_with_stdio(false);
+ 
+        string s; cin >> s;
+        vec.push_back({0, 0});
+        for (int i = 0; i < s.size(); i ++) {
+                if (s[i] != 'B') continue;
+                int num = 1;
+                while (i - num >= 0 && i + num < s.size() && s[i - num] == 'A' && s[i + num] == 'C') {
+                        num ++;
+                }
+                num --;
+                if (num) vec.push_back({i & 1, num});
+        }
+        n = vec.size() - 1;
+ 
+ 
+        ll lazy = 0;
+        ll res = 0;
+        for (int i = 1; i <= n; i ++) {
+                if (vec[i].first & 1) {
+                        if (!lazy && vec[i].second == 1) res ++;
+                        else {
+                                res += min(lazy + 1, vec[i].second - 1) + 1;
+                                lazy ++;
+                        }
+                } else {
+                        res += min(lazy, vec[i].second - 1) + 1;
+                        lazy ++;
+                }
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
+
 ## ABC242D_ABCTransform
 
 #### 🔗

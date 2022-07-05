@@ -399,7 +399,135 @@ int main () {
 ```
 <hr>
 
+## CodeForces1601B_FrogTraveler
 
+#### 🔗
+<a href="https://codeforces.com/contest/1601/problem/B">![20220606201854](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220606201854.png)</a>
+
+#### 💡
+分析这个问题  
+首先这个问题是一个类似于最短路的问题，我们要跳最少的次数到达目的地，需要更新  
+同时这个问题也要维护路径，需要记录最短路前驱  
+  
+如果把它按最短路单纯地连边的话，边数可能会到达 $\frac{n^2}{2}$ ，非常大，时间空间都过不去  
+注意到一个点可以跑的点是它后面连续的一段点，考虑到其实 $dijkstra$ 就是一个 $dp$ 的转移，那么用线段树区间修改进行这个 $dp$ 的转移操作    
+  
+但是注意到有一个下滑的过程，由于我们要使用这个连续的下标，我们就要在用 $a_i$ 时，用 $i$ 这个点的最短距离 $+1$ 更新 $[i+b_i-a_{i+b_i},i+b_i-1]$   
+因为我们路径记录的都是下滑之前的路径点，所以标记这次更新是用 $i$ 更新的即可  
+所以我们要有一个双关键字的懒标记，一个关键字是更新的距离，另一个则是更新出第一个关键字的出发点  
+线段树懒标记往下推的时候，需要考虑需不需要更改这两个关键字，而当子树的 $l=r$ 了话，就代表我们推到底了，如果将距离更新为更短了，就要直接修改 $pre[l]$    
+  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 3e5 + 10;
+const int inf = 0x3f3f3f3f;
+ 
+int pre[N]; // 最短路的前驱
+struct node {
+        int val;
+        pair<int, int> lazy;
+} t[N << 2];
+inline void pushUp (int rt) {
+        t[rt].val = max(t[rt << 1].val, t[rt << 1 | 1].val);
+}
+inline void pushDown (int l, int r, int rt) {
+        if (t[rt].lazy.first == inf) return;
+        node &fa = t[rt], &ls = t[rt << 1], &rs = t[rt << 1 | 1];
+        // 更短的话，更新的原因点也要修改
+        if (ls.lazy.first > fa.lazy.first) ls.lazy = fa.lazy;
+        if (rs.lazy.first > fa.lazy.first) rs.lazy = fa.lazy;
+        int mid = (l + r) >> 1;
+        // 叶子节点，如果需要更新的话就把 pre 更新了
+        if (mid - l + 1 == 1) { 
+                if (ls.val > fa.lazy.first) {
+                        pre[l] = fa.lazy.second;
+                        ls.val = fa.lazy.first;
+                }
+        } else {       
+                ls.val = min(ls.val, fa.lazy.first);
+        }
+        if (r - mid == 1) {
+                if (rs.val > fa.lazy.first) {
+                        pre[r] = fa.lazy.second;
+                        rs.val = fa.lazy.first;
+                }
+        } else {
+                rs.val = min(rs.val, fa.lazy.first);
+        }
+        fa.lazy = {inf, -1};
+}
+inline void Build (int l, int r, int rt) {
+        t[rt] = {inf, {inf, -1}};
+        if (l == r) return;
+        int mid = (l + r) >> 1;
+        Build(l, mid, rt << 1);
+        Build(mid + 1, r, rt << 1 | 1);
+}
+inline void Update (int a, int b, int c, int id, int l, int r, int rt) {
+        if (a <= l && r <= b) {
+                if (t[rt].lazy.first > c) t[rt].lazy = {c, id};
+                // 同理，叶子结点要看情况直接更新 pre
+                if (l == r) {
+                        if (t[rt].val > c) {
+                                t[rt].val = c;
+                                pre[l] = id;
+                        }
+                } else {
+                        t[rt].val = min(t[rt].val, c);
+                }
+                return;
+        }
+        pushDown(l, r, rt);
+        int mid = (l + r) >> 1;
+        if (a <= mid) Update(a, b, c, id, l, mid, rt << 1);
+        if (b > mid) Update(a, b, c, id, mid + 1, r, rt << 1 | 1);
+        pushUp(rt);
+}
+inline int Query (int id, int l, int r, int rt) {
+        if (l == r) return t[rt].val;
+        pushDown(l, r, rt);
+        int mid = (l + r) >> 1;
+        if (id <= mid) return Query(id, l, mid, rt << 1);
+        else return Query(id, mid + 1, r, rt << 1 | 1);
+}
+ 
+ 
+int a[N], b[N], n;
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+ 
+        cin >> n;
+        for (int i = 1; i <= n; i ++) cin >> a[i];
+        for (int i = 1; i <= n; i ++) cin >> b[i];
+ 
+        Build(0, n, 1);
+        Update(n, n, 0, n + 1, 0, n, 1);
+ 
+        for (int i = n; i >= 1; i --) {
+                int ti = i + b[i];
+                // 用当前所在点的最短路 去 更新下滑过后的点所能跑到的区间，并记录这次更新是当前所在点更新的
+                if (a[ti]) Update(ti - a[ti], ti - 1, Query(i, 0, n, 1) + 1, i, 0, n, 1);
+        }
+        for (int i = 0; i <= n; i ++) Query(i, 0, n, 1); // 懒标记全推下去
+ 
+        if (t[1].val == inf) {
+                cout << "-1\n";
+                return 0;
+        }
+        cout << t[1].val << endl;
+        vector<int> res;
+        int cur = 0;
+        while (pre[cur] != n + 1) {
+                res.push_back(cur);
+                cur = pre[cur];
+        }
+        reverse(res.begin(), res.end());
+        for (auto i : res) cout << i << " ";
+}
+```
+<hr>
 
 ## CodeForces1611E1_EscapeTheMaze(easyversion)
 
@@ -630,6 +758,8 @@ int main () {
 ```
 
 <hr>
+
+
 
 ## HDUOJ1217_Arbitrage
 

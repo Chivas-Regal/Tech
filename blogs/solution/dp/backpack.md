@@ -40,6 +40,53 @@ int main () {
 ```
 <hr>
 
+## CodeForces1458B_GlassHalfSpilled
+
+#### 🔗
+<a href="https://codeforces.com/contest/1458/problem/B">![20220607162429](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220607162429.png)</a>
+
+#### 💡
+这是一个关于每一个位置选或者不选的问题，要一个限制个数之后的最大和  
+我们首先不考虑倒水的话，这个问题也就单纯只是上面所说的  
+而如果考虑倒水并洒一半的话，现有全部的水量 $sumb$ ，选 $k$ 个最大的结果是 $cur$ ，那么我们肯定是想让别的所有的全尽可能倒给这些杯子，同时受到这些杯子的容量和 $cura$ 的限制，我们此时的结果是 $cur+\min(cura,\frac{sumb-cur}{2})$   
+那么问题就只剩如果求限制个数下的最大和，这就是一个 $01$ 背包的经典问题了  
+令 $dp[i][j]$ 表示选了 $i$ 个杯子，总容量是 $j$ 下，水量的最大值  
+那么对于第 $x$ 个杯子，$dp[i][j]=\max(dp[i][j],dp[i-1][j-a[x]]+b[x]$  
+这样求完之后，在获得选 $k$ 个杯子下的答案就可以按上面的枚举 $cura$ 维护最大值求即可
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+double dp[110][10010];
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        int n; cin >> n;
+        vector<int> a(n), b(n);
+        int sumb = 0, suma = 0;
+        for (int i = 0; i < n; i ++) cin >> a[i] >> b[i], sumb += b[i], suma += a[i];
+
+        for (int i = 0; i < 110; i ++) for (int j = 0; j < 10010; j ++) dp[i][j] = -1e12;
+        dp[0][0] = 0;
+
+        for (int i = 0; i < n; i ++) {
+                for (int j = n; j >= 1; j --) {
+                        for (int k = suma; k >= a[i]; k --) {
+                                dp[j][k] = max(dp[j][k], dp[j - 1][k - a[i]] + b[i]);
+                        }
+                }
+        }
+
+        for (int i = 1; i <= n; i ++) {
+                double res = 0;
+                for (int k = 0; k <= suma; k ++) res = max(res, min(1.0 * k, dp[i][k] + (sumb - dp[i][k]) * 1.0 / 2));
+                printf("%.10f ", res);
+        }
+}
+```
+<hr>
+
 
 ## CodeForces1516C_BabyEhabPartitionsAgain
 

@@ -109,6 +109,119 @@ int main () {
 ```
 <hr>
 
+## 洛谷P2824_排序
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P2824">![20220605151926](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220605151926.png)</a>
+
+#### 💡
+这个数有点多，缩小一下问题：看一下 $01$ 串是怎么样排序的  
+对 $[l,r]$ 升序排序，我们假设其中 $1$ 的个数有 $cnt$ 个，那么排序后 $[l,r-cnt]$ 全部是 $0$ ，$[r-cnt+1,r]$ 全部是 $1$   
+对 $[l,r]$ 降序排序，我们假设其中 $1$ 的个数有 $cnt$ 个，那么排序后 $[l,l+cnt-1]$ 全部是 $1$ ， $[l+cnt,r]$ 全部是 $0$   
+这个可以利用线段树区间更新去解决  
+那么回到这个问题，这个问题数有点多，我们可以通过设置一个分界线 $x$ 来让问题变成 $01$ 的，即 $\ge x$ 为 $0$ 否则为 $1$   
+那么这就是一个二分答案了  
+二分这个分界线，看排到最后 $q$ 位置上是否为 $1$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+
+struct node { int op, l, r; };
+vector<node> ope;
+vector<int> a, s;
+int n, m, p;
+
+struct SegmentTree {
+        int cnt, make;
+} t[N << 2];
+inline void pushUp (int rt) {
+        t[rt].cnt = t[rt << 1].cnt + t[rt << 1 | 1].cnt;
+}
+inline void pushDown (int l, int r, int rt) {
+        if (!t[rt].make) return;
+        int mid = (l + r) >> 1;
+        t[rt << 1].make = t[rt << 1 | 1].make = t[rt].make;
+        if (t[rt].make == 1) {
+                t[rt << 1].cnt = mid - l + 1, t[rt << 1 | 1].cnt = r - mid;
+        } else {
+                t[rt << 1].cnt = t[rt << 1 | 1].cnt = 0;
+        }
+        t[rt].make = 0;
+}
+inline void Build (int l, int r, int rt) {
+        t[rt] = {0, 0};
+        if (l == r) {
+                t[rt].cnt = s[l] == 1;
+                return;
+        }
+        int mid = (l + r) >> 1;
+        Build(l, mid, rt << 1);
+        Build(mid + 1, r, rt << 1 | 1);
+        pushUp(rt);
+}
+inline void Update (int a, int b, int l, int r, int rt, int make) {
+        if (a > r || l > b) return;
+        if (a <= l && r <= b) {
+                t[rt].cnt = make * (r - l + 1);
+                t[rt].make = make ? 1 : -1;
+                return;
+        }
+        int mid = (l + r) >> 1;
+        pushDown(l, r, rt);
+        Update(a, b, l, mid, rt << 1, make);
+        Update(a, b, mid + 1, r, rt << 1 | 1, make);
+        pushUp(rt);
+}
+inline int Query (int a, int b, int l, int r, int rt) {
+        if (a > r || l > b) return 0;
+        if (a <= l && r <= b) return t[rt].cnt;
+        int mid = (l + r) >> 1;
+        pushDown(l, r, rt);
+        return Query(a, b, l, mid, rt << 1) + Query(a, b, mid + 1, r, rt << 1 | 1);
+}
+
+inline bool Check (int x) {
+        for (int i = 1; i <= n; i ++) s[i] = a[i] >= x;
+
+        Build(1, n, 1);
+
+        for (auto [op, l, r] : ope) {
+                int cnt = Query(l, r, 1, n, 1);
+                if (op == 0) {
+                        Update(l, r - cnt, 1, n, 1, 0);
+                        Update(r - cnt + 1, r, 1, n, 1, 1);
+                } else {
+                        Update(l, l + cnt - 1, 1, n, 1, 1);
+                        Update(l + cnt, r, 1, n, 1, 0);
+                }
+        }
+
+        return Query(p, p, 1, n, 1);
+}
+
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        cin >> n >> m;
+        ope.resize(m); a.resize(n + 1); s.resize(n + 1);
+        for (int i = 1; i <= n; i ++) cin >> a[i];
+        for (auto &[op, l, r] : ope) cin >> op >> l >> r;
+        cin >> p;
+
+        int l = 1, r = n, res = 1;
+        while (l <= r) {
+                int mid = (l + r) >> 1;
+                if (Check(mid)) res = mid, l = mid + 1;
+                else r = mid - 1;
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
 
 ## 洛谷P6327_区间加区间sin和
 
@@ -1279,6 +1392,135 @@ signed main () {
 ```
 <hr>
 
+## CodeForces1601B_FrogTraveler
+
+#### 🔗
+<a href="https://codeforces.com/contest/1601/problem/B">![20220606201854](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220606201854.png)</a>
+
+#### 💡
+分析这个问题  
+首先这个问题是一个类似于最短路的问题，我们要跳最少的次数到达目的地，需要更新  
+同时这个问题也要维护路径，需要记录最短路前驱  
+  
+如果把它按最短路单纯地连边的话，边数可能会到达 $\frac{n^2}{2}$ ，非常大，时间空间都过不去  
+注意到一个点可以跑的点是它后面连续的一段点，考虑到其实 $dijkstra$ 就是一个 $dp$ 的转移，那么用线段树区间修改进行这个 $dp$ 的转移操作    
+  
+但是注意到有一个下滑的过程，由于我们要使用这个连续的下标，我们就要在用 $a_i$ 时，用 $i$ 这个点的最短距离 $+1$ 更新 $[i+b_i-a_{i+b_i},i+b_i-1]$   
+因为我们路径记录的都是下滑之前的路径点，所以标记这次更新是用 $i$ 更新的即可  
+所以我们要有一个双关键字的懒标记，一个关键字是更新的距离，另一个则是更新出第一个关键字的出发点  
+线段树懒标记往下推的时候，需要考虑需不需要更改这两个关键字，而当子树的 $l=r$ 了话，就代表我们推到底了，如果将距离更新为更短了，就要直接修改 $pre[l]$    
+  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 3e5 + 10;
+const int inf = 0x3f3f3f3f;
+ 
+int pre[N]; // 最短路的前驱
+struct node {
+        int val;
+        pair<int, int> lazy;
+} t[N << 2];
+inline void pushUp (int rt) {
+        t[rt].val = max(t[rt << 1].val, t[rt << 1 | 1].val);
+}
+inline void pushDown (int l, int r, int rt) {
+        if (t[rt].lazy.first == inf) return;
+        node &fa = t[rt], &ls = t[rt << 1], &rs = t[rt << 1 | 1];
+        // 更短的话，更新的原因点也要修改
+        if (ls.lazy.first > fa.lazy.first) ls.lazy = fa.lazy;
+        if (rs.lazy.first > fa.lazy.first) rs.lazy = fa.lazy;
+        int mid = (l + r) >> 1;
+        // 叶子节点，如果需要更新的话就把 pre 更新了
+        if (mid - l + 1 == 1) { 
+                if (ls.val > fa.lazy.first) {
+                        pre[l] = fa.lazy.second;
+                        ls.val = fa.lazy.first;
+                }
+        } else {       
+                ls.val = min(ls.val, fa.lazy.first);
+        }
+        if (r - mid == 1) {
+                if (rs.val > fa.lazy.first) {
+                        pre[r] = fa.lazy.second;
+                        rs.val = fa.lazy.first;
+                }
+        } else {
+                rs.val = min(rs.val, fa.lazy.first);
+        }
+        fa.lazy = {inf, -1};
+}
+inline void Build (int l, int r, int rt) {
+        t[rt] = {inf, {inf, -1}};
+        if (l == r) return;
+        int mid = (l + r) >> 1;
+        Build(l, mid, rt << 1);
+        Build(mid + 1, r, rt << 1 | 1);
+}
+inline void Update (int a, int b, int c, int id, int l, int r, int rt) {
+        if (a <= l && r <= b) {
+                if (t[rt].lazy.first > c) t[rt].lazy = {c, id};
+                // 同理，叶子结点要看情况直接更新 pre
+                if (l == r) {
+                        if (t[rt].val > c) {
+                                t[rt].val = c;
+                                pre[l] = id;
+                        }
+                } else {
+                        t[rt].val = min(t[rt].val, c);
+                }
+                return;
+        }
+        pushDown(l, r, rt);
+        int mid = (l + r) >> 1;
+        if (a <= mid) Update(a, b, c, id, l, mid, rt << 1);
+        if (b > mid) Update(a, b, c, id, mid + 1, r, rt << 1 | 1);
+        pushUp(rt);
+}
+inline int Query (int id, int l, int r, int rt) {
+        if (l == r) return t[rt].val;
+        pushDown(l, r, rt);
+        int mid = (l + r) >> 1;
+        if (id <= mid) return Query(id, l, mid, rt << 1);
+        else return Query(id, mid + 1, r, rt << 1 | 1);
+}
+ 
+ 
+int a[N], b[N], n;
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+ 
+        cin >> n;
+        for (int i = 1; i <= n; i ++) cin >> a[i];
+        for (int i = 1; i <= n; i ++) cin >> b[i];
+ 
+        Build(0, n, 1);
+        Update(n, n, 0, n + 1, 0, n, 1);
+ 
+        for (int i = n; i >= 1; i --) {
+                int ti = i + b[i];
+                // 用当前所在点的最短路 去 更新下滑过后的点所能跑到的区间，并记录这次更新是当前所在点更新的
+                if (a[ti]) Update(ti - a[ti], ti - 1, Query(i, 0, n, 1) + 1, i, 0, n, 1);
+        }
+        for (int i = 0; i <= n; i ++) Query(i, 0, n, 1); // 懒标记全推下去
+ 
+        if (t[1].val == inf) {
+                cout << "-1\n";
+                return 0;
+        }
+        cout << t[1].val << endl;
+        vector<int> res;
+        int cur = 0;
+        while (pre[cur] != n + 1) {
+                res.push_back(cur);
+                cur = pre[cur];
+        }
+        reverse(res.begin(), res.end());
+        for (auto i : res) cout << i << " ";
+}
+```
+<hr>
 
 ## CCPC湖北省赛L_ChthollyAndTheBrokenChronograph
 

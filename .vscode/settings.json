@@ -1,6 +1,6 @@
 {
     "editor.fontSize": 16,
-    "editor.fontFamily": "fira code",
+    "editor.fontFamily": "Menlo, '圆体', monospace",
     "editor.cursorStyle": "line",
     "editor.tabSize": 8
 }

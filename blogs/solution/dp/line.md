@@ -1116,6 +1116,215 @@ CHIVAS_{
 
 
 ```
+<hr>
+
+## CodeForces999F_CardsAndJoy
+
+#### 🔗
+<a href="https://codeforces.com/contest/999/problem/F">![20220607222227](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220607222227.png)</a>
+
+#### 💡
+就是这么多的牌每个牌都分给一个人，每个人分到的不超过 $k$ 个  
+那么问题就是每个牌分给谁  
+注意对于第 $i$ 个人，只有牌为 $f(i)$ 的才有贡献，别的牌都是充数的，那么将第一个样例的分配方法在每个人去掉不是 $f(i)$ 的牌后，其实就是一个对于相同 $f$ 的人，每个人分配到的 $f$ 的数量问题    
+如果此时有 $m$ 个牌面为 $x$ 的牌，有 $n$ 个喜欢这个牌面的人，那么问题就是把这 $m$ 张牌分给 $n$ 个人，求最大价值  
+这就是一个很明显的三重循环 $dp$ 了，$dp[i][j]$ 表示前 $i$ 个人有 $j$ 个牌的最大价值，然后第三维去枚举第 $i$ 个人获得多少张牌即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 510;
+int dp[N][N * 10];
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        int n, K; cin >> n >> K;
+        map<int, int> card; for (int i = 0; i < n * K; i ++) {
+                int x; cin >> x;
+                card[x] ++;
+        }
+        map<int, int> favo; for (int i = 0; i < n; i ++) {
+                int x; cin >> x;
+                favo[x] ++;
+        }
+        vector<int> h(K + 1); for (int i = 1; i <= K; i ++) cin >> h[i]; h[0] = 0;
+
+        int res = 0;
+        for (auto i : card) {
+                int y = favo[i.first];
+                int x = i.second;
+                if (!y) continue;
+                x = min(x, K * y);
+
+                for (int i = 0; i <= y; i ++) for (int j = 0; j <= x && j <= i * K; j ++) dp[i][j] = -1;
+                dp[0][0] = 0;
+
+                for (int i = 1; i <= y; i ++) {
+                        for (int j = 0; j <= x && j <= i * K; j ++) {
+                                for (int k = min(j, K); k >= 0; k --) {
+                                        if (dp[i - 1][j - k] == -1) continue;
+                                        dp[i][j] = max(dp[i][j], dp[i - 1][j - k] + h[k]);
+                                }
+                        }
+                }
+                res += dp[y][x];
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
+
+## CodeForces1427C_TheHardWorkOfPaparazzi
+
+#### 🔗
+<a href="https://codeforces.com/contest/1427/problem/C">![20220606232618](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220606232618.png)</a>
+
+#### 💡
+首先一个 $O(n^2)$ 的算法是很好想的，即枚举 $i$ ，枚举 $j$ 为 $[0,i-1]$ ，如果满足 $dis(a_i,a_j)\le t_i-t_j$ 的话就代表可以转移，就维护一下最大值即可  
+但是这是一个 $O(n^2)$ ，这样 $r$ 并没有用上，考虑 $r$ 有什么用  
+其实应该有条件反射 $n\times m$ 的矩阵最大曼哈顿距离为 $n+m-2$ ，这里最大就是 $r*2-2$ ，就意味着两个时间差如果超过 $r*2$ 的话那么一定是可以转移的  
+所以其实需要去检查来转移的只有 $[i-2r,i-1]$ ，更靠前的可以直接维护一个变量表示他们的最大值，然后维护 $dp[i]$ 统计能转移的最大值 $+1$   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+struct node { int t, x, y; };
+inline int dis (node a, node b) {
+        return abs(a.x - b.x) + abs(a.y - b.y);
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        int r, n; cin >> r >> n;
+        vector<node> a(n + 1); for (int i = 1; i <= n; i ++) cin >> a[i].t >> a[i].x >> a[i].y;
+        a[0] = {0, 1, 1};
+
+        vector<int> dp(n + 1, -1); dp[0] = 0;
+        int pre = -2;
+        for (int i = 1; i <= n; i ++) {
+                for (int j = max(0, i - 2 * r); j < i; j ++) {
+                        if (dp[j] == -1) continue;
+                        if (a[i].t - a[j].t >= dis(a[i], a[j])) 
+                                dp[i] = max(dp[i], dp[j] + 1);
+                }
+                dp[i] = max(dp[i], pre + 1);
+                if (i - 2 * r >= 0) pre = max(pre, dp[i - 2 * r]);
+        }
+
+        int res = 0;
+        for (int i = 1; i <= n; i ++) res = max(res, dp[i]); 
+        cout << res << endl;
+}
+```
+<hr>
+
+
+## CodeForces1475G_StrangeBeauty
+
+#### 🔗
+<a href="https://codeforces.com/contest/1475/problem/G">![20220606172441](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220606172441.png)</a>
+
+#### 💡
+就是说我们剩下的数组中，任意一对都必须一个是另一个倍数  
+如果 $a$ 是 $b$ 的倍数，那么 $a\ge b$   
+那么我们如果对其排一个序的话，就可以确定一个位置可以连后面的是它的倍数的位置  
+而删除的最少就是保留的最多，也就是求一个这里面的最长路  
+这里连边过多，我们肯定不能一一枚举，但是枚举倍数，也就是一个埃氏筛的套路复杂度  
+我们从小往大去枚举一条边的起点，然后用枚举倍数的方式去枚举它的终点（注意有的起点或终点可能不存在，所以不要更新）  
+对于起点 $u$ 和终点 $v$ ，已知相同的的也可以互成倍数，那么我们记录 $v$ 是否存在的时候可以直接记录它的出现次数 $num$ ，然后最长路的转移就直接 $dp[v]=max(dp[v],dp[u]+num[v])$ 
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+int a[N], num[N], n, dp[N];
+
+inline void Solve () {
+
+        memset(num, 0, sizeof num);
+        memset(dp, 0, sizeof dp);
+
+        cin >> n;
+        for (int i = 1; i <= n; i ++) cin >> a[i], num[a[i]] ++, dp[a[i]] ++;
+
+        for (int i = 1; i < N; i ++) {
+                if (!num[i]) continue;
+                for (int j = i + i; j < N; j += i) {
+                        if (num[j]) dp[j] = max(dp[j], dp[i] + num[j]);
+                }
+        }
+
+        int res = 0;
+        for (int i = 1; i < N; i ++) res = max(res, dp[i]);
+        cout << n - res << endl;
+}
+```
+<hr>
+
+## CodeForces1512F_Education
+
+#### 🔗
+<a href="https://codeforces.com/contest/1512/problem/F">![20220606204812](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220606204812.png)</a>
+
+#### 💡
+可以感性考虑一波，要攒钱肯定是选择一个位置好好攒钱，那么在这道题中，就是我们肯定是走到某个位置了，然后停下专心致志攒钱一直攒到 $c$   
+同时也要注意前面也有一个贪心的方式，我没必要在每一关攒到刚好能突破的钱数后直接突破到下一关，而是可以选择一个攒钱较为快的位置，一直攒攒到能直接突破中间的所有关卡走到我们想走的位置  
+这是一个链性的，就比如说我如果要走到 $a$ ，我在 $b$ 处攒钱更快能过去，而我想要在 $b$ 处攒钱，我就选择一个 $c$ 处攒钱更快  
+而攒钱更快，就是对应的 $a$ 更大，那么我们对于每一个 $i$ ，记录一个前缀中 $a_{1,i-1}$ 最大的位置，形成数组 $id\_pre\_max[]$ ，然后转移的时候，就从记录的这个位置中进行转移，到这里就可以开始使用 $dp$ 了  
+我们 $dp$ 记录双关键字，第一个表示我们花费的天数，第二个表示剩余的钱数  
+对于 $i$ 的天数，则是我在 $id\_pre\_max[i]$ 中剩余的钱数的基础上，要攒到超过 $\sum\limits_{j=id\_pre\_max[i]}^{i-1}b_j$ 以供突破连续关卡需要的天数，这个直接向上取整就行，同时要加上我这一段突破的次数，因为每次突破需要一天  
+对于 $i$ 的钱数，是我们突破需要的天数乘上之前那个最大的 $a$ 的值带上之前剩余的钱数，是我们赚的。而突破这一连续的关卡是我们亏的，赚的减去亏的即可。  
+  
+有一个细节点，如果我们在 $id\_pre\_max[i]$ 这个位置上剩余的钱数不低于我们突破到我们想到的位置的话，我们在前缀最大位置上攒钱的天数应该为 $0$   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+struct node {
+        ll d, m;
+        inline friend bool operator < (node a, node b) {
+                if (a.d != b.d) return a.d > b.d;
+                return a.m < b.m;
+        }
+};
+ 
+const int N = 2e5 + 10;
+ll a[N], b[N];
+ll n, c;
+node dp[N];
+ll mxi, mxv;
+int id_pre_max[N];
+ll pre_b[N];
+ 
+inline void Solve () {
+        cin >> n >> c;
+        for (int i = 1; i <= n; i ++) cin >> a[i];
+        for (int i = 1; i < n; i ++)  cin >> b[i], pre_b[i] = pre_b[i - 1] + b[i];
+ 
+        mxv = mxi = 0;
+        for (int i = 1; i <= n; i ++) {
+                id_pre_max[i] = mxi;
+                if (a[i] >= mxv) mxv = a[i], mxi = i;
+        }
+ 
+        dp[1] = {0, 0};
+        for (int i = 2; i <= n; i ++) {
+                ll up = pre_b[i - 1] - pre_b[id_pre_max[i] - 1] - dp[id_pre_max[i]].m; // 我们要攒多少钱
+                ll work_day = up / a[id_pre_max[i]] + (up % a[id_pre_max[i]] != 0); if (up <= 0) work_day = 0; // 需要工作的天数
+                ll d = dp[id_pre_max[i]].d + work_day + (i - id_pre_max[i]); // 转移过程的天数
+                ll m = dp[id_pre_max[i]].m + work_day * a[id_pre_max[i]] - (pre_b[i - 1] - pre_b[id_pre_max[i] - 1]); // 
+                dp[i] = {d, m};
+        }
+        ll res = 1e18;
+        for (int i = 1; i <= n; i ++) {
+                res = min(res, dp[i].d + (c - dp[i].m) / a[i] + ((c - dp[i].m) % a[i] != 0));
+        }
+        cout << res << endl;
+}
+```
+<hr>
 
 
 ## CodeForces1583C_OmkarAndDetermination
@@ -1163,6 +1372,135 @@ int main () {
 ```
 <hr>
 
+## CodeForces1601B_FrogTraveler
+
+#### 🔗
+<a href="https://codeforces.com/contest/1601/problem/B">![20220606201854](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220606201854.png)</a>
+
+#### 💡
+分析这个问题  
+首先这个问题是一个类似于最短路的问题，我们要跳最少的次数到达目的地，需要更新  
+同时这个问题也要维护路径，需要记录最短路前驱  
+  
+如果把它按最短路单纯地连边的话，边数可能会到达 $\frac{n^2}{2}$ ，非常大，时间空间都过不去  
+注意到一个点可以跑的点是它后面连续的一段点，考虑到其实 $dijkstra$ 就是一个 $dp$ 的转移，那么用线段树区间修改进行这个 $dp$ 的转移操作    
+  
+但是注意到有一个下滑的过程，由于我们要使用这个连续的下标，我们就要在用 $a_i$ 时，用 $i$ 这个点的最短距离 $+1$ 更新 $[i+b_i-a_{i+b_i},i+b_i-1]$   
+因为我们路径记录的都是下滑之前的路径点，所以标记这次更新是用 $i$ 更新的即可  
+所以我们要有一个双关键字的懒标记，一个关键字是更新的距离，另一个则是更新出第一个关键字的出发点  
+线段树懒标记往下推的时候，需要考虑需不需要更改这两个关键字，而当子树的 $l=r$ 了话，就代表我们推到底了，如果将距离更新为更短了，就要直接修改 $pre[l]$    
+  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 3e5 + 10;
+const int inf = 0x3f3f3f3f;
+ 
+int pre[N]; // 最短路的前驱
+struct node {
+        int val;
+        pair<int, int> lazy;
+} t[N << 2];
+inline void pushUp (int rt) {
+        t[rt].val = max(t[rt << 1].val, t[rt << 1 | 1].val);
+}
+inline void pushDown (int l, int r, int rt) {
+        if (t[rt].lazy.first == inf) return;
+        node &fa = t[rt], &ls = t[rt << 1], &rs = t[rt << 1 | 1];
+        // 更短的话，更新的原因点也要修改
+        if (ls.lazy.first > fa.lazy.first) ls.lazy = fa.lazy;
+        if (rs.lazy.first > fa.lazy.first) rs.lazy = fa.lazy;
+        int mid = (l + r) >> 1;
+        // 叶子节点，如果需要更新的话就把 pre 更新了
+        if (mid - l + 1 == 1) { 
+                if (ls.val > fa.lazy.first) {
+                        pre[l] = fa.lazy.second;
+                        ls.val = fa.lazy.first;
+                }
+        } else {       
+                ls.val = min(ls.val, fa.lazy.first);
+        }
+        if (r - mid == 1) {
+                if (rs.val > fa.lazy.first) {
+                        pre[r] = fa.lazy.second;
+                        rs.val = fa.lazy.first;
+                }
+        } else {
+                rs.val = min(rs.val, fa.lazy.first);
+        }
+        fa.lazy = {inf, -1};
+}
+inline void Build (int l, int r, int rt) {
+        t[rt] = {inf, {inf, -1}};
+        if (l == r) return;
+        int mid = (l + r) >> 1;
+        Build(l, mid, rt << 1);
+        Build(mid + 1, r, rt << 1 | 1);
+}
+inline void Update (int a, int b, int c, int id, int l, int r, int rt) {
+        if (a <= l && r <= b) {
+                if (t[rt].lazy.first > c) t[rt].lazy = {c, id};
+                // 同理，叶子结点要看情况直接更新 pre
+                if (l == r) {
+                        if (t[rt].val > c) {
+                                t[rt].val = c;
+                                pre[l] = id;
+                        }
+                } else {
+                        t[rt].val = min(t[rt].val, c);
+                }
+                return;
+        }
+        pushDown(l, r, rt);
+        int mid = (l + r) >> 1;
+        if (a <= mid) Update(a, b, c, id, l, mid, rt << 1);
+        if (b > mid) Update(a, b, c, id, mid + 1, r, rt << 1 | 1);
+        pushUp(rt);
+}
+inline int Query (int id, int l, int r, int rt) {
+        if (l == r) return t[rt].val;
+        pushDown(l, r, rt);
+        int mid = (l + r) >> 1;
+        if (id <= mid) return Query(id, l, mid, rt << 1);
+        else return Query(id, mid + 1, r, rt << 1 | 1);
+}
+ 
+ 
+int a[N], b[N], n;
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+ 
+        cin >> n;
+        for (int i = 1; i <= n; i ++) cin >> a[i];
+        for (int i = 1; i <= n; i ++) cin >> b[i];
+ 
+        Build(0, n, 1);
+        Update(n, n, 0, n + 1, 0, n, 1);
+ 
+        for (int i = n; i >= 1; i --) {
+                int ti = i + b[i];
+                // 用当前所在点的最短路 去 更新下滑过后的点所能跑到的区间，并记录这次更新是当前所在点更新的
+                if (a[ti]) Update(ti - a[ti], ti - 1, Query(i, 0, n, 1) + 1, i, 0, n, 1);
+        }
+        for (int i = 0; i <= n; i ++) Query(i, 0, n, 1); // 懒标记全推下去
+ 
+        if (t[1].val == inf) {
+                cout << "-1\n";
+                return 0;
+        }
+        cout << t[1].val << endl;
+        vector<int> res;
+        int cur = 0;
+        while (pre[cur] != n + 1) {
+                res.push_back(cur);
+                cur = pre[cur];
+        }
+        reverse(res.begin(), res.end());
+        for (auto i : res) cout << i << " ";
+}
+```
+<hr>
 
 
 
@@ -1315,6 +1653,58 @@ inline void Solve () {
         BFS2(s);
         BFS3(s);
         printf("%lld\n", (dp[t][0] + dp[t][1]) % mod);
+}
+```
+<hr>
+
+## CodeForces1699D_AlmostTripleDeletions
+
+#### 🔗
+<a href="https://codeforces.com/contest/1699/problem/D">![20220705101603](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220705101603.png)</a>
+
+#### 💡
+注意到 $\sum n\le 10000$ 这是一个二重循环  
+如果我们想保留 $x$ ，而数列是这样的 $...x\;y\;y\;z\;x...$ 那么我们想将中间的 $y\;y\;z$ 删干净  
+但是注意到最后会留下来一个，只能和 $x$ 对删  
+而如果中间是 $y\;y\;y$ 那么意味着我们要删掉 $3$ 个 $x$     
+  
+计算最后中间留下来几个的方法是取出现最多的数个数 $most$ ，和中间所有的个数 $all$ ，如果 $all$ 是偶数且 $2most\le all$ 则意味着一个都不剩，否则如果 $2most>all$ 要剩 $2most-all$ 个，再不是就 $all$ 奇数的话剩下 $1$ 个   
+  
+这样考虑数值很麻烦，因为有一种贪心方式是 $...x\;y\;y\;x\;z\;z\;z\;x...$ ，这种我们可以将中间的 $x$ 也算作我们想删干净的元素，这样中间全部都能删掉  
+但是可以发现我们最后剩的是 $...xx...$ ，这两个 $x$ 是前后拼接成的，再考虑上面的第一条也就是能删完的条件，可以联想到二维 $dp$ 中的最长上升子序列的复杂度  
+即对于 $i,j$ 如果中间和 $ij$ 满足某种条件就可以将 $i$ 拼在 $j$ 后面，条件已经有了，即 $a[i]=a[j]$ 且 $all\in\{even\}$ 且 $2most\le all$   
+（这里 $most$ 和 $all$ 可以让 $j$ 从后往前扫动态维护一轮即可）  
+
+要注意我们可能维护的数值后面也可以删干净，所以最后再扫一轮判断后面可以不可以删干净，如果可以的话就直接将这个 $dp[i]$ 也维护进去       
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void Solve () {
+        int n; cin >> n;
+        vector<int> a(n + 1); for (int i = 1; i <= n; i ++) cin >> a[i];
+ 
+        vector<int> dp(n + 1, -0x3f3f3f3f);
+        vector<int> num(n + 1, 0);
+        dp[0] = 0;
+        for (int i = 1; i <= n; i ++) {
+                int most = 0;
+                for (int j = i - 1; j >= 0; j --) {
+                        // all 就是 i-j-1
+                        if ((i - j - 1) % 2 == 0 && (i - j - 1) / 2 >= most && (a[j] == a[i] || j == 0)) { // 注意 i 也可以拼在 0 后面
+                                dp[i] = max(dp[i], dp[j] + 1);
+                        }
+                        most = max(most, ++num[a[j]]);
+                }
+                for (int j = 0; j < i; j ++) num[a[j]] --;
+        }
+        
+        int res = 0;
+        int most = 0;
+        for (int i = n; i >= 1; i --) {
+                if ((n - i) % 2 == 0 && (n - i) / 2 >= most) res = max(res, dp[i]);
+                most = max(most, ++num[a[i]]);
+        }
+        cout << res << endl;
 }
 ```
 <hr>

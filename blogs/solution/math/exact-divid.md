@@ -307,6 +307,114 @@ int main () {
 ```
 <hr>
 
+### ABC254D_TogetherSquare
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc254/tasks/abc254_d?lang=en">![20220605152721](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220605152721.png)</a>
+
+#### 💡
+首先应该考虑到的是，偶数个质因子可以自己成为一个平方数  
+那么对于 $i$ ，我们对每个质因子去掉最大的偶数个后成为 $i'$ ，对于 $j$ ，我们进行同样的操作形成 $j'$   
+如果要 $i\times j$ 是平方数，那么 $i'=j'$ ，因为要保证剩下的单个质因子一一对应  
+所以我们对于 $[1,n]$ 中的每一个数 $i$ 都让 $num[i']+1$   
+这样我们在最后就可以对 $i'$ 相同的数进行配对了  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+ 
+        int n; cin >> n;
+        map<int, int> mp;
+        for (int i = 1; i <= n; i ++) {
+                int ii = i;
+                for (int j = 2; j * j <= ii; j ++) {
+                        int iii = ii;
+ 
+                        int cnt = 0;
+                        while (iii % j == 0) iii /= j, cnt ++;
+                        int eve_cnt = cnt / 2 * 2;
+                        iii = ii;
+                        while (eve_cnt --) ii /= j;
+                }
+                mp[ii] ++;
+        }
+ 
+        ll res = 0;
+        for (auto i : mp) {
+                res += 1ll * i.second * i.second;
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
+## ABC254F_RecangleGCD
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc254/tasks/abc254_f">![20220605152814](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220605152814.png)</a>
+
+#### 💡
+注意到如果是直接每一个位置受到两个数组影响的 $gcd$ 很难去优化  
+所以我们想让 $a_i+b_j$ 变成 $a_i$ 或者 $b_j$ 这样的  
+这里是加，我们就要用一个减，考虑 $gcd$ 有减法的性质： $gcd(x,y)=gcd(x,x-y)$  
+那么用其推一下普通的式子看看  
+$\begin{aligned}
+&\gcd\limits_{i=1}^2\gcd\limits_{j=1}^2(a_i+b_j)\\
+=&\gcd(\gcd(a_1+b_1,a_1+b_2),\gcd(a_2+b_1,a_2+b_2))\\
+=&\gcd(\gcd(a_1+b_1,b_1-b_2),\gcd(a_2+b_1,b_1-b_2))\\
+=&\gcd(a_1+b_1,a_2+b_1,b_1-b_2)\\
+=&\gcd(a_1+b_1,b_1-b_2,a_1-a_2)
+\end{aligned}$
+这样就消掉了  
+朴素下来就是：对于查询 $[h1,h2,w1,w2]$ ，我们计算 $\gcd(a_{h1}+b_{w1},\gcd\limits_{i=h1+1}^{h2}(a_i-a_{i-1}),\gcd\limits_{i=w1+1}^{w2}(b_i-b_{i-1}))$ 即可  
+后面两个 $\gcd$ 可以直接区间查询  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+ 
+int n, q;
+int st[2][N][30];
+int a[N], b[N];
+ 
+inline int gcd (int a, int b) { return abs(b ? gcd(b, a % b) : a); }
+inline void Build () {
+        int k = 32 - __builtin_clz(n) - 1;
+        for (int j = 1; j <= k; j ++) {
+                for (int i = 1; i + (1 << j) - 1 <= n; i ++) {
+                        st[0][i][j] = gcd(st[0][i][j - 1], st[0][i + (1 << (j - 1))][j - 1]);
+                        st[1][i][j] = gcd(st[1][i][j - 1], st[1][i + (1 << (j - 1))][j - 1]);
+                }
+        }
+}
+inline int Query (int l, int r, int op) {
+        int k = 32 - __builtin_clz(r - l + 1) - 1;
+        return gcd(st[op][l][k], st[op][r - (1 << k) + 1][k]);
+}
+ 
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+ 
+        cin >> n >> q;
+        for (int i = 1; i <= n; i ++) cin >> a[i], st[0][i][0] = a[i] - a[i - 1];
+        for (int i = 1; i <= n; i ++) cin >> b[i], st[1][i][0] = b[i] - b[i - 1];
+ 
+        Build();
+ 
+        while (q --) {
+                int h1, h2, w1, w2; cin >> h1 >> h2 >> w1 >> w2;
+                int res = a[h1] + b[w1];
+                if (h1 < h2) res = gcd(res, Query(h1 + 1, h2, 0));
+                if (w1 < w2) res = gcd(res, Query(w1 + 1, w2, 1));
+                cout << res << endl;
+        }
+}
+```
+<hr>
+
 
 ### CodeForces1445C_Division
 

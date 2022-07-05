@@ -215,6 +215,87 @@ CHIVAS_{
 
 <hr>
 
+## CodeForces817E_ChoosingTheCommander
+
+#### 🔗
+<a href="https://codeforces.com/contest/817/problem/E">![20220614180407](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220614180407.png)</a>
+
+#### 💡
+本题是让所有的士兵的 $P\oplus a<b$ 的个数，且又有插入又有删除又有询问，比较明显使用字典树  
+字典树每个节点要表示这个节点的编号与这个节点被插入数字的数量  
+询问小于的太广泛了，我们可以用 $P\oplus a=b$ 也就是 $p=a\oplus b$ 划一根字典树上的分界线，我们只需要计算在“小于”这个分界线的一侧的即可    
+而根据二进制的高位优越性，即如果两个二进制串的前缀都相同，那么第一个不同的位便可决定谁大谁小  
+所以我们从高到低将一个数字分解二进制插入字典树中，对于当前位 $b_i=1$ ，则我们保证我们选择的子树根当前位是 $!a_i$ 便可以保证这个子树下的所有点异或 $a$ 都小于 $b$ ，便直接累加上这个子节点被插入的数量， $res+t[][!a_i]$   
+然后我们走 位为 $a_i\oplus b_i$ 的子树来保证我们走的是相等的分界线   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+
+struct node {
+        int val;
+        int num;
+};
+
+struct Trie {
+        node t[N * 40][2];
+        int idx;
+        inline void Insert (int x) {
+                int p = 0;
+                for (int i = 30; i >= 0; i --) {
+                        int u = x >> i & 1;
+                        if (!t[p][u].val) t[p][u] = {++idx, 1};
+                        else t[p][u].num ++;
+                        p = t[p][u].val;
+                }
+        }
+        inline void Delete (int x) {
+                int p = 0;
+                for (int i = 30; i >= 0; i --) {
+                        int u = x >> i & 1;
+                        t[p][u].num --;
+                        int tmp = p;
+                        p = t[p][u].val;
+                        if (!t[tmp][u].num) t[tmp][u].val = 0;
+                }
+        }
+        inline int Calc (int x, int y) {
+                int res = 0;
+                int p = 0;
+                for (int i = 30; i >= 0; i --) {
+                        int xi = x >> i & 1;
+                        int yi = y >> i & 1;
+                        if (yi == 1) res += t[p][xi].num;
+                        p = t[p][xi ^ yi].val;
+                        if (p == 0) return res;
+                }
+                return res;
+        }
+}trie;
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        int m; cin >> m;
+        while (m --) {
+                int op; cin >> op;
+                if (op == 1) {
+                        int x; cin >> x;
+                        trie.Insert(x);
+                } else if (op == 2) {
+                        int x; cin >> x;
+                        trie.Delete(x);
+                } else {
+                        int x, y; cin >> x >> y;
+                        cout << trie.Calc(x, y) << endl;
+                }
+        }  
+}
+```
+<hr>
+
+
 ## CodeForces1625D_BinarySpiders
 
 #### 🔗

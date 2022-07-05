@@ -526,6 +526,30 @@ int main () {
 ```
 <hr>
 
+## ABC255F_Pre-orderAndIn-order
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc255/tasks/abc255_f">![20220612191446](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220612191446.png)</a>
+
+#### 💡
+考虑先序遍历和中序遍历互可取之处  
+中序遍历如果知道 $[l,r]$ 中根的位置 $x$ ，那么左右子树为 $[l,x-1]$ 和 $[x+1,r]$   
+先序遍历则是能快速确定根的位置  
+且对于一棵子树，在中序中连续的部分，必定是先序中连续一部分的排列  
+那么构造这棵树就两个一起用  
+`dfs(l1, r1, l2, r2)`，先序区间 $[l1,r1]$ 中序区间 $[l2,r2]$   
+那么 $P[l1]$ 则是根，我们在搜索之前预处理出来 $i$ 在 $I$ 中出现的位置为 $b[i]$ ，那么我们则需要将 $[l2,r2]$ 从 $b[P[l1]]$ 处劈开  
+中序左区间为 $[l2,b[P[l1]]-1]$ 右区间为 $[b[P[l1]]+1,r2]$   
+那么我们可以快速得到中序左区间的长度，也是先序左区间的长度 $len=b[P[l1]]-l2+1$   
+先序左区间为 $[l1+1,l1+len-1]$ 右区间为 $[l1+len,r1]$ 
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+
+```
+<hr>
+
+
 
 ## CodeForces1647D_MadokaAndTheBestSchoolInRussia
 
