@@ -662,6 +662,59 @@ int main () {
 
 <hr>
 
+## CodeForces1066E_BinaryNumbersANDSum
+
+#### 🔗
+<a href="https://codeforces.com/contest/1066/problem/E">![20220707170624](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220707170624.png)</a>
+
+#### 💡
+由于 $b$ 是不断往后移动的，并且对于 $b$ 的每一个 $1$ ，碰到 $a$ 的 $1$ 时会产生贡献，那么就考虑位 $1$ 上的贡献和  
+让 $ab$ 位对应，先翻转一下  
+对于 $b$ 的每一个 $1$ 的位置 $i$ ，左移过程中碰到的 $1$ 一定都在 $i$ 前面，设 $i$ 前 $a$ 的 $1$ 位为 $j$ ，那么产生的贡献为 $2^i$   
+这是一个前缀和的问题  
+就预处理出来 $a$ 每一位的前缀和，然后扫描 $b$ ，在遇到 $1$ 时对其累加即可   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+const int mod = 998244353;
+int n, m;
+ll pre[N];
+string a, b;
+ 
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+ 
+        cin >> n >> m;
+        cin >> a >> b;
+ 
+        reverse(a.begin(), a.end());
+        reverse(b.begin(), b.end());
+        ll pw2 = 2;
+        for (int i = 0; i < n; i ++) {
+                if (i == 0) {
+                        pre[i] = a[i] == '1';
+                        continue;
+                }
+                if (a[i] == '1') {
+                        pre[i] = (pre[i - 1] + pw2) % mod;
+                } else {
+                        pre[i] = pre[i - 1];
+                }
+                pw2 = pw2 * 2 % mod;
+        }
+        for (int i = n; i <= m; i ++) pre[i] = pre[i - 1];
+        ll res = 0;
+        for (int i = 0; i < m; i ++) {
+                if (b[i] == '1') res += pre[i], res %= mod;
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
+
 ## CodeForces1409E_TwoPlatforms
 
 #### 🔗

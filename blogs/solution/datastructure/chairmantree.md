@@ -285,10 +285,29 @@ int main () {
 很容易想到二分，但是二分了话我们需要的单调性因素就是：前面小于等于 $k$ 的个数  
 这里有两个条件：前面、数，即下标、数值。  
 数值可以权值线段树，下标之前就是前缀，一个前缀权值线段树就是主席树  
-那么构建出一棵主席树，然后对于一次查询 $k,p$ ，开启二分，在 $mid$ 处查询主席树中以 `root[mid]` 为根的主席树中有多少个小于等于 $k$ 的数，如果 $\ge p$ 就维护一下答案然后继续向前找，否则答案在后面，往后找。
+那么构建出一棵主席树，然后对于一次查询 $k,p$ ，开启二分，在 $mid$ 处查询主席树中以 `root[mid]` 为根的主席树中有多少个小于等于 $k$ 的数，如果 $\ge p$ 就维护一下答案然后继续向前找，否则答案在后面，往后找。   
+  
+能过，但时间不尽人意（马上就 $T$ 了）  
+<b>调换一下解法</b>  
+其实也可以用 $[b]$ 排序后当根的前缀建树  
+<table>
+  <tr>
+    <th>a</th><td>20</td><td>10</td><td>10</td>
+  </tr>
+  <tr>
+    <th>b</th><td>1</td><td>2</td><td>3</td>
+  </tr>
+  <tr>
+    <th>c</th><td>2</td><td>1</td><td>3</td>
+  </tr>
+</table>
+
+在以 `root[k]` 中找下标第 $p$ 小    
+这就很板了，而且时间也快了不少（因为直接在查询的时候二分了）  
 
 #### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
 ```cpp
+// 初步解法 ---------------------------------------------------------------
 const int N = 2e5 + 10;
 int n, m, b[N], a[N];
 pair<int, int> tmp[N];
@@ -346,6 +365,55 @@ int main () {
                 cout << a[res] << endl;
         }
  
+}
+
+// 优化解法----------------------------------------------------------------
+const int N = 2e5 + 10;
+int n, m, a[N];
+pair<int, int> tmp[N];
+
+struct node {
+        int l, r, sum;
+} t[N * 40];
+int tot, root[N];
+
+inline void Insert (int l, int r, int pre, int &now, int p) {
+        t[++ tot] = t[pre];
+        now = tot;
+        t[now].sum ++;
+        if (l == r) return;
+
+        int mid = (l + r) >> 1;
+        if (p <= mid) Insert(l, mid, t[pre].l, t[now].l, p);
+        else Insert(mid + 1, r, t[pre].r, t[now].r, p);
+}
+inline int Query (int l, int r, int rt, int k) { 
+        if (l == r) return l;
+        int mid = (l + r) >> 1;
+        int cnt = t[t[rt].l].sum;
+        if (k <= cnt) return Query(l, mid, t[rt].l, k);
+        else return Query(mid + 1, r, t[rt].r, k - cnt);
+}
+
+int main () {
+        scanf("%d", &n);
+        for (int i = 1; i <= n; i ++) {
+                scanf("%d", &a[i]);
+                tmp[i].first = a[i];
+                tmp[i].second = i;
+        }
+
+        sort(tmp + 1, tmp + 1 + n, [&](pair<int, int> x, pair<int, int> y) {
+                if (x.first != y.first) return x.first > y.first;
+                return x.second < y.second;
+        });
+        for (int i = 1; i <= n; i ++) Insert(1, n, root[i - 1], root[i], tmp[i].second); // 省略了 [b] ，排完序直接建
+
+        scanf("%d", &m);
+        while (m --) {
+                int k, p; scanf("%d%d", &k, &p);
+                printf("%d\n", a[Query(1, n, root[k], p)]);
+        }
 }
 ```
 <hr>
