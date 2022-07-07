@@ -585,6 +585,58 @@ CHIVAS_{
 
 <hr>
 
+## ICPC2016青岛站L_EightySeven
+
+#### 🔗
+<a href="https://vjudge.net/contest/503238#problem/L">![20220707091216](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220707091216.png)</a>
+
+#### 💡
+首先可以看到 $N\le50$ ，在这种下面选最多三个的方法（不到 $3e4$）一定比 $Q\le100000$ 要少，一定要先预处理。  
+对于给定的 $a\;b\;c$ 不可选，这是一个 `bool` 递推的两重限制背包问题，一重是数值 $87$ ，一重是个数 $10$ ，如果用正常的背包去写的话，复杂度为 $50\times 87\times 10$ ，配合上上面的 $3e4$ 与总样例数 $5$ 是非常危险的，考虑优化。  
+$bool$ 类型，两个限制都只有加法操作，应该很灵敏地想到使用 `bitset` 去优化，优化掉一个 $87$ 是合理的  
+这样就很明显了，拿 $10$ 个长度为 $90$ 的 `bitset` ，在每一次 `check(a, b, c)` 时枚举 $n$ 和物品数量 $\le 10$ 去进行求解，最后返回 `bitset[10][87]` 即可  
+
+（这题好像有点卡常了，预处理保证 $a\le b\le c$ 来让复杂度除 $6$ 即可）     
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+bool vis[51][51][51];
+int n, m, A[51];
+bitset<100> bt[11];
+
+inline bool check (int a, int b, int c) {
+        for (int x = 1; x <= 10; x ++) bt[x].reset();
+        bt[0][0] = 1;
+        for (int i = 1; i <= n; i ++) {
+                if (i == a || i == b || i == c) continue;
+                for (int x = 10; x >= 1; x --) {
+                        bt[x] |= bt[x - 1] << A[i];
+                }
+        }
+        return bt[10][87];
+}
+inline void Solve () {
+        cin >> n;
+        for (int i = 1; i <= n; i ++) cin >> A[i];
+        for (int a = 1; a <= n; a ++) {
+                for (int b = a; b <= n; b ++) {
+                        for (int c = b; c <= n; c ++) {
+                                vis[a][b][c] = check(a, b, c);
+                        }
+                }
+        }
+        cin >> m;
+        while (m --) {
+                int a, b, c; cin >> a >> b >> c;
+                if (a > b) swap(a, b);
+                if (a > c) swap(a, c);
+                if (b > c) swap(b, c);
+                cout << (vis[a][b][c] ? "Yes\n" : "No\n");
+        }
+}
+```
+<hr>
+
 ## OpenJ2726_采药
 
 #### 🔗

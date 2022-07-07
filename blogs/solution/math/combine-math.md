@@ -740,6 +740,69 @@ int main () {
 ```
 <hr>
 
+### 洛谷P4912_情侣？给我烧了！
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P4921">![20220706215418](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220706215418.png)</a>
+
+#### 💡
+一个核心为求错位全排列的问题  
+首先去算有 $k$ 个匹配上的方案数  
+选择 $k$ 对情侣，选择 $k$ 个位置，情侣进行全排列即 $k!$ ，每对情侣左右顺序可以互换 $2^k$ ，剩下 $(n-k)$ 对情侣进行可男男、女女、男女、女男的错位全排列 $ep[n-k]$   
+即：$res[k]=C_n^kC_n^k(k!)2^kep[n-k]$  
+  
+接下来是考虑这个 $ep[k]$ 是怎么求的  
+<b>第一排选择同性：</b>  
+$k$ 个人有 $k(k-1)$ 种选择方式  
+如果ta们的对象进行匹配，则在剩下的 $k-1$ 排中选择一排可以左右交坐，然后剩余的 $k-2$ 对情侣进行错位匹配，即 $2(k-1)ep[k-2]$  
+如果他们的对象不进行匹配，那么把他们的对象看做一对情侣，则剩下有 $k-1$ 对情侣，即 $ep[k-1]$   
+该种选择方法有 $2k(k-1)(ep[k-1]+2(k-1)ep[k-2])$  
+<b>第一排坐异性：</b>  
+选择方式依然是有 $k(k-1)$ 种方式  
+推导过程不变，则也是有 $2k(k-1)(ep[k-1]+2(k-1)ep[k-2])$   
+<b>得到：$ep[k]=4k(k-1)(ep[k-1]+2(k-1)ep[k-2])$ </b>  
+将其预处理出来之后直接用上面的 $res[k]$ 公式即可     
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int mod = 998244353;
+const int N = 1e3 + 10;
+ll f[N], ivf[N];
+ll ep[N];
+
+
+inline ll ksm (ll a, ll b) { ll res = 1; while (b) { if (b & 1) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv (ll x) { return ksm(x, mod - 2); }
+inline ll C (int n, int m) { return f[n] * ivf[n - m] % mod * ivf[m] % mod; }
+inline ll A (int n, int m) { return f[n] * ivf[n - m] % mod; }
+inline void Pre () {
+        f[0] = 1;
+        for (int i = 1; i < N; i ++) f[i] = f[i - 1] * i % mod;
+        ivf[N - 1] = inv(f[N - 1]);
+        for (int i = N - 2; i >= 0; i --) ivf[i] = ivf[i + 1] * (1ll * i + 1) % mod;
+
+        ep[0] = 1; ep[1] = 0;
+        for (int i = 2; i < N; i ++) ep[i] = 4ll * i % mod * (i - 1) % mod * ((ep[i - 1] + 2ll * (i - 1) % mod * ep[i - 2]) % mod) % mod;
+}
+
+inline void Solve () {
+        int n; cin >> n;
+        for (int i = 0; i <= n; i ++) {
+                cout << C(n, i) * C(n, i) % mod * f[i] % mod * ksm(2, i) % mod * ep[n - i] % mod << endl;
+        }
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        Pre();
+        int cass; cin >> cass; while (cass --) {
+                Solve ();
+        }
+}
+```
+<hr>
 
 
 ### 洛谷P4936_Agent1
@@ -1567,6 +1630,209 @@ int main () {
 }
 ```
 <hr>
+
+### CodeForces340C_TouristProblem
+
+#### 🔗
+<a href="https://codeforces.com/contest/340/problem/C">![20220705163744](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220705163744.png)</a>
+
+#### 💡
+这个是看每一对的贡献  
+首先每一个数和 $0$ 的差出现的次数为后面别的数的全排列，即 $(n-1)!$  
+其次每两个数的差出现的次数依然是 $(n-1)!$，可以只看做大减小，然后出现的次数乘 $2$   
+在对 $[a]$ 排序后  
+分子为 $(\sum\limits_{i=1}^na_i(n-1)!)+(2\sum\limits_{i=1}^n\sum\limits_{j=i+1}^n(a_j-a_i)(n-1)!)$  
+分母为 $n!$  
+初步化简后：  
+分子为 $(\sum\limits_{i=1}^na_i)+(2\sum\limits_{i=1}^n\sum\limits_{j=i+1}^n(a_j-a_i))$  
+分母为 $n$   
+后面那个两重循环可以直接用前缀和化简，即 $\sum\limits_{i=1}^n(a_i\times(i-1)-pre\_sum)$ 
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline ll gcd (ll a, ll b) {
+        return b ? gcd(b, a % b) : a;
+}
+ 
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+ 
+        int n; cin >> n;
+        vector<ll> a(n); for (ll &i : a) cin >> i;
+        sort(a.begin(), a.end());
+ 
+        ll up = 0, down = n;
+        ll pre_sum = 0;
+        for (int i = 0; i < n; i ++) {
+                up += (a[i] * i - pre_sum) * 2;
+                up += a[i];
+                pre_sum += a[i];
+        }
+        ll d = gcd(up, down);
+        up /= d;
+        down /= d;
+        cout << up << " " << down << endl;
+}
+```
+<hr>
+
+### CodeForces1609E_IntercityTravelling
+
+#### 🔗
+<a href="https://codeforces.com/contest/1009/problem/E">![20220705220024](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220705220024.png)</a>
+
+#### 💡  
+对于每一段作为每一个疲劳值，用排列组合求一个贡献次数  
+  
+研究第二个样例  
+<b>第一段：</b>  
+作为 $a_1$ ：  
+贡献次数为后面的断点数任选即 $2^3$  
+<b>第二段：</b>  
+作为 $a_1$ ：  
+贡献次数为占了前面一个断点后前面的剩余断点数任选即 $2^0$ ，乘上后面的断点数任选即 $2^2$  
+作为 $a_2$ ：  
+贡献次数为后面的断点数任选即 $2^2$    
+<b>第三段：</b>  
+作为 $a_1$ ：  
+贡献次数为占了前面一个断点后前面的剩余断点数任选即 $2^1$ ，乘上后面的断点数任选即 $2^1$  
+作为 $a_2$ ：  
+贡献次数为占了前面一个断点后前面的剩余断点数任选即 $2^0$ ，乘上后面的断点数任选即 $2^1$  
+作为 $a_3$ ：  
+贡献次数为后面的断点数任选即 $2^1$  
+<b>第四段：</b>  
+作为 $a_1$ ：  
+贡献次数为占了前面一个断点后前面的剩余断点数任选即 $2^2$ ，乘上后面的断点数任选即 $2^0$  
+作为 $a_2$ ：  
+贡献次数为占了前面一个断点后前面的剩余断点数任选即 $2^1$ ，乘上后面的断点数任选即 $2^0$  
+作为 $a_3$ ：  
+贡献次数为占了前面一个断点后前面的剩余断点数任选即 $2^0$ ，乘上后面的断点数任选即 $2^0$  
+作为 $a_1$ ：  
+贡献次数为后面的断点数任选即 $2^0$    
+  
+划分下来即：  
+$(2^3+3\times 2^2)a_1+\\(2^2+2\times 2^1)a_2+\\(2^1+1\times2^0)a_3+\\(2^0)a_4$  
+每一个 $a_i$ 最前面的是第 $i$ 段使用它的贡献次数，后面有 $n-i$ 个断点，所以是 $2^{n-i}次$ 。而后面的则是第 $i$ 段之后的 $(n-i)$ 个段使用它，指数是互补的（左加右减），即 $2^{n-i-1}次$  
+则答案为 $\sum\limits_{i=1}^n2^{n-i}+(n-i)2^{n-i-1}$   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int mod = 998244353;
+inline ll ksm (ll a, ll b) { if (b < 0) return 0; ll res = 1; while (b) { if (b & 1) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv (ll x) { return ksm(x, mod - 2); }
+ 
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+ 
+        int n; cin >> n;
+        vector<ll> a(n + 1); for (int i = 1; i <= n; i ++) cin >> a[i];
+ 
+        ll res = 0;
+        for (int i = 1; i <= n; i ++) {
+                res += (ksm(2, n - i) + (n - i) * ksm(2, n - i - 1) % mod) % mod * a[i] % mod;
+                res %= mod;
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
+
+### CodeForces1371E1_Asterism（Easy Version）
+
+#### 🔗
+<a href="https://codeforces.com/contest/1371/problem/E1">![20220705210527](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220705210527.png)</a>
+
+#### 💡
+一个排列数问题  
+注意到对于 $f(x)$ ，从 $0\to n-1$ 的位置手里的糖数是 $x\to x+n-1$   
+则每一个位置应都有一些怪兽可以放置，且是升序的，并且能放在 $x$ 位置上的怪兽，也一定能放在 $x+10$ 的位置上，这是一个包含的   
+现在就是看如果有 $i$ 颗糖，可以应付几只怪兽，由此预处理出来 $[b]$   
+我们在求 $f(x)$ 时，对于有 $i$ 颗糖的时候，我们这里可以放 $b_i$ 个怪兽，但是之前过了 $i-x$ 个怪兽了，所以要减去。让这些进行累乘即可，公式表示为：  
+$$f(x)=\prod\limits_{i=x}^{x+n-1}b_i-(i-x)$$  
+在这里面判断是否存在 $b_i-(i-x)\equiv 0(mod\;p)$ 即可   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 4100;
+int n, p;
+int a[N], b[N];
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        cin >> n >> p;
+        for (int i = 0; i < n; i ++) cin >> a[i];
+        
+        sort(a, a + n);
+        for (int i = max(0, a[n - 1] - n + 1); i <= a[n - 1] + n - 1; i ++) b[i] = upper_bound(a, a + n, i) - a;
+        vector<int> res;
+        for (int x = max(0, a[n - 1] - n + 1); x <= a[n - 1]; x ++) {
+                for (int i = x; i <= x + n - 1; i ++) {
+                        if ((b[i] - (i - x)) % p == 0) goto end;
+                }
+                res.push_back(x);
+                end:;
+        }
+
+        cout << res.size() << endl;
+        for (int i : res) cout << i << " ";
+}
+```
+<hr>
+
+### CodeForces1371E1_Asterism（Hard Version）
+
+#### 🔗
+<a href="https://codeforces.com/contest/1371/problem/E2">![20220705212323](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220705212323.png)</a>
+
+#### 💡
+根据上面的思路有：   
+判断是否 $b_i-(i-x)\equiv 0(mod\;p)$  
+可转化为判断是否 $i-b_i\equiv x(mod\;p)$   
+这里 $i-b_i$ 可以直接预处理存一下，即存 $(i-b_i)\%p$ ，然后在枚举 $x$ 时判断 $x\%p$ 是否存过即可  
+但是注意到轮数不互通，因为转化之后的公式为 $f(x)=\prod\limits_{i=x}^{x+n-1}x-(i-b_i)$ ，我们枚举的是 $x$ ，当 $x+1$ 后，上一轮的 $i=x$ 就不能用了  
+所以我们可以先存入第一轮，然后在判断完一个 $x$ 是否能用后，将 $i=x$ 时的 $i-b_i$ 删去，加入下一轮的 $i-b_i$ ，即 $i=x+n$ 时的  
+这样判断下去就行了   
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+int n, p;
+int a[N];
+inline int sub (int a, int b) { return ((a - b) % p + p) % p; }
+ 
+int vis[N];
+ 
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+ 
+        cin >> n >> p;
+        for (int i = 0; i < n; i ++) cin >> a[i];
+ 
+        sort(a, a + n);
+ 
+        for (int i = a[n - 1] - n + 1; i <= a[n - 1]; i ++) {
+                vis[sub(i, upper_bound(a, a + n, i) - a) % p] ++;
+        }
+ 
+        vector<int> res;
+        for (int x = max(0, a[n - 1] - n + 1); x <= a[n - 1]; x ++) {
+                if (!vis[x % p]) res.push_back(x);
+                vis[sub(x, upper_bound(a, a + n, x) - a) % p] --; // 删除 i=x 的记录
+                vis[sub(x + n, upper_bound(a, a + n, x + n) - a) % p] ++; // 加入 i=x+n 的记录
+        }
+        cout << res.size() << endl;
+        for (int i : res) cout << i << " ";
+}
+```
+<hr>
+
 
 ### CodeForces1422C_Bargain
 
@@ -2967,6 +3233,58 @@ int main () {
 ```
 
 <hr>
+
+### 洛谷P3166_数三角形
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P3166">![20220706185721](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220706185721.png)</a>
+
+#### 💡
+题目先说的全部，然后给了限制，按着它的顺序想就是用容斥。  
+本题是格点，我们将 $n,m$ 都 $+1$ 会更好看   
+首先所有的点为：$C_{nm}^3$  
+减去在同一条线上的情况：  
+<b>$1.$ 与坐标轴平行：</b>  
+$nC_m^3+mC_n^3$  
+<b>$2.$ 与坐标轴不平行：</b>  
+注意 $1\le N,M\le1000$ ，可以 $O(nm)$ 写  
+枚举两个点的纵坐标差 $i$ 与横坐标差 $j$ ，对于一对点是形成一个 $i\times j$ 的矩形   
+这个矩形对角线上除了顶点之外的点一共有 $gcd(i,j)-1$ 个  
+::: tip 证明  
+令 $d=gcd(i,j)$ ，则不经过任何一个点的坐标差应为 $(\frac{i}{d},\frac{j}{d})$ ，这个点一共有 $d$ 个倍数，包含了一个顶点，应减去为 $d-1$    
+:::  
+一个矩形有两个对角线，应乘 $2$   
+$n\times m$ 的矩形有 $(n-i)(m-j)$ 个这样的小矩形，乘上个数  
+则这一条应减去 $2\sum\limits_{i=1}^{n-1}\sum\limits_{j=1}^{m-1}(n-i)(m-j)(gcd(i,j)-1)$  
+
+则答案为：  
+$$C_{nm}^3-nC_m^3-mC_n^3-2\sum\limits_{i=1}^{n-1}\sum\limits_{j=1}^{m-1}(n-i)(m-j)(gcd(i,j)-1)$$ 
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline ll gcd (ll a, ll b) { return b ? gcd(b, a % b) : a; }
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        ll n, m; cin >> n >> m;
+        n ++, m ++;
+
+        ll res = n * m * (n * m - 1) * (n * m - 2) / 6;
+        
+        res -= m * n * (n - 1) * (n - 2) / 6;
+        res -= n * m * (m - 1) * (m - 2) / 6;
+        for (ll i = 1; i < n; i ++) {
+                for (ll j = 1; j < m; j ++) {
+                        res -= 2ll * (gcd(i, j) - 1) * (n - i) * (m - j);
+                }
+        }
+
+        cout << res << endl;
+}
+```
+<hr>
+
 
 ### 牛客2022寒假算法基础集训营K_智乃的C语言模除方程
 

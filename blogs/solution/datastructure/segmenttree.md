@@ -1392,6 +1392,80 @@ signed main () {
 ```
 <hr>
 
+## CodeForces1234D_DistinctCharactersQueries
+
+#### 🔗
+<a href="https://codeforces.com/contest/1234/problem/D">![20220707094305](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220707094305.png)</a>
+
+#### 💡
+字符串是由 $26$ 个英文字母组成，查询的时候如果能知道每一个字母对答案的贡献就很好做了  
+那么构建 $26$ 棵线段树分别对应每一个字母的出现次数，查询的时候直接查询每棵线段树 $[l,r]$ 里面出现的次数，如果不为 $0$ 就对答案贡献 $1$   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+string s;
+int t[N << 2][26];
+inline void pushup (int rt, int op) {
+        t[rt][op] = t[rt << 1][op] + t[rt << 1 | 1][op];
+}
+inline void build (int l, int r, int rt) {
+        if (l == r) {
+                t[rt][s[l] - 'a'] = 1;
+                return;
+        }
+        int mid = (l + r) >> 1;
+        build(l, mid, rt << 1);
+        build(mid + 1, r, rt << 1 | 1);
+        for (int i = 0; i < 26; i ++) pushup(rt, i);
+}
+inline void update (int id, char c, int l, int r, int rt) {
+        if (l == r) {
+                t[rt][s[l] - 'a'] = 0;
+                s[l] = c;
+                t[rt][s[l] - 'a'] = 1;
+                return;
+        }
+        int mid = (l + r) >> 1;
+        if (id <= mid) update(id, c, l, mid, rt << 1);
+        else update(id, c, mid + 1, r, rt << 1 | 1);
+        for (int i = 0; i < 26; i ++) pushup(rt, i);
+}
+inline int query (int a, int b, int l, int r, int rt, int op) {
+        if (a > r || b < l) return 0;
+        if (a <= l && r <= b) return t[rt][op];
+        int mid = (l + r) >> 1;
+        return query(a, b, l, mid, rt << 1, op) + query(a, b, mid + 1, r, rt << 1 | 1, op);
+}
+ 
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+ 
+        cin >> s; s = "0" + s;
+        int n = s.size() - 1;
+        build(1, n, 1);
+        int m; cin >> m;
+ 
+        while (m --) {
+                int op; cin >> op;
+                if (op == 1) {
+                        int id; char c; cin >> id >> c;
+                        update(id, c, 1, n, 1);
+                } else {
+                        int l, r; cin >> l >> r;
+                        int res = 0;
+                        for (int i = 0; i < 26; i ++) {
+                                res += query(l, r, 1, n, 1, i) > 0;
+                        }
+                        cout << res << endl;
+                }
+        }
+}
+```
+<hr>
+
+
 ## CodeForces1601B_FrogTraveler
 
 #### 🔗
@@ -1521,6 +1595,168 @@ int main () {
 }
 ```
 <hr>
+
+## CodeForces1690G_CountTheTrains
+
+#### 🔗
+<a href="https://codeforces.com/contest/1690/problem/G">![20220706213414](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220706213414.png)</a>
+
+#### 💡
+首先可以得到，只有每一个前缀最小值才会被保留为本身的数  
+那么我们首先可以将序列变为一个 $01$ 序列，$1$ 表示为前缀最小值，$0$ 表示不是前缀最小值   
+然后用一个答案记录动态修改答案  
+在一次操作中，$a[id]-c$ 则它可能会变为前缀最小值，即变后小于前缀最小值了  
+如果变前不是，而变后是，那么就将其赋为 $1$ ，同时让答案 $+1$   
+并且本次修改之后，向后找到第一个小于它的位置 $r$ （可以二分找），那么 $[id+1,r-1]$ 里面的 $1$ 都应该被覆盖为 $0$ ，我们减一下区间和，然后区间修改为 $0$ 即可  
+二分的操作就是向后找区间最小值即可，第一个 $[id+1,mid]$ 的区间最小值小于修改后的 $a[id]$   
+    
+这其中的需求为：  
+一个能得到区间 $[a]$ 最小值的线段树，支持单点修改、区间查询  
+一个 $01$ 的线段树，支持单点修改、区间修改、区间查询  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+int n, m, a[N];
+int RES;
+int t_min[N << 2], t_sum[N << 2], lazy[N << 2];
+inline void pushup_min (int rt) { // 最小值线段树上推区间最小值
+        t_min[rt] = min(t_min[rt << 1], t_min[rt << 1 | 1]);
+}
+inline void pushup_sum (int rt) { // 01线段树上推区间和
+        t_sum[rt] = t_sum[rt << 1] + t_sum[rt << 1 | 1];
+}
+inline void pushdown_sum (int l, int r, int rt) { // 01线段树下推懒标记
+        if (!lazy[rt]) return;
+        int mid = (l + r) >> 1;
+        lazy[rt << 1] = lazy[rt << 1 | 1] = 1;
+        lazy[rt] = 0;
+        t_sum[rt << 1] = 0;
+        t_sum[rt << 1 | 1] = 0;
+}
+inline void build_min (int l, int r, int rt) { // 最小值线段树建树
+        t_min[rt] = 0x3f3f3f3f;
+        if (l == r) {
+                t_min[rt] = a[l];
+                return;
+        }
+        int mid = (l + r) >> 1;
+        build_min(l, mid, rt << 1);
+        build_min(mid + 1, r, rt << 1 | 1);
+        pushup_min(rt);
+}
+inline int query_min (int a, int b, int l, int r, int rt) { // 最小值线段树区间查询
+        if (a <= l && r <= b) return t_min[rt];
+        if (a > r || b < l) return 0x3f3f3f3f;
+        int mid = (l + r) >> 1;
+        return min(query_min(a, b, l, mid, rt << 1), query_min(a, b, mid + 1, r, rt << 1 | 1));
+}
+inline void build_sum (int l, int r, int rt) { // 01线段树建树
+        lazy[rt] = 0;
+        if (l == r) {
+                if (l == 1) t_sum[rt] = 1;
+                else t_sum[rt] = (a[l] < query_min(1, l - 1, 1, n, 1));
+                RES += t_sum[rt];
+                return;
+        }
+        int mid = (l + r) >> 1;
+        build_sum(l, mid, rt << 1);
+        build_sum(mid + 1, r, rt << 1 | 1);
+        pushup_sum(rt);
+}
+inline int query_sum (int a, int b, int l, int r, int rt) { // 01线段树区间查询
+        if (a > b) return 0;
+        if (a <= l && r <= b) return t_sum[rt];
+        if (a > r || b < l) return 0;
+        pushdown_sum(l, r, rt);
+        int mid = (l + r) >> 1;
+        return query_sum(a, b, l, mid, rt << 1) + query_sum(a, b, mid + 1, r, rt << 1 | 1);
+}
+inline void update_min (int id, int c, int l, int r, int rt) {
+        if (l == r) {
+                t_min[rt] -= c;
+                return;
+        }
+        int mid = (l + r) >> 1;
+        if (id <= mid) update_min(id, c, l, mid, rt << 1);
+        if (id > mid) update_min(id, c, mid + 1, r, rt << 1 | 1);
+        pushup_min(rt);
+}
+inline void update_sum0 (int a, int b, int l, int r, int rt) { // 01线段树区间赋0
+        if (a > b) return;
+        if (a > r || b < l) return;
+        if (a <= l && r <= b) {
+                t_sum[rt] = 0;
+                lazy[rt] = 1;
+                return;
+        }
+        pushdown_sum(l, r, rt);
+        int mid = (l + r) >> 1;
+        if (a <= mid) update_sum0(a, b, l, mid, rt << 1);
+        if (b > mid) update_sum0(a, b, mid + 1, r, rt << 1 | 1);
+        pushup_sum(rt);
+}
+inline void update_sum1 (int id, int l, int r, int rt) { // 01线段树单点赋1
+        if (l == r) {
+                t_sum[rt] = 1;
+                return;
+        }
+        pushdown_sum(l, r, rt);
+        int mid = (l + r) >> 1;
+        if (id <= mid) update_sum1(id, l, mid, rt << 1);
+        else update_sum1(id, mid + 1, r, rt << 1 | 1);
+        pushup_sum(rt);
+}
+ 
+ 
+inline void Solve () {
+        RES = 0;
+        cin >> n >> m;
+        for (int i = 1; i <= n; i ++) cin >> a[i];
+        build_min(1, n, 1);
+        build_sum(1, n, 1);
+ 
+        auto find_first_lowerid = [&](int id) { // < a[id] 的第一个位置
+                int l = id + 1;
+                int r = n;
+                int res = n + 1;
+                int aid = query_min(id, id, 1, n, 1);
+                while (l <= r) {
+                        int mid = (l + r) >> 1;
+                        if (query_min(l, mid, 1, n, 1) < aid) {
+                                res = mid;
+                                r = mid - 1;
+                        } else {
+                                l = mid + 1;
+                        }
+                }
+                return res;
+        };
+ 
+        while (m --) {
+                int id, c; cin >> id >> c;
+                if (id == 1) {
+                        update_min(id, c, 1, n, 1);
+                        int ffl = find_first_lowerid(id); //cout << ffl << endl;
+                        RES -= query_sum(2, ffl - 1, 1, n, 1);
+                        update_sum0(id + 1, ffl - 1, 1, n, 1);
+                } else {
+                        int pre_min = query_min(1, id - 1, 1, n, 1);
+                        int aid = query_min(id, id, 1, n, 1);
+                        if (aid >= pre_min && aid - c < pre_min) update_sum1(id, 1, n, 1), RES ++;
+                        update_min(id, c, 1, n, 1);
+                        int ffl = find_first_lowerid(id);
+                        RES -= query_sum(id + 1, ffl - 1, 1, n, 1);
+                        update_sum0(id + 1, ffl - 1, 1, n, 1);
+                }
+                cout << RES << " ";
+        } cout << endl;
+}
+```
+<hr>
+
+
 
 ## CCPC湖北省赛L_ChthollyAndTheBrokenChronograph
 

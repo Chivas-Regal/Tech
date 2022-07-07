@@ -2039,7 +2039,9 @@ CHIVAS_{
 
 <hr>
 
-## ICPC吉林站2020C_StringGame
+
+
+## ICPC2020吉林站C_StringGame
 
 #### 🔗
 <a href="https://codeforces.com/gym/102800/attachments"><img src="https://i.loli.net/2021/11/11/wdMOylHJ54xEeXm.png"></a>

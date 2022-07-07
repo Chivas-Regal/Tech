@@ -457,6 +457,7 @@ CHIVAS_{
 
 ```
 
+<hr>
 
 ## ABC250F_OneFourth
 
@@ -534,7 +535,6 @@ int main () {
 
 
 
-<hr>
 
 ## CodeForces660C_HardProcess
 
@@ -658,11 +658,60 @@ CHIVAS_{
 };
 ```
 
-
-
-
-
 <hr>
+
+## CodeForces1043D_MysteriousCrime
+
+#### 🔗
+<a href="https://codeforces.com/contest/1043/problem/D">![20220706212145](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220706212145.png)</a>
+
+#### 💡
+本题就是让求所有串的公共子串个数  
+而且注意到 $m\le 10$ ，说明可以直接检查  
+既然是公共子串，那么 $1$ 串子串中相邻的数在别的串也一定相邻  
+所以对每一个串的每一个数都存一下位置，然后遍历 $1$ 串，用双指针每一次找出最长的连续的公共子串长度 $len$ ，个数为 $len(len-1)$   
+遇到断开的就计算，然后对 $len$ 设置为 $1$ 意味着重新开始    
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+const int M = 20;
+int n, m;
+int id[M][N];
+int a[M][N];
+ 
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+ 
+        cin >> n >> m;
+        for (int i = 0; i < m; i ++) {
+                for (int j = 0; j < n; j ++) {
+                        int x; cin >> x;
+                        id[i][x] = j;
+                        a[i][j] = x;
+                }
+        }
+ 
+        ll len = 1;
+        ll res = 0;
+        for (int i = 1; i <= n; i ++) {
+                bool flag = 1;
+                for (int j = 0; j < m; j ++) {
+                        if (id[j][a[0][i]] != id[j][a[0][i - 1]] + 1) flag = 0;
+                }
+                if (flag) {
+                        len ++;
+                } else { // 断了
+                        res += len + (len - 1) * len / 2;
+                        len = 1;
+                }
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
 
 ## NCD2019K_MasaoudLOVESPIZZAS
 

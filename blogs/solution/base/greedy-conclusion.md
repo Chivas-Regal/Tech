@@ -2222,8 +2222,84 @@ int main () {
         }
 }
 ```
-
 <hr>
+
+## CodeForces353_TwoHeaps
+
+#### 🔗
+<a href="https://codeforces.com/contest/353/problem/B">![20220705171546](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220705171546.png)</a>
+
+#### 💡
+就是将 $2n$ 个数分成两组，让第一个集合大小乘上第二个集合大小尽可能大  
+注意到如果有 $y>1$ 个 $x$ ，此时我们可能会让两个集合的大小变小，此时就要让 $y$ 均匀分配  
+::: tip
+这是一个小学性质，对于周长相同的矩形，正方形的面积最大
+:::  
+而如果有很多个奇数个数的数，我们让它们这样分配最合理：  
+$
+a\;a\;b\;d\;d\;e\;e\\
+a\;b\;b\;d\;c\;e\;e
+$  
+也就是让奇数个数多出来的一个的交叉分配，由于一共有 $2n$ 个数，所以奇数个数的数是有偶数个的，那么就先让他们互相交叉分配，然后再给偶数均匀分配  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+vector<pair<int, vector<int> > > v(110);
+vector<int> id(210);
+vector<int> a(210);
+ 
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+ 
+        int n; cin >> n;
+        for (int i = 0; i < 2 * n; i ++) {
+                int x; cin >> x;
+                a[i] = x;
+                v[x].first = x;
+                v[x].second.push_back(i);
+        }
+ 
+        sort(v.begin(), v.end(), [&](pair<int, vector<int> > a, pair<int, vector<int> > b) {
+                int asz = a.second.size();
+                int bsz = b.second.size();
+                if (asz % 2 != bsz % 2) return (asz % 2) > (bsz % 2);
+                return asz > bsz;
+        }); // 奇数个数的排在前面
+ 
+        int anum = 0, bnum = 0;
+        for (int i = 0; i < v.size(); i ++) {
+                if (!v[i].second.size()) continue;
+                int all = v[i].second.size() / 2;
+                anum += all;
+                bnum += all;
+                for (int j = 0; j < v[i].second.size() / 2; j ++) id[v[i].second[j]] = 1;
+                for (int j = 0; j < v[i].second.size() / 2; j ++) id[v[i].second[j + v[i].second.size() / 2]] = 2;
+                if (all * 2 != v[i].second.size()) {
+                        // 看多出来的一个分给谁
+                        if (anum <= bnum) {
+                                id[v[i].second.back()] = 1;
+                                anum ++;
+                        } else {
+                                id[v[i].second.back()] = 2;
+                                bnum ++;
+                        }
+                }
+        }
+ 
+        set<int> sta, stb; // 两个集合大小相乘计算结果
+        for (int i = 0; i < n * 2; i ++) {
+                if (id[i] == 1) sta.insert(a[i]);
+                else stb.insert(a[i]);
+        }
+ 
+        cout << sta.size() * stb.size() << endl;
+        for (int i = 0; i < n * 2; i ++) cout << id[i] << " ";
+}
+```
+<hr>
+
+
 
 ## CodeForces508C_AnyaAndGhosts
 
@@ -2637,6 +2713,49 @@ int main () {
 ```
 
 <hr>
+
+## CodeForces1202D_Printa1337-string...
+
+#### 🔗
+<a href="https://codeforces.com/contest/1202/problem/D">![20220705223710](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220705223710.png)</a>
+
+#### 💡
+$1$ 的贡献只是一个乘，如果是质数会很难受，所以不考虑这个 $1$   
+对于后面的 $3..7..3..7...$   
+我们先不看 $7$ ，设以 $7$ 分割的 $3..3$ 有 $3$ 段，每段分别有 $a,b,c$ 个 $3$     
+则个数为 $a(a-1)/2+(a+b)(a+b-1)/2+(a+b+c)(a+b+c-1)/2$ 个  
+  
+现在就是考虑形如 $x(x-1)/2$ 这样的数是否可以合理拆掉这个 $n$ ，它们是一类平方数，值的递增关系很大 ，$x=10^5$ 时 $x(x-1)/2>10^9$ ，是可以的  
+所以我们每次找 $n$ 下面最大的 $x$ 满足 $x(x-1)/2\le n$    
+
+这样拆出来的还不优，因为可能出现很多个相同的 $x$ ，这里可以利用上面的 $7$ 了，这个 $7$ 的个数也是为前面的 $3$ 提供一个乘法，我们就每次找到 $x$ 后，用 $n/(x(x-1)/2)$ 作为后面跟着的 $7$ 的个数即可  
+我们得到的 $x$ 组是从大到小的，翻转一下，这样每段 $3$ 的个数就是当前的 $x$ 减去上一个 $x$ ， $7$ 的个数就是我们之前标记的倍数  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void Solve () {
+        ll n; cin >> n;
+        vector<pair<int, int> > vec; // val, tim
+        while (n) { // 拆分
+                int i = 1;
+                for (;;i ++) {
+                        if (i * (i - 1) / 2 > n) break;
+                } i --;
+                vec.push_back({i, n / (i * (i - 1) / 2)});
+                n -= vec.back().second * i * (i - 1) / 2;
+        }
+        vec.push_back({0, 0});
+        reverse(vec.begin(), vec.end());
+        
+        cout << 1;
+        for (int i = 1; i < vec.size(); i ++) {
+                cout << string(vec[i].first - vec[i - 1].first, '3');
+                cout << string(vec[i].second, '7');
+        } cout << endl;
+}
+```
+<hr>
+
 
 ## CodeForces1307B_CowAndFriend
 

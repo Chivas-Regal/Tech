@@ -263,3 +263,89 @@ int main () {
 ```
 
 <hr>
+
+## CodeForces1227D2_OptimalSubsequences（Hard Version）
+
+#### 🔗
+<a href="https://codeforces.com/contest/1227/problem/D2">![20220707104029](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220707104029.png)</a>
+
+#### 💡
+首先每个数转换为第几个选很容易，就是首先数值要大，其次位置要靠前。  
+对于第一个样例可以转换为：  
+<table>
+  <tr>
+    <th>a</th><td>10</td><td>20</td><td>10</td>
+  </tr>
+  <tr>
+    <th>b</th><td>2</td><td>1</td><td>3</td>
+  </tr>
+</table>    
+  
+那么问题就是：在 $[b]$ 中所有小于等于 $k$ 的位置中，找到第 $r$ 靠前的位置  
+很容易想到二分，但是二分了话我们需要的单调性因素就是：前面小于等于 $k$ 的个数  
+这里有两个条件：前面、数，即下标、数值。  
+数值可以权值线段树，下标之前就是前缀，一个前缀权值线段树就是主席树  
+那么构建出一棵主席树，然后对于一次查询 $k,p$ ，开启二分，在 $mid$ 处查询主席树中以 `root[mid]` 为根的主席树中有多少个小于等于 $k$ 的数，如果 $\ge p$ 就维护一下答案然后继续向前找，否则答案在后面，往后找。
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+int n, m, b[N], a[N];
+pair<int, int> tmp[N];
+ 
+struct node {
+        int l, r, sum;
+} t[N * 40];
+int tot, root[N];
+ 
+inline void Insert (int l, int r, int pre, int &now, int p) {
+        t[++ tot] = t[pre];
+        now = tot;
+        t[now].sum ++;
+        if (l == r) return;
+ 
+        int mid = (l + r) >> 1;
+        if (p <= mid) Insert(l, mid, t[pre].l, t[now].l, p);
+        else Insert(mid + 1, r, t[pre].r, t[now].r, p);
+}
+inline int Query (int id, int l, int r, int rt) { // [1,id]
+        if (r <= id) return t[rt].sum;
+        if (l > id) return 0;
+        int mid = (l + r) >> 1;
+        return Query(id, l, mid, t[rt].l) + Query(id, mid + 1, r, t[rt].r);
+}
+ 
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+ 
+        cin >> n;
+        for (int i = 1; i <= n; i ++) {
+                cin >> a[i];
+                tmp[i].first = a[i];
+                tmp[i].second = i;
+        }
+ 
+        sort(tmp + 1, tmp + 1 + n, [&](pair<int, int> x, pair<int, int> y) {
+                if (x.first != y.first) return x.first > y.first;
+                return x.second < y.second;
+        });
+        for (int i = 1; i <= n; i ++) b[tmp[i].second] = i;
+        for (int i = 1; i <= n; i ++) Insert(1, n, root[i - 1], root[i], b[i]);
+ 
+        cin >> m;
+        while (m --) {
+                int k, p; cin >> k >> p;
+                int l = 1, r = n, res = n;
+                while (l <= r) {
+                        int mid = (l + r) >> 1;
+                        int pre_lowk = Query(k, 1, n, root[mid]);
+                        if (pre_lowk >= p) res = mid, r = mid - 1;
+                        else l = mid + 1;
+                }
+                cout << a[res] << endl;
+        }
+ 
+}
+```
+<hr>
