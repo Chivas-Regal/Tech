@@ -123,3 +123,102 @@ int main() {
 ```
 
 <hr>
+
+## 尼姆
+
+### 牛客2022多校（7）K_GreatParty
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/33192/K">![20220809000414](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220809000414.png)</a>
+
+#### 💡
+一堆石子可以拿了一个丢弃剩下的，必胜。  
+两堆石子谁都不想拿完一堆，尼姆游戏。  
+三堆石子可以直接把一堆拿走部分然后剩下的去拼到另外两堆较小的那堆上来让两堆补齐，成为异或为 $0$ 的尼姆必败态，所以必胜。  
+四堆石子和两堆一样，尼姆游戏。  
+...  
+这样规律就有了，奇数必胜，偶数尼姆。  
+  
+对于查询 $l,r$ ，其中的奇子串全是赢，偶子段异或为 $0$ 是输、别的都是赢。  
+统计偶子段异或为 $0$ 的数量，其实就是前缀异或相同的对数。  
+如果异或为 $x$ 的有 $y$ 个，那么就产生了 $\frac{y(y-1)}{2}$ 对  
+由于区间 $[l1,r1]$ 的异或为 $sum[r1]\oplus sum[l1-1]$ ，所以位置的奇偶性相同的前缀产生的区间为偶段，故前缀异或为某个数值的个数的计数需要开两个数组。  
+如果一个个跑是很费时间的，发现只有查询，使用莫队进行动态操作即可。  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int sq;
+inline int getpos (int x) {
+        return x / sq;
+}
+int a[100005];
+int n, Q;
+struct qry {
+        int l, r, id;
+        inline friend bool operator < (qry a, qry b) {
+                if (getpos(a.l) != getpos(b.l)) return a.l < b.l;
+                else {
+                        int gp = getpos(a.l);
+                        if (gp & 1) return a.r > b.r;
+                        else return a.r < b.r;
+                }
+        }
+} q[100005];
+ll res1, res2;
+ll cnt1[3000006], cnt2[3000006];
+ 
+inline void add (int x, int id) {
+        if (id & 1) {
+                res1 -= cnt1[x] * (cnt1[x] - 1) / 2;
+                cnt1[x] ++;
+                res1 += cnt1[x] * (cnt1[x] - 1) / 2;
+        } else {
+                res2 -= cnt2[x] * (cnt2[x] - 1) / 2;
+                cnt2[x] ++;
+                res2 += cnt2[x] * (cnt2[x] - 1) / 2;
+        }
+}
+inline void sub (int x, int id) {
+        if (id & 1) {
+                res1 -= cnt1[x] * (cnt1[x] - 1) / 2;
+                cnt1[x] --;
+                res1 += cnt1[x] * (cnt1[x] - 1) / 2;
+        } else {
+                res2 -= cnt2[x] * (cnt2[x] - 1) / 2;
+                cnt2[x] --;
+                res2 += cnt2[x] * (cnt2[x] - 1) / 2;
+        }
+}
+ll res[100005];
+int main() {
+        scanf("%d%d", &n, &Q);
+        sq = sqrt(n);
+        for (int i =1 ; i <= n ;i ++) {
+                scanf("%d", &a[i]);
+                a[i] --;
+                a[i] ^= a[i - 1];
+        }
+        for (int i = 1; i <= Q; i ++) {
+                scanf("%d%d", &q[i].l, &q[i].r);
+                q[i].l --;
+                q[i].id = i;
+        }
+        sort(q, q + 1 + Q);
+        
+        int L = 0, R = -1;
+        for (int i = 1; i <= Q; i ++) {
+                int l = q[i].l, r = q[i].r;
+                while (L < l) sub(a[L], L), L ++;
+                while (L > l) L --, add(a[L], L);
+                while (R < r) R ++, add(a[R], R);
+                while (R > r) sub(a[R], R), R --;
+                ll len = q[i].r - q[i].l;
+                res[q[i].id] = len * (len + 1) / 2 - (res1 + res2);
+        }
+        for (int i = 1; i <= Q; i ++) {
+                printf("%lld\n", res[i]);
+        }
+}
+```
+<hr>
+

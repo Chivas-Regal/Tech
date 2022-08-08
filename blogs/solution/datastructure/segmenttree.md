@@ -1465,6 +1465,73 @@ int main () {
 ```
 <hr>
 
+## CodeForces1354D_Multiset
+
+#### 🔗
+<a href="https://codeforces.com/contest/1354/problem/D">![20220708105332](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220708105332.png)</a>
+
+#### 💡
+两种操作：插入一个数 $x$ ，删去第 $k$ 小的数  
+这两个操作明显都可以使用权值线段树实现  
+插入操作就直接在 $x$ 的位置上 $+1$   
+删除操作先找到第 $k$ 小的数是谁（直接在权值线段树内走二分优化掉一个 $log$），找到后对它的位置上进行 $-1$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e6 + 10;
+int n, m, t[N << 2];
+inline void pushup (int rt) {
+        t[rt] = t[rt << 1] + t[rt << 1 | 1];
+}
+inline void update (int id, int c, int l = 1, int r = n, int rt = 1) {
+        if (l == r) {
+                t[rt] += c;
+                return;
+        }
+        int mid = (l + r) >> 1;
+        if (id <= mid) update(id, c, l, mid, rt << 1);
+        if (id > mid) update(id, c, mid + 1, r, rt << 1 | 1);
+        pushup(rt);
+}
+inline int query (int b, int l = 1, int r = n, int rt = 1) {
+        if (r <= b) return t[rt];
+        if (l > b) return 0;
+        int mid = (l + r) >> 1;
+        return query(b, l, mid, rt << 1) + query(b, mid + 1, r, rt << 1 | 1);
+}
+inline int find_kth (int k, int l = 1, int r = n, int rt = 1) {
+        if (l == r) return l;
+        int mid = (l + r) >> 1;
+        if (t[rt << 1] >= k) return find_kth(k, l, mid, rt << 1);
+        else return find_kth(k - t[rt << 1], mid + 1, r, rt << 1 | 1);
+}
+ 
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+ 
+        cin >> n >> m; n ++;
+        for (int i = 1; i < n; i ++) {
+                int x; cin >> x;
+                update(x, 1);
+        } update(n, 1);
+ 
+        while (m --) {
+                int x; cin >> x;
+                if (x < 0) {
+                        update(find_kth(-x), -1);
+                } else {
+                        update(x, 1);
+                }
+        }
+ 
+        int res = find_kth(1);
+        if (res == n) cout << 0;
+        else cout << res;
+}
+```
+<hr>
+
 
 ## CodeForces1601B_FrogTraveler
 
@@ -1875,6 +1942,116 @@ int main () {
 ```
 <hr>
 
+## CodeForces1477B_NezzarAndBinaryString
+
+#### 🔗
+<a href="https://codeforces.com/contest/1477/problem/B">![20220708100005](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220708100005.png)</a>
+
+#### 💡
+我们只能改上一次询问后的内容来让我们下一次询问满足，当然这一次修改可能不只是为了下一次，也可能是下下次...  
+所以我们没法确定要修改哪一部分，后面的操作太多了  
+但是注意到每一次询问都要满足，所以每次操作的上一次询问也要满足  
+出现了更强的关联性就是<b>一次修改只能修改上一次询问的区间，且上一次询问的区间全部相等</b>    
+那么就可以反过来看：就是从后往前每次修改 $b$ 字符串，所有的修改都是为了下一次询问能满足且只能修改下一次询问的区间  
+对于区间是 $0$ 变 $1$ 还是 $1$ 变 $0$ ，注意到有一个条件是每次只能修改严格少于一半的数量  
+可以在下一次修改的区间里面查询 $1$ 的个数，如果少于一半就只能变 $0$ ，如果多于一半就只能变 $1$ ，如果等于一半那就说明都改不了，就只能 `NO` 了  
+当然还要求了最后两串相等，这些操作都是固定的，所以所有操作走完之后看看是不是每一位都相等即可    
+  
+需求内需要的工具：支持区间变 $1$ 变 $0$ 、可区间查询。那么就使用一个带懒标记的线段树即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+string a, b;
+struct node {
+        int val;
+        int lazy;
+} t[N << 2];
+inline void pushup (int rt) {
+        t[rt].val = t[rt << 1].val + t[rt << 1 | 1].val;
+}
+inline void pushdown (int l, int r, int rt) {
+        if (!t[rt].lazy) return;
+        if (t[rt].lazy == -1) {
+                t[rt << 1].val = t[rt << 1 | 1].val = 0;
+                t[rt << 1].lazy = t[rt << 1 | 1].lazy = -1;
+                t[rt].lazy = 0;
+        } else {
+                int mid = (l + r) >> 1;
+                t[rt << 1].val = mid - l + 1; t[rt << 1 | 1].val = r - mid;
+                t[rt << 1].lazy = t[rt << 1 | 1].lazy = 1;
+                t[rt].lazy = 0;
+        }
+}
+inline void build (int l, int r, int rt) {
+        t[rt].lazy = 0;
+        if (l == r) {
+                t[rt].val = b[l] - '0';
+                return;
+        }
+        int mid = (l + r) >> 1;
+        build(l, mid, rt << 1);
+        build(mid + 1, r, rt << 1 | 1);
+        pushup(rt);
+}
+inline void update (int a, int b, int c, int l, int r, int rt) {
+        if (a > r || b < l) return;
+        if (a <= l && r <= b) {
+                if (c == 0) {
+                        t[rt].val = 0;
+                        t[rt].lazy = -1;
+                } else {
+                        t[rt].val = r - l + 1;
+                        t[rt].lazy = 1;
+                }
+                return;
+        }
+        pushdown(l, r, rt);
+        int mid = (l + r) >> 1;
+        if (a <= mid) update(a, b, c, l, mid, rt << 1);
+        if (b > mid)  update(a, b, c, mid + 1, r, rt << 1 | 1);
+        pushup(rt);
+}
+inline int query (int a, int b, int l, int r, int rt) {
+        if (a > r || b < l) return 0;
+        if (a <= l && r <= b) return t[rt].val;
+        pushdown(l, r, rt);
+        int res = 0, mid = (l + r) >> 1;
+        if (a <= mid) res += query(a, b, l, mid, rt << 1);
+        if (b > mid)  res += query(a, b, mid + 1, r, rt << 1 | 1);
+        return res;
+}
+ 
+inline void Solve () {
+        int n, m; cin >> n >> m;
+        cin >> a >> b; a = "0" + a; b = "0" + b;
+        vector<pair<int, int> > ope(m);
+        for (auto &[l, r] : ope) cin >> l >> r;
+        reverse(ope.begin(), ope.end());
+ 
+        build(1, n, 1);
+        for (auto &[l, r] : ope) {
+                int num1 = query(l, r, 1, n, 1);
+                if (num1 * 2 == r - l + 1) {
+                        cout << "NO\n";
+                        return;
+                } else if (num1 <= (r - l) / 2) {
+                        update(l, r, 0, 1, n, 1);
+                } else {
+                        update(l, r, 1, 1, n, 1);
+                }
+        }
+        
+        for (int i = 1; i <= n; i ++) {
+                if (a[i] - '0' != query(i, i, 1, n, 1)) {
+                        cout << "NO\n";
+                        return;
+                }
+        }
+        cout << "YES\n";
+}
+```
+<hr>
 
 ## CodeForces1668D_OptimalPartition
 

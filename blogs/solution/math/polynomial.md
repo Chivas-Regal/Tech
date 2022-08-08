@@ -4,7 +4,7 @@ title: 多项式
 ###  
 <hr>
 
-## 快速傅立叶变换
+## 多项式乘法
 
 ### 洛谷P1919_A*BProblem升级版
 
@@ -1027,6 +1027,159 @@ int main () {
 ```
 
 <hr>
+
+### HDU2022多校（5）7_CountSet
+
+#### 🔗
+<a href="https://acm.dingbacode.com/showproblem.php?pid=7191">![20220803152408](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220803152408.png)</a>
+
+#### 💡
+根据 $2-sat$ 思想，选谁就不能选谁是一条边，互相制约的关系建边后，可以形成一张图。  
+这里是全排列，其置换环为建图后的环，可以提出来。  
+一个环上我们可以选任意个数，而我们只要保证所有环中选出数量的总和等于 $k$ 即可。  
+<b>首先看内层的计数：</b>一个长度为 $n$ 的环上选 $k$ 个数，互相不相邻，将选出的一个数的长度视作 $2$ ，不选的视作 $1$ ，可以保证每个选中的数会在同一个方向上多覆盖一个数，来保证不相邻。如果是在序列上的问题那么得到 $\binom{n-k}{k}$ ，但这是一个环，考虑将环从某个位置劈开就是一个序列问题了。但如果有一个长度为 $2$ 的块要放在序列首和尾，那么剩下的 $k-1$ 个块有 $n-k-1$ 个位置可以放，两者加起来为 $\binom{n-k}{k}+\binom{n-k-1}{k-1}$ 。  
+<b>再看外层的计数：</b>首想计数 $dp$ ，也是多重计数背包，但这样复杂度为 $O(nklogk)$ ，时间过不去，但是这种问题也是一种生成函数问题，转移为多项式求解，令 $ax^b$ 表示选 $b$ 个的方案数为 $a$ ，利用 $NTT$ 最后要得到的为 $x^k$ 的系数，多个多项式累乘，使用 $NTT$ 的启发式合并或者分治即可，复杂度为 $O(nlognlogk)$   
+  
+整体设计如下：  
+首先划分出每个置换环大小 $r$ ，求出其选 $i$ 个数的方案数 $b_i=\binom{r-i}{i}+\binom{r-i-1}{i-1}$ ，构建出生成函数 $y=\sum\limits_{i=0}^{min(k,\left\lceil\frac{r+1}{2}\rceil\right)}b_ix^i$ 。  
+使用启发式/分治 $NTT$ 快速得到这些环的生成函数的卷积。  
+输出卷积 $x^k$ 的系数。  
+  
+由于 $NTT$ 取模运算和乘法中复刻数组的常数复杂度很大，我们预处理出来原根对应每一个 $mid$ 的值与其逆元，并且将多项式乘法转换成新运算，用引用传递数组。  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e6 + 10;
+const int mod = 998244353;
+
+inline int ksm (int a, int b) { int res = 1; while (b) { if (b & 1) res = 1ll * res * a % mod; a = 1ll * a * a % mod; b >>= 1; } return res; }
+inline int inv (int x) { return ksm(x, mod - 2); }
+inline int C (int n, int m) { if (n < 0 || n < m || m < 0) return 0; return f[n] * ivf[m] % mod * ivf[n - m] % mod; }
+
+
+vector<int> rols; // 所有置换环的大小
+int n, k;
+
+ll f[N], ivf[N];
+vector<int> rev;
+int bit, tot;
+vector<vector<int> > gk[2]; // 原根的幂
+inline void pre_Mul (int _n) { // 优化：乘之前处理一次
+        while ((1 << bit) > _n) bit --;
+        while ((1 << bit) <= _n) bit ++; tot = 1 << bit;
+        rev.resize(tot);
+        for (int i = 0; i < tot; i ++) rev[i] = 0;
+        for (int i = 0; i < tot; i ++) {
+                rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (bit - 1));
+        }
+}
+
+struct Poly { // 多项式
+        vector<int> a;
+        int len;
+        inline void resizePoly (int _n) {
+                while ((1 << bit) >  _n) bit --;
+                while ((1 << bit) <= _n) bit ++; 
+                tot = 1 << bit;
+                a.resize(tot);
+                len = _n;
+        }
+        inline void NTT (int op) {
+                for (int i = 0; i < tot; i ++) if (i < rev[i]) swap(a[i], a[rev[i]]);
+                for (int mid = 1, w = 0; mid < tot; mid <<= 1, ++ w) {
+                        for (int i = 0; i < tot; i += mid << 1) {
+                                for (int j = 0; j < mid; j ++) {
+                                        int x = a[i + j], y = 1ll * gk[op == 1 ? 1 : 0][w][j] * a[i + j + mid] % mod;
+                                        a[i + j] = x + y; if (a[i + j] >= mod) a[i + j] -= mod;
+                                        a[i + j + mid] = x - y; if (a[i + j + mid] < 0) a[i + j + mid] += mod;
+                                }
+                        }
+                }
+                if (op == -1) {
+                        int iv = inv(tot);
+                        for (int i = 0; i < tot; i ++) a[i] = 1ll * a[i] * iv % mod;
+                }
+        }      
+        inline friend bool operator < (Poly x, Poly b) {
+                return x.len > b.len;
+        }
+        Poly &operator *= (Poly &B) {
+                int newlen = min(k, len + B.len);
+                pre_Mul(newlen);
+                resizePoly(newlen);
+                B.resizePoly(newlen);
+                NTT(1); B.NTT(1);
+                for (int i = 0; i < tot; i ++) a[i] = 1ll * a[i] * B.a[i] % mod;
+                NTT(-1);
+                return *this;
+        }
+};
+
+
+priority_queue<Poly> pque; // 启发式合并，按多项式长度排序，小的在顶
+inline void Solve () {
+        rols.clear();
+        while (!pque.empty()) pque.pop();
+
+        scanf("%d%d", &n, &k);
+        vector<int> p(n + 1); for (int i = 1; i <= n; i ++) scanf("%d", &p[i]);
+        vector<int> vis(n + 1, 0);
+
+        for (int i = 1; i <= n; i ++) {
+                int num = 0;
+                int ii = i;
+                while (!vis[ii]) {
+                        num ++;
+                        vis[ii] = 1;
+                        ii = p[ii];
+                }
+                if (num > 1) rols.push_back(num);
+        }
+        if (k == 0) {puts("1"); return;}
+        else if (rols.size() == 0) {puts("0"); return;}
+        sort(rols.begin(), rols.end());
+
+        int all = 0;
+        for (int r : rols) { // 构建生成函数
+                all += (r + 1) / 2;
+                Poly pol;
+                pol.resizePoly(min(r, k));
+                pol.a[0] = 1;
+                for (int i = 1; i <= min(r, k); i ++) pol.a[i] = (C(r - i, i) + C(r - i - 1, i - 1)) % mod;
+                pque.push(pol);
+        }
+        while (pque.size() > 1) { // 启发式合并：每次提两个短的多项式
+                Poly f = pque.top(); pque.pop();
+                Poly s = pque.top(); pque.pop();
+                f *= s;
+                pque.push(f);
+        }
+        printf("%d\n", pque.top().a[k]);
+}
+
+int main () {
+
+        f[0] = 1;
+        for (int i = 1; i < N; i ++) f[i] = f[i - 1] * i % mod;
+        ivf[N - 1] = inv(f[N - 1]);
+        for (int i = N - 2; i >= 0; i --) ivf[i] = ivf[i + 1] * (i + 1) % mod;
+        gk[1].resize(30);
+        gk[0].resize(30);
+        for (int g1, i = 0, mid = 1; mid < N; ++i, mid <<= 1) {
+                gk[1][i].resize(mid);
+                gk[0][i].resize(mid);
+                gk[1][i][0] = 1; g1 = ksm(3, (mod - 1) / (mid << 1));
+                gk[0][i][0] = 1;
+                for (int j = 1; j < mid; j ++) gk[1][i][j] = 1ll * g1 * gk[1][i][j - 1] % mod, gk[0][i][j] = inv(gk[1][i][j]);
+        }
+
+        int cass; scanf("%d", &cass); while ( cass -- ) {
+                Solve ();
+        }
+}
+```
+<hr>
+
 
 ### HDUOJ1028_IgnatiusandthePrincessIII
 

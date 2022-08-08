@@ -66,6 +66,76 @@ int main () {
 
 <hr>
 
+## 洛谷P1896_互不侵犯
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P1896">![20220714162643](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220714162643.png)</a>
+
+#### 💡
+一个计数问题，结果一看就很大，肯定不能搜  
+这也是二维，组合数做起来很麻烦  
+那么计数的另一个方案就是 $dp$   
+依然是那个问题，这是一个二维的，化成一维表示就很好弄了，那就把一个维度压缩吧，每一个数表示放不放刚好对应了 $01$ 的状态压缩  
+用 $dp[i][j][k]$ 表示前 $i$ 行，第 $i$ 行状态为 $j$ ，有 $k$ 个国王的方案数  
+从 $1$ 到 $n$ 枚举行进行递推  
+枚举上一行的状态 $s$ 和这一行的状态 $t$ ，判断一下这两行这样拼接是否可行  
+  
+首先是判断每一行是否成立，如果存在相邻的两个 $1$ 就不行    
+
+```cpp
+inline bool check1 (int x) {
+        x <<= 1;
+        for (int j = 1; j <= n; j ++) if ((x >> j & 1) && ((x >> (j + 1) & 1) || (x >> (j - 1) & 1))) return false;
+        return true;
+}
+```
+
+其次是判断这两行拼一起是否成立，如果 $u$ 的第 $i$ 位为 $1$ ，那么 $v$ 的第 $i-1,i,i+1$ 位都不为 $1$   
+
+```cpp
+inline bool check2 (int x, int y) {
+        x <<= 1;
+        y <<= 1;
+        for (int j = 1; j <= n; j ++) {
+                if (x >> j & 1) {
+                        if ((y >> j & 1) || (y >> (j + 1) & 1) || (y >> (j - 1) & 1)) {
+                                return false;
+                        }
+                }
+        } 
+        return true;
+}
+```
+
+这样判断完之后，去枚举到这一行之后的国王数 $k$ ，然后转移累加即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        cin >> n >> k;
+
+        dp[0][0][0] = 1;
+        for (int i = 1; i <= n; i ++) {
+                for (int s = 0; s < (1 << n); s ++) {
+                        int s1 = __builtin_popcount(s);
+                        if (!check1(s)) continue;
+                        for (int t = 0; t < (1 << n); t ++) {
+                                int t1 = __builtin_popcount(t);
+                                if (!check1(t) || !check2(s, t)) continue;
+                                for (int kk = s1 + t1; kk <= k; kk ++) dp[i][t][kk] += dp[i - 1][s][kk - t1];
+                        }
+                }
+        }
+        ll res = 0;
+        for (int s = 0; s < (1 << n); s ++) res += dp[n][s][k];
+        cout << res << endl;
+}
+```
+<hr>
+
 
 ## 洛谷P4163_排列
 

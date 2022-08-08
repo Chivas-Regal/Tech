@@ -696,4 +696,49 @@ int main () {
 ```
 <hr>
 
+## ICPC2017沈阳站G_InfiniteFractionPath
+
+#### 🔗
+<a href="https://vjudge.net/contest/503877#problem/G">![20220712161532](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220712161532.png)</a>
+
+#### 💡
+首先选择一些起点，这些起点的值一定是最大的，用这些起点路径进行 $bfs$     
+这些起点构成了很多条路径，目标是每次向后走一步，只保留下一步获得的值最大的路径  
+但是光这么做在遇到 $999999....$ 的时候就优化不了了  
+不过画了图或者打了表会发现很多点的入度都很大，但出度一定只有一，所以汇聚量很大，可以做一个标记，如果第 $x$ 步走到过 $i$ 了，那么别的路径上第 $x$ 步走到 $i$ 就不往下走了。  
+由于 $bfs$ 的特性步数一样的会出现在一起，所以建立一个一维数组 $vis[i]$ ，表示 $i$ 的位置最后一次出现的是第几步即可  
+两个剪枝就能把时间优化下来了  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int vis[150004];
+char mxc[150004];
+int casid;
+int nxt[150004];
+
+inline void Solve () {
+        int n;    cin >> n;
+        string s; cin >> s;
+
+        for (int i = 0; i <= n; i ++) vis[i] = -1, mxc[i] = '0' - 1, nxt[i] = (1ll * i * i + 1) % n;
+
+        mxc[1] = *max_element(s.begin(), s.end());
+        queue<pair<int, int> > que; // id,len
+        for (int i = 0; i < n; i ++) if (s[i] == mxc[1]) que.push({i, 1});
+        while (!que.empty()) {
+                int i = que.front().first, sz = que.front().second; que.pop();
+                if (s[i] < mxc[sz]) continue; // 这一个位置不是最大值
+                if (sz == n) continue; // 长度够了
+                if (vis[i] == sz) continue; vis[i] = sz; // 之前这一步访问过了
+                if (s[nxt[i]] < mxc[sz + 1]) continue; // 不是最大值
+                mxc[sz + 1] = s[nxt[i]]; 
+                que.push({nxt[i], sz + 1});
+        }
+
+        for (int i = 1; i <= n; i ++) cout << mxc[i]; cout << endl;
+}
+```
+<hr>
+
+
 

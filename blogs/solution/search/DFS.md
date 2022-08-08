@@ -460,6 +460,55 @@ int main () {
 
 <hr>
 
+## 洛谷P1463_反素数
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P1463">![20220714105816](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220714105816.png)</a>
+
+#### 💡
+首先根据唯一分解定理，$x=\prod p_i^{a_i},\;g(x)=\prod (a_i+1)$ ，故 $g$ 就是一种数量分配方式    
+题目就是想让我们找到 $x$ 不超过 $n$ 的情况下， $g(x)$ 最大，$x$ 也最大   
+任何比 $x$ 小的数其 $g$ 都小于 $g(x)$ ，转换一下前提就是在 $g(x)$ 相同时，反质数集内存入的是是最小的数  
+所以在 $x=\prod p_i^{a_i}$ 的分配下，$a$ 越大，被分配到的 $p$ 应越小  
+不然在反质数集中，会有比 $x$ 更小的 $y$ 满足 $g(y)=g(x)$ 的情况出现，这样的话只有 $y$ 会被保留  
+用这个性质对每一个质数（前12个）出现的次数进行搜索，剪枝为当前的乘积大于 $n$ 了  
+将搜索出来的 $\{x,g(x)\}$ 存入 `vector` 中，按上面说的任务找到 $g(x)$ 最大的情况下最大的 $x$ 
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int p[12] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
+
+int n;
+vector<pair<int, int> > pre_vec;
+inline void dfs (int idx, int lasnum, ll x, int g) {
+        if (x > n || idx == 12) return;
+        pre_vec.push_back({x, g});
+        ll bas = 1;
+        for (int i = 0; i <= lasnum && x * bas <= n; i ++) {
+                dfs(idx + 1, i, x * bas, g * (i + 1));
+                bas *= p[idx];
+        }
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        cin >> n;
+        dfs(0, 31, 1, 1);
+        sort(pre_vec.begin(), pre_vec.end());
+        int maxg = 0, maxv = 0;
+        for (auto i : pre_vec) {
+                if (i.second > maxg) {
+                        maxv = i.first;
+                        maxg = i.second;
+                }
+        }
+        cout << maxv << endl;
+}
+```
+<hr>
+
 
 ## 牛客2022寒假算法基础集训营5C_战棋小孩
 

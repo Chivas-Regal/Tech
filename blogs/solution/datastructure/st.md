@@ -223,6 +223,73 @@ int main () {
 ```
 <hr>
 
+## CodeForces1450D_RatingCompression
+
+#### 🔗
+<a href="https://codeforces.com/contest/1450/problem/D">![20220708091410](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220708091410.png)</a>
+
+#### 💡
+一个比较明显的性质，排除 $k=1$ 时，在别的时候，如果 $k$ 不行，那么 $k-1$ 一定不行，因为要么是同一个位置覆盖的区间过长，要么是有两个相同的数都可以覆盖长度 $\le k$ 的区间  
+所以直接二分答案  
+在查询的时候，由于是 $3\times 10^5$ ，如果是两个 $log$ 那么基本上不能有别的常数，所以我们查询用 $O(n)$  
+这就意味着我们获取区间最小值要 $O(1)$ 复杂度，于是使用 $st$ 表  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 3e5 + 10;
+int n;
+int st[N][30];
+inline void Build () {
+        int k = 32 - __builtin_clz(n) - 1;
+        for (int j = 1; j <= k; j ++) {
+                for (int i = 1; i + (1 << j) - 1 <= n; i ++) {
+                        st[i][j] = min(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]);
+                }
+        }
+}
+inline int Query (int l, int r) {
+        int k = 32 - __builtin_clz(r - l + 1) - 1;
+        return min(st[l][k], st[r - (1 << k) + 1][k]);
+}
+ 
+int vis[N];
+inline bool check (int k) {
+        for (int i = 1; i <= n; i ++) vis[i] = 0;
+        for (int i = 1; i + k - 1 <= n; i ++) {
+                int qry = Query(i, i + k - 1);
+                if (vis[qry]) return false;
+                vis[qry] = true;
+        }
+        for (int i = 2; i <= n; i ++) if (vis[i] && !vis[i - 1]) return false;
+        return true;
+}
+ 
+ 
+inline void Solve () {
+        set<int> siz;
+ 
+        cin >> n;
+        for (int i = 1; i <= n; i ++) cin >> st[i][0], siz.insert(st[i][0]);
+        if (siz.size() == n) cout << 1;
+        else cout << 0;
+ 
+        Build();
+ 
+        int l = 2, r = n, res = 1;
+        while (l <= r) {
+                int mid = (l + r) >> 1;
+                if (!check(mid)) res = mid, l = mid + 1;
+                else r = mid - 1;
+        }
+ 
+        for (int i = 2; i <= res; i ++) cout << 0;
+        for (int i = res + 1; i <= n; i ++) cout << 1;
+        cout << endl;
+}
+```
+<hr>
+
+
 ## CodeForces1549D_IntegersHaveFriends
 
 #### 🔗

@@ -733,6 +733,58 @@ CHIVAS_{IOS;
 
 <hr>
 
+## 牛客2022多校（6）A_Array
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/33191/A">![20220808233625](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220808233625.png)</a>
+
+#### 💡
+一个比较明显的特点：在构造出来的数组中，两个相邻的数值为 $i$ 的数的间隔最多为 $a_i$  
+但直接按 $[a]$ 去构造显然会出现冲突的情况，比如 $4,5$ ，这种冲突情况是极不安全的，考虑什么情况下不会出现冲突。  
+如果对 $[a]$ 排一个序，只要保证后面是前面的倍数的话，如果每次挑第一个空位放 $i$ ，就不会出现冲突。  
+可以将 $i$ 转化为小于等于 $i$ 的最大 $2$ 的幂，这样就保证了。  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 3e5 + 10;
+int n;
+struct node {
+        int v, id;
+} a[N];
+int res[N];
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        cin >> n;
+        for (int i = 1; i <= n; i ++) {
+                cin >> a[i].v;
+                int bit = 1; while (bit <= a[i].v) bit <<= 1; bit >>= 1;
+                a[i] = {bit, i};
+        }
+
+        sort(a + 1, a + 1 + n, [&](node x, node y) { return x.v < y.v; });
+
+        int m = a[n].v;
+        set<int> st;
+        for (int i = 1; i <= m; i ++) st.insert(i);
+
+        for (int i = 1; i <= n; i ++) {
+                for (int j = *st.begin(); j <= m; j += a[i].v) {
+                        res[j] = a[i].id;
+                        st.erase(j);
+                }
+        }
+        while (st.size()) res[*st.begin()] = 1, st.erase(*st.begin());
+        
+        cout << m << endl;
+        for (int i = 1; i <= m; i ++) cout << res[i] << " ";
+}
+```
+<hr>
+
+
 ## 牛客2022寒假算法基础集训营
 
 #### 🔗
@@ -3101,6 +3153,172 @@ int main () {
 
 <hr>
 
+### CodeForces1399E1_WeightsDivision（Easy Version）
+
+#### 🔗
+<a href="https://codeforces.com/contest/1399/problem/E1">![20220712102404](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220712102404.png)</a>
+
+#### 💡
+这个是对边进行操作的，每条边的贡献次数为其子树上的叶子结点数  
+令 $i$ 子树上的叶子结点数为 $son\_leaves_i$ ，如果对 $i$ 操作一次，那么总体减的值为 $\left\lceil\frac{val_i}{2}\right\rceil\times son\_leaves_i$   
+且这个操作是不影响别的边的贡献次数与值的，所以每次应该选能减的量最大的  
+然后将其减过之后，重新放入堆中排序  
+所以先预处理出来子树中叶子结点的数量，然后建立一个优先队列，里面存的都是下标，排序规则为减得多的在前  
+每次挑选出来堆顶，减完之后重新放入堆中，并判断是否当前值小于 $S$ ，如果小了直接退出  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+const int M = 4e5 + 10;
+struct Edge {
+        int nxt, to;
+        int val;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge (int from, int to, int val) {
+        edge[++cnt] = {head[from], to, val};
+        head[from] = cnt;
+}
+ 
+ll son_leaves[N];
+ll fa_edge[N];
+ 
+inline void dfs_Son (int u, int fa) {
+        bool is_leaf = true;
+        for (int i = head[u]; i; i = edge[i].nxt) {
+                int v = edge[i].to;
+                if (v == fa) {
+                        fa_edge[u] = edge[i].val;
+                        continue;
+                }
+                dfs_Son(v, u);
+                is_leaf = false;
+                son_leaves[u] += son_leaves[v];
+        }
+        son_leaves[u] += is_leaf;
+}
+ 
+struct node {
+        int id;
+        inline friend bool operator < (node a, node b) {
+                return (fa_edge[a.id] + 1) / 2 * son_leaves[a.id] < (fa_edge[b.id] + 1) / 2 * son_leaves[b.id];
+        }
+};
+ 
+int n; ll m;
+inline void Solve () {
+        scanf("%d%lld", &n, &m);
+        for (int i = 1; i <= n; i ++) head[i] = son_leaves[i] = 0; cnt = 0;
+        for (int i = 1; i < n; i ++) {
+                int u, v, w; scanf("%d%d%d", &u, &v, &w);
+                add_Edge(u, v, w);
+                add_Edge(v, u, w);
+        }
+        dfs_Son(1, 1);
+ 
+        ll sum = 0, res = 0;
+        priority_queue<node> pque;
+        for (int i = 2; i <= n; i ++) {
+                pque.push({i});
+                sum += fa_edge[i] * son_leaves[i];
+        }
+        while (!pque.empty()) {
+                if (sum <= m) break;
+                res ++;
+                int id = pque.top().id; pque.pop();
+                sum -= (fa_edge[id] + 1) / 2 * son_leaves[id];
+                fa_edge[id] /= 2;
+                pque.push({id});
+        }
+ 
+        printf("%lld\n", res);
+}
+```
+<hr>
+
+
+### CodeForces1399E2_WeightsDivision（Hard Version）
+
+#### 🔗
+<a href="https://codeforces.com/contest/1399/problem/E2">![20220712102232](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220712102232.png)</a>
+
+#### 💡
+这个和第一个题差不多，但是难的地方在于操作的花费有的是 $1$ 有的是 $2$   
+这两者混在一起进行排序非常难做，因为有的地方用了 $2$ 是浪费，而有的地方必须用 $2$ 才够贪，并且考虑到最后的结果一定是操作了 $x$ 次 $1$ 和操作了 $y$ 次 $2$ ，所以尝试将两者分开处理  
+分开处理可以得到在光操作需要花费 $c$ 的边的时候，操作 $i$ 次后这些边的 $sum$ 最少变成 $v_i$ ，由于每条边花费相同，处理方式和简单版一样    
+两种花费，处理后得到两个数组 $[v1],[v2]$ ，枚举“操作需要花费 $1$ 的边”的次数 $num1$ ，动态减小“操作需要花费 $2$ 的边”的次数 $num2$  
+在满足 $v1[num1]+v2[num2]\le S$ 的情况下，维护 $num1+2\times num2$ 
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+const int M = 4e5 + 10;
+struct Edge {
+        int nxt, to;
+        int val;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge (int from, int to, int val) {
+        edge[++cnt] = {head[from], to, val};
+        head[from] = cnt;
+}
+ 
+ll son_leaves[N];
+ll fa_edge[N];
+ 
+inline void dfs_Son (int u, int fa) {
+        bool is_leaf = true;
+        for (int i = head[u]; i; i = edge[i].nxt) {
+                int v = edge[i].to;
+                if (v == fa) {
+                        fa_edge[u] = edge[i].val;
+                        continue;
+                }
+                dfs_Son(v, u);
+                is_leaf = false;
+                son_leaves[u] += son_leaves[v];
+        }
+        son_leaves[u] += is_leaf;
+}
+ 
+struct node {
+        int id;
+        inline friend bool operator < (node a, node b) {
+                return (fa_edge[a.id] + 1) / 2 * son_leaves[a.id] < (fa_edge[b.id] + 1) / 2 * son_leaves[b.id];
+        }
+};
+ 
+int n; ll m;
+inline void Solve () {
+        scanf("%d%lld", &n, &m);
+        for (int i = 1; i <= n; i ++) head[i] = son_leaves[i] = 0; cnt = 0;
+        for (int i = 1; i < n; i ++) {
+                int u, v, w; scanf("%d%d%d", &u, &v, &w);
+                add_Edge(u, v, w);
+                add_Edge(v, u, w);
+        }
+        dfs_Son(1, 1);
+ 
+        ll sum = 0, res = 0;
+        priority_queue<node> pque;
+        for (int i = 2; i <= n; i ++) {
+                pque.push({i});
+                sum += fa_edge[i] * son_leaves[i];
+        }
+        while (!pque.empty()) {
+                if (sum <= m) break;
+                res ++;
+                int id = pque.top().id; pque.pop();
+                sum -= (fa_edge[id] + 1) / 2 * son_leaves[id];
+                fa_edge[id] /= 2;
+                pque.push({id});
+        }
+ 
+        printf("%lld\n", res);
+}
+```
+<hr>
+
 ## CodeForces1443B_SavingTheCity
 
 #### 🔗
@@ -3218,6 +3436,66 @@ int main () {
 ```
 
 <hr>
+
+## CodeForces1430E_StringReversal
+
+#### 🔗
+<a href="https://codeforces.com/contest/1430/problem/E">![20220707225303](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220707225303.png)</a>
+
+#### 💡
+这就是一个从一个串通过交换相邻的转化为目标串的问题  
+贪心地想，相同的字母不存在交换的情况，即右侧的字母 $c$ 不会跨越左侧任何一个相同的 $c$ 达到它要去的位置  
+那么就可以容易处理出来每一个 $a[i]$ 应该到的位置  
+将这个处理出来的数组进行冒泡排序的次数就是我们需要的最少次数，也就是逆序对数      
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+int n; string a, b;
+int id[26][N]; int idx[26];
+ 
+int t[N << 2];
+inline void pushup (int rt) {
+        t[rt] = t[rt << 1] + t[rt << 1 | 1];
+}
+inline void update (int id, int l, int r, int rt) {
+        if (l == r) {
+                t[rt] ++;
+                return;
+        }
+        int mid = (l + r) >> 1;
+        if (id <= mid) update(id, l, mid, rt << 1);
+        else update(id, mid + 1, r, rt << 1 | 1);
+        pushup(rt);
+}
+inline int query (int a, int l, int r, int rt) {
+        if (l >= a) return t[rt];
+        if (r < a) return 0;
+        int mid = (l + r) >> 1;
+        return query(a, l, mid, rt << 1) + query(a, mid + 1, r, rt << 1 | 1);
+}
+ 
+int main() {
+        cin >> n >> a;
+        a = "0" + a;
+        b = a; reverse(b.begin() + 1, b.end());
+        for (int i = 1; i <= n; i ++) {
+                id[b[i] - 'a'][++idx[b[i] - 'a']] = i;
+        }
+        for (int i = 0; i < 26; i ++) idx[i] = 0;
+ 
+        ll res = 0;
+        for (int i = 1; i <= n; i ++) {
+                int x = id[a[i] - 'a'][++idx[a[i] - 'a']];
+                res += query(x, 1, n, 1);
+                update(x, 1, n, 1);
+        }
+        cout << res << endl;
+        return 0;
+}
+```
+<hr>
+
 
 ## CodeForces1468D_Firecrackers
 
@@ -5399,6 +5677,170 @@ inline void Solve () {
 ```
 <hr>
 
+## CodeForces1702C_TrainAndQueries
+
+#### 🔗
+<a href="https://codeforces.com/contest/1702/problem/C">![20220711110810](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220711110810.png)</a>
+
+#### 💡
+从询问入手，问的两个数的意思是：如果有一个 $x$ 出现在一个 $y$ 的前面，就一定可以到达  
+那么 $x$ 一定想要最靠前的， $y$ 一定想要最靠后的  
+就维护每一个数的最小出现下标与一个数的最大出现下标  
+对于 $x,y$ 用这两者进行比较即可   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void Solve () {
+        int n, m; cin >> n >> m;
+        map<int, int> minid, maxid;
+        vector<int> a(n);
+        for (int i = 0; i < n; i ++) {
+                cin >> a[i];
+                if (!minid.count(a[i])) minid[a[i]] = i;
+        }
+        for (int i = n - 1; i >= 0; i --) {
+                if (!maxid.count(a[i])) maxid[a[i]] = i;
+        }
+        while (m --) {
+                int x, y; cin >> x >> y;
+                if (!minid.count(x) || !maxid.count(y)) {
+                        cout << "NO\n";
+                        continue;
+                }
+                if (minid[x] < maxid[y]) {
+                        cout << "YES\n";
+                } else cout << "NO\n";
+        }
+}
+```
+<hr>
+
+## CodeForces1702F_EquateMultisets
+
+#### 🔗
+<a href="https://codeforces.com/contest/1702/problem/F">![20220711111315](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220711111315.png)</a>
+
+#### 💡
+需要注意到的点是：对于 $[b]$ ，如果 $y$ 能通过除二变成 $x$ ，那么 $x$ 所覆盖的内容一定是 $y$ 的子集  
+所以 $x$ 覆盖的点的量一定是少于 $y$ 的，匹配的时候 $x$ 优先进行匹配。不然会出现 $x$ 只能匹配上一个点但是 $y$ 可以匹配上多个点，但是匹配完 $y$ 后把 $x$ 匹配的点占了，$x$ 就无法匹配的问题。      
+那么首先在读入 $[a]$ 时，先存一下每一个数出现的次数  
+然后对 $[b]$ 排一个序，对于每一个 $x$ 遍历它能变成的所有点（每次除二后不断乘二直到超过 $10^9$ ），遇到第一个匹配上的点就退出并对这个点出现次数减一。如果遇不到匹配的数，就说明这个点没有可以匹配的点了，就输出 `NO` 即可    
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void Solve () {
+        int n; cin >> n;
+        map<int, int> mp;
+        for (int i = 0; i < n; i ++) {
+                int x; cin >> x;
+                while (x % 2 == 0) x /= 2;
+                mp[x] ++;
+        }
+        vector<int> v;
+        for (int i = 0; i < n; i ++) {
+                int x; cin >> x;
+                while (x % 2 == 0) x /= 2;
+                v.push_back(x);
+        }
+        sort(v.begin(), v.end());
+        for (int x : v) {
+                int flag = false;
+                while (1) {
+                        for (int tmpx = x; tmpx <= 1000000000; tmpx *= 2) {
+                                if (mp.count(tmpx)) {
+                                        mp[tmpx] --;
+                                        if (!mp[tmpx]) mp.erase(tmpx);
+                                        flag = true;
+                                        goto end;
+                                }
+                        }
+                        if (x == 1) break;
+                        x /= 2;
+                }
+                end:;
+                if (!flag) {
+                        cout << "NO\n";
+                        return;
+                }
+        }
+        if (mp.size() == 0) cout << "YES\n";
+        else cout << "NO\n";
+}
+```
+<hr>
+
+## CodeForces1713D_TournamentCountdown
+
+#### 🔗
+<a href="https://codeforces.com/contest/1713/problem/D">![20220809001717](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220809001717.png)</a>
+
+#### 💡
+发现询问次数甚至会小于人数，所以必须跳过一些过程。  
+注意在第一轮 $1234$ 的比赛中，在最后一层和倒数第二层赢的次数有 $3,2,1,1$   
+一共两组比赛，我们直接用一组比赛去得到另一组比赛的结果，即询问 $1,3$ 赢的数量的比较  
+如果赢的次数相同，则他们都是输的，直接比 $2,4$ 就行    
+如果一个人赢的次数多，那么他在第一轮是赢的，另一个人在第一轮是输的，那么再比这个人和另一组的另一个没比的人  
+例如 $1$ 赢，就比 $1,4$  
+如果 $3$ 赢，就比 $2,3$  
+  
+这样四个四个讨论能把 $3$ 次确定结果化简为 $2$ 次  
+开一个滚动数组，意味着每次往上跳两层，四个四个进行比较就可以得到答案了。
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline int ask (int a, int b) { // 1:a>b
+        printf("? %d %d\n", a, b); fflush(stdout);
+        int x; scanf("%d", &x);
+        return x;
+}
+int a[2][1000006];
+int cnt[2];
+inline int getWin (int l, int r, int op) {
+        int ask1 = ask(a[op][l], a[op][l + 2]);
+        if (ask1 == 0) {
+                int ask2 = ask(a[op][l + 1], a[op][l + 3]);
+                if (ask2 == 1) return a[op][l + 1];
+                else return a[op][l + 3];
+        } else if (ask1 == 1) {
+                int ask2 = ask(a[op][l], a[op][l + 3]);
+                if (ask2 == 1) return a[op][l];
+                else return a[op][l + 3];
+        } else {
+                int ask2 = ask(a[op][l + 1], a[op][l + 2]);
+                if (ask2 == 1) return a[op][l + 1];
+                else return a[op][l + 2];
+        }
+}
+
+inline void Solve () {
+        int n; scanf("%d", &n);
+        n = 1 << n;
+
+        int idx = 0;
+        cnt[0] = cnt[1] = 0;
+        for (int i = 1; i <= n; i ++) a[!idx][cnt[!idx] ++] = i;
+        while (cnt[!idx] > 2) {
+                cnt[idx] = 0;
+                for (int i = 0; i < cnt[!idx]; i += 4) {
+                        a[idx][cnt[idx] ++] = getWin(i, i + 3, !idx);
+                }
+                idx = !idx;
+        }
+        if (cnt[!idx] == 2) {
+                int ask1 = ask(a[!idx][0], a[!idx][1]);
+                if (ask1 == 1) printf("! %d\n", a[!idx][0]);
+                else printf("! %d\n", a[!idx][1]);
+                fflush(stdout);
+        } else {
+                printf("! %d\n", a[!idx][0]);
+                fflush(stdout);
+        }
+}
+
+```
+<hr>
+
+
 
 ## GYM102174F_风王之瞳
 
@@ -5886,6 +6328,82 @@ int main () {
 ```
 
 <hr>
+
+## ICPC2019南昌E_BobsProblem
+
+#### 🔗
+<a href="https://nanti.jisuanke.com/t/42580">![20220729170130](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220729170130.png)</a>
+
+#### 💡
+白边给了限制，但黑边没有说，所以先把权值加上再说。  
+要保证这是一个生成树，所以我们先用不多于 $k$ 个白边和之前的所有黑边将图连通，这些白边从大到小选。  
+如果无法用不多于 $k$ 条白边和所有黑边构成生成树，那么就是 $-1$，否则说明我们还可以再选几条边，就让没选过的白边从大到小选几条就行了。
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 5e5 + 10;
+
+struct Dsu {
+        vector<int> nod;
+        inline Dsu (int n) {
+                this->nod.resize(n + 1);
+                for (int i = 1; i <= n; i ++) this->nod[i] = i;
+        }
+        inline int find (int x) { return x == nod[x] ? x : nod[x] = find(nod[x]); }
+        inline void merge (int x, int y) {
+                x = find(x);
+                y = find(y);
+                if (x == y) return;
+                nod[x] = y;
+        }
+        inline bool is_similar (int x, int y) {
+                return find(x) == find(y);
+        }
+};
+
+inline void Solve () {
+        int n, m, k; cin >> n >> m >> k;
+        Dsu dsu(n);
+        vector<tuple<int, int, int> > wht;
+        ll res = 0, cnt = 0;
+        for (int i = 0; i < m; i ++) {
+                int u, v, w, c; cin >> u >> v >> w >> c;
+                if (c) {
+                        wht.push_back({u, v, w});
+                } else {
+                        res += 1ll * w;
+                        cnt += !dsu.is_similar(u, v);
+                        dsu.merge(u, v);     
+                }
+        }
+        sort(wht.begin(), wht.end(), [&](tuple<int, int, int> a, tuple<int, int, int> b) {
+                return get<2>(a) > get<2>(b);
+        });
+        vector<tuple<int, int, int> > els;
+        for (auto [u, v, w] : wht) {
+                if (k && !dsu.is_similar(u, v)) {
+                        cnt ++;
+                        k --;
+                        dsu.merge(u, v);
+                        res += 1ll * w;
+                } else els.push_back({u, v, w});
+        }
+        if (cnt != n - 1) {
+                cout << "-1\n";
+                return;
+        }
+        for (auto [u, v, w] : els) {
+                if (k) {
+                        res += 1ll * w;
+                        k --;
+                }
+        }
+        cout << res << endl;
+
+}
+```
+<hr>
+
 
 ## ICPC2019台北E_TheLeagueOfSequenceDesigners
 

@@ -338,6 +338,85 @@ int main () {
 ```
 <hr>
 
+## 洛谷P1948_TelephoneLinesS
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P1948">![20220714170902](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220714170902.png)</a>
+
+#### 💡
+以最大的那一条边做价值，经典二分答案的套路了  
+`check(x)` 表示路径上是否可以走不超过 $k$ 条边权 $\ge x$ 的边，这些边可以免费    
+在此我们希望路径上大于等于 $x$ 的越少越好，那就以 $[val\ge x]$ 做权值，只有 $1$ 和 $0$ 来跑最短路  
+最终 $dis[n]$ 则是从 $1$ 到 $n$ 最少有几个边权 $\ge x$ 的边  
+如果这个数量 $\le k$ 了说明我们还可以继续往 $x$ 小了找，否则要放松范围往 $>x$ 了找  
+最后二分出来的结果就是答案  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1003;
+const int M = 20004;
+struct Edge {
+        int nxt, to, val;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge (int from, int to, int val) {
+        edge[++cnt] = {head[from], to, val};
+        head[from] = cnt;
+}
+
+int dis[N];// 1->i最少有多少个 长度>x的边
+int vis[N];
+int n, p, k;
+
+struct node {
+        int id, val;
+        inline friend bool operator < (node a, node b) {
+                return a.val > b.val;
+        }
+};
+inline bool check (int x) {
+        for (int i = 1; i <= n; i ++) dis[i] = 0x3f3f3f3f, vis[i] = 0;
+        dis[1] = 0;
+        priority_queue<node> pque;
+        pque.push({1, 0});
+        while (!pque.empty()) {
+                int u = pque.top().id; pque.pop();
+                if (vis[u]) continue; vis[u] = 1;
+                for (int i = head[u]; i; i = edge[i].nxt) {
+                        int v = edge[i].to;
+                        int d = edge[i].val >= x;
+                        if (dis[v] > dis[u] + d) {
+                                dis[v] = dis[u] + d;
+                                pque.push({v, dis[v]});
+                        }
+                }
+        }
+        return dis[n] <= k;
+}
+
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+
+        cin >> n >> p >> k;
+        for (int i = 0; i < p; i ++) {
+                int u, v, w; cin >> u >> v >> w;
+                add_Edge(u, v, w);
+                add_Edge(v, u, w);
+        }
+        int l = 0, r = 1000000, res = 1000001;
+        while (l <= r) {
+                int mid = (l + r) >> 1;
+                if (check(mid)) res = mid, r = mid - 1;
+                else l = mid + 1;
+        }
+        if (res == 0) res = 1;
+        else if (res == 1000001) res = 0;
+        cout << res - 1 << endl;
+}
+```
+<hr>
+
 
 
 ## 洛谷P2323_公路修建问题
@@ -1510,6 +1589,74 @@ inline void Solve () {
 <hr>
 
 
+## HDU2022多校(3)B_BossRush
+
+#### 🔗
+<a href="https://vjudge.net/problem/HDU-7163">![20220727221905](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220727221905.png)</a>
+
+#### 💡
+在限制条件下找最值，注意到随着值的变大，限制是从满足不了到满足的，这是一个单调性，考虑二分。  
+选取一个值 $x$ ，找到最优的填技能的方式  
+注意到 $n\le 18$ ，用状态表示，对于同一种选择技能的状态，花费的时间 $alt$  是固定的，即里面所有 $1$ 的 $cd$ 总和对 $x$ 取 $min$ 。那么我下一步选择第 $i$ 个技能能放出来的伤害也能得知，即 $\sum\limits_{j=1}^{min(cd_i,x-alt)}d[i]_j$ ，这个可以前缀和预处理出来。  
+既然我们要伤害最大，那么用 $dp[S]$ 存储状态 $S$ 的伤害，在每一次选取新技能的时候维护 $dp[S|2^i]=max(dp[S]+sum[i][min(cd_i,x-alt)])$ 即可  
+最后看最大伤害是否满足限制（大于等于 $H$）是对于选定值 $x$ 的单调性，依次进行二分答案。    
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int n;
+ll H;
+int t[20], len[20];
+ll d[20][100005];
+ll sum[20][100005];
+ll alt[1000006];
+
+ll dp[1000006];
+inline bool check (int T) {
+        for (int S = 0; S < (1 << n); S ++) dp[S] = -1;
+        dp[0] = 0;
+        ll res = 0;
+        for (int S = 0; S < (1 << n); S ++) {
+                if (dp[S] < 0) continue;
+                if (dp[S] >= H) return 1;
+                int cT = T - alt[S];
+                if (cT <= 0) continue;
+                for (int i = 0; i < n; i ++) {
+                        if (S >> i & 1) continue;
+                        dp[S | (1 << i)] = max(dp[S | (1 << i)], dp[S] + sum[i][min(len[i], cT)]);
+                        res = max(res, dp[S | (1 << i)]);
+                }
+        }
+        return res >= H;
+}
+
+inline void Solve () {
+        memset(alt, 0, sizeof alt);
+
+        cin >> n >> H;
+        for (int i = 0; i < n; i ++) {
+                cin >> t[i] >> len[i];
+                for (int j = 1; j <= len[i]; j ++) {
+                        cin >> d[i][j];
+                        sum[i][j] = sum[i][j - 1] + d[i][j];
+                }
+        }
+
+        for (int S = 0; S < (1 << n); S ++) {
+                for (int i = 0; i < n; i ++) {
+                        if (S >> i & 1) alt[S] += t[i];
+                }
+        }
+
+        int l = 0, r = 1e9, res = 1e9;
+        while (l <= r) {
+                int mid = (l + r) >> 1;
+                if (check(mid)) res = mid - 1, r = mid - 1;
+                else l = mid + 1;
+        }
+        cout << (res == 1e9 ? -1 : res) << endl;
+}
+```
+<hr>
 
 
 
