@@ -5,6 +5,52 @@ title: 区间DP
 
 <hr>
 
+## 河南萌新联赛2022（6）J_对称括号串
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/39114/J">![20220816101438](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220816101438.png)</a>
+
+#### 💡
+全局对称，只有局部对称才有可能让全局对称，且看到 $n\le 1000$ ，明显区间 $dp$  
+令 $dp[l][r]$ 表示区间 $[l,r]$ 对称的最小花费  
+那么首先是一个不计任何情况的转移  
+区间长度从小到大，既然 $[l+1,r]$ 已经对称了，那么消除掉 $s[l]$ 的不对称即可，即 $dp[l][r]=min(dp[l][r],dp[l+1][r]+s[l]='('?min(a,d):min(b,c)))$  
+同理 $[l,r-1]$ 已经对称，消掉 $s[r]$ 的不对称 $dp[l][r]=min(dp[l][r],dp[l][r-1]+s[r]='('?min(a,d):min(b,c)))$   
+但是有可能我们不消掉任何的东西就可以对称，即 $s[l]\neq s[r]$ 的时候， $dp[l][r]$ 可以通过不花费任何的价钱从 $dp[l+1][r-1]$ 转移过来  
+转移结束，码就完了
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int n, a, b, c, d;
+string s;
+int dp[1010][1010];
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    cin >> n;
+    cin >> s; s = " " + s;
+    cin >> a >> b >> c >> d;
+
+    memset(dp, 0x3f, sizeof dp);
+    for (int i = 1; i <= n; i ++) dp[i + 1][i] = 0;
+
+    for (int len = 1; len <= n; len ++) {
+        for (int i = 1; i + len - 1 <= n; i ++) {
+            int j = i + len - 1;
+            dp[i][j] = min(dp[i][j], dp[i + 1][j] + (s[i] == '(' ? min(a, d) : min(b, c)));
+            dp[i][j] = min(dp[i][j], dp[i][j - 1] + (s[j] == '(' ? min(a, d) : min(b, c)));
+            if (s[i] != s[j]) dp[i][j] = min(dp[i][j], dp[i + 1][j - 1]);
+        }
+    }
+
+    cout << dp[1][n] << endl;
+}
+```
+<hr>
+
+
 ## 洛谷P1005_矩阵取数游戏
 
 #### 🔗

@@ -82,6 +82,35 @@ int main () {
 
 <hr>
 
+## 牛客2022多校（加赛）J_JellyfishAndItsDream
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/38727/J">![20220817214747](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220817214747.png)</a>
+
+#### 💡
+环上修改，看看整体能不能修改到一样，这是一个差分的套路  
+修改到一样意味着差分数组为零，对于一次修改，它只能加一后等于下一个。  
+而修改不了的位置可以视作差分减值的垃圾箱，可以将前面任意位置的加值结尾为这个垃圾箱，那么只要保证加法不少于垃圾箱的个数即可，如果加法少于垃圾箱，则意味着垃圾箱喂不满，即为 $No$  
+否则为 $Yes$  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void Solve () {
+    int n; cin >> n;
+    vector<int> a(n); for (int &i : a) cin >> i;
+
+    int add = 0, del = 0;
+    for (int i = 0; i < n; i ++) {
+        if (a[(i + 1) % n] == (a[i] + 1) % 3) add ++;
+        if (a[(i + 1) % n] == (a[i] + 2) % 3) del ++;
+    }
+    if (add >= del) cout << "Yes\n";
+    else cout << "No\n";
+}
+```
+<hr>
+
+
 ## 牛客2022寒假算法基础集训营5I_兔崽小孩
 
 #### 🔗

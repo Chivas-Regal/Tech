@@ -6,6 +6,105 @@ title: 哈希表
 
 ## hash
 
+### 牛客2022多校（9）G_MagicSpells
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/33194/G">![20220815223659](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220815223659.png)</a>
+
+#### 💡
+回文串，如果硬截取的话，是 $n^2$ 的复杂度，内存也不够  
+回文串就考虑 $Manacher$ ，注意其中的 $len[]$ 最开始是一个继承的关系，它继承对称中心前面的也就代表 $[i-len_i,i+len_i]$ 这一部分的都已经算过了，只有在扩展的时候 “有可能会出现新的回文串” ，在做统计某个回文串是否出现在这个字符串中的方式可以使用 字符串$Hash$   
+对第 $i$ 个串的回文串让其权值 $map[hash]$ 与上 $2^i$  ，这样在最后枚举所有的回文串看其权值是否为 $2^k-1$ 即可  
+  
+注意到本题字符串过多可能会出现冲突的情况，开一个双哈希即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e6 + 10;
+const ll mod1 = 2000000011;
+const ll mod2 = 3000000019;
+const int HASH1 = 20023;
+const int HASH2 = 20011;
+ll h1[N], h2[N];
+ll sum1[N], sum2[N];
+inline ll query1 (int l, int r) {
+    return ((sum1[r] - sum1[l - 1] * h1[r - l + 1] % mod1) % mod1 + mod1) % mod1;
+}
+inline ll query2 (int l, int r) {
+    return ((sum2[r] - sum2[l - 1] * h2[r - l + 1] % mod2) % mod2 + mod2) % mod2;
+}
+inline pair<ll, ll> query (int l, int r) {
+    return {query1(l, r), query2(l, r)};
+}
+
+int n;
+char s[N], t[N];
+inline void Init () {
+    s[0] = '@';
+    for (int i = 1; i <= n; i += 2) {
+        s[i] = '#';
+        s[i + 1] = t[(i + 1) >> 1];
+    }
+    s[n + 1] = '#', s[n + 2] = '$'; s[n + 3] = '\0';
+    sum1[0] = sum2[0] = '@';
+    for (int i = 1; i <= n + 2; i ++) {
+        sum1[i] = (sum1[i - 1] * HASH1 % mod1 + s[i]) % mod1;
+        sum2[i] = (sum2[i - 1] * HASH2 % mod2 + s[i]) % mod2;
+    }
+}
+int len[N];
+
+map<pair<ll, ll>, int> mp;
+inline void Manacher (int cur) {
+    int p = 0, po = 0;
+    for (int i = 1; i <= n; i ++) {
+        if (p > i) {
+            len[i] = min(len[po * 2 - i], p - i);
+        } else {
+            len[i] = 0;
+        }
+        while (s[i + len[i] + 1] == s[i - len[i] - 1]) {
+            len[i] ++;
+            if (s[i + len[i]] == '#') {
+                mp[query(i - len[i], i + len[i])] |= (1 << cur);
+            }
+        }
+        if (i + len[i] > p) {
+            p = i + len[i];
+            po = i;
+        }
+    }
+}
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    h1[0] = h2[0] = 1;
+    for (int i = 1; i < N; i ++) {
+        h1[i] = h1[i - 1] * HASH1 % mod1;
+        h2[i] = h2[i - 1] * HASH2 % mod2;
+    }
+
+    int k; cin >> k;
+    for (int i = 0; i < k; i ++) {
+        cin >> (t + 1);
+        n = strlen(t + 1);
+        n <<= 1;
+        Init();
+        Manacher(i);
+    }
+
+    int res = 0;
+    for (auto x : mp) {
+        if (x.second == (1 << k) - 1) res ++;
+    }
+    cout << res << endl;
+}
+```
+<hr>
+
+
 ### 牛客NC50986_兔子与兔子
 
 #### 🔗

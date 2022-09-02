@@ -6,6 +6,66 @@ title: 筛法
 
 ## 埃氏筛
 
+### 牛客NC228910_PrimeDistance
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/problem/228910">![20220817234417](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220817234417.png)</a>
+
+#### 💡
+根据素数判定的 $2\le i\le \sqrt{x}$ 可生推论  
+若要筛去所有 $[l,r]$ 的合数，他们最小的素因数一定小于等于 $\sqrt{r}$，因为若存在一个大于 $\sqrt{r}$ 的素因数，那么必然存在一个小于 $\sqrt{r}$ 的素因数   
+所以用 $\sqrt{r_{max}}$ 的素数用埃氏筛去将 $[l,r]$ 内的合数全筛出来，然后枚举两两素数之间的距离即可  
+注意这本身是 $O(nlogn)$ 如果再加一个 $logn$ 存一个数是不是合数可能跑不过去，这里可以将 $x$ 映射为 $x-l$ ，使用数组查询即可  
+        
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+bool ntp[N];
+vector<int> pr;
+inline void Sieve () {
+    ntp[0] = ntp[1] = 1;
+    for (int i = 2; i < N; i ++) {
+        if (!ntp[i]) pr.push_back(i);
+        for (int j = 0; j < pr.size() && i * pr[j] < N; j ++) {
+            ntp[i * pr[j]] = 1;
+            if (i % pr[j] == 0) break;
+        }
+    }
+}
+int book[1000006];
+inline void Solve () {
+    int l, r; scanf("%d%d", &l, &r);
+
+    vector<int> now_prime;
+    vector<int> now_not_prime;
+    for (int i : pr) {
+        for (ll j = (1ll * l + i - 1) / i * i; j <= r; j += i) {
+            if (j == i) continue;
+            book[j - l] = 1;
+            now_not_prime.push_back(j - l);
+        }
+    }
+    for (int i = l; i <= r; i ++) {
+        if (i == 1 || i == 0) continue;
+        if (!book[i - l]) now_prime.push_back(i);
+    }
+    if (now_prime.size() <= 1) {
+        puts("There are no adjacent primes.");
+    } else {
+        pair<int, int> mindis = {0, 0x3f3f3f3f}, maxdis = {1, 0};
+        for (int i = 1; i < now_prime.size(); i ++) {
+            if (now_prime[i] - now_prime[i - 1] < mindis.second - mindis.first) mindis = {now_prime[i - 1], now_prime[i]};
+            if (now_prime[i] - now_prime[i - 1] > maxdis.second - maxdis.first) maxdis = {now_prime[i - 1], now_prime[i]};
+        }
+        printf("%d,%d are closest, %d,%d are most distant.\n", mindis.first, mindis.second, maxdis.first, maxdis.second);
+    }
+
+    for (int i : now_not_prime) book[i] = 0;
+}
+```
+<hr>
+
+
 ### ABC249D_IndexTrio
 
 #### 🔗

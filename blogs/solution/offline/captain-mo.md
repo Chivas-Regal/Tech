@@ -309,6 +309,67 @@ int main () {
 ```
 <hr>
 
+### ICPC2022昆明E_EasyStringProblem
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/32708/E">![20220901224556](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220901224556.png)</a>
+
+#### 💡
+$10^5$ 的区间问题，考虑莫队  
+看看在递进区间时，我们可以通过一个点得到什么需要维护的信息  
+要得到删去后不同串的数量比较难，正难则反，可以看看删去后相同的串的数量  
+删去的剩下的要相等，如果一个串两侧剩下相同的那么留谁都可以，所以定义 $numr[i]$ 为右侧字符 $i$ 的数量，$numl[i]$ 为左侧字符 $i$ 的数量，选取区间剩余相同的数量为 $\sum\limits_{i}numl[i]numr[i]$    
+所以用这个来维护莫队的动态加点删点即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+struct Query {int l, r, i;} qry[N];
+int n, q, sq;
+int a[N];
+ll res[N];
+
+ll _res;
+int num[2][N];
+inline void add (int x, int op) {
+    num[op][a[x]] ++;
+    _res += num[!op][a[x]];
+}
+inline void del (int x, int op) {
+    num[op][a[x]] --;
+    _res -= num[!op][a[x]];
+}
+
+inline int p (int x) { return x / sq; }
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    cin >> n;
+    for (int i = 1; i <= n; i ++) cin >> a[i];
+    sq = sqrt(n);
+    cin >> q;
+    for (int i = 1; i <= q; i ++) cin >> qry[i].l >> qry[i].r, qry[i].i = i;
+
+    sort(qry + 1, qry + 1 + q, [&](Query a, Query b) {
+        if (p(a.l) != p(b.l)) return a.l < b.l;
+        if (p(a.l) & 1) return a.r < b.r;
+        return a.r > b.r;
+    });
+    
+    int L = 1, R = n;
+    for (int i = 1; i <= q; i ++) {
+        while (L < qry[i].l) del(L ++, 0);
+        while (L > qry[i].l) add(-- L, 0);
+        while (R < qry[i].r) add(++ R, 1);
+        while (R > qry[i].r) del(R --, 1);
+        res[qry[i].i] = 1ll * L * (n - R + 1) - _res;
+    }
+    for (int i = 1; i <= q; i ++) cout << res[i] << endl;
+}
+```
+<hr>
 
 
 ## 带修莫队

@@ -784,6 +784,60 @@ int main () {
 ```
 <hr>
 
+## 牛客2022多校（9）E_LongestIncreasingSubsequence
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/33194/E">![20220815221919](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220815221919.png)</a>
+
+#### 💡
+这种构造完，让和等于某个数的可以往二进制上想，因为任何一个数都可以被转换为二进制。  
+如果我们对其进行分段，让每一段只有一个可以选，根据乘法原理结果将是所有段长的乘积。  
+那么如果 $m=2^x$ ，可以分为 $x$ 个长度为 $2$ 的段，但是二进制上有 $1$ ，考虑如何在 $1$ 的时候做出贡献。  
+段长依旧是 $2$ ，但是在出现 $1$ 时，只要让固定数量的段可以转移过来即可。  
+即若 $m=2^a+2^b+2^c$ ，就是有前 $a$ 段可以直接转移到后面，前 $b$ 段可以直接转移到后面，前 $c$ 段可以直接转移到后面  
+就将构造出来的串分为两部分，前面一部分是一些长度为 $2$ 的段，后面是递增的一些数，每段都是 $i+1,i$ 形式的  
+当遇到 $1$ 时，我们后面那一部分的数要扩展到和段数一样多，才能保证如果前面的段转移过来走到结尾是一个最长上升子序列  
+而且每次转移必须要保证只有前面的 $x$ 段可以转移过来，即如果 $2\;1\;4\;3\;......\;5\;....$ 就代表着 $5$ 只可以通过前面的两段转移过来，达到存在位置贡献 $1$ 的二进制串
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void Solve () {
+    int m; cin >> m;
+
+    if (m == 1) {
+        cout << 1 << endl << 1 << endl;
+        return;
+    }
+
+    vector<int> bit; while (m) bit.push_back(m & 1), m >>= 1;
+
+    int num = 1;
+    vector<int> w;
+    for (int i = bit.size() - 2; i >= 0; i --) {
+        if (bit[i]) {
+            w.push_back(num);
+            num = 0;
+        } else w.push_back(0);
+        num ++;
+    } reverse(w.begin(), w.end());
+
+    vector<int> res1, res2;
+    int idx = 0;
+    for (int i : w) {
+        for (int j = 0; j < i; j ++) res2.push_back(++idx);
+        res1.push_back(idx + 2);
+        res1.push_back(idx + 1);
+        idx += 2;
+    }
+
+    cout << res1.size() + res2.size() << endl;
+    for (int i : res1) cout << i << " ";
+    for (int i : res2) cout << i << " ";
+    cout << endl;
+}
+```
+<hr>
+
 
 ## 牛客2022寒假算法基础集训营
 
@@ -1356,6 +1410,57 @@ int main () {
 }
 ```
 
+<hr>
+
+## 省赛2021上海B_小A的卡牌游戏
+
+#### 🔗
+<a href="https://codeforces.com/gym/103186/problem/B">![20220830183122](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220830183122.png)</a>
+
+#### 💡
+这是一个三元组，问题化简到二元组去思考  
+即如果只有 $AB$ 的话，可以让 $B$ 先选，但要求是不能过度影响 $A$ 的选择  
+一个基础的想法是让 $B$ 选第二列最大的几个，但是这样可能会导致出现类似于 $(1,5),(5,7)$ 这样的两个二元组，如果 $B$ 先选了第二个二元组的 $7$ ，然后 $A$ 只能选 $1$ ，是比较亏的  
+所以我们肯定是希望 $B$ 选的二元组中，在不选 $a$ 选 $b$ 的情况下，赚得多或者亏得少，转化过来就是 $b-a$ 尽可能大  
+所以按 $b-a$ 从大到小排序，然后顺次选择即可  
+回归到三元组上，多了一个 $C$ ，$C$ 是一个分配问题，而且在排序完之后就是一个二维的，怎么写都行，这里开一个 $dp[i][j]$ 表示第 $i$ 个之前，$C$ 选了 $j$ 个  
+那么在转移的时候，如果 $j>0$ ，这一个可以选 $j$ ，$dp[i][j]=max(dp[i][j],dp[i-1][j-1]+c_i)$  
+如果不选 $c$ ，看看到这一步为止有多少个不选 $c$ 的，即 $i-j$ ，如果不够 $B$ 个，那么优先选 $b$ ，否则选 $a$  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+struct Pick {
+    int a, b, c;
+    inline friend bool operator < (Pick A, Pick B) {
+        return A.b - A.a > B.b - B.a;
+    }
+};
+
+ll dp[5100][5100];
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; cin >> n;
+    int A, B, C; cin >> A >> B >> C;
+
+    vector<Pick> v(n + 1);
+    for (int i = 1; i <= n; i ++) {
+        cin >> v[i].a >> v[i].b >> v[i].c;
+    } sort(v.begin() + 1, v.end());
+
+    memset(dp, -0x3f, sizeof dp);
+    for (int i = 0; i < 5100; i ++) dp[i][0] = 0;
+    for (int i = 1; i <= n; i ++) {
+        for (int j = 0; j <= i && j <= C; j ++) {
+            if (j) dp[i][j] = max(dp[i][j], dp[i - 1][j - 1] + v[i].c);
+            if (i - j <= B) dp[i][j] = max(dp[i][j], dp[i - 1][j] + v[i].b);
+            else dp[i][j] = max(dp[i][j], dp[i - 1][j] + v[i].a);
+        }   
+    }
+    cout << dp[n][C] << endl;
+}
+```
 <hr>
 
 ## 省赛2022江苏L_CollectingDiamonds

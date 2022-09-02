@@ -4,6 +4,97 @@ title: 栈
 ###  
 <hr>
 
+## 河南萌新联赛2022（6）I_打工装货
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/39114/I">![20220816095418](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220816095418.png)</a>
+
+#### 💡
+这个比较明显是 $dp$ 首先分析一下转移，$dp_i=\min\limits_{j=1}^{i-1}(dp_j+max[j+1,i]-min[j+1,i])$ 由于 $n$ 过大这个 $min$ 可以用区间查询  
+而里面的 $max[],min[]$ 则需要一个能表示出来一组可以作为区间极值的点，这就是一个典型的单调栈维护了  
+两组区间极值，那必然是一个单调递增栈和一个单调递减栈，在退栈的时候，对于退出的 $x$ 其需要撤回的作用为新栈顶 $y$ 到 $x-1$ 这一段，它们会被更换为 $w_i$ ，$\max$ 是加法，那么应该减完原始的贡献然后加上新的贡献，即 $[y,x-1]$ 区间减 $w[x]$ 然后加上 $w[i]$ ，对于 $\min$ 则相反，因为本身是减，应该加上原始贡献再减新贡献，即 $[y,x-1]$ 区间加 $w[x]$ 然后减 $w[i]$（注意着两个 $x$ 是分别在不同栈下退出的栈顶）  
+区间减后查询区间最小值加 $M$ 就是 $dp_i$ 的结果，但是注意到还有一个条件为区间和不能超过 $W$ ，这个就意味着只有有限的 $j$ 可以转移到 $i$ ，$j$ 用一个双指针保证 $sum[j,i]$ 不超过 $W$ 就行了，然后区间查询最小值  
+得到 $dp_i$ 后单点更新一下 $i$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 5e5 + 10;
+struct node {
+    ll mn, lazy;
+} t[N << 2];
+inline void pushup (int rt) {
+    t[rt].mn = min(t[rt << 1].mn, t[rt << 1 | 1].mn);
+}
+inline void pushdown (int l, int r, int rt) {
+    if (!t[rt].lazy) return;
+    t[rt << 1].lazy += t[rt].lazy;
+    t[rt << 1 | 1].lazy += t[rt].lazy;
+    t[rt << 1].mn += t[rt].lazy;
+    t[rt << 1 | 1].mn += t[rt].lazy;
+    t[rt].lazy = 0;
+}
+inline void update (int a, int b, ll c, int l, int r, int rt) {
+    if (a <= l && r <= b) {
+        t[rt].lazy += c;
+        t[rt].mn += c;
+        return;
+    }
+    int mid = (l + r) >> 1;
+    pushdown(l, r, rt);
+    if (a <= mid) update(a, b, c, l, mid, rt << 1);
+    if (b > mid) update(a, b, c, mid + 1, r, rt << 1 | 1);
+    pushup(rt);
+}
+inline ll query (int a, int b, int l, int r, int rt) {
+    if (a <= l && r <= b) return t[rt].mn;
+    pushdown(l, r, rt);
+    int mid = (l + r) >> 1;
+    ll res = 1e18;
+    if (a <= mid) res = min(res, query(a, b, l, mid, rt << 1));
+    if (b > mid) res = min(res, query(a, b, mid + 1, r, rt << 1 | 1));
+    return res;
+}
+int n, m;
+ll M, W;
+ll w[N], sumw[N];
+
+int stk_min[N], mintop;
+int stk_max[N], maxtop;
+ll dp[N];
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    cin >> n >> m >> M >> W;
+    for (int i = 1; i <= n; i ++) cin >> w[i], sumw[i] = sumw[i - 1] + w[i];
+
+    while (m --) {
+        int l, r; cin >> l >> r;
+        if (sumw[r] - sumw[l - 1] > W) cout << "N0\n";
+        else cout << "YE5\n";
+    }
+
+    int j = 0; ll sum = 0;
+    for (int i = 1; i <= n; i ++) {
+        sum += w[i]; while (sum > W) sum -= w[j ++];
+        while (mintop && w[stk_min[mintop]] > w[i]) {
+            update(stk_min[mintop - 1], stk_min[mintop] - 1, + w[stk_min[mintop]] - w[i], 0, n, 1);
+            mintop --;
+        } stk_min[++mintop] = i;
+        while (maxtop && w[stk_max[maxtop]] < w[i]) {
+            update(stk_max[maxtop - 1], stk_max[maxtop] - 1, - w[stk_max[maxtop]] + w[i], 0, n, 1);
+            maxtop --;
+        } stk_max[++maxtop] = i;
+        dp[i] = query(j - 1, i - 1, 0, n, 1) + M;
+        update(i, i, dp[i], 0, n, 1);
+    }
+    cout << dp[n] << endl;
+}
+```
+<hr>
+
+
 ## 蓝桥杯2021_双向排序
 
 #### 🔗

@@ -921,6 +921,66 @@ int main () {
 
 <hr>
 
+### 洛谷P2568_GCD
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P2568">![20220810211956](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220810211956.png)</a>
+
+#### 💡  
+
+公式转化：   
+
+$\begin{aligned}
+&\sum\limits_{i=1}^n\sum\limits_{j=1}^n[(i,j)\in p]\\
+=&\sum\limits_{d\in p}\sum\limits_{i=1}^n\sum\limits_{j=1}^n[(i,j)=d]\\
+=&\sum\limits_{d\in p}\sum\limits_{i=1}^{\frac nd}\sum\limits_{j=1}^{\frac nd}[(i,j)=1]
+\end{aligned}$  
+注意到后面这两重连加很像欧拉函数的意义，让 $j$ 枚举到 $i$ ，就是欧拉函数了  
+不过需要乘二表示 $ij$ 谁大谁小都可以，但是 $i=j=1$ 的情况乘二贡献也被乘了二，所以还要再减一  
+即  
+$\sum\limits_{d\in p}(2\sum\limits_{i=1}^{\frac nd}\phi(i)-1)$  
+其中 $\sum\limits_{i=1}^{\frac nd}\phi(i)$ 预处理一下前缀和或者从小到大动态累加（ $d$ 从大到小 ）  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e7 + 10;
+bool ntp[N];
+ll phi[N];
+vector<int> prime;
+inline void Sieve () {
+        phi[1] = ntp[0] = ntp[1] = 1;
+        for (int i = 2; i < N; i ++) {
+                if (!ntp[i]) prime.push_back(i), phi[i] = i - 1;
+                for (int j = 0; j < prime.size() && i * prime[j] < N; j ++) {
+                        ntp[i * prime[j]] = 1;
+                        if (i % prime[j] == 0) {
+                                phi[i * prime[j]] = phi[i] * prime[j];
+                                break;
+                        }
+                        phi[i * prime[j]] = phi[i] * (prime[j] - 1);
+                }
+        }
+}
+int main () {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+        Sieve();
+        
+        int n; cin >> n;
+        
+        ll sum = 0; int idx = 0;
+        ll res = 0;
+        for (int i = upper_bound(prime.begin(), prime.end(), n) - prime.begin() - 1; i >= 0; -- i) {
+                int d = prime[i];
+                while (idx < n / d) sum += phi[++idx];
+                res += sum * 2 - 1;
+        }
+        cout << res << endl;
+}
+```
+<hr>
+
+
 ### 牛客2022寒假算法基础集训营1D_牛牛做数论
 
 #### 🔗
@@ -1874,7 +1934,7 @@ CHIVAS{
 ### Question_phi
 
 #### 🔗
-<h3>❓：给出若干个正整数<img src="https://latex.codecogs.com/svg.image?n" title="n" />，请你求出最小的<img src="https://latex.codecogs.com/svg.image?m" title="m" />，使得<img src="https://latex.codecogs.com/svg.image?\phi(m)\ge&space;n" title="\phi(m)\ge n" />。<h3>
+**给出若干个正整数<img src="https://latex.codecogs.com/svg.image?n" title="n" />，请你求出最小的<img src="https://latex.codecogs.com/svg.image?m" title="m" />，使得<img src="https://latex.codecogs.com/svg.image?\phi(m)\ge&space;n" title="\phi(m)\ge n" />。**
 
 #### 💡
 首先要很容易想到一个性质：x为素数时，<img src="https://latex.codecogs.com/svg.image?\phi(x)=x-1" title="\phi(x)=x-1" />    
