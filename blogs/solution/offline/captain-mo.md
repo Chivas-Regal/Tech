@@ -371,6 +371,87 @@ int main () {
 ```
 <hr>
 
+### HDU2021多校(1)J_zoto
+
+#### 🔗
+<a href="https://acm.hdu.edu.cn/showproblem.php?pid=6959">![20220915162325](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220915162325.png)</a>
+
+#### 💡
+
+::: tips 解前 $PS$
+两种偏序关系，使用可持久化线段树造区间线段树吧，写了一会儿发现不行，带减法，意思是要减之后还存在的 $y$ 的不同的数量，维护不了...  
+那么 $CDQ$ 分治的儿子纯树状数组，离线所有的点做二维前缀和，不行还是带减法...  
+（以上思路想和实现一共用了三个小时...）  
+:::  
+  
+在做不了前缀减得区间的情况下，思考另一种跑 $RMQ$ 的方式：莫队  
+线段树动态维护所有的 $y$ ，$cnt[y_i]$ 为零该加时插入，$cnt[y_i]$ 为 $1$ 该减时删去，对于查询求一下线段树里面 $[l_y,r_y]$ 的区间和即可（TLE）  
+虽然它有 $10^5$ ，但它是 $2.5$ 秒耶，线段树 $T$ 了，试试树状数组（AC）....     
+（我是笨瓜）  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+int cnt[N];
+
+int t[N];
+inline int lowbit (int x) {return x & -x;}
+inline void update (int id, int va) { while (id < N) t[id] += va, id += lowbit(id);}
+inline int query (int id) { int ret = 0; while (id) ret += t[id], id -= lowbit(id); return ret; }
+inline int query (int l, int r) { return query(r) - query(l - 1); }
+
+
+
+int sq;
+inline int pos (int x) {return x / sq;}
+struct Query {
+    int l, r, l1, r1, id;
+    inline friend bool operator < (Query a, Query b) {
+        if (pos(a.l) != pos(b.l)) return a.l < b.l;
+        if (pos(a.l) & 1) return a.r > b.r;
+        return a.r < b.r;
+    }
+} qry[N];
+inline void add (int x) {
+    if (!cnt[x]) update(x, 1);
+    cnt[x] ++;
+}
+inline void del (int x) {
+    cnt[x] --;
+    if (!cnt[x]) update(x, -1);
+}
+
+int a[N];
+int res[N];
+inline void Solve () {
+    memset(cnt, 0, sizeof cnt);
+    memset(t, 0, sizeof t);
+
+    int n, q; scanf("%d%d", &n, &q);
+    sq = sqrt(n);
+    for (int i = 1; i <= n; i ++) {
+        scanf("%d", &a[i]);
+        a[i] += 2;
+    }
+    for (int i = 0; i < q; i ++) {
+        scanf("%d%d%d%d", &qry[i].l, &qry[i].l1, &qry[i].r, &qry[i].r1), qry[i].id = i;
+        qry[i].l1 += 2;
+        qry[i].r1 += 2;
+    }
+    sort(qry, qry + q);
+
+    for (int L = 1, R = 0, i = 0; i < q; i ++) {
+        while (L < qry[i].l) del(a[L ++]);
+        while (R > qry[i].r) del(a[R --]);
+        while (L > qry[i].l) add(a[-- L]);
+        while (R < qry[i].r) add(a[++ R]);
+        res[qry[i].id] = query(qry[i].l1, qry[i].r1);
+    }
+    for (int i = 0; i < q; i ++) printf("%d\n", res[i]);
+}
+```
+<hr>
+
 
 ## 带修莫队
 

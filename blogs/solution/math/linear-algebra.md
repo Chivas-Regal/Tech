@@ -191,6 +191,127 @@ int main () {
 
 <hr>
 
+### ICPC2020济南A_MatrixEquation
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/10662/A">![20220902232028](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220902232028.png)</a>
+
+#### 💡
+二维乘二维不好推，尝试抽出来一列 $j$ 来推  
+要求为  
+$\left[\begin{aligned}
+a_{11}\;a_{12}\;...\;a_{1n}\\
+a_{21}\;a_{22}\;...\;a_{2n}\\
+...\\
+a_{n1}\;a_{n2}\;...\;a_{nn}
+\end{aligned}\right]*\left[\begin{aligned}
+c_{1j}\\
+c_{2j}\\
+...\\
+c_{nj}
+\end{aligned}\right]=\left[\begin{aligned}
+b_{1j}c_{1j}\\
+b_{2j}c_{2j}\\
+...\\
+b_{nj}c_{nj}
+\end{aligned}\right]$    
+  
+转化成方程组为：  
+$\begin{aligned}
+a_{11}c_{1j}+a_{12}c_{2j}+...+a_{1n}c_{nj}=b_{1j}c_{1j}\\
+a_{21}c_{1j}+a_{22}c_{2j}+...+a_{2n}c_{nj}=b_{2j}c_{2j}\\
+...
+\end{aligned}$  
+右侧移动到左侧为  
+$(a_{11}-b_{1j})c_{1j}+a_{12}c_{2j}+...+a_{1n}c_{nj}=0\\a_{21}c_{1j}+(a_{22}-b_{2j})c_{2j}+...+a_{2n}c_{nj}=0\\...$  
+解这个方程组为  
+$\left[\begin{aligned}
+(a_{11}-b_{1j})\;a_{12}\;...\;a_{1n}\\
+a_{21}\;(a_{22}-b_{2j})\;...\;a_{2n}\\
+...\\
+a_{n1}\;a_{n2}\;...\;(a_{nn}-b_{nj})
+\end{aligned}\right]*\left[\begin{aligned}
+c_{1j}\\
+c_{2j}\\
+...\\
+c_{nj}
+\end{aligned}\right]=\left[\begin{aligned}
+0\\0\\...\\0
+\end{aligned}\right]$   
+每一列解这类矩阵表示的异或方程组，对于方案数则是看其自由元数量，令其自由元数量为 $x$，则这一列的方案数为 $2^x$  
+累乘即为答案
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 210;
+const int mod = 998244353;
+
+inline int ksm (int a, int b) {
+    int res = 1;
+    while (b) {
+        if (b & 1) res = 1ll * res * a % mod;
+        a = 1ll * a * a % mod;
+        b >>= 1;
+    }
+    return res;
+}
+
+int n;
+int a[N][N], A[N][N], B[N][N];
+int freeX[N];
+
+inline int Gauss () {
+    int free_idx = 0;
+    int c, r;
+    for (c = r = 0; c < n && r < n; c ++, r ++) {
+        int mxR = r;
+        for (int i = r; i < n; i ++) if (abs(a[i][c]) > abs(a[mxR][c])) mxR = i;
+        for (int j = c; j <= n; j ++) swap(a[r][j], a[mxR][j]);
+        if (a[r][c] == 0) {
+            freeX[free_idx ++] = c;
+            r --;
+            continue;
+        }
+        for (int i = r + 1; i < n; i ++) {
+            if (a[i][c]) {
+                for (int j = c; j <= n; j ++) {
+                    a[i][j] ^= a[r][j];
+                }
+            }
+        }
+    }
+    for (int i = r; i < n; i ++) if (a[i][n] != 0) return -1;
+    return max(0, n - r);
+}
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    cin >> n;
+    for (int i = 0; i < n; i ++) for (int j = 0; j < n; j ++) cin >> A[i][j];
+    for (int i = 0; i < n; i ++) for (int j = 0; j < n; j ++) cin >> B[i][j];
+
+    int res = 1;
+    for (int j = 0; j < n; j ++) {
+        for (int i = 0; i < n; i ++) {
+            for (int k = 0; k < n; k ++) {
+                if (i == k) {
+                    a[i][k] = (A[i][k] - B[i][j] + 2) % 2;
+                } else {
+                    a[i][k] = A[i][k];
+                }
+            }
+        }
+        int freedom = Gauss();
+        res = 1ll * res * ksm(2, freedom) % mod;
+    }
+    cout << res << endl;
+}
+```
+<hr>
+
+
 ## 线性基
 
 ### 洛谷P3857_彩灯
@@ -1918,3 +2039,4 @@ int main(){
 ```
 
 <hr>
+

@@ -158,6 +158,90 @@ CHIVAS_{
 
 <hr>
 
+## 洛谷P5629_区间与除法
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P5629">![20220914165802](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220914165802.png)</a>
+
+#### 💡
+首先我们想存入 $a_i$ 都可以被哪些原数消灭，但是在决定用哪个的时候会比较麻烦，且所有原数都用显然是不划算的  
+注意到如果 $x>y$ ，$a_i$ 可以被 $x$ 消灭，则也一定可以被 $y$ 消灭  
+而只有当每个数都用自己最小的可消灭原数消灭自己的话，所有数在重叠部分是最多的，故每个数存入自己最小可以被消灭的原数是谁  
+区间上查询的话必然不能扫完所有的，而是使用一个数据结构维护区间，在合并的时候如果两个数可以被消灭的原数是相同的，则不管，否则要合并原数数组  
+用一个数组是不合适的，本身区间的空间复杂度为 $O(nlogn)$ ，再来一个 $60$ 就存不下了  
+思考合并时的方式，很像二进制下的 “与” 操作，且 $60$ 是可以被二进制塞入的，故每个区间维护一下使用原数的状态，在合并的时候与一下就可以了  
+只有查询没有修改，$st$ 表上去  
+
+如果在构建的时候在 $a[i]/d$ 的 $log$ 过程中又加了一个看当前 $a[i]$ 在原数中与第几个相等的 $log$ ，恭喜 $90$ 分！  
+优化一下，由于 $a[i]$ 从大到小，所以我们只需要再维护一个从大到小移动的下标指针 $j$ ，在判断之前先将其移动到第一个不大于 $a[i]$ 的 $b[j]$ ，判断两者相不相等即可  
+结合上 $st$ 表的搭建过程复杂度就是 $O(nlogn\times 2logn)$  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 5e5 + 10;
+int lg[N];
+
+int n, m, d, p;
+ll a[N];
+vector<ll> b;
+
+ll st[N][30];
+inline void Build () {
+    for (int i = 1; i <= n; i ++) {
+        int mnid = 100;
+        int id = b.size() - 1;
+        while (a[i]) {
+            while (id >= 0 && b[id] > a[i]) id --;
+            if (id >= 0 && b[id] == a[i]) mnid = id;
+            a[i] /= d;
+        }
+        if (b[0] == 0) mnid = 0;
+        if (mnid != 100) st[i][0] = 1ll << mnid;
+        else st[i][0] = 0;
+    }
+    int k = lg[n];
+    for (int j = 1; j <= k; j ++) {
+        for (int i = 1; i + (1 << j) - 1 <= n; i ++) {
+            st[i][j] = (st[i][j - 1] | st[i + (1 << (j - 1))][j - 1]);
+        }
+    }
+}
+inline ll Query (int l, int r) {
+    int k = lg[r - l + 1];
+    return (st[l][k] | st[r - (1 << k) + 1][k]);
+}
+
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    lg[0] = -1;
+    for (int i = 1; i < N; i ++) lg[i] = lg[i >> 1] + 1;
+
+    cin >> n >> m >> d >> p;
+    for (int i = 1; i <= n; i ++) cin >> a[i];
+    for (int i = 0; i < m; i ++)  {
+        ll x; cin >> x;
+        b.push_back(x);
+    }
+    sort(b.begin(), b.end());
+    b.erase(unique(b.begin(), b.end()), b.end());
+
+    Build();
+
+    while (p --) {
+        int l, r; cin >> l >> r;
+        int res = 0;
+        ll qry = Query(l, r);
+        while (qry) res += qry & 1, qry >>= 1;
+        cout << res << endl;
+    }
+}
+```
+<hr>
+
+
 ## ABC254F_RecangleGCD
 
 #### 🔗

@@ -512,6 +512,81 @@ int main () {
 ```
 <hr>
 
+## 洛谷P5546_公共串
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P5546">![20220904182920](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220904182920.png)</a>
+
+#### 💡
+$2000$ 初始可以想一个高复杂度的  
+这个数据量看来似乎可以将所有的子串全部枚举出来了  
+存储的时候如果存储所有子串空间不够，考虑压缩为 $hash$ 数值存储  
+$n \le 5$ 可以直接用 $map$ 将 $key$ 设置为 $hash$ 值，将 $val$ 设置为二进制表示在哪个字符串中出现过    
+第 $i$ 个串的所有子串全部与上 $2^i$ 最后扫描所有子串看看是否够 $2^n-1$ ，够的话代表在所有字符串中均出现过，维护最大值   
+这样分析一下复杂度 $O(5n^2logn)$ 有点大了，优化一下  
+求最长公共子串应该要注意到这个“最”字，可以看一下是否存在单调性  
+可以发现，如果 $abcdefg$ 为公共子串，那么 $abcdef$ 也为公共子串  
+这就证明检查公共子串的长度是否存在是存在 $01$ 单调性的  
+于是直接二分答案即可，复杂度为 $O(5nlognlogn)$ 的
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e3 + 10;
+const ll mod1 = 2000000011;
+const ll mod2 = 3000000019;
+const int HASH1 = 20023;
+const int HASH2 = 20011;
+ll h1[N], h2[N];
+ll sum1[10][N], sum2[10][N];
+inline ll query1 (int l, int r, int op) {
+    return ((sum1[op][r] - sum1[op][l - 1] * h1[r - l + 1] % mod1) % mod1 + mod1) % mod1;
+}
+inline ll query2 (int l, int r, int op) {
+    return ((sum2[op][r] - sum2[op][l - 1] * h2[r - l + 1] % mod2) % mod2 + mod2) % mod2;
+}
+inline pair<ll, ll> query (int l, int r, int op) {
+    return {query1(l, r, op), query2(l, r, op)};
+}
+
+int n;
+int len[10];
+inline bool Check (int x) {
+    map<pair<ll, ll>, int> mp;
+    for (int i = 0; i < n; i ++) {
+        for (int j = 1; j + x - 1 <= len[i]; j ++) {
+            mp[query(j, j + x - 1, i)] |= 1 << i;
+            if (mp[query(j, j + x - 1, i)] == (1 << n) - 1) return true;
+        }
+    }
+    return false;
+}
+
+char str[10][N];
+int main () {
+    h1[0] = h2[0] = 1;
+    for (int i = 1; i < N; i ++) h1[i] = h1[i - 1] * HASH1 % mod1, h2[i] = h2[i - 1] * HASH2 % mod2;
+
+    cin >> n;
+    for (int i = 0; i < n; i ++) {
+        cin >> (str[i] + 1);
+        len[i] = strlen(str[i] + 1);
+        for (int j = 1; j <= len[i]; j ++) {
+            sum1[i][j] = (sum1[i][j - 1] * HASH1 % mod1 + str[i][j]) % mod1;
+            sum2[i][j] = (sum2[i][j - 1] * HASH2 % mod2 + str[i][j]) % mod2;
+        }
+    }
+
+    int l = 1, r = 2000, res = 0;
+    while (l <= r) {
+        int mid = (l + r) >> 1;
+        if (Check(mid)) res = mid, l = mid + 1;
+        else r = mid - 1;
+    }
+    cout << res << endl;
+}
+```
+<hr>
+
 ## 洛谷P5657_格雷码
 
 #### 🔗

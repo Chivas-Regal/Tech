@@ -1,6 +1,7 @@
 ---
 title: 博弈论
 ---
+
 ###  
 <hr>
 
@@ -45,6 +46,52 @@ int main () {
         } else {
                 cout << "Bob" << endl;
         }
+}
+```
+<hr>
+
+### CCPC2021湘潭省赛H_Game
+
+#### 🔗
+<a href="https://acm.dingbacode.com/showproblem.php?pid=6944">![20220912200216](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220912200216.png)</a>
+
+#### 💡
+操作 $9$ 和操作 $999...$ 是一类 ，因为考虑模 $9$ 相同的数，如果数可以重复的话最后一定会贴在一起，而这样的话每次操作就是减 $11...$  
+由于只有两个人，看操作次数奇偶性即可  
+则对于一个数，操作 $1$ 次 $11...$ 和操作 $11...$ 次 $1$ 是一样的，都是奇数次  
+于是我们先将所有数按模 $9$ 分类，相同的存一下操作次数，即 $\left\lfloor\frac x9\right\rfloor$   
+那么为了不重复，对于同一类的数，最多会变成 $\{1,2,3,...\}$ ，所以每一类都统计变成最终态的次数，将所有类的次数累加在一起  
+如果总次数为奇数，$Alice$ 赢，否则 $Bob$ 赢    
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+int n;
+int a[N];
+
+inline void Solve () {
+    vector<int> v[10];
+    for (int i = 1; i <= n; i ++) {
+        v[a[i] % 9].push_back(a[i] / 9);
+    }
+
+    int all_cnt = 0;
+    for (int i = 0, idx = 1; i < 9; i ++, idx = 0) {
+        sort(v[i].begin(), v[i].end());
+        for (int j = 0; j < v[i].size(); j ++) {
+            all_cnt ^= (v[i][j] - idx) & 1;
+            idx ++;
+        }
+    }
+
+    printf("%c\n", "AB"[all_cnt == 0]);
+}
+
+int main () {
+    while (scanf("%d", &n) != EOF) {
+        for (int i = 1; i <= n; i ++) scanf("%d", &a[i]);
+        Solve ();
+    }
 }
 ```
 <hr>

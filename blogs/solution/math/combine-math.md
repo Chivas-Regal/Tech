@@ -1494,6 +1494,88 @@ int main () {
 
 <hr>
 
+### ARC117C_TricolorPyramid
+
+#### 🔗
+<a href="https://atcoder.jp/contests/arc117/tasks/arc117_c?lang=en">![20220906152734](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220906152734.png)</a>
+
+#### 💡
+就三种颜色来回变，将其转换成 $(0,1,2)(mod\;3)$  
+一个颜色与其下面两个有关系，将关系图画出来  
+<table>
+  <tr>
+    <th>&nbsp;</th><th>0</th><th>1</th><th>2</th>
+  </tr>
+  <tr>
+    <th>0</th><td>0</td><td>2</td><td>1</td>
+  </tr>
+  <tr>
+    <th>1</th><td>2</td><td>1</td><td>0</td>
+  </tr>
+  <tr>
+    <th>2</th><td>1</td><td>0</td><td>2</td>
+  </tr>
+</table>  
+
+发现和相同的两对，其值也相同，其和的负值与最终值差 $3$ ，也可以看做是 $target\equiv -(x+y)(mod\;3)$  
+令最后一行为 $a,b,c,d,e$  
+推上去为  
+$
+a+4b+6c+4d+e\\
+-a-3b-3c-d\quad -b-3c-3d-e\\
+a+2b+c\quad b+2c+d\quad c+2d+e\\
+-a-b\quad -b-c\quad -c-d\quad -d-e\\
+a\quad b\quad c\quad d\quad e
+$  
+如果令字符 $c$ 的权值为 $w_c$ ，权值为 $v$ 的字符为 $c_v$   
+得到第一行为 $c[(-1)^{n-1}\sum\limits_{i=0}^{n-1}\binom{n-1}{i}w[s_i]]$  
+  
+不过由于模数很小，不能直接阶乘求组合数，不然很容易出现无逆元无法除的情况  
+但由于模数很小，可以用 $Lucas$ 快速求解，且求单个组合数的过程中不用取模  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline int Comb (int a, int b, int mod) {
+    if (a < b) return 0;
+    if (a == b) return 1;
+    if (b > a - b) b = a - b;
+    int res = 1;
+    for (int i = 0; i < b; i ++) res = res * (a - i);
+    for (int i = 0; i < b; i ++) res = res / (b - i);
+    return res % mod;
+}
+inline int Lucas (int n, int m, int mod) {
+    int res = 1;
+    while (n && m && res) {
+        res = 1ll * res * Comb(n % mod, m % mod, mod) % mod;
+        n /= mod;
+        m /= mod;
+    }
+    return res;
+}
+
+
+int n;
+string s;
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    cin >> n >> s;
+
+    int res = 0;
+    for (int i = 0; i < n; i ++) {
+        res += (s[i] == 'B' ? 0 : (s[i] == 'W' ? 1 : 2)) * Lucas(n - 1, i, 3) % 3;
+        res %= 3;
+    }
+    if (n % 2 == 0) res = (-res + 3) % 3;
+    cout << (res == 0 ? 'B' : (res == 1 ? 'W' : 'R')) << endl;
+}
+```
+<hr>
+
+
 ### ARC134C_TheMajority
 
 #### 🔗

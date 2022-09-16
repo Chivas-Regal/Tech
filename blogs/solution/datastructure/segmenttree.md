@@ -4,7 +4,207 @@ title: 线段树
 ###  
 <hr>
 
-### 洛谷P2216_理想正方形
+## 洛谷P1438_无聊的数列
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P1438">![20220914104915](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220914104915.png)</a>
+
+#### 💡
+区间加等差数列的问题，既然等差，也就是等差分  
+所以线段树转化为差分数组，在每次区间修改时，将 $[l+1,r]$ 的位置上都加上 $k$ ，然后在 $l$ 的位置上加上 $d$ ，在 $r+1$ 的位置上减去 $(r-l)*k+d$   
+查询的时候就是查 $[1,p]$ 的和，也就是差分的前缀和等于位置上的数值  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+
+```cpp
+const int N = 1e5 + 10;
+int n, m;
+int a[N], d[N];
+
+struct node {
+    ll sum;
+    ll lazy;
+} t[N << 2];
+inline void pushup (int rt) {
+    t[rt].sum = t[rt << 1].sum + t[rt << 1 | 1].sum;
+}
+inline void pushdown (int l, int r, int rt) {
+    if (!t[rt].lazy) return;
+    int mid = (l + r) >> 1;
+    t[rt << 1].sum += t[rt].lazy * (1ll * mid - l + 1);
+    t[rt << 1 | 1].sum += t[rt].lazy * (1ll * r - mid);
+    t[rt << 1].lazy += t[rt].lazy;
+    t[rt << 1 | 1].lazy += t[rt].lazy;
+    t[rt].lazy = 0;
+}
+inline void build (int l = 1, int r = n, int rt = 1) {
+    t[rt].lazy = 0;
+    if (l == r) {
+        t[rt].sum = d[l];
+        return;
+    }
+    int mid = (l + r) >> 1;
+    build(l, mid, rt << 1);
+    build(mid + 1, r, rt << 1 | 1);
+    pushup(rt);
+}
+inline void update (int a, int b, int c, int l = 1, int r = n, int rt = 1) {
+    if (a <= l && r <= b) {
+        t[rt].sum += (1ll * r - l + 1) * 1ll * c;
+        t[rt].lazy += c;
+        return;
+    }
+    pushdown(l, r, rt);
+    int mid = (l + r) >> 1;
+    if (a <= mid) update(a, b, c, l, mid, rt << 1);
+    if (b > mid)  update(a, b, c, mid + 1, r, rt << 1 | 1);
+    pushup(rt);
+}
+inline ll query (int a, int b, int l = 1, int r = n, int rt = 1) {
+    if (a <= l && r <= b) return t[rt].sum;
+    pushdown(l, r, rt);
+    int mid = (l + r) >> 1;
+    ll res = 0;
+    if (a <= mid) res += query(a, b, l, mid, rt << 1);
+    if (b > mid) res += query(a, b, mid + 1, r, rt << 1 | 1);
+    return res;
+}
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    cin >> n >> m;
+    for (int i = 1; i <= n; i ++) cin >> a[i];
+    for (int i = 1; i <= n; i ++) d[i] = a[i] - a[i - 1];
+    build();
+    while (m --) {
+        int op; cin >> op;
+        if (op == 1) {
+            int l, r, k, d; cin >> l >> r >> k >> d;
+            update(l, l, k);
+            if (l + 1 <= r) update(l + 1, r, d);
+            if (r + 1 <= n) update(r + 1, r + 1, -k - (r - l) * d);
+        } else {
+            int p; cin >> p;
+            cout << query(1, p) << endl;
+        }
+    }
+}
+```
+<hr>
+
+## 洛谷P1471_方差
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P1471">![20220914130415](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220914130415.png)</a>
+
+#### 💡
+首先是区间修改的操作 $(A_i+x)^2$ 这个括号放在一起很难处理，考虑将它们独立出来为 $A_i^2+2xA_i+x^2$  
+同理区间查询方差时提出来为 $\sum(A_i-\overline{A})^2=\sum A_i^2-2\overline{A}\sum A_i+\sum\overline{A}^2$  
+这样需要的信息就很明显了，一个区间和 $sum$ 一个区间平方和 $sum2$  
+平方和修改时需要用修改前的区间和为 $+2xsum1+x^2(r-l+1)$  
+区间和就正常修改  
+然后查询时要用区间和求出平均数 $ave$ ，然后按上面拆出来的内容求 $(sum2-2\;ave\;sum1+ave^2(r-l+1))/(r-l+1)$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+
+```cpp
+const int N = 1e5 + 10;
+int n, m;
+double a[N];
+
+struct node {
+    double sum, sum2;
+    double lazy;
+} t[N << 2];
+inline void pushup (int rt) {
+    t[rt].sum = t[rt << 1].sum + t[rt << 1 | 1].sum;
+    t[rt].sum2 = t[rt << 1].sum2 + t[rt << 1 | 1].sum2;
+}
+inline void pushdown (int l, int r, int rt) {
+    if (!t[rt].lazy) return;
+    int mid = (l + r) >> 1;
+    t[rt << 1].sum2 += 2 * t[rt].lazy * t[rt << 1].sum + (mid - l + 1) * t[rt].lazy * t[rt].lazy;
+    t[rt << 1 | 1].sum2 += 2 * t[rt].lazy * t[rt << 1 | 1].sum + (r - mid) * t[rt].lazy * t[rt].lazy;
+    t[rt << 1].sum += t[rt].lazy * (1ll * mid - l + 1);
+    t[rt << 1 | 1].sum += t[rt].lazy * (1ll * r - mid);
+    t[rt << 1].lazy += t[rt].lazy;
+    t[rt << 1 | 1].lazy += t[rt].lazy;
+    t[rt].lazy = 0;
+}
+inline void build (int l = 1, int r = n, int rt = 1) {
+    t[rt].lazy = 0;
+    if (l == r) {
+        t[rt].sum = a[l];
+        t[rt].sum2 = a[l] * a[l];
+        return;
+    }
+    int mid = (l + r) >> 1;
+    build(l, mid, rt << 1);
+    build(mid + 1, r, rt << 1 | 1);
+    pushup(rt);
+}
+inline void update (int a, int b, double c, int l = 1, int r = n, int rt = 1) {
+    if (a <= l && r <= b) {
+        t[rt].sum2 += 2.0 * c * t[rt].sum + c * c * (r - l + 1);
+        t[rt].sum += c * (r - l + 1);
+        t[rt].lazy += c;
+        return;
+    }
+    pushdown(l, r, rt);
+    int mid = (l + r) >> 1;
+    if (a <= mid) update(a, b, c, l, mid, rt << 1);
+    if (b > mid)  update(a, b, c, mid + 1, r, rt << 1 | 1);
+    pushup(rt);
+}
+inline double query (int a, int b, int l = 1, int r = n, int rt = 1) {
+    if (a <= l && r <= b) return t[rt].sum;
+    pushdown(l, r, rt);
+    int mid = (l + r) >> 1;
+    double res = 0;
+    if (a <= mid) res += query(a, b, l, mid, rt << 1);
+    if (b > mid) res += query(a, b, mid + 1, r, rt << 1 | 1);
+    return res;
+}
+inline double query2 (int a, int b, int l = 1, int r = n, int rt = 1) {
+    if (a <= l && r <= b) return t[rt].sum2;
+    pushdown(l, r, rt);
+    int mid = (l + r) >> 1;
+    double res = 0;
+    if (a <= mid) res += query2(a, b, l, mid, rt << 1);
+    if (b > mid) res += query2(a, b, mid + 1, r, rt << 1 | 1);
+    return res;
+}
+
+int main () {
+    scanf("%d%d", &n, &m);
+    for (int i = 1; i <= n; i ++) scanf("%lf", &a[i]);
+    build();
+    while (m --) {
+        int op; scanf("%d", &op);
+        if (op == 1) {
+            int x, y; scanf("%d%d", &x, &y);
+            double k; scanf("%lf", &k);
+            update(x, y, k);
+        } else if (op == 2) {
+            int x, y;  scanf("%d%d", &x, &y);
+            printf("%.4f\n", query(x, y) / (y - x + 1));
+        } else {
+            int x, y; scanf("%d%d", &x, &y);
+            double q1 = query(x, y);
+            double q2 = query2(x, y);
+            double ave = q1 / (y - x + 1);
+            printf("%.4f\n", (q2 - 2.0 * ave * q1 + ave * ave * (y - x + 1)) / (y - x + 1));
+        }
+    }
+}
+```
+
+<hr>
+
+
+## 洛谷P2216_理想正方形
 
 #### 🔗
 <a href="https://www.luogu.com.cn/problem/P2216">![20220504180644](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220504180644.png)</a>
@@ -343,6 +543,110 @@ int main () {
 ```
 
 <hr>
+
+## 洛谷P7244_章节划分
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P7244">![20220914195432](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220914195432.png)</a>
+
+#### 💡
+由于全局最大值一定在贡献中，所以答案一定是全局最大值的约数  
+枚举约数 $x$ ，如果当前 $x$ 的最大划分区间数量超过 $k$ ，那么是可以通过合并区间来缩小的  
+所以当前就是看 $x$ 的最大划分区间数量是否能超过 $k$  
+在这种区间中作为最值的问题，首先要处理出来每个位置可以作为最大值的最左侧点，也就是找到左侧第一个比它大的点 $l_i$ （通过单调栈来实现）    
+要求最大的划分，这种属于类似于最长子序列类型的 $dp$  
+令 $dp_i$ 表示到第 $i$ 个位置可以划分的最多段数（要满足每一段最大值是 $x$ 的倍数）  
+则若 $x|a_i$ 说明它可以作为一个新段的最大值，则 $dp_i=max(dp_k)+1,\;k\in[l_i,i-1]$  
+若 $x\not|a_i$ ，说明它不可以作为新段的最大值，需要前面与前面比它大的连接成为同一段得到保佑，则 $dp_i=dp_{l_i}$  
+而起始则是 $dp_0=0$  
+要注意到一个点，就是 $x|a_i$ 且 $l_i\neq 0$ 且 $max(dp_k)=0$ ，说明它无法从 $0$ 转移过来，并且前面也没有已经被划分的段，这就意味着它自己是抽不动前面的，故 $dp_i=0$ 。换句话说，**从可以 $0$ 位置转移为 $1$ 的位置必须满足它可以从 $1$ 位置开始自成一段**。  
+这在一个 $check()$ 里面就是一个 $O(n^2)$ 的算法，需要优化  
+我们求的是 $\max\limits_{k=l_i}^idp_k$ ，单单一个区间最大值，拿线段树优化完事儿  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e6 + 10;
+
+int n, k;
+int a[N], mxa;
+int l[N];
+
+int t[N << 2];
+inline void pushup (int rt) {
+    t[rt] = max(t[rt << 1], t[rt << 1 | 1]);
+}
+inline void update (int id, int c, int l = 0, int r = n, int rt = 1) {
+    if (l == r) {
+        t[rt] = c;
+        return;
+    }
+    int mid = (l + r) >> 1;
+    if (id <= mid) update(id, c, l, mid, rt << 1);
+    else update(id, c, mid + 1, r, rt << 1 | 1);
+    pushup(rt);
+}
+inline int query (int a, int b, int l = 0, int r = n, int rt = 1) {
+    if (a <= l && r <= b) return t[rt];
+    int mid = (l + r) >> 1;
+    int res = 0;
+    if (a <= mid) res = max(res, query(a, b, l, mid, rt << 1));
+    if (b > mid)  res = max(res, query(a, b, mid + 1, r, rt << 1 | 1));
+    return res;
+}
+
+inline int max_Sep (int x) {
+    update(0, 0, 0);
+    for (int i = 1; i <= n; i ++) {
+        if (a[i] % x == 0) {
+            if (l[i] != 0 && query(l[i], i - 1) == 0) update(i, 0); // 被孤立了
+            else update(i, query(l[i], i - 1) + 1); // 跨越一下
+        } else {
+            update(i, query(l[i], l[i])); // 与左边比自己大的放在一段里面
+        }
+    }
+    return query(n, n);
+}
+
+int num_mul[N]; // 因数 x 在全局中有几个位置出现了
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    cin >> n >> k;
+    for (int i = 1; i <= n ;i ++) 
+        cin >> a[i],
+        mxa = max(mxa, a[i]);
+    
+    stack<int> stk;
+    stk = stack<int>();
+    for (int i = 1; i <= n; i ++) {
+        while (!stk.empty() && a[stk.top()] <= a[i]) stk.pop();
+        l[i] = stk.size() ? stk.top() : 0;
+        stk.push(i);
+    }
+
+    vector<int> div; // 最大值因数
+    for (int i = 1; i * i <= mxa; i ++) {
+        if (mxa % i == 0) {
+            div.push_back(i);
+            for (int j = 1; j <= n; j ++) if (a[j] % i == 0) num_mul[i] ++;
+            if (i * i == mxa) continue;
+            div.push_back(mxa / i); 
+            for (int j = 1; j <= n; j ++) if (a[j] % (mxa / i) == 0) num_mul[mxa / i] ++;
+        }
+    }    
+    sort(div.begin(), div.end(), greater<int>());
+    for (int it : div) {
+        if (num_mul[it] >= k && max_Sep(it) >= k) {
+            cout << it << endl;
+            return 0;
+        }
+    }
+}
+```
+<hr>
+
 
 ## 洛谷T225362_《山茶文具店》
 
