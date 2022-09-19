@@ -3367,6 +3367,79 @@ int main () {
 ```
 <hr>
 
+### 牛客2021多校(2)J_CountingTriangles
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/11254/J">![20220919183903](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220919183903.png)</a>
+
+#### 💡
+很妙的题  
+要得到同色边三角形，只能枚举，且枚举两个点还不够，还要去检查第三个点是否合法  
+正难则反，从一个点出发不同色的两个边是可以直接算出来的  
+枚举 $u$ ，枚举 $u$ 出发的边，$cnt[i]$ 为颜色为 $i$ 的边数，则 $u$ 出发的不同色边为 $cnt[0]\times cnt[1]$ ，这就是两个边确定出来的三角形 ，让答案 $res$ 加上    
+最后会有重复的，需要 $res/2$   
+所有的三角形数量为从 $n$ 个点中选 $3$ 个点，那么同色边三角形数为 $C_n^3-res$ 
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+namespace GenHelper
+{
+    unsigned z1,z2,z3,z4,b,u;
+    unsigned get()
+    {
+        b=((z1<<6)^z1)>>13;
+        z1=((z1&4294967294U)<<18)^b;
+        b=((z2<<2)^z2)>>27;
+        z2=((z2&4294967288U)<<2)^b;
+        b=((z3<<13)^z3)>>21;
+        z3=((z3&4294967280U)<<7)^b;
+        b=((z4<<3)^z4)>>12;
+        z4=((z4&4294967168U)<<13)^b;
+        return (z1^z2^z3^z4);
+    }
+    bool read() {
+      while (!u) u = get();
+      bool res = u & 1;
+      u >>= 1; return res;
+    }
+    void srand(int x)
+    {
+        z1=x;
+        z2=(~x)^0x233333333U;
+        z3=x^0x1234598766U;
+        z4=(~x)+51;
+      	u = 0;
+    }
+}
+using namespace GenHelper;
+
+int e[8001][8001];
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, seed; cin >> n >> seed;
+    srand(seed);
+    for (int i = 0; i < n; i ++) {
+        for (int j = i + 1; j < n; j ++) e[i][j] = e[j][i] = read();
+    }
+
+    ll res = 0;
+    for (int i = 0; i < n; i ++) {
+        int num[2] = {0};
+        for (int j = 0; j < n; j ++) {
+            if (i != j) num[e[i][j]] ++;
+        }
+        res -= 1ll * num[0] * num[1];
+    }
+    res = res / 2 + 1ll * n * (n - 1ll) * (n - 2ll) / 6;
+
+    cout << res << endl;
+}
+```
+<hr>
+
 
 ### 牛客2022寒假算法基础集训营K_智乃的C语言模除方程
 

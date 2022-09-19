@@ -120,6 +120,72 @@ CHIVAS_{
 
 <hr>
 
+## 牛客多校2021(2)F_Girlfriend
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/11253/F">![20220919165358](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220919165358.png)</a>
+
+#### 💡
+先看一个人，他可以活动的位置设为 $P$ ，两个女朋友在 $A,B$ ，距离倍数为 $k$ 写一下式子   
+$(a_x-p_x)^2+(a_y-p_y)^2+(a_z-p_z)^2\ge k^2((b_x-p_x)^2+(b_y-p_y)^2+(b_z-p_z)^2)$  
+$\left.\begin{aligned}+a_x^2-2p_xa_x+p_x^2\\+a_y^2-2p_ya_y+p_y^2\\+a_z^2-2p_za_z+p_z^2\end{aligned}\right\}\ge\left\{\begin{aligned}+k^2b_x^2+2k^2p_xb_x+k^2p_x^2\\+k^2b_y^2+2k^2p_yb_y+k^2p_y^2\\+k^2b_z^2+2k^2p_zb_z+k^2p_z^2\end{aligned}\right.$    
+$\left.\begin{aligned}+p_x^2(1-k^2)+p_y^2(1-k^2)+p_z^2(1-k^2)\\+2p_x(k^2b_x-a_x)+2p_y(k^2b_y-a_y)+2p_z(k^2b_z-a_z)\\+a_x^2+a_y^2+a_z^2-k^2b_x^2-k^2b_y^2-k^2b_z^2\end{aligned}\right\}\ge 0$  
+发现这是一个球，算出其中心点、半径  
+然后算球的体积交即可  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const double PI = acos(-1.0);
+
+struct Point { double x, y, z; };
+struct Ball { Point p; double r2, r; };
+
+inline Ball person (Point a, Point b, double k) {
+    Ball res;
+    double down = 1 - k * k;
+    double _a = (k * k * b.x - a.x) / down;
+    double _b = (k * k * b.y - a.y) / down;
+    double _c = (k * k * b.z - a.z) / down; 
+    double _d = (a.x * a.x + a.y * a.y + a.z * a.z - k * k * b.x * b.x - k * k * b.y * b.y - k * k * b.z * b.z) / down;
+    res.p = {-_a, -_b, -_c};
+    res.r2 = _a * _a + _b * _b + _c * _c - _d;
+    res.r = sqrt(res.r2);
+    return res;
+}
+inline double distance (Point a, Point b) {
+    return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y) + (a.z - b.z) * (a.z - b.z));
+}
+inline double distance2 (Point a, Point b) {
+    return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y) + (a.z - b.z) * (a.z - b.z);
+}
+inline double in (Ball a, Ball b) {
+    double dis2 = distance2(a.p, b.p);
+    double dis = distance(a.p, b.p);
+    if (dis >= a.r + b.r) return 0;
+    else if (dis + a.r <= b.r) return PI * a.r * a.r * a.r * 4 / 3;
+    else if (dis + b.r <= a.r) return PI * b.r * b.r * b.r * 4 / 3;
+    
+    double h1 = a.r - (a.r2 + dis2 - b.r2) / (dis * 2);
+    double h2 = b.r - (b.r2 + dis2 - a.r2) / (dis * 2);
+    double V = PI * h1 * h1 * (a.r - h1 / 3) + PI * h2 * h2 * (b.r - h2 / 3);
+    return V;
+}
+
+int main () {
+    int t; scanf("%d", &t); while (t --) {
+        Point a, b;
+        scanf("%lf%lf%lf%lf%lf%lf", &a.x, &a.y, &a.z, &b.x, &b.y, &b.z);
+        Point c, d;
+        scanf("%lf%lf%lf%lf%lf%lf", &c.x, &c.y, &c.z, &d.x, &d.y, &d.z);
+        double k1, k2 ;scanf("%lf%lf", &k1, &k2);
+        printf("%.3f\n", in(person(a, b, k1), person(c, d, k2)));
+    }
+}
+```
+<hr>
+
+
 ## CodeForces613A_PeterAndSnowBlower
 
 #### 🔗

@@ -4,6 +4,65 @@ title: 最小生成树
 ###  
 <hr>
 
+## 牛客2021多校(3)B_BlackAndWhite
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/11254/B">![20220919211943](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220919211943.png)</a>
+
+#### 💡
+神仙模型~  
+肯定是需要尽可能去做白嫖操作，如果我们根据矩阵 $dp$ 的思想，在第一列和第一行都涂黑，那么剩下的都是可以白嫖的  
+但是一画就能发现其实把任意一行任意一列都涂黑也是可以白嫖别的所有的  
+关键来了，如果我们不是涂完整一行完整一列的话是否可行，类似于 $3\times 3$ 的矩阵上涂 $(1,1)(2,2)(3,3)(2,3)(1,2)$ 也是可以的  
+也就是说我们只需要涂 $n+m-1$ 个就可以实现白嫖，但这可不是随便涂的啊，分析一下什么样的涂了不浪费  
+在有 $(i-1,j)(i,j-1)(i-1,j-1)$ 时再涂 $(i,j)$ 显然是浪费的，且注意 $(i-1,j)(i-1,j-1)$ 和 $(i,j-1)(i-1,j-1)$ 是贴着的，可以看做 $j$ 和 $j-1$ 通过 $i-1$ 连在了一起，$i$ 和 $i-1$ 通过 $j-1$ 连在了一起，因此 $i,j$ 已然连通，发现这是一个连通性问题  
+我们只要让所有的行和所有的列连通即可，这也对应了我们需要涂 $n+m-1$ 个是为什么  
+故这就是一个最小生成树了，$i$ 行转化为点 $i$ ， $j$ 行转化为点 $n+j$ ，最终目的是让 $[1,n+m]$ 连通   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 5002 * 5002;
+
+int nod[10004];
+inline void init () { for (int i = 0; i < 10004; i ++) nod[i] = i; }
+inline int find (int x) { return x == nod[x] ? x : nod[x] = find(nod[x]); }
+
+vector<pair<int, int> > v[100005];
+int A[N];
+
+int main () {
+    init();
+
+    int n, m, a, b, c, d, mod;
+    scanf("%d%d%d%d%d%d%d", &n, &m, &a, &b, &c, &d, &mod);
+    
+    A[0] = a;
+    for (int x = 1; x <= n; x ++) {
+        for (int y = 1; y <= m; y ++) {
+            int i = m * (x - 1) + y;
+            A[i] = (1ll * A[i - 1] * A[i - 1] % mod * b % mod + 1ll * A[i - 1] * c % mod + d) % mod;
+            v[A[i]].push_back({x, y + n});
+        }
+    }
+
+    ll res = 0, cnt = 0;
+    for (int i = 0; i < 100000; i ++) {
+        for (auto [u, v] : v[i]) {
+            int fu = find(u);
+            int fv = find(v);
+            if (fu == fv) continue;
+            res += i; cnt ++;
+            nod[fu] = fv;
+            if (cnt == n + m + 1) break;
+        }
+        if (cnt == n + m - 1) break;
+    }
+    printf("%lld\n", res);
+}
+```
+<hr>
+
+
 ## ABC235E_MST+1
 
 #### 🔗

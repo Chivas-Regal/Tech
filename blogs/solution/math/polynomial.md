@@ -943,6 +943,96 @@ int main () {
 ```
 <hr>
 
+### 牛客2021多校(1)H_HashFunction
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/11166/H">![20220919105539](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220919105539.png)</a>
+
+#### 💡
+数学题肯定要先转化为数学公式啦，即找到一个 $seed$ 满足  
+$\forall i,j\in[1,n],i\neq j,a_i\not\equiv a_j(mod\;seed)$  
+转化一下变成 $a_i-a_j\not\equiv0(mod\;seed)$  
+这就意味着两两之间的差的因数都不能作为 $seed$   
+如果能获取出来所有的两两差，直接判定的话就行了  
+这种<b>两两之间的问题可以转化为两个多项式相乘</b>，这里作为判定的话就给出现元素赋系数为 $1$ 即可，令数值作为指数，卷一下就有了所有的两两数值关系，但是注意到这里存在减法而我们需要加法才能卷，可以 $a_i+(5\times 10^5-a_j)-5\times 10^5$  
+即读入 $x$ 时两个多项式一个对指数为 $x$ 的系数标 $1$ ，一个对指数为 $5\times 10^5-x$ 的系数标 $1$ ，卷完之后让所有系数不为零且指数大于 $5\times 10^5$ 的指数减去 $5\times 10^5$ ，就可以获取到所有满足条件的减法最终值了，最多只到 $5\times 10^5$ （这也是为什么上面用 $5\times 10^5-$ 代替减法的原因）  
+然后用埃氏筛的思想跑所有数，然后看其倍数是否存在 $1$ ，如果没有倍数存在的话那就是这个因数了  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 5e6 + 10;
+const int mod = 998244353;
+
+inline ll Ksm (ll a, ll b) { ll res = 1; while (b) { if (b & 1) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll Inv (ll x) { return Ksm(x, mod - 2); }
+
+int bit, tot;
+int rev[N];
+
+inline void NTT (int a[], int inv) {
+    for (int i = 0; i < tot; i ++) if (i < rev[i]) swap(a[i], a[rev[i]]);
+    for (int mid = 1; mid < tot; mid <<= 1) {
+        int g1 = Ksm(3, (mod - 1) / (mid << 1));
+        for (int i = 0; i < tot; i += mid << 1) {
+            int gk = 1;
+            for (int j = 0; j < mid; j ++, gk = 1ll * gk * g1 % mod) {
+                int x = a[i + j], y = 1ll * gk * a[i + j + mid] % mod;
+                a[i + j] = (x + y) % mod;
+                a[i + j + mid] = (x - y + mod) % mod;
+            }
+        }
+    }
+    if (inv == -1) {
+        reverse(a + 1, a + tot);
+        int iv = Ksm(tot, mod - 2);
+        for (int i = 0; i < tot; i ++) a[i] = 1ll * a[i] * iv % mod;
+    }
+}
+
+
+int n;
+int vis[N];
+int a[N], b[N];
+
+int main () {
+    scanf("%d", &n);
+    int mxa = 0, mxb = 0;
+    for (int i = 1; i <= n; i ++) {
+        int x; scanf("%d", &x);
+        a[x] = 1;
+        b[500000 - x] = 1;
+        mxa = max(mxa, x);
+        mxb = max(mxb, 500000 - x);
+    }
+
+    while ((1 << bit) < mxa + mxb - 1) bit ++; tot = 1 << bit;
+    for (int i = 0; i < tot; i ++) rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (bit - 1));
+
+    NTT(a, 1); NTT(b, 1);
+    for (int i = 0; i < tot; i ++) a[i] = 1ll * a[i] * b[i] % mod;
+    NTT(a, -1);
+
+
+    for (int i = 500000; i <= 1000000; i ++) {
+        if (a[i]) {
+            vis[i - 500000] = 1;
+        }
+    }
+
+    for (int d = 1; d < N; d ++) {
+        bool flag = true;
+        for (int i = d; i < N; i += d) {
+            if (vis[i]) flag = false;
+            if (!flag) break;
+        }
+        if (flag) {
+            printf("%d\n", d);
+            return 0;
+        }
+    }
+}
+```
+<hr>
 
 
 ### CodeForces608B_HammingDistanceSum

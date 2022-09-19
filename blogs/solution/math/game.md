@@ -269,3 +269,58 @@ int main() {
 ```
 <hr>
 
+## SG转移
+
+### 牛客2021多校(1)A_AliceAndBob
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/11166/A">![20220919120736](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220919120736.png)</a>
+
+#### 💡
+这里 $n,m$ 都是小于等于 $5\times 10^3$ ，且 $T$ 很大，这种就是让你预处理的，而由于 $n,m$ 的大小，确定出来是预处理二维数组然后直接 $O(1)$ 得答案的  
+预处理了话，首先取必败态 $(0,0)$  
+然后由博弈状态得到，只要状态可以往下转移出来一个必败态，那么这个状态就是必胜态  
+所以我们对于每一个必败态，去看谁能转移过来  
+即 $(+0,+x),x\in\N$ ，或者 $(+x,+y),(x\in\N,x|y)\;or\;(y\in\N,y|x)$  
+这种拿埃氏筛的方式转移一下，然后往大跑 $dfs$ 就行，但是一次 $dfs$ 可能会被卡断，即一个 $(x+1,y)(x,y+1)(x+1,y+1)$ 都是必胜态，所以我们要外层双重循环枚举，如果 $(x,y)$ 为必败态，就进入 $dfs$   
+（当然这么多次进入 $dfs$ 肯定需要一个记忆化搜索）  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int sg[5003][5003];
+inline void dfs (int x, int y) {
+    if (x > 5000 || y > 5000) return;
+    for (int d = 1; d + x <= 5000; d ++) {
+        for (int i = 0; i + y <= 5000; i += d) {
+            sg[x + d][i + y] = 0;        
+        }
+    }
+    for (int d = 1; d + y <= 5000; d ++) {
+        for (int i = 0; i + x <= 5000; i += d) {
+            sg[x + i][y + d] = 0;
+        }
+    }
+    if (sg[x + 1][y]) dfs(x + 1, y);
+    if (sg[x][y + 1]) dfs(x, y + 1);
+    if (sg[x + 1][y + 1]) dfs(x + 1, y + 1);
+}
+
+inline void Solve () {
+    int x, y; scanf("%d%d", &x, &y);
+    if (sg[x][y]) puts("Bob");
+    else puts("Alice");
+}
+
+int main () {
+    for (int i = 0; i < 5003; i ++) for (int j = 0; j < 5003; j ++) sg[i][j] = 1;
+    
+    for (int i = 0; i <= 5000; i ++) {
+        for (int j = 0; j <= 5000; j ++) {
+            if (sg[i][j]) dfs(i, j);
+        }
+    }
+
+    int t; scanf("%d", &t); while (t --) Solve();
+}
+```
+<hr>

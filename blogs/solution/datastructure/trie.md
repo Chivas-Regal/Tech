@@ -556,3 +556,90 @@ inline void Solve () {
 }
 ```
 <hr>
+
+### HDU2021多校(2)D_ILoveCounting
+
+#### 🔗
+<a href="https://acm.hdu.edu.cn/showproblem.php?pid=6964">![20220918203707](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220918203707.png)</a>
+
+#### 💡  
+看到 $x\oplus y\le z$ 这类二进制的比大小，可以联想到按位比，第一个不同即出大小，那么用字典树贴着 $x\oplus c=b$ 跑就行了，然后能小于的时候过去看一眼累加一下值再接着往下走  
+但是如果我们字典树中存的是子树的下标集然后在上面二分出 $[l,r]$ 之间的数了话，很难去保证里面都是不同的，但是如果我们对于区间相同的数只插入一个的话就会方便很多，直接加就行了  
+区间保证只插一个的做法很经典可以用莫队来实现，开一个 $num$ 数组，减的时候就如果减到零了在字典树中删除，加的时候如果加成一了就在字典树中插入 $(TLE)$  
+分析一下没太大的复杂度问题，优化常数  
+数组下标访问很慢，且看到每一个数小于 $10^5$ ，字典树换成二叉树来跑，即左子树为 $0$ 边，右子树为 $1$ 边，在这个二叉树上做字典树的操作就能优化很多下标常数了    
+  
+(话说贴着字典树往下走上一场出过很类似的操作啊 [传送门](#hdu2021多校1f_xorsum) )
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int t[10000007];
+
+inline void Insert (int x, int c) {
+    int root = 1;
+    for (int i = 18; i >= 0; i --) {
+        root = (root << 1) + (x >> i & 1);
+        t[root] += c;
+    }
+}
+inline int Query (int a, int b) {
+    int root = 1, res = 0;
+    for (int i = 18; i >= 0; i --) {
+        int ca = a >> i & 1;
+        int cb = b >> i & 1;
+        if (cb == 1) {
+            res += t[root << 1 | ca];
+            root = root << 1 | (!ca);
+        } else {
+            root = root << 1 | ca;
+        }
+    }
+    return res + t[root];
+}
+
+int num[100005];
+int a[100005];
+
+inline void add (int x) {
+    if (!num[x]) Insert(x, 1);
+    num[x] ++;
+}
+inline void del (int x) {
+    num[x] --;
+    if (!num[x]) Insert(x, -1);
+}
+
+int n, q, sq;
+inline int get (int x) {return x / sq;}
+struct query {
+    int l, r, a, b, id;
+    inline friend bool operator < (query a, query b) {
+        if (get(a.l) != get(b.l)) return get(a.l) < get(b.l);
+        if (get(a.l) & 1) return a.r > b.r;
+        return a.r < b.r;
+    }
+} qry[100005];
+int res[100005];
+
+int main () {
+    scanf("%d", &n); sq = sqrt(n);
+    for (int i = 1; i <= n; i ++) scanf("%d", &a[i]);
+    scanf("%d", &q);
+    for (int i = 1; i <= q; i ++) {
+        int l, r, a, b; scanf("%d%d%d%d", &l, &r, &a, &b);
+        qry[i] = {l, r, a, b, i};
+    }
+    sort(qry + 1, qry + 1 + q);
+
+    for (int L = 1, R = 0, i = 1; i <= q; i ++) {
+        while (L < qry[i].l) del(a[L ++]);
+        while (L > qry[i].l) add(a[-- L]);
+        while (R < qry[i].r) add(a[++ R]);
+        while (R > qry[i].r) del(a[R --]);
+        res[qry[i].id] = Query(qry[i].a, qry[i].b);
+    }
+    for (int i = 1; i <= q; i ++) printf("%d\n", res[i]);
+}
+```
+<hr>
