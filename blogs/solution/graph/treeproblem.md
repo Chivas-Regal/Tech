@@ -970,7 +970,7 @@ int main () {
 <a href="https://codeforces.com/gym/103941/attachments">![20221003195313](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221003195313.png)</a>
 
 #### 💡
-这个编号建图，权值 $mex$ 太奇怪了，建图的时候直接用它们的 $mex$ 当编号建吧，即对于权值 $v[]$ 数组，连边 $(u,v)$ ，直接 `add_Edge(v[u], v[v])`  
+这个编号建图，权值 $mex$ 太奇怪了，建图的时候直接用它们的权值当编号建吧，即对于权值 $v[]$ 数组，连边 $(u,v)$ ，直接 `add_Edge(v[u], v[v])`  
 
 **分析情况：**      
 若 $mex=i$ 说明小于 $i$ 的都要有，且不能包含 $i$   
