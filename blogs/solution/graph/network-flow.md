@@ -132,3 +132,98 @@ int main () {
 }
 ```
 <hr>
+
+## ICPC2018南京I_MagicPotion 
+
+#### 🔗
+<a href="https://codeforces.com/gym/101981/attachments">![20220924135305](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220924135305.png)</a>
+
+#### 💡
+一个关于分配哪个人去打哪个怪兽的问题，边的分配就可以考虑网络流了  
+一个人默认可以打一个，可以最多吃一瓶药再打一个，这两种打法是不同性质的，故需要两个副源点  
+一个从 $S$ 接收 $n$ 代表默认打，一个从 $S$ 接收 $k$ 代表嗑药打  
+每一个副源点都向每一个人连接一条为 $1$ 的边代表在这种情况下每个人最多可以打一个，然后让每个人向自己可以打的怪兽连一条 $1$ 的边代表每个怪兽一个人只能打一下，然后每个怪兽向 $T$ 连接一条为 $1$ 的边代表每个怪兽最多可以被打一次  
+好了建完了，最大流板子一上就过了  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2010;
+const int M = 1e7 + 10;
+struct Edge {
+    int nxt, to, flow;
+} edge[M];
+int head[N], curhead[N], cnt = 1;
+
+inline void add (int from, int to, int flow) {
+    edge[++cnt] = {head[from], to, flow};
+    head[from] = cnt;
+    edge[++cnt] = {head[to], from, 0};
+    head[to] = cnt;
+}
+
+int aim;
+int deep[N];
+inline bool bfs (int S, int T) {
+    memset(deep, 0, sizeof deep);
+    aim = T;
+    deep[S] = 1;
+    queue<int> que; que.push(S);
+    while (!que.empty()) {
+        int u = que.front(); que.pop();
+        for (int i = head[u]; i; i = edge[i].nxt) {
+            int v = edge[i].to;
+            if (!deep[v] && edge[i].flow) {
+                deep[v] = deep[u] + 1;
+                que.push(v);
+            }
+        }
+    }
+    return deep[T];
+}
+inline int dfs (int u, int fl) {
+    if (u == aim) return fl;
+    int f = 0;
+    for (int i = head[u]; i && fl; i = edge[i].nxt) {
+        int v = edge[i].to;
+        if (edge[i].flow && deep[v] == deep[u] + 1) {
+            int x = dfs(v, min(fl, edge[i].flow));
+            edge[i].flow -= x;
+            edge[i ^ 1].flow += x;
+            fl -= x;
+            f += x;
+        }
+    }
+    if (!f) deep[u] = -2;
+    return f;
+}
+inline int dicnic (int S, int T) {
+    int ret = 0;
+    while (bfs(S, T)) ret += dfs(S, 0x3f3f3f3f);
+    return ret;
+}
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m, k; cin >> n >> m >> k;
+    for (int i = 1; i <= n; i ++) {
+        int sz; cin >> sz;
+        for (int j = 0; j < sz; j ++) {
+            int x; cin >> x;
+            add(i, n + x, 2);
+        }
+    }
+    int idxp = n + m;
+    int S = ++idxp, T = ++idxp;
+    int p1 = ++idxp, p2 = ++idxp;
+    add(S, p1, n);
+    add(S, p2, k);
+    for (int i = 1; i <= n; i ++) add(p1, i, 1), add(p2, i, 1);
+    for (int i = 1; i <= m; i ++) add(n + i, T, 1);
+
+    cout << dicnic(S, T) << endl;
+}
+```
+<hr>
+

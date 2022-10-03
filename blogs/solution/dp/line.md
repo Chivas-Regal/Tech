@@ -576,6 +576,67 @@ int main () {
 ```
 <hr>
 
+## 牛客2021多校（5）D_DoubleStrings
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/33190">![20220921201135](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220921201135.png)</a>
+
+#### 💡
+题面好乱...，翻译一下就是找到字符串 $A$ 中和字符串 $B$ 中挑同样长度的子序列 $a,b$ 使得 $a<b$ ，问有多少种挑法  
+满足一个字符串小于的首先是要求前面有长度为任意的相同前缀，然后第一个不同的满足 $a_i< b_i$ ，所以用 $dp[i][j]$ 维护 $A$ 的前 $i$ 个位置和 $B$ 的前 $j$ 个位置有多少个相同的子序列  
+转移使用容斥的思想，在 $A[i]\neq B[j]$ 时 $dp[i][j]=dp[i-1][j]+dp[i][j-1]-dp[i-1][j-1]$  
+当然如果相等就可以接着 $dp[i-1][j-1]$ 了  
+然后如果 $A[i]<B[j]$ 说明这一个位置可以作为两子序列第一个不同的位置，令答案加上 $dp[i-1][j-1]$ 乘上后面任意选的方案数  
+假设 $A$ 后面还剩 $n$ 个，$B$ 后面还剩 $m$ 个，则后面任意选的方案数为  
+$\sum\limits_{i=1}^{min(n,m)}C_n^{i}C_m^{i}=\sum\limits_{i=1}^{min(n,m)}C_n^{n-i}C_m^i=C_{n+m}^n$  
+所以当 $A[i]<B[j]$ 时，累加 $dp[i-1][j-1]\times C_{n-i+m-i}^{n-i}$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 5010;
+const int mod = 1e9 + 7;
+int n, m;
+ll dp[N][N];
+
+ll f[N << 1], ivf[N << 1];
+inline ll ksm (ll a, int b) { ll res = 1; while (b) { if (b & 1) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv (ll x) { return ksm(x, mod - 2); }
+inline ll C (int n, int m) { return f[n] * ivf[m] % mod * ivf[n - m] % mod; }
+
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    f[0] = 1;
+    for (int i = 1; i < N * 2; i ++) f[i] = f[i - 1] * i % mod;
+    ivf[N * 2 - 1] = inv(f[N * 2 - 1]);
+    for (int i = N * 2 - 2; i >= 0; i --) ivf[i] = ivf[i + 1] * (i + 1) % mod;
+
+    string a, b; cin >> a >> b;
+    n = a.size(); m = b.size();
+    a = " " + a;
+    b = " " + b;
+
+    ll res = 0;
+    dp[0][0] = 1;
+    for (int i = 1; i <= n; i ++) dp[i][0] = 1;
+    for (int j = 1; j <= m; j ++) dp[0][j] = 1;
+    for (int i = 1; i <= n; i ++) {
+        for (int j = 1; j <= m; j ++) {
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1] - dp[i - 1][j - 1];
+            if (a[i] == b[j]) dp[i][j] += dp[i - 1][j - 1];
+            if (a[i] < b[j])  res += dp[i - 1][j - 1] * C(n - i + m - j, n - i) % mod;
+            dp[i][j] = (dp[i][j] % mod + mod) % mod;
+            res %= mod;
+        }
+    }
+    cout << res << endl;
+}
+```
+<hr>
+
+
 ## 牛客2022多校（7）J_MelborpElcissalc
 
 #### 🔗
@@ -2153,6 +2214,68 @@ CHIVAS_{
 
 ```
 
+<hr>
+
+## HDU2021多校(3)I_RiseInPrice
+
+#### 🔗
+<a href="https://acm.hdu.edu.cn/showproblem.php?pid=6981">![20220923135053](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220923135053.png)</a>
+
+#### 💡
+首先映入眼帘是一个 $n\le 100$ ，结合 $T\le 10$ 这明显是想让我们 $n^3$ 到 $n^4$ 的复杂度，而题目只是想让跑一个普通的矩阵 $dp$ ，随便 $n^2$ 就够用了吧    
+写着写着发现不对劲，状态的最大结果无法通过单纯地 $\sum a$ 和 $\sum b$ 决定，有可能 $3,3$ 比 $2,5$ 到后面更大  
+思考如何利用再开一个 $100$ ，发现还有一个关键信息也是题目中提醒我们的，就是总路线长度为 $2n-2$ ，并且我们要明确我们麻烦的地方是 "$dp$ 获取不到最大值" ，于是我们可以用 $dp$ 获得 $100$ 个较大的值，然后转移用这些值进行转移即可  
+故我们依旧是按 $sum1\times sum2$ 定谁大谁小，每次转移提出来最大的 $100$ 个进行转移，最后算一下 $dp[n][n]$ 最大位置的 $sum1\times sum2$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 105;
+struct node {
+    ll v1, v2;
+    inline friend bool operator < (node a, node b) {
+        return a.v1 * a.v2 > b.v1 * b.v2;
+    }
+};
+vector<node> dp[N][N];
+int n;
+ll a[N][N], b[N][N];
+
+inline void Solve () {
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i ++) for (int j = 1; j <= n; j ++) scanf("%lld", &a[i][j]);
+    for (int i = 1; i <= n; i ++) for (int j = 1; j <= n; j ++) scanf("%lld", &b[i][j]);
+    for (int i = 1; i <= n; i ++) for (int j = 1; j <= n; j ++) dp[i][j].clear();
+
+
+    dp[1][1].push_back({a[1][1], b[1][1]});
+    for (int i = 2; i <= n; i ++) {
+        for (int k = 0; k < 50 && k < dp[i - 1][1].size(); k ++) {
+            dp[i][1].push_back({dp[i - 1][1][k].v1 + a[i][1], dp[i - 1][1][k].v2 + b[i][1]});
+        }
+        sort(dp[i][1].begin(), dp[i][1].end());
+    }
+    for (int j = 2; j <= n; j ++) {
+        for (int k = 0; k < 50 && k < dp[1][j - 1].size(); k ++) {
+            dp[1][j].push_back({dp[1][j - 1][k].v1 + a[1][j], dp[1][j - 1][k].v2 + b[1][j]});
+        }
+        sort(dp[1][j].begin(), dp[1][j].end());
+    }
+
+    for (int i = 2; i <= n; i ++) {
+        for (int j = 2; j <= n; j ++) {
+            for (int k = 0; k < 50 && k < dp[i - 1][j].size(); k ++) {
+                dp[i][j].push_back({dp[i - 1][j][k].v1 + a[i][j], dp[i - 1][j][k].v2 + b[i][j]});
+            }
+            for (int k = 0; k < 50 && k < dp[i][j - 1].size(); k ++) {
+                dp[i][j].push_back({dp[i][j - 1][k].v1 + a[i][j], dp[i][j - 1][k].v2 + b[i][j]});
+            }
+            sort(dp[i][j].begin(), dp[i][j].end());
+        }
+    }
+
+    printf("%lld\n", dp[n][n][0].v1 * dp[n][n][0].v2);
+}
+```
 <hr>
 
 

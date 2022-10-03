@@ -1378,6 +1378,108 @@ int main () {
 ```
 <hr>
 
+## 牛客NC226172_智乃酱的平方数列
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/problem/226172">![20220921143551](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220921143551.png)</a>
+
+#### 💡
+~~三阶前缀和版本的学不会...要被苦恼吃了...~~  
+这里是维护多项式版本的  
+对于区间更新 $[l,r]$ ，里面所有的点 $x\in[l,r]$ ，它实际上加的值为 $(x-(l-1))^2=x^2-2(l-1)x-(l-1)^2$ ，发现这个 $l$ 是死的，故可以用三个 $lazy$ 懒记录这三个系数  
+在传 $lazy$ 的时候或者强制更新（ $update$ 出口）的时候，思考如何区间更新加和  
+继续推式子：  
+$\sum\limits_{x=l}^r(x^2-2(l-1)x-(l-1)^2)=\sum\limits_{x=l}^rx^2-2(l-1)\sum\limits_{x=l}^rx-(l-1)^2\sum\limits_{x=l}^r1$  
+也就是这两个等差数列的平方和与一次方和都很好求，在强制更新的时候是要用给定的 $l$ 算这三个系数然后乘进去，而在传懒标记时要用三个 $lazy$ 当这三个项的系数，分别乘 $(l^2+(l+1)^2+...+r^2)$ 、$(l+(l+1)+...+r)$ 、$(r-l+1)$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 5e5 + 10;
+const int mod = 1e9 + 7;
+struct Sgtr {
+    ll sum2, sum1, sum0;
+    ll laz2, laz1, laz0;
+    bool haslaz = false;
+} t[N << 2];
+
+inline ll Sum2 (ll x) {
+    if (x <= 0) return 0;
+    return x * (x + 1) * (2 * x + 1) / 6 % mod;
+}
+inline ll Sum1 (ll x) {
+    if (x <= 0) return 0;
+    return (x + 1) * x / 2 % mod;
+}
+
+inline void pushup (int rt) {
+    int ch = rt << 1;
+    t[rt].sum0 = (t[ch].sum0 + t[ch | 1].sum0) % mod;
+    t[rt].sum1 = (t[ch].sum1 + t[ch | 1].sum1) % mod;
+    t[rt].sum2 = (t[ch].sum2 + t[ch | 1].sum2) % mod;
+}
+inline void pushdown (int l, int r, int rt) {
+    if (!t[rt].haslaz) return;
+    int mid = (l + r) >> 1;
+    int ch = rt << 1;
+    (t[ch].sum0 += t[rt].laz0 * (mid - l + 1) % mod) %= mod;
+    (t[ch].sum1 += t[rt].laz1 * (Sum1(mid) - Sum1(l - 1)) % mod) %= mod;
+    (t[ch].sum2 += t[rt].laz2 * (Sum2(mid) - Sum2(l - 1)) % mod) %= mod; 
+    (t[ch | 1].sum0 += t[rt].laz0 * (r - mid) % mod) %= mod;
+    (t[ch | 1].sum1 += t[rt].laz1 * (Sum1(r) - Sum1(mid)) % mod) %= mod;
+    (t[ch | 1].sum2 += t[rt].laz2 * (Sum2(r) - Sum2(mid)) % mod) %= mod;
+    (t[ch].laz0 += t[rt].laz0) %= mod;
+    (t[ch].laz1 += t[rt].laz1) %= mod;
+    (t[ch].laz2 += t[rt].laz2) %= mod;
+    (t[ch | 1].laz0 += t[rt].laz0) %= mod;
+    (t[ch | 1].laz1 += t[rt].laz1) %= mod;
+    (t[ch | 1].laz2 += t[rt].laz2) %= mod;
+    t[rt].laz0 = t[rt].laz1 = t[rt].laz2 = t[rt].haslaz = 0;
+    t[ch].haslaz = t[ch | 1].haslaz = 1;
+}
+inline void update (ll a, int b, int l, int r, int rt) {
+    if (a <= l && r <= b) {
+        (t[rt].sum2 += Sum2(r) - Sum2(l - 1)) %= mod;
+        (t[rt].sum1 += 2ll * (a - 1) * (Sum1(r) - Sum1(l - 1)) % mod) %= mod;
+        (t[rt].sum0 += (a - 1) * (a - 1) % mod * (r - l + 1) % mod) %= mod;
+        t[rt].laz2 ++;
+        (t[rt].laz1 += 2ll * (a - 1) % mod) %= mod;
+        (t[rt].laz0 += (a - 1) * (a - 1) % mod) %= mod;
+        t[rt].haslaz = true;
+        return;
+    }
+    pushdown(l, r, rt);
+    int mid = (l + r) >> 1;
+    if (a <= mid) update(a, b, l, mid, rt << 1);
+    if (b > mid) update(a, b, mid + 1, r, rt << 1 | 1);
+    pushup(rt);
+}
+inline ll query (int a, int b, int l, int r, int rt) {
+    if (a <= l && r <= b) return t[rt].sum2 - t[rt].sum1 + t[rt].sum0;
+    int mid = (l + r) >> 1;
+    ll res = 0;
+    pushdown(l, r, rt);
+    if (a <= mid) res += query(a, b, l, mid, rt << 1);
+    if (b > mid)  res += query(a, b, mid + 1, r, rt << 1 | 1);
+    return res % mod;
+}
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, q; cin >> n >> q;
+    while (q --) {
+        int op, l, r; cin >> op >> l >> r;
+        if (op == 1) {
+            update(l, r, 1, n, 1);
+        } else {
+            cout << (query(l, r, 1, n, 1) % mod + mod) % mod << endl;
+        }
+    }
+}
+```
+<hr>
+
 
 ## 牛客NC230082_SashaAndArray
 
@@ -2442,6 +2544,188 @@ int main () {
 }
 ```
 <hr>
+
+## HDU2021多校(2)B_ILoveTree
+
+#### 🔗
+<a href="https://acm.hdu.edu.cn/showproblem.php?pid=6962">![20220921142004](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220921142004.png)</a>
+
+#### 💡
+这就很板啊...路径更新，单点查询，裸的树剖+线段树吧  
+如果什么都不考虑的情况下，树剖完就和 [这道题](#牛客nc226172_智乃酱的平方数列) 一模一样了  
+但是关键就在，树剖后更新的时候，对左端点和右端点的决策  
+一个路径 $x\to y$ 会转化为 $x\to lca\to y$ ，且树剖更新下总是高的对应的线性位置更小，故都是高的到低的更新  
+所以在第一段时，$x$ 是一次更新的右端点，$top[x]$ 是一次更新的左端点，那么越靠左要加的越多，这样就应该用 $i\in [id[topx],id[x]],+((r+1)-i)^2$ ，也就是 $i^2+2(r+1)i+(r+1)^2$  
+而在 $lca\to y$ 时，顺序就是正常的，就 $i\in [id[topx],id[x]],+(i-(l-1))^2$ ，也就是 $i^2+2(l-1)i+(l-1)^2$  
+且左右端点应该随着更新次数的增加越来越偏离更新区间，比如已经更新了 $num$ 个点了，那么我再用它作为 $l$ 更新的时候应该是 $i^2+2(l-num-1)i+(l-num-1)^2$ ，右端点同理要加  
+
+从下到上再到从上到下这是两种不同的更新方式，所以要分两次更新，且每次更新时要提出所有的更新区间然后分别按深度降序排序和深度升序排序  
+但是还有问题就是考虑到 $lca$ 这个位置会被更新两次且第二段整体左端点会偏移，所以只需要第一段记完 $num$ 后第二段再用时是 $num-1$ 开始的，然后让最后答案 $res[lca]-num*num$ 即可   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+const int M = 2 * N;
+struct Edge {
+    int nxt, to;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge (int from, int to) {
+    edge[++cnt] = {head[from], to};
+    head[from] = cnt;
+}
+
+int top[N], fa[N], son[N], sz[N], dep[N];
+int dfn[N], id[N], idx;
+inline void Dfs1 (int u, int fath) {
+    sz[u] = 1; dep[u] = dep[fath] + 1;
+    son[u] = 0; fa[u]= fath;
+    for (int i = head[u]; i; i = edge[i].nxt) {
+        int v = edge[i].to;
+        if (v == fath) continue;
+        Dfs1(v, u);
+        sz[u] += sz[v];
+        if (sz[son[u]] < sz[v]) son[u] = v;
+    }
+}
+inline void Dfs2 (int u, int topu) {
+    top[u] = topu;
+    dfn[++idx] = u; id[u] = idx;
+    if (son[u]) Dfs2(son[u], topu);
+    for (int i = head[u]; i; i = edge[i].nxt) {
+        int v = edge[i].to;
+        if (v == fa[u] || v == son[u]) continue;
+        Dfs2(v, v);
+    }
+}
+
+
+int n;
+int q;
+struct Sgtr {
+    ll sum2, sum1, sum0; // 三个系数实值
+    ll laz2, laz1, laz0; // 三个系数懒标记
+    bool haslaz = false;
+} t[N << 2];
+
+inline void pushup (int rt) {
+    int ch = rt << 1;
+    t[rt].sum0 = t[ch].sum0 + t[ch | 1].sum0;
+    t[rt].sum1 = t[ch].sum1 + t[ch | 1].sum1;
+    t[rt].sum2 = t[ch].sum2 + t[ch | 1].sum2;
+}
+inline void pushdown (int l, int r, int rt) {
+    if (!t[rt].haslaz) return;
+    int ch = rt << 1; 
+    t[ch].sum0 += t[rt].laz0; t[ch | 1].sum0 += t[rt].laz0;
+    t[ch].sum1 += t[rt].laz1; t[ch | 1].sum1 += t[rt].laz1;
+    t[ch].sum2 += t[rt].laz2; t[ch | 1].sum2 += t[rt].laz2;
+    t[ch].laz0 += t[rt].laz0; t[ch | 1].laz0 += t[rt].laz0;
+    t[ch].laz1 += t[rt].laz1; t[ch | 1].laz1 += t[rt].laz1;
+    t[ch].laz2 += t[rt].laz2; t[ch | 1].laz2 += t[rt].laz2;
+    t[rt].laz0 = t[rt].laz1 = t[rt].laz2 = t[rt].haslaz = 0;
+    t[ch].haslaz = t[ch | 1].haslaz = 1;
+}
+inline void update (int basl, int a, int b, int l = 1, int r = 2 * n, int rt = 1) {
+    if (a <= l && r <= b) {
+        t[rt].sum2 ++;
+        t[rt].sum1 += 2 * (basl - 1);
+        t[rt].sum0 += (basl - 1) * (basl - 1);
+        t[rt].laz2 ++;
+        t[rt].laz1 += 2 * (basl - 1);
+        t[rt].laz0 += (basl - 1) * (basl - 1);
+        t[rt].haslaz = true;
+        return;
+    }
+    pushdown(l, r, rt);
+    int mid = (l + r) >> 1;
+    if (a <= mid) update(basl, a, b, l, mid, rt << 1);
+    if (b > mid) update(basl, a, b, mid + 1, r, rt << 1 | 1);
+    pushup(rt);
+}
+inline ll query (int id, int l = 1, int r = 2 * n, int rt = 1) {
+    if (l == r) {
+        return t[rt].sum0 - t[rt].sum1 * l + t[rt].sum2 * l * l;
+    }
+    int mid = (l + r) >> 1;
+    pushdown(l, r, rt);
+    if (id <= mid) return query(id, l, mid, rt << 1);
+    else return query(id, mid + 1, r, rt << 1 | 1);
+}
+inline int Change (int num, int x, int y, int op) {
+    vector<pair<int, int> > v_upd; // 所有更新区间
+    while (top[x] != top[y]) {
+        if (dep[top[x]] < dep[top[y]]) swap(x, y);
+        v_upd.push_back({top[x], x});
+        x = fa[top[x]];
+    }
+    if (dep[x] > dep[y]) swap(x, y);
+    v_upd.push_back({x, y});
+
+    int num_upd = num;
+    if (op == 0) {
+        sort(v_upd.begin(), v_upd.end(), [&](pair<int, int> a, pair<int, int> b) { return dep[a.first] > dep[b.first]; });
+        for (int i = 0; i < v_upd.size(); i ++) {
+            int l = v_upd[i].first;
+            int r = v_upd[i].second;
+            update(id[r] + 2 + num_upd, id[l], id[r]); // 由于右端点要记录+1，故+2-1 = +1
+            num_upd += id[r] - id[l] + 1;
+        }
+    } else {
+        sort(v_upd.begin(), v_upd.end(), [&](pair<int, int> a, pair<int, int> b) { return dep[a.first] < dep[b.first]; });
+        for (int i = 0; i < v_upd.size(); i ++) {
+            int l = v_upd[i].first;
+            int r = v_upd[i].second;
+            update(id[l] - num_upd, id[l], id[r]);
+            num_upd += id[r] - id[l] + 1;
+        }
+    }
+    return num_upd;
+}
+inline int Lca (int x, int y) {
+    while (top[x] != top[y]) {
+        if (dep[top[x]] < dep[top[y]]) swap(x, y);
+        x = fa[top[x]];
+    }
+    if (dep[x] > dep[y]) swap(x, y);
+    return x;
+}
+
+int neddel[N];
+
+signed main () {
+    scanf("%lld", &n);
+    for (int i = 1; i < n; i ++) {
+        int u, v; scanf("%lld%lld", &u, &v);
+        add_Edge(u, v);
+        add_Edge(v, u);
+    }
+    Dfs1(1, 0); Dfs2(1, 1);
+    int q; scanf("%lld", &q);
+    while (q --) {
+        int op; scanf("%lld", &op);
+        if (op == 1) {
+            int x, y; scanf("%lld%lld", &x, &y);
+            int lca = Lca(x, y);   
+
+            if (x == lca) {
+                Change(0, x, y, 1);
+            } else if (y == lca) {
+                Change(0, x, y, 0);
+            } else {
+                int num = Change(0, x, lca, 0);
+                neddel[lca] += num * num;
+                Change(num - 1, lca, y, 1);
+            } 
+        } else {
+            int x; scanf("%lld", &x);
+            printf("%lld\n", query(id[x]) - neddel[x]);
+        }
+    }
+}
+```
+<hr>
+
 
 
 ## HDU1394_MinimumInversionNumber

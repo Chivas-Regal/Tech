@@ -2469,6 +2469,64 @@ inline void Solve () {
 ```
 <hr>
 
+### ICPC2018南京站J_PrimeGame
+
+#### 🔗
+<a href="https://codeforces.com/gym/101981/attachments">![20220924135831](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220924135831.png)</a>
+
+#### 💡
+刚拿到这个题是想着怎么去优化式子，在想用什么数据结构，但是区间问题的时候就很难看一个区间是否存在一个数，这样的话还要再开一个复杂度  
+看一下问的是什么，“对于所有区间，出现的不同质因数和”，加和是以一个质因数出没出现为单位的，那就分开考虑质因数，累加每一个质因数的贡献（经典组合套路  
+首先将所有质数出现的所有位置统计一遍  
+对于质数 $p$ 的出现位置：$a,b,c,d$  
+它所贡献的次数为 $a\times(b-a)+(b-a)\times(c-b)+(d-c)\times(n+1-d)$  
+按这种方式一个质数贡献的次数为 $a_0=0,a_{sz+1}=n+1,\sum\limits_{i=1}^{sz}(a_i-a_{i-1})(a_{i+1}-a_i)$  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e6 + 10;
+bool ntp[N];
+int mnp[N];
+vector<int> p;
+vector<int> id[N];
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    ntp[0] = ntp[1] = 1;
+    for (int i = 2; i < N; i ++) {
+        if (!ntp[i]) p.push_back(i), mnp[i] = i;
+        for (int j = 0; j < p.size() && 1ll * i * p[j] < N; j ++) {
+            ntp[i * p[j]] = 1;
+            mnp[i * p[j]] = p[j];
+            if (i % p[j] == 0) break;
+        }
+    }
+
+    for (int i = 2; i < N; i ++) id[i].push_back(0);
+    int n; cin >> n;
+    for (int i = 1; i <= n; i ++) {
+        int x; cin >> x;
+        while (x > 1) {
+            id[mnp[x]].push_back(i);
+            x /= mnp[x];
+        } 
+    } 
+    for (int i = 2; i < N; i ++) id[i].push_back(n + 1);
+
+    ll res = 0;
+    for (int i = 2; i < N; i ++) {
+        id[i].erase(unique(id[i].begin(), id[i].end()), id[i].end());
+        for (int j = 1; j + 1 < id[i].size(); j ++) {
+            res += 1ll * id[i][j] * (id[i][j + 1] - id[i][j]);
+        }
+    }
+    cout << res << endl;
+}
+```
+<hr>
+
 
 ### ICPC2020上海站G_Fibonacci
 

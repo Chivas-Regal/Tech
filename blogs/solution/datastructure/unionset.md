@@ -4,6 +4,53 @@ title: 并查集
 ###  
 <hr>
 
+## 洛谷9月月赛2Div2C_Rabbit
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P8552?contestId=84047">![20220926210048](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220926210048.png)</a>
+
+#### 💡
+如果是在原树上考虑的话，一个点要找两个比自己小的子节点，还要找一个子节点一个父节点，如果将最大值踢到根节点，那么它只需要任选两个“不同子树内”的节点（保证没有被选过的）  
+这样肯定是从下往上处理，可是在原树上一边边找最大值然后换根十分麻烦  
+既然卡着子树找最值很麻烦，两个同级的限制条件对调一下，变成卡着最值找子树  
+每次枚举的点可以成为之前枚举所有点的最大值的话，之前的点如果在当前建边的子树中的话就可以用  
+所以从 $1$ 到 $n$ 枚举节点，然后用已知连边合并比自己小的节点，看看是否存在两个子树里面都有没有被标记过的点，如果存在的话就让答案加一，该点代表子树的没标记点数 $num$ 减三（去掉两个子树中的点和自己）  
+合并可以用并查集合并  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 200005;
+int num[N], nod[N];
+inline int find (int x) { return x == nod[x] ? x : nod[x] = find(nod[x]); }
+
+inline void Solve () {
+    int n; cin >> n;
+    for (int i = 1; i <= n; i ++) nod[i] = i, num[i] = 1;
+    vector<vector<int> > g(n + 1);
+    for (int i = 1; i < n; i ++) {
+        int u, v; cin >> u >> v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+    int res = 0;
+    for (int i = 1; i <= n; i ++) {
+        int hasSon = 0;
+        for (int j : g[i]) {
+            if (j > i) continue;
+            hasSon += num[find(j)] > 0;
+            num[i] += num[find(j)];
+            nod[find(j)] = i;
+        }
+        if (hasSon >= 2) 
+            num[i] -= 3, 
+            res ++;
+    }
+    cout << res << endl;
+}
+```
+<hr>
+
+
 ## ABC238E_RangeSums
 
 #### 🔗

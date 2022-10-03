@@ -1341,7 +1341,7 @@ int main () {
 
 <hr>
 
-## HDU2021多校(7)12_Yiwenwith Sqc
+## HDU2021多校(7)12_YiwenwithSqc
 
 #### 🔗
 <a href="https://acm.dingbacode.com/showproblem.php?pid=7055"><img src="https://i.loli.net/2021/10/14/DHYf7mUtuZ8W9T5.png"></a>

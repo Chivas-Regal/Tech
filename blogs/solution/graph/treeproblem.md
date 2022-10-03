@@ -233,6 +233,7 @@ int main () {
 
 <hr>
 
+
 ### CodeForces1702G2_PassablePath（Hard Version）
 
 #### 🔗
@@ -387,6 +388,189 @@ inline void Solve () {
 }
 ```
 <hr>
+
+## HDU2021多校(2)B_ILoveTree
+
+#### 🔗
+<a href="https://acm.hdu.edu.cn/showproblem.php?pid=6962">![20220921142004](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220921142004.png)</a>
+
+#### 💡
+这就很板啊...路径更新，单点查询，裸的树剖+线段树吧  
+如果什么都不考虑的情况下，树剖完就和 [这道题](#牛客nc226172_智乃酱的平方数列) 一模一样了  
+但是关键就在，树剖后更新的时候，对左端点和右端点的决策  
+一个路径 $x\to y$ 会转化为 $x\to lca\to y$ ，且树剖更新下总是高的对应的线性位置更小，故都是高的到低的更新  
+所以在第一段时，$x$ 是一次更新的右端点，$top[x]$ 是一次更新的左端点，那么越靠左要加的越多，这样就应该用 $i\in [id[topx],id[x]],+((r+1)-i)^2$ ，也就是 $i^2+2(r+1)i+(r+1)^2$  
+而在 $lca\to y$ 时，顺序就是正常的，就 $i\in [id[topx],id[x]],+(i-(l-1))^2$ ，也就是 $i^2+2(l-1)i+(l-1)^2$  
+且左右端点应该随着更新次数的增加越来越偏离更新区间，比如已经更新了 $num$ 个点了，那么我再用它作为 $l$ 更新的时候应该是 $i^2+2(l-num-1)i+(l-num-1)^2$ ，右端点同理要加  
+
+从下到上再到从上到下这是两种不同的更新方式，所以要分两次更新，且每次更新时要提出所有的更新区间然后分别按深度降序排序和深度升序排序  
+但是还有问题就是考虑到 $lca$ 这个位置会被更新两次且第二段整体左端点会偏移，所以只需要第一段记完 $num$ 后第二段再用时是 $num-1$ 开始的，然后让最后答案 $res[lca]-num*num$ 即可   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e5 + 10;
+const int M = 2 * N;
+struct Edge {
+    int nxt, to;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge (int from, int to) {
+    edge[++cnt] = {head[from], to};
+    head[from] = cnt;
+}
+
+int top[N], fa[N], son[N], sz[N], dep[N];
+int dfn[N], id[N], idx;
+inline void Dfs1 (int u, int fath) {
+    sz[u] = 1; dep[u] = dep[fath] + 1;
+    son[u] = 0; fa[u]= fath;
+    for (int i = head[u]; i; i = edge[i].nxt) {
+        int v = edge[i].to;
+        if (v == fath) continue;
+        Dfs1(v, u);
+        sz[u] += sz[v];
+        if (sz[son[u]] < sz[v]) son[u] = v;
+    }
+}
+inline void Dfs2 (int u, int topu) {
+    top[u] = topu;
+    dfn[++idx] = u; id[u] = idx;
+    if (son[u]) Dfs2(son[u], topu);
+    for (int i = head[u]; i; i = edge[i].nxt) {
+        int v = edge[i].to;
+        if (v == fa[u] || v == son[u]) continue;
+        Dfs2(v, v);
+    }
+}
+
+
+int n;
+int q;
+struct Sgtr {
+    ll sum2, sum1, sum0; // 三个系数实值
+    ll laz2, laz1, laz0; // 三个系数懒标记
+    bool haslaz = false;
+} t[N << 2];
+
+inline void pushup (int rt) {
+    int ch = rt << 1;
+    t[rt].sum0 = t[ch].sum0 + t[ch | 1].sum0;
+    t[rt].sum1 = t[ch].sum1 + t[ch | 1].sum1;
+    t[rt].sum2 = t[ch].sum2 + t[ch | 1].sum2;
+}
+inline void pushdown (int l, int r, int rt) {
+    if (!t[rt].haslaz) return;
+    int ch = rt << 1; 
+    t[ch].sum0 += t[rt].laz0; t[ch | 1].sum0 += t[rt].laz0;
+    t[ch].sum1 += t[rt].laz1; t[ch | 1].sum1 += t[rt].laz1;
+    t[ch].sum2 += t[rt].laz2; t[ch | 1].sum2 += t[rt].laz2;
+    t[ch].laz0 += t[rt].laz0; t[ch | 1].laz0 += t[rt].laz0;
+    t[ch].laz1 += t[rt].laz1; t[ch | 1].laz1 += t[rt].laz1;
+    t[ch].laz2 += t[rt].laz2; t[ch | 1].laz2 += t[rt].laz2;
+    t[rt].laz0 = t[rt].laz1 = t[rt].laz2 = t[rt].haslaz = 0;
+    t[ch].haslaz = t[ch | 1].haslaz = 1;
+}
+inline void update (int basl, int a, int b, int l = 1, int r = 2 * n, int rt = 1) {
+    if (a <= l && r <= b) {
+        t[rt].sum2 ++;
+        t[rt].sum1 += 2 * (basl - 1);
+        t[rt].sum0 += (basl - 1) * (basl - 1);
+        t[rt].laz2 ++;
+        t[rt].laz1 += 2 * (basl - 1);
+        t[rt].laz0 += (basl - 1) * (basl - 1);
+        t[rt].haslaz = true;
+        return;
+    }
+    pushdown(l, r, rt);
+    int mid = (l + r) >> 1;
+    if (a <= mid) update(basl, a, b, l, mid, rt << 1);
+    if (b > mid) update(basl, a, b, mid + 1, r, rt << 1 | 1);
+    pushup(rt);
+}
+inline ll query (int id, int l = 1, int r = 2 * n, int rt = 1) {
+    if (l == r) {
+        return t[rt].sum0 - t[rt].sum1 * l + t[rt].sum2 * l * l;
+    }
+    int mid = (l + r) >> 1;
+    pushdown(l, r, rt);
+    if (id <= mid) return query(id, l, mid, rt << 1);
+    else return query(id, mid + 1, r, rt << 1 | 1);
+}
+inline int Change (int num, int x, int y, int op) {
+    vector<pair<int, int> > v_upd; // 所有更新区间
+    while (top[x] != top[y]) {
+        if (dep[top[x]] < dep[top[y]]) swap(x, y);
+        v_upd.push_back({top[x], x});
+        x = fa[top[x]];
+    }
+    if (dep[x] > dep[y]) swap(x, y);
+    v_upd.push_back({x, y});
+
+    int num_upd = num;
+    if (op == 0) {
+        sort(v_upd.begin(), v_upd.end(), [&](pair<int, int> a, pair<int, int> b) { return dep[a.first] > dep[b.first]; });
+        for (int i = 0; i < v_upd.size(); i ++) {
+            int l = v_upd[i].first;
+            int r = v_upd[i].second;
+            update(id[r] + 2 + num_upd, id[l], id[r]); // 由于右端点要记录+1，故+2-1 = +1
+            num_upd += id[r] - id[l] + 1;
+        }
+    } else {
+        sort(v_upd.begin(), v_upd.end(), [&](pair<int, int> a, pair<int, int> b) { return dep[a.first] < dep[b.first]; });
+        for (int i = 0; i < v_upd.size(); i ++) {
+            int l = v_upd[i].first;
+            int r = v_upd[i].second;
+            update(id[l] - num_upd, id[l], id[r]);
+            num_upd += id[r] - id[l] + 1;
+        }
+    }
+    return num_upd;
+}
+inline int Lca (int x, int y) {
+    while (top[x] != top[y]) {
+        if (dep[top[x]] < dep[top[y]]) swap(x, y);
+        x = fa[top[x]];
+    }
+    if (dep[x] > dep[y]) swap(x, y);
+    return x;
+}
+
+int neddel[N];
+
+signed main () {
+    scanf("%lld", &n);
+    for (int i = 1; i < n; i ++) {
+        int u, v; scanf("%lld%lld", &u, &v);
+        add_Edge(u, v);
+        add_Edge(v, u);
+    }
+    Dfs1(1, 0); Dfs2(1, 1);
+    int q; scanf("%lld", &q);
+    while (q --) {
+        int op; scanf("%lld", &op);
+        if (op == 1) {
+            int x, y; scanf("%lld%lld", &x, &y);
+            int lca = Lca(x, y);   
+
+            if (x == lca) {
+                Change(0, x, y, 1);
+            } else if (y == lca) {
+                Change(0, x, y, 0);
+            } else {
+                int num = Change(0, x, lca, 0);
+                neddel[lca] += num * num;
+                Change(num - 1, lca, y, 1);
+            } 
+        } else {
+            int x; scanf("%lld", &x);
+            printf("%lld\n", query(id[x]) - neddel[x]);
+        }
+    }
+}
+```
+<hr>
+
+
 
 ## 虚树
 
@@ -779,6 +963,137 @@ int main () {
 }
 ```
 <hr>
+
+### CCPC2022河南省赛J_MexTree
+
+#### 🔗
+<a href="https://codeforces.com/gym/103941/attachments">![20221003195313](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221003195313.png)</a>
+
+#### 💡
+这个编号建图，权值 $mex$ 太奇怪了，建图的时候直接用它们的 $mex$ 当编号建吧，即对于权值 $v[]$ 数组，连边 $(u,v)$ ，直接 `add_Edge(v[u], v[v])`  
+
+**分析情况：**      
+若 $mex=i$ 说明小于 $i$ 的都要有，且不能包含 $i$   
+在朴素情况下说明只能选一棵以 $i$ 为分割的几棵子树之一，这棵子树必须包含 $[0,i-1]$   
+![20221003195702](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221003195702.png)   
+就是选其中之一    
+
+假设总树是建的一棵有根树，那么这三棵树分别代表着：除了以 $i$ 为根的子树之外的节点构成的连通块、以 $i$ 的儿子为根构成的子树  
+- $1.$ 如果前者可以成为我们选择的连通块，说明 $i$ 的子树中不含 $[0,i-1]$ 的任意一个权值，这样的话我们直接取 $n-sz[i]$ 即可  
+- $2.$ 如果后者是我们要选择的连通块，说明 $i$ 的其中一棵儿子子树一定包含了 $[0,i-1]$ 的所有点，直接取其这棵子树的 $sz$ 即可  
+- $3.$ 都不满足，那么就是 $0$      
+
+情况 $1$ 的判定方式为，$i$ 的子树最小值等于 $i$ ，就说明 $[0,i-1]$ 都不在 $i$ 的子树种  
+情况 $2$ 的判定方式为，$[0,i-1]$ 的 $lca$ 的深度比 $i$ 小，就说明其 $lca$ 是 $i$ 的子孙之一。$[0,i-1]$ 的 $lca$ 求法为其区间 $dfs$ 序最小值的点和最大值的点构成的 $lca$ ，这两个点在递进 $i$ 的时候维护一下就行。在 $i$ 的哪棵子树的求法为用倍增跑到 $lca$ 的一个父亲 $f$ 满足 $dep[f]=dep[i]-1$        
+情况 $3$ 的判定方式为，`else`  
+  
+特殊情况  
+- $0$ 的答案：以 $0$ 为根建图，那就是找最大的子树
+- $n+1$ 的答案：选全部，就是 $n$   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+// 这里拿权值从 [1,n] 开始了，写着方便
+const int N = 1e6 + 10;
+const int M = N << 1;
+struct Edge {
+    int nxt, to;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge (int from, int to) {
+    edge[++cnt] = {head[from], to};
+    head[from] = cnt;
+}
+int n, v[N], mn[N]; // 点数，权值，子树最小值
+int sz[N], fa[N][25], dep[N]; // 子树大小，父亲倍增表，深度
+int dfn[N], df_idx; // dfs序
+inline void dfs (int u, int father) { // 预处理上面的信息
+    fa[u][0] = father;
+    dep[u] = dep[father] + 1;
+    sz[u] = 1;
+    mn[u] = u;
+    dfn[u] = ++df_idx;
+    for (int i = head[u]; i; i = edge[i].nxt) {
+        int v = edge[i].to;
+        if (v == father) continue;
+        dfs(v, u);
+        sz[u] += sz[v];
+        mn[u] = min(mn[u], mn[v]);
+    }
+}
+inline int Lca (int x, int y) {
+    if (dep[x] < dep[y]) swap(x, y);
+    for (int i = 20; i >= 0; i --) {
+        if (fa[x][i] && dep[fa[x][i]] > dep[y]) x = fa[x][i];
+    }
+    if (x == y) return x;
+    for (int i = 20; i >= 0; i --) {
+        if (fa[x][i] && fa[y][i] && fa[x][i] != fa[y][i]) {
+            x = fa[x][i];
+            y = fa[y][i];
+        }
+    }
+    return fa[x][0];
+}
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    cin >> n;
+    for (int i = 1; i <= n; i ++) {
+        cin >> v[i], mn[i] = 0x3f3f3f3f;
+        v[i] ++; // 令权值整体上升1，在建图的时候好建
+    }
+    // 用权值建图，操作起来方便
+    for (int i = 2; i <= n; i ++) {
+        int fa; cin >> fa;
+        add_Edge(v[fa], v[i]);
+        add_Edge(v[i], v[fa]);
+    }
+
+    dfs(1, 1);
+    for (int j = 1; j <= 20; j ++) {
+        for (int i = 1; i <= n; i ++) fa[i][j] = fa[fa[i][j - 1]][j - 1];
+    }
+
+    // 0 的答案，也就是对应我的建图里面的 1 的答案
+    int res1 = 0;
+    for (int i = head[1]; i; i = edge[i].nxt) 
+        res1 = max(res1, sz[edge[i].to]);
+    cout << res1 << " ";
+
+    // 维护两个dfs序的最值点
+    pair<int, int> mndfn = {dfn[1], 1};
+    pair<int, int> mxdfn = {dfn[1], 1};
+    for (int i = 2; i <= n; i ++) {
+        if (mn[i] == i) { // 上面
+            cout << n - sz[i] << " "; 
+        } else { // 子树中
+            int lca = Lca(mndfn.second, mxdfn.second);
+            if (dep[lca] <= dep[i]) cout << "0 "; // 不在同一棵子树中
+            else {
+                while (dep[lca] <= dep[i] - 1) { // 跑到 i 的一个儿子
+                    for (int j = 20; j >= 0; j --) {
+                        if (dep[fa[lca][j]] <= dep[i] - 1) {
+                            lca = fa[lca][j];
+                            break;
+                        }
+                    }
+                }
+                cout << sz[lca] << " ";
+            }
+        }
+        if (mndfn.first > dfn[i]) mndfn = {dfn[i], i};
+        if (mxdfn.first < dfn[i]) mxdfn = {dfn[i], i};
+    }
+
+    // n+1 的答案
+    cout << sz[1] << endl;
+}
+```
+<hr>
+
 
 ### CodeForces1307E_1TreesAndQueries
 

@@ -4,6 +4,72 @@ title: 树状数组
 ###  
 <hr>
 
+## 省赛2021广东K_Kera’sLineSegment 
+
+#### 🔗
+<a href="https://cpc.csgrandeur.cn/csgoj/problemset/problem?pid=1178">![20220922204250](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220922204250.png)</a>
+
+#### 💡
+双关键字的排序不好排，且这里 $1\le l\le r\le 3000$ ，这就是一个开 $n^2$ 空间和时间复杂度的数据量  
+如果是单纯开了二维数组然后暴力更新的话是特别慢的，但是有一种数据结构可以更新二维，就是二维树状数组  
+用二维树状数组的更新下，给定插入的 $[l,r]$ 里面 $l$ 向 $0$ 更新，$r$ 向 $n$ 更新，查询则是反过来，时间复杂度 $O(qlog^23000)$
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N  = 6010;
+struct TrAry {
+    int mn, mx;
+} t[N][N];
+
+inline int lowbit (int x) { return x & -x; }
+inline void update (int id1, int id2, int c) {
+    int x = id1;
+    while (x) {
+        int y = id2;
+        while (y < N) t[x][y].mn = min(t[x][y].mn, c), t[x][y].mx = max(t[x][y].mx, c), y += lowbit(y);
+        x -= lowbit(x);
+    }
+}
+inline int query (int id1, int id2) {
+    TrAry res = {0x3f3f3f3f, -1};
+    int x = id1;
+    while (x < N) {
+        int y = id2;
+        while (y) res.mn = min(res.mn, t[x][y].mn), res.mx = max(res.mx, t[x][y].mx), y -= lowbit(y);
+        x += lowbit(x);
+    }
+    if (res.mn == 0x3f3f3f3f) return 0;
+    return res.mx - res.mn;
+}
+
+int n, m;
+
+int main () {
+    for (int i = 0; i < N; i ++) for (int j = 0; j < N; j ++) t[i][j] = {0x3f3f3f3f, -1};
+
+    scanf("%d%d", &n, &m);
+    for (int i = 1; i <= n; i ++) {
+        int l, r, v; scanf("%d%d%d", &l, &r, &v);
+        update(l, r, v);
+    }
+    int lasAns = 0;
+    while (m --) {
+        int op, l, r; scanf("%d%d%d", &op, &l, &r);
+        l ^= lasAns;
+        r ^= lasAns;
+        if (op == 1) {
+            int v; scanf("%d", &v);
+            update(l, r, v);
+        } else {
+            lasAns = query(l, r);
+            printf("%d\n", lasAns);
+        }
+    }
+}
+```
+<hr>
+
+
 ## ABC221E_LEQ
 
 #### 🔗

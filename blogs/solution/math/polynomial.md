@@ -1570,6 +1570,82 @@ int main () {
 
 <hr>
 
+### HDU2021多校(3)C_ForgivingMatching
+
+#### 🔗
+<a href="https://acm.hdu.edu.cn/showproblem.php?pid=6975">![20220923151417](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220923151417.png)</a>
+
+#### 💡
+一看就是一个通配符下的字符串匹配问题  
+只需要对所有的字符分开考虑即可，就是正常的多项式然后一个式子反过来  
+求出从每一个位置作为开始的不相似度为多少，（m-匹配度）注意由于通配符的存在如果遇见两个通配符对应了话会重复多算九次，因此要以通配符为匹配符再扣一次 $9$ 就好了  
+最后求一下所有不相似度对应起始下标个数的前缀和，就是答案  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int n, m;
+char s[N], t[N];
+
+struct Complex {
+    double x, y;
+    Complex friend operator + ( Complex a, Complex b ) { return {a.x + b.x, a.y + b.y}; }
+    Complex friend operator - ( Complex a, Complex b ) { return {a.x - b.x, a.y - b.y}; }
+    Complex friend operator * ( Complex a, Complex b ) { return { a.x * b.x - a.y * b.y, a.x * b.y + a.y * b.x}; }
+} a[N], b[N];
+int rev[N], bit, tot;
+
+inline void fft (Complex a[], int op) {
+    for (int i = 0; i < tot; i ++) {
+        if (i < rev[i]) swap(a[i], a[rev[i]]);
+    }
+    for (int mid = 1; mid < tot; mid <<= 1) {
+        Complex w1 = {cos(PI / mid), op * sin(PI / mid)};
+        for (int i = 0; i < tot; i += mid << 1) {
+            Complex wk = {1, 0};
+            for (int j = 0; j < mid; j ++, wk = wk * w1) {
+                Complex x = a[i + j], y = wk * a[i + j + mid];
+                a[i + j] = x + y, a[i + j + mid] = x - y;
+            }
+        }
+    }
+}
+
+int res[N], cnt[N];
+
+inline void Work (char c, int v) {
+    for (int i = 0; i < tot; i ++) a[i] = b[i] = {0, 0};
+    for (int i = 0; i < n; i ++) a[i].x = s[i] == c || s[i] == '*';
+    for (int i = 0; i < m; i ++) b[i].x = t[m - i - 1] == c || t[m - i - 1] == '*';
+
+    fft(a, 1); fft(b, 1);
+    for (int i = 0; i < tot; i ++) a[i] = a[i] * b[i];
+    fft(a, -1);
+    
+    for (int i = m - 1; i <= n + m - 2; i ++) 
+        res[i - m + 1] += (int)(a[i].x / tot + 0.5) * v;
+}
+
+inline void Solve () {
+    scanf("%d%d", &n, &m);
+    scanf("%s%s", s, t);
+
+    for (int i = 0; i <= n; i ++) cnt[i] = res[i] = 0;
+    bit = 0; while ((1 << bit) < n + m - 1) bit ++; tot = 1 << bit;
+    for (int i = 0; i < tot; i ++) rev[i] = rev[i >> 1] >> 1 | ((i & 1) << (bit - 1));
+
+    for (char i = '0'; i <= '9'; i ++) Work(i, 1);
+    Work('*', -9);
+
+    for (int i = 0; i < n - m + 1; i ++) cnt[m - res[i]] ++;
+    for (int i = 1; i <= m + 1; i ++) cnt[i] += cnt[i - 1];
+
+
+    for (int i = 0; i <= m; i ++) printf("%d\n", cnt[i]);
+}
+```
+<hr>
+
+
 ### ICPC2021大田H_RockPaperScissors
 
 #### 🔗

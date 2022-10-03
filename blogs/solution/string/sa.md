@@ -5,6 +5,81 @@ title: 后缀数组
 ###
 <hr>
 
+## 洛谷P4248_差异
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P4248">![20220928085615](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220928085615.png)</a>
+
+#### 💡
+这个式子一看就能拆，因为 $T_i$ 和 $T_j$ 有关系的时候就只有后面的 $lcp$   
+三项提开，前两项再合并 $\frac{(n-1)n(n+1)}{2}-\sum\limits_{1\le i<j\le n}lcp(T_i,T_j)$  
+想一下 $lcp$ 在什么地方能求，就是 $lcp(sa[i],sa[j])=\min\limits_{k=i+1}^jht[k]$  
+既然是两两都有，那么下标可以转换为排名，也就是求所有排名区间最小 $ht$ 的和   
+这就是一个处理一个位置作为最小值覆盖的 $l,r$ 的问题，求完 $lr$ 后，累计一下以 $i$ 为最小值的区间数和 $ht$ 的乘积也就是 $2\times(i-l_i+1)(r_i-i+1)\times ht[i]$ 即可    
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 5e5 + 10;
+int n;
+char s[N];
+int rk[N], rk2[N], sa[N], ht[N];
+
+inline void get_Sa () {
+    for (int i = 1; i <= n; i ++) {
+        rk[i] = s[i];
+        sa[i] = i;
+    }
+    for (int k = 1; k <= n; k <<= 1) {
+        auto cmp = [&](int i, int j) {
+            if (rk[i] != rk[j]) return rk[i] < rk[j];
+            int ri = (i + k <= n ? rk[i + k] : -1);
+            int rj = (j + k <= n ? rk[j + k] : -1);
+            return ri < rj;
+        };
+        sort(sa + 1, sa + 1 + n, cmp);
+        for (int i = 1; i <= n; i ++) rk2[sa[i]] = rk2[sa[i - 1]] + cmp(sa[i - 1], sa[i]);
+        for (int i = 1; i <= n; i ++) rk[i] = rk2[i];
+    }
+}
+inline void get_Ht () {
+    for (int i = 1; i <= n; i ++) rk[sa[i]] = i;
+    ht[1] = 0;
+    for (int i = 1, h = 0; i <= n; i ++) {
+        int j = sa[rk[i] - 1];
+        if (h > 0) h --;
+        for (; j + h <= n && i + h <= n; h ++) if (s[i + h] != s[j + h]) break;
+        ht[rk[i]] = h;
+    }
+}
+
+int l[N], r[N];
+stack<int> stk;
+int main () {
+    scanf("%s", s + 1);
+    n = strlen(s + 1);
+
+    get_Sa(); get_Ht();
+
+    ll res = (ll)(n - 1) * n * (n + 1) / 2;
+
+    stk = stack<int>();
+    for (int i = 2; i <= n; i ++) {
+        while (!stk.empty() && ht[stk.top()] > ht[i]) r[stk.top()] = i - 1, stk.pop();
+        if (stk.empty()) l[i] = 2;
+        else l[i] = stk.top() + 1;
+        stk.push(i);
+    } while (stk.size()) r[stk.top()] = n, stk.pop();
+
+    for (int i = 2; i <= n; i ++) {
+        res -= 2ll * (i - l[i] + 1) * (r[i] - i + 1) * ht[i];
+    }
+    printf("%lld\n", res);
+}
+```
+<hr>
+
+
 ## 洛谷P5546_公共串
 
 #### 🔗
