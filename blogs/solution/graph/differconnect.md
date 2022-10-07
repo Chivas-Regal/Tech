@@ -346,7 +346,7 @@ CHIVAS_{
 
 <hr>
 
-## Luogu2294_狡猾的商人
+## 洛谷2294_狡猾的商人
 
 #### 🔗
 <a href="https://www.luogu.com.cn/problem/P2294"><img src="https://i.loli.net/2021/09/30/NfUE4PLFRgHaudw.png"></a>
@@ -408,4 +408,156 @@ int main () {
 }
 ```
 
+<hr>
+
+## 牛客2022国庆集训派对day3H_Subsequence2
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/41757/H">![20221006140952](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221006140952.png)</a>
+
+#### 💡
+看一下给定的东西包含什么信息  
+- 一种字符的数量个数
+- 两种字符的每一个字符的相对位置
+  
+这个相对位置就很灵性了，如果将 $a$ 的第 $x$ 个字符的位置映射到 $a_x$  
+在给定 $aaba$ 的意义下，就意味着 $a_1<a_2,\;a_2<b_1,\;b_1<a_3$  
+这就是一个差分约束系统啊，如果 $x<y$ 说明 $x-y<0$  
+那就用 $x-y\le -1$ 建图就好了，对于将每一个字符每一次出现的位置映射成一个点，在跑完最短路获取到 $dis[]$ 后将每个点按 $dis$ 进行排序，依次输出这个点是哪个字符  
+  
+但是这个 $n$ 很大 $m$ 与 $n$ 同级，跑个 $spfa$ 大概率寄掉，但是注意到每一个边权都是 $-1$ ，故直接跑一个拓扑排序维护最短路就行了  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void cgets (char *s) { // 读取一行字符串
+    char ch;
+    int i = 0;
+    while (scanf("%c", &ch) != EOF && ch != '\n') {
+        s[i++] = ch;
+    }
+    s[i] = '\0';
+}
+
+const int N = 1e4 + 10;
+const int M = N * 26 * 10;
+
+int in[N * 26];
+int idchar[N * 26], idx; // 第 idx 个点是哪个字符
+int charid[26][N], char_num[26]; // charid[i][j]:i字符出现的第j个对应哪个点 ，char_num[i]:i字符的个数
+struct Edge {
+    int nxt, to, val;
+} edge[M];
+int head[N * 26], cnt;
+inline void add_Edge (int from, int to, int val) {
+    edge[++cnt] = {head[from], to, val};
+    head[from] = cnt;
+    in[to] ++;
+}
+
+int n, m; 
+
+int dis[N * 26];
+inline bool topSort () {
+    for (int i = 0; i < N * 26; i ++) {
+        dis[i] = 0x3f3f3f3f;
+    }
+    
+    queue<int> que;
+    for (int i = 1; i <= n; i ++) {
+        if (!in[i]) {
+            que.push(i);
+            dis[i] = 0;
+        }
+    }
+    while (!que.empty()) {
+        int u = que.front();
+        que.pop();
+        for (int i = head[u]; i; i = edge[i].nxt) {
+            int v = edge[i].to;
+            in[v] --;
+            dis[v] = min(dis[v], dis[u] + edge[i].val);
+            if (!in[v]) {
+                que.push(v);
+            }
+        }
+    }
+
+    for (int i = 1; i <= n; i ++) if (dis[i] == 0x3f3f3f3f) return false;
+    
+    return true;
+}
+
+char t[4];
+char s[N];
+
+int main () {
+    scanf("%d%d", &n, &m); 
+    for (int i = 0; i < m * (m - 1) / 2; i ++) {
+        int len;
+        scanf("%s%d", t, &len); 
+        getchar(); cgets(s);
+
+        // 如果 t[0] 没获取过信息
+        if (!charid[t[0] - 'a'][1]) {
+            int id = 0;
+            for (int j = 0; j < len; j ++) {
+                if (s[j] == t[0]) {
+                    charid[t[0] - 'a'][++id] = ++idx;
+                    idchar[idx] = t[0] - 'a';
+                }
+            }
+            char_num[t[0] - 'a'] = id;
+            // 先是同一个字符内的大小关系
+            for (int j = 1; j + 1 <= id; j ++) {
+                add_Edge(charid[t[0] - 'a'][j + 1], charid[t[0] - 'a'][j], -1);
+            }
+        }
+        // 如果 t[1] 没获取过信息
+        if (!charid[t[1] - 'a'][1]) {
+            int id = 0;
+            for (int j = 0; j < len; j ++) {
+                if (s[j] == t[1]) {
+                    charid[t[1] - 'a'][++id] = ++idx;
+                    idchar[idx] = t[1] - 'a';
+                }
+            }
+            char_num[t[1] - 'a'] = id;
+            for (int j = 1; j + 1 <= id; j ++) {
+                add_Edge(charid[t[1] - 'a'][j + 1], charid[t[1] - 'a'][j], -1);
+            }
+        }
+
+        // 建边，按 s 的顺序搭建
+        int id1 = 0, id2 = 0;
+        if (s[0] == t[0]) id1 ++; else id2 ++;
+        for (int j = 1; j < len; j ++) {
+            if (s[j] == t[0]) id1 ++;
+            else id2 ++;
+            if (s[j] != s[j - 1]) {
+                if (s[j - 1] == t[0]) add_Edge(charid[t[1] - 'a'][id2], charid[t[0] - 'a'][id1], -1);
+                else add_Edge(charid[t[0] - 'a'][id1], charid[t[1] - 'a'][id2], -1);
+            }
+        }
+    }
+    
+    if (idx != n) {
+        printf("-1\n");
+        return 0;
+    }
+
+    if (!topSort()) {
+        printf("-1\n");
+    } else {
+        vector<int> v;
+        for (int i = 1; i <= idx; i ++) v.push_back(i);
+        sort(v.begin(), v.end(), [&](int a, int b) {
+            return dis[a] < dis[b];
+        });
+        for (int i = 0; i < v.size(); i ++) {
+            printf("%c", idchar[v[i]] + 'a');
+        }
+    }
+
+}
+```
 <hr>

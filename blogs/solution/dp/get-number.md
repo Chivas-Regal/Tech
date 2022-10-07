@@ -200,6 +200,73 @@ int main () {
 ```
 <hr>
 
+## 洛谷P2051_中国象棋
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P2051">![20221006204134](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221006204134.png)</a>
+
+#### 💡
+一行一列不能有三个炮存在（az什么双重皇后问题）...  
+计数、矩阵，$dp$ 吧  
+如果某一列有一个棋，那么下一步如果选它会变成两个棋，所以在一行一列上，三种棋的状态是很重要且收到限制的  
+所以我们在状态内放置一个 $j$ 表示含一个棋子的列个数，$k$ 表示含两个棋子的列个数，第三维就不用开了，可以通过 $m-j-k$ 快速获得有几个列没有棋子  
+然后在行内向下走，注意一行只能选两个棋子  
+所以我们对于第 $i$ 行 $dp[i][j][k]$ ，枚举下一行在含一个棋子的列里面选 $a$ 列本来就含有一个棋子的，选 $b$ 列本来没有棋子的，那么下一个状态为 $dp[i+1][j-a+b][k+b]$ ，同时选择为组合数，累加转移时要乘上 $\binom{j}{a}\times \binom{m-k-j}{b}$ ，注意 $a+b\le 2$ 代表这一行不选超过两个棋子  
+最后累加一下 $dp[n][j][k]$ 即可   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int mod = 9999973;
+inline ll ksm (ll a, ll b) { ll res = 1; while (b) { if (b & 1) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
+inline ll inv (ll x) { return ksm(x, mod - 2); }
+const int N = 102;
+ll f[N], ivf[N];
+inline ll C (int n, int m) {
+    return f[n] * ivf[m] % mod * ivf[n - m] % mod;
+}
+
+ll dp[N][N][N];
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    f[0] = 1;
+    for (int i = 1; i < N; i ++) f[i] = (ll)f[i - 1] * i % mod;
+    ivf[N - 1] = inv(f[N - 1]);
+    for (int i = N - 2; i >= 0; i --) ivf[i] = (ll)ivf[i + 1] * (i + 1) % mod;
+
+    memset(dp, -1, sizeof dp);
+    int n, m; cin >> n >> m;
+
+    dp[0][0][0] = 1;
+    for (int i = 0; i < n; i ++) {
+        for (int j = 0; j <= m; j ++) {
+            for (int k = 0; m - k - j >= 0; k ++) {
+                if (dp[i][j][k] == -1) continue;
+                for (int a = 0; a <= j && a <= 2; a ++) {
+                    for (int b = 0; b <= m - k - j && a + b <= 2; b ++) {
+                        if (dp[i + 1][j - a + b][k + a] == -1) dp[i + 1][j - a + b][k + a] = 0;
+                        (dp[i + 1][j - a + b][k + a] += C(j, a) * C(m - k - j, b) % mod * dp[i][j][k] % mod) %= mod;
+                    }
+                }
+            }
+        }
+    }
+
+    int res = 0;
+    for (int j = 0; j <= m; j ++) {
+        for (int k = 0; m - k - j >= 0; k ++) {
+            if (~dp[n][j][k]) {
+                (res += dp[n][j][k]) %= mod;
+            }
+        }
+    }
+    cout << res << endl;
+}
+```
+<hr>
+
 ## 洛谷P5484_基因补全
 
 #### 🔗
@@ -259,6 +326,100 @@ int main () {
 ```
 
 <hr>
+
+## 牛客2022国庆集训派对day3G_Subsequence1
+
+#### 🔗
+<a href="https://ac.nowcoder.com/acm/contest/41757/G">![20221003205321](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221003205321.png)</a>
+
+#### 💡
+如果在 $s$ 中要获得和 $t$ 同长度的串，那么就是一个同长子序列的字典序偏序计数问题了  
+令 $s_s$ 表示 $s$ 的子序列，我们要看在哪一位让 $s_s>t$ ，这之后的是可以随便选的  
+如果 $s_i>t_j$ ，那么就需要计一个 $s$ 在 $i$ 前面能找到多少个与 $t[1,j-1]$ 可以匹配上的子序列  
+这个用一个 $dp$ 来实现，$dp[i][j]$ 表示 $s$ 在前 $i$ 位能匹配上 $t[1,j]$ 的子序列数量  
+$dp[i][]$ 用 $dp[i-1][]$ 来转移，枚举 $i-1$ 匹配了多少个，那么如果 $s_i=t_j$ ，$dp[i][j+1]$ 加上 $dp[i-1][j]$ ，然后正常继承关系为 $dp[i][j]+dp[i-1][j]$  
+处理好这个 $dp$ 后，看哪一位 $s_i>t_j$ ，找到后答案累加 $\binom{n-i}{m-j}\times dp[i-1][j-1]$ 即可，即表示前面都匹配上，后面随便选  
+
+当然最后也要加上长度超过 $m$ 的子序列数量，为 $\sum\limits_{i=m+1}n\binom{n-j}{i-1}$   
+由于不能有前导 $0$ ，就对于长度 $i$ 时，枚举一下 $s_j$ 是否为 $0$ ，如果为 $0$ ，说明以它开头的都不可以选，减去 $\binom{n-j}{i-1}$  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 3010;
+const int mod = 998244353;
+int f[N], ivf[N];
+inline int C (int n, int m) {
+    if (m > n) return 0;
+    return (ll)f[n] * ivf[m] % mod * ivf[n - m] % mod;
+}
+inline int ksm (int a, int b) {
+    int res = 1;
+    while (b) {
+        if (b & 1) res = 1ll * res * a % mod;
+        a = 1ll * a * a % mod;
+        b >>= 1;
+    }
+    return res;
+}
+inline int inv (int x) { return ksm(x, mod - 2); }
+
+int n, m;
+string s, t;
+int dp[N][N];
+
+inline void Solve () {
+    int res = 0;
+    cin >> n >> m >> s >> t;
+    s = "0" + s;
+    t = "0" + t;
+
+    dp[0][0] = 1;
+    
+    for (int i = 1; i <= n; i ++) {
+        for (int j = 0; j <= m; j ++) {
+            if (j + 1 <= m && s[i] == t[j + 1]) {
+                (dp[i][j + 1] += dp[i - 1][j]) %= mod;
+            }
+            (dp[i][j] += dp[i - 1][j]) %= mod;
+        }
+        for (int j = 1; j <= m; j ++) {
+            if (s[i] > t[j]) {
+                res += (ll)C(n - i, m - j) * dp[i - 1][j - 1] % mod;
+                res %= mod;
+            }
+        }  
+    }
+
+    for (int i = 0; i <= n; i ++) for (int j = 0; j <= m; j ++) dp[i][j] = 0;
+
+    for (int i = m + 1; i <= n; i ++) {
+        (res += C(n, i)) %= mod;
+        for (int j = 1; j <= n; j ++) {
+            if (s[j] == '0') {
+                res = ((res - C(n - j, i - 1)) % mod + mod) % mod;
+            }
+        }
+    }
+    cout << res << endl;
+}
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    f[0] = 1;
+    for (int i = 1; i < N; i ++) f[i] = (ll)f[i - 1] * i % mod;
+    ivf[N - 1] = inv(f[N - 1]);
+    for (int i = N - 2; i >= 0; i --) ivf[i] = (ll)ivf[i + 1] * (i + 1) % mod;
+
+    int cass; cin >> cass; while ( cass -- ) {
+        Solve ();
+    }
+}
+```
+<hr>
+
 
 ## ABC234F_Reordering
 

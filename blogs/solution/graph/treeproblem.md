@@ -1094,6 +1094,136 @@ int main () {
 ```
 <hr>
 
+### CCPC2022河南省赛K_复合函数
+
+#### 🔗
+<a href="https://codeforces.com/gym/103941/attachments">![20221004143547](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221004143547.png)</a>
+
+#### 💡
+注意到每一个点的出度为 $1$ ，这就像一个向父边延伸的点。画一下易得每一个点最后会进入一个环中  
+且这个图由很多这样的连通块组成，每一个连通块也就是一个根为环的基环树  
+考虑问题： $f^a(x)=f^b(x),\;(a<b)$ 
+- $a=b$ 时这是绝对成立的，
+- 令 $c$ 为一棵基环树的环大小，如果 $a\equiv b(mod\;c)$ 说明它们如果进环会走到同一个点，也就是 $c|(b-a)$ ，但是要保证能进环也就是 $dep[x]\le a$ 的点们    
+  
+这样还是很难处理，因为可能有很多基环树  
+但它们的环大小会有很多是相同的，最多不同大小环的基环树数量为 $\sqrt{n}$   
+故直接合并环长相同的信息 （深度小于等于 $i$ 的点数，通过前缀和实现），然后枚举环长，便可以在 $O(n\sqrt n)$ 的复杂度下解决这件事情   
+  
+那么如何分出来一个个基环树与获取他们的环长呢
+- 在除了根环之外还有点的基环树，可以直接通过从入度为 $0$ 且没有遍历过的点进入递归遍历，设置一个点可以被遍历两次，那么所有被遍历两次的点就会形成一个环，且第一个遍历两遍就是他们的根。然后从根向下遍历对这棵树的点都打上标记同时处理出来每一个点的 $dep[]$  
+- 在只有根环的基环树上，可以在扫完上述条件后对每一个没有遍历过的点进行遍历，只允许访问一次，一次遍历到的点数就是这个基环树的环长
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+int n;
+vector<int> sumd[N]; // 同环长合并后的信息
+// 不同的环长
+vector<int> set_rolsz;
+int vis_stsz[N];
+
+int fa[N], in[N];
+vector<int> son[N];
+
+vector<int> rol;
+int rol_size;
+int vis[N], dep[N];
+
+int root, inrol[N];
+inline void dfs_findTree (int u) { // 找基环树的根和环长
+    if (vis[u] > 1) { // 第一次遍历两次的点就是根
+        root = u;
+        return;
+    }
+    if (vis[u] == 1) { // 第二次遍历的就是根环
+        rol_size ++;
+        inrol[u] = 1;
+    } else { // 第一次遍历都记录下来
+        rol.push_back(u);
+    } vis[u] ++;
+    dfs_findTree(fa[u]);
+}
+inline void dfs_rolTree (int u, int father) { // 顺着根向下走挖出所有的树点
+    if (vis[u]) return;
+    vis[u] = 1;
+    rol.push_back(u);
+    if (u != father) dep[u] = dep[father] + 1;
+    for (auto v : son[u]) dfs_rolTree(v, u);
+}
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    cin >> n;
+    for (int i = 1; i <= n; i ++) {
+        cin >> fa[i];
+        if (fa[i] != i) in[fa[i]] ++;
+        son[fa[i]].push_back(i);
+    }
+
+    // 第一种情况
+    for (int i = 1; i <= n; i ++) {
+        if (!in[i] && !vis[i]) {
+            rol_size = 0;
+            rol.clear();
+            dfs_findTree(i);
+            for (int it : rol) vis[it] = 0; // 重启这个树上点的遍历次数
+            rol.clear();
+            dfs_rolTree(root, root); 
+            if (!vis_stsz[rol_size]) {
+                vis_stsz[rol_size] = 1;
+                set_rolsz.push_back(rol_size);
+            }
+            for (int it : rol) {
+                if (inrol[it]) dep[it] = 0;
+                if (sumd[rol_size].size() < dep[it] + 1) sumd[rol_size].resize(dep[it] + 1);
+                sumd[rol_size][dep[it]] ++;
+            }
+        }
+    }
+    for (int i = 1; i <= n; i ++) if (inrol[i]) vis[i] = 1;
+    // 第二种情况
+    for (int i = 1; i <= n; i ++) {
+        if (!vis[i]) {
+            rol_size = 0;
+            dfs_findTree(i);
+            if (!vis_stsz[rol_size]) {
+                vis_stsz[rol_size] = 1;
+                set_rolsz.push_back(rol_size);
+            }
+            if (sumd[rol_size].size() == 0) sumd[rol_size].resize(1);
+            sumd[rol_size][0] += rol_size;
+        }
+    }
+
+    // 前缀和预处理
+    for (int i : set_rolsz) {
+        for (int j = 1; j < sumd[i].size(); j ++) {
+            sumd[i][j] += sumd[i][j - 1];
+        }
+    }
+
+    int q; cin >> q;
+    while (q --) {
+        ll a, b; cin >> a >> b;
+        if (a == b) cout << n << endl;
+        else {
+            if (b < a) swap(a, b);
+            int res = 0;
+            for (int i : set_rolsz) {
+                if ((b - a) % i == 0) {
+                    res += sumd[i][min((ll)sumd[i].size() - 1, a)];
+                }
+            }
+            cout << res << endl;
+        }
+    }
+}
+```
+<hr>
+
 
 ### CodeForces1307E_1TreesAndQueries
 
