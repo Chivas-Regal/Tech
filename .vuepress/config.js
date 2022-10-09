@@ -83,7 +83,7 @@ module.exports = {
                         { text: 'We-Chat', link: '/person-wechat.html' }
                 ]},
                 { text: 'CodeForces', items: [
-                        { text: 'Pepsi_Cola', link: 'https://codeforces.com/profile/Pepsi_Cola'},
+                        { text: 'Pepsi__Cola', link: 'https://codeforces.com/profile/Pepsi__Cola'},
                         { text: 'Chivas_Regal', link: 'https://codeforces.com/profile/Chivas_Regal'},
                 ]}
             ],
