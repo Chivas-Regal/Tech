@@ -362,6 +362,73 @@ int main () {
 
 <hr>
 
+### CCPC2021威海站G_ShinyruoAndKFC
+
+#### 🔗
+<a href="https://codeforces.com/gym/103428/problem/G">![20221007212225](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221007212225.png)</a>
+
+#### 💡
+比较明显的一个是在 $k<max(a[i])$ 时，会因为分不下导致一个队分了两个相同的食品，所以是 $0$  
+那么就只对于 $k\ge a[i]$ 时考虑  
+写出式子就是 $\prod\limits_{i=1}^n\binom{k}{a[i]}$ ，暴力复杂度 $5e4\times 5e4$ 寄了  
+优化一下，发现 $\sum a[i]$ 非常小只有不到 $1e5$ ，这就说明会有很多重复的，且对于相同的 $a[i]$ 其 $\binom{k}{a[i]}$ 是相同的    
+要想没有重复也要 $\sqrt{1e5}$ 了，所以将对象缩减下来，然后对于每一个出现的数值求一下后算个幂即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int mod = 998244353;
+const int N = 1e5 + 10;
+int n, m;
+int f[N], ivf[N];
+
+inline int ksm (int a, int b) {
+    int res = 1;
+    while (b) {
+        if (b & 1) res = (ll)res * a % mod;
+        a = (ll)a * a % mod;
+        b >>= 1;
+    }
+    return res;
+}
+inline int inv (int x) { return ksm(x, mod - 2); }
+inline int C (int n, int m) {
+    return (ll)f[n] * ivf[n - m] % mod * ivf[m] % mod;
+}
+
+int a[N];
+
+vector<int> vec;
+int num[N];
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    f[0] = 1;
+    for (int i = 1; i < N; i ++) f[i] = (ll)f[i - 1] * i % mod;
+    ivf[N - 1] = inv(f[N - 1]);
+    for (int i = N - 2; i >= 0; i --) ivf[i] = (ll)ivf[i + 1] * (i + 1) % mod;
+
+    int mx = 0;
+    cin >> n >> m;
+    for (int i = 1; i <= n; i ++) {
+        cin >> a[i], mx = max(mx, a[i]);
+        if (!num[a[i]]) vec.push_back(a[i]);
+        num[a[i]] ++;
+    }
+    for (int k = 1; k < mx; k ++) cout << 0 << endl;
+    for (int k = mx; k <= m; k ++) {
+        int res = 1;
+        for (int i : vec) {
+            res = (ll)res * ksm(C(k, i), num[i]) % mod;
+        }
+        cout << res << endl;
+    }
+}
+```
+<hr>
+
+
 ### CodeForces1060C_MaximumSubrectangle
 
 #### 🔗

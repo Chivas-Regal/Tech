@@ -1803,6 +1803,32 @@ int main () {
 ```
 <hr>
 
+### ICPC2019南京B_ChessBoard
+
+#### 🔗
+<a href="https://codeforces.com/gym/103466/problem/B">![20221008151222](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221008151222.png)</a>
+
+#### 💡
+第二张图的说服性很强，就是我们每次不能在已有矩阵 $a*b(a\le 2,b\le 2)$ 的前提下，往一个方向开两步，不然会出现同行同列要往回收出现空边的情况（分析第二个图）    
+开一步的话可以选四个角，选一个方向开，本身有 $n-1+m-1$ 种开法，调 $n-1$ 个位置开行，故答案为 $4\times \binom{n+m-2}{n-1}$  
+特判 $m=1$ 和 $n=1$  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+inline void Solve () {
+    int n, m; cin >> n >> m;
+    if (n == 1) {
+        cout << 1 + (m != 1) << endl;
+    } else if (m == 1) {
+        cout << 1 + (n != 1) << endl;
+    } else {
+        cout << 4ll * C(n + m - 2, n - 1) % mod << endl;
+    }
+}
+```
+<hr>
+
+
 ### CodeForces340C_TouristProblem
 
 #### 🔗
@@ -3789,8 +3815,8 @@ int main() {
 一个看起来就很典的容斥问题。  
 卡在 $k$ 上太难处理，于是令 $f(k)$ 表示最大连胜长度不低于 $k$ ，答案即为 $f(k+1)-f(k)$  
 对于 $f(k)$ 先安排一个长度为 $k$ 的连胜段，别的任意分配，假设这个段分配到 $a$ 位置，$b$ 位置又放了 $k$ 个胜场，而反过来又会重新计数一次，这就是容斥了。所以先计算排一个长度为 $k$ 的连续段剩下胜场随便排的数量，再减去排两个长度为 $k$ 的连续段剩下胜场随便排的数量，再加上排三个长度为 $k$ 的连续段剩下场数随便排的数量....  
-对于选 $i$ 个连胜段，在败场的 $n-m+1$ 个空中选 $i$ 个，然后剩下的 $n-ik$ 个胜场插入 $n-m$ 个板，故计数为  
-$f(k)=\sum\limits_{i=1}^{ik<=m}(-1)^{i+1}\binom{n-m+1}{i}\binom{n-ik}{n-m}$  
+对于选 $i$ 个连胜段，先在剩下的 $n-ik$ 个场选 $n-m$ 个败场，在败场的 $n-m+1$ 个空中插 $i$ 个板子，有效防止了出现 $\checkmark\underline{\checkmark\checkmark...\checkmark}$ 和 $\underline{\checkmark\checkmark...\checkmark}\checkmark$ 的冲突。故计数为  
+$f(k)=\sum\limits_{i=1}^{ik<=m}(-1)^{i+1}\binom{n-m+1}{i}\binom{n-ik}{n-m}$    
 最后求一下 $f(k+1)-f(k)$  
 注意特判一下 $k=0$ ，不然会 $RE$  
     

@@ -5,6 +5,82 @@ title: 链表
 ###
 <hr>
 
+## 洛谷P2391_白雪皑皑
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P2391">![20221007121624](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221007121624.png)</a>
+
+#### 💡
+看一下题，什么鬼就是一个 $set$ 吧，再看一眼数据量，要么每次 $O(1)$ 操作，要么总复杂度不高  
+总复杂度很容易想到 $O(n)$  
+这种覆盖性质的染色问题，基本上都是倒着染，每染一个之后就不看这个点了  
+这种删除、不遍历的操作可以使用链表来解决  
+但是考虑到如果确定操作 $[l,r]$ 了话，从哪里开始呢，找了话还是要 $log$ ？  
+思考了一下也就是说我们用链表删除后，这个点的后继在之后的操作不会被修改了，所以我们没法找到它的存在后继  
+但是每一块被删除的部分，一定有一个最后被删的元素，其前驱后继就是这一块所有点的前驱后继  
+这种认贼作父（啊不是）的操作，就是并查集的根啊  
+  
+所以我们开一个标记记录是否存在，再开一套并查集  
+在删除一个点的时候，我们看它前后是否有删除的点，如果有，就让它们的并查集根认作这个即将删除的点  
+然后在操作时，对于 $l$ 更改为它并查集根的后继，$r$ 更改为它并查集根的前驱  
+然后让 $l$ 一直按链表向后跑并不断删除访问过的点直到 $r$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1000006;
+
+int n, m, p, q;
+
+struct node { int pre, nxt; } a[N];
+int fa[N], vis[N], res[N];
+inline int find (int x) { return x == fa[x] ? x : fa[x] = find(fa[x]); }
+
+inline void del (int x) {
+    a[a[x].nxt].pre = a[x].pre;
+    a[a[x].pre].nxt = a[x].nxt;
+
+    int fx = find(x);
+    if (vis[x - 1]) {
+        int fxd1 = find(x - 1);
+        fa[fxd1] = fx;
+    }
+    if (vis[x + 1]) {
+        int fxa1 = find(x + 1);
+        fa[fxa1] = fx;
+    }
+    vis[x] = 1;
+}
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    cin >> n >> m >> p >> q;
+    for (int i = 1; i <= n; i ++) {
+        fa[i] = i;
+        a[i].pre = i - 1;
+        a[i].nxt = i + 1;
+    }
+
+    for (int i = m; i >= 1; i --) {
+        int l = ((ll)i * p + q) % n + 1;
+        int r = ((ll)i * q + p) % n + 1;
+        if (l > r) swap(l, r);
+        l = vis[l] ? a[find(l)].nxt : l;
+        r = vis[r] ? a[find(r)].pre : r;
+        while (l <= r) {
+            res[l] = i;
+            int tmp = l;
+            l = a[l].nxt;
+            del(tmp);
+        }
+    }   
+
+    for (int i = 1; i <= n; i ++) cout << res[i] << endl;
+}
+```
+<hr>
+
 ## CodeForces1154E_TwoTeams
 
 #### 🔗

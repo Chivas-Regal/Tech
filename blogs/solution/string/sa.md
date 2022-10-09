@@ -5,6 +5,101 @@ title: 后缀数组
 ###
 <hr>
 
+## ABC272F_TwoStrings
+
+#### 🔗
+<a href="https://atcoder.jp/contests/abc272/tasks/abc272_f?lang=en">![20221009093312](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221009093312.png)</a>
+
+#### 💡
+这相当于就是一个全部环形字符串的大小顺序问题  
+开始肯定想全 `sort` 一遍，但是肯定超  
+环形已知就是把两个字符串复制在一起，那后缀的前缀序进行排序就是后缀数组啦  
+处理起来 $sstt$ 形成的字符串的 $sa$ ，然后一个 $cnt$ 维护向后走的时候遇到的属于第一个 $s$ 的个数，当遇到属于第一个 $t$ 的时候，让答案累加上 $cnt$  
+注意 $ss$ 的末尾要严格小于 $a\to z$ 的任何一个字符，$tt$ 的末尾要严格大于，才能保证求到的是 $s'\le t'$ 的数量  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e6 + 10;
+
+class Suffix_Array {
+public:
+    int n;
+    char s[N];
+    int sa[N], rk[N], rk2[N], ht[N];
+
+    Suffix_Array () {}
+    Suffix_Array (int _n, char *_s) {
+        n = _n;
+        for (int i = 1; i <= n; i ++) s[i] = _s[i];
+    }
+    inline void get_Sa () {
+        for (int i = 1; i <= n; i ++) {
+            sa[i] = i;
+            rk[i] = s[i];
+        }
+        for (int k = 1; k <= n; k <<= 1) {
+            auto cmp = [&](int i, int j) {
+                if (rk[i] != rk[j]) return rk[i] < rk[j];
+                int ri = (i + k <= n ? rk[i + k] : -1);
+                int rj = (j + k <= n ? rk[j + k] : -1);
+                return ri < rj;
+            };
+            sort(sa + 1, sa + 1 + n, cmp);
+            for (int i = 1; i <= n; i ++) rk2[sa[i]] = rk2[sa[i - 1]] + cmp(sa[i - 1], sa[i]);
+            for (int i = 1; i <= n; i ++) rk[i] = rk2[i];
+        }
+    }
+    inline void get_Ht () {
+        for (int i = 1; i <= n; i ++) rk[sa[i]] = i;
+        ht[1] = 0;
+        for (int i = 1, h = 0; i <= n; i ++) {
+            int j = sa[rk[i] - 1];
+            if (h > 0) h --;
+            for (; j + h <= n && i + h <= n; h ++) if (s[j + h] != s[i + h]) break;
+            ht[rk[i]] = h;
+        }
+    }
+};
+
+char s[N];
+char t[N];
+
+Suffix_Array sa;
+
+ll cnt = 0;
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n; cin >> n;
+    cin >> (s + 1);
+    cin >> (t + 1);
+    for (int i = 1; i <= n; i ++) sa.s[i] = s[i];
+    for (int i = 1; i <= n; i ++) sa.s[i + n] = s[i];
+    for (int i = 1; i <= n; i ++) sa.s[i + 2 * n + 1] = t[i];
+    for (int i = 1; i <= n; i ++) sa.s[i + 3 * n + 1] = t[i];
+    sa.s[n * 2 + 1] = '#';
+    sa.s[n * 4 + 2] = '|';
+
+    sa.n = n * 4 + 2;
+    sa.get_Sa();
+    sa.get_Ht();
+
+    ll res = 0;
+    for (int i = 1; i <= 4 * n + 1; i ++) {
+        if (sa.sa[i] > n * 2 + 1 && sa.sa[i] <= n * 3 + 1) {
+            res += cnt;
+        } else if (sa.sa[i] > 0 && sa.sa[i] <= n) {
+            cnt ++;
+        }
+    }
+    cout << res << endl;
+}
+```
+<hr>
+
+
 ## 洛谷P4248_差异
 
 #### 🔗

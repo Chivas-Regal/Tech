@@ -577,6 +577,60 @@ int main () {
 ```
 <hr>
 
+## 洛谷P3694_邦邦的大合唱站队
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P3694">![20221007154726](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221007154726.png)</a>
+
+#### 💡
+这也就是哪个匹配不上哪个走的问题，且所有的既然都在一起那么这就被分为了 $m\le 20$ 块  
+开始想全排列但是肯定会超，实现全排列操作的最值问题开始状压  
+令 $dp[s]$ 表示在已有乐团状态为 $s$ 的情况下，匹配不上的最大值    
+  
+区间匹配也就是看区间有几个数 $x$ ，这就是一个前缀和作差卡区间和的问题  
+那么要匹配下一位的起始为 $\sum\limits_{i=1}^{20}[s_i=1]sum[n][s_i]$ ，若要填入一个没有的 $j$ 终点为 起始加上$sum[n][s_{j}]$   
+不匹配数为 $(r-l)-(sum[r][j]-sum[l][j])$  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+const int M = 30;
+
+int n, m;
+int sum[N][M];
+int a[N];
+
+int dp[2000006];
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    cin >> n >> m;
+    for (int i = 1; i <= n; i ++) cin >> a[i];
+    for (int i = 1; i <= n; i ++) {
+        for (int j = 1; j <= m; j ++) {
+            sum[i][j] = sum[i - 1][j] + (a[i] == j);
+        }
+    }
+
+    memset(dp, 0x3f, sizeof dp);
+    dp[0] = 0;
+    for (int s = 0; s < (1 << m); s ++) {
+        int num = 0;
+        for (int i = 0; i < m; i ++) if (s >> i & 1) num += sum[n][i + 1];
+        for (int i = 0; i < m; i ++) {  
+            if (s >> i & 1) continue;
+            int l = num, r = l + sum[n][i + 1];
+            dp[s | (1 << i)] = min(dp[s | (1 << i)], dp[s] + (r - l) - (sum[r][i + 1] - sum[l][i + 1]));
+        }
+    }
+    cout << dp[(1 << m) - 1];
+}
+```
+<hr>
+
+
 ## 牛客2021多校（5）D_DoubleStrings
 
 #### 🔗
