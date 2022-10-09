@@ -213,6 +213,50 @@ int main () {
 
 <hr>
 
+### 洛谷P3927_一道中档题Factorial
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P3927">![20221009200710](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221009200710.png)</a>
+
+#### 💡
+一个数 $k$ 进制下末尾 $0$ 的数量，参考 $10$ 进制下末尾 $0$ 的数量的计算方式：统计 $2$ 和 $5$ 的数量  
+即需要知道**待转换的数可以通过质因数拼成 $k$ 的几次方**    
+现将 $k$ 分解为 $\prod\limits_{i} p_i^{a_i}$ ，那么对于每一个 $p_i$ 都要知道 $n!$ 中有几个 $p_i$ ，如果有 $b_i$ 个，可以通过它拼成 $\left\lfloor\frac{b_i}{a_i}\right\rfloor$ 个 $k$ 的幂，但是最终拼成数量是要靠他们一起维护的，故求所有的 $p_i$ 这个数量的最小值    
+  
+**对于一个 $p_i$ 的求法**可以算有几个 $p_i^1$ 的倍数，有几个 $p_i^2$ 的倍数，设对于每一个 $p_i^j$ $n$ 以下有 $c_j$ 个倍数，则结果为 $\sum\limits_{j}c_j$ ，直接埃氏筛将第一层换成幂即可，对于每一个统计的 $p_i^j$ ，累加 $\left\lfloor\frac{n}{p_i^j}\right\rfloor$    
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+ll n, k; cin >> n >> k;
+
+vector<pair<ll, ll> > need;
+for (ll i = 2; i * i <= k; i ++) {
+    if (k % i == 0) {
+        ll num = 0;
+        while (k % i == 0) {
+            num ++;
+            k /= i;
+        }
+        need.push_back({i, num});
+    }
+}
+if (k > 1) need.push_back({k, 1});
+
+
+ll res = 1e18;
+for (auto [v, num] : need) {
+    ll cur = 0;
+    for (__int128_t i = v; i <= n; i *= v) {
+        cur += n / i;
+    }
+    res = min(res, cur / num);
+}
+
+cout << res << endl;
+```
+<hr>
+
+
 ### 牛客2022寒假算法基础集训营4J_区间合数的最小公倍数
 
 #### 🔗
@@ -976,6 +1020,73 @@ int main () {
                 res += sum * 2 - 1;
         }
         cout << res << endl;
+}
+```
+<hr>
+
+### 洛谷P3601_签到题
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P3601">![20221009210232](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221009210232.png)</a>
+
+#### 💡
+首先要清楚 $i$ 以下不与 $i$ 互质的数的个数为 $i-\phi(i)$    
+那么问题就是 $\frac{(l+r)(r-l+1)}{2}-\sum\limits_{i=l}^r\phi(i)$  
+注意到 $r-l\le 10^6$ 这肯定是想让我们求出来这里面的所有欧拉函数  
+一个常识是 $\le\sqrt{r}$ 的素数可以分解 $[l,r]$ 内的所有质因子（这也是 $\sqrt{n}$ 可以求 $n$ 的质因数的道理）  
+所以先筛出来 $\le 10^6$ 的所有质数，然后埃氏筛去跑一遍 $[l,r]$ ，进行欧拉函数的求解  
+注意可能含有大质数，所以最后要单独跑一遍 $[l,r]$ 看看有没有除完所有的小质数后没有到 $1$ 的数，如果有就说明有大质因数，再用这个质数求一下它的欧拉函数即可  
+最后暴力累加  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e6 + 10;
+
+vector<int> prime;
+bool ntp[N];
+inline void Sieve () {
+    ntp[0] = ntp[1] = 1;
+    for (int i = 2; i < N; i ++) {
+        if (!ntp[i]) prime.push_back(i);
+        for (int j = 0; j < prime.size() && 1ll * i * prime[j] < N; j ++) {
+            ntp[i * prime[j]] = 1;
+            if (i % prime[j] == 0) break;
+        }
+    }
+}
+
+ll num[N];
+ll phi[N];
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    Sieve();
+
+    ll l, r; cin >> l >> r;    
+    for (ll i = l; i <= r; i ++) {
+        num[i - l] = i;
+        phi[i - l] = i;
+    }
+
+    for (int p : prime) {
+        for (ll j = (l + p - 1) / p * p; j <= r; j += p) {
+            phi[j - l] = phi[j - l] / p * (p - 1);
+            while (num[j - l] % p == 0) num[j - l] /= p;
+        }
+    }
+    for (ll i = l; i <= r; i ++) {
+        if (num[i - l] > 1) {
+            phi[i - l] = phi[i - l] / num[i - l] * (num[i - l] - 1);
+        }
+    }
+
+    ll res = (l + r) * (r - l + 1) / 2;
+    for (ll i = l; i <= r; i ++) {
+        res -= phi[i - l];
+    }
+    cout << res % 666623333 << endl;
 }
 ```
 <hr>
