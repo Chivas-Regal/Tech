@@ -67,9 +67,16 @@ module.exports = {
         {
             text: '技术文档',
             items: [
-                { text: '算法', link: '/blogs/algorithm/' },
-                { text: '题解', link: '/blogs/solution/' },
-                { text: '配置', link: '/blogs/configure/'}
+                {text: 'ACM', items: [
+                    { text: '算法与数据结构', link: '/blogs/algorithm/' },
+                    { text: '解题报告', link: '/blogs/solution/' },
+                ]},
+                {text: '环境配置', items: [
+                    { text: '本地配置', link: '/blogs/configure/'},
+                ]},
+                {text: '计算机基础', items: [
+                    { text: 'C++开发基础', link: '/blogs/cppbases/'}
+                ]},
             ],
             icon: 'reco-document'
         },
@@ -190,6 +197,14 @@ module.exports = {
                 children: getChildren('./blogs/configure/macos/')
             }
         ],
+        '/blogs/cppbases/': [
+            '/blogs/cppbases/',
+            {
+                title: 'MySQL',
+                collapsable: true,
+                children: getChildren('./blogs/cppbases/mysql/')
+            },
+        ]
     },
     subSidebar: 'auto',
     logo: '/logo.png',
