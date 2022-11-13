@@ -2585,6 +2585,161 @@ inline void Solve () {
 ```
 <hr>
 
+### HDU2021多校7D_LinkWithBalls 
+
+#### 🔗
+<a href="https://vjudge.net/contest/461347#problem/D">![20221113230923](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113230923.png)</a>
+
+#### 💡
+两步都走到我想象不到的地方...  
+  
+两个都有限制，即奇数 $2x-1$ 要求是选 $x$ 的倍数，偶数 $2x$ 要选不超过 $x$  
+考虑限制和限制取并集能否变得没有限制，发现将选 $x$ 的倍数和不超过 $x-1$ 的两个块合并到一个块，则对于这个块是任选任意数量的  
+合并的块为：$1,(2,3),(4,5),...,(2n-2,2n-1),2n$  
+前 $n$ 个都是任选，最后一个块是可以选不超过 $n$ 个  
+那么首先有一个式子就是枚举最后一个块选 $i$ 个，然后前 $m-i$ 个相同的东西分配进 $n$ 个不同的块内  
+即 $\sum\limits_{i=0}^{min(n,m)}C_{m-i+n-1}^{n-1}$  
+  
+这个式子时间复杂度过不去，需要优化  
+看到这是一个总量连续的求和  
+在组合数的杨辉三角求解里面，$C_{n-1}^{m-1}=C_n^m-C_{n-1}^m$ 也是一个连续的东西，拿这个套一个基础的式子看看  
+$C_{n-1}^{m-1}+C_{n-2}^{m-2}=C_n^m-C_{n-1}^m+C_{n-1}^m-C_{n-2}^m=C_n^m-C_{n-2}^m$  
+而推的原式为 $C_{m+n-1}^{n-1}+C_{m+n-2-1}^{n-1}+...+C_{m+n-min(n,m)-1}^{n-1}$  
+就可以进行化简为 $C_{m+n}^n-C_{m+n-min(n,m)-1}^n$  
+最终式子已出，$O(1)$ 算即可   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int mod = 1e9 + 7;
+const int N = 2e6 + 10;
+inline int ksm (int a, int b) {
+    int res = 1;
+    while (b) {
+        if (b & 1) res = (ll)res * a % mod;
+        a = (ll)a * a % mod;
+        b >>= 1;
+    }
+    return res;
+}
+inline int inv (int x) {return ksm(x, mod - 2);}
+
+int f[N], ivf[N];
+inline int C (int n, int m) {
+    if (n < m) return 0;
+    return (ll)f[n] * ivf[n - m] % mod * ivf[m] % mod;
+}
+
+int main () {
+    f[0] = 1;
+    for (int i = 1; i < N; i ++) f[i] = (ll)f[i - 1] * i % mod;
+    ivf[N - 1] = inv(f[N - 1]);
+    for (int i = N - 2; i >= 0; i --) ivf[i] = (ll)ivf[i + 1] * (i + 1) % mod;
+
+    int t; scanf("%d", &t); while (t --) {
+        int n, m; scanf("%d%d", &n, &m);
+        printf("%d\n", (C(m + n, n) - C(m - min(n, m) + n - 1, n) + mod) % mod);
+    }
+}
+```
+<hr>
+
+
+### HDU2021多校8E_SeparatedNumber 
+
+#### 🔗
+<a href="https://vjudge.net/contest/461348#problem/E">![20221113230653](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113230653.png)</a>
+
+#### 💡
+一共要放置不超过 $k-1$ 块隔板  
+首先根据经典组合数套路贡献次数，我们求 $a_i$ 乘 $10^j$ 时的贡献  
+如果 $i+j=n$ ，那么 $i+j$ 的后面放隔板是正常的，故最多还可以放 $k-1$ 块，一共有 $n-j-1$ 个空  
+如果 $i+j<n$ ，最多还能放 $k-2$ 块，有 $n-j-1$ 个空  
+公式即为 $\sum\limits_{i=1}^na_i\sum\limits_{j=0}^{n-i}10^j\sum\limits_{\alpha=0}^{k-1-[j\neq n-i]}C_{n-j-1-[j\neq n-i]}^{\alpha}$    
+拆一下变成 $\sum\limits_{i=1}^na_i\left\{\begin{aligned}\sum\limits_{j=0}^{n-i-1}10^jF_{n-j-2}^{k-2}\\10^{n-i}F_{n-j-1}^{k-1}\end{aligned}\right.$
+由于组合数是预处理，那么后面这一个看着像前缀和的也预处理  
+令 $F_n^m=\sum\limits_{i=0}^mC_n^i$  
+$F_n^m=F_n^{m-1}+C_n^m$ 且 $C_n^m=C_{n-1}^{m-1}+C_{n-1}^m$   
+推到 $\sum$ 里面，由于前缀中除了该位置，每一个都是用了两次，故 $F_n^m=2F_{n-1}^m-C_{n-1}^m$  
+这样根据上面的式子我们只需要预处理出 $F_{[]}^{k-1}$ 和 $F_{[]}^{k-2}$ 即可  
+那么在求的时候还有一个困难就是在第一类求解里面还有一个累加符号  
+发现在倒着推的时候 $n-i-1$ 是递增的，且第 $i$ 项只比第 $i+1$ 项多了 $10^{n-i-1}F_{n-(n-i-1)-2}^{k-2}$ ，别的都没变，于是第一类可以倒着求然后不断累加上新增的值，可以视作一个后缀  
+第二类就直接算即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int mod = 998244353;
+inline int ksm (int a, int b) {
+    int res = 1;
+    while (b) {
+        if (b & 1) res = (ll)res * a % mod;
+        a = (ll)a * a % mod;
+        b >>= 1;
+    }
+    return res;
+}
+inline int inv (int x) {return ksm(x, mod - 2);}
+
+const int N = 1e6 + 10;
+
+int f[N], ivf[N];
+inline int C (int n, int m) {
+    if (n < m) return 0;
+    return (ll)f[n] * ivf[m] % mod * ivf[n - m] % mod;
+}
+
+char s[N];
+int a[N];
+
+int Fkd1[N], Fkd2[N];
+int pw10[N];
+
+inline void Solve () {
+    int k; scanf("%d", &k);
+    scanf("%s", s + 1);
+    int n = strlen(s + 1);
+    for (int i = 1; i <= n; i ++) a[i] = s[i] - '0';
+
+    if (k == 1) {
+        int res = 0;
+        for (int i = 1; i <= n; i ++) res = ((ll)res * 10 % mod + a[i]) % mod;
+        printf("%d\n", res);
+        return;
+    }
+
+    Fkd1[0] = Fkd2[0] = 1;
+    for (int i = 1; i < N; i ++) 
+        Fkd1[i] = (Fkd1[i - 1] * 2 % mod - C(i - 1, k - 1) + mod) % mod,
+        Fkd2[i] = (Fkd2[i - 1] * 2 % mod - C(i - 1, k - 2) + mod) % mod;
+    
+    int sum_fkd2 = 0;
+    int res = 0;
+    for (int i = n; i >= 1; i --) {
+        if (n - i - 1 >= 0) {
+            (sum_fkd2 += (ll)pw10[n - i - 1] * Fkd2[n - (n - i - 1) - 2] % mod) %= mod;
+        }
+        int num = ((ll)pw10[n - i] * Fkd1[n - (n - i) - 1] % mod + sum_fkd2) % mod;
+        (res += (ll)a[i] * num % mod) %= mod;
+    }
+    printf("%d\n", res);
+}
+
+
+int main () {
+    f[0] = 1;
+    for (int i = 1; i < N; i ++) f[i] = (ll)f[i - 1] * i % mod;
+    ivf[N - 1] = inv(f[N - 1]);
+    for (int i = N - 2; i >= 0; i --) ivf[i] = (ll)ivf[i + 1] * (i + 1) % mod;
+    pw10[0] = 1;
+    for (int i = 1; i < N; i ++) pw10[i] = (ll)pw10[i - 1] * 10 % mod;
+
+    int cass; scanf("%d", &cass); while (cass --) {
+        Solve();
+    }
+}
+```
+<hr>
+
+
 ### ICPC2018南京站J_PrimeGame
 
 #### 🔗

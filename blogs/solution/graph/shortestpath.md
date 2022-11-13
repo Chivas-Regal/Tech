@@ -267,6 +267,171 @@ int main () {
 
 <hr>
 
+## 洛谷P2761_软件补丁问题
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P2761">![20221113214146](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113214146.png)</a>
+
+#### 💡
+有一次操作的用时，要算总最短用时，思考最短路  
+操作看成一个点到另一个点的连边，而确定不同点的方式就是错误状态  
+看一下总错误数不大，而且数据很敏感那么就去状态压缩，错误为 $1$ ，正确为 $0$    
+每一个点都是一个错误状态，一共 $2^n$ 个错误状态，每一个操作都是状态与状态的连边，我们的目的是求全错到全对的最短路  
+看一下什么样的两个状态 $u,v$ 可以连边  
+- $u$ 包含 $b1[i]$ 的所有错误，即 $u|b1[i]=u$ 
+- $u$ 不包含 $b2[i]$ 的任何错误，即 $u|b2[i]=u+b2[i]$
+- $u$ 修正 $f1[i]$ 的错误，即将 $1$ 的位置置为 $0$，那么就是 $u\&\stackrel{\_\_\_\_\_}{f1[i]}$ 
+- 再补上 $f2[i]$ 的错误，即 $u\&\stackrel{\_\_\_\_\_}{f1[i]}|f2[i]$  
+
+好了边有了，跑最短路就行了 
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2e6 + 10;
+
+int n, m;
+int b1[101], b2[101], f1[101], f2[101], tim[101];
+char b[25], f[25];
+
+int dis[N], vis[N];
+struct node {
+    int id, val;
+    inline friend bool operator < (node a, node b) {
+        return a.val > b.val;
+    }
+};
+
+int main () {
+    scanf("%d%d", &m, &n);
+    for (int i = 0; i < n; i ++) {
+        scanf("%d%s%s", &tim[i], b, f);
+        for (int j = 0; j < m; j ++) {
+            if (b[j] == '+') b1[i] |= 1 << j;
+            else if (b[j] == '-') b2[i] |= 1 << j;
+        }
+        for (int j = 0; j < m; j ++) {
+            if (f[j] == '-') f1[i] |= 1 << j;
+            else if (f[j] == '+') f2[i] |= 1 << j;
+        }
+    }
+
+    memset(dis, 0x3f, sizeof dis);
+    priority_queue<node> pque;
+    pque.push({(1 << m) - 1, 0}); 
+    dis[(1 << m) - 1] = 0;
+    vis[(1 << m) - 1] = 1;
+    while (!pque.empty()) {
+        int u = pque.top().id; pque.pop();
+        for (int i = 0; i < n; i ++) {
+            if ((u | b1[i]) == u && (u | b2[i]) == u + b2[i]) {
+                int v = u & (~f1[i]) | f2[i];
+                if (dis[v] > dis[u] + tim[i]) {
+                    dis[v] = dis[u] + tim[i];
+                    if (!vis[v]) pque.push({v, dis[v]}), vis[v] = 1;
+                }
+            }
+        }
+    }
+    printf("%d\n", dis[0] == 0x3f3f3f3f ? 0 : dis[0]);
+}
+```
+<hr>
+
+
+## 洛谷P4568_飞行路线
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P4568">![20221113203335](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113203335.png)</a>
+
+#### 💡
+看到有一个很基础的类似 $dp$ 转移的东西，那就是再开一维记录用了几次免费  
+对于 $[u][i]$ ，可以转移的方式为  
+- $[v][i]=[u][i]+edge.val$
+- $[v][i+1]=[u][i]$  
+
+保证 $i\le k$ ，也可以视作拆点，即一个点被拆成 $k$ 种状态，那么最后统计一下 $t$ 的 $[0,k]$ 状态下的最小值即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e4 + 10;
+const int M = 1e5 + 10;
+
+struct Edge {
+    int nxt, to, val;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge (int from, int to, int val) {
+    edge[++cnt] = {head[from], to, val};
+    head[from] = cnt;
+} 
+
+struct node {
+    int id, val;
+    inline friend bool operator < (node a, node b) {
+        return a.val > b.val;
+    }
+};
+int n, m, k;
+int s, t;
+int dis[N][20];
+int vis[N][20];
+inline int tonumber (int u, int id) {
+    return u * 20 + id;
+}
+inline pair<int, int> tostatus (int number) {
+    return {number / 20, number % 20};
+}
+inline void Dijkstra () {
+    memset(dis, 0x3f, sizeof dis);
+    dis[s][0] = 0;
+    priority_queue<node> pque;
+    pque.push({tonumber(s, 0), 0});
+    while (!pque.empty()) {
+        int u = tostatus(pque.top().id).first;
+        int id = tostatus(pque.top().id).second;
+        pque.pop();
+        if (vis[u][id]) continue; vis[u][id] = 1;
+        for (int i = head[u]; i; i = edge[i].nxt) {
+            int v = edge[i].to;
+            if (id <= k && dis[v][id] > dis[u][id] + edge[i].val) {
+                dis[v][id] = dis[u][id] + edge[i].val;
+                pque.push({tonumber(v, id), dis[v][id]});
+            }
+            if (id + 1 <= k && dis[v][id + 1] > dis[u][id]) {
+                dis[v][id + 1] = dis[u][id];
+                pque.push({tonumber(v, id + 1), dis[v][id + 1]});
+            }
+        }
+    }
+}
+
+inline void Solve () {
+    scanf("%d%d%d%d%d", &n, &m, &k, &s, &t);
+    for (int i = 0; i < m; i ++) {
+        int u, v, w; scanf("%d%d%d", &u, &v, &w);
+        add_Edge(u, v, w);
+        add_Edge(v, u, w);
+    }
+    Dijkstra();
+    int res = 0x3f3f3f3f;
+    for (int i = 0; i <= k; i ++) {
+        res = min(res, dis[t][i]);
+    }
+    printf("%d\n", res);
+}
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+
+    int cass = 1; while (cass --) {
+        Solve ();
+    }
+}
+```
+<hr>
+
+
 ## ABC237E_Skiing
 
 #### 🔗
@@ -909,4 +1074,78 @@ CHIVAS_{
 }
 ```
 
+<hr>
+
+## ICPC2018银川F_MovingOn
+
+#### 🔗
+<a href="https://codeforces.com/gym/102222/problem/F">![20221113221350](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113221350.png)</a>
+
+#### 💡
+首先看见 $n\le 200$ 且点权的种数也就只有 $n$ 个，故想到使用分层最短路，分层进行 $floyd$ 看看哪些可以转移哪些不可以，发现总复杂度是 $n^4$ 太大了  
+不过分析一下 $floyd$ 的优点是插入，我们可以在求答案的时候动态插点，让限制下的都插入成为中转点就可以了  
+所以对点权排序，对询问按限制排序（离线处理）  
+在每次询问前，将这个限制下的点递进式插入进 $floyd$ 中，然后直接给答案赋值即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 210;
+
+int dis[N][N];
+int n;
+struct node {
+    int id, val;
+} a[N];
+
+inline void insert (int mid) {
+    for (int u = 1; u <= n; u ++) {
+        for (int v = 1; v <= n; v ++) {
+            dis[u][v] = min(dis[u][v], dis[u][mid] + dis[mid][v]);
+        }
+    }
+}
+
+
+struct Query {
+    int id, s, t, w;
+} q[20004];
+int Q;
+int res[20004];
+
+int casid;
+void Solve () {
+    printf("Case #%d:\n", ++casid);
+    scanf("%d%d", &n, &Q);
+    for (int i = 1; i <= n; i ++) scanf("%d", &a[i].val), a[i].id = i;
+    sort(a + 1, a + 1 + n, [&](node x, node y) { return x.val < y.val; });
+
+    memset(dis, 0x3f, sizeof dis);
+    for (int i = 1; i <= n; i ++) {
+        for (int j = 1; j <= n; j ++) {
+            scanf("%d", &dis[i][j]);
+        }
+    }
+    for (int i = 1; i <= Q; i ++) {
+        q[i].id = i;
+        scanf("%d%d%d", &q[i].s, &q[i].t, &q[i].w);
+    }
+    sort(q + 1, q + 1 + Q, [&](Query x, Query y) {return x.w < y.w;});
+
+    int idxpoint = 1;
+    for (int i = 1; i <= Q; i ++) {
+        while (idxpoint <= n && a[idxpoint].val <= q[i].w) {
+            insert(a[idxpoint].id);
+            idxpoint ++;
+        }
+        res[q[i].id] = dis[q[i].s][q[i].t];
+    }
+    for (int i = 1; i <= Q; i ++) printf("%d\n", res[i]);
+    
+}
+int main () { 
+    int cass; scanf("%d", &cass); while (cass --) {
+        Solve();
+    }
+}
+```
 <hr>

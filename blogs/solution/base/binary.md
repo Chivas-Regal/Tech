@@ -512,6 +512,127 @@ int main () {
 ```
 <hr>
 
+## 洛谷P2754_家园 / 星际转移问题
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P2754">![20221113203951](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113203951.png)</a>
+
+#### 💡
+如果就是正常平面上画一个图，会发现出现绕环的情况，也就是对于一条航母路线，是一个环，这样就会导致环上两个点同时接收流量的情况出现，而正常来看是有时间存在的  
+既然存在时间，那就多加一条时间线，而对于相同的节点，在不同时刻是存在不同的状态，它们不是一个点  
+故一个时间开 $n+2$ 个节点（$n$ 个空间站和地月球），那么就在 $i$ 时刻，$j$ 航母可以用 $S[j][i\%sz[j]]$ 与 $S[j][(i+1)\%sz[j]]$ 相连，容量就是该航母容量 $r[j]$    
+而且相邻时刻下，同一个节点的人是可以留在这个点的，就对每一个时刻的每一个节点向下一个时刻的该节点传递一个 $\infty$ 的容量  
+那么为了研究 $0$ 到 $t$ 时间，能运走多少人，开 $t+1$ 个时刻进行上面的操作，然后就需要源点向每一个时刻的地球都挂 $\infty$ 个人，然后让每一时刻的月球连向汇点容量为 $\infty$ ，$t$ 时间内能运走的人数就是总流量  
+这只是能判断出来这么长时间能运多少，这是一个判定条件，且时间越长能运的越多  
+故开二分  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 15, M = 25, K = 55;
+struct Edge {
+    int nxt, to, flow;
+} edge[N * K * N * N + 10];
+int head[N * K * N + 10], cnt;
+inline void add_Edge (int from, int to, int flow) {
+    edge[++cnt] = {head[from], to, flow};
+    head[from] = cnt;
+    edge[++cnt] = {head[to], from, 0};
+    head[to] = cnt;
+}
+inline void init_Edge () {
+    memset(head, 0, sizeof head);
+    cnt = 1;
+}
+
+int deep[N * K * N + 10], aim;
+inline bool bfs (int S, int T) {
+    aim = T;
+    memset(deep, 0, sizeof deep);
+    deep[S] = 1; queue<int> que;
+    que.push(S);
+    while (!que.empty()) {
+        int u = que.front(); que.pop();
+        for (int i = head[u]; i; i = edge[i].nxt) {
+            int v = edge[i].to;
+            if (edge[i].flow && !deep[v]) {
+                deep[v] = deep[u] + 1;
+                que.push(v);
+            }
+        }
+    }
+    return deep[T];
+}
+inline int dfs (int u, int fl) {
+    if (u == aim) return fl;
+    int f = 0;
+    for (int i = head[u]; i && fl; i = edge[i].nxt) {
+        int v = edge[i].to;
+        if (deep[v] == deep[u] + 1 && edge[i].flow) {
+            int x = dfs(v, min(fl, edge[i].flow));
+            edge[i].flow -= x;
+            edge[i ^ 1].flow += x;
+            fl -= x;
+            f += x;
+        }
+    }
+    if (!f) deep[u] = -2;
+    return f;
+}
+inline int dicnic (int S, int T) {
+    int ret = 0;
+    while (bfs(S, T)) ret += dfs(S, 0x3f3f3f3f);
+    return ret;
+}
+
+vector<int> path[M];
+int h[M], sz[M];
+int n, m, k;
+
+int S, T;
+int mat[N * K][N];
+inline bool Check (int x) {
+    init_Edge();
+    for (int i = 0; i + 1 < x; i ++) {
+        for (int j = 1; j <= m; j ++) {
+            int u = path[j][i % sz[j]];
+            int v = path[j][(i + 1) % sz[j]];
+            add_Edge(mat[i][u], mat[i + 1][v], h[j]);
+        }
+        for (int j = 0; j <= n + 1; j ++) 
+            add_Edge(mat[i][j], mat[i + 1][j], 0x3f3f3f3f);
+    }
+    for (int i = 0; i < x; i ++) 
+        add_Edge(S, mat[i][0], 0x3f3f3f3f),
+        add_Edge(mat[i][n + 1], T, 0x3f3f3f3f);
+    int mxf = dicnic(S, T);
+    return mxf >= k;
+}
+
+int main () {
+    for (int i = 0; i < N * K; i ++) for (int j = 0; j < N; j ++) mat[i][j] = i * N + j;
+    S = N * K * N;
+    T = S + 1;
+
+    scanf("%d%d%d", &n, &m, &k);
+    for (int i = 1; i <= m; i ++) {
+        scanf("%d%d", &h[i], &sz[i]);
+        for (int j = 1; j <= sz[i]; j ++) {
+            int x; scanf("%d", &x);
+            path[i].push_back(x == -1 ? n + 1 : x);
+        }
+    }
+
+    int l = 1, r = N * K - 1, res = 0x3f3f3f3f;
+    while (l <= r) {
+        int mid = (l + r) >> 1;
+        if (Check(mid)) res = mid, r = mid - 1;
+        else l = mid + 1;
+    }
+    printf("%d\n", res == 0x3f3f3f3f ? 0 : res - 1);
+}
+```
+<hr>
+
 ## 洛谷P5546_公共串
 
 #### 🔗
@@ -816,6 +937,178 @@ int main(){
 
 <hr>
 
+## CCPC2017哈尔滨站L_ColorATree
+
+#### 🔗
+<a href="https://acm.hdu.edu.cn/showproblem.php?pid=6241">![20221113224431](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113224431.png)</a>
+
+#### 💡
+$A$ 操作是子树最少选 $y$个  
+$B$ 操作是非子树最少选 $y$ 个，想办法把 $B$ 移植成 $A$ 的格式，那么就是子树最多选 $allsum-y$ 个，这样就是一个区间的向上递归满足的问题  
+我们在判断一个 $allsum$ 是否可行时，将其进行区间嵌套 $dfs$ 到 $1$ 也就是根节点，看看 $1$ 的范围内是否存在 $allsum$ ，如果存在说明可行  
+且可以看出来黑点从少到多的可行判断是存在单调性的，所以对 $allsum$ 二分即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png">
+```cpp
+const int N = 1e5 + 10;
+const int M = N << 1;
+struct Edge {
+    int nxt, to;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge (int from, int to) {
+    edge[++cnt] = {head[from], to};
+    head[from] = cnt;
+}
+int sz[N];
+inline void dfs_Pre (int u, int fa) {
+    sz[u] = 1;
+    for (int i = head[u]; i; i = edge[i].nxt) {
+        int v = edge[i].to;
+        if (v == fa) continue;
+        dfs_Pre(v, u);
+        sz[u] += sz[v];
+    }
+}
+
+int n, m1, m2;
+pair<int, int> A[N], B[N];
+pair<int, int> limit[N];
+
+inline pair<int, int> intersect (pair<int, int> a, pair<int, int> b) {
+    return {max(a.first, b.first), min(a.second, b.second)};
+}
+inline void dfs (int u, int fa) {
+    pair<int, int> limu = {0, 1};
+    for (int i = head[u]; i; i = edge[i].nxt) {
+        int v = edge[i].to;
+        if (v == fa) continue;
+        dfs(v, u);
+        limu.first += limit[v].first;
+        limu.second += limit[v].second;
+    }
+    limit[u] = intersect(limit[u], limu);
+}
+
+inline bool check (int x) {
+    for (int i = 1; i <= n; i ++) limit[i] = {0, sz[i]};
+    for (int i = 1; i <= m1; i ++) limit[A[i].first].first = max(limit[A[i].first].first, A[i].second);
+    for (int i = 1; i <= m2; i ++) limit[B[i].first].second = min(limit[B[i].first].second, x - B[i].second);
+    dfs(1, 0);
+    for (int i = 1; i <= n; i ++) if (limit[i].first > limit[i].second) return false;
+    if (limit[1].first <= x && x <= limit[1].second) return true;
+    return false;
+}
+
+inline void Solve () {
+    scanf("%d", &n);
+
+    for (int i = 1; i <= n; i ++) head[i] = 0; cnt = 0;
+
+    for (int i = 1; i < n; i ++) {
+        int u, v; scanf("%d%d", &u, &v);
+        add_Edge(u, v);
+        add_Edge(v, u);
+    }
+    dfs_Pre(1, 0); bool flag = true;
+    scanf("%d", &m1);
+    for (int i = 1; i <= m1; i ++) {
+        scanf("%d%d", &A[i].first, &A[i].second);
+        if (A[i].second > sz[A[i].first]) flag = false;
+    }
+    scanf("%d", &m2);
+    for (int i = 1; i <= m2; i ++) {
+        scanf("%d%d", &B[i].first, &B[i].second);
+        if (B[i].second > n - sz[B[i].first]) flag = false;
+    }
+    if (!flag) {
+        puts("-1");
+        return;
+    }
+
+    int l = 0, r = n, res = n;
+    while (l <= r) {
+        int mid = (l + r) >> 1;
+        if (check(mid)) res = mid, r = mid - 1;
+        else l = mid + 1;
+    }
+    printf("%d\n", res);
+}
+
+int main () {
+    int cas; scanf("%d", &cas); while (cas --) {
+        Solve();
+    }
+}
+```
+<hr>
+
+
+## CCPC2022威海站I_DragonBloodline
+
+#### 🔗
+<a href="https://codeforces.com/gym/104023/problem/I">![20221113221710](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113221710.png)</a>
+
+#### 💡
+由于我们很难求得最多能满足多少套食物，但是我们可以判定是否可以满足 $x$ 套食物即材料 $i$ 用 $xa[i]$ 个  
+这个判定是会随着 $x$ 存在单调性的，故使用二分答案  
+在 $check$ 里面分配时，从效率高的龙开始往效率低的龙枚举，$2^j$ 效率的龙首先分给所有 $a[i]\ge 2^j$ 的材料 $\left\lfloor\frac{a[i]}{2^j}\right\rfloor$ 个，当然数量总和不能超过龙数，如果最后还有剩余的，分给最多的几个材料一个材料一份  
+到最后判断一下是否所有材料都被给占满了即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 5e5 + 10;
+int n, k;
+__int128_t a[N], b[N], tb[N], c[N];
+ 
+inline bool check (__int128_t x) {
+    for (int i = 0; i < k; i ++) b[i] = tb[i];
+    for (int i = 1; i <= n; i ++) c[i] = x * a[i];
+    for (int i = k - 1; i >= 0; i --) {
+        for (int j = 1; j <= n; j ++) {
+            if (c[j] <= 0) continue;
+            __int128_t cos = min(b[i], c[j] / (1 << i));
+            b[i] -= cos;
+            c[j] -= cos * (1 << i);
+        }
+        if (n < b[i]) nth_element(c + 1, c + 1 + n, c + 1 + n, [&](int e, int f){return e > f;});
+        else nth_element(c + 1, c + 1 + b[i], c + 1 + n, [&](int e, int f){return e > f;});
+        for (int j = 1; j <= b[i] && j <= n; j ++) {
+            c[j] -= 1 << i;
+        }
+    }
+    for (int i = 1; i <= n; i ++) if (c[i] > 0) return false;
+    return true;
+}
+inline void Solve () {
+    scanf("%d%d", &n, &k);
+    for (int i = 1; i <= n; i ++) {
+        int x; scanf("%d", &x);
+        a[i] = x;
+    }
+    for (int i = 0; i < k; i ++) {
+        int x; scanf("%d", &x);
+        tb[i] = x;
+    }
+ 
+    ll l = 0, r = 2e15, res = 0;
+    while (l <= r) {
+        ll mid = (l + r) >> 1;
+        if (check(mid)) res = mid, l = mid + 1;
+        else r = mid - 1;
+    }
+    printf("%lld\n", res);
+}
+ 
+int main () {
+    int cass; scanf("%d", &cass); while (cass --) {
+        Solve ();
+    }
+}
+```
+<hr>
+
+
 ## CodeForces1141G_PrivatizationOfRoadsInTreeland
 
 #### 🔗
@@ -881,7 +1174,6 @@ int main () {
         col_Dfs(1, -1);
         printf("%d\n", res);
         for (int i = 1; i < n; i ++) printf("%d ", col[i] + 1);
- 
 }
 ```
 <hr>

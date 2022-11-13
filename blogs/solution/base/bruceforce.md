@@ -7,6 +7,224 @@ title: 暴力优化
 
 ## 折半枚举
 
+### CCPC2016杭州站D_Difference
+
+#### 🔗
+<a href="https://acm.hdu.edu.cn/showproblem.php?pid=5936">![20221113231108](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113231108.png)</a>
+
+#### 💡
+和[这个题](https://atcoder.jp/contests/abc271/tasks/abc271_f)的套路非常类似，本题 $y$ 是十位数，因为 $k$ 最大是 $9$ ，到第十位每次跳跃的范围都很大，完全补不回来 $x$  
+但是十位我们枚举下来也是非常过分的，考虑那个题想到的套路，我们既然走不完，就分段走  
+这里可以分成两个五位数，那么对于 $i$ 我们拆成 $a$ 和 $b*100000$   
+贡献即为 $f(a)-a$ 和 $f(b)-b*100000$ ，就是统计有多少对 $a,b$ 可以满足贡献和为 $x$  
+于是先统计 $f(a)-a,a\in[00001,99999]$ 的数量，然后再遍历 $b\in[00000,99999]$ ，直接去锁定 $x-(f(b)-b*100000)$ 的数量，对其求和即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+map<ll, ll> mp[10];
+//ll bg[10], ed[10];
+ll pw[10][10];
+
+
+inline void Solve (int casid) {
+    int n, k; scanf("%d%d", &n, &k);
+
+    ll res = 0;
+    for (ll i = 0; i <= 99999; i ++) {
+        int ii = i;
+        ll f = 0;
+        while (ii) f += pw[ii % 10][k], ii /= 10;
+        ll fd = (ll)n - f + i * 100000;
+        //if (fd < bg[k] || fd > ed[k]) continue;
+        if (mp[k].count(fd)) {
+            res += mp[k][fd];
+        }
+    }
+    printf("Case #%d: %lld\n", casid, res);
+}
+
+inline ll ksm (ll a, int b) {
+    ll res = 1;
+    while (b) {
+        if (b & 1) res = (ll)res * a;
+        a = (ll)a * a;
+        b >>= 1;
+    }
+    return res;
+}
+int main () {
+    //for (int i = 1; i < 9; i ++) bg[i] = 2e18, ed[i] = -2e18;
+    for (int i = 0; i <= 9; i ++) for (int j = 1; j <= 9; j ++) pw[i][j] = ksm(i, j);
+    for (int i = 1; i <= 99999; i ++) {
+        int ii = i;
+        ll f[10] = {0};
+        while (ii) {
+            for (int j = 1; j < 10; j ++) f[j] += pw[ii % 10][j];
+            ii /= 10;
+        }
+        for (int j = 1; j < 10; j ++) {
+            mp[j][f[j] - i] ++;
+       //     bg[j] = min(bg[j], f[j] - i);
+       //     ed[j] = max(ed[j], f[j] - i);
+        }
+    }
+    int id = 0;
+    int t; scanf("%d", &t); while (t --) {
+        Solve(++id);
+    }
+    //cout << clock() * 1.0 / CLOCKS_PER_SEC << endl;
+}
+```
+<hr>
+
+
+### ICPC2018银川K_VertexCovers
+
+#### 🔗
+<a href="https://codeforces.com/gym/102222/problem/K">![20221113221211](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113221211.png)</a>
+
+#### 💡
+看来还是应该多考虑 $n/2$ 的复杂度  
+这里折一半之后 $n/2=18$ ，状压就可以做  
+首先处理出来左集合每一种情况的结果 $sum[s]$ ，处理方式为扫描左集合状态 $s$ ，在扫描左集合的点 $i$ ，对于当前 $s$ 如果 $i\in s$ ，则让当前答案乘上该点的权值，如果不在说明当且仅当集合 $s$ 包含了所有与 $i$ 连边的点，才可以，这里就要判断一下，如果全部包含，就继续，否则结果为 $0$  
+
+::: tip 判断
+判断方式可以记录一下 $L$ 集合内部的连边情况，记录邻点状态，即对每一个 $L$ 集合内部的点 $i$ ，如果 $i\to j$ ，就将 $1<<j$ 加给 $i$ 的邻点状态  
+以这样的方式处理出来两点都在 $L$ 中的，都在 $R$ 中的，一个在 $L$ 一个在 $R$ 中的  
+判断是否包含就直接用“与”操作看看是否为超集  
+:::  
+   
+每一个状态结果已经出来了，要考虑到如果 $s$ 可以，那么 $s$ 的所有超集也可以，故再维护一个超集和  
+然后就是另一半 $L$ 的信息，和统计 $R$ 时差不多，但是有一个要求是如果 $i$ 不在 $s$ 中，我们还需要保证在 $R$ 集合中的邻点要都存在，故维护一个 $need$ 表示我们需要的点的状态  
+最后在统计完乘积后，让乘积乘上 $sum[need]$ 即乘上我们之前维护的超集和，累加进答案中  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e6 + 10;
+int n, m, mod;
+int a[N];
+int sum[N];
+int l2l[N], l2r[N], r2r[N];
+ 
+inline void Solve () {
+    scanf("%d%d%d", &n, &m, &mod);
+    for (int i = 0; i < n; i ++) scanf("%d", &a[i]);
+ 
+    int lfn = n / 2, rtn = n - lfn;
+    for (int i = 0; i < 1 << lfn; i ++) l2l[i] = l2r[i] = 0;
+    for (int i = 0; i < 1 << rtn; i ++) r2r[i] = sum[i] = 0;
+ 
+    for (int i = 1; i <= m; i ++) {
+        int u, v; scanf("%d%d", &u, &v); u --, v --;
+        if (u > v) swap(u, v);
+        if (v < lfn)       l2l[u] |= 1 << v;
+        else if (u >= lfn) r2r[u - lfn] |= 1 << (v - lfn);
+        else               l2r[u] |= 1 << (v - lfn);
+    }
+ 
+    for (int s = 0; s < 1 << rtn; s ++) {
+        int res = 1;
+        for (int i = 0; i < rtn; i ++) {
+            if (s >> i & 1) res = 1ll * res * a[i + lfn] % mod;
+            else res *= (r2r[i] | s) == s;
+        }
+        sum[s] = res;
+    }
+    for (int i = 0; i < rtn; i ++) {
+        for (int s = 0; s < 1 << rtn; s ++) {
+            if (~s >> i & 1) (sum[s] += sum[s | (1 << i)]) %= mod;
+        }
+    }
+ 
+    int res = 0;
+    for (int s = 0; s < 1 << lfn; s ++) {
+        int need = 0, cur = 1;
+        for (int i = 0; i < lfn; i ++) {
+            if (s >> i & 1) cur = 1ll * cur * a[i] % mod;
+            else cur *= (l2l[i] | s) == s, need |= l2r[i];
+        }
+        (res += 1ll * cur * sum[need] % mod) %= mod;
+    }
+    printf("%d\n", res);
+}
+ 
+int main () {
+    int cass; scanf("%d", &cass);
+    for (int i = 1; i <= cass; i ++) {
+        printf("Case #%d: ", i);
+        Solve ();
+    }
+}
+```
+<hr>
+
+### HDU2021多校10D_PtyHatesPrimeNumbers 
+
+#### 🔗
+<a href="https://vjudge.net/contest/463256#problem/D">![20221113230022](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113230022.png)</a>
+
+#### 💡
+$16$ 个质数，一眼容斥吧  
+依旧是遍历到 $16$ 就会超，这种不大，超了一部分的，拆成两半去做  
+首先看看能不能处理出来前 $8$ 个质数组成的所有有用信息  
+令前 $8$ 个质数的积为 $mul=9699690$ ，有一个性质是如果 $x\%mul$ 可以被前八个质数整除，那么 $x$ 也可以被前八个质数整除  
+所以这里完全可以将超过 $mul$ 的数压缩进 $mul$  
+在 $k\le 8$ 时我们直接容斥做就行  
+在 $k>8$ 时，我们求出后八个质数的每一个容斥因子 $it$ ，那么 $n$ 以内 $it$ 的倍数会成为 $it*1,it*2,it*3,...,it*(n/it)$ ，$it$ 是我们自带的容斥， $it*j$ 中的 $j$ 是源于前 $8$ 个， $1\to n/it$ 压缩进 $mul$ 可以压缩成 $n/it/mul$ 个完整的 $[1,mul-1]$ ，剩一个 $[1,n/it\%mul]$   
+所以我们需要知道对于 $n/it\%mul$ 之前的，有几个不可以被前 $8$ 个质数整除  
+直接通过埃氏筛标记后对未标记的求前缀和即可算出来 $sum[i]$ 表示 $[1,i]$ 中有几个不可以被前 $8$ 个质数整除的  
+所以对于 $[9,k]$ 的加操作的每一个容斥因子 $it$，我们累计 $res+(n/it*sum[mul-1]+sum[n/it\%mul])$  
+减操作就是 $res-(n/it*sum[mul-1]+sum[n/it\%mul]$  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 9699690;
+int prime[] = {0, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53};
+
+vector<ll> add[20];
+vector<ll> del[20];
+inline void dfs (int idx, int cnt, ll mul, int k) {
+    if (idx == k + 1) {
+        if (cnt % 2 == 0) add[k].push_back(mul);
+        else              del[k].push_back(mul);
+        return;
+    }
+    dfs(idx + 1, cnt, mul, k);
+    dfs(idx + 1, cnt + 1, mul * prime[idx], k);
+}
+int sum[N + 1];
+
+int main () {
+    for (int k = 1; k <= 16; k ++) {
+        if (k <= 8) dfs(1, 0, 1, k);
+        else        dfs(9, 0, 1, k);
+    }
+    for (int i = 1; i <= N; i ++) sum[i] = 1;
+    for (int i = 1; i <= 8; i ++) {
+        for (int j = prime[i]; j <= N; j += prime[i]) sum[j] = 0;
+    }
+    for (int i = 1; i <= N; i ++) sum[i] += sum[i - 1];
+
+    int cass; scanf("%d", &cass); while (cass --) {
+        ll n; int k; scanf("%lld%d", &n, &k);
+        // for (ll i : add[k]) printf("%lld ", i); puts("");
+        // for (ll i : del[k]) printf("%lld ", i); puts("");
+        ll res = 0;
+        if (k <= 8) {
+            for (ll i : add[k]) res += n / i;
+            for (ll i : del[k]) res -= n / i;
+        } else {
+            for (ll i : add[k]) res += n / i / N * sum[N] + sum[n / i % N];
+            for (ll i : del[k]) res -= n / i / N * sum[N] + sum[n / i % N];
+        }
+        printf("%lld\n", res);
+    }
+}
+```
+<hr>
+
+
 ### HDU2141_CanYouFindIt?
 
 #### 🔗
@@ -135,9 +353,6 @@ CHIVAS_{
         _REGAL;
 };
 ```
-
-
-
 
 
 <hr>

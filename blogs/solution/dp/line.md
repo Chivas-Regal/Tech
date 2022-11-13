@@ -1941,6 +1941,95 @@ inline void Solve () {
 ```
 <hr>
 
+## DaimayuanOnlineJudge665_数组划分
+
+#### 🔗
+<a href="http://oj.daimayuan.top/problem/665">![20221113222818](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113222818.png)</a>
+
+#### 💡
+按位了话，肯定最高位更希望是 $1$  
+所以我们按位从高到低枚举，看看当前答案将这一位设为 $1$ 能否成功分出来 $k$ 段  
+如果能分成的话就设为 $1$ ，不管这一位会不会对下一位带影响，因为就算下面所有位都是 $1$ 也没法补齐这一位的缺失  
+在检查 $res$ 能否分成 $k$ 段的时候，可以使用 $dp$  
+令 $dp[i][kk]$ 表示第 $i$ 个数以前有 $kk$ 段能否成立，那么对于第 $j$ 个数转移到第 $i$ 个数，也就是从 $j+1$ 到 $i$ 为一段，要满足这一段区间和中的 $1$ 是 $res$ 的超集，即 $(sum[i]-sum[j])\& x=x$  
+在满足这个的时候转移，这样就是一个 $n^3$ 的过程了，最后看看 $dp[n][k]$ 是不是 $true$ 就行了  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 110;
+
+int n, K;
+ll a[N], sum[N];
+bool dp[N][N];
+
+inline bool check (ll x) {
+    memset(dp, 0, sizeof dp);
+    dp[0][0] = true;
+    for (int i = 1; i <= n; i ++) {
+        for (int j = 1; j <= i; j ++) {
+            if (((sum[i] - sum[j - 1]) & x) != x) continue;
+            for (int k = 1; k <= K; k ++) {
+                dp[i][k] |= dp[j - 1][k - 1];
+            }
+        }
+    }
+    return dp[n][K];
+}
+
+int main () {
+    scanf("%d%d", &n, &K);
+    for (int i = 1; i <= n; i ++)
+        scanf("%lld", &a[i]),
+        sum[i] = sum[i - 1] + a[i];
+
+    ll res = 0;
+    for (int i = 55; i >= 0; i --) {
+        if (check(res | (1ll << i))) res |= 1ll << i;
+    }
+    printf("%lld\n", res);
+}
+```
+<hr>
+
+## DaimayuanOnlineJudge699_并行排序
+
+#### 🔗
+<a href="http://oj.daimayuan.top/course/10/problem/699">![20221113223910](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113223910.png)</a>
+
+#### 💡
+前面的大的可以连接后面的小的  
+同边染异色，在图上就是最大完全子图，对应这里就是最长下降子序列，也就是反过来的最长上升子序列  
+反一下求一下 $LIS$ 的长度即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int a[1000006];
+
+inline void Solve () {
+    int n; cin >> n;
+    for (int i = 1; i <= n; i ++) {
+        cin >> a[i];
+    }
+    reverse(a + 1, a + 1 + n);
+    vector<int> v;
+    for (int i = 1; i <= n; i ++) {
+        if (v.empty() || v.back() < a[i]) v.push_back(a[i]);
+        else v[lower_bound(v.begin(), v.end(), a[i]) - v.begin()] = a[i];
+    }
+    cout << (int)v.size() << endl;
+}
+
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+
+    int cass; cin >> cass; while (cass --) {
+        Solve ();
+    }
+}
+```
+<hr>
+
 
 ## HDUOJ1176_免费馅饼
 

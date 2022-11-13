@@ -291,6 +291,117 @@ int main () {
 ```
 <hr>
 
+## CodeForces1209D_CowAndSnacks
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/CF1209D">![20221113223237](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113223237.png)</a>
+
+#### 💡
+肯定是希望更多的人只吃一个点心    
+同时喜欢两个东西，可以将这两个点相连，这样在一个大小超过 $2$ 的连通块里面必定只会出现一次有人吃两个的情况，别的都是只吃一个  
+所以使用并查集获取到每一个连通块的大小，对于大于等于 $2$ 的连通块，我们将 $res+sz[i]-1$  
+这样会得到最多能有几个人有吃的，输出 $m-res$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+int fa[N], sz[N];
+inline int find (int x) {return x == fa[x] ? x : fa[x] = find(fa[x]);}
+inline void merge (int x, int y) {
+    int fx = find(x);
+    int fy = find(y);
+    if (fx == fy) return;
+    sz[fy] += sz[fx];
+    fa[fx] = fy;
+}
+
+int main () {
+    int n, m; scanf("%d%d", &n, &m);
+    for (int i = 1; i <= n; i ++) {
+        fa[i] = i;
+        sz[i] = 1;
+    }
+
+    for (int i = 1; i <= m; i ++) {
+        int x, y; scanf("%d%d", &x, &y);
+        merge(x, y);
+    }
+
+    int res = 0;
+    for (int i = 1; i <= n; i ++) {
+        if (find(i) == i && sz[find(i)] >= 2) {
+            res += sz[find(i)] - 1;
+        }
+    }
+    printf("%d\n", m - res);
+}
+```
+<hr>
+
+
+## CodeForces1475F_UnusualMatrix
+
+#### 🔗
+<a href="https://codeforces.com/contest/1475/problem/F">![20221113220835](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113220835.png)</a>
+
+#### 💡
+就是一个奇偶翻转次数的问题  
+若 $S_{ij}\neq T_{ij}$ ，说明 $(i,j)$ 要翻转奇数次，也就意味着两种可能：$i$ 行翻转奇数次 $j$ 列翻转偶数次、$i$ 行偶数次 $j$ 列奇数次  
+若 $S_{ij}\neq T_{ij}$ ，说明 $(i,j)$ 翻转偶数次，意味着：$i$ 行 $j$ 列都翻转偶数次、 $i$ 行 $j$ 列都翻转奇数次  
+而最终表现情况，希望存在一组解，这一组解肯定不能同时存在 $i$ 行或者 $j$ 列既翻转奇数次也翻转偶数次  
+所以用一组 $n*4$ 大小的并查集储存行在 $i\in[1,n]$ 奇数次为 $i$ 偶数次为 $i+n$ 的情况、列在 $j\in[1,n]$ 奇数次为 $j+2n$ 偶数次为 $j+3n$  
+按照上面的合并方式合并完，最后检查一下是否存在某一行或某一列，奇数次和偶数次在同一个连通块内的情况
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1010;
+ 
+char s[N][N];
+char t[N][N];
+ 
+int nod[N * 4], sz1[N * 4], sz2[N * 4];
+inline int find (int x) {return x == nod[x] ? x : nod[x] = find(nod[x]);}
+inline void merge (int x, int y) {
+    x = find(x); y = find(y);
+    if (x != y) {
+        nod[x] = y;
+        sz1[y] += sz1[x];
+        sz2[y] += sz2[x];
+    }
+}
+int main () {
+    int cass; scanf("%d", &cass); while (cass --) {
+        int n; scanf("%d", &n);
+        for (int i = 1; i <= n * 4; i ++) {
+            nod[i] = i;
+            if (i <= 2 * n) sz1[i] = 1, sz2[i] = 0;
+            else sz2[i] = 1, sz1[i] = 0;
+        }
+        for (int i = 1; i <= n; i ++) scanf("%s", s[i] + 1);
+        for (int i = 1; i <= n; i ++) scanf("%s", t[i] + 1);
+        for (int i = 1; i <= n; i ++) {
+            for (int j = 1; j <= n; j ++) {
+                if (s[i][j] == t[i][j]) {
+                    merge(i, j + 2 * n);
+                    merge(i + n, j + 3 * n);
+                } else {
+                    merge(i + n, j + 2 * n);
+                    merge(i, j + 3 * n);
+                }
+            }
+        }
+        bool flag = true;
+        for (int i = 1; i <= n; i ++) {
+            if (find(i) == find(i + n)) flag = false;
+            if (find(i + 2 * n) == find(i + 3 * n)) flag = false;
+        }
+        if (flag) puts("YES");
+        else puts("NO");
+    }
+}
+```
+<hr>
+
 
 ## CodeForces1594D_TheNumberOfImposters
 

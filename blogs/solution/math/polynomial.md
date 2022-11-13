@@ -1729,6 +1729,103 @@ int main () {
 }
 ```
 
+## 洛谷P5339_唱、跳、rap和篮球
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P5339">![20221113203754](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113203754.png)</a>
+
+#### 💡
+正着考虑要 $dp$ ，要枚举四种人的人数状态，比较麻烦，正难则反考虑至少有一组的情况  
+一组为 $[1,2,3,4]$ ，那么对于 $i$ 组，还剩下 $n-4i$ 个散点，共 $n-3i$ 个点，选择 $i$ 个位置为组，方案数为 $\binom{n-3i}{i}$  
+那么这四种分别剩下 $a-i,b-i,c-i,d-i$  
+如果各用 $a',b',c',d'$ 组成 $n-4i$ ，那么方案数为 $\frac{(n-4i)!}{(a')!(b')!(c')!(d')!}$  
+总方案依然是不能枚举，但是可以从上面的得到启发，公式为  
+$\sum\limits_{a'=1}^{a-i}\sum\limits_{b'=1}^{b-i}\sum\limits_{c'=1}^{c-i}\sum\limits_{d'=1}^{d-i}\frac{(n-4i)!}{(a')!(b')!(c')!(d')!}[a'+b'+c'+d'=n-4i]$  
+这个式子就是一个卷积式  
+故提出四个多项式把它们乘一下就可以了（令乘出来的多项式为 $g$，第 $i$ 位的系数为 $g[i]$）    
+则在容斥下，最终方案等于 $\sum\limits_{i=0}^{min(a,b,c,d,\left\lfloor\frac n4\right\rfloor)}(-1)^i\binom{n-3i}{i}g[n-4i]$  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int mod = 998244353;
+inline int ksm (int a, int b) { int res = 1; while (b) { if (b & 1) res = (ll)res * a % mod; a = (ll)a * a % mod; b >>= 1; } return res; }
+inline int inv (int x)  {return ksm(x, mod - 2);}
+
+const int N = 1e4 + 10;
+int f[N], ivf[N];
+inline int C (int n, int m) { return (ll)f[n] * ivf[n - m] % mod * ivf[m] % mod; }
+
+int bit, tot, rev[N];
+inline void initPoly (int n) {
+    bit = 0;
+    while ((1 << bit) <= n) bit ++;
+    tot = 1 << bit;
+    for (int i = 0; i < tot; i ++) 
+        rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (bit - 1));
+}
+inline void Ntt (int *a, int op) {
+    for (int i = 0; i < tot; i ++) if (i < rev[i]) swap(a[i], a[rev[i]]);
+    for (int mid = 1; mid < tot; mid <<= 1) {
+        int g1 = ksm(3, (mod - 1) / (mid << 1));
+        if (op == -1) g1 = inv(g1);
+        for (int i = 0; i < tot; i += mid << 1) {
+            int gk = 1;
+            for (int j = 0; j < mid; j ++, gk = (ll)gk * g1 % mod) {
+                int x = a[i + j], y = (ll)a[i + j + mid] * gk % mod;
+                a[i + j] = (x + y) % mod;
+                a[i + j + mid] = (x - y + mod) % mod;
+            }
+        }
+    }
+    if (op == -1) {
+        int iv = inv(tot);
+        for (int i = 0; i < tot; i ++) a[i] = (ll)a[i] * iv % mod;
+    }
+}
+inline void Mul (int *a, int *b) {
+    Ntt(a, 1); Ntt(b, 1);
+    for (int i = 0; i < tot; i ++) a[i] = (ll)a[i] * b[i] % mod;
+    Ntt(a, -1);
+}
+
+int n, a, b, c, d;
+int ma[N], mb[N], mc[N], md[N];
+inline int Sol (int blk) {
+    memset(ma, 0, sizeof ma);
+    memset(mb, 0, sizeof mb);
+    memset(mc, 0, sizeof mc);
+    memset(md, 0, sizeof md);
+    for (int i = 0; i <= min(n - 4 * blk, a - blk); i ++) ma[i] = ivf[i];
+    for (int i = 0; i <= min(n - 4 * blk, b - blk); i ++) mb[i] = ivf[i];
+    for (int i = 0; i <= min(n - 4 * blk, c - blk); i ++) mc[i] = ivf[i];
+    for (int i = 0; i <= min(n - 4 * blk, d - blk); i ++) md[i] = ivf[i];
+    initPoly((n - 4 * blk) * 4);
+
+    Ntt(ma, 1); Ntt(mb, 1); Ntt(mc, 1); Ntt(md, 1);
+    for (int i = 0; i < tot; i ++) ma[i] = (ll)ma[i] * mb[i] % mod * mc[i] % mod * md[i] % mod;
+    Ntt(ma, -1);
+    return (ll)f[n - 4 * blk] * ma[n - 4 * blk] % mod;
+}
+
+int main () {
+    f[0] = 1;
+    for (int i = 1; i < N; i ++) f[i] = (ll)f[i - 1] * i % mod;
+    ivf[N - 1] = inv(f[N - 1]);
+    for (int i = N - 2; i >= 0; i --) ivf[i] = (ll)ivf[i + 1] * (i + 1) % mod;
+
+    int res = 0;
+    scanf("%d%d%d%d%d", &n, &a, &b, &c, &d);
+    for (int i = 0; i <= min({a, b, c, d, n / 4}); i ++) {
+        if (i & 1) res -= (ll)C(n - 3 * i, i) * Sol(i) % mod;
+        else       res += (ll)C(n - 3 * i, i) * Sol(i) % mod;
+        res = (res % mod + mod) % mod;
+    }
+    printf("%d\n", res);
+}
+```
+<hr>
+
+
 <hr>
 
 ## 拉格朗日插值

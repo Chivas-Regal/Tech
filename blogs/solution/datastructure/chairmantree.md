@@ -264,6 +264,126 @@ int main () {
 
 <hr>
 
+## CCPC2022浙江省赛F_EasyFix
+
+#### 🔗
+<a href="https://codeforces.com/gym/103687/problem/F">![20221113231602](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113231602.png)</a>
+
+#### 💡
+考虑在交换 $p_l,p_r$ 时，有哪些值会变  
+即下标在 $[l,r]$ 内，权值在 $[p_l,p_r]$ 内的  
+这里两个偏序关系使用主席树  
+考虑变化量，若 $p_l<p_r$ ，那么这里的 $a-b+$   
+若 $p_l>p_r$ ，那么这里的 $a+b-$  
+那么可以直接算出两个维度的 $\sum min(a,b),\sum min(a-1,b+1),\sum min(a+1,b-1)$  
+然后在主席树内区间查询即可  
+然后注意到 $p_l,p_r$ 交换后这两个点的权值也会变化，可以直接求左侧右侧有几个小于它的数，还要注意 $\min(p_l,p_r)$ 对 $\max(p_l,p_r)$ 也有贡献 
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+# define int long long
+
+int tr[N]; 
+inline int lowbit (int x) { return x & -x; }
+inline void _update (int id, int c) {while (id < N) {tr[id] += c; id += lowbit(id);}}
+inline int _query (int id) {int res = 0; while (id) res += tr[id], id -= lowbit(id); return res;}
+int n, m, a[N], b[N], p[N];
+
+struct node {
+    int l, r;
+    int sum[3];
+    int s;
+} t[N * 40];
+int root[N], tot;
+
+inline void insert (int l, int r, int pre, int &now, int p, int i) {
+    t[++tot] = t[pre];
+    now = tot;
+    t[now].s ++;
+    if (l == r) {
+        t[now].sum[0] = min(a[i], b[i]);
+        t[now].sum[1] = min(a[i] - 1, b[i] + 1);
+        t[now].sum[2] = min(a[i] + 1, b[i] - 1);
+        return;
+    }
+    int mid = (l + r) >> 1;
+    if (p <= mid) insert(l, mid, t[pre].l, t[now].l, p, i);
+    if (p > mid)  insert(mid + 1, r, t[pre].r, t[now].r, p, i);
+    t[now].sum[0] = t[t[now].l].sum[0] + t[t[now].r].sum[0];
+    t[now].sum[1] = t[t[now].l].sum[1] + t[t[now].r].sum[1];
+    t[now].sum[2] = t[t[now].l].sum[2] + t[t[now].r].sum[2];
+}
+inline int query (int nml, int nmr, int idl, int idr, int l, int r, int i) {
+    if (nml > nmr) return 0;
+    if (nml <= l && r <= nmr) {
+        if (0 <= i && i < 3) return t[idr].sum[i] - t[idl].sum[i];
+        else return t[idr].s - t[idl].s;
+    }
+    int mid = (l + r) >> 1;
+    int res = 0;
+    if (nml <= mid) res += query(nml, nmr, t[idl].l, t[idr].l, l, mid, i);
+    if (nmr > mid)  res += query(nml, nmr, t[idl].r, t[idr].r, mid + 1, r, i);
+    return res;
+}   
+
+inline void Solve () {
+    scanf("%lld", &n);
+    int sum = 0;
+    for (int i = 1; i <= n; i ++) scanf("%lld", &p[i]);
+    for (int i = 1; i <= n; i ++) {
+        a[i] = _query(p[i]);
+        _update(p[i], 1);
+    }
+    for (int i = 1; i <= n; i ++) _update(p[i], -1);
+    for (int i = n; i >= 1; i --) {
+        b[i] = _query(p[i]);
+        sum += min(a[i], b[i]);
+        _update(p[i], 1);
+    }
+
+    for (int i = 1; i <= n; i ++) {
+        insert(1, n, root[i - 1], root[i], p[i], i);
+    } 
+
+    scanf("%lld", &m);
+    while (m --) {
+        int l, r; scanf("%lld%lld", &l, &r);
+        if (l > r) swap(l, r);
+        int res = 0;
+
+        if (p[l] < p[r]) {
+            res = sum;
+            res -= query(p[l] + 1, p[r] - 1, root[l], root[r - 1], 1, n, 0);
+            res += query(p[l] + 1, p[r] - 1, root[l], root[r - 1], 1, n, 1);
+            res -= min(a[l], b[l]) + min(a[r], b[r]);
+            if (p[r] != 1) res += min(query(1, p[r] - 1, root[0], root[l - 1], 1, n, 3), query(1, p[r] - 1, root[l], root[n], 1, n, 3) + 1);
+            if (p[l] != 1) res += min(query(1, p[l] - 1, root[0], root[r - 1], 1, n, 3), query(1, p[l] - 1, root[r], root[n], 1, n, 3));
+        } else if (p[l] > p[r]) {
+            res = sum;
+            res -= query(p[r] + 1, p[l] - 1, root[l], root[r - 1], 1, n, 0);
+            res += query(p[r] + 1, p[l] - 1, root[l], root[r - 1], 1, n, 2);
+            res -= min(a[l], b[l]) + min(a[r], b[r]);
+            if (p[r] != 1) res += min(query(1, p[r] - 1, root[0], root[l - 1], 1, n, 3), query(1, p[r] - 1, root[l], root[n], 1, n, 3));
+            if (p[l] != 1) res += min(query(1, p[l] - 1, root[0], root[r - 1], 1, n, 3) + 1, query(1, p[l] - 1, root[r], root[n], 1, n, 3));
+        } else {
+            res = sum;
+        }
+        printf("%lld\n", res);
+    }
+}
+
+signed main () {
+    cin.tie(0);
+
+    int cass = 1; while (cass --) {
+        Solve ();
+    }
+}
+```
+<hr>
+
+
 ## CodeForces1227D2_OptimalSubsequences（Hard Version）
 
 #### 🔗

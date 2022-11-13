@@ -5,6 +5,62 @@ title: 排序
 ###  
 <hr>
 
+## 洛谷P1493_分梨子
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P1493">![20221113214831](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113214831.png)</a>
+
+#### 💡
+如果确定了两个最小值 $a0,b0$ ，那么我们枚举的要满足 $a_i\ge a0,b_i\ge b0,c1*(a_i-a0)+c2*(b_i-b0)\le c3$  
+既然已知 $a0,b0$ ，将这些常数移动过去 $c1*a_i+c2*b_i\le c1*a0+c2*b0+c3$  
+但是这样走是一个 $n^3$ 的复杂度，由于是最值那么根据单调性优化   
+对于选择顺序无所谓，于是首先按 $a$ 升序排序  
+那么从前往后枚举的 $a$ 是从小到大的，则 $a$ 枚举到哪那么哪就是 $a0$  
+然后对于 $b$ 的选择，我们在 $a$ 递增时让 $b$ 递减，表示 $b$ 枚举到哪那么哪就是 $b0$  
+则可以保证不等号右侧是递减的，既然这一步不满足的 $c1*a_i+c2*b_i$ ，下一步依然不满足      
+则对于这一步我们可以使用一个大根堆存放 $c1*a_i+c2*b_i$ ，实时弹出即可，然后弹到合法后维护大根堆内容数量的最大值 
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+# define int ll
+
+int c1, c2, c3, n;
+struct node {
+    int a, b;
+} a[2010];
+
+int res;
+
+inline bool cmp1 (node a, node b) { return a.a < b.a; }
+inline bool cmp2 (node a, node b) { return a.b > b.b; }
+
+signed main () {
+    ios::sync_with_stdio(false); 
+    cin.tie(0);
+
+    cin >> n >> c1 >> c2 >> c3;
+    for (int i = 1; i <= n; i ++) cin >> a[i].a >> a[i].b;
+
+    sort(a + 1, a + n + 1, cmp1);
+    for (int i = 1; i <= n; i ++) {
+        int a0 = a[i].a;
+        sort(a + i, a + n + 1, cmp2);
+        priority_queue<ll> pque;
+        for (int j = i; j <= n; j ++) {
+            int b0 = a[j].b;
+            ll k = c1 * a0 + c2 * b0 + c3;
+            pque.push(c1 * a[j].a + c2 * a[j].b);
+            while (pque.size() && pque.top() > k) pque.pop();
+            res = max(res, (int)pque.size());
+        }
+        sort(a + i, a + n + 1, cmp1);
+    }
+    cout << res << endl;
+}
+```
+<hr>
+
+
 ## HDUOJ6318_SwapsAndInversions
 
 #### 🔗

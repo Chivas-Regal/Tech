@@ -394,7 +394,7 @@ int main () {
 ```
 <hr>
 
-## ABC254F_RecangleGCD
+### ABC254F_RecangleGCD
 
 #### 🔗
 <a href="https://atcoder.jp/contests/abc254/tasks/abc254_f">![20220605152814](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20220605152814.png)</a>
@@ -661,6 +661,59 @@ int main () {
 ```
 
 <hr>
+
+### DaimayuanOnlineJudge131_最大公约数
+
+#### 🔗
+<a href="http://oj.daimayuan.top/problem/131">![20221113225351](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113225351.png)</a>
+
+#### 💡
+如果分成 $k$ 段，第 $i$ 段的和是 $sum[i]$，他们的最大公因数为 $p$ ，说明 $p|sum[1],p|sum[2],...,p|sum[k]$ ，说明 $p|\sum sum[i]$ ，说明 $p|SUM$    
+同时另一条线是，如果令 $pre[i]$ 表示 $i$ 的前缀和，分段的和也就是他们分段之间的相邻差，相邻差是 $p$ 的倍数说明它们模 $p$ 同余  
+所以答案是 $SUM$ 的因数之一，每一个因数最多可分段数为模 $k$ 相等的 $pre[i]$ 中最多的数量  
+打个表发现 $SUM$ 的因数不会非常多，故统计完所有的因数后可以对每一个因数都跑一遍，拿 $map$ 存余数，最后可以统计出来每一个因数最多可以分割的段数 $times[]$  
+然后求 $k$ 的答案时，找到最大的因数 $i$，满足 $times[i]\ge k$  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2010;
+int n;
+ll a[N], pre[N], sum;
+int times[N];
+
+int main () {
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i ++) 
+        scanf("%lld", &a[i]),
+        pre[i] = pre[i - 1] + a[i],
+        sum += a[i];
+    
+    vector<ll> sep;
+    for (int i = 1; 1ll * i * i <= sum; i ++) {
+        if (sum % i == 0) {
+            sep.push_back(i);
+            if (i != sum / i) sep.push_back(sum / i);
+        }
+    }
+    sort(sep.begin(), sep.end());
+
+    for (int i = 0; i < sep.size(); i ++) {
+        map<ll, int> mp;
+        for (int j = 1; j <= n; j ++) mp[pre[j] % sep[i]] ++;
+        for (auto it : mp) times[i] = max(times[i], it.second);
+    }
+    for (int k = 1; k <= n; k ++) {
+        for (int i = sep.size() - 1; i >= 0; i --) {
+            if (times[i] >= k) {
+                printf("%lld\n", sep[i]);
+                break;
+            }
+        }
+    }
+}
+```
+<hr>
+
 
 ### HDU2021多校(6)1_YesPrimeMinister
 

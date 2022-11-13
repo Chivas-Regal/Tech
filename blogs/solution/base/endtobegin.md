@@ -414,3 +414,54 @@ int main () {
 ```
 
 <hr>
+
+## DaimayuanOnlineJudge731_数字替换
+
+#### 🔗
+<a href="http://oj.daimayuan.top/course/10/problem/731">![20221113223556](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113223556.png)</a>
+
+#### 💡
+发现每次修改只能修改已经放入的数值，也就是在这个操作之前的东西  
+故每次操作一只会被后面的操作二影响到  
+那么倒着走，就能保证我们记录的所有操作二，都可以应用在操作一上面  
+那就要着重考虑修改了，我们要快速知道在有这些操作后，每一个数会变成谁  
+这就是一个转移的东西了，由于每一个数只会有一个最终值，所以开一个数组 $dp[i]$ 表示 $i$ 最后会变成的数值  
+在操作二 $x\to y$ 时，$y$ 能变成的数会成为 $x$ 能变成的数  
+那么就倒数第 $i$ 个操作 $1$ 就给 $idx-i+1$ 赋值为 $dp[x]$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int n, a[1000006], b[1000006], idx;
+struct node {
+    int op;
+    int x, y;
+} t[1000006];
+int dp[1000006];
+
+int main () {
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i ++) {
+        scanf("%d", &t[i].op);
+        if (t[i].op == 1) {
+            scanf("%d", &t[i].x);
+            a[++idx] = t[i].x;
+        } else {
+            scanf("%d%d", &t[i].x, &t[i].y);
+        }
+    }
+    for (int i = 1; i < 1000006; i ++) dp[i] = i;
+
+    int len = idx;
+
+    for (int i = n; i >= 1; i --) {
+        if (t[i].op == 1) {
+            b[idx] = dp[a[idx]];
+            idx --;
+        } else {
+            dp[t[i].x] = dp[t[i].y];
+        }
+    }
+    for (int i = 1; i <= len; i ++) printf("%d ", b[i]);
+}
+```
+<hr>

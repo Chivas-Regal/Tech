@@ -1798,6 +1798,135 @@ signed main () {
 ```
 <hr>
 
+## CCPC2020威海站G_CaesarCipher
+
+#### 🔗
+<a href="https://drive.google.com/file/d/1j5OHNvZBueQrNFwq6kB7IDQoDu3bGnwF/view">![20221113215245](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113215245.png)</a>
+
+#### 💡
+查询是求两个子串是否相等，判断子串相等考虑哈希，还有修改，使用线段树维护哈希    
+那么在修改的时候，区间每个数字加 $1$ 意味着这个 $[l,r]$ 区间加 $string(r-l+1,'1')$ ，在取模哈希下，求出所有长度的 $111...$ 的取模后的值 $val[]$  
+这样区间传烂标记的时候左区间只用加上 $lazy\times val[mid-l+1]$  
+注意到还有一个地方，就是每一个位置都是循环的，也就是说它如果等于 $65536$ 的话它会立即变成 $0$ ，也就意味着所有的位置都不能大于等于 $65536$ ，这个地方的处理可以记录一个区间的最大值，然后每次查询前看一个区间的最大值是否超过了进制，超过了话进入递归向下走并单点修改，重新搭建这一条区间链  
+怕被卡，两个线段树，使用双哈希  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 5e5 + 10;
+const int base = 65536;
+const int mod[2] = {1000000009, 1000000007}; 
+ 
+int pwbase[2][N];
+int all1[2][N]; // 1 重复 i 次的值
+ 
+struct Sgtr {
+    int val, lazy;
+    int mxv;
+} t[2][N << 2]; 
+inline void pushup (int l, int r, int rt) {
+    int mid = (l + r) >> 1;
+    for (int i = 0; i < 2; i ++) {
+        t[i][rt].mxv = max(t[i][rt << 1].mxv, t[i][rt << 1 | 1].mxv);
+        t[i][rt].val = ((ll)t[i][rt << 1].val * pwbase[i][r - mid] % mod[i] + t[i][rt << 1 | 1].val) % mod[i];
+    }
+}
+ 
+inline void pushdown (int l, int r, int rt) {
+    int mid = (l + r) >> 1;
+    for (int i = 0; i < 2; i ++) {
+        if (!t[i][rt].lazy) continue;
+        int laz = t[i][rt].lazy;
+        (t[i][rt << 1].val += (ll)laz * all1[i][mid - l + 1] % mod[i]) %= mod[i];
+        (t[i][rt << 1 | 1].val += (ll)laz * all1[i][r - mid] % mod[i]) %= mod[i];
+        t[i][rt << 1].mxv += laz;
+        t[i][rt << 1 | 1].mxv += laz;
+        t[i][rt << 1].lazy += laz;
+        t[i][rt << 1 | 1].lazy += laz;
+        t[i][rt].lazy = 0;
+    }
+}
+inline void update (int a, int b, int l, int r, int rt) {
+    if (a <= l && r <= b) {
+        (t[0][rt].val += all1[0][r - l + 1]) %= mod[0];
+        (t[1][rt].val += all1[1][r - l + 1]) %= mod[1];
+        t[0][rt].lazy ++; t[1][rt].lazy ++;
+        t[0][rt].mxv ++; t[1][rt].mxv ++;
+        return;
+    }
+    pushdown(l, r, rt);
+    int mid = (l + r) >> 1;
+    if (a <= mid) update(a, b, l, mid, rt << 1);
+    if (b > mid)  update(a, b, mid + 1, r, rt << 1 | 1);
+    pushup(l, r, rt);
+}
+inline void new_tree (int l, int r, int rt, int i) {
+    if (l == r) {
+        t[i][rt].val %= base;
+        t[i][rt].mxv = t[i][rt].val;
+        return;
+    }
+    pushdown(l, r, rt);
+    int mid = (l + r) >> 1;
+    if (t[i][rt << 1].mxv == t[i][rt].mxv) new_tree(l, mid, rt << 1, i);
+    if (t[i][rt << 1 | 1].mxv == t[i][rt].mxv) new_tree(mid + 1, r, rt << 1 | 1, i);
+    pushup(l, r, rt);
+}
+inline int query (int a, int b, int l, int r, int rt, int i) {
+    if (t[i][rt].mxv >= base) new_tree(l, r, rt, i);
+    if (a <= l && r <= b) return (ll)t[i][rt].val * pwbase[i][b - r] % mod[i];
+    pushdown(l, r, rt);
+    int res = 0, mid = (l + r) >> 1;
+    if (a <= mid) res += query(a, b, l, mid, rt << 1, i);
+    if (b > mid)  res += query(a, b, mid + 1, r, rt << 1 | 1, i);
+    return res % mod[i];
+}
+ 
+inline void build (int l, int r, int rt) {
+    if (l == r) {
+        int x; scanf("%d", &x);
+        t[1][rt].val = t[0][rt].val = x;
+        t[1][rt].mxv = t[0][rt].mxv = x;
+        return;
+    }
+    int mid = (l + r) >> 1;
+    build(l, mid, rt << 1);
+    build(mid + 1, r, rt << 1 | 1);
+    pushup(l, r, rt);
+}
+ 
+int main () {
+    int n, q; scanf("%d%d", &n, &q);
+ 
+    all1[0][1] = all1[1][1] = 1;
+    for (int i = 2; i < N; i ++) {
+        all1[0][i] = ((ll)all1[0][i - 1] * base % mod[0] + 1) % mod[0];
+        all1[1][i] = ((ll)all1[1][i - 1] * base % mod[1] + 1) % mod[1];
+    }   
+    pwbase[0][0] = pwbase[1][0] = 1;
+    for (int i = 1; i < N; i ++) 
+        pwbase[0][i] = (ll)pwbase[0][i - 1] * base % mod[0],
+        pwbase[1][i] = (ll)pwbase[1][i - 1] * base % mod[1];
+ 
+    build(1, n, 1);
+    
+    while (q --) {
+        int op; scanf("%d", &op);
+        if (op == 1) {
+            int l, r; scanf("%d%d", &l, &r);
+            update(l, r, 1, n, 1);
+        } else {
+            int x, y, l; scanf("%d%d%d", &x, &y, &l);
+            pair<int, int> qx = {query(x, x + l - 1, 1, n, 1, 0), query(x, x + l - 1, 1, n, 1, 1)};
+            pair<int, int> qy = {query(y, y + l - 1, 1, n, 1, 0), query(y, y + l - 1, 1, n, 1, 1)};
+            if (qx == qy) printf("yes\n");
+            else printf("no\n");
+        }
+    }
+}
+```
+<hr>
+
+
 ## CodeForces1234D_DistinctCharactersQueries
 
 #### 🔗
@@ -2721,6 +2850,158 @@ signed main () {
             int x; scanf("%lld", &x);
             printf("%lld\n", query(id[x]) - neddel[x]);
         }
+    }
+}
+```
+<hr>
+
+## HDU2021多校8D_CountingStars 
+
+#### 🔗
+<a href="https://vjudge.net/contest/461348#problem/D">![20221113231339](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113231339.png)</a>
+
+#### 💡
+首先看这些操作都有什么影响  
+操作一 $x-lowbit(x)$ 就是消掉最后一位  
+操作二 $x+higbit(x)$ 就是把最高位再往前推一位  
+操作二很好维护，令 $sumval$ 表示区间的和，$sumhigh$ 就是区间最高位的和  
+那么这里既然每一个都是 $sumval+sumhigh,sumhigh*=2$ ，那么在区间上也是一样的  
+但是操作 $1$ 怎么搞，其实可以考虑到一共只有 $30$ 位，那么操作 $1$ 在保证每一个都成功减的时候，全局也就只会操作 $30n$ 次单点修改，故使用势能优化，势能优化在区间内含 $1$ 最多的点的含 $1$ 量为 $0$ 时，就可以不往下进行了  
+结合上面的，我们维护的有：  
+- $sumval$ 区间和
+- $sumhigh$ 区间最高位和
+- $mostbit$ 区间最多 $1$ 的数量
+- $vector:bit$ 每一个 $1$ 的位是几，在减操作时要减去的
+- $lazy$ 在操作二时下推的懒标记
+
+在操作一的区间更新下，对于叶子区间那么就是上面说的，推这个懒标记的时候就是 $sumval+sumhigh+2sumhigh+4sumhigh+...+2^{lazy-1}sumhigh$ ，也就是 $sumval+(2^{lazy}-1)sumhigh$，而 $sumhigh*2^{lazy}$ ，同时注意要将懒标记叠加给两个儿子然后清空自己的  
+在操作二下，我们单点修改到的叶子节点，要保证路上每一个节点的 $mostbit$ 都不是 $0$ ，然后在叶子结点让 $mostbit-1$ ，同时本 $val$ 减去 $bit$ 的结尾值，并 $pop$ 掉，注意如果 $mostbit=1$ 时直接让 $val$ 设置为 $0$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+const int mod = 998244353;
+inline int lowbit (int x) { return x & -x; }
+inline ll ksm (int a, int b) { int res = 1; while (b) {if (b & 1) res = (ll)res * a % mod; a = (ll)a * a % mod; b >>= 1;} return res;}
+ll pw2[31];
+
+struct node {
+    ll sumhigh, sumval;
+    ll mostbit, lessbit;
+    int lazymul2;
+    vector<int> bit;
+} t[N << 2];
+inline void pushup (int rt) {
+    node &ls = t[rt << 1], &rs = t[rt << 1 | 1], &fa = t[rt];
+    fa.sumhigh = (ls.sumhigh + rs.sumhigh) % mod;
+    fa.sumval = (ls.sumval + rs.sumval) % mod;
+    fa.lessbit = min(ls.lessbit, rs.lessbit);
+    fa.mostbit = max(ls.mostbit, rs.mostbit);
+}
+inline void pushdown (int l, int r, int rt) { // 加操作的下推
+    node &ls = t[rt << 1], &rs = t[rt << 1 | 1], &fa = t[rt];
+    if (!fa.lazymul2) return;
+    (ls.sumval += ls.sumhigh * (ksm(2, fa.lazymul2) - 1) % mod) %= mod;
+    (rs.sumval += rs.sumhigh * (ksm(2, fa.lazymul2) - 1) % mod) %= mod;
+    (ls.sumhigh *= ksm(2, fa.lazymul2)) %= mod;
+    (rs.sumhigh *= ksm(2, fa.lazymul2)) %= mod;
+    ls.lazymul2 += fa.lazymul2; rs.lazymul2 += fa.lazymul2;
+    fa.lazymul2 = 0;
+}
+inline void update (int a, int b, int l, int r, int rt) { // 加操作的区间更新
+    if (!t[rt].mostbit) return;
+    if (a <= l && r <= b) {
+        t[rt].lazymul2 ++;
+        (t[rt].sumval += t[rt].sumhigh) %= mod;
+        (t[rt].sumhigh *= 2) %= mod;
+        return;
+    }
+    int mid = (l + r) >> 1;
+    pushdown(l, r, rt);
+    if (a <= mid) update(a, b, l, mid, rt << 1);
+    if (b > mid)  update(a, b, mid + 1, r, rt << 1 | 1);
+    pushup(rt);
+}
+/*
+2 10 2 1 1
+0 8 0 1 1
+*/
+inline void update_del (int a, int b, int l, int r, int rt) {
+    if (t[rt].mostbit == 0) return;
+    if (l == r) {
+        t[rt].lessbit = max(0ll, t[rt].lessbit - 1);
+        t[rt].mostbit --;
+        if (t[rt].mostbit == 0) {
+            t[rt].sumhigh = t[rt].sumval = 0;
+        } else {
+            (t[rt].sumval -= t[rt].bit.back()) %= mod;
+            t[rt].bit.pop_back();
+        }
+        return;
+    }
+    int mid = (l + r) >> 1;
+    pushdown(l, r, rt);
+    if (a <= mid) update_del(a, b, l, mid, rt << 1);
+    if (b > mid)  update_del(a, b, mid + 1, r, rt << 1 | 1);
+    pushup(rt);
+}
+inline ll query (int a, int b, int l, int r, int rt) {
+    if (a <= l && r <= b) return t[rt].sumval;
+    pushdown(l, r, rt);
+    int mid = (l + r) >> 1; ll res = 0;
+    if (a <= mid) (res += query(a, b, l, mid, rt << 1)) %= mod;
+    if (b > mid)  (res += query(a, b, mid + 1, r, rt << 1 | 1)) %= mod;
+    return res;
+}
+inline void clear (node &x) {
+    x.bit.clear();
+    x.lazymul2 = 0;
+    x.lessbit = 0;
+    x.mostbit = 0;
+    x.sumhigh = 0;
+    x.sumval = 0;
+}
+inline void build (int l, int r, int rt) {
+    clear(t[rt]);
+    if (l == r) {
+        scanf("%lld", &t[rt].sumval);
+        ll x = t[rt].sumval;
+        for (int i = 30; i >= 0; i --) {
+            if (pw2[i] <= x) {
+                if (!t[rt].sumhigh) t[rt].sumhigh = pw2[i];
+                t[rt].bit.push_back(pw2[i]);
+                x -= pw2[i];
+                t[rt].lessbit ++; t[rt].mostbit ++;
+            }
+        }
+        return;
+    }
+    int mid = (l + r) >> 1;
+    build(l, mid, rt << 1);
+    build(mid + 1, r, rt << 1 | 1);
+    pushup(rt);
+}
+
+inline void Solve () {
+    int n; scanf("%d", &n);
+    build(1, n, 1);
+    int q; scanf("%d", &q);
+    while (q --) {
+        int op, l, r; scanf("%d%d%d", &op, &l, &r);
+        if (op == 1) {
+            printf("%lld\n", (query(l, r, 1, n, 1) + mod) % mod);
+        } else if (op == 2) {
+            update_del(l, r, 1, n, 1);
+        } else {
+            update(l, r, 1, n, 1);
+        }
+    }
+}
+int main () {
+    pw2[0] = 1;
+    for (int i = 1; i <= 30; i ++) pw2[i] = pw2[i - 1] * 2;
+    int cass; scanf("%d", &cass); while (cass --) {
+        Solve();
     }
 }
 ```

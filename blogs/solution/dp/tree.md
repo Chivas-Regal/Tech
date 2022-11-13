@@ -48,6 +48,76 @@ $
 ```
 <hr>
 
+## 洛谷P3174_[HAOI2009]毛毛虫
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P3174">![20221113232208](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113232208.png)</a>
+
+#### 💡
+维护每一个点向下走链的最大值，即 $dp[fa]=max(dp[son]+numson_{fa})$  
+然后我们知道一个链可以从上到下，也可以跨过一个点再折下去  
+从上到下就是 $dp[i]$  
+第二种情况则是对于一个点 $u$ ，找到两个儿子 $v1,v2$，该毛毛虫为 $dp[v1]+dp[v2]+deg_u-1$  
+故我们跑 $dfs$ 维护 $dp$ ，然后每次维护 $max(dp[i]$,两个最大儿子 $dp$ 的和加上 $deg_u-1)$
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 300010;
+const int M = N << 1;
+const int mod = 1e9 + 7;
+struct Edge {
+    int nxt, to;
+} edge[M];
+int head[N], cnt;
+inline void add_Edge (int from, int to) {
+    edge[++cnt] = {head[from], to};
+    head[from] = cnt;
+}
+
+map<pair<int, int>, bool> mp;
+
+int dp[N], du[N];
+int res = 0;
+inline void dfs (int u, int fa) {
+    int son = 0;
+    vector<int> vec;
+    for (int i = head[u]; i; i = edge[i].nxt) {
+        int v = edge[i].to;
+        if (v == fa) continue;
+        son ++;
+        dfs(v, u);
+        vec.push_back(dp[v]);
+    }
+    sort(vec.begin(), vec.end(), greater<int>());
+    if (!son) {
+        dp[u] = 1;
+    } else {
+        dp[u] = vec[0] + son;
+    }
+
+    res = max(res, dp[u]);
+    if (son > 1) {
+        res = max(res, vec[0] + vec[1] + du[u] - 1);
+    }
+}
+
+int main () {
+    int n, m; scanf("%d%d", &n, &m);
+    for (int i = 0; i < m; i ++) {
+        int u, v; scanf("%d%d", &u, &v);
+        if (mp.count({u, v}) || mp.count({v, u})) continue;
+        mp[{u, v}] = 1;
+        add_Edge(u, v);
+        add_Edge(v, u);
+        du[u] ++; du[v] ++;
+    }
+    dfs(1, 1);
+    printf("%d\n", res);
+}
+```
+<hr>
+
+
 ## 牛客练习赛97D_月之暗面
 
 #### 🔗
@@ -452,6 +522,87 @@ int main () {
 ```
 
 <hr>
+
+## ICPC2018银川站G_Factories
+
+#### 🔗
+<a href="https://codeforces.com/gym/102222/problem/G">![20221113221538](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113221538.png)</a>
+
+#### 💡
+这个就是类似于树背包的问题，我们要看每一个节点选了多少个叶子结点  
+分析一下点间距离的计算方式， $dis(i,j)=deep_i+deep_j-2\times deep_{lca(i,j)}$ ，换算到这里 $deep_u$ 表示的就是之前的路径和  
+令 $dp[u][i]$ 表示节点 $u$ 选了 $i$ 个叶子结点  
+放进 $dp$ 里面，就是先处理加操作，即将每一个叶子节点 $u$ ，它的 $dp[u][0]=0,dp[u][1]=deep[u]*(k-1)$ ，乘上 $k-1$ 意味着这个点要和别的 $k-1$ 个点各匹配一次，然后在一个节点上操作时，对于扫描到的子节点 $v$ ，我们设前面的儿子一共选了 $i$ 个叶子节点，该子树选了 $j$ 个叶子结点，则要更新 $u$ 选 $i+j$ 个叶子结点的位置，当然不可以直接更新到当前位置，不然可能会使得子树利用子树  
+就是 $tmp[i+j]=dp[u][j]+dp[v][i]-2\times i\times j\times deep_u$   
+最后算根节点的 $dp[][k]$ 即可  
+不过有特判的地方，就是 $n=2$ 时要分开 $k=1$ 和 $k=2$ 两种情况直接算，还有根节点不能度为 $1$ ，要选一个不可以作为叶子的根节点  
+
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1e5 + 10;
+vector<pair<int, int> > g[N];
+inline void add_Edge (int from, int to, int val) {
+    g[from].push_back({to, val});
+    g[to].push_back({from, val});
+}
+ 
+int n, k;
+ 
+ll tmp[210];
+ll pre[N];
+ll dp[N][210];
+int sz[N];
+inline void dfs (int u, int fa) {
+    dp[u][0] = 0;
+    for (auto [v, w] : g[u]) if (v == fa) pre[u] = pre[fa] + w;
+    if (g[u].size() == 1 && g[u][0].first == fa) {
+        dp[u][1] = 1ll * (k - 1) * pre[u];
+        sz[u] = 1;
+        return;
+    }
+    sz[u] = 0;
+    for (auto [v, w] : g[u]) {
+        if (v == fa) continue;
+        dfs(v, u);
+        for (int i = 0; i <= k; i ++) tmp[i] = 2e18;
+        for (int i = 0; i <= sz[u]; i ++) {
+            for (int j = 0; j <= sz[v] && i + j <= k; j ++) {
+                tmp[i + j] = min(tmp[i + j], dp[u][i] + dp[v][j] - 2ll * i * j * pre[u]);
+            }
+        }
+        sz[u] += sz[v];
+        for (int i = 0; i <= k; i ++) dp[u][i] = min(dp[u][i], tmp[i]);
+    }
+}
+inline void Solve () {
+    scanf("%d%d", &n, &k);
+    for (int i = 1; i <= n; i ++) g[i].clear();
+    for (int i = 1; i < n; i ++) {
+        int u, v, w; scanf("%d%d%d", &u, &v, &w);
+        add_Edge(u, v, w);
+    }
+    if (n == 2) {
+        printf("%d\n", (k == 2) * g[1][0].second);
+        return;
+    }
+    for (int i = 1; i <= n; i ++) for (int j = 0; j <= k; j ++) dp[i][j] = 2e18;
+ 
+    int root = 1;
+    while (root <= n && g[root].size() == 1) root ++;
+    dfs(root, 0);
+    printf("%lld\n", dp[root][k]);
+}
+int main () {
+    int cass; scanf("%d", &cass);
+    for (int i = 1; i <= cass; i ++) {
+        printf("Case #%d: ", i);
+        Solve();
+    }
+}
+```
+<hr>
+
 
 ## ICPC2021南京站H_Crystalfly
 

@@ -259,6 +259,41 @@ int main () {
 ```
 <hr>
 
+## DaimayuanOnlineJudge_体育节
+
+#### 🔗
+<a href="http://oj.daimayuan.top/problem/668">![20221113225128](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113225128.png)</a>
+
+#### 💡
+建个模型，其实每次肯定想选择离最大值最小值比较近的点，且这个范围只会扩张，也就是说，不会选择在最大值最小值区间内的点，因为这个点现在选也不如早点选  
+既然它范围只会扩张，故如果排序后，那么每次选择的必定是一段连续的区间  
+这样来看可以利用区间 $dp$ 枚举 $l,r$ ，求一下这一步是扩张了 $l$ 还是 $r$    
+维护 $dp[l][r]$ 的最小值，即 $dp[l][r]=min(dp[l+1][r],dp[l][r-1])+a[r]-a[l]$  
+最后算 $dp[1][m]$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 2010;
+int a[N], n;
+ll dp[N][N];
+
+int main () {
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i ++) scanf("%d", &a[i]);
+    sort(a + 1, a + 1 + n);
+    for (int i = 1; i <= n; i ++) for (int j = 1; j <= n; j ++) dp[i][j] = 2e18;
+    for (int i = 1; i <= n; i ++) dp[i][i] = 0;
+    for (int len = 2; len <= n; len ++) {
+        for (int i = 1; i + len - 1 <= n; i ++) {
+            int j = i + len - 1;
+            dp[i][j] = min(dp[i + 1][j], dp[i][j - 1]) + a[j] - a[i];
+        }
+    }
+    printf("%lld\n", dp[1][n]);
+}
+```
+<hr>
+
 
 ## ICPC2014CERCL_OuterSpaceInvaders
 

@@ -192,6 +192,185 @@ CHIVAS_{
 
 <hr>
 
+## CCPC2021湖北省赛I_Sequence
+
+#### 🔗
+<a href="https://codeforces.com/gym/103104/problem/I">![20221113203043](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113203043.png)</a>
+
+#### 💡
+就是在矩阵上给定几个点，问不包含这些点的矩形数量    
+不包含的点可以用 $1$ 表示   
+在被几个钉子封闭下的子矩阵，可以考虑悬线法的单调栈方式    
+枚举的就是每个矩阵的左下角 $i,j$ ，以当前的 $0$ 高度为高度的子矩阵就是左侧第一个比自己小的点 $l$ ，数量为 $h[i][j]*(j-l)$  
+但是注意到可以缩一点高度继续向左，新增的数量就是在 $i,l$ 位置求得的数量，可以用 $dp[i][j]$ 表示以 $(i,j)$ 为右下角的合法矩阵数量  
+则 $dp[i][j]=dp[i][l]+h[i][j]*(j-l)$    
+或者不用 $dp$ ，处理出来第一个小于等于自己的点 $r$ （如果处理小于的话可能会导致互相冲突重复计数），然后令当前点作为矩阵下边的其中一点，子矩阵方案数为 $h[i][j]*(j-l+1)*(r-j+1)$
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 5010;
+ 
+int a[N][N];
+int h[N][N];
+int n, m;
+int l[N], r[N];
+ll dp[N][N];
+ 
+inline void Solve () {
+    cin >> n >> m;
+    for (int i = 1; i <= m; i ++) {
+        int x, y; cin >> x >> y;
+        a[x][y] = 1;
+    }
+    for (int i = 1; i <= n; i ++) {
+        for (int j = 1; j <= n; j ++) {
+            if (a[i][j] == 0) {
+                h[i][j] = h[i - 1][j] + 1;
+            }
+        }
+    }
+    ll res = 0;
+    for (int i = 1; i <= n; i ++) {
+        stack<int> stk;
+        for (int j = 1; j <= n; j ++) {
+            while (stk.size() && h[i][stk.top()] >= h[i][j]) stk.pop();
+            l[j] = stk.empty() ? 1 : stk.top() + 1;
+            stk.push(j);
+        }
+        stk = stack<int>();
+        for (int j = n; j >= 1; j --) {
+            while (stk.size() && h[i][stk.top()] > h[i][j]) stk.pop();
+            r[j] = stk.empty() ? n : stk.top() - 1;
+            stk.push(j);
+        }
+        for (int j = 1; j <= n; j ++) {
+            res += (ll)h[i][j] * (j - l[j] + 1) * (r[j] - j + 1);
+        }
+    }
+    cout << res << endl;
+}
+ 
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    int cass = 1; while (cass --) {
+        Solve ();
+    }
+}
+```
+<hr>
+
+## ICPC2016AmmanD_Rectangles
+
+#### 🔗
+<a href="https://codeforces.com/gym/101102/problem/D">![20221113203218](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113203218.png)</a>
+
+#### 💡
+这个是问满足条件的矩阵数量  
+首先正常悬线法，按相同颜色向下传递高度，以当前点高度能延伸到的左右距离先算出来  
+然后注意到可能延伸到的不是相同颜色，故要去找到该点以相同颜色能延伸到的左右距离  
+左端点取最大值，右端点取最小值来调整区间  
+算好后也就是横向距离 $[l,r]$ 和高度 $h[i][j]$ 形成的矩阵是合法的，其中以 $(i,j)$ 为下边一点的矩阵数量都可以算出来了，也就是 $h[i][j]*(r-j+1)*(j-l+1)$   
+用 $res$ 累加这个值即可   
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 1010;
+ 
+int n, m;
+int a[N][N];
+int h[N][N];
+int l[N], r[N];
+int lg[N];
+ 
+int stmn[N][20], stmx[N][20];
+ 
+ll res = 0;
+ 
+inline void Solve () {
+    res = 0;
+    cin >> n >> m;
+    for (int i = 1; i <= n; i ++) {
+        for (int j = 1; j <= m; j ++) {
+            cin >> a[i][j];
+        }
+    }
+    for (int i = 1; i <= n; i ++) {
+        for (int j = 1; j <= m; j ++) {
+            if (a[i][j] == a[i - 1][j]) {
+                h[i][j] = h[i - 1][j] + 1;
+            } else {
+                h[i][j] = 1;
+            }
+        }
+    }
+ 
+    for (int i = 1; i <= n; i ++) {
+        stack<int> stk;
+        for (int j = 1; j <= m; j ++) {
+            while (!stk.empty() && h[i][j] <= h[i][stk.top()]) stk.pop();
+            l[j] = stk.empty() ? 1 : stk.top() + 1;
+            stk.push(j);
+        }
+        stk = stack<int>();
+        for (int j = m; j >= 1; j --) {
+            while (!stk.empty() && h[i][j] < h[i][stk.top()]) stk.pop();
+            r[j] = stk.empty() ? m : stk.top() - 1;
+            stk.push(j);
+        }
+        for (int j = 1; j <= m; j ++) stmx[j][0] = stmn[j][0] = a[i][j];
+        for (int j = 1; j <= lg[m]; j ++) {
+            for (int k = 1; k + (1 << j) - 1 <= m; k ++) {
+                stmx[k][j] = max(stmx[k][j - 1], stmx[k + (1 << (j - 1))][j - 1]);
+                stmn[k][j] = min(stmn[k][j - 1], stmn[k + (1 << (j - 1))][j - 1]);
+            }
+        }
+        auto querymax = [&](int l, int r) {
+            int k = lg[r - l + 1];
+            return max(stmx[l][k], stmx[r - (1 << k) + 1][k]);
+        };
+        auto querymin = [&](int l, int r) {
+            int k = lg[r - l + 1];
+            return min(stmn[l][k], stmn[r - (1 << k) + 1][k]);
+        };
+        for (int j = 1, L, R, rs; j <= m; j ++) {
+            L = 1, R = j, rs = j;
+            while (L <= R) {
+                int mid = (L + R) >> 1;
+                if (querymax(mid, j) == a[i][j] && querymin(mid, j) == a[i][j]) R = mid - 1, rs = mid;
+                else L = mid + 1;
+            }
+            l[j] = max(l[j], rs);
+            L = j, R = m, rs = j;
+            while (L <= R) {
+                int mid = (L + R) >> 1;
+                if (querymax(j, mid) == a[i][j] && querymin(j, mid) == a[i][j]) L = mid + 1, rs = mid;
+                else R = mid - 1;
+            }
+            r[j] = min(r[j], rs);
+        }
+        for (int j = 1; j <= m; j ++) {
+            res += (ll)(j - l[j] + 1) * (r[j] - j + 1) * h[i][j];
+        }
+    }
+    cout << res << endl;
+}
+ 
+int main () {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+ 
+    lg[0] = -1;
+    for (int i = 1; i < N; i ++) lg[i] = lg[i >> 1] + 1;
+ 
+    int cass = 1; cin >> cass; while (cass --) {
+        Solve ();
+    }
+}
+```
+<hr>
+
+
 ## README
 
 <h1 align="center">📕【模板】悬线法</h1>

@@ -509,6 +509,89 @@ int main () {
 ```
 <hr>
 
+## 洛谷P1514_引水入城
+
+#### 🔗
+<a href="https://www.luogu.com.cn/problem/P1514">![20221113215445](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113215445.png)</a>
+
+#### 💡
+首先在模拟水流的时候，应该能发现，除非是有的旱区特别高导致根本流不过去输出 $0$，每一个蓄水站能流到的都是一段连续的区间  
+因为若 $i$ 的水路岔开 $x$ ，可以流到 $[l,x-1],[x+1,r]$ ，那么 $x$ 若想被流到必须用别的蓄水站，就说明别的蓄水站的水路一定会穿过包裹住 $x$ 的 $i$ 水路边界，则意味着边界上的某一点可以流到 $x$ ，就意味着 $i$ 能流到 $x$   
+故通过记搜，维护每一个点能流到旱区的左边界和右边界  
+最后就是看如何使用最少段铺满整个 $[1,m]$  
+这个通过 $dp$ 实现，$dp[i]$ 表示 $[1,i]$ 被覆盖的需要最少的段，令 $mx[i]$ 表示左边界为 $i$ 的最大右边界  
+则 $dp[i]$ 可以通过 $+1$ 转移给所有的 $dp[i+1,mx[i+1]]$  
+维护最小值，然后输出 $dp[m]$ 即可  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+int dx[] = {0, 0, 1, -1};
+int dy[] = {1, -1, 0, 0};
+
+const int N = 510;
+
+int n, m;
+int h[N][N];
+int l[N][N], r[N][N];
+int vis[N][N];
+
+inline pair<int, int> dfs (int x, int y) {
+    if (vis[x][y]) return {l[x][y], r[x][y]}; vis[x][y] = 1;
+    for (int i = 0; i < 4; i ++) {
+        int nx = x + dx[i];
+        int ny = y + dy[i];
+        if (nx >= 1 && ny >= 1 && nx <= n && ny <= m && h[nx][ny] < h[x][y]) {
+            pair<int, int> nxt = dfs(nx, ny);
+            l[x][y] = min(l[x][y], nxt.first);
+            r[x][y] = max(r[x][y], nxt.second);
+        }
+    }
+    return {l[x][y], r[x][y]};
+}
+
+int dp[N];
+int mx[N];
+
+int main () {
+    scanf("%d%d", &n, &m);
+    for (int i = 1; i <= n; i ++) for (int j = 1; j <= m; j ++) {
+        scanf("%d", &h[i][j]);
+        l[i][j] = 0x3f3f3f3f, r[i][j] = 0;
+    }
+    for (int j = 1; j <= m; j ++) l[n][j] = r[n][j] = j;
+
+    for (int j = 1; j <= m; j ++) if (!vis[1][j]) dfs(1, j);
+    int cannot = 0;
+    for (int i = 1; i <= m; i ++) {
+        if (!vis[n][i]) {
+            cannot ++;
+        }
+    }
+    if (cannot) {
+        printf("0\n%d", cannot);
+        return 0;
+    }
+
+    // for (int i = 1; i <= m; i ++) {
+    //     cout << l[1][i] << " " << r[1][i] << endl;
+    // } return 0;
+
+    for (int i = 1; i <= m; i ++) {
+        if (l[1][i] != 0x3f3f3f3f) mx[l[1][i]] = max(mx[l[1][i]], r[1][i]);
+    }
+    
+    memset(dp, 0x3f, sizeof dp);
+    dp[0] = 0;
+    for (int i = 1; i <= m; i ++) {
+        for (int j = i; j <= mx[i]; j ++) {
+            dp[j] = min(dp[j], dp[i - 1] + 1);
+        }
+    }
+    printf("1\n%d", dp[m]);
+}
+```
+<hr>
+
 
 ## 牛客2022寒假算法基础集训营5C_战棋小孩
 
@@ -598,6 +681,73 @@ int main () {
 ```
 <hr>
 
+## CCPC2016杭州站E_Equation
+
+#### 🔗
+<a href="https://vjudge.net/contest/523125#problem/E">![20221113231825](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113231825.png)</a>
+
+#### 💡
+等式 $a+b=c$ 如果不看交换 $a,b$ 的话，就是 $18$ 个  
+在三进制考虑下复杂度会有点大，但是大得不多， ($0,1,2$ 状态是这个等式不选、选一次，交换 $a,b$ 选两次  
+那么考虑一种合理的剪枝来优化，既然是求最大值且记录到最后才有最大值，且全局只有一个最大值，那么就预估到最后的步数看看如果这些步数都加到答案里面，会不会超过答案的最大值，如果可以超过那么就继续走，如果不可以就不往下进行了  
+
+```cpp
+// res 是当前计数，idx 是总式子数量，i 是当前遍历到第几个式子，mxres 是最大的答案
+if (res + (idx - i + 1) * 2 <= mxres) return;
+```
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+struct node { int a, b, c; } eq[50]; int idx;
+
+int a[10], mxres;
+inline void dfs (int i, int res) {
+    if (res + (idx - i + 1) * 2 <= mxres) return;
+    if (i == idx + 1) {
+        mxres = max(mxres, res);
+        return;
+    }
+    dfs(i + 1, res);
+    if (eq[i].a == eq[i].b) {
+        if (a[eq[i].a] >= 2 && a[eq[i].c]) {
+            a[eq[i].a] -= 2;
+            a[eq[i].c] --;
+            dfs(i + 1, res + 1);
+            a[eq[i].a] += 2;
+            a[eq[i].c] ++;
+        }
+    } else if (a[eq[i].a] && a[eq[i].b] && a[eq[i].c]) {
+        a[eq[i].a] --; a[eq[i].b] --; a[eq[i].c] --;
+        dfs(i + 1, res + 1);
+        if (a[eq[i].a] && a[eq[i].b] && a[eq[i].c]) {
+            a[eq[i].a] --; a[eq[i].b] --; a[eq[i].c] --;
+            dfs(i + 1, res + 2);
+            a[eq[i].a] ++; a[eq[i].b] ++; a[eq[i].c] ++;
+        }
+        a[eq[i].a] ++; a[eq[i].b] ++; a[eq[i].c] ++;
+    }
+}
+
+int casid;
+inline void Solve () {
+    for (int i = 1; i <= 9; i ++) scanf("%d", &a[i]);
+    mxres = 0;
+    dfs(1, 0);
+    printf("Case #%d: %d\n", ++casid, mxres);
+}
+
+int main () {
+    for (int i = 1; i <= 9; i ++) {
+        for (int j = i; j <= 9 && i + j <= 9; j ++) {
+            eq[++idx] = {i, j, i + j};
+        }
+    }
+    int t; scanf("%d", &t); while (t --) {
+        Solve();
+  ;  }
+} 
+```
+<hr>
 
 
 ## CodeForces1647D_MadokaAndTheBestSchoolInRussia

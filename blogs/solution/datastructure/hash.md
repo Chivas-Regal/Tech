@@ -271,6 +271,134 @@ Chivas{
 
 <hr>
 
+## CCPC2020威海站G_CaesarCipher
+
+#### 🔗
+<a href="https://drive.google.com/file/d/1j5OHNvZBueQrNFwq6kB7IDQoDu3bGnwF/view">![20221113215245](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221113215245.png)</a>
+
+#### 💡
+查询是求两个子串是否相等，判断子串相等考虑哈希，还有修改，使用线段树维护哈希    
+那么在修改的时候，区间每个数字加 $1$ 意味着这个 $[l,r]$ 区间加 $string(r-l+1,'1')$ ，在取模哈希下，求出所有长度的 $111...$ 的取模后的值 $val[]$  
+这样区间传烂标记的时候左区间只用加上 $lazy\times val[mid-l+1]$  
+注意到还有一个地方，就是每一个位置都是循环的，也就是说它如果等于 $65536$ 的话它会立即变成 $0$ ，也就意味着所有的位置都不能大于等于 $65536$ ，这个地方的处理可以记录一个区间的最大值，然后每次查询前看一个区间的最大值是否超过了进制，超过了话进入递归向下走并单点修改，重新搭建这一条区间链  
+怕被卡，两个线段树，使用双哈希  
+
+#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+```cpp
+const int N = 5e5 + 10;
+const int base = 65536;
+const int mod[2] = {1000000009, 1000000007}; 
+ 
+int pwbase[2][N];
+int all1[2][N]; // 1 重复 i 次的值
+ 
+struct Sgtr {
+    int val, lazy;
+    int mxv;
+} t[2][N << 2]; 
+inline void pushup (int l, int r, int rt) {
+    int mid = (l + r) >> 1;
+    for (int i = 0; i < 2; i ++) {
+        t[i][rt].mxv = max(t[i][rt << 1].mxv, t[i][rt << 1 | 1].mxv);
+        t[i][rt].val = ((ll)t[i][rt << 1].val * pwbase[i][r - mid] % mod[i] + t[i][rt << 1 | 1].val) % mod[i];
+    }
+}
+ 
+inline void pushdown (int l, int r, int rt) {
+    int mid = (l + r) >> 1;
+    for (int i = 0; i < 2; i ++) {
+        if (!t[i][rt].lazy) continue;
+        int laz = t[i][rt].lazy;
+        (t[i][rt << 1].val += (ll)laz * all1[i][mid - l + 1] % mod[i]) %= mod[i];
+        (t[i][rt << 1 | 1].val += (ll)laz * all1[i][r - mid] % mod[i]) %= mod[i];
+        t[i][rt << 1].mxv += laz;
+        t[i][rt << 1 | 1].mxv += laz;
+        t[i][rt << 1].lazy += laz;
+        t[i][rt << 1 | 1].lazy += laz;
+        t[i][rt].lazy = 0;
+    }
+}
+inline void update (int a, int b, int l, int r, int rt) {
+    if (a <= l && r <= b) {
+        (t[0][rt].val += all1[0][r - l + 1]) %= mod[0];
+        (t[1][rt].val += all1[1][r - l + 1]) %= mod[1];
+        t[0][rt].lazy ++; t[1][rt].lazy ++;
+        t[0][rt].mxv ++; t[1][rt].mxv ++;
+        return;
+    }
+    pushdown(l, r, rt);
+    int mid = (l + r) >> 1;
+    if (a <= mid) update(a, b, l, mid, rt << 1);
+    if (b > mid)  update(a, b, mid + 1, r, rt << 1 | 1);
+    pushup(l, r, rt);
+}
+inline void new_tree (int l, int r, int rt, int i) {
+    if (l == r) {
+        t[i][rt].val %= base;
+        t[i][rt].mxv = t[i][rt].val;
+        return;
+    }
+    pushdown(l, r, rt);
+    int mid = (l + r) >> 1;
+    if (t[i][rt << 1].mxv == t[i][rt].mxv) new_tree(l, mid, rt << 1, i);
+    if (t[i][rt << 1 | 1].mxv == t[i][rt].mxv) new_tree(mid + 1, r, rt << 1 | 1, i);
+    pushup(l, r, rt);
+}
+inline int query (int a, int b, int l, int r, int rt, int i) {
+    if (t[i][rt].mxv >= base) new_tree(l, r, rt, i);
+    if (a <= l && r <= b) return (ll)t[i][rt].val * pwbase[i][b - r] % mod[i];
+    pushdown(l, r, rt);
+    int res = 0, mid = (l + r) >> 1;
+    if (a <= mid) res += query(a, b, l, mid, rt << 1, i);
+    if (b > mid)  res += query(a, b, mid + 1, r, rt << 1 | 1, i);
+    return res % mod[i];
+}
+ 
+inline void build (int l, int r, int rt) {
+    if (l == r) {
+        int x; scanf("%d", &x);
+        t[1][rt].val = t[0][rt].val = x;
+        t[1][rt].mxv = t[0][rt].mxv = x;
+        return;
+    }
+    int mid = (l + r) >> 1;
+    build(l, mid, rt << 1);
+    build(mid + 1, r, rt << 1 | 1);
+    pushup(l, r, rt);
+}
+ 
+int main () {
+    int n, q; scanf("%d%d", &n, &q);
+ 
+    all1[0][1] = all1[1][1] = 1;
+    for (int i = 2; i < N; i ++) {
+        all1[0][i] = ((ll)all1[0][i - 1] * base % mod[0] + 1) % mod[0];
+        all1[1][i] = ((ll)all1[1][i - 1] * base % mod[1] + 1) % mod[1];
+    }   
+    pwbase[0][0] = pwbase[1][0] = 1;
+    for (int i = 1; i < N; i ++) 
+        pwbase[0][i] = (ll)pwbase[0][i - 1] * base % mod[0],
+        pwbase[1][i] = (ll)pwbase[1][i - 1] * base % mod[1];
+ 
+    build(1, n, 1);
+    
+    while (q --) {
+        int op; scanf("%d", &op);
+        if (op == 1) {
+            int l, r; scanf("%d%d", &l, &r);
+            update(l, r, 1, n, 1);
+        } else {
+            int x, y, l; scanf("%d%d%d", &x, &y, &l);
+            pair<int, int> qx = {query(x, x + l - 1, 1, n, 1, 0), query(x, x + l - 1, 1, n, 1, 1)};
+            pair<int, int> qy = {query(y, y + l - 1, 1, n, 1, 0), query(y, y + l - 1, 1, n, 1, 1)};
+            if (qx == qy) printf("yes\n");
+            else printf("no\n");
+        }
+    }
+}
+```
+<hr>
+
 ### CCPC湖北省赛J_PalindromeReversion
 
 #### 🔗
