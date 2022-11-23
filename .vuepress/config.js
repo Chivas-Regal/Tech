@@ -65,7 +65,7 @@ module.exports = {
     nav: [
         { text: '首页', link: '/', icon: 'reco-home' },
         {
-            text: '技术文档',
+            text: '技术知识',
             items: [
                 {text: 'ACM', items: [
                     { text: '算法与数据结构', link: '/blogs/algorithm/' },

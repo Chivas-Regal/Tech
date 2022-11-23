@@ -14,13 +14,28 @@ bgImageStyle: {
   height: '450px'
 }
 isShowTitleInHome: false
-actionText: '快速开始'
-actionLink: '/blogs/algorithm/math/mobius-inversion.html'
+actionText: '快速开始 →'
+actionLink: '/blogs/algorithm/'
 features:
-- title: 算法
-  details: 有自己编写的知识讲解，与自己的一些题目思路
-- title: 个人
-  details: 非常喜欢前端与算法，希望在这里两个位置有所成就
-- title: 全局
-  details: 本文档以Vue为基础搭建，非博客形式
+- title: 具象建模
+  details: 从2020年开始的知识编写，有一定的将抽象问题化为具体的能力，内容在阅读起来较为通俗易懂，在帮助自己可以复习自己所学的同时，也可以作为读者学习的一个小仓库
+- title: 分类梳理
+  details: 对于所有的知识，都会进行三层以上的分类整合，在强大的目录功能下，可以快速获取到对应的知识，能专项提升能力
+- title: 简洁明了
+  details: 采用了非blog模式，主体即导航栏的“技术知识”中分类好的一个个技术块，点开即为大的方向，可以直接进入
+
 ---
+
+## 网页介绍
+
+这里是一位 ACMer 使用 vuepress 搭建的网页，作者对前端、后端、算法都极为感兴趣，且都会去学习  
+学习到的东西有一大部分会储存在这里，希望能将这里做得十分丰富  
+
+## 阅读建议
+
+由于这里的几乎所有图片都以 github 仓库作为图床，建议挂载 vpn 浏览，否则可能会出现图片无法阅览的情况。
+
+## 隔壁指路
+
+[本人生活博客](https://blog.chivas-regal.top)  
+  
