@@ -25,7 +25,6 @@ features:
   details: 采用了非blog模式，主体即导航栏的“技术知识”中分类好的一个个技术块，点开即为大的方向，可以直接进入
 
 ---
-
 ## 网页介绍
 
 这里是一位 ACMer 使用 vuepress 搭建的网页，作者对前端、后端、算法都极为感兴趣，且都会去学习  
@@ -38,4 +37,4 @@ features:
 ## 隔壁指路
 
 [本人生活博客](https://blog.chivas-regal.top)  
-  
+[宝贝学习博客](https://demooo.top)
