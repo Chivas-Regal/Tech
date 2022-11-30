@@ -2,7 +2,7 @@
 title: SqlManager类（增删改查）
 ---
 
-## 库方法
+## 库函数
 
 ### mysql_init()
 

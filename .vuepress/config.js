@@ -75,7 +75,8 @@ module.exports = {
                     { text: '本地配置', link: '/blogs/configure/'},
                 ]},
                 {text: '计算机基础', items: [
-                    { text: 'C++开发基础', link: '/blogs/cppbases/'}
+                    { text: 'C++开发基础', link: '/blogs/cppbases/'},
+                    { text: '混合编程', link: '/blogs/mixprogram/'}
                 ]},
             ],
             icon: 'reco-document'
@@ -204,6 +205,14 @@ module.exports = {
                 collapsable: true,
                 children: getChildren('./blogs/cppbases/mysql/')
             },
+        ],
+        '/blogs/mixprogram/': [
+            '/blogs/mixprogram/',
+            {
+                title: 'C++ 与 Python',
+                collapsable: true,
+                children: getChildren('./blogs/mixprogram/cpp-python')
+            }
         ]
     },
     subSidebar: 'auto',
