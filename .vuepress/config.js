@@ -224,11 +224,11 @@ module.exports = {
                 collapsable: true,
                 children: getChildren('./blogs/machine-vision/base')
             },
-            {
-                title: '算法实现',
-                collapsable: true,
-                children: getChildren('./blogs/machine-vision/algorithm')
-            },
+            // {
+            //     title: '算法实现',
+            //     collapsable: true,
+            //     children: getChildren('./blogs/machine-vision/algorithm')
+            // },
             {
                 title: '项目实践',
                 collapsable: true,
