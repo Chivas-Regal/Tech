@@ -12,6 +12,7 @@
     "@maginapp/vuepress-plugin-katex": "^1.0.11",
     "@vite/vuepress-plugin-mathjax": "^1.1.0",
     "@vuepress/plugin-register-components": "^1.9.7",
+    "increase-memory-limit": "^1.0.7",
     "vuepress": "1.8.2",
     "vuepress-plugin-flowchart": "^1.5.0",
     "vuepress-plugin-mathjax": "^1.2.8",

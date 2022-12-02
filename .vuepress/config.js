@@ -71,12 +71,15 @@ module.exports = {
                     { text: '算法与数据结构', link: '/blogs/algorithm/' },
                     { text: '解题报告', link: '/blogs/solution/' },
                 ]},
-                {text: '环境配置', items: [
-                    { text: '本地配置', link: '/blogs/configure/'},
-                ]},
                 {text: '计算机基础', items: [
                     { text: 'C++开发基础', link: '/blogs/cppbases/'},
                     { text: '混合编程', link: '/blogs/mixprogram/'}
+                ]},
+                {text: '模式识别', items: [
+                    {text: '机器视觉', link: '/blogs/machine-vision/'}
+                ]},
+                {text: '环境配置', items: [
+                    { text: '本地配置', link: '/blogs/configure/'},
                 ]},
             ],
             icon: 'reco-document'
@@ -212,6 +215,24 @@ module.exports = {
                 title: 'C++ 与 Python',
                 collapsable: true,
                 children: getChildren('./blogs/mixprogram/cpp-python')
+            }
+        ],
+        '/blogs/machine-vision/': [
+            '/blogs/machine-vision/',
+            {
+                title: '基础理论',
+                collapsable: true,
+                children: getChildren('./blogs/machine-vision/base')
+            },
+            {
+                title: '算法实现',
+                collapsable: true,
+                children: getChildren('./blogs/machine-vision/algorithm')
+            },
+            {
+                title: '项目实践',
+                collapsable: true,
+                children: getChildren('./blogs/machine-vision/project')
             }
         ]
     },
