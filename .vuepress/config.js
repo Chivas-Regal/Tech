@@ -143,6 +143,11 @@ module.exports = {
         '/blogs/solution/': [
             '/blogs/solution/',
             {
+                title: '起步',
+                collapsable: true,
+                children: getChildren('./blogs/solution/0gobegin/')
+            },
+            {
                 title: '基础算法',
                 collapsable: true,
                 children: getChildren('./blogs/solution/base/')
@@ -193,14 +198,6 @@ module.exports = {
                 children: getChildren('./blogs/solution/string/')
             },
         ],
-        '/blogs/configure/': [
-            '/blogs/configure/',
-            {
-                title: 'MacOS',
-                collapsable: true,
-                children: getChildren('./blogs/configure/macos/')
-            }
-        ],
         '/blogs/cppbases/': [
             '/blogs/cppbases/',
             {
@@ -219,6 +216,11 @@ module.exports = {
         ],
         '/blogs/machine-vision/': [
             '/blogs/machine-vision/',
+            {
+                title: '起步',
+                collapsable: true,
+                children: getChildren('./blogs/machine-vision/0gobegin')
+            },
             {
                 title: '基础理论',
                 collapsable: true,
