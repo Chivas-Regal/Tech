@@ -3,8 +3,7 @@ title: 环境配置
 ---
 
 ## MacOS
-
-由于作者的 `homebrew` 在下载这个的时候不断出问题，于是这里使用非 `homebrew` 的安装方案  
+作者的 `homebrew` 在下载这个的时候不断出问题，于是这里使用非 `homebrew` 的安装方案  
 
 ### 安装 Xcode
 

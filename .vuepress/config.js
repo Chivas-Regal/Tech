@@ -72,15 +72,12 @@ module.exports = {
                     { text: '解题报告', link: '/blogs/solution/' },
                 ]},
                 {text: '计算机基础', items: [
-                    { text: 'C++开发基础', link: '/blogs/cppbases/'},
+                    { text: 'C++开发', link: '/blogs/cppbases/'},
                     { text: '混合编程', link: '/blogs/mixprogram/'}
                 ]},
                 {text: '模式识别', items: [
                     {text: '机器视觉', link: '/blogs/machine-vision/'}
-                ]},
-                {text: '环境配置', items: [
-                    { text: '本地配置', link: '/blogs/configure/'},
-                ]},
+                ]}
             ],
             icon: 'reco-document'
         },
@@ -201,10 +198,25 @@ module.exports = {
         '/blogs/cppbases/': [
             '/blogs/cppbases/',
             {
+                title: '起步',
+                collapsable: true,
+                children: getChildren('./blogs/cppbases/0begin/')
+            },
+            {
                 title: 'MySQL',
                 collapsable: true,
                 children: getChildren('./blogs/cppbases/mysql/')
             },
+            {
+                title: 'Web编程',
+                collapsable: true,
+                children: getChildren('./blogs/cppbases/web/')
+            },
+            {
+                title: '项目实践',
+                collapsable: true,
+                children: getChildren('./blogs/cppbases/z-project/')
+            }
         ],
         '/blogs/mixprogram/': [
             '/blogs/mixprogram/',
