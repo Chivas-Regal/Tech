@@ -2,6 +2,16 @@
 title: 数据库后台
 ---
 
+
+
+## 成品演示
+
+<div style="width: 100%; text-align: center;"> 
+    <video width="999" height="312" controls autoplay>
+        <source src="http://1308117710.vod2.myqcloud.com/c4c59827vodtranscq1308117710/ac965014243791577507251725/v.f100030.mp4" type="video/mp4">
+    </video>
+</div>
+
 ## 需求分析
 
 这里想构建一个可以展示在页面上的**数据库的管理器**，可通过前端文本框来实现**增删查**  
@@ -299,14 +309,6 @@ int main () {
   - 用接收的数据 增添/删除
   - 用接收的数据 查询并制作表格
 - }
-
-## 成品演示
-
-<div style="width: 100%; text-align: center;"> 
-    <video width="999" height="312" controls autoplay>
-        <source src="https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/demo.mp4" type="video/mp4">
-    </video>
-</div>
 
 ## 源代码
 
