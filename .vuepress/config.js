@@ -208,6 +208,11 @@ module.exports = {
                 children: getChildren('./blogs/cppbases/mysql/')
             },
             {
+                title: '多线程',
+                collapsable: true,
+                children: getChildren('./blogs/cppbases/threads/')
+            },
+            {
                 title: 'Web编程',
                 collapsable: true,
                 children: getChildren('./blogs/cppbases/web/')
