@@ -203,6 +203,11 @@ module.exports = {
                 children: getChildren('./blogs/cppbases/0begin/')
             },
             {
+                title: '新特性',
+                collapsable: true,
+                children: getChildren('./blogs/cppbases/new-features/')
+            },
+            {
                 title: 'MySQL',
                 collapsable: true,
                 children: getChildren('./blogs/cppbases/mysql/')
