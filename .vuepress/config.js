@@ -71,7 +71,7 @@ module.exports = {
                     { text: '算法与数据结构', link: '/blogs/algorithm/' },
                     { text: '解题报告', link: '/blogs/solution/' },
                 ]},
-                {text: '计算机基础', items: [
+                {text: '计算机技术', items: [
                     { text: 'C++开发', link: '/blogs/cppbases/'},
                     { text: '混合编程', link: '/blogs/mixprogram/'}
                 ]},
@@ -221,6 +221,11 @@ module.exports = {
                 title: 'Web编程',
                 collapsable: true,
                 children: getChildren('./blogs/cppbases/web/')
+            },
+            {
+                title: '服务器开发',
+                collapsable: true,
+                children: getChildren('./blogs/cppbases/server/')
             },
             {
                 title: '项目实践',
