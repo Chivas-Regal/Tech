@@ -40,18 +40,3 @@ features:
 [宝贝学习博客](https://demooo.top)
 
 
-<script src="https://giscus.app/client.js"
-        data-repo="Tequila-Avage/DemoComment"
-        data-repo-id="R_kgDOI7ZuGg"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOI7ZuGs4CUE1_"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        crossorigin="anonymous"
-        async>
-</script>
