@@ -29,19 +29,23 @@ export const routes = [
     },
   },
   {
+    name: "v-788248ac",
+    path: "/blogs/algorithm/",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-788248ac").then(next)
+    },
+  },
+  {
+    path: "/blogs/algorithm/index.html",
+    redirect: "/blogs/algorithm/"
+  },
+  {
     name: "v-eb61328e",
     path: "/blogs/algorithm/data-structure/cdq.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
       ensureAsyncComponentsLoaded("article", "v-eb61328e").then(next)
-    },
-  },
-  {
-    name: "v-a4e952aa",
-    path: "/blogs/algorithm/data-structure/divid-tree.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-a4e952aa").then(next)
     },
   },
   {
@@ -53,51 +57,19 @@ export const routes = [
     },
   },
   {
+    name: "v-a4e952aa",
+    path: "/blogs/algorithm/data-structure/divid-tree.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-a4e952aa").then(next)
+    },
+  },
+  {
     name: "v-f8b025ea",
     path: "/blogs/algorithm/data-structure/hash.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
       ensureAsyncComponentsLoaded("article", "v-f8b025ea").then(next)
-    },
-  },
-  {
-    name: "v-b152e3aa",
-    path: "/blogs/algorithm/data-structure/fhqtreap.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-b152e3aa").then(next)
-    },
-  },
-  {
-    name: "v-64401ecb",
-    path: "/blogs/algorithm/data-structure/trietree.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("article", "v-64401ecb").then(next)
-    },
-  },
-  {
-    name: "v-1f3d212b",
-    path: "/blogs/algorithm/dpp/backpack-DP.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("article", "v-1f3d212b").then(next)
-    },
-  },
-  {
-    name: "v-5f1c9caa",
-    path: "/blogs/algorithm/data-structure/unionset.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("article", "v-5f1c9caa").then(next)
-    },
-  },
-  {
-    name: "v-2a2c10aa",
-    path: "/blogs/algorithm/dpp/line-DP.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("article", "v-2a2c10aa").then(next)
     },
   },
   {
@@ -109,6 +81,30 @@ export const routes = [
     },
   },
   {
+    name: "v-2a2c10aa",
+    path: "/blogs/algorithm/dpp/line-DP.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("article", "v-2a2c10aa").then(next)
+    },
+  },
+  {
+    name: "v-b152e3aa",
+    path: "/blogs/algorithm/data-structure/fhqtreap.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-b152e3aa").then(next)
+    },
+  },
+  {
+    name: "v-5f1c9caa",
+    path: "/blogs/algorithm/data-structure/unionset.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("article", "v-5f1c9caa").then(next)
+    },
+  },
+  {
     name: "v-76c0de6a",
     path: "/blogs/algorithm/dpp/number-DP.html",
     component: GlobalLayout,
@@ -117,11 +113,19 @@ export const routes = [
     },
   },
   {
-    name: "v-70536801",
-    path: "/blogs/algorithm/dpp/sos-DP.html",
+    name: "v-1f3d212b",
+    path: "/blogs/algorithm/dpp/backpack-DP.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-70536801").then(next)
+      ensureAsyncComponentsLoaded("article", "v-1f3d212b").then(next)
+    },
+  },
+  {
+    name: "v-64401ecb",
+    path: "/blogs/algorithm/data-structure/trietree.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("article", "v-64401ecb").then(next)
     },
   },
   {
@@ -149,47 +153,11 @@ export const routes = [
     },
   },
   {
-    name: "v-788248ac",
-    path: "/blogs/algorithm/",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-788248ac").then(next)
-    },
-  },
-  {
-    path: "/blogs/algorithm/index.html",
-    redirect: "/blogs/algorithm/"
-  },
-  {
-    name: "v-35ec94aa",
-    path: "/blogs/algorithm/graph/dsuontree.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-35ec94aa").then(next)
-    },
-  },
-  {
     name: "v-743ee46a",
     path: "/blogs/algorithm/graph/matrix-tree.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
       ensureAsyncComponentsLoaded("article", "v-743ee46a").then(next)
-    },
-  },
-  {
-    name: "v-3264d90b",
-    path: "/blogs/algorithm/graph/krusalnewtree.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-3264d90b").then(next)
-    },
-  },
-  {
-    name: "v-74f67eab",
-    path: "/blogs/algorithm/graph/minpath.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("article", "v-74f67eab").then(next)
     },
   },
   {
@@ -201,19 +169,19 @@ export const routes = [
     },
   },
   {
+    name: "v-3264d90b",
+    path: "/blogs/algorithm/graph/krusalnewtree.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-3264d90b").then(next)
+    },
+  },
+  {
     name: "v-4f326baa",
     path: "/blogs/algorithm/graph/tree-partitioning.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
       ensureAsyncComponentsLoaded("article", "v-4f326baa").then(next)
-    },
-  },
-  {
-    name: "v-3f4660ce",
-    path: "/blogs/algorithm/graph/virtual-tree.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("article", "v-3f4660ce").then(next)
     },
   },
   {
@@ -225,27 +193,35 @@ export const routes = [
     },
   },
   {
+    name: "v-35ec94aa",
+    path: "/blogs/algorithm/graph/dsuontree.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-35ec94aa").then(next)
+    },
+  },
+  {
+    name: "v-70536801",
+    path: "/blogs/algorithm/dpp/sos-DP.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-70536801").then(next)
+    },
+  },
+  {
+    name: "v-3f4660ce",
+    path: "/blogs/algorithm/graph/virtual-tree.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("article", "v-3f4660ce").then(next)
+    },
+  },
+  {
     name: "v-2a9290eb",
     path: "/blogs/algorithm/math/bsgs.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
       ensureAsyncComponentsLoaded("article", "v-2a9290eb").then(next)
-    },
-  },
-  {
-    name: "v-75af48d7",
-    path: "/blogs/algorithm/math/euler.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("article", "v-75af48d7").then(next)
-    },
-  },
-  {
-    name: "v-04f338ab",
-    path: "/blogs/algorithm/math/ballandbox.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-04f338ab").then(next)
     },
   },
   {
@@ -257,35 +233,19 @@ export const routes = [
     },
   },
   {
-    name: "v-0b36d1cb",
-    path: "/blogs/algorithm/math/euler-inversion.html",
+    name: "v-6f3c5242",
+    path: "/blogs/algorithm/math/crt.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("article", "v-0b36d1cb").then(next)
+      ensureAsyncComponentsLoaded("article", "v-6f3c5242").then(next)
     },
   },
   {
-    name: "v-72a17f2b",
-    path: "/blogs/algorithm/math/gaming.html",
+    name: "v-04f338ab",
+    path: "/blogs/algorithm/math/ballandbox.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("article", "v-72a17f2b").then(next)
-    },
-  },
-  {
-    name: "v-0fcf4281",
-    path: "/blogs/algorithm/math/fft.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-0fcf4281").then(next)
-    },
-  },
-  {
-    name: "v-668222c9",
-    path: "/blogs/algorithm/math/generate-function.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("article", "v-668222c9").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-04f338ab").then(next)
     },
   },
   {
@@ -297,35 +257,35 @@ export const routes = [
     },
   },
   {
-    name: "v-6f3c5242",
-    path: "/blogs/algorithm/math/crt.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("article", "v-6f3c5242").then(next)
-    },
-  },
-  {
-    name: "v-6b54f0eb",
-    path: "/blogs/algorithm/math/kangtuo.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("article", "v-6b54f0eb").then(next)
-    },
-  },
-  {
-    name: "v-a43bf9d6",
-    path: "/blogs/algorithm/math/line-base.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("article", "v-a43bf9d6").then(next)
-    },
-  },
-  {
     name: "v-c9f0fe82",
     path: "/blogs/algorithm/math/exgcd.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
       ensureAsyncComponentsLoaded("article", "v-c9f0fe82").then(next)
+    },
+  },
+  {
+    name: "v-0fcf4281",
+    path: "/blogs/algorithm/math/fft.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-0fcf4281").then(next)
+    },
+  },
+  {
+    name: "v-72a17f2b",
+    path: "/blogs/algorithm/math/gaming.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("article", "v-72a17f2b").then(next)
+    },
+  },
+  {
+    name: "v-75af48d7",
+    path: "/blogs/algorithm/math/euler.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("article", "v-75af48d7").then(next)
     },
   },
   {
@@ -337,6 +297,30 @@ export const routes = [
     },
   },
   {
+    name: "v-668222c9",
+    path: "/blogs/algorithm/math/generate-function.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("article", "v-668222c9").then(next)
+    },
+  },
+  {
+    name: "v-6b54f0eb",
+    path: "/blogs/algorithm/math/kangtuo.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("article", "v-6b54f0eb").then(next)
+    },
+  },
+  {
+    name: "v-0b36d1cb",
+    path: "/blogs/algorithm/math/euler-inversion.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("article", "v-0b36d1cb").then(next)
+    },
+  },
+  {
     name: "v-47eb48ea",
     path: "/blogs/algorithm/math/lagrange-interpolation.html",
     component: GlobalLayout,
@@ -345,11 +329,19 @@ export const routes = [
     },
   },
   {
-    name: "v-4b66926b",
-    path: "/blogs/algorithm/math/matrix-ksm.html",
+    name: "v-a43bf9d6",
+    path: "/blogs/algorithm/math/line-base.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("article", "v-4b66926b").then(next)
+      ensureAsyncComponentsLoaded("article", "v-a43bf9d6").then(next)
+    },
+  },
+  {
+    name: "v-74f67eab",
+    path: "/blogs/algorithm/graph/minpath.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("article", "v-74f67eab").then(next)
     },
   },
   {
@@ -361,14 +353,6 @@ export const routes = [
     },
   },
   {
-    name: "v-7e8a3a26",
-    path: "/blogs/algorithm/math/original-root.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("article", "v-7e8a3a26").then(next)
-    },
-  },
-  {
     name: "v-45077021",
     path: "/blogs/algorithm/math/proof.html",
     component: GlobalLayout,
@@ -377,11 +361,19 @@ export const routes = [
     },
   },
   {
-    name: "v-b7418b06",
-    path: "/blogs/algorithm/math/sierpinski-triangle.html",
+    name: "v-7e8a3a26",
+    path: "/blogs/algorithm/math/original-root.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-b7418b06").then(next)
+      ensureAsyncComponentsLoaded("article", "v-7e8a3a26").then(next)
+    },
+  },
+  {
+    name: "v-94731aea",
+    path: "/blogs/algorithm/search/bfs.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("article", "v-94731aea").then(next)
     },
   },
   {
@@ -401,11 +393,83 @@ export const routes = [
     },
   },
   {
+    name: "v-4b66926b",
+    path: "/blogs/algorithm/math/matrix-ksm.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("article", "v-4b66926b").then(next)
+    },
+  },
+  {
+    name: "v-55bfe1cb",
+    path: "/blogs/algorithm/string/manacher.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("article", "v-55bfe1cb").then(next)
+    },
+  },
+  {
+    name: "v-b7418b06",
+    path: "/blogs/algorithm/math/sierpinski-triangle.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-b7418b06").then(next)
+    },
+  },
+  {
+    name: "v-6387626a",
+    path: "/blogs/cppbases/0begin/0enviroment.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-6387626a").then(next)
+    },
+  },
+  {
+    name: "v-a0db4b2a",
+    path: "/blogs/cppbases/mysql/mysqlmanager.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-a0db4b2a").then(next)
+    },
+  },
+  {
     name: "v-f2f633aa",
     path: "/blogs/algorithm/math/newton-Iteration.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
       ensureAsyncComponentsLoaded("Layout", "v-f2f633aa").then(next)
+    },
+  },
+  {
+    name: "v-6a33e24b",
+    path: "/blogs/cppbases/new-features/auto-decltype.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-6a33e24b").then(next)
+    },
+  },
+  {
+    name: "v-17c68fab",
+    path: "/blogs/cppbases/new-features/autoptr.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-17c68fab").then(next)
+    },
+  },
+  {
+    name: "v-262217c2",
+    path: "/blogs/cppbases/0begin/language.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-262217c2").then(next)
+    },
+  },
+  {
+    name: "v-60227baa",
+    path: "/blogs/cppbases/server/bepack.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-60227baa").then(next)
     },
   },
   {
@@ -421,35 +485,111 @@ export const routes = [
     redirect: "/blogs/cppbases/"
   },
   {
-    name: "v-94731aea",
-    path: "/blogs/algorithm/search/bfs.html",
+    name: "v-3c0eb16b",
+    path: "/blogs/cppbases/server/basepro.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("article", "v-94731aea").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-3c0eb16b").then(next)
     },
   },
   {
-    name: "v-55bfe1cb",
-    path: "/blogs/algorithm/string/manacher.html",
+    name: "v-aa1350ea",
+    path: "/blogs/cppbases/web/0first.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("article", "v-55bfe1cb").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-aa1350ea").then(next)
     },
   },
   {
-    name: "v-7ed9b533",
-    path: "/blogs/configure/macos/allcanhead.html",
+    name: "v-3f447b2b",
+    path: "/blogs/cppbases/threads/create.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-7ed9b533").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-3f447b2b").then(next)
     },
   },
   {
-    name: "v-a0db4b2a",
-    path: "/blogs/cppbases/mysql/mysqlmanager.html",
+    name: "v-a202e962",
+    path: "/blogs/cppbases/web/file-post.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-a0db4b2a").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-a202e962").then(next)
+    },
+  },
+  {
+    name: "v-198c82ee",
+    path: "/blogs/cppbases/threads/mutex.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-198c82ee").then(next)
+    },
+  },
+  {
+    name: "v-64b1514b",
+    path: "/blogs/cppbases/z-project/sqlbackend.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-64b1514b").then(next)
+    },
+  },
+  {
+    name: "v-6b90065b",
+    path: "/blogs/machine-vision/0gobegin/0environment.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-6b90065b").then(next)
+    },
+  },
+  {
+    name: "v-9e5b51ba",
+    path: "/blogs/cppbases/web/0enviroment.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-9e5b51ba").then(next)
+    },
+  },
+  {
+    name: "v-5406fcd9",
+    path: "/blogs/machine-vision/base/datatype.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-5406fcd9").then(next)
+    },
+  },
+  {
+    name: "v-9c4784a6",
+    path: "/blogs/machine-vision/base/picope.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-9c4784a6").then(next)
+    },
+  },
+  {
+    name: "v-8e304cc0",
+    path: "/blogs/machine-vision/",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-8e304cc0").then(next)
+    },
+  },
+  {
+    path: "/blogs/machine-vision/index.html",
+    redirect: "/blogs/machine-vision/"
+  },
+  {
+    name: "v-4d8afa2a",
+    path: "/blogs/machine-vision/0gobegin/cmake.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-4d8afa2a").then(next)
+    },
+  },
+  {
+    name: "v-22bda26a",
+    path: "/blogs/machine-vision/project/detectface.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-22bda26a").then(next)
     },
   },
   {
@@ -458,6 +598,22 @@ export const routes = [
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
       ensureAsyncComponentsLoaded("Layout", "v-295d16ce").then(next)
+    },
+  },
+  {
+    name: "v-76237a4b",
+    path: "/blogs/machine-vision/base/train.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-76237a4b").then(next)
+    },
+  },
+  {
+    name: "v-d74c45f6",
+    path: "/blogs/machine-vision/project/keypoints.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-d74c45f6").then(next)
     },
   },
   {
@@ -471,6 +627,22 @@ export const routes = [
   {
     path: "/blogs/mixprogram/index.html",
     redirect: "/blogs/mixprogram/"
+  },
+  {
+    name: "v-a2912aea",
+    path: "/blogs/solution/0gobegin/bitsstd.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-a2912aea").then(next)
+    },
+  },
+  {
+    name: "v-55e3bafa",
+    path: "/blogs/solution/base/bruceforce.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-55e3bafa").then(next)
+    },
   },
   {
     name: "v-7a2d18ee",
@@ -489,51 +661,11 @@ export const routes = [
     },
   },
   {
-    name: "v-55e3bafa",
-    path: "/blogs/solution/base/bruceforce.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-55e3bafa").then(next)
-    },
-  },
-  {
-    name: "v-6d79688b",
-    path: "/blogs/solution/base/divid-sol.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-6d79688b").then(next)
-    },
-  },
-  {
     name: "v-0d88955e",
     path: "/blogs/solution/base/doas.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
       ensureAsyncComponentsLoaded("Layout", "v-0d88955e").then(next)
-    },
-  },
-  {
-    name: "v-7b949d36",
-    path: "/blogs/solution/base/endtobegin.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-7b949d36").then(next)
-    },
-  },
-  {
-    name: "v-6696e2cf",
-    path: "/blogs/solution/base/sort.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-6696e2cf").then(next)
-    },
-  },
-  {
-    name: "v-20c2fe6a",
-    path: "/blogs/solution/base/sum-dir.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-20c2fe6a").then(next)
     },
   },
   {
@@ -545,27 +677,27 @@ export const routes = [
     },
   },
   {
-    name: "v-c37676ea",
-    path: "/blogs/solution/base/two-point.html",
+    name: "v-2843976b",
+    path: "/blogs/machine-vision/project/filescan.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-c37676ea").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-2843976b").then(next)
     },
   },
   {
-    name: "v-7f5d918b",
-    path: "/blogs/solution/datastructure/bitset.html",
+    name: "v-6d79688b",
+    path: "/blogs/solution/base/divid-sol.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-7f5d918b").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-6d79688b").then(next)
     },
   },
   {
-    name: "v-7cd6930b",
-    path: "/blogs/solution/datastructure/chairmantree.html",
+    name: "v-6696e2cf",
+    path: "/blogs/solution/base/sort.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-7cd6930b").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-6696e2cf").then(next)
     },
   },
   {
@@ -577,19 +709,11 @@ export const routes = [
     },
   },
   {
-    name: "v-187de48b",
-    path: "/blogs/solution/base/if-else.html",
+    name: "v-c37676ea",
+    path: "/blogs/solution/base/two-point.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-187de48b").then(next)
-    },
-  },
-  {
-    name: "v-792ebf2b",
-    path: "/blogs/solution/datastructure/list.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-792ebf2b").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-c37676ea").then(next)
     },
   },
   {
@@ -601,11 +725,67 @@ export const routes = [
     },
   },
   {
+    name: "v-7cd6930b",
+    path: "/blogs/solution/datastructure/chairmantree.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-7cd6930b").then(next)
+    },
+  },
+  {
+    name: "v-5aa3f92b",
+    path: "/blogs/solution/datastructure/hash.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-5aa3f92b").then(next)
+    },
+  },
+  {
+    name: "v-187de48b",
+    path: "/blogs/solution/base/if-else.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-187de48b").then(next)
+    },
+  },
+  {
+    name: "v-20c2fe6a",
+    path: "/blogs/solution/base/sum-dir.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-20c2fe6a").then(next)
+    },
+  },
+  {
     name: "v-391b0719",
     path: "/blogs/solution/datastructure/monotonically-stack.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
       ensureAsyncComponentsLoaded("Layout", "v-391b0719").then(next)
+    },
+  },
+  {
+    name: "v-7f5d918b",
+    path: "/blogs/solution/datastructure/bitset.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-7f5d918b").then(next)
+    },
+  },
+  {
+    name: "v-eafd451e",
+    path: "/blogs/solution/datastructure/queue.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-eafd451e").then(next)
+    },
+  },
+  {
+    name: "v-792ebf2b",
+    path: "/blogs/solution/datastructure/list.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-792ebf2b").then(next)
     },
   },
   {
@@ -625,31 +805,11 @@ export const routes = [
     },
   },
   {
-    name: "v-e6d1649e",
-    path: "/blogs/solution/datastructure/segmenttree.html",
+    name: "v-448960ea",
+    path: "/blogs/solution/datastructure/st.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-e6d1649e").then(next)
-    },
-  },
-  {
-    name: "v-ece72f84",
-    path: "/blogs/configure/",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-ece72f84").then(next)
-    },
-  },
-  {
-    path: "/blogs/configure/index.html",
-    redirect: "/blogs/configure/"
-  },
-  {
-    name: "v-eafd451e",
-    path: "/blogs/solution/datastructure/queue.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-eafd451e").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-448960ea").then(next)
     },
   },
   {
@@ -661,11 +821,19 @@ export const routes = [
     },
   },
   {
-    name: "v-33e3d967",
-    path: "/blogs/solution/datastructure/treap.html",
+    name: "v-7b949d36",
+    path: "/blogs/solution/base/endtobegin.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-33e3d967").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-7b949d36").then(next)
+    },
+  },
+  {
+    name: "v-5bd1b883",
+    path: "/blogs/solution/datastructure/stack.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-5bd1b883").then(next)
     },
   },
   {
@@ -677,11 +845,35 @@ export const routes = [
     },
   },
   {
+    name: "v-e6d1649e",
+    path: "/blogs/solution/datastructure/segmenttree.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-e6d1649e").then(next)
+    },
+  },
+  {
     name: "v-72111caa",
     path: "/blogs/solution/datastructure/trie.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
       ensureAsyncComponentsLoaded("Layout", "v-72111caa").then(next)
+    },
+  },
+  {
+    name: "v-33e3d967",
+    path: "/blogs/solution/datastructure/treap.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-33e3d967").then(next)
+    },
+  },
+  {
+    name: "v-5dc2fcc1",
+    path: "/blogs/solution/dp/get-number.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-5dc2fcc1").then(next)
     },
   },
   {
@@ -701,27 +893,19 @@ export const routes = [
     },
   },
   {
+    name: "v-733ceeaf",
+    path: "/blogs/solution/dp/number.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-733ceeaf").then(next)
+    },
+  },
+  {
     name: "v-7a518916",
     path: "/blogs/solution/dp/lr.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
       ensureAsyncComponentsLoaded("Layout", "v-7a518916").then(next)
-    },
-  },
-  {
-    name: "v-448960ea",
-    path: "/blogs/solution/datastructure/st.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-448960ea").then(next)
-    },
-  },
-  {
-    name: "v-a97c6c4e",
-    path: "/blogs/solution/dp/line.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-a97c6c4e").then(next)
     },
   },
   {
@@ -733,27 +917,11 @@ export const routes = [
     },
   },
   {
-    name: "v-5dc2fcc1",
-    path: "/blogs/solution/dp/get-number.html",
+    name: "v-a97c6c4e",
+    path: "/blogs/solution/dp/line.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-5dc2fcc1").then(next)
-    },
-  },
-  {
-    name: "v-733ceeaf",
-    path: "/blogs/solution/dp/number.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-733ceeaf").then(next)
-    },
-  },
-  {
-    name: "v-08860785",
-    path: "/blogs/solution/dp/tree.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-08860785").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-a97c6c4e").then(next)
     },
   },
   {
@@ -765,35 +933,11 @@ export const routes = [
     },
   },
   {
-    name: "v-7e9fe82b",
-    path: "/blogs/solution/dp/sosdp.html",
+    name: "v-08860785",
+    path: "/blogs/solution/dp/tree.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-7e9fe82b").then(next)
-    },
-  },
-  {
-    name: "v-8610ddea",
-    path: "/blogs/solution/else/mabe-time.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-8610ddea").then(next)
-    },
-  },
-  {
-    name: "v-45fe2d2b",
-    path: "/blogs/solution/else/heuristic-merging.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-45fe2d2b").then(next)
-    },
-  },
-  {
-    name: "v-5bd1b883",
-    path: "/blogs/solution/datastructure/stack.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-5bd1b883").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-08860785").then(next)
     },
   },
   {
@@ -805,11 +949,35 @@ export const routes = [
     },
   },
   {
-    name: "v-827226aa",
-    path: "/blogs/solution/else/table.html",
+    name: "v-5d73f769",
+    path: "/blogs/solution/geometry/geometry.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-827226aa").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-5d73f769").then(next)
+    },
+  },
+  {
+    name: "v-8610ddea",
+    path: "/blogs/solution/else/mabe-time.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-8610ddea").then(next)
+    },
+  },
+  {
+    name: "v-2815fd09",
+    path: "/blogs/solution/graph/connectcomponents.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-2815fd09").then(next)
+    },
+  },
+  {
+    name: "v-7e9fe82b",
+    path: "/blogs/solution/dp/sosdp.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-7e9fe82b").then(next)
     },
   },
   {
@@ -818,22 +986,6 @@ export const routes = [
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
       ensureAsyncComponentsLoaded("Layout", "v-55bbfa19").then(next)
-    },
-  },
-  {
-    name: "v-34269303",
-    path: "/blogs/solution/graph/dsuontree.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-34269303").then(next)
-    },
-  },
-  {
-    name: "v-79e0762a",
-    path: "/blogs/solution/graph/kruskalnewtree.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-79e0762a").then(next)
     },
   },
   {
@@ -853,35 +1005,11 @@ export const routes = [
     },
   },
   {
-    name: "v-7cd2e4eb",
-    path: "/blogs/solution/graph/network-flow.html",
+    name: "v-34269303",
+    path: "/blogs/solution/graph/dsuontree.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-7cd2e4eb").then(next)
-    },
-  },
-  {
-    name: "v-a396596a",
-    path: "/blogs/solution/graph/prufer.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-a396596a").then(next)
-    },
-  },
-  {
-    name: "v-5aa3f92b",
-    path: "/blogs/solution/datastructure/hash.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-5aa3f92b").then(next)
-    },
-  },
-  {
-    name: "v-49b81c2d",
-    path: "/blogs/solution/graph/roll-tree.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-49b81c2d").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-34269303").then(next)
     },
   },
   {
@@ -893,35 +1021,27 @@ export const routes = [
     },
   },
   {
-    name: "v-6ca6aa5e",
-    path: "/blogs/solution/graph/starGraph.html",
+    name: "v-a396596a",
+    path: "/blogs/solution/graph/prufer.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-6ca6aa5e").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-a396596a").then(next)
     },
   },
   {
-    name: "v-fa0c0fba",
-    path: "/blogs/solution/graph/topsort.html",
+    name: "v-79e0762a",
+    path: "/blogs/solution/graph/kruskalnewtree.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-fa0c0fba").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-79e0762a").then(next)
     },
   },
   {
-    name: "v-2815fd09",
-    path: "/blogs/solution/graph/connectcomponents.html",
+    name: "v-49b81c2d",
+    path: "/blogs/solution/graph/roll-tree.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-2815fd09").then(next)
-    },
-  },
-  {
-    name: "v-f0e9a8aa",
-    path: "/blogs/solution/graph/shortestpath.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-f0e9a8aa").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-49b81c2d").then(next)
     },
   },
   {
@@ -933,11 +1053,43 @@ export const routes = [
     },
   },
   {
+    name: "v-f0e9a8aa",
+    path: "/blogs/solution/graph/shortestpath.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-f0e9a8aa").then(next)
+    },
+  },
+  {
+    name: "v-7cd2e4eb",
+    path: "/blogs/solution/graph/network-flow.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-7cd2e4eb").then(next)
+    },
+  },
+  {
     name: "v-4874424b",
     path: "/blogs/solution/graph/twograph.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
       ensureAsyncComponentsLoaded("Layout", "v-4874424b").then(next)
+    },
+  },
+  {
+    name: "v-fa0c0fba",
+    path: "/blogs/solution/graph/topsort.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-fa0c0fba").then(next)
+    },
+  },
+  {
+    name: "v-45fe2d2b",
+    path: "/blogs/solution/else/heuristic-merging.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-45fe2d2b").then(next)
     },
   },
   {
@@ -953,11 +1105,19 @@ export const routes = [
     redirect: "/blogs/solution/"
   },
   {
-    name: "v-5045d466",
-    path: "/blogs/solution/math/combine-math.html",
+    name: "v-6ca6aa5e",
+    path: "/blogs/solution/graph/starGraph.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-5045d466").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-6ca6aa5e").then(next)
+    },
+  },
+  {
+    name: "v-0d8af98b",
+    path: "/blogs/solution/math/congruence-equation.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-0d8af98b").then(next)
     },
   },
   {
@@ -969,19 +1129,11 @@ export const routes = [
     },
   },
   {
-    name: "v-5d73f769",
-    path: "/blogs/solution/geometry/geometry.html",
+    name: "v-5045d466",
+    path: "/blogs/solution/math/combine-math.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-5d73f769").then(next)
-    },
-  },
-  {
-    name: "v-c2b474ea",
-    path: "/blogs/solution/math/exact-divid.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-c2b474ea").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-5045d466").then(next)
     },
   },
   {
@@ -993,19 +1145,19 @@ export const routes = [
     },
   },
   {
-    name: "v-42efab95",
-    path: "/blogs/solution/math/game.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-42efab95").then(next)
-    },
-  },
-  {
     name: "v-9c5d72b6",
     path: "/blogs/solution/math/highmath.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
       ensureAsyncComponentsLoaded("Layout", "v-9c5d72b6").then(next)
+    },
+  },
+  {
+    name: "v-42efab95",
+    path: "/blogs/solution/math/game.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-42efab95").then(next)
     },
   },
   {
@@ -1017,11 +1169,19 @@ export const routes = [
     },
   },
   {
-    name: "v-033c129f",
-    path: "/blogs/solution/math/mobius-inversion.html",
+    name: "v-411a6a4b",
+    path: "/blogs/solution/math/replace-group.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-033c129f").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-411a6a4b").then(next)
+    },
+  },
+  {
+    name: "v-c2b474ea",
+    path: "/blogs/solution/math/exact-divid.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-c2b474ea").then(next)
     },
   },
   {
@@ -1033,30 +1193,6 @@ export const routes = [
     },
   },
   {
-    name: "v-68325791",
-    path: "/blogs/solution/math/polynomial.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-68325791").then(next)
-    },
-  },
-  {
-    name: "v-38ec7e0b",
-    path: "/blogs/solution/offline/all-binary.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-38ec7e0b").then(next)
-    },
-  },
-  {
-    name: "v-b1c51b3a",
-    path: "/blogs/solution/offline/preferorder.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-b1c51b3a").then(next)
-    },
-  },
-  {
     name: "v-0123e74b",
     path: "/blogs/solution/offline/captain-mo.html",
     component: GlobalLayout,
@@ -1065,11 +1201,19 @@ export const routes = [
     },
   },
   {
-    name: "v-50957eab",
-    path: "/blogs/solution/search/BFS.html",
+    name: "v-68325791",
+    path: "/blogs/solution/math/polynomial.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-50957eab").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-68325791").then(next)
+    },
+  },
+  {
+    name: "v-b1c51b3a",
+    path: "/blogs/solution/offline/preferorder.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-b1c51b3a").then(next)
     },
   },
   {
@@ -1089,35 +1233,19 @@ export const routes = [
     },
   },
   {
-    name: "v-5cd7fd0b",
-    path: "/blogs/solution/search/IDDFS.html",
+    name: "v-38ec7e0b",
+    path: "/blogs/solution/offline/all-binary.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-5cd7fd0b").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-38ec7e0b").then(next)
     },
   },
   {
-    name: "v-b853e722",
-    path: "/blogs/solution/string/acam.html",
+    name: "v-827226aa",
+    path: "/blogs/solution/else/table.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-b853e722").then(next)
-    },
-  },
-  {
-    name: "v-7e125c19",
-    path: "/blogs/solution/string/Manacher.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-7e125c19").then(next)
-    },
-  },
-  {
-    name: "v-6bbc2e4b",
-    path: "/dairy.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-6bbc2e4b").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-827226aa").then(next)
     },
   },
   {
@@ -1129,27 +1257,67 @@ export const routes = [
     },
   },
   {
+    name: "v-7e125c19",
+    path: "/blogs/solution/string/Manacher.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-7e125c19").then(next)
+    },
+  },
+  {
+    name: "v-b853e722",
+    path: "/blogs/solution/string/acam.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-b853e722").then(next)
+    },
+  },
+  {
+    name: "v-50957eab",
+    path: "/blogs/solution/search/BFS.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-50957eab").then(next)
+    },
+  },
+  {
+    name: "v-5cd7fd0b",
+    path: "/blogs/solution/search/IDDFS.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-5cd7fd0b").then(next)
+    },
+  },
+  {
+    name: "v-6bbc2e4b",
+    path: "/dairy.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-6bbc2e4b").then(next)
+    },
+  },
+  {
+    name: "v-5630a72a",
+    path: "/docs/theme-reco/api.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-5630a72a").then(next)
+    },
+  },
+  {
+    name: "v-598dbe8b",
+    path: "/docs/theme-reco/theme.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-598dbe8b").then(next)
+    },
+  },
+  {
     name: "v-27bacaeb",
     path: "/blogs/solution/string/pam.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
       ensureAsyncComponentsLoaded("Layout", "v-27bacaeb").then(next)
-    },
-  },
-  {
-    name: "v-cb5467ea",
-    path: "/blogs/solution/string/sam.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-cb5467ea").then(next)
-    },
-  },
-  {
-    name: "v-3c9fd8ef",
-    path: "/blogs/solution/string/sa.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-3c9fd8ef").then(next)
     },
   },
   {
@@ -1165,19 +1333,11 @@ export const routes = [
     redirect: "/docs/theme-reco/"
   },
   {
-    name: "v-598dbe8b",
-    path: "/docs/theme-reco/theme.html",
+    name: "v-3c9fd8ef",
+    path: "/blogs/solution/string/sa.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-598dbe8b").then(next)
-    },
-  },
-  {
-    name: "v-5630a72a",
-    path: "/docs/theme-reco/api.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-5630a72a").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-3c9fd8ef").then(next)
     },
   },
   {
@@ -1189,27 +1349,19 @@ export const routes = [
     },
   },
   {
-    name: "v-411a6a4b",
-    path: "/blogs/solution/math/replace-group.html",
+    name: "v-cb5467ea",
+    path: "/blogs/solution/string/sam.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-411a6a4b").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-cb5467ea").then(next)
     },
   },
   {
-    name: "v-0d8af98b",
-    path: "/blogs/solution/math/congruence-equation.html",
+    name: "v-033c129f",
+    path: "/blogs/solution/math/mobius-inversion.html",
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-0d8af98b").then(next)
-    },
-  },
-  {
-    name: "v-b90240aa",
-    path: "/rewards.html",
-    component: GlobalLayout,
-    beforeEnter: (to, from, next) => {
-      ensureAsyncComponentsLoaded("Layout", "v-b90240aa").then(next)
+      ensureAsyncComponentsLoaded("Layout", "v-033c129f").then(next)
     },
   },
   {
@@ -1218,6 +1370,14 @@ export const routes = [
     component: GlobalLayout,
     beforeEnter: (to, from, next) => {
       ensureAsyncComponentsLoaded("Layout", "v-2a76442a").then(next)
+    },
+  },
+  {
+    name: "v-b90240aa",
+    path: "/rewards.html",
+    component: GlobalLayout,
+    beforeEnter: (to, from, next) => {
+      ensureAsyncComponentsLoaded("Layout", "v-b90240aa").then(next)
     },
   },
   {
