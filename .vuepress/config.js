@@ -57,21 +57,6 @@ module.exports = {
           hostname: 'https://tech.chivas-regal.top/'
         }
       ],
-      [
-        'vuepress-plugin-comment',
-        {
-            choosen: 'giscus',
-            options: {
-                repo: 'Tequila-Avage/DemoComment',
-                repoId: 'R_kgDOI7ZuGg',
-                category: 'Announcements',
-                categoryId: 'DIC_kwDOI7ZuGs4CUE1_',
-                mapping: 'pathname',
-                reactionsEnabled: '1',
-                inputPosition: 'bottom'
-            }
-        }
-      ]
   ],
   theme: 'reco',
   sidebarDepth: 3,

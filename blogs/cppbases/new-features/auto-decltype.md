@@ -1,5 +1,6 @@
 ---
 title: auto 与 decltype
+comment: true
 ---
 
 ## 初始化推导
@@ -194,6 +195,8 @@ decltype(auto) func () {
 
 ## 模板参数
 
+### 形参推断 
+
 ```cpp
 template<typename T, T v>
 struct myType {};
@@ -213,4 +216,152 @@ myType<100> mt1;
 myType<100.f> mt2;
 ```
 
-既然上面可以，那么参数包也是可以的，至于参数们是否要求类型相同
+既然上面可以，那么参数包也是可以的，至于参数们是否要求类型相同有不同的写法
+
+不要求相同，`auto` 单独推导
+
+```cpp
+template<auto ...vs>
+struct myType {};
+
+// int,int,int
+myType<1, 2, 3> a;
+// int,char,nullptr
+myType<1, 'a', nullptr> b;
+```
+
+要求相同的话，可以第一个是随意的，之后的所有数据都要和第一个相同，即
+
+```cpp
+template<auto v, decltype(v) ...resets>
+struct myType {};
+```
+
+这里在上面的 `myType<1, 'a', nullptr>` 的声明就是错误的 
+
+当然也可以用 `decltype(auto)` 来推导，比如  
+
+```cpp
+template<decltype(auto) v>
+struct myType {};
+
+int x = 100;
+myType<(x)> mt; // int&
+```
+
+### 类型擦除
+
+既然用到模板参数里面了，且 `auto` 本身就是提高可扩展性的，所以当然可以用作类型擦除，做到隐式传入类型，比如看下面这个  
+
+```cpp
+struct OneTestStruct {
+    int val;
+};
+
+template<typename T> 
+struct PMClassHelper;
+
+template<typename ClassType, typename MemberType>
+struct PMClassHelper<MemberType ClassType::*> {
+    using Type = ClassType;
+};
+
+
+template<typename PM> // PM = decltype(&OneTestStruct::val)
+using PMClassType = typename PMClassHelper<PM>::Type;
+
+template<auto PMD> // PMD = &OneTestStruct::val
+struct CounterHandle {
+    PMClassType<decltype(PMD)> &c; 
+    // => typename PMClassHelper<int OneTestStruct::*>::Type &c;
+    // => OneTestStruct &c;
+    CounterHandle (PMClassType<decltype(PMD)> &_c) :c(_c) {}
+    void increase () {
+        ++(c.*PMD); // ++one.val
+    }
+};
+
+
+int main () {
+    OneTestStruct one{100};
+    CounterHandle<&OneTestStruct::val> h(one);
+    h.increase();    
+}
+```
+
+在定义结构体 `h` 时，用模板种植了一个结构体类型 `CounterHandle<&OneTestStruct::val>` ，这个结构体 `h` 里面有一个隐式类型变量为 `PMClassType<decltype(PMD)> &c`   
+用第 $15$ 行的 `using` 以及 `decltype` 获取到原型为 `typename PMClassHelper<int OneTestStruct::*>::Type &c`   
+而 `Type` 前的这个结构体也是一个模板结构体，它在种植的时候得到其成员 `Type = OneTestStruct` ，所以变量 $c$ 的类型为 `OneTestStruct` 的引用  
+那么 `h(one)` 其实就是让结构体 `h` 的成员变量 `c` 成为了 `one` 的引用，且其 `PMD` 是 `OneTestStruct::val`   
+故在 `increase` 函数中，让 `one` 的 `val` 加 $1$   
+  
+这样说可能还是有点不清晰，但将这套类型擦除抽象为一个功能就是，对于代码 `CounterHandle<&A::B> x(C);` ，保证变量 `C` 的类型是 `A` ，`x` 在调用 `increase` 函数时，会让 `C.B` 加一  
+
+## 泛型 lambda 表达式
+
+`auto` 书写 lambda 表达式已经习以为常了，用  
+
+```cpp
+auto cmp = [](int x) ->int { return x; };
+```
+
+将形参设置为 `auto` 类型的，即可成为泛型 lambda 表达式  
+
+```cpp
+auto cmp1 = [](auto a, auto b) { return a < b; };
+bool res = cmp1(1, 1.2);
+```
+
+也可以用我们上面着重讲的模板函数来写
+
+```cpp
+auto cmp2 = []<typename t1, typename t2>(t1 a, t2 b) { return a < b; };
+bool res = cmp2(1, 1.2);
+```
+
+或者将两者结合，将函数 `func` 和函数的参数列表 `args` 都设置为模板参数，放入一个模板函数内，这样 `func` 调用可以直接使用 lambda 表达式来定义
+
+```cpp
+template<typename F, typename ...Args>
+void doFunc (F func, Args ...args) {
+    func(args...);
+}
+
+int main () {
+    doFunc([](auto x, auto y){std::cout << x + y;}, 1, 2);
+}
+```
+
+看一下第一个参数就是一个输出两数和的函数，参数按顺序为后面两个数字，`doFunc` 作用是里面的函数用后面的参数执行  
+
+## 结构化绑定
+
+```cpp
+struct Type {
+    int x;
+    double y;
+    Type (int _x = 0, double _y = 0): x(_x), y(_y) {}
+    Type (const Type &t): x(t.x), y(t.y) {
+        std::cout << "copy Type!\n";
+    };
+};
+Type tp(1, 1.2);
+```
+
+第一种方式：  
+
+```cpp
+auto [x, y] = tp;
+```
+
+上面的是通过拷贝 `tp` 构造一个新 `Type` ，然后让 `x` 和 `y` 分别指向这个新 `Type` 的两个成员变量  
+故操作这两个变量不会对 `tp` 内的成员变量造成影响  
+  
+第二种方式：
+
+```cpp
+auto &[x, y] = tp;
+```
+
+这种是直接让 `mx` 和 `my` 分别指向 `tp` 的两个成员变量  
+故操作这两个变量会直接对 `tp` 内的成员变量造成影响  
