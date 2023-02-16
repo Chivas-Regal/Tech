@@ -8,12 +8,63 @@ title: 异步
 - `std::async` 异步运行某个任务函数
 - `std::promise` 一个线程设置了某个值然后通知别的线程
 - `std::package_task` 和 `future` 和任务绑定在一起的模板，是一种对任务的封装
+
+## std::future
+
+`future` 指向一个任务，当任务结束它获取到值了可以进行提取，在需要得到返回值的时候使用 `future.get()` 
+  - 如果任务已经运行结束，那么会直接获取到其返回值
+  - 如果任务还在运行中，会进行阻塞直到函数运行结束  
+
+下面的几种创建方法可以看到其正常用法，我们这里自己实现一种功能，别的都很像比如什么 `get` 阻塞，但是任务我们替换成可以手动给予的值，当手动给予值了 `get` 非阻塞   
+思考到阻塞可以用锁来实现，于是我们定义一个类在初始化的时候是锁的， `get` 也是锁的，这样只要这个类不解锁那么 `get` 一直阻塞，解锁的时候也就是赋予值的时候  
+
+```cpp
+template<typename T>
+class Future {
+private:
+    std::mutex mtx;
+    T value;
+public:
+    Future () {
+        mtx.lock(); // 初始化，上锁
+    }
+    void set (int x) { // 给值，解锁
+        mtx.unlock();
+        value = x;
+    }
+    T get () { // 获取值
+        std::cout << "in get(lock)\n";
+        mtx.lock(); // 在获取之前阻塞锁
+        std::cout << "in get(unlock)\n";
+        return value;
+    }
+};
+void func (Future<int> &fu) {
+    std::cout << fu.get() << std::endl;
+}
+int main () {
+    Future<int> fu;
+    std::thread th(std::move(func), std::ref(fu));
+
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    std::cout << "end sleep\n";
+    fu.set(20);
+
+    th.join();
+}
+
+/*
+Output:
+in get(lock)
+end sleep
+in get(unlock)
+20
+*/
+```
  
 ## std::async
 
-- 在不需要立即得到结果的时候创建一个 `future` ，其指向的函数**立刻**开始运行（开启一个线程），在需要得到返回值的时候使用 `future.get()` 
-  - 如果函数已经运行结束，那么会直接获取到其返回值
-  - 如果函数还在运行中，会进行阻塞直到函数运行结束  
+- 在不需要立即得到结果的时候创建一个 `future` ，其指向的函数**立刻**开始运行（开启一个线程）
 - `std::future` 是一次性的，也就是说不能对一个 `future` 对象使用两次 `get`  
 - 这个新创建的线程在运行结束时就算还没有被调用结果，但它已经结束了，返回值会单独存起来
     

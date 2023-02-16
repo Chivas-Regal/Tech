@@ -218,6 +218,11 @@ module.exports = {
                 children: getChildren('./blogs/cppbases/threads/')
             },
             {
+                title: '多进程',
+                collapsable: true,
+                children: getChildren('./blogs/cppbases/process/')
+            },
+            {
                 title: 'Web编程',
                 collapsable: true,
                 children: getChildren('./blogs/cppbases/web/')
