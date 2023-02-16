@@ -54,7 +54,14 @@ title: 跨局域网聊天工具（一问一答）
 
 本项目的 `Server` 和 `Client` 可以放在不同局域网的不同主机上  
 在公网服务器上运行 `frps` 然后再 `server`端服务器上运行 `frpc`  
-先运行 `Server/server.cpp` 再运行 `Client/client.cpp`  
+先运行 `Server/server.cpp` 再运行 `Client/client.cpp`    
+命令参考：  
+
+```
+g++ src/Acceptor.cpp src/Channel.cpp src/Epoll.cpp src/EventLoop.cpp src/InetAddress.cpp src/Server.cpp src/Socket.cpp src/util.cpp usrinfo/SqlManager.cpp usrinfo/StudentInfo.cpp usrinfo/UserInfo.cpp server.cpp -o server -lmysqlclient && ./server
+
+g++ src/InetAddress src/Socket.cpp src/util.cpp client.cpp -o client && ./client
+```
 
 ### 演示
 
@@ -85,3 +92,7 @@ title: 跨局域网聊天工具（一问一答）
 我们看一下服务端那边的数据库  
 ![20230216090928](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230216090928.png)  
 成功录上了，我们下次就可以继续用这个号了   
+
+## 源代码地址
+
+[传送门](https://github.com/Chivas-Regal/CppLearn/tree/main/UserTalk1)
