@@ -1,7 +1,6 @@
 ---
 title: SqlManager类（增删改查）
 ---
-
 ## 库函数
 
 ### mysql_init()
@@ -12,34 +11,34 @@ title: SqlManager类（增删改查）
 
 ### mysql_real_connect()
 
-数据库对象连接，尝试与运行在主机上的MySQL数据库引擎建立连接  
+数据库对象连接，尝试与运行在主机上的MySQL数据库引擎建立连接
 在你能够执行需要有效MySQL连接句柄结构的任何其他API函数之前，mysql_real_connect()必须成功完成
 
-`MYSQL *mysql`:用来连接的数据库对象   
-`const char *host`:为 localhost 或者 null 时连接本地主机  
-`const char *user`:用户名  
-`const char *pwd`:密码  
-`const char *db`:数据库名，为空时连向默认数据库  
-`unsigned int port`:端口号  
-`const char *unix_socket`:连接方式，为 null 时，表明不使用 socket 或管道机制  
-`unsigned long client_flag`:经常设置为0  
+`MYSQL *mysql`:用来连接的数据库对象
+`const char *host`:为 localhost 或者 null 时连接本地主机
+`const char *user`:用户名
+`const char *pwd`:密码
+`const char *db`:数据库名，为空时连向默认数据库
+`unsigned int port`:端口号
+`const char *unix_socket`:连接方式，为 null 时，表明不使用 socket 或管道机制
+`unsigned long client_flag`:经常设置为0
 
 ### mysql_query()
 
 数据库对象查询
 
-`MYSQL *mysql`:用作查询的数据库对象  
+`MYSQL *mysql`:用作查询的数据库对象
 `const char *q`:查询的sql语句
 
 ### mysql_store_result()
 
-将查询的全部结果读取到客户端，分配1个MYSQL_RES结构，并将结果置于该结构中  
+将查询的全部结果读取到客户端，分配1个MYSQL_RES结构，并将结果置于该结构中
 
-返回 `MYSQL_RES* res` ，参数为 `MYSQL *mysql` 
+返回 `MYSQL_RES* res` ，参数为 `MYSQL *mysql`
 
 ### mysql_affected_rows()
 
-返回上次增、删、改、查后的行数，参数为 `MYSQL *mysql`  
+返回上次增、删、改、查后的行数，参数为 `MYSQL *mysql`
 
 ### mysql_num_fields()
 
@@ -47,17 +46,15 @@ title: SqlManager类（增删改查）
 
 ### mysql_fetch_field()
 
-返回采用MYSQL_FIELD结构的结果集的列。重复调用该函数，以检索关于结果集中所有列的信息。未剩余字段时，mysql_fetch_field()返回NULL  
+返回采用MYSQL_FIELD结构的结果集的列。重复调用该函数，以检索关于结果集中所有列的信息。未剩余字段时，mysql_fetch_field()返回NULL
 
-参数为 `MYSQL_RES* res`  
-采用 $\to$name 可以获取到列名  
+参数为 `MYSQL_RES* res`
+采用 $\to$name 可以获取到列名
 
 ### mysql_fetch_row()
 
 获取一行数据库信息，参数为 `MYSQL_RES *res`
-返回 `MYSQL_ROW` ，可以通过访问 $i\in[0,$ 列数$]$ 遍历这个对象  
-
-
+返回 `MYSQL_ROW` ，可以通过访问 $i\in[0,$ 列数$]$ 遍历这个对象
 
 ## SQL语句
 
@@ -75,12 +72,10 @@ title: SqlManager类（增删改查）
 
 ### 查
 
-`WHERE` 定语在输出整表可以不带后面的东西  
+`WHERE` 定语在输出整表可以不带后面的东西
 `SELECT *` 可以替换成查询特定属性
 
 `SELECT * FROM [表名] WHERE ...`
-
-
 
 ## C++操作数据库
 
@@ -96,9 +91,9 @@ target_link_libraries([项目名称] libmysqlclient.dylib)
 
 ### 面向对象连接数据库
 
-首先定义数据库对象 `MYSQL mysql;` 
+首先定义数据库对象 `MYSQL mysql;`
 
-将其用本地信息连接数据库  
+将其用本地信息连接数据库
 
 ```cpp
 void ConnectMySql () {
@@ -173,8 +168,8 @@ void OutputMysql() {
 }
 ```
 
-增删改类似于查询方法，但是没有输出的环节  
-核心在于几个sql语句和动态对象的插入，因为如果只是单纯的死命令而非可以直接操纵的对象信息，那就太过局限了，故可以创建一个 `student` 类，然后在增删改操作时可以直接访问设置的相关属性来保证插入的数据条属性是可活动的   
+增删改类似于查询方法，但是没有输出的环节
+核心在于几个sql语句和动态对象的插入，因为如果只是单纯的死命令而非可以直接操纵的对象信息，那就太过局限了，故可以创建一个 `student` 类，然后在增删改操作时可以直接访问设置的相关属性来保证插入的数据条属性是可活动的
 而对于sql语句的编写，使用字符串将插入的数据信息连接到sql字符串内，保证该字符串符合sql语句的语法即可
 
 ```cpp
@@ -279,7 +274,5 @@ public:
 
 ## 源文件
 
-点击图片进入  
+点击图片进入
 <a href="https://github.com/Chivas-Regal/CppLearn/tree/main/CppWithMysql">![20221114003602](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20221114003602.png)</a>
-
-
