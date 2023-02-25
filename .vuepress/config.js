@@ -208,9 +208,9 @@ module.exports = {
                 children: getChildren('./blogs/cppbases/new-features/')
             },
             {
-                title: 'MySQL',
+                title: '内存管理',
                 collapsable: true,
-                children: getChildren('./blogs/cppbases/mysql/')
+                children: getChildren('./blogs/cppbases/memory/')
             },
             {
                 title: '多线程',
@@ -221,6 +221,11 @@ module.exports = {
                 title: '多进程',
                 collapsable: true,
                 children: getChildren('./blogs/cppbases/process/')
+            },
+            {
+                title: 'MySQL',
+                collapsable: true,
+                children: getChildren('./blogs/cppbases/mysql/')
             },
             {
                 title: 'Web编程',
