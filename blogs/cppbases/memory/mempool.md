@@ -22,3 +22,66 @@ title: 内存池
 - 释放进入的链表
   - 结构体（只有 `next`）
   - 首元素
+
+```cpp
+// 内存块
+mem_units *blockStartPtr;
+int blockCountUsed, blockSize;
+
+// 释放进入的链表
+struct freeListNode {
+    freeListNode *next;
+};
+freeListNode *freeListHead;
+```
+
+## 构造函数（申请内存）  
+
+这就是一个简单的初始化，可以根据我们传入参数也就是我们需要一次性内存块的大小，来让以后的连续内存块都这么大  
+但是分配内存还有讲究，我们如果就是分配每个单元是 `int` 类型的内存块，一个单元就是 $4$ 字节，这样很容易造成分配不好导致的浪费，而为了让内存池的内存具有原子性，它可以每一个单元都是 $1$ 字节，这样的数据类型有 `bool`  
+
+所以我们先 `using mem_units = bool;` ，然后
+
+```cpp
+MemPool::MemPool():
+    blockSize(4),
+    blockStartPtr(reinterpret_cast<mem_units*>(malloc(blockSize))),
+    blockCountUsed(0),
+    freeListHead(nullptr)
+{}
+
+MemPool::MemPool(int maxSize):
+    blockSize(maxSize * 4),
+    blockStartPtr(reinterpret_cast<mem_units*>(malloc(blockSize))),
+    blockCountUsed(0),
+    freeListHead(nullptr)
+{}
+
+MemPool::MemPool(const MemPool &memp):
+    blockStartPtr(memp.blockStartPtr),
+    blockCountUsed(memp.blockCountUsed),
+    blockSize(memp.blockSize),
+    freeListHead(memp.freeListHead)
+{}
+```
+
+## 析构（将内存还给操作系统）
+
+虽然我们有两套地址，一个是申请的内存块一个是被归还内存的链表，但是我们要释放的地址全部都在链表内  
+因为使用内存池内存的变量，一定是在内存池创建之后创建，在内存池析构之前析构，不然如果内存池析构了这个指针还存在，它就会成为野指针
+既然这样，我们把链表内的所有节点 `free` 掉即可 
+
+
+```cpp
+MemPool::~MemPool() {
+    while (freeListHead) {
+        freeListNode *nxt = freeListHead->next;
+        free(freeListHead);
+        freeListHead = nxt;
+    }
+}
+```
+
+## 分配内存（被申请内存时调用）
+
+这里就是首先要看链表中是否为空，如果不为空那么我们可以从这里提
