@@ -34,6 +34,7 @@ title: 内存池
   - 结构体
   - 首元素
 
+
 ```cpp
 // 内存单元大小、一个内存块中内存单元的个数
 template<int ObjectSize, int NumofObjects = 20>
