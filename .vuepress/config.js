@@ -223,6 +223,10 @@ module.exports = {
                 children: getChildren('./blogs/cppbases/process/')
             },
             {
+                title: '模板元编程',
+                collapsable: getChildren('./blogs/cppbases/template/')
+            },
+            {
                 title: 'MySQL',
                 collapsable: true,
                 children: getChildren('./blogs/cppbases/mysql/')
