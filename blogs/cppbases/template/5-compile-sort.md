@@ -66,7 +66,9 @@ struct MergeBySort<List<L...>, List<R...>> {
 };
 ```
 
-![20230313193014](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313193014.png)
+<div align="center">
+    <img src="https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313193014.png" width="90%"/>
+</div>
 
 
 ### 整体：拆分排序后升序合并
@@ -90,7 +92,9 @@ struct Sort<List<data>> {
 };
 ```
 
-![20230313192922](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313192922.png)
+<div align="center">
+    <img src="https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313192922.png" width="90%"/>
+</div>
 
 
 ## 源代码

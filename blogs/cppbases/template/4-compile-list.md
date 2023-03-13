@@ -47,7 +47,8 @@ using Null = List<>;
 - 另一种是只有一个元素的末尾节点的参数为 `head` 自己
   
   
-  
+主体
+
 ```cpp
 template<int head, int ...data>
 struct List<head, data...> {
@@ -110,7 +111,9 @@ struct Pos<0, List<data...>> {
 
 测试一下
 
-![3bdf2726baff4595c567d4e84fd74e67](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/3bdf2726baff4595c567d4e84fd74e67.png)
+<div align="center">
+    <img src="https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/3bdf2726baff4595c567d4e84fd74e67.png" width="90%"/>
+</div>
 
 ### 两链表前后相连
 
@@ -126,7 +129,9 @@ struct Merge<List<L...>, List<R...>> {
 ```
 
 测试：  
-![20230313125750](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313125750.png)
+<div align="center">
+    <img src="https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313125750.png" width="90%"/>
+</div>
 
 ### 链表拆分：前 i 个和前 i 个以外
 
@@ -150,8 +155,12 @@ struct Split<0, List<L...>, List<R...>> {
 ```
 
 测试：  
-![20230313131236](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313131236.png)  
-![20230313131301](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313131301.png)
+<div align="center">
+    <img src="https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313131236.png" width="90%"/>
+</div>
+<div align="center">
+    <img src="https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313131301.png" width="90%"/>
+</div>
 
 ### 链表插入1：头插法
 
@@ -166,7 +175,9 @@ struct PushFront<val, List<data...>> {
 ```
 
 测试：  
-![20230313151458](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313151458.png)
+<div align="center">
+    <img src="https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313151458.png" width="90%"/>
+</div>
 
 ### 链表插入2：尾插法
 
@@ -188,7 +199,9 @@ struct Insert<pos, val, List<data...>> {
 };
 ```
 
-![20230313164932](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313164932.png)
+<div align="center">
+    <img src="https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313164932.png" width="90%"/>
+</div>
 
 ### 链表删除1：删去下标为 i 的元素
 
@@ -206,7 +219,9 @@ struct DelPosOne<pos, List<data...>> {
 };
 ```
 
-![20230313153613](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313153613.png)
+<div align="center">
+    <img src="https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313153613.png" width="90%"/>
+</div>
 
 ### 链表删除2：删去下标在 [i,j] 的元素
 
@@ -223,7 +238,9 @@ struct DelPosRange<posl, posr, List<data...>> {
 };
 ```
 
-![20230313154028](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313154028.png)
+<div align="center">
+    <img src="https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313154028.png" width="90%"/>
+</div>
 
 ### 子链表提取：提取下标在 [i,j] 的元素
 
@@ -242,7 +259,9 @@ struct SubList<posl, posr, List<data...>> {
 };
 ```
 
-![20230313154908](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313154908.png)
+<div align="center">
+    <img src="https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313154908.png" width="90%"/>
+</div>
 
 ### 链表删除3：删去一个值为 i 的元素
 
@@ -287,7 +306,9 @@ struct DelNumOne<val, Null> {
 };
 ```
 
-![20230313163726](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313163726.png)
+<div align="center">
+    <img src="https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313163726.png" width="90%"/>
+</div>
 
 ### 链表删除4：删去所有值为 i 的元素
 
@@ -310,7 +331,9 @@ struct DelNumAll<val, Null> {
 };
 ```
 
-![20230313163846](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313163846.png)
+<div align="center">
+    <img src="https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313163846.png" width="90%"/>
+</div>
 
 ### 链表修改：将下标为 i 的元素替换为 j 
 
@@ -335,7 +358,9 @@ struct Modify<pos, val, Null> {
 };
 ```
 
-![20230313163637](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313163637.png)
+<div align="center">
+    <img src="https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313163637.png" width="90%"/>
+</div>
 
 （没了吧...有了再更
 
