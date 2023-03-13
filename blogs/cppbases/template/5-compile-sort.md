@@ -59,7 +59,7 @@ struct MergeBySort<List<L...>, List<R...>> {
     using next = IF<
         List<L...>::value <= List<R...>::value,
         MergeBySort<typename List<L...>::next, List<R...>>, // 左被用了一个
-        MergeBySort<List<L...>, typename List<R...>::next> // 
+        MergeBySort<List<L...>, typename List<R...>::next>  // 右被用了一个 
     >::ret;
     // 合并最小值和子阶段链表
     using ret = typename PushFront<__MIN_VALUE, typename next::ret>::ret;
