@@ -12,7 +12,7 @@ struct Min { // std::min(a, b)
 };
 template<int a, int b>
 struct Max { // std::max(a, b)
-    static const int value = a > b ? a : b;
+    static const int ret = a > b ? a : b;
 };
 // flag ? True : False;
 template<bool flag, typename True, typename False> struct IF {};
@@ -45,9 +45,9 @@ using Null = List<>;
 我们从主模板中偏特化出两种正常的链表节点
 - 一种是将多个参数分裂为 `head, data...` 的非尾节点
 - 另一种是只有一个元素的末尾节点的参数为 `head` 自己
-
-
-
+  
+  
+  
 ```cpp
 template<int head, int ...data>
 struct List<head, data...> {
@@ -64,6 +64,7 @@ struct List<head> {
 ```
 
 测试一下 
+
 
 ```cpp
 int main () {
@@ -124,7 +125,7 @@ struct Merge<List<L...>, List<R...>> {
 };
 ```
 
-测试：
+测试：  
 ![20230313125750](https://raw.githubusercontent.com/Tequila-Avage/PicGoBeds/master/20230313125750.png)
 
 ### 链表拆分：前 i 个和前 i 个以外
