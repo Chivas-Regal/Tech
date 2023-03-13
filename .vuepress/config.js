@@ -224,7 +224,8 @@ module.exports = {
             },
             {
                 title: '模板元编程',
-                collapsable: getChildren('./blogs/cppbases/template/')
+                collapsable: true,
+                children: getChildren('./blogs/cppbases/template/')
             },
             {
                 title: 'MySQL',
