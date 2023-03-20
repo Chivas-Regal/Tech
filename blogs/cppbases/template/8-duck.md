@@ -6,8 +6,6 @@ title: 鸭子类型
 " When I see a bird that walks like a duck and swims like a duck and quacks like a duck, I call that bird a duck. - James Whitcomb Riley, 1849-1916"
 :::
 
-## 含义
-
 鸭子类型的说法本来是从 `python` 这种支持动态编译的语言中来的  
 
 ```py
@@ -43,7 +41,7 @@ test(Dog())   # ERROR
 
 而我们可以利用前面 [模板SFINAE](./6-SFINAE.html) 来模拟出这种功能  
 
-对 `test` 函数添加两个判断检测参数 `bird` 是否含有 `fly()` 和 `shout()`  
+对 `test` 函数添加两个判断检测参数 `bird` 是否含有 `fly()` 和 `shout()`  两种动作  
 
 ```cpp
 template<typename T>
@@ -92,3 +90,4 @@ int main () {
 }
 ```
 
+解释在上面对 `.py` 代码的解释中也可体现
