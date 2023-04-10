@@ -55,6 +55,7 @@ $257_{10}=0000000100000001_2$
 
 那么我们就可以发现，其实这个 $16$ 位的二进制就对应了 `*ptr2` 的内容，它是由两个 $8$ 位二进制组成，也就是两个 `*ptr1`  
 表示出来就是：
-$$\underset{ptr2}{\underline{\underset{ptr1[0]}{\underline{00000001}}\;\underset{ptr1[1]}{\underline{00000001}}}}$$
+$$\underset{ptr2}{\underline{\underset{ptr1[0]}{\underline{10000000}}\;\underset{ptr1[1]}{\underline{10000000}}}}$$  
+(小端字节序)
 
 懂了，结束。
