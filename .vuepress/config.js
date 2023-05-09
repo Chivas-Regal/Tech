@@ -71,8 +71,9 @@ module.exports = {
                     { text: '算法与数据结构', link: '/blogs/algorithm/' },
                     { text: '解题报告', link: '/blogs/solution/' },
                 ]},
-                {text: '计算机技术', items: [
+                {text: '后端技术', items: [
                     { text: 'C++开发', link: '/blogs/cppbases/'},
+                    { text: '数据库', link: '/blogs/databases/'},
                     { text: '混合编程', link: '/blogs/mixprogram/'}
                 ]},
                 {text: '模式识别', items: [
@@ -254,6 +255,14 @@ module.exports = {
                 title: 'C++ 与 Python',
                 collapsable: true,
                 children: getChildren('./blogs/mixprogram/cpp-python')
+            }
+        ],
+        '/blogs/databases/': [
+            '/blogs/databases/',
+            {
+                title: 'SQL语句题解',
+                collapsable: true,
+                children: getChildren('./blogs/databases/Z-sql-solution')
             }
         ],
         '/blogs/machine-vision/': [

@@ -195,3 +195,80 @@ private:
 ```
 
 这样 `DerivedAgain` 的这个函数就会报错了
+
+### final优化虚函数：去虚拟化
+
+回顾一下虚表指针位置，**在对象储存堆区的前 $8$ 个字节处**  
+
+定义几个类  
+
+```cpp
+struct Base {
+    virtual void func () {
+        std::cout << "virtual func(): Base\n";
+    }
+    int x, y;
+};
+
+struct Derived1 : public Base {
+    void func() override {
+        std::cout << "func() override: Derived1\n";
+    }
+    virtual void otherFunc() {
+        std::cout << "virtual otherFunc(): Derived1\n";
+    }
+};
+struct Derived2 : public Base {
+    void func() override {
+        std::cout << "virtual func(): Derived2\n";
+    }
+    virtual void otherFunc () {
+        std::cout << "virtual otherFunc(): Derived2\n";
+    }
+};
+```
+ 
+结合上面所说，如果有 `Base*` 类型的 `base` 以及 `Derived1*` 类型的 `d1`  
+我们可以用如下方式将 `base` 的虚表指针指向 `d1` 的虚表指针
+
+```cpp
+*(int64_t*)base = *(int64_t*)d1;
+base->func(); // func() override: Derived1
+```
+
+在这之后进行如下两种操作  
+
+```cpp
+Base base1 = *base;
+base1.func(); // virtual func(): Base
+Base& base2 = *base;
+base2.func(); // func() override: Derived1
+```
+
+因为普通类型调用函数不查虚函数表，只有引用和指针才会  
+  
+结合我们上面所说，那么在上面的代码之后，又来两行这个  
+
+```cpp
+static_cast<Derived2*>(base)->func(); // func() override: Derived1
+Derived2* d2 = static_cast<Derived2*>(base);
+d2->otherFunc(); // virtual otherFunc(): Derived1
+```
+
+由此可见，虚表中的函数父类可以没有，这里 子类2 的指针指向 父类对象，指向的就是 父类对象的虚表指针  
+可是它的虚表指针已经被替换为 子类1对象 的虚表指针，调用函数查的是 子类1 的虚表  
+
+如果我们给 `Derived2` 加了 `final` 会怎么样呢？  
+
+```cpp
+...
+struct Derived2 final : public Base {
+...
+
+    static_cast<Derived2*>(base)->func(); // func() override: Derived2
+    Derived2* d2 = static_cast<Derived2*>(base);
+    d2->otherFunc(); // virtual otherFunc(): Derived2
+...
+```
+
+这就是一种优化，**既然确定 `Derived2` 是最终的子类（final），那么我们不需要查虚函数表就进行调用自己的虚函数即可**  
