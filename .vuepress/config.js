@@ -7,7 +7,30 @@ module.exports = {
   dest: './public',
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
-    ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }]
+    ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }],
+    ['script', {}, `
+        var _hmt = _hmt || [];
+        (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?94e0624d512f4e1b00e2f3345435ba7a";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+        })();
+
+        // 引入谷歌,不需要可删除这段
+        var hm1 = document.createElement("script");
+        hm1.src = "https://www.googletagmanager.com/gtag/js?id=G-XDVY2G9SS5";
+        var s1 = document.getElementsByTagName("script")[0]; 
+        s1.parentNode.insertBefore(hm1, s1);
+        })();
+
+        // 谷歌加载,不需要可删除
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-XDVY2G9SS5');
+    `]
   ],
   plugins: [
       [ 'flowchart' ],
@@ -61,7 +84,7 @@ module.exports = {
       [
         '@vuepress/google-analytics',
         {
-            'ga': 'UA-267845102-1'
+            'ga': 'G-XDVY2G9SS5'
         }
       ]
   ],
