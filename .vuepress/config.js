@@ -1,5 +1,6 @@
 const {getChildren} = require("vuepress-sidebar-atuo")
 const path = require('path')
+
 module.exports = {
   title: "Chivas-Regal",
   description: 'Technology Stack',
@@ -57,6 +58,12 @@ module.exports = {
           hostname: 'https://tech.chivas-regal.top/'
         }
       ],
+      [
+        '@vuepress/google-analytics',
+        {
+            'ga': 'G-7K6NDFP3VY'
+        }
+      ]
   ],
   theme: 'reco',
   sidebarDepth: 3,
