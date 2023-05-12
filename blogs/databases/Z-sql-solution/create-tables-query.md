@@ -93,3 +93,77 @@ ORDER BY
 	t1.dept_no;
 ```
 <hr>
+
+## 牛客SQL215-查找在职员工自入职以来的薪水涨幅情况
+
+#### 🔗
+<a href="https://www.nowcoder.com/practice/fc7344ece7294b9e98401826b94c6ea5?tpId=82&tqId=29773&rp=1&ru=/exam/oj&qru=/exam/oj&sourceUrl=%2Fexam%2Foj%3Fpage%3D1%26tab%3DSQL%25E7%25AF%2587%26topicId%3D82&difficulty=undefined&judgeStatus=undefined&tags=&title=">![20230512194645](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230512194645.png)</a>
+
+#### 💡
+
+有涨幅，那就一定要做 在职现在的工资 和 刚入职时的工资 的差  
+这可以分为两部分，我们先建立一下查询 **刚入职时的工资 `table: t_comein`**    
+就是让 `salaries` 表的起始时间 `from_date` 和 `employees` 表的入职时间 `hire_date` 对应起来  
+
+```sql
+SELECT
+    e.emp_no,
+    s.salary
+FROM
+    employees e,
+    salaries s
+WHERE
+    s.emp_no = e.emp_no AND
+    s.from_date = e.hire_date
+```
+
+然后是 **在职现在的工资 `table: t_leave`**  
+这个很好弄，就是保证 `to_date = '9999-01-01'` 即可  
+然后为了和上面表格式一样，我们依然要把工号输出来  
+
+```sql
+SELECT
+    s.emp_no,
+    s.salary
+FROM
+    salaries s
+WHERE 
+    s.to_date = '9999-01-01'
+```
+
+在建的这两张表进行查询，让两表工号一致下，第二列为 `t_leave.salary - t_comein.salary`  即可  
+
+
+#### <img src="https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/greencode1.png">
+
+```sql
+SELECT 
+    t_leave.emp_no,
+    (t_leave.salary - t_comein.salary) as growth
+FROM 
+    (   
+        SELECT
+            e.emp_no,
+            s.salary
+        FROM
+            employees e,
+            salaries s
+        WHERE
+            s.emp_no = e.emp_no AND
+            s.from_date = e.hire_date
+    ) t_comein,
+    (
+        SELECT
+            s.emp_no,
+            s.salary
+        FROM
+            salaries s
+        WHERE 
+            s.to_date = '9999-01-01'
+    ) t_leave
+WHERE
+    t_leave.emp_no = t_comein.emp_no
+ORDER BY
+    growth;
+```
+<hr>

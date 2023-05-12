@@ -81,11 +81,12 @@ module.exports = {
                 {text: '后端技术', items: [
                     { text: 'C++开发', link: '/blogs/cppbases/'},
                     { text: '数据库', link: '/blogs/databases/'},
-                    { text: '混合编程', link: '/blogs/mixprogram/'}
+                    { text: 'Linux', link: '/blogs/linux/'},
+                    { text: '混合编程', link: '/blogs/mixprogram/'},
                 ]},
                 {text: '模式识别', items: [
                     {text: '机器视觉', link: '/blogs/machine-vision/'}
-                ]}
+                ]},
             ],
             icon: 'reco-document'
         },
@@ -270,6 +271,14 @@ module.exports = {
                 title: 'SQL语句题解',
                 collapsable: true,
                 children: getChildren('./blogs/databases/Z-sql-solution')
+            }
+        ],
+        '/blogs/linux/': [
+            '/blogs/linux',
+            {
+                title: 'Shell编程',
+                collapsable: true,
+                children: getChildren('./blogs/linux/shell')
             }
         ],
         '/blogs/machine-vision/': [
