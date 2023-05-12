@@ -274,7 +274,7 @@ module.exports = {
             }
         ],
         '/blogs/linux/': [
-            '/blogs/linux',
+            '/blogs/linux/',
             {
                 title: 'Shell编程',
                 collapsable: true,
