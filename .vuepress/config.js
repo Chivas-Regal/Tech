@@ -268,6 +268,11 @@ module.exports = {
         '/blogs/databases/': [
             '/blogs/databases/',
             {
+                title: 'Redis',
+                collapsable: true,
+                children: getChildren('./blogs/databases/redis')
+            },
+            {
                 title: 'SQL语句题解',
                 collapsable: true,
                 children: getChildren('./blogs/databases/Z-sql-solution')
