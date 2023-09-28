@@ -47,7 +47,7 @@ title: SpringMVC
   
 这是我们的项目结构
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695208111102-ed015c42-98b1-41e1-9ecc-e0b99761bb4a.png)
+![20230928193613](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193613.png)
 
 SpringMvcConfig 主要做的是和我们之前配置 Spring 配置类做的事情一样
   
@@ -111,15 +111,15 @@ public class UserController {
 }
 ```
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695210053363-a3fb69ec-0306-496c-a817-441f0bb7eea7.png)
+![20230928193622](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193622.png)
 
 这样运行之后给路径下加个 /save 就会获取到这样的数据
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695209224215-e264e68d-6fb3-426e-a7fb-ccc3b9ec221a.png)
+![20230928193628](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193628.png)
 
 并且在编辑器那边也会有输出
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695209245681-10bc7ad2-a81b-436c-9119-ee9fabde6924.png)
+![20230928193633](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193633.png)
 
 问题说明
 ----
@@ -132,11 +132,11 @@ tomcat10 对这套无法使用，因为 tomcat10 交给 eclipse 管理，不能�
 
 大概率是因为没有将本工程后端内容加入输出导致的，进入 Project Structure
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695209308794-a0f87088-0b1c-4ddb-83ca-0512e2595fc1.png)
+![20230928193649](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193649.png)
 
 选中左侧的 Artifacts，然后选择对应的工程 Artifact，右击要加入输出的 Element（在右侧），然后选择 Pull Into Output Root ，再 Apply 即可
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695209365830-a466c1a6-7706-4d0d-b3bc-e46771812375.png)
+![20230928193654](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193654.png)
 
  Bean 的隔离控制
 ===========
@@ -277,15 +277,15 @@ public class UserController {
 
 **get**
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695217848990-7102e2dd-3309-4aaf-b3bd-69e1bc294442.png)
+![20230928193716](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193716.png)
 
 输出
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695217860194-a511893c-95dd-45f2-8c46-f5919da2dc4d.png)
+![20230928193723](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193723.png)
 
 **post**
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695217936137-8bb68b95-1d9b-4f38-b872-a1e7b9edf233.png)
+![20230928193727](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193727.png)
 
 发现中文出现乱码，我们在 ServletContainersInitConfig 内设置字符过滤器（换为继承 AbstractAnnotationConfigDispatcherServletInitializer)
 
@@ -360,7 +360,7 @@ public class User {
 ```
 我们在传递时通过这样即可传递完成
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695271174790-dd40116e-246a-4f0f-8385-fc7fe27b69bb.png)
+![20230928193738](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193738.png)
 
 #### ❗️ 类传参注意问题
 
@@ -384,7 +384,7 @@ public class User {
 ```
 然后这样传递参数
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695271605284-4abe71c7-8684-40bf-97df-f2d4081ef36e.png)
+![20230928193746](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193746.png)
 
 ### 集合传参
 
@@ -417,7 +417,7 @@ public String saveByData (@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date 
 ```
 然后可以用 post 按指定格式传递
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695298347850-a6692385-9c99-4ddb-b8e8-74a6addcdfb1.png)
+![20230928193802](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193802.png)
 
 ### Json 传递数据
 
@@ -444,7 +444,7 @@ public String saveByData (@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date 
 ```
 这里先演示一下 postman 发送 json 请求体
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695279748274-f75b1026-8dbf-4752-a203-78a1872a2652.png)
+![20230928193810](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193810.png)
 
 1. 点击 Body
 2. 点击 raw
@@ -546,7 +546,7 @@ public String respPage () {
 ```
 这个表示我们对于访问 /user/respPage 的请求，将 /index.jsp 响应给客户端
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695299801305-6a01f49a-ea41-4acc-a2ab-6216d38a7d84.png)
+![20230928193819](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193819.png)
 
 ### 响应Json数据
 
@@ -582,7 +582,7 @@ public List<User> respClassJson () {
 
 postman接收数据如下
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695299954056-42831209-bcf7-4030-95d0-701c036ed2d9.png)
+![20230928193826](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193826.png)
 
 ## REST风格
 
@@ -607,7 +607,7 @@ public String deleteByName (@PathVariable String name) {
 ```
 这边 postman 只有发送 DELETE 的 /user/[name] 格式才能访问
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695352007507-a5b5754f-af11-4550-9832-eb4d036ecbb1.png)
+![20230928193834](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193834.png)
 
 ### 注解区分
 
@@ -680,7 +680,7 @@ public class UserController {
 
 其中前端部分添加了如下内容
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695378828105-66b864a1-cb4e-4d47-9854-d207871901bb.png)
+![20230928193847](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193847.png)
 
 但是我们如果不做任何修改那么访问 books.html 是会被 SpringMVC 进行拦截，然后报404
 SpringMVC 会认为这是要传递数据，应当在后端代码中存在 RequestMapping 但是没有找到
@@ -705,7 +705,7 @@ public class SpringMvcSupport extends WebMvcConfigurationSupport {
 
 这样就不会出问题了，然后我们分析一下前端内容
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695379147055-26a784b3-6065-48a9-93a7-a44407bc517d.png)
+![20230928193854](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193854.png)
 
 这些是表单内容，其中 index 是自增的不用我们管，所以提供一个 domain 类 Book
 
@@ -786,7 +786,7 @@ public class BookController {
 ```
 完成
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695379521712-52fdad35-d40c-4933-aa3c-d875a3570a6d.png)
+![20230928193904](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193904.png)
 
 SSM 整合
 ======
@@ -885,9 +885,9 @@ public class BookController {
 ```
 这里是 postman 演示结果
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695430437379-41bb6272-89cd-4145-b437-c1a21e4ec0d8.png)
+![20230928193915](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193915.png)
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695430458787-7534e405-5535-4f27-b00a-9592adfa4ed2.png)
+![20230928193920](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193920.png)
 
 异常
 ==
@@ -1006,11 +1006,11 @@ public class ProjectExceptionAdvice {
 ```
 这就分别给这三个异常设置了通知方法了，我们发送一下请求看看
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695445441723-40e5c8ed-f48d-4d93-866b-7397a4b766c9.png)
+![20230928193931](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193931.png)
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695445459684-00384c2d-c082-4174-b78b-024ef1cb9df6.png)
+![20230928193936](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193936.png)
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695445398372-7ad7db05-8c40-4fb4-8c81-823e80f27819.png)
+![20230928193942](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193942.png)
 
 SSM-前端加入
 ========

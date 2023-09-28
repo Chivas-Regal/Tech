@@ -5,11 +5,11 @@ title: IDEA 各项环境配置与使用
 添加JAR包
 ======
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694251470545-40f5f113-6d8f-438f-988a-034b06be1d38.png)
+![20230928192716](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928192716.png)
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694251539127-3e98b947-a787-484a-8a63-5f6d7d01039c.png)
+![20230928192732](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928192732.png)
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694251561728-beb25976-54a0-418e-aec5-87406a940774.png)
+![20230928192743](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928192743.png)
 
 然后选择.jar位置，open即可
 
@@ -23,27 +23,27 @@ title: IDEA 各项环境配置与使用
 2. 修改工程配置（除了 **Name** 之外别的都一样即可）
 3. 点击右下角 **Create** 创建
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694317484552-8af76410-6de4-477d-a03f-53018a6287df.png)
+![20230928192838](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928192838.png)
 
 进入工程代码编辑页面后
 
 1. 点击右上角的 **设置**
 2. 点击下拉选项中的 **Project Structure**
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694317783574-a367ee43-3a95-4a92-961b-fdc488b5f236.png)
+![20230928192844](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928192844.png)
 
 进入 Project Structure 页面后
 
 1. 选中左侧侧边栏中的 **Project** （不过一般都是默认跳进来的）
 2. 将 **Language level** 设置为和 **SDK** 相当的版本
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694317886671-eea4784e-d1aa-47d4-b1dc-f3aacac29183.png)
+![20230928192832](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928192832.png)
 
 1. 再选中左侧菜单栏中的 **Modules**
 2. 点击第二竖栏左上角的 **加号**
 3. 在下拉菜单栏中选择最下面的 **Web** ，点击创建
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694323821811-a95f5036-04f7-4449-a854-eb9bedead2a6.png)
+![20230928192853](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928192853.png)
 
 创建好了 Web 模块，然后
 
@@ -52,17 +52,17 @@ title: IDEA 各项环境配置与使用
 3. 在下拉单中选择 **Web Application: Exploded/From Modules...**
 4. 弹出的窗口直接选择 **OK**
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694326377256-4874cdee-7f97-4a5d-afe6-1b9f7f3afc81.png)
+![20230928192900](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928192900.png)
 
 工件创建好之后是这样的，其中 **Name** 可以做修改
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694324394184-594910f1-c6d8-4984-b48a-ce734031287d.png)
+![20230928192907](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928192907.png)
 
 **然后点击 Apply ！！！这一步一定要进行**
 
 项目成品图如下
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694324518830-2d758ccd-84ce-4702-92eb-fe0aa9c9b22d.png)
+![20230928192913](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928192913.png)
 
 Tomcat 服务器配置
 ------------
@@ -72,14 +72,14 @@ Tomcat 服务器配置
 1. 打开顶栏右边运行标志旁的运行选项
 2. 在下拉菜单中选择 **Edit Configurations...**
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694324726270-7943d982-a7f1-402f-a6a9-c542503b01c2.png)
+![20230928192921](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928192921.png)
 
 进入 Run/Debug Configurations 后
 
 1. 点击左上角的 **加号**
 2. 在下拉菜单中往下翻找到 **Tomcat Server** 展开后点击 **Local**
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694324949011-86d14296-b566-42e0-bb30-997de83bb33d.png)
+![20230928192926](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928192926.png)
 
 创建了 **Tomcat Server** 后进入配置
 
@@ -88,7 +88,7 @@ Tomcat 服务器配置
 3. 进入后设置 **Tomcat Home** 为自己 tomcat 的文件夹
 4. 点击 **OK**
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694325064005-867ba9b8-1e70-4d38-8be7-f6ef0cf71c1f.png)
+![20230928192933](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928192933.png)
 
 完成 **Server** 的设置后
 
@@ -96,11 +96,11 @@ Tomcat 服务器配置
 2. 点击下方框面中左上角的 **加号**
 3. 在下拉栏中选定 **Artifact...**
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694325225108-a8ded648-2d65-4b1d-a3d1-844b0635ab3a.png)
+![20230928193006](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193006.png)
 
 添加后是这样
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694325297612-ebccd155-5761-402e-950f-af07ccd18b00.png)
+![20230928193011](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193011.png)
 
 工件添加完成后
 
@@ -108,7 +108,7 @@ Tomcat 服务器配置
 2. 在配置列表中找到 **On 'Update' action** 和 **On frame deactivation**
 3. 将他们的值都设置为 **Update classes and resources**
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694325416380-b07367f7-fead-4a48-bf43-15955bf925a5.png)
+![20230928193020](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193020.png)
 
 **然后点击 Apply ！！！这一步一定要进行**
 
@@ -151,7 +151,7 @@ Tomcat 服务器配置
 ```
 3. 点击运行按钮运行项目
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694325978396-d3d0d000-890b-4b39-a61a-52e194ef3e53.png)
+![20230928193028](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193028.png)
 
 运行成功
 
@@ -169,9 +169,9 @@ Tomcat 服务器配置
 3. **右键该lib目录**
 4. **添加为Library（并设置别名）**
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694338038100-2978b3b5-3986-4472-87a2-951f466d8585.png)
+![20230928193038](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193038.png)
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694338166773-a1e71eda-0c62-4b1d-852b-5324f10670a4.png)
+![20230928193043](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193043.png)
 
 Spring搭建
 ========
@@ -204,10 +204,10 @@ Spring搭建
 ...
 ```
 3. 可能出现报错，在最右侧打开 **Maven** 后刷新，等一会儿它会自己装好依赖
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694415989992-70e76e1e-a915-4818-a310-e4649d77981c.png)
+![20230928193050](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193050.png)
 4. 先写好几个简单的测试接口与类 定义Spring管理的类（接口）
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694417622298-a22a5c6e-9e5d-4453-9e23-6c5556b3d2d0.png)
+![20230928193109](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193109.png)
 
 这里给出六个文件的内容
 
@@ -286,7 +286,7 @@ public class BookServiceImpl implements BookService {
 }
 ```
 5. 右键 **resources** 文件夹，选择如下内容 创建Spring配置文件，配置对应类为被管理的bean
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694416043273-f80d8c11-ede8-4d07-8520-f0e08f1bfa27.png)
+![20230928193120](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193120.png)
 6. 在新打开的文件`/resources/applicationContext.xml`内填写如下内容
 
 <p></p>
@@ -388,7 +388,7 @@ SpringMVC 搭建
 ```
 这是我们的项目结构
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695208111102-ed015c42-98b1-41e1-9ecc-e0b99761bb4a.png)
+![20230928193132](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193132.png)
 
 SpringMvcConfig 主要做的是和我们之前配置 Spring 配置类做的事情一样
 
@@ -449,15 +449,15 @@ public class UserController {
     }
 }
 ```
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695210053363-a3fb69ec-0306-496c-a817-441f0bb7eea7.png)
+![20230928193142](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193142.png)
 
 这样运行之后给路径下加个 /save 就会获取到这样的数据
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695209224215-e264e68d-6fb3-426e-a7fb-ccc3b9ec221a.png)
+![20230928193148](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193148.png)
 
 并且在编辑器那边也会有输出
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695209245681-10bc7ad2-a81b-436c-9119-ee9fabde6924.png)
+![20230928193153](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193153.png)
 
 问题说明
 ----
@@ -470,11 +470,11 @@ tomcat10 对这套无法使用，因为 tomcat10 交给 eclipse 管理，不能�
 
 大概率是因为没有将本工程后端内容加入输出导致的，进入 Project Structure
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695209308794-a0f87088-0b1c-4ddb-83ca-0512e2595fc1.png)
+![20230928193231](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193231.png)
 
 选中左侧的 Artifacts，然后选择对应的工程 Artifact，右击要加入输出的 Element（在右侧），然后选择 Pull Into Output Root ，再 Apply 即可
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695209365830-a466c1a6-7706-4d0d-b3bc-e46771812375.png)
+![20230928193236](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193236.png)
 
 SpringBoot 搭建
 =============
@@ -484,12 +484,12 @@ SpringBoot 搭建
 3. package name 删掉后面的
 4. Packaging 选择 Jar 包
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695785544413-fcab6303-584c-4b63-8732-5bf508480dc6.png)
+![20230928193244](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193244.png)
 
 5. 选择2.xx版本的SpringBoot
 6. 点击 Web 下拉框选择 Spring Web
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695793969509-8ff97fdb-59bf-492b-b5f3-285a1672035d.png)
+![20230928193250](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193250.png)
 
 7. 删掉除了 src 和 pom.xml 以外的所有内容
 8. 写一个简单的控制器类
@@ -512,18 +512,18 @@ public class Controller {
 ```
 9. 直接运行
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695802778218-5e42d7f8-d8e3-409a-bdf5-0400624b7b7d.png)
+![20230928193258](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193258.png)
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695802769966-33951ed8-4c0b-497d-a9bc-9c69ffb9d58b.png)
+![20230928193306](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193306.png)
 
 问题1：源发行版17，需要目标发行版17
 --------------------
 
 Modules.Languagelevel 修改为 8
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695784458949-fde6405b-f8ef-406b-918d-caf9eeb9c3ed.png)
+![20230928193314](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193314.png)
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695784521587-4afae54f-ce23-47ec-ba82-07b6771023d7.png)
+![20230928193319](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193319.png)
 
 找到工程的 pom 文件，找到其中 properties 的 java.version，修改为 8
 

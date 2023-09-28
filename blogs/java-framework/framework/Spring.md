@@ -97,10 +97,10 @@ bean属性还可以设置lazy-init，如果为true，则说明是延迟加载，
 ...
 ```
 3. 可能出现报错，在最右侧打开 **Maven** 后刷新，等一会儿它会自己装好依赖
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694415989992-70e76e1e-a915-4818-a310-e4649d77981c.png)
+![20230928193413](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193413.png)
 4. 先写好几个简单的测试接口与类 定义Spring管理的类（接口）
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694417622298-a22a5c6e-9e5d-4453-9e23-6c5556b3d2d0.png)
+![20230928193419](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193419.png)
 
 这里给出六个文件的内容
 
@@ -178,7 +178,7 @@ public class BookServiceImpl implements BookService {
 }
 ```
 5. 右键 **resources** 文件夹，选择如下内容 创建Spring配置文件，配置对应类为被管理的bean
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694416043273-f80d8c11-ede8-4d07-8520-f0e08f1bfa27.png)
+![20230928193429](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193429.png)
 6. 在新打开的文件`/resources/applicationContext.xml`内填写如下内容
 
 <p></p>
@@ -1183,7 +1183,7 @@ AOP
 
 项目结构如下
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1694864510604-dea18217-a15c-4cb8-96ff-dc89a90dcd84.png)
+![20230928193500](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193500.png)
 
 其中 BookDao 类里有一个 update() 函数自己会输出 `book update ...` ，然后 App 也是正常的对容器中 BookDao 这个bean的 update() 方法调用，就不展示了
 
@@ -1564,7 +1564,7 @@ public class BankService {
 事务传播行为
 ------
 
-![](https://cdn.nlark.com/yuque/0/2023/png/22196056/1695390425668-fdcba76e-7edc-40b0-8a7f-9ebad90679eb.png)
+![20230928193538](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193538.png)
 
 用类似于这样的方式来设置：`@Transactional(propagation= Propagation.REQUIRES\_NEW)`
 
