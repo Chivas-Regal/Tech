@@ -72,23 +72,38 @@ module.exports = {
     nav: [
         { text: '首页', link: '/', icon: 'reco-home' },
         {
-            text: '技术知识',
+            text: '算法-数据结构',
             items: [
-                {text: 'ACM', items: [
-                    { text: '算法与数据结构', link: '/blogs/algorithm/' },
-                    { text: '解题报告', link: '/blogs/solution/' },
-                ]},
-                {text: '后端技术', items: [
-                    { text: 'C++开发', link: '/blogs/cppbases/'},
-                    { text: '数据库', link: '/blogs/databases/'},
-                    { text: 'Linux', link: '/blogs/linux/'},
-                    { text: '混合编程', link: '/blogs/mixprogram/'},
-                ]},
-                {text: '模式识别', items: [
-                    {text: '机器视觉', link: '/blogs/machine-vision/'}
-                ]},
-            ],
-            icon: 'reco-document'
+                { text: '理论梳理', link: '/blogs/algorithm/' },
+                { text: '解题报告', link: '/blogs/solution/' },
+            ]
+        },
+        {
+            text: 'C/C++',
+            items: [
+                {
+                    text: '特性/语法', items: [
+                        { text: '基本开发', link: '/blogs/cppbases/' },
+                        { text: '混合编程', link: '/blogs/mixprogram/' },
+                    ]
+                },
+                { 
+                    text: '模式识别', items: [
+                        { text: '机器视觉', link: '/blogs/machine-vision/' }
+                    ]
+                },
+            ]
+        },
+        {
+            text: 'Java/后端框架',
+            link: '/blogs/java-framework/',
+        },
+        {
+            text: '计算机基础',
+            items: [
+                { text: '数据库', link: '/blogs/databases/' },
+                { text: 'Linux', link: '/blogs/linux/' }
+            ]
         },
         {
             text: '个人',
@@ -307,6 +322,22 @@ module.exports = {
                 title: '项目实践',
                 collapsable: true,
                 children: getChildren('./blogs/machine-vision/project')
+            }
+        ],
+        '/blogs/java-framework/': [
+            '/blogs/java-framework/',
+            '/blogs/java-framework/0-IDEAuse',
+            {
+                title: 'Java 语法',
+                collapsable: true,
+                children: getChildren('./blogs/java-framework/Java')
+            },
+            '/blogs/java-framework/JSP',
+            '/blogs/java-framework/Maven',
+            {
+                title: '框架',
+                collapsable: true,
+                children: getChildren('./blogs/java-framework/framework')
             }
         ]
     },
