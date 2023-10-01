@@ -2,11 +2,9 @@
 title: Spring
 ---
 
-容器
-==
+## 容器
 
-IOC 容器介绍
---------
+### IOC 容器介绍
 
 由 new 产生对称转换为由 IOC 容器提供对象，[具体 IOC 简单使用参考这里](https://www.yuque.com/chivasregal/vhwl6i/apkfzx0o71xpp800#IOC: 新类+配置文件修改运行时调用的类)
 其管理的对象叫做 Bean
@@ -17,7 +15,7 @@ IOC 容器介绍
 ```java
 // 业务层实现
 
-pulbic class BookServiceImpl implements BookService {
+public class BookServiceImpl implements BookService {
     private BookDao bookDao;
     public void save () {
         bookDao.save();
@@ -66,8 +64,7 @@ bean属性还可以设置lazy-init，如果为true，则说明是延迟加载，
 
 具体使用请看下一节：第一个 Spring 程序
 
-📚 第一个Spring程序
--------------
+### 📚 第一个Spring程序
 
 整体就是以下四步
 
@@ -96,12 +93,14 @@ bean属性还可以设置lazy-init，如果为true，则说明是延迟加载，
     </dependencies>
 ...
 ```
-3. 可能出现报错，在最右侧打开 **Maven** 后刷新，等一会儿它会自己装好依赖
-![20230928193413](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193413.png)
-4. 先写好几个简单的测试接口与类 定义Spring管理的类（接口）
-
-![20230928193419](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193419.png)
-
+3. 可能出现报错，在最右侧打开 **Maven** 后刷新，等一会儿它会自己装好依赖  
+  
+![20230928193413](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193413.png)  
+  
+4. 先写好几个简单的测试接口与类 定义Spring管理的类（接口）  
+  
+![20230928193419](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193419.png)  
+  
 这里给出六个文件的内容
 
 ```java
@@ -237,8 +236,8 @@ book service save ...
 book dao save ...
 */
 ```
-bean实例化
--------
+
+### bean实例化
 
 有三种实例化方式
 
@@ -247,11 +246,11 @@ bean实例化
 * 实例工厂
 * 实例工厂简化——FactoryBean
 
-### 构造方法
+#### 构造方法
 
 在IoC容器介绍与spring\_01\_quickstart就已经有了，就是利用默认的无参构造完成实例化
 
-### 静态工厂
+#### 静态工厂
 
 是一种工厂类存在静态生产方法来构造需要的bean实例
 比如存在工厂
@@ -280,7 +279,7 @@ public class StaticDaoFactory {
   factory-method="getBookDao"
 />
 ```
-### 实例工厂
+#### 实例工厂
 
 是一种工厂类存在非静态生产方法来构造需要的bean实例
 比如存在工厂
@@ -316,7 +315,7 @@ public class InstanceDaoFactory {
   factory-bean="bookDaoFactory"
 />
 ```
-### 实例工厂简化——FactoryBean
+#### 实例工厂简化——FactoryBean
 
 上面的实例工厂有一个最大的问题就是bean冗余，多实例化了一个工厂bean
 Spring存在一个接口供我们用，`FactoryBean`
@@ -353,8 +352,8 @@ public class InstanceDaoFactoryBean implements FactoryBean<BookDao> {
 ```xml
 <bean id="bookDao" class="com.snopzyz.factory.InstanceDaoFactoryBean"/>
 ```
-bean生命周期
---------
+
+### bean生命周期
 
 **第一种方式**
 
@@ -438,10 +437,9 @@ public class BookServiceImpl implements BookService, InitializingBean, Disposabl
 
 **需要注意的是，如果bean是多例模式，那么Spring只管理它的创建，但不管理它的销毁**
 
-多依赖注入
------
+### 多依赖注入
 
-### setter 注入
+#### setter 注入
 
 现在这个类有以下四个成员，并把他们的`set()`函数都写好
 
@@ -471,7 +469,7 @@ public class BookServiceImpl implements BookService {
     </bean>
 ...
 ```
-### 构造器注入
+#### 构造器注入
 
 换了一个方式，写了个构造函数
 
@@ -516,12 +514,12 @@ public BookServiceImpl(String dbName, int connectionNumber, BookDao bookDao1, Bo
 ...
 ```
 
-### 注入方式选择
+#### 注入方式选择
 
 强制依赖（必须要赋值的属性）使用构造器注入
 可选依赖（可以为空的属性）使用setter注入
 
-### 集合注入
+#### 集合注入
 
 可以注入单个变量，现在需要注入一整个集合/容器，比如有这么一个java类
 
@@ -615,8 +613,7 @@ public class BookServiceImpl implements BookService {
 ```
 这里面的`key`和`value`如果不是基本类型，要换成`ref`来引用之前声明过的`bean`
 
-自动装配
-----
+### 自动装配
 
 在`bean`标签内设置属性`autowire=""`，可选的一般用以下两种
 
@@ -625,25 +622,24 @@ public class BookServiceImpl implements BookService {
 
 优先级低于setter注入和构造器注入
 
-### 按类型
+#### 按类型
 
-最常用的，这意味着在该`bean`之前必须要有其所依赖的类型的`bean`
-如存在类 `class A { public B val; }`
-则在`xml`内在写`A`的`bean`之前，必须要写唯一的一个`B`的`bean`
+最常用的，这意味着在该`bean`之前必须要有其所依赖的类型的`bean`  
+如存在类 `class A { public B val; }`  
+则在`xml`内在写`A`的`bean`之前，必须要写唯一的一个`B`的`bean`  
 
-### 按名称
+#### 按名称
 
-意味着在该`bean`之前必须要有其所依赖的名称的`bean`（类型也需要能对上）
-还是上面的类，那么我们在写`A`的`bean`之前，必须要写一个类型为`B`名称为`val`的`bean`
+意味着在该`bean`之前必须要有其所依赖的名称的`bean`（类型也需要能对上）  
+还是上面的类，那么我们在写`A`的`bean`之前，必须要写一个类型为`B`名称为`val`的`bean`  
+  
+按名称好处是可以给类写多个同类型成员了，但坏处是提高了代码的耦合性  
 
-按名称好处是可以给类写多个同类型成员了，但坏处是提高了代码的耦合性
+### properties 文件读取
 
-properties 文件读取
----------------
+有一个`UserDaoImpl`类，里面有两个`String`的成员：`username`和`password`  
 
-有一个`UserDaoImpl`类，里面有两个`String`的成员：`username`和`password`
-
-对其有一个配置文件 UserDao.properties
+对其有一个配置文件 UserDao.properties  
 
 ```properties
 userdao.username = zyz
@@ -663,32 +659,31 @@ userdao.password = @Zhangyize020110
             http://www.springframework.org/schema/context/spring-context.xsd
        ">
 ```
-其中相对于之前加第四行的内容，以及第八第九行的内容
-
-然后载入这个文件
+其中相对于之前加第四行的内容，以及第八第九行的内容  
+  
+然后载入这个文件  
 
 ```xml
 <context:property-placeholder location="UserDao.properties"/>
 ```
-要加载多个配置文件的话，在location属性的双引号内用逗号分隔文件名
-
-加载所有的属性配置文件，可以用`classpath:\*.properties`
-
-加载依赖jar包的配置文件，可以用`classpath\*:\*.properties`
-
-之后就可以利用`${<key>}`来获取里面的`<value>`，比如上述类我们这里
-
+要加载多个配置文件的话，在location属性的双引号内用逗号分隔文件名  
+  
+加载所有的属性配置文件，可以用`classpath:\*.properties`  
+  
+加载依赖jar包的配置文件，可以用`classpath\*:\*.properties`  
+  
+之后就可以利用`${<key>}`来获取里面的`<value>`，比如上述类我们这里  
+  
 ```xml
 <bean id="userDao" class="com.snopzyz.dao.impl.UserDaoImpl">
     <property name="username" value="${userdao.username}"/>
     <property name="password" value="${userdao.password}"/>
 </bean>
 ```
-注解
-==
 
-注解定义bean
---------
+## 注解
+
+### 注解定义bean
 
 * 使用@Component定义bean
 
@@ -724,10 +719,10 @@ public class BookDaoImpl implements BookDao {
 public class BookServiceImpl implements BookService {
 }
 ```
-纯注解开发配置
--------
 
-纯注解就是取消`xml`配置文件，换成了用「类+注解」表示配置
+### 纯注解开发配置
+
+纯注解就是取消`xml`配置文件，换成了用「类+注解」表示配置  
 如下面的`xml`文件
 
 ```xml
@@ -745,8 +740,8 @@ public class BookServiceImpl implements BookService {
     <context:component-scan base-package="com.snopzyz"/>
 </beans>
 ```
-将外壳转换成类的注解`@Configuration`，将里面的组件扫描标签换成注解`@ComponentScan({"com.snopzyz.dao", "com.snopzyz.service"})`（这里只是表达一下，ComponentScan的参数是字符串数组）
-那么上面的`xml`就可以替换成我们自己写的类
+将外壳转换成类的注解`@Configuration`，将里面的组件扫描标签换成注解`@ComponentScan({"com.snopzyz.dao", "com.snopzyz.service"})`（这里只是表达一下，ComponentScan的参数是字符串数组）  
+那么上面的`xml`就可以替换成我们自己写的类  
 
 ```java
 // SpringConfig.java
@@ -765,8 +760,7 @@ public class SpringConfig {
 ```java
 ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
 ```
-bean注解配置
---------
+### bean注解配置
 
 之前我们讲bean的生命周期和作用域的设置，这里也可以用注解完成
 
@@ -795,8 +789,7 @@ public class BookDaoImpl implements BookDao {
     }
 }
 ```
-依赖注入
-----
+### 依赖注入
 
 **非基本类型**使用自动装配`@Autowaired`+bean名称查询`@Qualifier(...)`，之前我们在`SpringConfig`类写过ComponentScan，那么这里名称查询就是从扫描的bean组件里面找的，具体注入方式如下
 
@@ -842,8 +835,8 @@ public class SpringConfig {
 	@Value("${serviceName}")
     private String name;
 ```
-第三方bean管理
----------
+
+### 第三方bean管理
 
 这里拿druid做演示，建议再开一个配置类，并对要返回bean的方法做`@Bean`注解
 
@@ -884,8 +877,8 @@ public class SpringConfig {
 	DataSource dataSource = (DataSource) ctx.getBean("druidSource");
 ...
 ```
-第三方bean依赖注入
------------
+
+### 第三方bean依赖注入
 
 **基本类型**通过成员变量完成
 **引用类型**通过参数传递完成（放在参数里，会按类型自动装配）
@@ -921,11 +914,9 @@ public class JdbcConfig {
 }
 
 ```
-整合
-==
+## 整合
 
-spring整合mybatis
----------------
+### spring整合mybatis
 
 这里着重就是用spring的纯注解将mybatis的配置文件也化为注解并导入
 首先是项目配置文件里面的坐标
@@ -1017,11 +1008,11 @@ public class SpringConfig {
 * `<environments>`中主要是建立JDBC连接数据库的，我们可以额外写一个 **JdbcConfig.java** 类生成druidDataSource 连接池
 * `<mappers>`建立 sql 语句映射，我们额外写一个 **MybatisConfig.java** 生成 Mapper... 对象
 
-使用部分，为了获取到 SqlSession 我们要有 SqlSessionFactory 来取出会话
-其中在 **MybatisConfig.java** 中利用 SqlSessoinFactoryBean 对象加载 druid 连接池返回后，Spring容器会自动帮我们造出 SqlSession
-而 druid 连接池我们可以直接通过 JdbcConfig 的引用类型注入方法获取
-
-有了思路，下面是代码设计
+使用部分，为了获取到 SqlSession 我们要有 SqlSessionFactory 来取出会话  
+其中在 **MybatisConfig.java** 中利用 SqlSessoinFactoryBean 对象加载 druid 连接池返回后，Spring容器会自动帮我们造出 SqlSession  
+而 druid 连接池我们可以直接通过 JdbcConfig 的引用类型注入方法获取  
+  
+有了思路，下面是代码设计  
 
 ```java
 // JdbcConfig.java
@@ -1081,9 +1072,9 @@ public class MybatisConfig {
     }
 }
 ```
-然后将这两个类通过`@Import`导入进 SpringConfig.java 即可
-
-接下来就是和正常 Spring 框架一样的使用方法
+然后将这两个类通过`@Import`导入进 SpringConfig.java 即可  
+  
+接下来就是和正常 Spring 框架一样的使用方法  
 
 ```java
 // App.java
@@ -1100,8 +1091,8 @@ public class App {
     }
 }
 ```
-spring 整合 junit
----------------
+
+### spring 整合 junit
 
 首先是导入坐标
 
@@ -1155,16 +1146,14 @@ public class StudentServiceTest {
     }
 }
 ```
-📚 上层内容代码案例
-==========
+
+## 📚 上层内容代码案例
 
 整体使用案例置入 Github 中，通过[点击这里](https://github.com/Chivas-Regal/JavaLearn/tree/main/spring_01)查看
 
-AOP
-===
+## AOP
 
-面向切面编程介绍
---------
+### 面向切面编程介绍
 
 **连接点：程序执行过程中的任意位置**，SpringAOP中可理解为方法的执行
 
@@ -1176,8 +1165,7 @@ AOP
 
 **切面：描述通知和切入点的对应关系**
 
-第一个 AOP 程序
-----------
+### 第一个 AOP 程序
 
 这里我们有一个 BookDao 类，我们预期在其执行方法 update() 之前先输出当前系统时间
 
@@ -1185,8 +1173,8 @@ AOP
 
 ![20230928193500](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193500.png)
 
-其中 BookDao 类里有一个 update() 函数自己会输出 `book update ...` ，然后 App 也是正常的对容器中 BookDao 这个bean的 update() 方法调用，就不展示了
-
+其中 BookDao 类里有一个 update() 函数自己会输出 `book update ...` ，然后 App 也是正常的对容器中 BookDao 这个bean的 update() 方法调用，就不展示了  
+  
 说明一下 SpringConfig，与之前不同的是我这里需要标注使用注解开发AOP，要加上`@EnableAspectJAutoProxy`
 
 ```java
@@ -1226,8 +1214,8 @@ public class MyAdvice {
 
 }
 ```
-Spring-AOP 原理
--------------
+
+### Spring-AOP 原理-
 
 利用代理，在初始化bean时判断是否能够匹配上任意切入点
 
@@ -1258,8 +1246,7 @@ class com.snopzyz.dao.BookDao$$EnhancerBySpringCGLIB$$feb6a66a
 会发现 bookDao 的 toString 是被做 Spring 了一次重写，但 getClass 就是代理对象的
 但是还有一点要注意的是，这个代理对象是继承或者组合了原始对象，其实例 boolDao 运算 `bookDao instanceof BookDao` 返回的是 `true`
 
- AOP 切入点表达式
------------
+### AOP 切入点表达式
 
 由几部分组成：动作关键字、访问修饰符（可以省略）、返回值、包名、类/接口名、方法名、参数、异常名（可以省略）
 比如例子就是
@@ -1322,10 +1309,9 @@ execution(* com.snopzyz.*.*Service.find*(..))
 * 参数规则较为复杂，根据业务方法灵活调整
 * 通常**不使用异常**作为**匹配**规则
 
-通知类型
-----
+### 通知类型
 
-### 前置与后置
+#### 前置与后置
 
 根据上面例子的我们很容易知道这里要怎么写
 
@@ -1340,23 +1326,23 @@ public void methodAfter () {
     System.out.println("after ... ");
 }
 ```
-### 环绕（重点）
+#### 环绕（重点）
 
 这个是最重要的，使用注解`@Around(切入点)`完成，有几个注意事项
 
-#### 返回值
+##### 返回值
 
 环绕因为可能增强有返回值的方法，所以我们要用 **Object 类型**捕捉返回值并在环绕通知方法中返回
 
-#### 异常
+##### 异常
 
 由于被增强的方法可能会抛异常，所以这里也要**用**`**throws Throwable**`**进行捕获**
 
-#### 参数
+##### 参数
 
 因为是环绕前后都有，我们需要设置切入时机，这里的工具类为 **ProceedingJoinPoint**
 
-#### 调用时机
+##### 调用时机
 
 利用我们上面的 ProceedingJoinPoint ，**调用其 proceed() 方法**就相当于执行了原始方法，注意根据上面说的返回值这里也要用 Object 捕获，就算没有返回值
 
@@ -1369,16 +1355,15 @@ public Object Around (ProceedingJoinPoint pjp) throws Throwable {
     return ret;
 }
 ```
-### 返回之后
+#### 返回之后
 
 `@AfterReturning(切入点)`
 
-### 抛出异常之后
+#### 抛出异常之后
 
 `@AfterThrowing(切入点)`
 
-通知获取数据
-------
+### 通知获取数据
 
 我们现在将 BookDao 类内方法改成如下内容：
 
@@ -1457,11 +1442,9 @@ public void AfterReturning (String ret) {
 ```
 注意这里如果要加 JoinPoint 参数的话，必须要设置为第一个参数，也就是 `(JoinPoint jp, String ret)`
 
-Spring事务
-========
+## Spring事务
 
-银行转钱案例
-------
+### 银行转钱案例
 
 现在有表
 
@@ -1490,8 +1473,7 @@ public interface UserDao {
 ```
 下面展示业务层调用的问题
 
-Service 负面例子
-------------
+### Service 负面例子
 
 正常想法，业务层调用一加钱一减钱
 
@@ -1512,8 +1494,7 @@ public class BankService {
 ```
 但是有问题，如果加钱和减钱中间出错抛出异常了，那么这个方法执行下来只会加不会减
 
-解决方案
-----
+### 解决方案
 
 事务通过 commit 和 callback 来保证原子性，让函数如果执行不到返回那就回滚撤销操作
 
@@ -1561,8 +1542,7 @@ public class BankService {
 这样中间出异常，前面的也会进行回滚到原始状态，不出现异常的话就执行完
 但是只有两种异常类会回滚，Error 和运行时异常
 
-事务传播行为
-------
+### 事务传播行为
 
 ![20230928193538](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193538.png)
 

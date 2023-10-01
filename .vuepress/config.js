@@ -12,6 +12,7 @@ module.exports = {
   plugins: [
       [ 'flowchart' ],
       [ 'mermaidjs' ],
+      [ '@vuepress-reco/extract-code' ],
       [ 
           '@vite/vuepress-plugin-mathjax' ,
           {
@@ -66,7 +67,7 @@ module.exports = {
       ]
   ],
   theme: 'reco',
-  sidebarDepth: 3,
+  sidebarDepth: 5,
   themeConfig: {
     mode: 'light',
     nav: [

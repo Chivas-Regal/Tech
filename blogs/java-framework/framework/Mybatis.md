@@ -2,8 +2,7 @@
 title: Mybatis
 ---
 
-速成
-==
+## 速成
 
 一张db表Student/student
 
