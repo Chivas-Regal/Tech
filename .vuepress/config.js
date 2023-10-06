@@ -1,5 +1,6 @@
 const {getChildren} = require("vuepress-sidebar-atuo")
-const path = require('path')
+const path = require('path');
+const shiki = require('shiki');
 
 module.exports = {
   title: "Chivas-Regal",
@@ -10,9 +11,16 @@ module.exports = {
     ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }],
   ],
   plugins: [
+      [ '@vuepress-reco/extract-code' ], 
+      /* 流程图 */
       [ 'flowchart' ],
+
+      /* ```mermaid */
       [ 'mermaidjs' ],
+
       [ '@vuepress-reco/extract-code' ],
+
+      /* 数学公式 */
       [ 
           '@vite/vuepress-plugin-mathjax' ,
           {
@@ -31,6 +39,8 @@ module.exports = {
               }
           }
       ],
+
+      /* 支付页面 */
       [
           'vuepress-plugin-sponsor',
           {
@@ -40,8 +50,9 @@ module.exports = {
               duration: 2000
           }
       ],
+
+      /* 一键复制 */
       [
-        // 一键复制
         'one-click-copy',
         {
           copySelector: [
@@ -53,16 +64,27 @@ module.exports = {
           duration: 1250
         }
       ],
+
+      /* sitemap */
       [
         'sitemap',
         {
           hostname: 'https://tech.chivas-regal.top/'
         }
       ],
+
+      /* 谷歌analytics（一个拦截访问量的功能） */
       [
         '@vuepress/google-analytics',
         {
             'ga': 'G-XDVY2G9SS5'
+        }
+      ],
+
+      [
+        "prismjs",
+        {
+            "theme": "solarizedlight"
         }
       ]
   ],

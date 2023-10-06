@@ -1547,4 +1547,3 @@ public class BankService {
 ![20230928193538](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20230928193538.png)
 
 用类似于这样的方式来设置：`@Transactional(propagation= Propagation.REQUIRES\_NEW)`
-

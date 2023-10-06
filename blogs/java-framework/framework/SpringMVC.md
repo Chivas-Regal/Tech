@@ -1003,61 +1003,51 @@ public class ProjectExceptionAdvice {
 这里给出 vue 下的动作函数
 
 ```js
-// books.html
+// books.html.<script>
 
-<script>
-    var vue = new Vue({
+var vue = new Vue({
 
-        el: '#app',
-        data:{
-            pagination: {},
-            dataList: [],//当前页要展示的列表数据
-            formData: {},//表单数据
-            dialogFormVisible: false,//控制表单是否可见
-            dialogFormVisible4Edit:false,//编辑表单是否可见
-            rules: {//校验规则
-                type: [{ required: true, message: '图书类别为必填项', trigger: 'blur' }],
-                name: [{ required: true, message: '图书名称为必填项', trigger: 'blur' }]
-            }
-        },
-
-        //钩子函数，VUE对象初始化完成后自动执行
-        created() {
-            this.getAll();
-        },
-
-        methods: {
-            //列表
-            getAll() {
-            },
-
-            //弹出添加窗口
-            handleCreate() {
-            },
-
-            //重置表单
-            resetForm() {
-            },
-
-            //添加
-            handleAdd () {
-            },
-
-            //弹出编辑窗口
-            handleUpdate(row) {
-            },
-
-            //编辑
-            handleEdit() {
-            },
-
-            // 删除
-            handleDelete(row) {
-            }
+    el: '#app',
+    data:{
+        pagination: {},
+        dataList: [],//当前页要展示的列表数据
+        formData: {},//表单数据
+        dialogFormVisible: false,//控制表单是否可见
+        dialogFormVisible4Edit:false,//编辑表单是否可见
+        rules: {//校验规则
+            type: [{ required: true, message: '图书类别为必填项', trigger: 'blur' }],
+            name: [{ required: true, message: '图书名称为必填项', trigger: 'blur' }]
         }
-    })
+    },
 
-</script>
+    //钩子函数，VUE对象初始化完成后自动执行
+    created() {
+        this.getAll();
+    },
+
+    methods: {
+        //列表
+        getAll() {},
+
+        //弹出添加窗口
+        handleCreate() {},
+
+        //重置表单
+        resetForm() {},
+
+        //添加
+        handleAdd () {},
+
+        //弹出编辑窗口
+        handleUpdate(row) {},
+
+        //编辑
+        handleEdit() {},
+
+        // 删除
+        handleDelete(row) {}
+    }
+})
 ```
 后面的所有向后端发送数据的操作主要都是以 **axois异步提交，按对应的格式（路径变量、请求体内塞json）发送到我们后台指定的接收地址**
 
