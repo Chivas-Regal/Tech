@@ -118,8 +118,22 @@ module.exports = {
             ]
         },
         {
-            text: 'Java/后端框架',
-            link: '/blogs/java-framework/',
+            text: 'Java',
+            items: [
+                { text: '基本语法使用', link: '/blogs/java/javalang/01-base.html' }
+            ]
+        },
+        {
+            text: '常用框架',
+            items: [
+                { text: 'Maven', link: '/blogs/framework/Maven/0-desc.html' },
+                { text: 'Spring', link: '/blogs/framework/Spring/0-ioc.html' },
+                { text: 'SpringMVC', link: '/blogs/framework/SpringMVC/0-quickstart.html' },
+                { text: 'Mybatis', link: '/blogs/framework/Mybatis/0-quickstart.html' },
+                { text: 'MybatisPlus', link: '/blogs/framework/MybatisPlus/0-quickstart.html' },
+                { text: 'SpringBoot', link: '/blogs/framework/SpringBoot/0-firstquick.html' },
+                
+            ]
         },
         {
             text: '计算机基础',
@@ -150,37 +164,37 @@ module.exports = {
             '/blogs/algorithm/',
             {
                 title: '动态规划',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/algorithm/dpp/')
             },
             {
                 title: '数据结构',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/algorithm/data-structure/')
             },
             {
                 title: '数学',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/algorithm/math/')
             },
             {
                 title: '图论',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/algorithm/graph/')
             },
             {
                 title: '搜索',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/algorithm/search/')
             },
             {
                 title: '字符串',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/algorithm/string/')
             },
             {
                 title: '杂项',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/algorithm/else/')
             }
         ],
@@ -188,57 +202,57 @@ module.exports = {
             '/blogs/solution/',
             {
                 title: '起步',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/solution/0gobegin/')
             },
             {
                 title: '基础算法',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/solution/base/')
             },
             {
                 title: '数据结构',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/solution/datastructure/')
             },
             {
                 title: '动态规划',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/solution/dp/')
             },
             {
                 title: '数学',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/solution/math/')
             },
             {
                 title: '计算几何',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/solution/geometry/')
             },
             {
                 title: '图论',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/solution/graph/')
             },
             {
                 title: '杂项',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/solution/else/')
             },
             {
                 title: '离线算法',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/solution/offline/')
             },
             {
                 title: '搜索',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/solution/search/')
             },
             {
                 title: '字符串',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/solution/string/')
             },
         ],
@@ -246,52 +260,52 @@ module.exports = {
             '/blogs/cppbases/',
             {
                 title: '起步',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/cppbases/0begin/')
             },
             {
                 title: '新特性',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/cppbases/new-features/')
             },
             {
                 title: '内存管理',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/cppbases/memory/')
             },
             {
                 title: '多线程',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/cppbases/threads/')
             },
             {
                 title: '多进程',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/cppbases/process/')
             },
             {
                 title: '模板元编程',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/cppbases/template/')
             },
             {
                 title: 'MySQL',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/cppbases/mysql/')
             },
             {
                 title: 'Web编程',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/cppbases/web/')
             },
             {
                 title: '服务器开发',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/cppbases/server/')
             },
             {
                 title: '项目实践',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/cppbases/z-project/')
             }
         ],
@@ -299,7 +313,7 @@ module.exports = {
             '/blogs/mixprogram/',
             {
                 title: 'C++ 与 Python',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/mixprogram/cpp-python')
             }
         ],
@@ -307,12 +321,12 @@ module.exports = {
             '/blogs/databases/',
             {
                 title: 'Redis',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/databases/redis')
             },
             {
                 title: 'SQL语句题解',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/databases/Z-sql-solution')
             }
         ],
@@ -320,7 +334,7 @@ module.exports = {
             '/blogs/linux/',
             {
                 title: 'Shell编程',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/linux/shell')
             }
         ],
@@ -328,39 +342,63 @@ module.exports = {
             '/blogs/machine-vision/',
             {
                 title: '起步',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/machine-vision/0gobegin')
             },
             {
                 title: '基础理论',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/machine-vision/base')
             },
             // {
             //     title: '算法实现',
-            //     collapsable: true,
+            //     collapsable: false,
             //     children: getChildren('./blogs/machine-vision/algorithm')
             // },
             {
                 title: '项目实践',
-                collapsable: true,
+                collapsable: false,
                 children: getChildren('./blogs/machine-vision/project')
             }
         ],
-        '/blogs/java-framework/': [
-            '/blogs/java-framework/',
-            '/blogs/java-framework/0-IDEAuse',
+        '/blogs/java/': [
             {
-                title: 'Java 语法',
-                collapsable: true,
-                children: getChildren('./blogs/java-framework/Java')
+                title: 'Java 语法使用',
+                collapsable: false,
+                children: getChildren('./blogs/java/javalang')
+            }
+        ],
+        '/blogs/framework/': [
+            '/blogs/framework/0-IDEAuse',
+            {
+                title: 'Maven',
+                collapsable: false,
+                children: getChildren('./blogs/framework/Maven')
             },
-            '/blogs/java-framework/JSP',
-            '/blogs/java-framework/Maven',
             {
-                title: '框架',
-                collapsable: true,
-                children: getChildren('./blogs/java-framework/framework')
+                title: 'Spring',
+                collapsable: false,
+                children: getChildren('./blogs/framework/Spring')
+            },
+            {
+                title: 'SpringMVC',
+                collapsable: false,
+                children: getChildren('./blogs/framework/SpringMVC')
+            },
+            {
+                title: 'Mybatis',
+                collapsable: false,
+                children: getChildren('./blogs/framework/Mybatis')
+            },
+            {
+                title: 'MybatisPlus',
+                collapsable: false,
+                children: getChildren('./blogs/framework/MybatisPlus')
+            },
+            {
+                title: 'SpringBoot',
+                collapsable: false,
+                children: getChildren('./blogs/framework/SpringBoot')
             }
         ]
     },

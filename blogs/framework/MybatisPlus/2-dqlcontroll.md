@@ -1,201 +1,8 @@
 ---
-title: Mybatis Plus
+title: DQL 编程控制
 ---
 
-## 入门案例
-
-先说最基础的 mp 工程的四个元素：
-- pom.xml 导入坐标
-- application.yml 文件配置
-- 可以匹配数据表的 domain 实体类
-- 利用上面实体类+sql操作表的被代理实现的 dao 接口（不同：继承已有方法完成简化）
-
-下面是完成这个工程的具体操作  
-
-多导入一个这个坐标  
-
-```xml
-<!-- pom.xml -->
-
-<dependency>
-    <groupId>com.baomidou</groupId>
-    <artifactId>mybatis-plus-boot-starter</artifactId>
-    <version>3.5.2</version>
-</dependency>
-```
-
-配置好 yml 的 datasource 信息  
-
-```yml
-# application.yml
-
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/learn_info
-    username: 'root'
-    password: 'xxxxxxxxxxx'
-    type: com.alibaba.druid.pool.DruidDataSource
-```
-
-做一个能植入 datasource 中 url 对应数据库 learn_info 下的数据表的类  
-比如 learn_info 下有一张表 tbl_book
-
-```sql
-mysql> desc tbl_book;
-+-------------+--------------+------+-----+---------+----------------+
-| Field       | Type         | Null | Key | Default | Extra          |
-+-------------+--------------+------+-----+---------+----------------+
-| id          | int          | NO   | PRI | NULL    | auto_increment |
-| type        | varchar(20)  | YES  |     | NULL    |                |
-| name        | varchar(50)  | YES  |     | NULL    |                |
-| description | varchar(255) | YES  |     | NULL    |                |
-+-------------+--------------+------+-----+---------+----------------+
-4 rows in set (0.02 sec)
-```
-
-我们假设对应的类为 `Obj` ，先说我们在 Mybatis 中做了自动代理实现的接口 BookDao  
-
-```java
-@Mapper
-public interface BookDao extends BaseMapper<tbl_book> {
-}
-```
-
-我们用的是 SpringBoot ，就直接在上面加一个 `@Mapper`  
-Mybatis Plus 可以省去写内部的接口方法，改为 `extends BaseMapper<Obj>` 来完成方法继承一些已经写好的实用的方法，诸如 `insert(Obj obj)`、`selectById(int id)` 这样的  
-我们这个 dao 就可以对 `Obj` 与其**对应的表**进行 sql 操作  
-  
-<mark><b>实体类名对应表名</b></mark>有两种识别方案（表名：`tbl_book`）  
-- 数据类名与表名相同，可以自动识别
-  - TblBook.java
-  - tbl_book.java
-- 数据类名与表名不同，需要在上面加上 `@TableName("tbl_book")` 这句话
-  
-<p></p>  
-  
-```java
-// 用 TblBook 可以自动匹配表名
-public class TblBook {
-    ...
-```
-
-```java
-// 用 Book 需要注解手动匹配表名
-@TableName("tbl_book")
-public class Book {
-    ...
-```
-
-表名有了匹配方式，字段名自然也有  
-<mark><b>实体类的属性对应表的字段</b></mark>也有两种匹配方式（字段名：`a_b int`）
-- 属性名与字段名相同，可以自动识别  
-  - `private int aB`
-  - `private int a_b`
-- 属性名与字段名不同，需要在上面添加 `@TableField("a_b")` 这句话
-
-比如 `Book` 类匹配 `tbl_book` 表，用 `mid, name, mtype, description` 四个属性匹配 `id, name, type, description` 四个字段  
-
-```java
-@TableName("tbl_book")
-public class Book {
-
-    @TableField("id")
-    private Integer mid;
-
-    private String name;
-
-    @TableField("type")
-    private String mtype;
-
-    private String description;
-
-    ...
-```
-
-即可完成  
-
-## 标准数据层开发
-
-|功能|MP接口|
-|-|-|
-|新增|`int insert(T t)`|
-|删除|`int deleteById(Serializable id)`|
-|修改|`int updateById(T t)`|
-|根据id查询|`T selectById(Serializable id)`|
-|查询全部|`List<T> selectList()`|
-|分页查询|`IPage<T> selectPage(IPage<T> page)`|
-|按条件查询|`IPage<T> selectPage(Wrapper<T> queryWrapper)`|
-
-### CRUD 使用
-
-其中修改操作的参数 T ，我们 set 入 id 后，仅需要再 set 需要修改的字段（属性），别的不修改的 MP 会为其进行保留  
-比如有行 `id=1, name='abc', type='char', description='lowerchar'`  
-我们进行  
-```java
-@AutoWired
-private BookDao bookDao;
-
-...
-
-    Book book = new Book();
-    book.setId(1);
-    book.setName("aaa");
-    bookDao.updateById(book);
-...
-```
-
-即可修改为 `id=1, name='aaa', type='char', description='lowerchar'`  
-而不是像我们之前手动写会直接传入 null  
-
-### ✅ 简化开发：lombok 简化 POJO 实体类开发  
-
-我们 POJO 实体类里面不想自己写或者自己快捷键生成 `getter、setter、constructor` 等方法，均可以利用注解来完成
-
-导入 lombok 坐标
-
-```xml
-<!-- pom.xml -->
-
-<dependency>
-    <groupId>org.projectlombok</groupId>
-    <artifactId>lombok</artifactId>
-</dependency>
-```
-
-在想自动生成方法的类上面加上下面这样的注解  
-
-```java
-// Book.java
-
-/* 无参构造 */
-@NoArgsConstructor
-/* 全参构造 */
-@AllArgsConstructor
-/* getter */
-@Getter
-/* setter */
-@Setter
-/* toString */
-@ToString
-/* equals、hashCode */
-@EqualsAndHashCode
-
-... // 还有很多别的自动生成的方法
-
-public class Book {
-    ...
-```
-
-但是似乎也很长，加一个 `@Data` 可以替代这里除了构造方法之外的另外几个注解  
-
-```java
-@Data
-public class Book {
-    ...
-```
-
-### 分页查询
+## 分页查询
 
 `selectPage` 这个方法参数要有一个 IPage，我们先构造一个然后导入其中获取查询数据  
 
@@ -260,14 +67,12 @@ mybatis-plus:
 ... # 关闭 sqlsession 和输出的结果
 ```
 
-## DQL 编程控制
-
-### 条件查询
+## 条件查询
 
 在参数中频繁出现的 `Wrapper<>` 就是条件控制器，我们这里利用它完成简单的演示  
 例如：查询 id 小于 10 的记录    
 
-#### 查询格式
+### 查询格式
 
 - 常规格式
 
@@ -304,7 +109,7 @@ qw.lt(Book::getMid, 10);
 System.out.println(bookDao.selectList(qw));
 ```
 
-#### 条件组合
+### 条件组合
 
 当出现多个查询条件时，有两种方式进行拼接   
 例如：查询 $id\in(5,10)$ 之间的记录  
@@ -335,7 +140,7 @@ qw.lt(Book::getMid, 10).gt(Book::getMid, 5);
 qw.gt(Book::getMid, 10).or().lt(Book::getMid, 5);
 ```
 
-#### null 判定
+### null 判定
 
 如果前台有支持用户用上下界过滤数据的功能，那么我们后端要接收的上下界有可能是null（用户不设定）  
 这里我们用一个类进行模拟用户查询提交的POJO类  
@@ -395,7 +200,7 @@ qw.lt(bookQuery.getMid2() != null, Book::getMid, bookQuery.getMid2());
 System.out.println(bookDao.selectList(qw));
 ```
 
-#### 其他条件
+### 其他条件
 
 下面用 `LambdaQueryWrapper<Book> qw = new LambdaQueryWrapper<>();` 来进行演示  
 
@@ -429,11 +234,13 @@ qw.between(Book::getMid, 5, 20);
 qw.like(Book::getMname, "导"); // 算法导论
 ```
 
-### 查询投影
+......
+
+## 查询投影
 
 控制我们看到的结果  
 
-#### 查询结果包含模型类中的部分属性    
+### 查询结果包含模型类中的部分属性    
 
 - lambda 包装
 
@@ -455,7 +262,7 @@ qw.select("id", "description");
 System.out.println(bookDao.selectList(qw));
 ```
 
-#### 查询结果包含模型类未定义属性
+### 查询结果包含模型类未定义属性
 
 比如按 `type` 做个分组  
 我们现在的表内容长这样（11,22,33 那个是之前 [springboot 前端结合](./SpringBoot.html#前端结合) 测试页面的时候加的    

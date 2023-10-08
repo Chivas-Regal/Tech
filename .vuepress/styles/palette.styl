@@ -19,6 +19,11 @@ $MQNarrow = 959px
 $MQMobile = 719px
 $MQMobileNarrow = 419px
 
+/* 全局字体 */
+body
+  font-family: MiSans, "圆体" !important;
+
+/* 对小代码块颜色设置 */
 .content__default {
   code {
     color: #E96910!important
@@ -29,8 +34,36 @@ $MQMobileNarrow = 419px
       color #fff!important
     }
   }
-  body {
-      font-family: "input, 黑体"!important;
-  }
 }
 
+/* 整体代码块字体 */
+code, code[class*="language-"], pre, pre[class*="language-"]
+  font-family: "SF mono", "jetbrains mono", Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace !important;
+
+
+/* 
+   文章页面与侧边栏之间的关系 
+   -- 夹带动态页面大小 
+*/
+
+.page, .password-wrapper-in
+    overflow-x: hidden;
+    margin-left: 16rem;
+.sidebar
+    width: 16rem
+    font-size: 15px
+a.sidebar-link
+    line-height: 1.2rem
+
+@media (max-width: 959px)
+  .page, .password-wrapper-in
+    margin-left: 14rem
+  .sidebar
+    width: 14rem
+    font-size: 13px
+  a.sidebar-link
+    line-height: 1rem
+
+@media (max-width: 719px)
+  .page, .password-wrapper-in
+    margin-left: 0rem

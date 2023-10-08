@@ -1,8 +1,6 @@
 ---
-title: Mybatis
+title: 第一个 Mybatis 项目
 ---
-
-## 速成
 
 一张db表Student/student
 
