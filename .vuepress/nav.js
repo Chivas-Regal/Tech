@@ -5,7 +5,8 @@ module.exports = [
         items: [
             { text: '理论梳理', link: '/blogs/algorithm/' },
             { text: '解题报告', link: '/blogs/solution/' },
-        ]
+        ],
+        icon: 'iconfont icon-suanfa2'
     },
     {
         text: 'C/C++',
@@ -21,13 +22,15 @@ module.exports = [
                     { text: '机器视觉', link: '/blogs/machine-vision/' }
                 ]
             },
-        ]
+        ],
+        icon: 'iconfont icon-language-cpp'
     },
     {
         text: 'Java',
         items: [
             { text: '基本语法使用', link: '/blogs/java/javalang/01-base.html' }
-        ]
+        ],
+        icon: 'iconfont icon-caozuo-kafei'
     },
     {
         text: '常用框架',
@@ -38,15 +41,16 @@ module.exports = [
             { text: 'Mybatis', link: '/blogs/framework/Mybatis/0-quickstart.html' },
             { text: 'MybatisPlus', link: '/blogs/framework/MybatisPlus/0-quickstart.html' },
             { text: 'SpringBoot', link: '/blogs/framework/SpringBoot/0-firstquick.html' },
-            
-        ]
+        ],
+        icon: 'iconfont icon-zuzhijiagou'
     },
     {
         text: '计算机基础',
         items: [
             { text: '数据库', link: '/blogs/databases/' },
             { text: 'Linux', link: '/blogs/linux/' }
-        ]
+        ],
+        icon: 'iconfont icon-jisuanjikaifa'
     },
     {
         text: '个人',
