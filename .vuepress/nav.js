@@ -30,7 +30,7 @@ module.exports = [
         items: [
             { text: '基本语法使用', link: '/blogs/java/javalang/01-base.html' }
         ],
-        icon: 'iconfont icon-caozuo-kafei'
+        icon: 'iconfont icon-kafei'
     },
     {
         text: '常用框架',
@@ -50,7 +50,7 @@ module.exports = [
             { text: '数据库', link: '/blogs/databases/' },
             { text: 'Linux', link: '/blogs/linux/' }
         ],
-        icon: 'iconfont icon-jisuanjikaifa'
+        icon: 'iconfont icon-jisuanjikaifa-copy'
     },
     {
         text: '个人',

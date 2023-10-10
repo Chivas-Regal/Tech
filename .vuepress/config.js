@@ -7,8 +7,10 @@ module.exports = {
   description: 'Technology Stack',
   dest: './public',
   head: [
-    ['link', { rel: 'icon', href: '/favicon.ico' }],
     ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,user-scalable=no' }],
+    ['link', { rel: 'icon', href: '/favicon.ico' }],
+    ['link', { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css' }],
+    ['link', { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" }],
   ],
   plugins: require('./plugins.js'),
   theme: 'reco',
@@ -49,7 +51,7 @@ module.exports = {
       appId: 'RJ50RF5BLtwKMFRExnOMqh3k-gzGzoHsz',// your appId
       appKey: 'W30Aug6XcrXrCkirCwdsvcEV', // your appKey
       showComment: false
-    }
+    },
   },
 
   markdown: {
@@ -62,8 +64,4 @@ module.exports = {
             // md.use(require('markdown-it-mathjax3'), { tex: {tags: 'ams'} })
         }
     },
-    head: [
-        ['link', { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css' }],
-        ['link', { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" }],
-    ]
   }

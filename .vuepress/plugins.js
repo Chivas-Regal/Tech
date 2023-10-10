@@ -41,38 +41,49 @@ module.exports = [
 
     /* 一键复制 */
     [
-    'one-click-copy',
-    {
-        copySelector: [
-        'div[class*="language-"] pre',
-        'div[class*="aside-code"] aside'
-        ],
-        copyMessage: '白嫖成功',
-        toolTipMessage: '立即白嫖',
-        duration: 1250
-    }
+        'one-click-copy',
+        {
+            copySelector: [
+            'div[class*="language-"] pre',
+            'div[class*="aside-code"] aside'
+            ],
+            copyMessage: '白嫖成功',
+            toolTipMessage: '立即白嫖',
+            duration: 1250
+        }
     ],
 
     /* sitemap */
     [
-    'sitemap',
-    {
-        hostname: 'https://tech.chivas-regal.top/'
-    }
+        'sitemap',
+        {
+            hostname: 'https://tech.chivas-regal.top/'
+        }
     ],
 
     /* 谷歌analytics（一个拦截访问量的功能） */
     [
-    '@vuepress/google-analytics',
-    {
-        'ga': 'G-XDVY2G9SS5'
-    }
+        '@vuepress/google-analytics',
+        {
+            'ga': 'G-XDVY2G9SS5'
+        }
     ],
 
+    /* 评论系统 */
     [
-    "prismjs",
-    {
-        "theme": "solarizedlight"
-    }
+        '@vssue/vuepress-plugin-vssue',
+        {
+            /* 设置平台，github-v4自动解析@vssue/api-github-v4包 */
+            plateform: 'github-v4',
+            /* 仓库拥有者 */
+            owner: 'Tequila-Avage',
+            /* 仓库 */
+            repo: 'TechCrComments',
+            /* 在 个人的Settings/DeveloperSettings/OAthorKey 下 */
+            clientId: '8235fb8e1f8936b95c49',
+            clientSecret: '237105ee4e21bd033ba547003938ee60abedbe4c',
+            /* 自动创建评论 */
+            autoCreateIssue: true
+        }
     ]
 ]
