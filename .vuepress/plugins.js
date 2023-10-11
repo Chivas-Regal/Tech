@@ -1,3 +1,5 @@
+const {OauthConfig} = require('./dif-env-config.js')
+
 module.exports = [
     [ '@vuepress-reco/extract-code' ], 
     /* 流程图 */
@@ -74,14 +76,14 @@ module.exports = [
         '@vssue/vuepress-plugin-vssue',
         {
             /* 设置平台，github-v4自动解析@vssue/api-github-v4包 */
-            plateform: 'github-v4',
+            plateform: 'github-v3',
             /* 仓库拥有者 */
             owner: 'Tequila-Avage',
             /* 仓库 */
             repo: 'TechCrComments',
             /* 在 个人的Settings/DeveloperSettings/OAthorKey 下 */
-            clientId: '8235fb8e1f8936b95c49',
-            clientSecret: '237105ee4e21bd033ba547003938ee60abedbe4c',
+            clientId: OauthConfig.clientId,
+            clientSecret: OauthConfig.clientSecret,
             /* 自动创建评论 */
             autoCreateIssue: true
         }

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "author": "reco_luan",
   "scripts": {
-    "dev": "vuepress dev . --open --host \"localhost\"",
-    "build": "vuepress build .",
+    "dev": "vuepress dev . --open --host \"localhost\" --version=development",
+    "build": "vuepress build . --version=production",
     "hotdev": "vuepress dev --temp .temp"
   },
   "type": "commonjs",
@@ -28,6 +28,7 @@
     "watchpack": "^2.3.1"
   },
   "dependencies": {
+    "@vssue/api-github-v3": "^1.4.7",
     "@vssue/api-github-v4": "^1.4.7",
     "@vssue/vuepress-plugin-vssue": "^1.4.8",
     "emailjs": "^4.0.1",
