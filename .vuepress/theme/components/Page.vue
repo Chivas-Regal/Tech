@@ -53,7 +53,7 @@
     <ModuleTransition delay="0.32">
       <Vssue 
         class="theme-default-content content__default" 
-        :options="{ local: 'zh'}" 
+        :options="{ locale: 'zh' }"
         :key="pagePath"
         :title="pagePath"
       />
