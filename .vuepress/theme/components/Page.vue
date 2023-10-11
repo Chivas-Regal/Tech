@@ -55,6 +55,7 @@
         class="theme-default-content content__default" 
         :options="{ local: 'zh'}" 
         :key="pagePath"
+        :title="pagePath"
       />
     </ModuleTransition>
 
