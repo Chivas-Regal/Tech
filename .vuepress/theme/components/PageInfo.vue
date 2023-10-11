@@ -13,10 +13,9 @@
       <span>{{ formatDateValue(pageInfo.frontmatter.date) }}</span>
     </reco-icon>
     <reco-icon
-      v-if="showAccessNumber === true"
       icon="reco-eye"
     >
-      <AccessNumber :idVal="pageInfo.path" :numStyle="numStyle" />
+      <Valine />
     </reco-icon>
     <reco-icon
       v-if="pageInfo.frontmatter.tags"
@@ -38,6 +37,7 @@
 import { defineComponent } from 'vue-demi'
 import { RecoIcon } from '@vuepress-reco/core/lib/components'
 import { useInstance } from '@theme/helpers/composable'
+import { Valine } from '@theme/components/Valine'
 
 export default defineComponent({
   components: { RecoIcon },

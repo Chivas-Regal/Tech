@@ -47,11 +47,11 @@ module.exports = {
     /**
      * valine 设置 (if you need valine comment )
      */
-    valineConfig: {
-      appId: 'RJ50RF5BLtwKMFRExnOMqh3k-gzGzoHsz',// your appId
-      appKey: 'W30Aug6XcrXrCkirCwdsvcEV', // your appKey
-      showComment: false
-    },
+    // valineConfig: {
+    //   appId: 'RJ50RF5BLtwKMFRExnOMqh3k-gzGzoHsz',// your appId
+    //   appKey: 'W30Aug6XcrXrCkirCwdsvcEV', // your appKey
+    //   showComment: false
+    // },
   },
 
   markdown: {

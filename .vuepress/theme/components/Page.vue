@@ -78,6 +78,7 @@ import { resolvePage, outboundRE, endingSlashRE } from '@theme/helpers/utils'
 import { ModuleTransition } from '@vuepress-reco/core/lib/components'
 import SubSidebar from '@theme/components/SubSidebar'
 import { useInstance } from '@theme/helpers/composable'
+import { Valine } from '@theme/components/Valine'
 
 export default defineComponent({
   components: { PageInfo, ModuleTransition, SubSidebar },
@@ -105,6 +106,9 @@ export default defineComponent({
       } = instance || {}
 
       const vc = valineLocalConfig || valineConfig
+
+      console.log(vc)
+      console.log(vc && vc.visitor)
 
       return vc && vc.visitor != false
     })
@@ -339,5 +343,12 @@ function flatten (items, res) {
         font-size .8em
         float none
         text-align left
-
+.u-valine-wrap {
+  position: relative;
+  top: 142px;
+  left: 48px;
+  max-width: 840px;
+  height: 20px;
+  margin: 0 auto;
+}
 </style>

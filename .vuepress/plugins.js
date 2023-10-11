@@ -87,5 +87,17 @@ module.exports = [
             /* 自动创建评论 */
             autoCreateIssue: true
         }
+    ],
+
+    [
+        '@vuepress/register-components',
+        {
+            components: [
+                {
+                    name: 'Valine',
+                    path: '/.vuepress/theme/components/Valine.vue'
+                }
+            ]
+        }
     ]
 ]
