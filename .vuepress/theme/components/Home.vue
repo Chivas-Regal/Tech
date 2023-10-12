@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { defineComponent, computed } from 'vue-demi'
+import { defineComponent, computed, ref, reactive, toRefs } from 'vue-demi'
 import NavLink from '@theme/components/NavLink'
 import { ModuleTransition } from '@vuepress-reco/core/lib/components'
 import { useInstance } from '@theme/helpers/composable'
@@ -78,8 +78,9 @@ export default defineComponent({
       maxHeight: '200px',
       margin: '6rem auto 1.5rem'
     })
+    const instanceRef = ref(instance)
 
-    return { recoShowModule, actionLink, heroImageStyle }
+    return { recoShowModule, actionLink, heroImageStyle, instance: ref(instanceRef) }
   },
 
   data() {
@@ -91,7 +92,7 @@ export default defineComponent({
 
   created:function() {
     this.is_show.push(true)
-    for (let i = 1; i < instance.$frontmatter.features.length; i ++) {
+    for (let i = 1; i < this.instance.$frontmatter.features.length; i ++) {
       this.is_show.push(false)
     }
   },

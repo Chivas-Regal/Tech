@@ -49,7 +49,7 @@ features:
     link: blogs/algorithm/else/suspendedline.html
     icon: iconfont icon-qita1
     
-- title: 计算机原理应用与开发
+- title: 计算机原理技术
   children:
   - title: C/C++
     details: 是针对于计算机原理来编程，深入底层挖掘的利器，既有C的底层支持也有各种便于开发的新特性语法糖，也是作者认真学习的第一份语言
@@ -60,7 +60,7 @@ features:
     link: https://tech.chivas-regal.top/blogs/linux/
     icon: iconfont icon-linux
 
-- title: 全栈技能点学习
+- title: 全栈技能点
   children:
   - title: MySQL
     details: 一种列存储的磁盘数据库，为数据提供了强大的安全性保证，其内置的B+Tree也保证了读写的效率，且其提供的SQL语句可以实现复杂的逻辑功能
