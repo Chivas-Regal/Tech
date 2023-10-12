@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "9602257",
+      "name": "前端",
+      "font_class": "web",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "16034462",
+      "name": "vuejs-line",
+      "font_class": "vuejs-line",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "1906548",
+      "name": "前端",
+      "font_class": "qianduan",
+      "unicode": "e66d",
+      "unicode_decimal": 58989
+    },
+    {
+      "icon_id": "6496026",
+      "name": "Vue",
+      "font_class": "Vue",
+      "unicode": "e799",
+      "unicode_decimal": 59289
+    },
+    {
+      "icon_id": "28048120",
+      "name": "folder-vuepress",
+      "font_class": "folder-vuepress",
+      "unicode": "e674",
+      "unicode_decimal": 58996
+    },
+    {
       "icon_id": "7040619",
       "name": "其他",
       "font_class": "qita1",

@@ -33,6 +33,13 @@ module.exports = [
         icon: 'iconfont icon-kafei'
     },
     {
+        text: '前端开发',
+        items: [
+            { text: 'Vuepress源码开发', link: '/blogs/front/vuepress/0-thememove.html'}
+        ],
+        icon: 'iconfont icon-qianduan'
+    },
+    {
         text: '常用框架',
         items: [
             { text: 'Maven', link: '/blogs/framework/Maven/0-desc.html' },

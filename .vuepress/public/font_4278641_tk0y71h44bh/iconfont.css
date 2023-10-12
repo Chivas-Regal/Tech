@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4278641 */
-  src: url('iconfont.woff2?t=1697102823276') format('woff2'),
-       url('iconfont.woff?t=1697102823276') format('woff'),
-       url('iconfont.ttf?t=1697102823276') format('truetype');
+  src: url('iconfont.woff2?t=1697116917679') format('woff2'),
+       url('iconfont.woff?t=1697116917679') format('woff'),
+       url('iconfont.ttf?t=1697116917679') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,26 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-web:before {
+  content: "\e600";
+}
+
+.icon-vuejs-line:before {
+  content: "\e63c";
+}
+
+.icon-qianduan:before {
+  content: "\e66d";
+}
+
+.icon-Vue:before {
+  content: "\e799";
+}
+
+.icon-folder-vuepress:before {
+  content: "\e674";
 }
 
 .icon-qita1:before {

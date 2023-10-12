@@ -60,7 +60,7 @@ features:
     link: https://tech.chivas-regal.top/blogs/linux/
     icon: iconfont icon-linux
 
-- title: 全栈技能点
+- title: 后端技能点
   children:
   - title: MySQL
     details: 一种列存储的磁盘数据库，为数据提供了强大的安全性保证，其内置的B+Tree也保证了读写的效率，且其提供的SQL语句可以实现复杂的逻辑功能
@@ -78,6 +78,12 @@ features:
     details: 是SSM的升级，通过将各种服务功能与环境配置写入pom文件中，以最少的代码开发出最完善的功能，也是当前时代最常用的Web应用开发框架
     link: blogs/framework/SpringBoot/0-firstquick.html
     icon: iconfont icon-bxl-spring-boot
+- title: 前端技能点
+  children:
+  - title: Vuepress
+    details: 一种知识文档快速建立的框架，只需要编写md文件并且按自己喜好设计好侧边/顶栏的json后便可自动解析为文档网站，辅以强大多样的插件支持
+    link: blogs/front/vuepress/0-thememove.html
+    icon: iconfont icon-Vue
 
 ---
 ## 网页与作者
