@@ -106,10 +106,6 @@ export default defineComponent({
       } = instance || {}
 
       const vc = valineLocalConfig || valineConfig
-
-      console.log(vc)
-      console.log(vc && vc.visitor)
-
       return vc && vc.visitor != false
     })
 

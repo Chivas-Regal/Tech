@@ -1,2 +1,1 @@
-import "../.vuepress/public/font_4278641_esgbxz21r8/iconfont.css"
-import "../.vuepress/public/fonts/index.styl"
+import "../.vuepress/public/font_4278641_tk0y71h44bh/iconfont.css"

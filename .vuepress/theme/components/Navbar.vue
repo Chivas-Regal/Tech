@@ -14,19 +14,18 @@
         ref="siteName"
         class="site-name"
         v-if="$siteTitle">{{ $siteTitle }}</span>
+      
     </router-link>
-
     <div
       class="links"
       :style="linksWrapMaxWidth ? {
         'max-width': linksWrapMaxWidth + 'px'
       } : {}">
-
       <Mode />
       <AlgoliaSearchBox
         v-if="isAlgoliaSearch"
         :options="algolia"/>
-      <SearchBox v-else-if="$themeConfig.search !== false && $frontmatter.search !== false"/>
+        <SearchBox v-else-if="$themeConfig.search !== false && $frontmatter.search !== false"/>
       <NavLinks class="can-hide"/>
     </div>
   </header>

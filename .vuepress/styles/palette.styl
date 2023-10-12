@@ -19,9 +19,12 @@ $MQNarrow = 959px
 $MQMobile = 719px
 $MQMobileNarrow = 419px
 
+$globalFont = "Jetbrains mono", MiSans
+$codeFont = "SF Mono"
+
 /* 全局字体 */
 body
-  font-family: MiSans, "思源柔黑" !important;
+  font-family: $globalFont !important;
 
 /* 对小代码块颜色设置 */
 .content__default {
@@ -38,7 +41,7 @@ body
 
 /* 整体代码块字体 */
 code, code[class*="language-"], pre, pre[class*="language-"]
-  font-family: "SF Mono", "jetbrains mono", Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace !important;
+  font-family: $codeFont !important
 
 
 /* 
@@ -72,3 +75,10 @@ a.sidebar-link
   box-shadow: var(--box-shadow)
   border-radius: 10px
   max-width: 70rem
+  font-family: $globalFont
+
+.vssue .vssue-new-comment
+  box-shadow: var(--box-shadow)
+  border-radius: 10px
+  max-width: 70rem
+  font-family: $globalFont

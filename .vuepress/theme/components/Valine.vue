@@ -15,7 +15,6 @@ export default {
         // 通过动态导入来解决“NodeJS环境下对window变量未定义”的问题
         import('valine').then(module => {
             const Valine = module.default
-            console.log(Valine)
             if (typeof window !== 'undefined') {
                 const isDev = window.location.hostname.includes('localhost');
                 // if (isDev) return; // 不统计本地开发时的阅读量
