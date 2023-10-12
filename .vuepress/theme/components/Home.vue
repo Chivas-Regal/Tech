@@ -229,9 +229,16 @@ export default defineComponent({
     &:hover {
       background-color: #fbfffc;
       box-shadow: 0 10px 20px 0 rgba(108,135,135,.2);
+      color: #3eaf7c;
+
+      .iconfont {
+        color: #3eaf7c;
+      }
+
       &:after {
         visibility: visible;
         transform: scaleX(1);
+        background-color: #3eaf7c;
       }
     }
     &:after {
