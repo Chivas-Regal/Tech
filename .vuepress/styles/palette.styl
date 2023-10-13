@@ -43,6 +43,11 @@ body
 code, code[class*="language-"], pre, pre[class*="language-"]
   font-family: $codeFont !important
 
+.vssue
+  box-shadow: var(--box-shadow)
+  border-radius: 10px
+  max-width: 100rem
+  font-family: $globalFont
 
 /* 
    文章页面与侧边栏之间的关系 
@@ -57,6 +62,8 @@ code, code[class*="language-"], pre, pre[class*="language-"]
     font-size: 15px
 a.sidebar-link
     line-height: 1.2rem
+.vssue
+    font-size: 15px
 
 @media (max-width: 959px)
   .page, .password-wrapper-in
@@ -66,18 +73,20 @@ a.sidebar-link
     font-size: 13px
   a.sidebar-link
     line-height: 1rem
+  .vssue .vssue-new-comment .vssue-new-comment-input
+    font-size: 13px
 
 @media (max-width: 719px)
   .page, .password-wrapper-in
     margin-left: 0rem
-
-.vssue
-  box-shadow: var(--box-shadow)
-  border-radius: 10px
-  max-width: 70rem
-  font-family: $globalFont
-  font-size: 15px
+  .vssue .vssue-new-comment .vssue-new-comment-input
+    font-size: 12px
 
 .vssue .vssue-new-comment
   font-family: $globalFont
   font-size: 15px
+
+.vssue-body img {
+  border-radius: 50%;
+  overflow: hidden;
+}

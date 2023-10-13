@@ -51,12 +51,14 @@
 
     <!-- Vssue评论插件 -->
     <ModuleTransition delay="0.32">
-      <Vssue 
-        class="theme-default-content content__default" 
-        :options="{ locale: 'zh' }"
-        :key="pagePath"
-        :title="pagePath"
-      />
+      <div style="padding: 10%;">
+        <Vssue 
+          class="theme-default-content content__default" 
+          :options="{ locale: 'zh' }"
+          :key="pagePath"
+          :title="pagePath"
+        />
+      </div>
     </ModuleTransition>
 
     <!-- 
