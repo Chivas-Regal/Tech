@@ -19,7 +19,7 @@ export function getOneColor () {
   return tagColorArr[index]
 }
 
-export function registerCodeThemeCss (theme = 'tomorrow') {
+export function registerCodeThemeCss (theme = 'funky') {
   const themeArr = ['tomorrow', 'funky', 'okaidia', 'solarizedlight', 'default']
   const href = `//prismjs.com/themes/prism${themeArr.indexOf(theme) > -1 ? `-${theme}` : ''}.css`
 

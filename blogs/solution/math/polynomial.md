@@ -863,7 +863,7 @@ int main () {
 令 $a_i$ 为长度为 $i$ 的木棍个数  
 拼成 $k$ 的方案数为 $f_k=\left\lfloor\frac{\sum\limits_{i+j=k}\min(a_i,a_j)}2\right\rfloor$  
 其中去掉 $(i,j)$ 和 $(j,i)$ 这种因顺序不同导致的重复与 两个相同的木棍拼成 $k$ 的方案数，所以要除 $2$ 下取整  
-<span style="color: red;">
+  
 那么注意到上面这一块也就是 $\sum\limits_{i+j=k}\min(a_i,a_j)$ 是一个类似于卷积形式的卷$\min$  
 考虑如何将这一部分转化为卷积  
 $$\begin{aligned}
@@ -871,8 +871,8 @@ $$\begin{aligned}
 =&\sum\limits_{i+j=k}\sum\limits_{d=1}[a_i\ge d][a_j\ge d]\\
 =&\sum\limits_{d=1}\sum\limits_{i+j=k}[a_i\ge d][a_j\ge d]
 \end{aligned}$$  
-这样枚举 $d$ 后面就是一个卷积了  
-</span>
+这样枚举 $d$ 后面就是一个卷积了    
+  
 但是如果 $d$ 是暴力 $[1,2m]$ 了话时间复杂度还是过不去，注意到这都是 $\ge$ ，考虑区间跳跃优化  
 我们将所有出现的次数存入一个数组 $b$ ，将其排序去重  
 我们 $d$ 只枚举 $b$ 中的元素  

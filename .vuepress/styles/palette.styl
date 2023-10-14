@@ -1,3 +1,5 @@
+@import "codetheme/xkxw.styl"
+
 // 颜色
 $accentColor = #3eaf7c
 $textColor = #2c3e50
@@ -25,19 +27,6 @@ $codeFont = "SF Mono"
 /* 全局字体 */
 body
   font-family: $globalFont !important;
-
-/* 对小代码块颜色设置 */
-.content__default {
-  code {
-    color: #E96910!important
-    background-color: rgba(27,31,35,0.03)!important
-  }
-  pre, pre[class*="language-"] {
-    code {
-      color #fff!important
-    }
-  }
-}
 
 /* 整体代码块字体 */
 code, code[class*="language-"], pre, pre[class*="language-"]

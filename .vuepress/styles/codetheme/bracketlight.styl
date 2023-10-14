@@ -1,0 +1,40 @@
+/* 对小代码块颜色设置 */
+.content__default {
+  code {
+    color: #E96910 !important
+    background-color: rgba(27,31,35,0.03) !important;
+  }
+  // pre, pre[class*="language-"] {
+  //   code {
+  //     color #fff!important
+  //   }
+  // }
+}
+
+div[class*="language-"], .line-numbers-mode {
+    background-color: rgb(249 249 249) !important;
+}
+div[class*="language-"].line-numbers-mode::after {
+    display: none;
+}
+div[class*="language-"].line-numbers-mode .line-numbers-wrapper {
+    border-right: 1px solid #187d210f;
+}
+div[class*="language-"].line-numbers-mode .line-numbers-wrapper .line-number {
+    color: #838282 !important;
+}
+.content__default pre, .content__default pre[class*=language-] {
+    background-color: rgb(249 249 249) !important;
+    line-height: 1.4;
+    padding: 1.25rem 1.5rem;
+    margin: .85rem 0;
+    border-radius: 6px;
+    overflow: auto;
+    font-size: 15px;
+    font-weight: 600;
+    border: 1px solid #187d210f;
+}
+.content__default pre code, .content__default pre[class*="language-"] code {
+    background-color: rgb(249 249 249) !important;
+    color: #1b1f1f;
+}
