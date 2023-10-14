@@ -14,7 +14,7 @@ title: 树状数组
 如果是单纯开了二维数组然后暴力更新的话是特别慢的，但是有一种数据结构可以更新二维，就是二维树状数组  
 用二维树状数组的更新下，给定插入的 $[l,r]$ 里面 $l$ 向 $0$ 更新，$r$ 向 $n$ 更新，查询则是反过来，时间复杂度 $O(qlog^23000)$
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N  = 6010;
 struct TrAry {
@@ -84,7 +84,7 @@ int main () {
 所以每次累加查询<img src="https://latex.codecogs.com/svg.image?a[i]" title="a[i]" />位置以前的总贡献，`query(a[i]) * ksm(2, i)`  
 然后在<img src="https://latex.codecogs.com/svg.image?a[i]" title="a[i]" />的位置上更新一下这个前缀贡献，`update( a[i], ksm(ksm(2, i + 1), mod - 2) )`  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -156,7 +156,7 @@ https://www.acwing.com/problem/content/109/
 对数据进行离散化操作，然后求逆序对即可  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
 
 
 ```cpp
@@ -259,7 +259,7 @@ http://poj.org/problem?id=2352
 每行插入之后看前面有多少个已经插入的就行了  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
 
 
 ```cpp

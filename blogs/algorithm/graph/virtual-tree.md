@@ -2,9 +2,6 @@
 key: 2021-10-17-虚树
 layout: article
 title: 虚树
-subtitle: 只有几个点，跑整个图是不是太奢侈了？🤔
-categories: 图论
-tags: [图论]
 aside:
   toc: true
 sidebar:

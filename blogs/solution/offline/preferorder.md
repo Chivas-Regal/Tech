@@ -29,7 +29,7 @@ title: 多维偏序
 就对查询点加一个val，在归并到时候对第二维进行排序  
 然后双指针扫描固定，中途累加，如果是插入点就+1，否则+0，然后j的位置移动的时候加上这个sum即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 **解法1:树状数组**  
 
 ```cpp
@@ -172,7 +172,7 @@ int main () {
 第三维  <img src="https://latex.codecogs.com/svg.image?\inline&space;t" title="\inline t" /> 在归并中用树状数组即可  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 2e6 + 10;
@@ -265,7 +265,7 @@ inline void Solve () {
   
 最后在计算答案时，就是将相同的数的个数加到最后一个具有代表性的点`q[i].res + q[i].cnt - 1`，因为他们的权值也会是相同的，所以要加上`q[i].cnt`    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 1e5 + 10, M = 2e5 + 10;
@@ -345,7 +345,7 @@ int main () {
 2.i在后，j在前，a[i]<=a[j]，那么我们每次找的是比a[j]小的，可以两个指针从前往后遍历  
 然后再合并一下区间即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 
 ```cpp

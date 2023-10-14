@@ -22,7 +22,7 @@ title: 反向思维
   
 需求内需要的工具：支持区间变 $1$ 变 $0$ 、可区间查询。那么就使用一个带懒标记的线段树即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 string a, b;
@@ -134,7 +134,7 @@ inline void Solve () {
 然后去看它所包含的四个点是否有可以入队的  
 这样进行 BFS  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e3 + 10;
 int a[N][N];
@@ -223,7 +223,7 @@ int main () {
 最后就是求个数，这一看就是一个球盒模型的球不同盒不同可空模型  
 所以是 $k^{cnt}$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int mod = 998244353;
@@ -271,7 +271,7 @@ inline void Solve () {
 如果当前数不存在就继续瓜分，存在的话就直接用了并且返回    
 如果瓜分不出来（也就是 $1$ ）还没有的话就不行  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 map<ll, int> num;
 bool flag = true;
@@ -338,7 +338,7 @@ inline void Solve () {
   
 最后跑一次记录一下深度即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 2e5 + 10;
@@ -429,7 +429,7 @@ int main () {
 在操作二 $x\to y$ 时，$y$ 能变成的数会成为 $x$ 能变成的数  
 那么就倒数第 $i$ 个操作 $1$ 就给 $idx-i+1$ 赋值为 $dp[x]$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int n, a[1000006], b[1000006], idx;
 struct node {

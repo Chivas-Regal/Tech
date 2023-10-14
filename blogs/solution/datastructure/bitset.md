@@ -23,7 +23,7 @@ bitset是一个很妙的STL容器，可以实现很多优化
 直接暴力枚举因数然后查一下在不在就行了  
   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -159,7 +159,7 @@ int main () {
 然后就能飞速预处理了  
 输出的时候输出1的位置，然后从M开始一直输出到(n-1)*n/2
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 710, M = 31152;
 bitset<M> bst[N];

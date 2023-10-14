@@ -2,9 +2,6 @@
 key: 2021-02-11-DFS
 layout: article
 title: DFS
-subtitle: 怎么让机器去跑图啊？🤔
-categories: 搜索
-tags: [搜索]
 aside:
   toc: true
 sidebar:

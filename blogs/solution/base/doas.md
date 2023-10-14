@@ -22,7 +22,7 @@ https://vjudge.net/problem/%E8%AE%A1%E8%92%9C%E5%AE%A2-T2057#author=Chivas_Regal
   
 后缀就是i不是最后一位的时候输出x，且不是倒数第二位的时候输出指数  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -68,7 +68,7 @@ int main () {
 此时我们的'?'都是一对一对的或者中间有一个  
 从[0~s.size()/2]进行修'?'，如果a和b有>=2的，就对这个位置设为'0'或'1'，并a-=2或b-=2，最后是对奇数长度的判断(奇数长度中心的'?'会没有被重载)，查看a和b是否有不为0的，并将该点设为'0'或'1'  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 void solve()
@@ -162,7 +162,7 @@ int main()
 所以可以考虑到初始为0，每次连边小的数-1，删边小的数+1  
 在加减点权的时候动态维护一下所有人里面点权为0的个数即可实现O(1)查询    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -293,7 +293,7 @@ https://codeforces.com/contest/1555/problem/B
 那么由这个规律，我们只需要模拟出第一个方块应该向（横竖左右）哪平移成立且最小  
 通过第二个块中心+第一个块的边长到边界的距离这个关系即可开始模拟  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -444,7 +444,7 @@ CHIVAS_{
   
 对找四种字符`'0','0'`、`'5', '2'`、`'0', '5'`、`'5', '7'`进行比较  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 inline int find ( string s, char a, char b ) {
@@ -493,7 +493,7 @@ a按几乎固定顺序得到b
 如果两种都推不出来就肯定是-1  
 否则的话哪种能推出来就输出哪个  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 inline bool same ( deque<int> a, deque<int> b ) { // 两个队列一样
@@ -571,7 +571,7 @@ int main () {
 硬写也就log  
 直接模拟就行了
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 int n;

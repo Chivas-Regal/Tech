@@ -13,7 +13,7 @@ title: prufer编码
 模板题  
 具体讲解流程阅览<a href="https://chivas-regal.github.io/%E5%9B%BE%E8%AE%BA/2021/11/03/Prufer%E7%BC%96%E7%A0%81.html">这里</a>
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 namespace Prufer {

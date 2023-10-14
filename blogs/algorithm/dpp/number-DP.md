@@ -2,9 +2,6 @@
 key: 2021-08-01-数位DP
 layout: article
 title: 数位DP
-subtitle: 在数字上跑DP？🤔
-categories: 动态规划
-tags: [动态规划]
 aside:
   toc: true
 sidebar:

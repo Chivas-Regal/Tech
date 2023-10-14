@@ -18,7 +18,7 @@ title: 基环树
 所以我们只需要提出来每个环，然后判断这个环的边权平均数是否相等即可  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 int n, f[N];

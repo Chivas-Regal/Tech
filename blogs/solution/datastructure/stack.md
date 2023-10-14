@@ -16,7 +16,7 @@ title: 栈
 区间减后查询区间最小值加 $M$ 就是 $dp_i$ 的结果，但是注意到还有一个条件为区间和不能超过 $W$ ，这个就意味着只有有限的 $j$ 可以转移到 $i$ ，$j$ 用一个双指针保证 $sum[j,i]$ 不超过 $W$ 就行了，然后区间查询最小值  
 得到 $dp_i$ 后单点更新一下 $i$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 5e5 + 10;
 struct node {
@@ -110,7 +110,7 @@ int main () {
 可以通过栈来维护有效操作  
 可以发现[l, r]不断缩进，那么有效操作确定之后可以进行赋值了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -189,7 +189,7 @@ https://codeforces.com/gym/102174/problem/E
 判断过程在《README.md》  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -312,7 +312,7 @@ https://pintia.cn/problem-sets/1378951666713001984/problems/1378951732962107393
 用STL库函数以及一个期望变量对我们想要插入的元素选择合适的插入时间以及顺序
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
 
 
 ```cpp
@@ -356,7 +356,7 @@ https://pintia.cn/problem-sets/1384757951243542528/problems/1384758301778305038
 使用STL库函数快速模拟栈的存储过程
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
 
 
 ```cpp

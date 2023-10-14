@@ -346,7 +346,7 @@ $2.$ $2^k$ 进制下，在这个排列里面，一次循环  $2^k$ 进制会进�
 
 这里上  <img src="https://latex.codecogs.com/svg.image?\inline&space;Java" title="\inline Java" /> 高精 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```java
 public class Main {
 
@@ -417,7 +417,7 @@ public class Main {
 这些特判判掉之后就进行计算即可  
 要开高精
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```java
 public class Main {
         public static BigInteger one = BigInteger.ONE;
@@ -487,7 +487,7 @@ public class Main {
   
 注意模数可能很小，所以我们需要用  <img src="https://latex.codecogs.com/svg.image?\inline&space;Lucas" title="\inline Lucas" /> 定理  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 3e6 + 10;
@@ -539,7 +539,7 @@ int main () {
 那么提升的排名为 $C_{n-i}^{one}$   
 如果这个数比 $N$ 小的话就让 $N$ 减去它就行了，并且剩余未放置的 $1$ 的个数减一  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline int C (int n, int m) {
         if (m < 0 || n < m) return 0;
@@ -594,7 +594,7 @@ int main () {
 看到数据量大力 $\begin{Bmatrix}n\\m\end{Bmatrix}$   
 （不过要开高精就是了
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```java
 public class Main{
         static int N = 2005;
@@ -643,7 +643,7 @@ $\begin{aligned}
 可以发发现当 $t\&i=i$ 时 $a_{k+i}$ 是有贡献的，加上即可  
 最后看答案的奇偶性 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int n, t, k;
 inline int add (int x, int y) {return (x + y) % n;}
@@ -691,7 +691,7 @@ $div_2$：有因子的数的数量
 所以答案为  
 $$\sum\limits_{i=div_1}^n(1\times\binom{i-1}{div_1-1}\times (div_1!)\times (div_2!)\times i)$$
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e7 + 10;
 const int mod = 1e9 + 7;
@@ -763,7 +763,7 @@ $k$ 个人有 $k(k-1)$ 种选择方式
 <b>得到：$ep[k]=4k(k-1)(ep[k-1]+2(k-1)ep[k-2])$ </b>  
 将其预处理出来之后直接用上面的 $res[k]$ 公式即可     
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int mod = 998244353;
 const int N = 1e3 + 10;
@@ -820,7 +820,7 @@ AB两队，每队必出一个人
    
 好了，这么一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;O(logn)" title="\inline O(1)" /> 的柿子就出来了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 cout << (n * ksm(2, n - 1) % mod - (ksm(2, n) + mod - 1) % mod + mod) % mod << endl;
@@ -840,7 +840,7 @@ cout << (n * ksm(2, n - 1) % mod - (ksm(2, n) + mod - 1) % mod + mod) % mod << e
 而n个人当祖先就是  
 <img src="https://latex.codecogs.com/svg.image?n^{n-2}\times&space;n=n^{n-1}" title="n^{n-2}\times n=n^{n-1}" />
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int mod = 1e9 + 9;
@@ -879,7 +879,7 @@ $V=$ 原本点数 $+$ 任取四个点连线相交 $=n+\binom{n}{2}$
 $E=$ 弧 $+$ 原本点之间相连 $+$ 连线交点分割出两条边 $=n+\binom{n}{2}+2\times\binom{n}{4}$  
 注意在立体几何上多了一个面为圆外的面，要减去一  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int main() {
     int n;
@@ -917,7 +917,7 @@ int main() {
 $\begin{Bmatrix}n\\m\end{Bmatrix}=\sum\limits_{i=0}^m\frac{(-1)^{m-i}i^n}{i!(m-i)!}$
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int mod = 998244353;
 const int N = 1e6 + 10;
@@ -967,7 +967,7 @@ $dp[i][]$ 用 $dp[i-1][]$ 来转移，枚举 $i-1$ 匹配了多少个，那么�
 由于不能有前导 $0$ ，就对于长度 $i$ 时，枚举一下 $s_j$ 是否为 $0$ ，如果为 $0$ ，说明以它开头的都不可以选，减去 $\binom{n-j}{i-1}$  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 3010;
 const int mod = 998244353;
@@ -1071,7 +1071,7 @@ int main () {
   
 [本题线段树解法请看这里](https://tech.chivas-regal.top/blogs/solution/datastructure/segmenttree.html#%E7%89%9B%E5%AE%A22022%E5%AF%92%E5%81%87%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E9%9B%86%E8%AE%AD%E8%90%A54g-%E5%AD%90%E5%BA%8F%E5%88%97%E6%9D%83%E5%80%BC%E4%B9%98%E7%A7%AF)
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 ll a[200005];
 const ll mod = 1e9 + 7;
@@ -1122,7 +1122,7 @@ int main () {
 从i=3开始，任何数都不满足，所以都是0  
 而对于区间和时我们只需记录前缀和就行了，相减时要加上一个mod防止结果为负  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int maxn = 1e5 + 100;
@@ -1178,7 +1178,7 @@ $dp[i]=dp[i-1]\times\sum\limits_{j=0}^{min(f1,f2)+1}\binom{f1+1}{j}\binom{f2+1}{
 注意如果有偶数个奇数的情况了话，我们中间两个奇数之间的偶数（设有 $num$ 个）是没有算过的，而这些偶数可以随便插板，也就是 $dp[mid]\times2^{num}$  
 而且奇数个数是 $0$ 个也要特殊处理一下，同理 $2^{n-1}$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int mod = 998244353;
 
@@ -1260,7 +1260,7 @@ int main () {
 即将 $LCA$ 为 $u$ 的换为 $LCA$ 为 $v$ 的情况，那么就是 $v$ 的子树所有点与非 $v$ 的子树的所有点， $sz[v]\times (n-sz[v])$ ，将他们乘的权值改为 $v$ 即可  
 这个可以通过每次传入一个以父节点为根时的参数，将根从父节点换为本次遍历节点，并维护最大值   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e6 + 10;
 const int M = N * 2;
@@ -1351,7 +1351,7 @@ int main () {
   
 最后要加上所有数均相等的情况，即前相同中每一位方案数 $^m$ 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int mod = 1e9 + 7;
 inline ll ksm ( ll a, ll b ) { ll res = 1; while ( b ) { if ( b & 1 ) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
@@ -1403,7 +1403,7 @@ int main () { pre_F();
 即 $((a_i\oplus a_{2i})+(a_i\oplus a_{2i+1})+(a_{2i}\oplus a_{2i+1}))\times 2^{n-2}$  
 与 $(a_i\oplus a_{2i}\oplus a_{2i+1})\times 2^{n-3}$     
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int mod = 1e9 + 7;
 inline ll ksm (ll a, ll b) {
@@ -1485,7 +1485,7 @@ int main () {
 	否则，不能跳步，老老实实放'a'吧  
 在最后，我们构造出后面没有构造的最小字符串：先放完a，再放完b  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 ll c[65][35];
@@ -1543,7 +1543,7 @@ CHIVAS{
   
 最后统计一下分成1～n块的方案数  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 210;
@@ -1623,7 +1623,7 @@ $
 不过由于模数很小，不能直接阶乘求组合数，不然很容易出现无逆元无法除的情况  
 但由于模数很小，可以用 $Lucas$ 快速求解，且求单个组合数的过程中不用取模  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline int Comb (int a, int b, int mod) {
     if (a < b) return 0;
@@ -1698,7 +1698,7 @@ inline ll C ( ll n, ll m ) {
 }
 ```
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 const int K = 210;
@@ -1762,7 +1762,7 @@ int main () {
 不同奇偶性若存在相同的数也可以  
 否则不行  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int n;
 int a[5010], b[5010];
@@ -1813,7 +1813,7 @@ int main () {
 开一步的话可以选四个角，选一个方向开，本身有 $n-1+m-1$ 种开法，调 $n-1$ 个位置开行，故答案为 $4\times \binom{n+m-2}{n-1}$  
 特判 $m=1$ 和 $n=1$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
     int n, m; cin >> n >> m;
@@ -1846,7 +1846,7 @@ inline void Solve () {
 分母为 $n$   
 后面那个两重循环可以直接用前缀和化简，即 $\sum\limits_{i=1}^n(a_i\times(i-1)-pre\_sum)$ 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline ll gcd (ll a, ll b) {
         return b ? gcd(b, a % b) : a;
@@ -1914,7 +1914,7 @@ $(2^3+3\times 2^2)a_1+\\(2^2+2\times 2^1)a_2+\\(2^1+1\times2^0)a_3+\\(2^0)a_4$
 每一个 $a_i$ 最前面的是第 $i$ 段使用它的贡献次数，后面有 $n-i$ 个断点，所以是 $2^{n-i}次$ 。而后面的则是第 $i$ 段之后的 $(n-i)$ 个段使用它，指数是互补的（左加右减），即 $2^{n-i-1}次$  
 则答案为 $\sum\limits_{i=1}^n2^{n-i}+(n-i)2^{n-i-1}$   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int mod = 998244353;
 inline ll ksm (ll a, ll b) { if (b < 0) return 0; ll res = 1; while (b) { if (b & 1) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
@@ -1952,7 +1952,7 @@ int main () {
 $$f(x)=\prod\limits_{i=x}^{x+n-1}b_i-(i-x)$$  
 在这里面判断是否存在 $b_i-(i-x)\equiv 0(mod\;p)$ 即可   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 4100;
 int n, p;
@@ -1997,7 +1997,7 @@ int main () {
 这样判断下去就行了   
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 int n, p;
@@ -2055,7 +2055,7 @@ $...$
 $$\sum\limits_{i=1}^n(\binom{i-1}{2}10^{n-i}+\_dots321_{n-i})s_i$$
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const ll N = 1e5 + 10;
 const ll mod = 1e9 + 7;
@@ -2106,7 +2106,7 @@ int main () {
 1.杨辉三角递推法（1000*1000）的时间复杂度  
 2.在结果上做运算：**求逆元**  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const ll mod = 1e9 + 7;
@@ -2204,7 +2204,7 @@ int main()
 所以这一位就是要递推，答案是  
 <img src="https://latex.codecogs.com/svg.image?\begin{aligned}i\{1\to&space;k\}:\\&res=res\times&space;has\_Eve&space;&plus;&space;(2^n)^{i-1}\end{aligned}" title="\begin{aligned}i\{1\to k\}:\\&res=res\times has\_Eve + (2^n)^{i-1}\end{aligned}" />
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 2e5 + 10;
@@ -2271,7 +2271,7 @@ int main () {
 后随意就 $2^{k-i}$   
 最后加上所有相同即 $(one\_one+zero\_zero)^k$   
   
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int mod = 1e9 + 7;
@@ -2333,7 +2333,7 @@ int main () {
 可以发现剩下的也就是被拆过之后的值，可以继续进行分割，然后查找  
 那么每次 `res` 也就是加上 a^bas，直到b被拆到0  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int mod = 1e9 + 7;
@@ -2387,7 +2387,7 @@ int main () {
 此时k不过60所以我们也没有必要用快速幂求指数  
 如果非要用的话，模数要选择<img src="https://latex.codecogs.com/svg.image?10^9&plus;6" title="10^9+6" />，因为根据欧拉定理，指数取模时在<img src="https://latex.codecogs.com/svg.image?gcd(up,&space;mod)=1" title="gcd(up, mod)=1" />时要取<img src="https://latex.codecogs.com/svg.image?\phi(mod)" title="\phi(mod)" />
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int mod = 1e9 + 7;
@@ -2431,7 +2431,7 @@ int main () {
 
 将这四部分加在一起即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
         int n; cin >> n; n --;
@@ -2490,7 +2490,7 @@ $ifac,fac$ 都可以提前预处理
 前者可以维护一个 $div\_permutation=\frac{1}{\prod\limits_{i=1}^Ncnt[i]!}$ ，每次使 $cnt[b[i]]-1$ 时意味着要少除一个 $cnt[b[i]]$ ，那么让 $div\_permutation\times cnt[b[i]]$ 即可  
 后者可以用树状数组去记录  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int mod = 998244353;
@@ -2564,7 +2564,7 @@ int main () {
 用这个性质求解即可    
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
         int n; cin >> n;
@@ -2608,7 +2608,7 @@ $C_{n-1}^{m-1}+C_{n-2}^{m-2}=C_n^m-C_{n-1}^m+C_{n-1}^m-C_{n-2}^m=C_n^m-C_{n-2}^m
 就可以进行化简为 $C_{m+n}^n-C_{m+n-min(n,m)-1}^n$  
 最终式子已出，$O(1)$ 算即可   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int mod = 1e9 + 7;
 const int N = 2e6 + 10;
@@ -2665,7 +2665,7 @@ $F_n^m=F_n^{m-1}+C_n^m$ 且 $C_n^m=C_{n-1}^{m-1}+C_{n-1}^m$
 发现在倒着推的时候 $n-i-1$ 是递增的，且第 $i$ 项只比第 $i+1$ 项多了 $10^{n-i-1}F_{n-(n-i-1)-2}^{k-2}$ ，别的都没变，于是第一类可以倒着求然后不断累加上新增的值，可以视作一个后缀  
 第二类就直接算即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int mod = 998244353;
 inline int ksm (int a, int b) {
@@ -2753,7 +2753,7 @@ int main () {
 它所贡献的次数为 $a\times(b-a)+(b-a)\times(c-b)+(d-c)\times(n+1-d)$  
 按这种方式一个质数贡献的次数为 $a_0=0,a_{sz+1}=n+1,\sum\limits_{i=1}^{sz}(a_i-a_{i-1})(a_{i+1}-a_i)$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e6 + 10;
 bool ntp[N];
@@ -2810,7 +2810,7 @@ fibonacci数列每第三个数一定是偶数
 偶数和所有数相乘都是偶数 `res = eve * n` 但是不能和自己组合 `res -= eve`  
 偶数内部两两组合也多加了一次，要减去 `res -= eve * (eve - 1) / 2`  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 int main () {
@@ -2883,7 +2883,7 @@ for ( int i = n - 1; i >= 0; i -- ) ivf[i] = ivf[i + 1] * (i + 1) % mod;
 ```
 :::
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e6 + 10;
 const int mod = 1e9 + 7;
@@ -2973,7 +2973,7 @@ int main () {
   
 我们解这个柿子就行了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int mod = 10007;
@@ -3025,7 +3025,7 @@ int main () {
 对于取模，观察  <img src="https://latex.codecogs.com/svg.image?\inline&space;\binom{x+n}{x}=\frac{(n+1)\times...\times(n+x)}{n!}" title="\inline \binom{x+n}{x}=\frac{(n+1)\times...\times(n+x)}{n!}" />   
 将  <img src="https://latex.codecogs.com/svg.image?\inline&space;mod+n!" title="\inline mod+n!" />  ，取完模是比  <img src="https://latex.codecogs.com/svg.image?\inline&space;n!" title="\inline n!" />  要大的，那么这时就可以直接除  <img src="https://latex.codecogs.com/svg.image?\inline&space;n!" title="\inline n!" />  了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 int n, a, b;
@@ -3095,7 +3095,7 @@ int main () {
 那么就直接求  <img src="https://latex.codecogs.com/svg.image?\inline&space;\frac{n\times(n+1)\times(n+2)}{1\times2\times3}" title="\inline \frac{n\times(n+1)\times(n+2)}{1\times2\times3}" />   
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int mod = 1e9 + 7;
@@ -3130,7 +3130,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=1521
 #### 💡
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -3211,7 +3211,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=1028
 #### 💡
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -3277,7 +3277,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=1085
 #### 💡
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -3355,7 +3355,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=1398
 #### 💡
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -3423,7 +3423,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=1709
 #### 💡
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -3505,7 +3505,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=2152
 #### 💡
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -3601,7 +3601,7 @@ Chivas{
   
 好家伙，容斥改完全背包为多重背包...
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -3671,7 +3671,7 @@ $n\times m$ 的矩形有 $(n-i)(m-j)$ 个这样的小矩形，乘上个数
 则答案为：  
 $$C_{nm}^3-nC_m^3-mC_n^3-2\sum\limits_{i=1}^{n-1}\sum\limits_{j=1}^{m-1}(n-i)(m-j)(gcd(i,j)-1)$$ 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline ll gcd (ll a, ll b) { return b ? gcd(b, a % b) : a; }
 int main () {
@@ -3709,7 +3709,7 @@ int main () {
 最后会有重复的，需要 $res/2$   
 所有的三角形数量为从 $n$ 个点中选 $3$ 个点，那么同色边三角形数为 $C_n^3-res$ 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 namespace GenHelper
 {
@@ -3792,7 +3792,7 @@ int main () {
 那么我们对于循环 `x / p` 次，每个循环有 `get_intersection(0, p - 1, l, r)` 个相交，加上 `get_intersection(0, x % p, l, r)` 这样去算  
 记得对 `x` 分奇偶
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 ll P, l, r, L, R;
 
@@ -3838,7 +3838,7 @@ int main () {
 就是在  <img src="https://latex.codecogs.com/svg.image?\inline&space;has\_edge" title="\inline has\_edge" /> 中选  <img src="https://latex.codecogs.com/svg.image?\inline&space;a" title="\inline a" /> 个，再从  <img src="https://latex.codecogs.com/svg.image?\inline&space;has\_edge-a" title="\inline has\_edge-a" /> 个中选  <img src="https://latex.codecogs.com/svg.image?\inline&space;b" title="\inline b" /> 个  
 这样的答案就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;has\_situation-\binom{has\_edge}{a}\times\binom{has\_edge-a}{b}" title="\inline has\_situation-\binom{has\_edge}{a}\times\binom{has\_edge-a}{b}" />   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -3898,7 +3898,7 @@ int main () {
 所以每次累加查询<img src="https://latex.codecogs.com/svg.image?a[i]" title="a[i]" />位置以前的总贡献，`query(a[i]) * ksm(2, i)`  
 然后在<img src="https://latex.codecogs.com/svg.image?a[i]" title="a[i]" />的位置上更新一下这个前缀贡献，`update( a[i], ksm(ksm(2, i + 1), mod - 2) )`  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -3981,7 +3981,7 @@ $f(k)=\sum\limits_{i=1}^{ik<=m}(-1)^{i+1}\binom{n-m+1}{i}\binom{n-ik}{n-m}$
 对于所有的空合并起来就是 $(1+x+x^2+...+x^k)^{n-m+1}$ ，而最后要求有 $m$ 个胜场，返回这个多项式的幂的 $m$ 次项系数即可  
 这里就需要支持长多项式的多项式快速幂了（不会写）
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int mod = 998244353;
 const int N = 1e5 + 10;
@@ -4050,7 +4050,7 @@ inline void Solve () {
 由于一开始给出的 <img src="https://latex.codecogs.com/svg.image?\inline&space;s" title="\line s" /> 可能很大，所以这里需要用 <img src="https://latex.codecogs.com/svg.image?\inline&space;Lucas" title="\line Lucas" /> 定理
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 30;
@@ -4128,7 +4128,7 @@ int main () {
 处理好son[]后，对y的子节点一个个判断并乘一下就行了  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const ll N = 3e5 + 10, M = N * 2;
@@ -4212,7 +4212,7 @@ int main () {
 那么就有公式：  
 <img src="https://latex.codecogs.com/svg.image?n!-(n-1)!-\sum\limits_{i=num_{a_1}}^{n-2}\{C_i^{num_{a_1}}\times&space;num_{a_1}!\times&space;(n-1-num_{a_1})!\}" title="n!-(n-1)!-\sum\limits_{i=num_{a_1}}^{n-2}\{C_i^{num_{a_1}}\times num_{a_1}!\times (n-1-num_{a_1})!\}" />  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -4318,7 +4318,7 @@ n / vec[i]表示的是n以内从1开始的vec[i]的倍数
   
 容斥这些数就行了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 9699690;
@@ -4370,7 +4370,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=5776
 #### 💡
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -4468,7 +4468,7 @@ http://acm.hrbust.edu.cn/index.php?m=ProblemSet&a=showProblem&problem_id=2414
 那么就开卢卡斯定理求解即可  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -4547,7 +4547,7 @@ int main () {
 若 $m>n$  
 那么 $n<m\le 1000$ ，则暴力跑一遍 $01$ 背包即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int n, m;
 bool dp[2][1000];
@@ -4588,7 +4588,7 @@ $n$ 个数，范围很明显了，这里最多有 $n$ 个不同的模数
   
 所以每次算前缀和，如果为 $0$ 直接输出，否则查看是否之前存在过这个前缀和，如果存在过，就从上一个该前缀和下标 $+1$ 一直到当前位置  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 int n, a[N];

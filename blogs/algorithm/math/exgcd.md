@@ -2,9 +2,6 @@
 key: 2021-07-16-扩展欧几里得
 layout: article
 title: 扩展欧几里得
-subtitle: 求方程组？🤔
-categories: 数学
-tags: [数学]
 aside:
   toc: true
 sidebar:

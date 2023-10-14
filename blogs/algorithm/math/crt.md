@@ -2,9 +2,6 @@
 key: 2021-07-16-中国剩余定理
 layout: article
 title: 中国剩余定理
-subtitle: 扩展：跳模数啊，空间跳跃？结果还不变？🤔
-categories: 数学
-tags: [数论]
 aside:
   toc: true
 sidebar:

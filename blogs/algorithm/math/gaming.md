@@ -2,9 +2,6 @@
 key: 2022-01-02-博弈论
 layout: article
 title: 博弈论
-subtitle: 两个人博弈？赢麻了🤔
-categories: 数学
-tags: [数学]
 aside:
   toc: true
 sidebar:

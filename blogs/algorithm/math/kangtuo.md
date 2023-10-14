@@ -2,9 +2,6 @@
 key: 2021-05-20-康托展开
 layout: article
 title: 康托展开
-subtitle: 全排列按字典序是第几个呢？🤔
-categories: 数学
-tags: [数学]
 aside:
   toc: true
 sidebar:

@@ -21,7 +21,7 @@ title: 贪心-构造
 （注意，距离有正反，因为这是个链）  
 然后  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" /> 减掉这个数量就行了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 class P1053NOIP2005 {
@@ -128,7 +128,7 @@ int main() {
 |--------答案累加该节点的 <img src="https://latex.codecogs.com/svg.image?\inline&space;min\_val" title="\inline min\_val" />  
 |----输出答案
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 namespace Map { // 存图
@@ -228,7 +228,7 @@ a[1] = ((a[1] + a[2]) + (a[1] + a[3]) + (a[2] + a[3])) / 2 - (a[2] + a[3])
 每次求完a[i]都进行上述的二分erase即可  
 如果删完的话说明构造正确  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const ll N = 150;
@@ -279,7 +279,7 @@ int main () {
 我们对 $r$ 从小到大排序，每次尽可能选择区间右边的去占位  
 从而保证后面的区间内部有了更多的占位，做到压缩答案序列数  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1100;
 int n;
@@ -338,7 +338,7 @@ $b$ 排 $n-1$ 个数用了 $n-1$ 次
 对于每个环我们取最小即可  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 int n;
@@ -401,7 +401,7 @@ int main () {
 那么这组容器对应的奶牛口感一定是满足的  
 那么我们只需要`lowerbound`出最小的满足价格要求的价格即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 1e5 + 10;
@@ -469,7 +469,7 @@ https://ac.nowcoder.com/acm/contest/11253/K
 将top还给a[i]，依次求得即可
   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -598,7 +598,7 @@ CHIVAS_{
 用 r -> l 成功绕过这一段区间，从而也能保证别的区间都被覆盖到  
 用环形双指针锁定lr即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -744,7 +744,7 @@ CHIVAS_{IOS;
 如果对 $[a]$ 排一个序，只要保证后面是前面的倍数的话，如果每次挑第一个空位放 $i$ ，就不会出现冲突。  
 可以将 $i$ 转化为小于等于 $i$ 的最大 $2$ 的幂，这样就保证了。  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 3e5 + 10;
 int n;
@@ -799,7 +799,7 @@ int main () {
 当遇到 $1$ 时，我们后面那一部分的数要扩展到和段数一样多，才能保证如果前面的段转移过来走到结尾是一个最长上升子序列  
 而且每次转移必须要保证只有前面的 $x$ 段可以转移过来，即如果 $2\;1\;4\;3\;......\;5\;....$ 就代表着 $5$ 只可以通过前面的两段转移过来，达到存在位置贡献 $1$ 的二进制串
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
     int m; cin >> m;
@@ -851,7 +851,7 @@ inline void Solve () {
 所以我们每次选 $2i$ ，直到 $i$ 的方案数和数据中给出的相等  
 这个用生成函数，每加入一个数那么就合并一次括号来影响 $i$ 后面的     
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const ll N = 2005;
 const ll mod = 1e9 + 7;
@@ -902,7 +902,7 @@ int main(){
 如果差值大于0  
 我们可以在最后一个数上加上这个差值，反正增大后面的数不影响中位数  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 int main () {
@@ -939,7 +939,7 @@ int main () {
 然后正数放进正数的部分，负数放进负数的部分  
 最后零随便塞就行了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 ll n, k;
@@ -1024,7 +1024,7 @@ int main () {
 对于我们不能走的位置，我们可以变并且选择走不走，价值为 $max(a_i-p_i,-p_i)$  
 然后对这些存起来降序排序，取最大的 $m$ 个  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const ll N = 1e5 + 10;
 ll n, m;
@@ -1099,7 +1099,7 @@ $3$ 整除的特性是所有数的和是其倍数
 $125$ 的特性发现是后三位每八个数一轮，即 $000,125,250,375,500,625,750,875$  
 那么我们就先从 `s` 中拆出来其中一个，然后让剩下的最高位不为 $0$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 string s; cin >> s;
 function<int()> get_Sum = [&]() { int res = 0; for ( auto i : s ) res += i - '0'; return res; };
@@ -1159,7 +1159,7 @@ cout << "-1\n";
 左端点是让大树成为一条链，其中心在最长链中的位置  
 而右端点则是左端点的对称点  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
         ll n; cin >> n;
@@ -1198,7 +1198,7 @@ inline void Solve () {
 我们检查一下中转是否存在以及利用中转是否能打败最大数即可   
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int main () {
         cin.tie(0)->sync_with_stdio(0);
@@ -1247,7 +1247,7 @@ int main () {
 
 对于每一位，我们都从可以选择的数里面扫一下，最小的也就是第一个扫到的就让他做这一位的字符，就能保证字典序最小了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 vector<pair<char, int> > vec; // 可选字符集
@@ -1352,7 +1352,7 @@ int main () {
 
 >注意：一条线不能穿过已经走过的点  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 int main () {
@@ -1437,7 +1437,7 @@ int main () {
 然后枚举分界线后，就维护 $dp1[i][B]+dp2[i+1][C]$ 的最大值  
 :::  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 struct Pick {
     int a, b, c;
@@ -1490,7 +1490,7 @@ int main () {
 如果本块是奇数块，就可以拿 $lazy$ 次 $AC$ ，同样不能超过本块 $AC$ 数量 $-1$ ，对答案的贡献要 $+1$ 表示拿一次 $B$   
 同时要注意如果前面没有能拿 $B$ 的，且本块是奇数块且只有一套 $AC$ ，那么就被迫去拿一次 $AC$ 就停止了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e6 + 10;
 vector<pair<int, ll> > vec; // first:od/ev second:num
@@ -1547,7 +1547,7 @@ int main () {
 那么就让 $k$ 向上走，固定出 $k$ 是属于哪个位置的  
 让这个位置加上我们向上走时获取的要加的数然后模 $3+'A'$ 即可   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 string s;
 ll q;
@@ -1586,7 +1586,7 @@ https://atcoder.jp/contests/abc198/tasks/abc198_d
 因为最多只有十个字符，所以在全排列之后有最多3628800种可能性，时间还可以  
 所以可以直接开全排列对这些不超过十个字符一一映射一下搜索一下即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -1663,7 +1663,7 @@ int main () {
 - 给的度数在构造后有不为 $0$ 的情况  
 :::
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 int n, m;
@@ -1745,7 +1745,7 @@ $...$
 即 $x=\frac{ad}{dl}$  
 如果这个位置在所求段内，即可算上这个位置的价值  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 int n, m;
@@ -1811,7 +1811,7 @@ int main () {
 注意如果我们后面能跳的操作二的数量变成了负数，就说明我们没有再往前枚举的必要了，及时退出就行  
 还有就是我们往前走在走完其实还要判一下，但是如果我们是退出循环了话就不需要判了。所以我们可以开一个队首哨兵去帮助我们统计第一个  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int main () {
         ios::sync_with_stdio(false);
@@ -1869,7 +1869,7 @@ int main () {
 将 $[1,99]\times10000,[1,99]\times100,[1,99]\times1$ 都给弄出来，这样的话每一个数可以最多这三个集合任意取一个就可以    
 （比同场 $E$ 题思维量大多了好吧 -_-||）
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int main () {
         ios::sync_with_stdio(false);
@@ -1906,7 +1906,7 @@ https://www.acwing.com/problem/content/3766/
 如果有奇数个负数，那么我们可以让矩阵内只有一个负数（绝对值最小的那个）：绝对值求和后减 2*最小的绝对值    
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -2039,7 +2039,7 @@ https://www.acwing.com/problem/content/3767/
 如果某一位上 a[i] > b[i]， 那么 a > b  
 所以如果出现奇数，a分到的数比b多，那么后面就不能让a再增加了，后面所有的数分给b就行了
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -2173,7 +2173,7 @@ https://www.acwing.com/problem/content/3770/
 多出来的 b 的贡献让几个满足条件的 i 位置平分  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -2315,7 +2315,7 @@ CHIVAS_{
   
 最后跑一次记录一下深度即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 2e5 + 10;
@@ -2409,7 +2409,7 @@ a\;b\;b\;d\;c\;e\;e
 $  
 也就是让奇数个数多出来的一个的交叉分配，由于一共有 $2n$ 个数，所以奇数个数的数是有偶数个的，那么就先让他们互相交叉分配，然后再给偶数均匀分配  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 vector<pair<int, vector<int> > > v(110);
 vector<int> id(210);
@@ -2480,7 +2480,7 @@ int main () {
 这样维护每一只鬼出现的时刻都有r根蜡烛  
 最后统计一下我们点了几根蜡烛即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -2538,7 +2538,7 @@ int main () {
 2.如果给的a[i]比上一步大，那么就从最低位看看有没有哪一位没到9，往上加就行  
 3.如果当前给的a[i]比上一步的小，那么就模仿加运算，从最低位向前进位，直到a[i]>a[i-1]，然后在进行第二步  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #ifndef ONLINE_JUDGE
@@ -2626,7 +2626,7 @@ int main () {
 如果这一步没有能放的数的话就不断-3直到有为止  
 如果到负数还没有的话就输出不可能
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -2688,7 +2688,7 @@ int main () {
 然后在同一高度下利用两者中间的时间来计算他俩之间的峰顶高度  
 要注意时间为1的位置和n的位置都是由两端的值向左和向右增出来的，也要维护一下  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -2764,7 +2764,7 @@ int main () {
 这样对每一行进行一次构造1和构造2推出下一次的方阵  
 从2^0开始递推构造  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -2843,7 +2843,7 @@ int main () {
   
 我们在这个确定的数组中跑一遍，如果没有修改不了的那么就维护一下修改量的总和最小值    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const ll N = 1e5 + 10;
@@ -2898,7 +2898,7 @@ $1$ 的贡献只是一个乘，如果是质数会很难受，所以不考虑这�
 这样拆出来的还不优，因为可能出现很多个相同的 $x$ ，这里可以利用上面的 $7$ 了，这个 $7$ 的个数也是为前面的 $3$ 提供一个乘法，我们就每次找到 $x$ 后，用 $n/(x(x-1)/2)$ 作为后面跟着的 $7$ 的个数即可  
 我们得到的 $x$ 组是从大到小的，翻转一下，这样每段 $3$ 的个数就是当前的 $x$ 减去上一个 $x$ ， $7$ 的个数就是我们之前标记的倍数  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
         ll n; cin >> n;
@@ -2934,7 +2934,7 @@ https://codeforces.com/problemset/problem/1307/B
 1. x 小于最大距离，那我们如果可以找到一个存在的与 x 相等的距离，那么就1，否则就2  
 2. x 大于等于最大距离，那我们可以通过折步来使 d 次移动的贪心距离控制在 ((d - 1) * max, d * max]，所以利用 x / max 向上取整(也就是 (x + max + 1) / max) 计算此时的步数  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -3067,7 +3067,7 @@ https://codeforces.com/problemset/problem/1352/F
 1.如果 a0 = a2 = 0 ，那么我们单独构造 a1 的时候应该提前插入一个数（01都行）  
 2.如果 a0 = a2 != 0，那么我们前面在交界处肯定会消掉一个 a1 ，所以 a1--  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -3212,7 +3212,7 @@ _ _ 2 1 _ _
 然后就是在a中存“对称数对”了
 接着在b中匹配就行了
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -3281,7 +3281,7 @@ int main () {
 所以先预处理出来子树中叶子结点的数量，然后建立一个优先队列，里面存的都是下标，排序规则为减得多的在前  
 每次挑选出来堆顶，减完之后重新放入堆中，并判断是否当前值小于 $S$ ，如果小了直接退出  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int M = 4e5 + 10;
@@ -3364,7 +3364,7 @@ inline void Solve () {
 两种花费，处理后得到两个数组 $[v1],[v2]$ ，枚举“操作需要花费 $1$ 的边”的次数 $num1$ ，动态减小“操作需要花费 $2$ 的边”的次数 $num2$  
 在满足 $v1[num1]+v2[num2]\le S$ 的情况下，维护 $num1+2\times num2$ 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int M = 4e5 + 10;
@@ -3447,7 +3447,7 @@ inline void Solve () {
 我们计算两个连通1之间的'0'个数，如果<=a/b的话，就全更新为'1'  
 最后再点燃操作  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -3508,7 +3508,7 @@ int main () {
 那么按外卖用时排个序  
 然后维护一下当前外卖用时和自己去买用时的后缀和的最大值的最小值即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <vector>
@@ -3563,7 +3563,7 @@ int main () {
 那么就可以容易处理出来每一个 $a[i]$ 应该到的位置  
 将这个处理出来的数组进行冒泡排序的次数就是我们需要的最少次数，也就是逆序对数      
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 int n; string a, b;
@@ -3625,7 +3625,7 @@ int main() {
 那么我们后面会存在足够的时间让其进行燃烧  
 所以我们的策略就是 <b>先放鞭炮直到警察走到小偷的相邻点</b>，然后一只往边界去跑来争取时间  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
         ll n, m, a, b; cin >> n >> m >> a >> b;
@@ -3673,7 +3673,7 @@ inline void Solve () {
 不成立的话就直接是 `NO`  
 成立的话对空出来的天去看第一个人是否能选，不能选的话就去选第二个  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 int day[N]; // day[i]: 第i天用的人
@@ -3735,7 +3735,7 @@ inline void Solve () {
 1.c=min(a,b)，代表c的长度等于其中一个，那么较大的数可以是较小的数的倍数，所以我们构造出来一个10 ^ a和10 ^ b就行  
 2.c!=min(a,b)，那么我们控制c的长度时，可以将一个数设为99900..0，一个数设为1000...，含9的数所给出来的0的个数+1就是c的长度  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 void solve(){
@@ -3789,7 +3789,7 @@ int main(){
 而我们每个数也就记录了那打头的数的位置，  
 所以每次循环内只需要从1~50判断一次id[i]的大小即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int maxn = 3e5 + 10;
@@ -3839,7 +3839,7 @@ https://codeforces.com/contest/1511/problem/D
 第一个字符x在第一对里面只出现一次，在接下来的对里匹配x+1直到'a'+k-1  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -3900,7 +3900,7 @@ int main () {
 我们上面求得的[l,r]区间就是"中"数组  
 并记录vis，使得每个数只能出现过一次  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 void solve()
@@ -3985,7 +3985,7 @@ https://codeforces.com/problemset/problem/1517/C
   
 总结一下就是：每个编号默认向左构造，如果左边已经有编号了就向下构造一次，然后继续判断左侧是否构造过  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -4035,7 +4035,7 @@ int main() {
 但是数据范围只有-100 ~ 100而且如果出现负数就肯定不能用（越添加，差值越大，无法满足）  
 所以我们就直接构造一个0 ~ 100的差为1的等差数列就行了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 inline void solve(){
@@ -4069,7 +4069,7 @@ https://codeforces.com/problemset/problem/1454/A
 签到手速题  
 每一个数往后错一位就行了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -4101,7 +4101,7 @@ https://codeforces.com/contest/1549/problem/B
 那么就是判成立  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -4228,7 +4228,7 @@ https://codeforces.com/contest/1555/problem/A
 3.离6的倍数差4或5: 那么把最后一块小披萨换成中披萨  ( n / 6 - 1 ) * 15 + 20  
 4.离6的倍数差2或3: 那么把最后一块小披萨换成大披萨  ( n / 6 - 1 ) * 15 + 25  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -4352,7 +4352,7 @@ https://codeforces.com/contest/1555/problem/C
   
 即我们枚举Alice的走法，维护一下 “Bob选最大路线” 的情况下所获得的最小的值
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -4491,7 +4491,7 @@ https://codeforces.com/contest/1555/problem/D
 2. r - l + 1 = 2，此时要看一下前后是否相等
 3. r - l + 1 > 2，那么就是我们上面说到的构造方式之间的比较
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -4651,7 +4651,7 @@ CHIVAS_{IOS;
 同时可以推出一组方程组运算关系：<img src="https://latex.codecogs.com/svg.image?a_1=\frac&space;{a_{12}&plus;a_{13}-a{23}}{2}" title="a_1=\frac {a_{12}+a_{13}-a{23}}{2}" />  
 然后直接：<img src="https://latex.codecogs.com/svg.image?a_{i&plus;1}=a_{i&plus;1}\&a_i&plus;a_{i&plus;1}|a_i-a_i" title="a_{i+1}=a_{i+1}\&a_i+a_{i+1}|a_i-a_i" />即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -4715,7 +4715,7 @@ int main () {
 在构造的过程中进行判断"NO"，即1号有输，2号出不来赢  
 其次就是对细节的把控即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -4806,7 +4806,7 @@ int main () {
 因为把几个老鼠挪进去的总耗时是一定的  
 那么从最后开始挪肯定是性价比最高的  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 4e5 + 10;
@@ -4899,7 +4899,7 @@ for ( int i = 1; i <= n; i ++ ) {
 ```
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 #include <iostream>
 #include <queue>
@@ -4962,7 +4962,7 @@ int main () {
 前面的数是一定被统计的   
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int a[110];
  
@@ -5000,7 +5000,7 @@ inline void Solve () {
 对于枚举的上界，这一套数都被构造出来才算成功  
 如果成功的话，维护使用硬币个数的最小值即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int n; 
 vector<ll> a;
@@ -5068,7 +5068,7 @@ inline void Solve () {
 如果不包含，那么肯定是双段覆盖的点最多，就必选双段价值和了
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 struct node {
@@ -5120,7 +5120,7 @@ int main () {
 先记为分成了  <img src="https://latex.codecogs.com/svg.image?\inline&space;res" title="\inline res" /> 轮  
 那么一定会有  <img src="https://latex.codecogs.com/svg.image?\inline&space;k-num2\%k" title="\inline k-" /> 比  <img src="https://latex.codecogs.com/svg.image?\inline&space;num2\%k" title="\inline num2\%k" /> 少了两个，我们尽可能均分，让那  <img src="https://latex.codecogs.com/svg.image?\inline&space;num2\%k" title="\inline num2\%k" /> 个人每个人拿出来一个字符，此时和它配对的字符落单放到中间，然后在总字符串内的所有落单的字符个数中加进这些字符，设加后总共有  <img src="https://latex.codecogs.com/svg.image?\inline&space;num1" title="\inline num1" /> 个单字符，这些单字符可以拼给那  <img src="https://latex.codecogs.com/svg.image?\inline&space;k-num2\%k" title="\inline k-num2\%k" /> 个人，如果给的完，答案就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;num2/k\times2+1" title="\inline num2/k\times2+1" /> ，否则就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;num2/k\times2" title="\inline num2/k\times2" /> 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 inline void Solve () {
@@ -5174,7 +5174,7 @@ inline void Solve () {
 然后我们就可以用单调栈求上升序列了  
 对于每个序列累加  <img src="https://latex.codecogs.com/svg.image?\inline&space;\sum\limits_{i=1}^{k-beg+1}i" title="\inline \sum\limits_{i=1}^{k-beg+1}i" /> 的和  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 inline void Solve () {
@@ -5223,7 +5223,7 @@ inline void Solve () {
 对于第三段，我们看看枚举完 <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  后面的人中，向上的第一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;2" title="\inline 2" /> 的整数幂，就是第三段预期的人数  
 这三个相加，对于每一个枚举的前两段长度，我们维护一下我们要扩招的人的最小值即可    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 int cnt[200005];
@@ -5306,7 +5306,7 @@ int main () {
 这种我们就无法塞入拼图了  
 所以我们优先考虑横着放  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e3 + 10;
 bool vis[N][N]; // 记录是否被放过拼图了
@@ -5358,7 +5358,7 @@ inline void Solve () {
 全放在 $x$ 的后面就可以让他们最高位消掉来保证 $<x$   
 那么构造方法就是 $1,2,3,...,x-1,0,x,x+1,...,n-1$ 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
         int n; cin >> n;
@@ -5381,7 +5381,7 @@ inline void Solve () {
 那么我们就构造，如果奇数不够或者是偶数不够就 `NO`  
 否则输出 `YES` 和构造后的数组即可
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int res[505][505];
  
@@ -5437,7 +5437,7 @@ inline void Solve () {
 分别用 $id$ 替换 $a,b,c$    
 若替换后查询结果还是最大值，那么 $max\{a\}$ 和 $min\{a\}$ 一定在另外两个里面，输出就行了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline int query ( int x, int y, int z ) {
         cout << "? " << x << " " << y << " " << z << endl; cout.flush();
@@ -5490,7 +5490,7 @@ inline void Solve () {
 - 对于非根节点 $u$，我们要找到一个子树最大值，如果 $<h[u]$ 需要将其补到 $h[u]$  
 - 对于根节点 $u$，我们要找到两个子树最大值，同样如果 $<h[u]$ 也是需要将其补到 $h[u]$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int M = 4e5 + 10;
@@ -5577,7 +5577,7 @@ int main () {
 如果小于等于，那么就只需要一个球  
 特判一下 $0$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
         int n; cin >> n;
@@ -5612,7 +5612,7 @@ inline void Solve () {
 但是考虑到一次覆盖会有部分变白的因素，所以我们贴横片从右往左，贴竖片从下往上  
 横片可在从第二列开始的右侧进行贴，竖片则是去补第一列的  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 struct node { int a, b, c, d; };
 inline void Solve () {
@@ -5674,7 +5674,7 @@ $n=\frac{(1+k)\times k}{2}+mk$
 $\therefore \frac{k_2(k_2+1)}{2}\le \frac{k_1k_2}{2}=n$  
 $\therefore k_2$ 满足  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 inline void Solve () {
@@ -5710,7 +5710,7 @@ inline void Solve () {
 当然要注意如果 $c_i=0$ 则 $b_i$ 一定为 $0$   
 :::
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int b[200005];
 int a[200005];
@@ -5747,7 +5747,7 @@ inline void Solve () {
 然后用剩下的 $k$ 去将第一个 $1$ 移动到首位
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
         int n, k; cin >> n >> k;
@@ -5803,7 +5803,7 @@ inline void Solve () {
 就维护每一个数的最小出现下标与一个数的最大出现下标  
 对于 $x,y$ 用这两者进行比较即可   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
         int n, m; cin >> n >> m;
@@ -5841,7 +5841,7 @@ inline void Solve () {
 那么首先在读入 $[a]$ 时，先存一下每一个数出现的次数  
 然后对 $[b]$ 排一个序，对于每一个 $x$ 遍历它能变成的所有点（每次除二后不断乘二直到超过 $10^9$ ），遇到第一个匹配上的点就退出并对这个点出现次数减一。如果遇不到匹配的数，就说明这个点没有可以匹配的点了，就输出 `NO` 即可    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
         int n; cin >> n;
@@ -5901,7 +5901,7 @@ inline void Solve () {
 这样四个四个讨论能把 $3$ 次确定结果化简为 $2$ 次  
 开一个滚动数组，意味着每次往上跳两层，四个四个进行比较就可以得到答案了。
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline int ask (int a, int b) { // 1:a>b
         printf("? %d %d\n", a, b); fflush(stdout);
@@ -5969,7 +5969,7 @@ https://codeforces.com/gym/102174/problem/F
 于是得知：一个边长为 a 的正方形，可以构造出 a 个满大矩形  
 所以我们枚举正方形边长，每次累加 (a - i + 1) * (b - i + 1) * i 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -6085,7 +6085,7 @@ https://acm.hdu.edu.cn/showproblem.php?pid=6954
 然后预处理一下前缀和to差分即可  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -6230,7 +6230,7 @@ https://acm.hdu.edu.cn/showproblem.php?pid=6957
 那么对直方图的最大矩形面积可以使用[单调栈解直方图](https://github.com/Chivas-Regal/ACM/blob/main/Code/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%8D%95%E8%B0%83%E6%A0%88%26%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/Largest%20Rectangle%20in%20a%20Histogram.md)  
 维护最大值即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -6389,7 +6389,7 @@ CHIVAS_{
 如果要排名更靠前  
 那么整体反转一下即可  
 但要注意这时我们求的是比a[i]+b[1]小于等于的个数，最后答案是n-cnt+1  
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 5e3 + 10;
@@ -6454,7 +6454,7 @@ int main () {
 要保证这是一个生成树，所以我们先用不多于 $k$ 个白边和之前的所有黑边将图连通，这些白边从大到小选。  
 如果无法用不多于 $k$ 条白边和所有黑边构成生成树，那么就是 $-1$，否则说明我们还可以再选几条边，就让没选过的白边从大到小选几条就行了。
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 5e5 + 10;
 
@@ -6535,7 +6535,7 @@ inline void Solve () {
   <img src="https://latex.codecogs.com/svg.image?\inline&space;\left\{\begin{aligned}&1999(sum-1)=x+k\\&1998sum=k\end{aligned}\right.\Rightarrow&space;sum=k+1999" title="\inline \left\{\begin{aligned}&1999(sum-1)=x+k\\&1998sum=k\end{aligned}\right.\Rightarrow&space;sum=k+1999" />  
   那么就将  <img src="https://latex.codecogs.com/svg.image?\inline&space;1999+k" title="\inline 1999+k" /> 给  <img src="https://latex.codecogs.com/svg.image?\inline&space;sum" title="\inline sum" /> 分一下就行了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 inline void Solve () {
@@ -6565,7 +6565,7 @@ inline void Solve () {
   
 可以看到，每个  <img src="https://latex.codecogs.com/svg.image?\inline&space;." title="\inline ." /> 做出的贡献都是依靠相对的  <img src="https://latex.codecogs.com/svg.image?\inline&space;X" title="\inline X" /> ，那么我们对一个矩阵进行翻转那么价值是一样的，而  <img src="https://latex.codecogs.com/svg.image?\inline&space;A" title="\inline A" /> 矩阵变成  <img src="https://latex.codecogs.com/svg.image?\inline&space;B" title="\inline B" /> 矩阵或者  <img src="https://latex.codecogs.com/svg.image?\inline&space;B" title="\inline B" /> 的反矩阵必定有一个次数是小于要求的，我们就看  <img src="https://latex.codecogs.com/svg.image?\inline&space;A,B" title="\inline A" /> 的差异数，我们就可以知道要变哪个矩阵  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 1100;
@@ -6620,7 +6620,7 @@ int main () {
 从根结点向下走是一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;DFS" title="\inline DFS" /> 的过程，而我们这里可以直接采用遍历要删掉的  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" /> 个文件的路径即可  
 为  <img src="https://latex.codecogs.com/svg.image?\inline&space;0" title="\inline 0" /> 的时候意味着要删去，我们标记  <img src="https://latex.codecogs.com/svg.image?\inline&space;-1" title="\inline -1" /> 然后将计数结果  <img src="https://latex.codecogs.com/svg.image?\inline&space;+1" title="\inline +1" /> 再 `break` 即可
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 inline void Solve () {
@@ -6700,7 +6700,7 @@ int main () {
 :::
  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 ll n, s, p;
  
@@ -6754,7 +6754,7 @@ int main() {
 想一下  <img src="https://latex.codecogs.com/svg.image?\inline&space;log" title="\inline log" /> 的性质，如果前面加一个指数的相反符也就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;log" title="\inline log" /> ，那么指数就可以提到前面做乘法了  
 问题转化：<img src="https://latex.codecogs.com/svg.image?\inline&space;a^b?c^d\rightarrow&space;blog_{10}a?dlog_{10}d?" title="\inline " />    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 inline void Solve () {

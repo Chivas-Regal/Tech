@@ -2,9 +2,6 @@
 key: 2021-05-30-矩阵ksm
 layout: article
 title: 矩阵ksm
-subtitle: 递推式还能跑ksm？🤔
-categories: 数学
-tags: [数学]
 aside:
   toc: true
 ---

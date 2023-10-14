@@ -1,7 +1,5 @@
 ---
 title: 快速傅立叶变换
-categories: 数学
-tags: [数论]
 aside:
   toc: true
 ---

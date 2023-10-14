@@ -2,9 +2,6 @@
 key: 2021-09-11-莫队算法
 layout: article
 title: 莫队算法
-subtitle: 离线操作啊，先保存后输出？🤔
-categories: 数据结构
-tags: [数据结构]
 aside:
   toc: true
 sidebar: true

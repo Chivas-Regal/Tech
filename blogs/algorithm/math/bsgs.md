@@ -2,9 +2,6 @@
 key: 2021-08-11-Baby-Step-Giant-Step
 layout: article
 title: Baby-Step Giant-Step
-subtitle: 高次同余方程又该怎么解那个指数呢？🤔
-categories: 数学
-tags: [数论]
 aside:
   toc: true
 sidebar:

@@ -16,7 +16,7 @@ title: 网络流
 所以对每一个 $i$ ，连接 $S\to i$ 容量为 $a_i$ ，$i'\to T$ 容量为 $b_i$  
 对于每一个无向边 $(u,v)$ ，连接 $u\to v'$ 容量为 $\infty$ ，$v\to u'$ 容量为 $\infty$ 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 210;
 const int M = 1e6 + 10;
@@ -125,7 +125,7 @@ int main () {
 同时要有一个保证最大流满足每天要求的通道：`add_Edge(i, T, r[i], 0)`  
 那么在最大流的时候就可以满足要求了，求一下费用即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 # define int ll
 const int N = 4010;
@@ -225,7 +225,7 @@ signed main () {
 所以 $S$ 向 $(x,y)$ 连边的容量为 $a_{xy}$ ，$x$ 向 $T$ 连边的容量为 $deg_i-deg_x$ ，每个人的 $deg$ 增量不超过 $deg_i-deg_x$，这样就满足了要求  
 在这张图上判断是否可以让 $i$ 赢的方式即是否能让每条边都用上，即满流。
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e3 + 10;
 const int M = 1e4 + 10;
@@ -355,7 +355,7 @@ int main () {
 这只是能判断出来这么长时间能运多少，这是一个判定条件，且时间越长能运的越多  
 故开二分  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 15, M = 25, K = 55;
 struct Edge {
@@ -476,7 +476,7 @@ int main () {
 那么如果满流说明有解，否则必有缺的类型，输出无解  
 在确定分配方案时，其实就是如果一条反边有流量，说明这条边正向流过，那么对应一个试题 $x$ 和一种类型 $y$ ，如果 $x\to y$ 有流量，说明 $y$ 使用了试题 $x$ ，就要将 $x$ 加入 $y$ 的分配中   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = (1000 + 20 + 2) + 10;
 const int M = 1e6 + 10;
@@ -581,7 +581,7 @@ int main () {
 每一个副源点都向每一个人连接一条为 $1$ 的边代表在这种情况下每个人最多可以打一个，然后让每个人向自己可以打的怪兽连一条 $1$ 的边代表每个怪兽一个人只能打一下，然后每个怪兽向 $T$ 连接一条为 $1$ 的边代表每个怪兽最多可以被打一次  
 好了建完了，最大流板子一上就过了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2010;
 const int M = 1e7 + 10;
@@ -674,7 +674,7 @@ int main () {
 故一个交点拆成一个入点和一个出点，入点接收周围四个的点，出点向周围四个点发送，入点和出点开一条容量为 $1$ 的边从而使得这个点只能有 $1$ 的流量  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 55;
 const int NN = N * N * 2;

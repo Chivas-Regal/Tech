@@ -2,9 +2,6 @@
 key: 2021-03-10-Hash
 layout: article
 title: Hash
-subtitle: 把元素对应映射？🤔
-categories: 数据结构
-tags: [数据结构]
 aside:
   toc: true
 sidebar:

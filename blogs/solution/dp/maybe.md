@@ -19,7 +19,7 @@ title: 概率DP
 如果 $u$ 在第二个赛区，累加 $\sum\limits_{i=a}^b p[u][i]*dp[u][deep+1]*dp[i][deep+1]$  
 用记忆化搜索对所有的 $dp[i][1]$ 求一遍，然后维护一个最大值即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 bool vis[2010][20];
 double dp[2010][20];
@@ -88,7 +88,7 @@ dp3[i] = dp3[i - 1] * (a3[i] + a1[i]) + a3[i] * dp1[i - 1]
 
 那么对于 $i$ 赢的情况就可以用上面说的情况做解了  
   
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int main () {
         int n; cin >> n;

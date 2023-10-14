@@ -28,7 +28,7 @@ title: 线性代数
  <img src="https://latex.codecogs.com/svg.image?\inline&space;2." title="\inline 2." />  数值  <img src="https://latex.codecogs.com/svg.image?\inline&space;\in[0,n-1]" title="\inline \in[0,n-1]" />   
 所以我们二进制枚举  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{d\}" title="\inline \{d\}" />  每次检查一下是否合法即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 30;
@@ -132,7 +132,7 @@ n维太难想，考虑一下2维圆
  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" />  元一次线性方程组，剩下的交给高斯消元即可  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -241,7 +241,7 @@ c_{nj}
 每一列解这类矩阵表示的异或方程组，对于方案数则是看其自由元数量，令其自由元数量为 $x$，则这一列的方案数为 $2^x$  
 累乘即为答案
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 210;
 const int mod = 998244353;
@@ -324,7 +324,7 @@ int main () {
 数列异或不同的个数就是这个二进制数列能利用线性基异或出来的个数  
 那么我们构造出线性基，化简后统计一下不同的数量即可，最后有 2^cnt 的个数
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int mxBit = 50;
@@ -379,7 +379,7 @@ int main () {
 我们就需要拿走这个数  
 我们要从大往小插入，这样可以尽可能让大的进入线性基从而缩小答案  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const ll mxbt = 30;
@@ -424,7 +424,7 @@ https://darkbzoj.tk/problem/2460
 
 由于前面的先放进去线性基为空，不容易被清0，所以我们利用贪心将val较大的id放前面，然后一个个特判即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 1100;
@@ -469,7 +469,7 @@ int main (){
 这个就可以直接使用线性基，看看这个数可不可以插进去即可  
 记得查询完如果能插入的话还要拔出来  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 1e5 + 10;
@@ -522,7 +522,7 @@ int main () {
 实现方式就是答案的最高位是否为 $1$   
 当然要用 `bitset` 维护  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 namespace Basis {
         bitset<2003> d[2003];
@@ -580,7 +580,7 @@ int main () {
 对每一个调料按 $c$ 排序  
 从小到大枚举，如果能 $id$ 插入就让它把 $d[i]$ 占了，并且使结果加上这个 $c$   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const ll N = 1e5 + 10;
 struct node {
@@ -634,7 +634,7 @@ https://acm.hdu.edu.cn/showproblem.php?pid=3949
 其中特判情况是，整理完之后的线性基如果个数没有n大，那么说明存在一个0，求第k小就变成了求第k-1小  
 同时 cnt 个线性基元素最多只能拼出来 2^cnt-1 种答案，如果 k>=2^cnt-1 的话就是没有第 k 小就没有-1的情况  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -810,7 +810,7 @@ CHIVAS_{
 它哪一位的当前情况是0且线性基这一位为1  
 就让res乘上这一位的线性基  
   
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 
 ```cpp
@@ -979,7 +979,7 @@ n=3时 (1 ~ 9)+..+(1 ~ 1)  +  (1 ~ 8)+..+(1 ~ 1) + (1 ~ 7)+..+(1 ~ 1) + .. + (1 
 </table>  
 因为a[i]都保存了上一行的前i个，所以我们递推时不能改变原有的值，从后往前递推，就将方矩阵和竖矩阵倒过来建  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -1073,7 +1073,7 @@ int main()
    
 由于  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" /> 很大，那么直接矩阵<img src="https://latex.codecogs.com/svg.image?\inline&space;ksm" title="\inline ksm" />优化
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int mod = 1e9 + 7;
@@ -1139,7 +1139,7 @@ int main () {
 由于满足乘法分配律，我们直接用初始的竖矩阵去乘这个区间和矩阵就行了  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 struct Mat {
@@ -1256,7 +1256,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=1575
 #### 💡
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -1342,7 +1342,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=1757
 #### 💡
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -1434,7 +1434,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=2276
 #### 💡
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -1552,7 +1552,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=2604
 #### 💡
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -1640,7 +1640,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=2793
 #### 💡
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -1761,7 +1761,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=3306
 #### 💡
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -1875,7 +1875,7 @@ int main(){
 利用求得的递推式构建矩阵ksm即可，但要防止爆数据类型，可以使用大数
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```java
 import java.util.*;
 import java.math.*;
@@ -1940,7 +1940,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=6470
 #### 💡
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp

@@ -40,7 +40,7 @@ title: 整除相关
 数很大要开高精，这里直接拿  <img src="https://latex.codecogs.com/svg.image?\inline&space;BigInteger" title="\inline BigInteger" />  写了  
 （由于计算了一下对  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" />  分解后本身就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;log" title="\inline log" />  级别的，我们最多合并  <img src="https://latex.codecogs.com/svg.image?\inline&space;\frac{(logn+1)logn}2" title="\inline \frac{(logn + 1)logn}2" />  次，所以时间复杂度最高的为  <img src="https://latex.codecogs.com/svg.image?\inline&space;log(n)^2" title="\inline log(n)^2" /> ，然后  <img src="https://latex.codecogs.com/svg.image?\inline&space;Java" title="\inline Java" />  学的也不好，就啥都开暴力了（逃  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```java
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
@@ -168,7 +168,7 @@ public class Main {
 再唯一分解定理进行求解即可  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int mod = 1e9 + 7;
@@ -225,7 +225,7 @@ int main () {
   
 **对于一个 $p_i$ 的求法**可以算有几个 $p_i^1$ 的倍数，有几个 $p_i^2$ 的倍数，设对于每一个 $p_i^j$ $n$ 以下有 $c_j$ 个倍数，则结果为 $\sum\limits_{j}c_j$ ，直接埃氏筛将第一层换成幂即可，对于每一个统计的 $p_i^j$ ，累加 $\left\lfloor\frac{n}{p_i^j}\right\rfloor$    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 ll n, k; cin >> n >> k;
 
@@ -273,7 +273,7 @@ $lcm(a,b)=\frac{a\times b}{(a,b)}$
 求解的过程中顺便将当前的合数压缩下去再让 $res$ 直接乘      
 到最后需要将当前合数的质因数融入 $res$ 的质因数  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 namespace primeNumber {
         const ll N = 3e4 + 10;
@@ -363,7 +363,7 @@ int main () {
 所以我们对于 $[1,n]$ 中的每一个数 $i$ 都让 $num[i']+1$   
 这样我们在最后就可以对 $i'$ 相同的数进行配对了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int main () {
         ios::sync_with_stdio(false);
@@ -415,7 +415,7 @@ $\begin{aligned}
 朴素下来就是：对于查询 $[h1,h2,w1,w2]$ ，我们计算 $\gcd(a_{h1}+b_{w1},\gcd\limits_{i=h1+1}^{h2}(a_i-a_{i-1}),\gcd\limits_{i=w1+1}^{w2}(b_i-b_{i-1}))$ 即可  
 后面两个 $\gcd$ 可以直接区间查询  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
  
@@ -470,7 +470,7 @@ https://codeforces.com/problemset/problem/1445/C
 b不能是x的因数，则保证了x中不能有b的所有(相同也算)质因数，所以x是由a除掉b的某个质因数的一部分得来的。  
 于是我们对b拆解质因数，并在a除这种质因数时判断除到什么程度了a不是b的倍数，最大的就是x  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -613,7 +613,7 @@ CHIVAS_{
 枚举的过程中，如果出现一个因数出现的个数+cnt超过一半了，那么就维护一下答案的最大值  
 但要记得也去统计另一个因数dir/k并且满足条件了话就维护  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 300;
@@ -674,7 +674,7 @@ int main () {
 打个表发现 $SUM$ 的因数不会非常多，故统计完所有的因数后可以对每一个因数都跑一遍，拿 $map$ 存余数，最后可以统计出来每一个因数最多可以分割的段数 $times[]$  
 然后求 $k$ 的答案时，找到最大的因数 $i$，满足 $times[i]\ge k$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2010;
 int n;
@@ -735,7 +735,7 @@ int main () {
   
 在非1、2情况下拿3和4出的答案进行比较，输出较小的那个  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 namespace primeNumber {
@@ -791,7 +791,7 @@ int main () {
 那么就意味着可以选这个因数   
 走完所有的我们收集的因数维护最大值即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 50;
 int n;
@@ -851,7 +851,7 @@ https://www.luogu.com.cn/problem/P2158
 所以   
 <img src="https://latex.codecogs.com/svg.image?res=\sum\limits_1^{n-1}phi(i)\quad*2&plus;1" title="res=\sum\limits_1^{n-1}phi(i)\quad*2+1" />
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -979,7 +979,7 @@ CHIVAS{
   
 当然每次求1~n/k的phi和都可以预先前缀和处理一下  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 namespace Number {
@@ -1038,7 +1038,7 @@ $\begin{aligned}
 $\sum\limits_{d\in p}(2\sum\limits_{i=1}^{\frac nd}\phi(i)-1)$  
 其中 $\sum\limits_{i=1}^{\frac nd}\phi(i)$ 预处理一下前缀和或者从小到大动态累加（ $d$ 从大到小 ）  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e7 + 10;
 bool ntp[N];
@@ -1091,7 +1091,7 @@ int main () {
 注意可能含有大质数，所以最后要单独跑一遍 $[l,r]$ 看看有没有除完所有的小质数后没有到 $1$ 的数，如果有就说明有大质因数，再用这个质数求一下它的欧拉函数即可  
 最后暴力累加  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e6 + 10;
 
@@ -1160,7 +1160,7 @@ int main () {
   
 暴力就可以写  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline bool is_Prime ( ll x ) {
         for ( ll i = 2; i * i <= x; i ++ ) {
@@ -1217,7 +1217,7 @@ int main () {
   
 路上累加所有的 `res_map` ，最后再除一下 $gcd$ 的质因数表组成的数即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int M = 4e5 + 10;
@@ -1358,7 +1358,7 @@ https://acm.dingbacode.com/showproblem.php?pid=2588
 此时在这个位置上个数就是<img src="https://latex.codecogs.com/svg.image?\phi(\frac&space;na)" title="\phi(\frac na)" />  
 由于因数都是成对出现的，所以我们只需遍历一边因子，即从 1 到 <img src="https://latex.codecogs.com/svg.image?\sqrt{n}" title="\sqrt{n}" /> 即可
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -1482,7 +1482,7 @@ http://poj.org/problem?id=1284
 原根的一个知识点  
 每个数x的原根个数为phi[phi[x]]  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -1602,7 +1602,7 @@ http://poj.org/problem?id=2407
 欧拉函数的模板  
 只需要求欧拉值即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -1715,7 +1715,7 @@ http://poj.org/problem?id=2478
 每个数以自己为分母时可以有phi[x]个数互质成立  
 所以求2 ~ n的phi和即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -1844,7 +1844,7 @@ gcd(a, b) = gcd(a + b * T, b) = gcd(a, b + a * T)
   
 虽然是暴力，但是优化了时间  
  
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -1974,7 +1974,7 @@ http://poj.org/problem?id=3090
 就是入门题那个仪仗队  
 只不过这里n++而已  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -2106,7 +2106,7 @@ CHIVAS{
 根据素数分布规则来看，我们完全可以从<img src="https://latex.codecogs.com/svg.image?n" title="n" />向后找，从 n 到 大于n的第一个素数 这个范围内会有满足条件的数  
 且时间复杂度能过去  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -2237,7 +2237,7 @@ https://acm.dingbacode.com/contests/contest_showproblem.php?pid=1007&cid=1019
 #### 💡
 [学习传送门](https://chivas-regal.github.io/%E6%95%B0%E5%AD%A6/2021/07/16/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0%E5%92%8C%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86.html)
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -2381,7 +2381,7 @@ https://acm.dingbacode.com/showproblem.php?pid=5728
   </li>
 </ol>
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -2538,7 +2538,7 @@ https://www.luogu.com.cn/problem/P5091
 #### 💡
 [学习传送门](https://chivas-regal.github.io/%E6%95%B0%E5%AD%A6/2021/07/16/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0%E5%92%8C%E6%AC%A7%E6%8B%89%E5%AE%9A%E7%90%86.html)
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*

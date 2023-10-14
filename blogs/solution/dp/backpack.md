@@ -14,7 +14,7 @@ title: 背包DP
 那么我们让背包第二维是模 $k$ 后的值即可  
 由于我们很难固定从大到小转移，这里数据也不大，直接开 $2$ 维即可     
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 ll n, k;
 pair<ll, ll> pr[1100];
@@ -54,7 +54,7 @@ int main () {
 那么对于第 $x$ 个杯子，$dp[i][j]=\max(dp[i][j],dp[i-1][j-a[x]]+b[x]$  
 这样求完之后，在获得选 $k$ 个杯子下的答案就可以按上面的枚举 $cura$ 维护最大值求即可
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 double dp[110][10010];
 
@@ -122,7 +122,7 @@ https://codeforces.com/contest/1516/problem/C
 然后对整个序列约分一下  
 其中第一个奇数我们就可以删去让数组不可拆  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -316,7 +316,7 @@ https://acm.hdu.edu.cn/showproblem.php?pid=2639
 对这 k 种情况由两种决策选项产生的 2k 种状态去重排序，只需要取其中前 k 个即可  
 在每次对一个新物品进行决策时都做一下这个效果，维持一下前 k 个最优解即可
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -460,7 +460,7 @@ https://acm.dingbacode.com/showproblem.php?pid=2844
 <br><br>
 最后 1～m 统计一下不为 0 的 dp 值的数量即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -598,7 +598,7 @@ $bool$ 类型，两个限制都只有加法操作，应该很灵敏地想到使�
 
 （这题好像有点卡常了，预处理保证 $a\le b\le c$ 来让复杂度除 $6$ 即可）     
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 bool vis[51][51][51];
 int n, m, A[51];
@@ -646,7 +646,7 @@ https://vjudge.net/problem/OpenJ_Bailian-2726
 本题就是一个很裸的01背包模板
 细节请看[学习传送门](https://chivas-regal.github.io/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/2021/07/20/%E8%83%8C%E5%8C%85DP.html)
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -763,7 +763,7 @@ https://vjudge.net/problem/UVA-624
 此时`dp[i].first`表示背包内容， `dp[i].second`表示背包内部价值  
 在更新的时候，只需要用`second`进行比较，然后`first, second`一起更新即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -898,7 +898,7 @@ https://vjudge.net/problem/UVA-12589#author=0
 <br><br>
 物品价值有了，循环维度有了，分析结束
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -1031,7 +1031,7 @@ CHIVAS_{
 所以其实所有物品的体积加起来不会达到 $1e6$  
 那么我们可以通过这个压缩一下容积进行求解  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const ll N = 1e3 + 10;
 ll stp[N];

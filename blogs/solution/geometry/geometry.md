@@ -15,7 +15,7 @@ https://ac.nowcoder.com/acm/contest/11166/B
 利用三角形相似求解  
 ⚠️：一定等公式化简完了再解，不然duoble会有精度丢失  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -134,7 +134,7 @@ $\left.\begin{aligned}+p_x^2(1-k^2)+p_y^2(1-k^2)+p_z^2(1-k^2)\\+2p_x(k^2b_x-a_x)
 然后算球的体积交即可  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const double PI = acos(-1.0);
 
@@ -197,7 +197,7 @@ int main () {
 但是考虑内圈圆半径r的时候，我们需要寻找圆心到边的最近距离即可（计算几何板子扔上去）  
 最后答案就是 ( R * R - r * r ) * PI  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -327,7 +327,7 @@ int main () {
   
 >C++ 精度一直出问题，所以换成 Java 来做
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 public class Main{

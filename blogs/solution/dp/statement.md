@@ -27,7 +27,7 @@ title: 状压DP
 最后再计算一下走到  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 后再走回去的距离  
 此时所有的点都走过了，所以状态是全  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" /> 的
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 int dp[1050000][20]; // dp[i][j]: i状态下，最后一个点走到j
@@ -109,7 +109,7 @@ inline bool check2 (int x, int y) {
 
 这样判断完之后，去枚举到这一行之后的国王数 $k$ ，然后转移累加即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int main () {
         ios::sync_with_stdio(false);
@@ -149,7 +149,7 @@ $|s|$ 不是很大，开状压
 然后枚举下一个应该塞哪个下标（设为 $i$），则 下一个状态为 $s|(1<<i)$ ，下一个余数为 $cur*10+a[i]$  
 这样转移过程就出来了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
         string s; cin >> s;
@@ -199,7 +199,7 @@ n不大，我们可以想着用状压来表示状态
 而把至少有两个点的公司压入二进制状态，我们第二维就可以作为上一步是哪个点  
 那么这个问题就状压DP  <img src="https://latex.codecogs.com/svg.image?\inline&space;sxy" title="\inline sxy" /> 就可以解决了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 40;
@@ -290,7 +290,7 @@ int main () {
   
 最后找答案就从大到小枚举满状态下的余数，如果存在的话就输出即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 ll dp[1 << 17][210];
 int D, K;

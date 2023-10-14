@@ -2,9 +2,6 @@
 key: 2021-02-20-并查集
 layout: article
 title: 并查集
-subtitle: 一堆数据抱团活动？🤔
-categories: 数据结构
-tags: [数据结构]
 aside:
   toc: true
 sidebar:

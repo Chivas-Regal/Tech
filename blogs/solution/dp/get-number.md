@@ -30,7 +30,7 @@ title: 计数DP
   
 其中注意，初始是前面的都弄好了，且这一位不会产生影响，  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[0][0][0][1]=0" title="\inline dp[0][0][0][1]=0" />   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 int N, K;
@@ -144,7 +144,7 @@ $\begin{matrix}
 那么对进制矩阵求 $n$ 次幂，然后以乘单位矩阵的方式求对角线即可   
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 const int mod = 1e9 + 7;
@@ -214,7 +214,7 @@ int main () {
 所以我们对于第 $i$ 行 $dp[i][j][k]$ ，枚举下一行在含一个棋子的列里面选 $a$ 列本来就含有一个棋子的，选 $b$ 列本来没有棋子的，那么下一个状态为 $dp[i+1][j-a+b][k+b]$ ，同时选择为组合数，累加转移时要乘上 $\binom{j}{a}\times \binom{m-k-j}{b}$ ，注意 $a+b\le 2$ 代表这一行不选超过两个棋子  
 最后累加一下 $dp[n][j][k]$ 即可   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int mod = 9999973;
 inline ll ksm (ll a, ll b) { ll res = 1; while (b) { if (b & 1) res = res * a % mod; a = a * a % mod; b >>= 1; } return res; }
@@ -294,7 +294,7 @@ int main () {
 <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}&space;&space;&for\;i[0\longrightarrow&space;n-1]:\\&space;&space;&\quad&space;for\;j[m-1\longrightarrow&space;0]:\\&space;&space;&\quad\quad\quad&space;if\;j>0:&dp_j=dp_j&plus;dp_{j-1}\\&space;&space;&\quad\quad\quad&space;else:&dp_j=dp_j&plus;dp_{j-1}\end{aligned}" title="\inline \begin{aligned} &for\;i[0\longrightarrow n-1]:\\ &\quad for\;j[m-1\longrightarrow 0]:\\ &\quad\quad\quad if\;j>0:&dp_j=dp_j+dp_{j-1}\\ &\quad\quad\quad else:&dp_j=dp_j+dp_{j-1}\end{aligned}" />   
 >注意，这里倒着枚举  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" />  是防止同一步之前更新过的  <img src="https://latex.codecogs.com/svg.image?\inline&space;j-1" title="\inline j-1" />  加给  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 数过大，普通的类型会溢出  
 这里只给出直观的普通类型 C++ 代码，改大数可以自行更改（我用的是 java
@@ -344,7 +344,7 @@ $dp[i][]$ 用 $dp[i-1][]$ 来转移，枚举 $i-1$ 匹配了多少个，那么�
 由于不能有前导 $0$ ，就对于长度 $i$ 时，枚举一下 $s_j$ 是否为 $0$ ，如果为 $0$ ，说明以它开头的都不可以选，减去 $\binom{n-j}{i-1}$  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 3010;
 const int mod = 998244353;
@@ -442,7 +442,7 @@ $dp[i][j+k]=dp[i][j+k]+dp[i-1][k]\times \frac1{j!}$
 然后最后统计答案将当前长度的阶乘乘上即可  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int mod = 998244353;
 
@@ -502,7 +502,7 @@ $dp[i][j]$ 表示本来长度为 $i$ ，压缩为 $j$ 的方案数
 
 连加符号一个个算会很费时间，这里可以用 $dp$ 的前缀和得出区间和来进行计算，最后统计的时候用区间和得出第一个维度为 $n$ 的 $dp$ 即可        
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 3003;
 ll dp[N][N << 1]; // len:i->j
@@ -552,7 +552,7 @@ int main () {
 由于是区间和，我们可以每一次预处理出来 $dp[i-1][]$ 的前缀和 ，然后求区间和直接用前缀相减即可  
 不过这里要注意 $k=0$ 时我们 $dp[i-1][j]$ 会被算两遍，要减去  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int mod = 998244353;
 const int N = 1003;
@@ -611,7 +611,7 @@ int main () {
   
 由于是倍数关系，则我们在求 $[cnt]$ 与 $[dp]$ 时均可以使用埃氏筛求解  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int main () {
         cin.tie(0)->sync_with_stdio(0);
@@ -662,7 +662,7 @@ $$1_2\left\{\begin{aligned}
 即 $fibonacci$ 前缀和 $sum[p-sz+1]$  
 对去重后的所有数累加即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int mod = 1e9 + 7;
@@ -739,7 +739,7 @@ int main () {
 选择深度小的点枚举相邻边同理  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 ll n;
@@ -863,7 +863,7 @@ $dp[i]=calc(\{1,1\},\{x_i,y_i\})-\sum\limits_{j=1}^{i-1}calc(\{x_j,y_j\},\{x_i,y
   
 我们将 $(n,n)$ 设为最后一个障碍物，答案便易得了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e6 + 10;
 const int M = 3e3 + 10;

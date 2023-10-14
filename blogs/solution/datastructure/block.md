@@ -24,7 +24,7 @@ https://www.luogu.com.cn/problem/P3396
 查询的时候，如果模数<img src="https://latex.codecogs.com/svg.image?x\leqslant&space;\sqrt{n}" title="x\leqslant \sqrt{n}" />，那么我们可以用已有的表直接输出<img src="https://latex.codecogs.com/svg.image?O(1)" title="O(1)" />。如果<img src="https://latex.codecogs.com/svg.image?x\geqslant&space;\sqrt{n}" title="x\geqslant \sqrt{n}" />，那么我们完全暴力（以大于根号n的步长向上跳）去累加，<img src="https://latex.codecogs.com/svg.image?O(\sqrt{n})" title="O(\sqrt{n})" />。  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -168,7 +168,7 @@ https://www.luogu.com.cn/problem/P3870
 更新：  
 对散的元素一个个更新并同时更新所处块的sum(按该元素进行完lazy后的状态对sum更新)，对块的sum更新是len - sum[i]，同时lazy多记录1  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -316,7 +316,7 @@ https://www.luogu.com.cn/problem/P4109
   
 写一个VAL函数维护荒谬度，其余就是分块跑一遍就行了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -376,7 +376,7 @@ int main () {
 如果 $x\%len=0$ 那么说明所有偏移量都只出现了 $x/len$ 次  
 否则说明偏移量为 $x\%len$ 出现了 $x/len$ 次，而 $[x\%len+1,len]$ 则是出现了 $x/len+1$ 次   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int mod = 998244353;

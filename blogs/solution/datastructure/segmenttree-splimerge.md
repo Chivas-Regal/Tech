@@ -22,7 +22,7 @@ $2.$ $p$ 在 $lca\to t$ 这一段：$(deep_s-deep_{lca})+(deep_p-deep_{lca})=w_p
   
 注意，减的时候值域可能为负导致线段树$RE$ ，所以我们将值域向右偏移 $n$
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 3e5 + 10;
 const int M = N * 2;
@@ -163,7 +163,7 @@ int main () {
   
 而且每一次查询的时候都跑一遍很慢，注意到修改都是只修改一个颜色，那么我们动态地改变 $res$ 的值即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e6 + 10;
 const int M = 1e5 + 10;
@@ -251,7 +251,7 @@ int main () {
 如果交换，则是把上面的左右儿子反过来  
 那么每次合并时按上述方法记录一个交换前的逆序对数量，与交换后的逆序对数量，让 $res$ 累加最小值即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 8e5 + 10;
 const int M = N;

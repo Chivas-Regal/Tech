@@ -24,7 +24,7 @@ title: 特殊图
 对于 $n$ 是奇数，$n-1$ 是偶数，我们完全可以造欧拉图  
 我们让每个点度均为 $n-1$ ，那么最长路为 $\frac{n(n-1)}{2}$    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int main () {
         ios::sync_with_stdio(false);
@@ -59,7 +59,7 @@ int main () {
 当然本题有很多要卡常的地方，因为 $\sum m\le10^6$ 但是 $n$ 没有限制  
 所以我们每次建边时将存在邻边的点存一下，然后查询最小的 $deg_i$ 和清空 $deg$ 都用这个容器来进行更新即可   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int deg[1000006];
 

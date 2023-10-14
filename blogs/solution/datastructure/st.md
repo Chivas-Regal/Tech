@@ -23,7 +23,7 @@ https://ac.nowcoder.com/acm/contest/11256/K
 所以我们可以预处理出区间的 Max 和 Min  
 于是用到ST表去处理
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -176,7 +176,7 @@ CHIVAS_{
 优化一下，由于 $a[i]$ 从大到小，所以我们只需要再维护一个从大到小移动的下标指针 $j$ ，在判断之前先将其移动到第一个不大于 $a[i]$ 的 $b[j]$ ，判断两者相不相等即可  
 结合上 $st$ 表的搭建过程复杂度就是 $O(nlogn\times 2logn)$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 5e5 + 10;
 int lg[N];
@@ -263,7 +263,7 @@ $\begin{aligned}
 朴素下来就是：对于查询 $[h1,h2,w1,w2]$ ，我们计算 $\gcd(a_{h1}+b_{w1},\gcd\limits_{i=h1+1}^{h2}(a_i-a_{i-1}),\gcd\limits_{i=w1+1}^{w2}(b_i-b_{i-1}))$ 即可  
 后面两个 $\gcd$ 可以直接区间查询  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
  
@@ -318,7 +318,7 @@ int main () {
 在查询的时候，由于是 $3\times 10^5$ ，如果是两个 $log$ 那么基本上不能有别的常数，所以我们查询用 $O(n)$  
 这就意味着我们获取区间最小值要 $O(1)$ 复杂度，于是使用 $st$ 表  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 3e5 + 10;
 int n;
@@ -388,7 +388,7 @@ https://codeforces.com/contest/1549/problem/D
 那么我们构建出一个差分数组，然后求gcd大于1的最长区间即可  
 这里使用st表构建区间gcd，然后双指针求区间  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -588,7 +588,7 @@ this_MinInLen ( l );
 
 时间复杂度： $O(nlogn)$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 ll a[N], sum[N];

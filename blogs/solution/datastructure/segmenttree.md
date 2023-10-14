@@ -14,7 +14,7 @@ title: 线段树
 所以线段树转化为差分数组，在每次区间修改时，将 $[l+1,r]$ 的位置上都加上 $k$ ，然后在 $l$ 的位置上加上 $d$ ，在 $r+1$ 的位置上减去 $(r-l)*k+d$   
 查询的时候就是查 $[1,p]$ 的和，也就是差分的前缀和等于位置上的数值  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 1e5 + 10;
@@ -107,7 +107,7 @@ int main () {
 区间和就正常修改  
 然后查询时要用区间和求出平均数 $ave$ ，然后按上面拆出来的内容求 $(sum2-2\;ave\;sum1+ave^2(r-l+1))/(r-l+1)$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 1e5 + 10;
@@ -220,7 +220,7 @@ int main () {
   
 一个变量维护其的最小差值即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1003;
 const int M = N * N;
@@ -323,7 +323,7 @@ int main () {
 那么这就是一个二分答案了  
 二分这个分界线，看排到最后 $q$ 位置上是否为 $1$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 
@@ -437,7 +437,7 @@ int main () {
 所以我们可以正常 <img src="https://latex.codecogs.com/svg.image?\inline&space;lazy" title="\inline lazy" /> 维护加的 <img src="https://latex.codecogs.com/svg.image?\inline&space;\sum&space;x" title="\inline a" />    
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #### include <iostream>
@@ -563,7 +563,7 @@ int main () {
 这在一个 $check()$ 里面就是一个 $O(n^2)$ 的算法，需要优化  
 我们求的是 $\max\limits_{k=l_i}^idp_k$ ，单单一个区间最大值，拿线段树优化完事儿  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e6 + 10;
 
@@ -689,7 +689,7 @@ inline ll Query ( ll a, ll b, ll l, ll r, ll rt ) {
 毕竟它可没有儿子节点
 :::
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 namespace SegmentTree_Num {
         ll s[N << 2];
@@ -759,7 +759,7 @@ int main () {
 那么向上更新时便是左子树多乘进制套着右子树向上走    
 $s[i][rt]=s[i][rt<<1] \times i^{r-mid}+s[i][rt<<1|1]$
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const ll N = 1e5 + 10;
 const ll mod = 1e9 + 7;
@@ -877,7 +877,7 @@ int main () {
   
 [本题纯组合数学解法请看这里](https://tech.chivas-regal.top/blogs/solution/math/combine-math.html#%E7%89%9B%E5%AE%A22022%E5%AF%92%E5%81%87%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E9%9B%86%E8%AE%AD%E8%90%A54g-%E5%AD%90%E5%BA%8F%E5%88%97%E6%9D%83%E5%80%BC%E4%B9%98%E7%A7%AF)
   
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 ll a[N], n, b[N];
@@ -1002,7 +1002,7 @@ inline ll Query ( ll a, ll b, ll l, ll r, ll rt, ll bs ) {
 - 开始时力量默认为 $1$ ，所以 $x$ 位要额外 $+1$ 进行求值
 - 开始那一位带上了一遍 $/2$ 所以最后要多除一遍 $2$    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const ll N = 1e5 + 10;
 const ll mod = 998244353;
@@ -1107,7 +1107,7 @@ https://ac.nowcoder.com/acm/contest/13647/A
 从而在区间内未出现的最小数O(1)查询
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
 
 
 ```cpp
@@ -1205,7 +1205,7 @@ int main()
 
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e4 + 10;
 int n, m;
@@ -1310,7 +1310,7 @@ int main () {
 维护区间 $max$ ，查询时对 $a_i$ 与 $t[rt].m$ 进行比较，优先去找左区间   
 找到单点后答案即为该点，然后单点修改，注意如果种类放完也就是说 $t[rt].k=0$ 那么可放个数 $t[rt].m$ 也要变成 $0$   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 3e5 + 10;
 const int mod = 1e9 + 7;
@@ -1392,7 +1392,7 @@ int main () {
 $\sum\limits_{x=l}^r(x^2-2(l-1)x-(l-1)^2)=\sum\limits_{x=l}^rx^2-2(l-1)\sum\limits_{x=l}^rx-(l-1)^2\sum\limits_{x=l}^r1$  
 也就是这两个等差数列的平方和与一次方和都很好求，在强制更新的时候是要用给定的 $l$ 算这三个系数然后乘进去，而在传懒标记时要用三个 $lazy$ 当这三个项的系数，分别乘 $(l^2+(l+1)^2+...+r^2)$ 、$(l+(l+1)+...+r)$ 、$(r-l+1)$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 5e5 + 10;
 const int mod = 1e9 + 7;
@@ -1495,7 +1495,7 @@ int main () {
 由于满足乘法分配律，我们直接用初始的竖矩阵去乘这个区间和矩阵就行了  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 struct Mat {
@@ -1619,7 +1619,7 @@ int main () {
 当然如果本身 <img src="https://latex.codecogs.com/svg.image?l-1" title="l-1" /> 的前缀和不等于 <img src="https://latex.codecogs.com/svg.image?r" title="r" /> 的前缀和就也是不匹配的  
 这里的最小值可以使用线段树进行维护，修改便直接在线段树上修改如果本身是'('，修改后区间-2，否则+2  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -1714,7 +1714,7 @@ int main () {
 这样的话我们可以在每一次覆盖时遍历它的数组，令这些时间戳的查询加上 $c$ 并减去对 $y$ 的单点查询  
 如果是查询操作，就加上对 $y$ 的单点查询并输出结果  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 # define mid ((l + r) >> 1)
 const int N = 2e5 + 10;
@@ -1810,7 +1810,7 @@ signed main () {
 注意到还有一个地方，就是每一个位置都是循环的，也就是说它如果等于 $65536$ 的话它会立即变成 $0$ ，也就意味着所有的位置都不能大于等于 $65536$ ，这个地方的处理可以记录一个区间的最大值，然后每次查询前看一个区间的最大值是否超过了进制，超过了话进入递归向下走并单点修改，重新搭建这一条区间链  
 怕被卡，两个线段树，使用双哈希  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 5e5 + 10;
 const int base = 65536;
@@ -1936,7 +1936,7 @@ int main () {
 字符串是由 $26$ 个英文字母组成，查询的时候如果能知道每一个字母对答案的贡献就很好做了  
 那么构建 $26$ 棵线段树分别对应每一个字母的出现次数，查询的时候直接查询每棵线段树 $[l,r]$ 里面出现的次数，如果不为 $0$ 就对答案贡献 $1$   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 string s;
@@ -2011,7 +2011,7 @@ int main () {
 插入操作就直接在 $x$ 的位置上 $+1$   
 删除操作先找到第 $k$ 小的数是谁（直接在权值线段树内走二分优化掉一个 $log$），找到后对它的位置上进行 $-1$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e6 + 10;
 int n, m, t[N << 2];
@@ -2087,7 +2087,7 @@ int main () {
 线段树懒标记往下推的时候，需要考虑需不需要更改这两个关键字，而当子树的 $l=r$ 了话，就代表我们推到底了，如果将距离更新为更短了，就要直接修改 $pre[l]$    
   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 3e5 + 10;
 const int inf = 0x3f3f3f3f;
@@ -2217,7 +2217,7 @@ int main () {
 一个 $01$ 的线段树，支持单点修改、区间修改、区间查询  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 int n, m, a[N];
@@ -2372,7 +2372,7 @@ inline void Solve () {
 考虑上锁与解锁都需要将所有的懒标记推下去才可以，但其实可以注意到其实更新就需要每一次都往下推，这就是一个单点更新的过程，在走到点之前就一直往下推懒标记就行了，也就是单点更新更新的是 $s$ ，区间更新更新的是 $a$   
 查询就暴力查就行
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 struct SegmentTree {
@@ -2494,7 +2494,7 @@ int main () {
   
 需求内需要的工具：支持区间变 $1$ 变 $0$ 、可区间查询。那么就使用一个带懒标记的线段树即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 string a, b;
@@ -2600,7 +2600,7 @@ inline void Solve () {
 在维护最大值的时候对于规则一就查第一棵里面大于 $sum[i]$ 的位置上的最大值 $+i$ ，第二棵小于 $sum[i]$ 的位置上的最大值 $-i$   
 此时规则二要查 $sum$ 相等的里面的最大值，这个用一个数组进行更新即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 5e5 + 30;
 pair<int, int> t[N << 2];
@@ -2691,7 +2691,7 @@ int main () {
 从下到上再到从上到下这是两种不同的更新方式，所以要分两次更新，且每次更新时要提出所有的更新区间然后分别按深度降序排序和深度升序排序  
 但是还有问题就是考虑到 $lca$ 这个位置会被更新两次且第二段整体左端点会偏移，所以只需要第一段记完 $num$ 后第二段再用时是 $num-1$ 开始的，然后让最后答案 $res[lca]-num*num$ 即可   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int M = 2 * N;
@@ -2877,7 +2877,7 @@ signed main () {
 在操作一的区间更新下，对于叶子区间那么就是上面说的，推这个懒标记的时候就是 $sumval+sumhigh+2sumhigh+4sumhigh+...+2^{lazy-1}sumhigh$ ，也就是 $sumval+(2^{lazy}-1)sumhigh$，而 $sumhigh*2^{lazy}$ ，同时注意要将懒标记叠加给两个儿子然后清空自己的  
 在操作二下，我们单点修改到的叶子节点，要保证路上每一个节点的 $mostbit$ 都不是 $0$ ，然后在叶子结点让 $mostbit-1$ ，同时本 $val$ 减去 $bit$ 的结尾值，并 $pop$ 掉，注意如果 $mostbit=1$ 时直接让 $val$ 设置为 $0$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 const int mod = 998244353;
@@ -3017,7 +3017,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=1394
 #### 💡 
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
 
 
 ```cpp
@@ -3165,7 +3165,7 @@ ll Query(int a, int b, int l, int r, int rt)
 每次查询 $\le$ 是查询 $[1,a_i]$ 的区间 $max$  
 每次更新则是在 $a_i$ 离散化后的位置上单点更新为 $i$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >1
+#### ✅1
 ```cpp
 const int N = 5e5 + 10;
 int n;
@@ -3278,7 +3278,7 @@ http://poj.org/problem?id=2299
 #### 💡
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
 
 
 ```cpp

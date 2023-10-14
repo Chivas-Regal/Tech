@@ -17,7 +17,7 @@ dp思想太好用了，没想到可以用dp推链数
 每次有一个新元素要进队就加上起点的链数dp  
 最后统计所有出度为0的元素的dp和  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -144,7 +144,7 @@ Chivas{
 然后如果最后出来的不是n个数说明有环，就-1  
 否则输出这n个数  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 3e5 + 10;
@@ -220,7 +220,7 @@ DFS回溯是很难回溯的，因为走的是一条路，可能会走到别的�
   
 最后记录一下dp>k也就是没有被删掉的节点个数  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 8e5 + 10;
@@ -278,7 +278,7 @@ https://pintia.cn/problem-sets/1380134731032481792/problems/1380134925589520393
 #### 💡
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp

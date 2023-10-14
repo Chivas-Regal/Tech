@@ -15,7 +15,7 @@ title:  二分
 在不走 $f[x]>mid$ 的情况下，即提前标记 $vis[x]=true$ ，看看最短路是多少  
 和血量 $b$ 比较一下  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e4 + 10;
 const int M = 1e5 + 10;
@@ -98,7 +98,7 @@ int main () {
 利用交点我们可以得到对于每个山坡，它能被看见的话，$x$ 可在的区间  
 利用二分答案，每一个 `check()` 是：对于所有 $x$ 可以被看到的区间是否有交集  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 struct node {
         double k, b;
@@ -153,7 +153,7 @@ int main () {
 一看数据范围用二分法算 $LIS$  
 每次遇见 $p[i]$ 后都一定会进行 `push_back()`  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N  = 5e5 + 10;
 int n, k;
@@ -222,7 +222,7 @@ res\times \sum P-\sum V&\ge 0
 这里 `BFS` 版 $SPFA$ 会寄， `DFS` 版勉强过  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 7010;
 const int M = 40010;
@@ -298,7 +298,7 @@ $dp[i][j]$ 表示前 $i$ 个人完成 $j$ 个模块$1$下最多能完成多少�
 但是考虑一下随着时间增大， $dp[n][m]$ 肯定是单调递增的，那么时间使用二分答案判断 $dp[n][m]$ 是否 $\ge m$  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 110;
 const int M = 110;
@@ -351,7 +351,7 @@ int main () {
 如果这个数量 $\le k$ 了说明我们还可以继续往 $x$ 小了找，否则要放松范围往 $>x$ 了找  
 最后二分出来的结果就是答案  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1003;
 const int M = 20004;
@@ -431,7 +431,7 @@ int main () {
 每次用 $x=mid$ 去 $check()$ 先扫一遍尽可能去把 $c1<=x$ 的道路都建上  
 满足了 $k$ 个边了再去看看生成树可不可以  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e4 + 10;
 int n, k, m;
@@ -526,7 +526,7 @@ int main () {
 这只是能判断出来这么长时间能运多少，这是一个判定条件，且时间越长能运的越多  
 故开二分  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 15, M = 25, K = 55;
 struct Edge {
@@ -650,7 +650,7 @@ $n \le 5$ 可以直接用 $map$ 将 $key$ 设置为 $hash$ 值，将 $val$ 设�
 这就证明检查公共子串的长度是否存在是存在 $01$ 单调性的  
 于是直接二分答案即可，复杂度为 $O(5nlognlogn)$ 的
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e3 + 10;
 const ll mod1 = 2000000011;
@@ -726,7 +726,7 @@ int main () {
   
 根据这个规律，我们就可以二分地写出来了 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" />
+#### ✅
 
 ```cpp
 int main () {
@@ -763,7 +763,7 @@ pos02\left\{\begin{aligned}pos021\\pos022\end{aligned}\right.
 \end{aligned}\right.$  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 ll k, w, q; 
 inline ll calc ( ll a, ll b ) { // 计算 a->b 的提升值
@@ -839,7 +839,7 @@ int main () {
 两个 `check` 搭建完毕，可以二分了  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 int n;
@@ -915,7 +915,7 @@ LCS是个动态规划问题，但我们可以用DP的思想贪过去
   
 我们发现这个数据范围是$1e6$的，所以我们采用贪心+二分优化，时间复杂度O(nlogn)  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 1e6 + 10;
@@ -948,7 +948,7 @@ $B$ 操作是非子树最少选 $y$ 个，想办法把 $B$ 移植成 $A$ 的格�
 我们在判断一个 $allsum$ 是否可行时，将其进行区间嵌套 $dfs$ 到 $1$ 也就是根节点，看看 $1$ 的范围内是否存在 $allsum$ ，如果存在说明可行  
 且可以看出来黑点从少到多的可行判断是存在单调性的，所以对 $allsum$ 二分即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png">
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 const int M = N << 1;
@@ -1055,7 +1055,7 @@ int main () {
 在 $check$ 里面分配时，从效率高的龙开始往效率低的龙枚举，$2^j$ 效率的龙首先分给所有 $a[i]\ge 2^j$ 的材料 $\left\lfloor\frac{a[i]}{2^j}\right\rfloor$ 个，当然数量总和不能超过龙数，如果最后还有剩余的，分给最多的几个材料一个材料一份  
 到最后判断一下是否所有材料都被给占满了即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 5e5 + 10;
 int n, k;
@@ -1121,7 +1121,7 @@ int main () {
   
 那么染色的方式就比较多了，思考一下省事点就是 $dfs$ ，一个点连接向儿子的边的公司，在与连接父亲的边的公司不同的情况下尽量不重复地去选即可
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int M = N << 1;
@@ -1193,7 +1193,7 @@ int main () {
 我们倒着枚举 $i$ ，在 $[1,n]$ 中二分出来 $b[x]\neq 0$ 且 $sum[x-1]\ge a[i]$ 的位置 ，然后将 $b[x]$ 设置为 $0$ 并且更新 $[sum]$   
 这里这两个更新操作如果暴力操作都会很费时间，可以使用线段树或树状数组进行更新，查询也是。  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const ll N = 5e5 + 10;
  
@@ -1261,7 +1261,7 @@ $\begin{aligned}
 这样也就是我们在这个块内答案的峰值  
 然后维护一下每一个块我们求出来 $L$ 所得的 `calc(L,R)` 的最大值即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 # define int ll // 雾
  
@@ -1343,7 +1343,7 @@ $\ge mid$ 为 $1$ ，其余为 $0$ ，做前缀和 `sum`
 套路出来这一点之后，我们就可以维护一个前缀的最小值，但是这个前缀必须是要在 $i-k$ 之前的  
 维护出来后每次对 $sum[i]$ 和 $min(sum)$ 进行比较，如果出现 $sum[i]\ge min(sum)$ 的情况就以为着 $check$ 成功    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 int n, k;
@@ -1401,7 +1401,7 @@ int main () {
 问题在于是在这一轮中哪一个位置可以做到，我们可以求一个前缀和 $[sum]$ 的前缀 $[mx]$ ，这个前缀 $[mx]$ 是具有单调性的，我们既然要求第一个 $mx[i]\le x$ 的位置，可以直接二分    
 不过要注意提前特判一下达不到的情况  
  
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 int n, m;
@@ -1453,7 +1453,7 @@ inline void Solve () {
 #### 💡
 在b排列中我们想舍弃一个数，然后将排列的前n个数的和等于第n+1个数，我们只需要求出整个b排列的sum，然后去寻找sum减去哪个数再/2可以在其中找到（而且不能是当前减去的那个数），删去的那个数为x，找到的那个数为b[n+1]
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 void solve()
@@ -1520,7 +1520,7 @@ https://codeforces.com/contest/1530/problem/C
 这种大范围找数的题型可以用二分  
 写个check函数判断一下就可以开始二分了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -1705,7 +1705,7 @@ this_MinInLen ( l );
 
 时间复杂度： $O(nlogn)$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 ll a[N], sum[N];
@@ -1794,7 +1794,7 @@ int main () {
   
 既然这个非常容易，那么就二分操作次数去获得答案即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline bool check ( ll x, const vector<ll> a, const ll down ) {
         ll cur = 0;
@@ -1845,7 +1845,7 @@ $giv\le \frac{a_i}{3}$
 在 $res$ 的限制下，肯定是 $res$ 越大越难得  
 所以我们可以二分答案进行求解  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline bool check ( int x, const vector<ll> a ) {
         vector<ll> b(a.size());
@@ -1898,7 +1898,7 @@ inline void Solve () {
 
 注意中间存在区间查询 $gcd$ 的操作，可以使用 $st$ 表预处理  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 ll st[N][25];
@@ -1968,7 +1968,7 @@ inline void Solve () {
 既然我们要伤害最大，那么用 $dp[S]$ 存储状态 $S$ 的伤害，在每一次选取新技能的时候维护 $dp[S|2^i]=max(dp[S]+sum[i][min(cd_i,x-alt)])$ 即可  
 最后看最大伤害是否满足限制（大于等于 $H$）是对于选定值 $x$ 的单调性，依次进行二分答案。    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int n;
 ll H;
@@ -2052,7 +2052,7 @@ inline void Solve () {
   
 我们二分一百次之后的中点就已经很确定了，每次维护一下花费时间的最小值即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 inline double LRTime ( double l, double r, double v, double p ) {
@@ -2113,7 +2113,7 @@ int main () {
   
 数很大，开java的`BigInteger`
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 public class Main{
@@ -2224,7 +2224,7 @@ public class Main{
 已知所有存在 `multiset` 中的  <img src="https://latex.codecogs.com/svg.image?\inline&space;pos" title="\inline pos" /> 都是满足第一个集合的情况，我们在其中进行二分出满足  <img src="https://latex.codecogs.com/svg.image?\inline&space;[q.a+len" title="\inline [p.a" /> 这个子集的最左端，如果这个点也能满足  <img src="https://latex.codecogs.com/svg.image?\inline&space;\le&space;q.b-len" title="\inline \le&space;q.b-len" /> 那么就说明可能存在比这个答案更大的情况，我们就  <img src="https://latex.codecogs.com/svg.image?\inline&space;check" title="\inline check" /> 成功了  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 onst int N = 1e5 + 10;
@@ -2305,7 +2305,7 @@ http://poj.org/problem?id=3579
 check函数：枚举的差值，用a[i]-x然后upperbound遍历出比他小的数的个数和总差值数目(n*(n-1)/2)的关系  
 然后在这层关系上二分缩l和r即可    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*

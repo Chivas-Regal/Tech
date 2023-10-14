@@ -24,7 +24,7 @@ title: 优先队列
 如果可以，就一个个映射上去就行了  
 选完数再把每个数的数量-1，再倒回优先队列即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <unordered_map>
@@ -137,7 +137,7 @@ int main () {
 每次优先队列提出两个块消一下，如果还有数就塞回去  
 最后看一下剩下的那个块能不能被前面的中位数吃完  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 struct node { int val, op; /*个数，前面有几个中位数*/inline friend bool operator < (node a, node b) { return a.val - a.op < b.val - b.op; } };
@@ -189,7 +189,7 @@ int main () {
 就实时存储实时pop就行  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
 
 ```cpp
 #pragma region
@@ -266,7 +266,7 @@ http://poj.org/problem?id=2833
 每次选取其中最小的两个拼一起再压入堆内  
 如果堆长度=1就break  
   
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -344,7 +344,7 @@ http://poj.org/problem?id=2833
 两个堆分别存最大的n1个数和最小的n2个数  
 计算非这俩堆内的元素和  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp

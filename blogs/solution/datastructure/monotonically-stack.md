@@ -16,7 +16,7 @@ https://www.luogu.com.cn/problem/P4147
   
 然后就单调栈即可
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -151,7 +151,7 @@ https://acm.hdu.edu.cn/showproblem.php?pid=1506
 左右边界维护一遍，长度就出来了  
 然后维护最大面积答案res即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -286,7 +286,7 @@ CHIVAS_{
 操作完可能新的也会产生这种情况，所以使用一个单调栈，在栈内进行 `while`  
 最后栈内元素从底到顶便是我们的答案  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e6 + 10;
 int n, m, a[N];
@@ -334,7 +334,7 @@ https://www.luogu.com.cn/problem/UVA1619
 用单调栈得出每个a[i]区间的左右边界   
 然后维护 a[i] * 区间和 的最大值（区间和？前面加上前缀和
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*

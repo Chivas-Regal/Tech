@@ -2,9 +2,6 @@
 key: 2021-02-15-最短路
 layout: article
 title: 最短路
-subtitle: 一堆点的距离，找两点最短距离？🤔
-categories: 图论
-tags: [图论]
 aside:
   toc: true
 sidebar:

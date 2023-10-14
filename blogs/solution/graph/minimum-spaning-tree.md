@@ -19,7 +19,7 @@ title: 最小生成树
 我们只要让所有的行和所有的列连通即可，这也对应了我们需要涂 $n+m-1$ 个是为什么  
 故这就是一个最小生成树了，$i$ 行转化为点 $i$ ， $j$ 行转化为点 $n+j$ ，最终目的是让 $[1,n+m]$ 连通   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 5002 * 5002;
 
@@ -79,7 +79,7 @@ int main () {
   
 这样我们就可以离线地求出所有询问边的答案了，然后把它按顺序输出即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 2e5 + 10;
@@ -148,7 +148,7 @@ http://poj.org/problem?id=1258
 #### 💡
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -256,7 +256,7 @@ http://poj.org/problem?id=2349
 给定了各个位置的坐标，那么我们可以两两建一条边，边长也有了  
 剩余的就是 Kruskal 的基本操作  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*

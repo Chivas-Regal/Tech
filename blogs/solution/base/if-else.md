@@ -30,7 +30,7 @@ $a[n]$ 的三种情况和 $b[n]$ 的三种情况
 至于如果 $s=0$ 或 $t=0$ ，同样的方法去推，多讨论讨论就好了
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline ll minDis (pair<ll, ll> a, pair<ll, ll> b) {
     if (a.second < a.first) return 2e18;

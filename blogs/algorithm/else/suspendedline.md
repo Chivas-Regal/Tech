@@ -2,9 +2,6 @@
 key: 2021-11-29-xuanxianfa
 layout: article
 title: 悬线法
-subtitle: 找最大的矩阵？🤔
-categories: 动态规划
-tags: [动态规划]
 aside:
   toc: true
 sidebar:

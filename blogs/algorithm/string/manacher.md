@@ -2,9 +2,6 @@
 key: 2021-03-01-Manacher
 layout: article
 title: Manacher
-subtitle: 找回文字符串？🤔
-categories: 字符串
-tags: [字符串]
 aside:
   toc: true
 sidebar:

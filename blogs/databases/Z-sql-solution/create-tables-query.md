@@ -55,7 +55,7 @@ WHERE
 在 `t2` 中找能匹配到 `t1` 的项  
 组合两表进行查询，令 `dept_no` 与 `salary` 均一致即可
 
-#### <img src="https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/greencode1.png">
+#### ✅
 
 ```sql
 SELECT 
@@ -134,7 +134,7 @@ WHERE
 在建的这两张表进行查询，让两表工号一致下，第二列为 `t_leave.salary - t_comein.salary`  即可  
 
 
-#### <img src="https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/greencode1.png">
+#### ✅
 
 ```sql
 SELECT 

@@ -2,9 +2,6 @@
 key: 2021-10-07-三维偏序_CDQ分治
 layout: article
 title: 三维偏序_CDQ分治
-subtitle: 好几个都要小？那怎么找？🤔
-categories: 离线算法
-tags: [离线算法]
 aside:
   toc: true
 sidebar:

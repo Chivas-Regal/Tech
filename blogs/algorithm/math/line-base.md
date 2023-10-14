@@ -2,9 +2,6 @@
 key: 2021-07-24-线性基
 layout: article
 title: 线性基
-subtitle: XOR的压缩🤔
-categories: 数学
-tags: [数学]
 aside:
   toc: true
 sidebar:

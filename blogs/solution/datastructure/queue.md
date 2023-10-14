@@ -25,7 +25,7 @@ title: 队列
 我们就手写两个计数器size就行了  
 然后删掉的标记一下，每一个数属于左队列还是右队列也标记一下  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>

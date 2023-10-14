@@ -18,7 +18,7 @@ x≡a[3](mod m[3])</br>
 解此中国剩余定理即可</br>
 最后求得的Ex_crt()-d要改成最小正整数
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -168,7 +168,7 @@ https://acm.dingbacode.com/showproblem.php?pid=3579
 转化成: x≡a[i](mod m[i])</br>
 Ex_crt求解即可</br>
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -314,7 +314,7 @@ https://www.luogu.com.cn/problem/P4777
 #### 💡
 [学习传送门](https://chivas-regal.github.io/%E6%95%B0%E5%AD%A6/2021/07/16/%E4%B8%AD%E5%9B%BD%E5%89%A9%E4%BD%99%E5%AE%9A%E7%90%86.html)
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*

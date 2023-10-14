@@ -23,7 +23,7 @@ $n \le 5$ 可以直接用 $map$ 将 $key$ 设置为 $hash$ 值，将 $val$ 设�
 这就证明检查公共子串的长度是否存在是存在 $01$ 单调性的  
 于是直接二分答案即可，复杂度为 $O(5nlognlogn)$ 的
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e3 + 10;
 const ll mod1 = 2000000011;
@@ -94,7 +94,7 @@ int main () {
   
 注意到本题字符串过多可能会出现冲突的情况，开一个双哈希即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e6 + 10;
 const ll mod1 = 2000000011;
@@ -195,7 +195,7 @@ https://ac.nowcoder.com/acm/contest/1008/B
 在求区间字符串时只需要求区间进制即可  
 进制相同就字符串相同，否则不同  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -283,7 +283,7 @@ Chivas{
 注意到还有一个地方，就是每一个位置都是循环的，也就是说它如果等于 $65536$ 的话它会立即变成 $0$ ，也就意味着所有的位置都不能大于等于 $65536$ ，这个地方的处理可以记录一个区间的最大值，然后每次查询前看一个区间的最大值是否超过了进制，超过了话进入递归向下走并单点修改，重新搭建这一条区间链  
 怕被卡，两个线段树，使用双哈希  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 5e5 + 10;
 const int base = 65536;
@@ -423,7 +423,7 @@ int main () {
 第三种情况可以通过从左侧枚举字符串长度，检查相邻右侧同长度字符串是否和它相等，以及剩下的最右侧的字符串是否回文  
 检查相等和回文都可以使用 字符串$Hash$ 来实现  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int base = 131;
 const int mod = 1e9 + 7;
@@ -549,7 +549,7 @@ sort或堆排肯定超时（unordered_map也超时就离谱）
   
 输出时在范围内降序查找即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -637,7 +637,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=1496
 2.用大size存数组，直接把数放进下标内  
 3.用小size存数组，然后用除余存地址  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -805,7 +805,7 @@ https://acm.hdu.edu.cn/showproblem.php?pid=4821
 那么我们就只需外层遍历 1 ～ l，然后每一次遍历都要直接通道最后。  
 不同的 m * l 增一个后面的 l 区间，减一个前面的 l 区间，维护这 m * l 的不同l长子串个数
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -1054,7 +1054,7 @@ which ? ( Query ( l, mid, rt << 1, ql, mid, which ) + Query ( mid + 1, r, rt << 
 否则差  <img src="https://latex.codecogs.com/svg.image?\inline&space;[l,mid-1]" title="\inline [l,mid-1]" /> 的正和  <img src="https://latex.codecogs.com/svg.image?\inline&space;[mid+1,r]" title="\inline [mid+1,r]" /> 的反  
 比较这两个，如果一样的话就是回文  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const ll mod = 1e9 + 3;
 const ll base = 131;
@@ -1140,7 +1140,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=1027
 #### 💡
 康托逆展开的模板题， 需牢记
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp

@@ -21,7 +21,7 @@ title: 树分治
 b - a + 1得出num  
 锁定出来的两个前缀和相减可以得到len
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 150010, M = N * 2;
@@ -160,7 +160,7 @@ int main () {
 求每个子树满足条件的值分别减去，将满足点加入大集合  
 最后加一下大集合的配对数量，递归子树继续解决
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 1e4 + 10, M = N * 2;
@@ -280,7 +280,7 @@ int main () {
 然后将这课子树的每个点记录进桶中，同时将我们塞入的每个点记录一下，再遍历下一个子树  
 最后将塞入过的点对应的桶重置，进入下一层递归  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>

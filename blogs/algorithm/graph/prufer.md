@@ -2,13 +2,10 @@
 layout: article
 key: 2021-11-03-new-template
 title: Prufer编码
-subtitle: 图论的东西，最后沦落为树上计数？🤔
 aside:
   toc: true
 sidebar:
   nav: docs-en
-categories: 图论
-tags: [图论]
 ---
 
 # $Prufer$ 序列

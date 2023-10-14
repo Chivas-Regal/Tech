@@ -36,7 +36,7 @@ $\sum\limits_{d=1}^{n'}\mu(d)\left \lfloor \frac {n'}d \right \rfloor \left \lfl
 $res = \sum\limits_{k=1}^nk\frac{Solve()-1}{2}$  
 $Solve()$ 里面随便杜教筛一下随便数论分块一下  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const ll N = 2e6 + 10;
@@ -116,7 +116,7 @@ int main () {
 
 数不大直接暴力跑就行  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 namespace Number {
@@ -197,7 +197,7 @@ $\left\{\begin{aligned}&(1)\quad mian(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^
 
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 namespace Number {
@@ -288,7 +288,7 @@ $f(x)=\sum\limits_{x|d}\mu(\frac dx)\left \lfloor \frac nd \right \rfloor  \left
 $f(1)=\sum\limits_{d=1}^{n}\mu(d)\left \lfloor \frac nd \right \rfloor  \left \lfloor \frac nd \right \rfloor$</br></br>
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -490,7 +490,7 @@ $\because F(d'k)=(\left \lfloor \frac B{d'k} \right \rfloor-\left \lfloor \frac{
 
 $\therefore f(k)=\sum_{d'=1}^{min(B',D')}\mu(d')(\left \lfloor \frac {B'}{d'} \right \rfloor-\left \lfloor \frac{A'}{d'} \right \rfloor)(\left \lfloor \frac {D'}{d'}\right \rfloor -\left \lfloor \frac{C'}{d'} \right \rfloor$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const ll maxn = 2e6 + 10;//杜教筛的安全maxn
@@ -570,7 +570,7 @@ $\begin{aligned}&\sum\limits_{i=1}^n\sum\limits_{j=1}^n[gcd(i,j)\in\{prime\}]\\=
 $\sum\limits_{p\in\{prime\}}^{\le n}\sum\limits_{d=1}^{\left\lfloor\frac np\right\rfloor}\mu(d)\left\lfloor\frac nd\right\rfloor^2$  
 素数表直接用莫比乌斯函数打表得到的即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 namespace Number {
@@ -674,7 +674,7 @@ $f(k)=\sum_{d'=1}^{H'}\mu(d')(\left \lfloor \frac{H'}{d'} \right \rfloor - \left
 这里用杜教筛计算前缀和即可  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -769,7 +769,7 @@ $=\sum\limits_{x=1}^{min(n,m)}\mu(x)sumd(\left\lfloor\frac nx\right\rfloor)sumd(
 我们求 $d(i)$ 可以使用唯一分解定理 $i=p_1^{a_1}p_2^{a_2}...p_k^{a_k}\rightarrow d(i)=\sum\limits_{i=1}^k(a_i+1)$ 进行预处理，$sumd(i)$ 即为前缀和  
 这样我们就可以对这个最终式子进行数论分块了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 5e4 + 10;
 
@@ -869,7 +869,7 @@ $\because F(d'k)= \left \lfloor \frac a{d'k} \right \rfloor * \left \lfloor\frac
 $f(k)=\sum\limits_{d'=1}^{min(a',b')}\mu(d')\left \lfloor \frac {a'}{d'}\right \rfloor\left \lfloor \frac{b'}{d'}\right \rfloor$
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const ll maxn = 5e4 + 10;
@@ -940,7 +940,7 @@ $=\prod\limits_{T=1}^{mn}g(T)^{\left\lfloor\frac mT\right\rfloor\left\lfloor\fra
 
 $g(T)$ 可以预处理，外层数论分块  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 namespace Number {
@@ -1110,7 +1110,7 @@ $f(k)=\sum\limits_{d=1}^{\frac Nk}\mu(d)F(dk)$
 发现线性增长的  $k$  对应的  $T$  的范围递减得很快  
 所以直接暴力就行了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N =  1e5 + 10;
@@ -1193,7 +1193,7 @@ $=\sum\limits_{x=1}^{min(A,B)}\mu(x)\sum\limits_{y=1}^{min(A,C)}\mu(y)\sum\limit
 然后跑一下三元环计数即可，时间降为 $O(m\sqrt m)$ ，$m$ 不会很大  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 5e5 + 10;
 
@@ -1324,7 +1324,7 @@ $f(k)=\sum\limits_{d'=1}^{\left \lfloor \frac Nk\right \rfloor}\mu(d')F(d'k)=\su
 那么公式出来了，剩下的就是杜教筛数论分块乱搞了  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const ll N = 2e6 + 10;
@@ -1393,7 +1393,7 @@ int main () {
  然后什么都不用，暴力跑一遍这个式子就行了  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 1e5 + 10;

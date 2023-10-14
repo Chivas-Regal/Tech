@@ -24,7 +24,7 @@ title: 置换群
 每次从 `*set.begin()` 这一列开始问我们就能得到一条有 `*set.begin()` 的关系链  
 直到把所有链问完，我们的结果也就构造好了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 int res[10005];
@@ -93,7 +93,7 @@ int main () {
   
 最后所有的不动点数相加除 2*n 即可
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>

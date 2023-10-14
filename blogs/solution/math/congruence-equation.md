@@ -18,7 +18,7 @@ https://acm.dingbacode.com/showproblem.php?pid=2669
 在求最小正整数的时候，让x=(x%mod+mod)%mod</br>
 再根据这个x求得y即可</br>
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -147,7 +147,7 @@ CHIVAS_{
 则设<img src="https://latex.codecogs.com/svg.image?a=m-n,b=l,x,y" title="a=m-n,b=l,x,y" />  
 使用扩展欧几里得解方程即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -190,7 +190,7 @@ https://www.luogu.com.cn/problem/P3811
 要求1～n之间的所有数逆元</br>
 用一个线形递推 `inv[i] = (mod - mod / i) * inv[mod % i] % mod;` 即可
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -307,7 +307,7 @@ https://acm.dingbacode.com/showproblem.php?pid=1576
 一个很裸的基于费马小定理的乘法逆元
 a 的逆元就是 ksm(a, mod - 2);
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -435,7 +435,7 @@ https://acm.dingbacode.com/showproblem.php?pid=5685
 用前缀积</br>
 算的时候除法取余，开逆元，很裸</br>
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*

@@ -18,7 +18,7 @@ title: 莫队
 那么问题转化为记录区间里面a[l-1]^a[r]=k的个数  
 那么对于每个a[r]我们求一下a[r]^k的个数累加即可
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream> 
@@ -113,7 +113,7 @@ bitset是一个很妙的STL容器，可以实现很多优化
 直接暴力枚举因数然后查一下在不在就行了  
   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -208,7 +208,7 @@ int main () {
 移动的时候直接遍历这个位置的质因数表即可  
 带上奇偶优化，勉强卡过去  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e6 + 10;
 
@@ -321,7 +321,7 @@ $10^5$ 的区间问题，考虑莫队
 删去的剩下的要相等，如果一个串两侧剩下相同的那么留谁都可以，所以定义 $numr[i]$ 为右侧字符 $i$ 的数量，$numl[i]$ 为左侧字符 $i$ 的数量，选取区间剩余相同的数量为 $\sum\limits_{i}numl[i]numr[i]$    
 所以用这个来维护莫队的动态加点删点即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 struct Query {int l, r, i;} qry[N];
@@ -383,7 +383,7 @@ int main () {
 分析一下没太大的复杂度问题，优化常数  
 数组下标访问很慢，且看到每一个数小于 $10^5$ ，字典树换成二叉树来跑，即左子树为 $0$ 边，右子树为 $1$ 边，在这个二叉树上做字典树的操作就能优化很多下标常数了    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int t[10000007];
 
@@ -474,7 +474,7 @@ int main () {
 虽然它有 $10^5$ ，但它是 $2.5$ 秒耶，线段树 $T$ 了，试试树状数组（AC）....     
 （我是笨瓜）  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 int cnt[N];
@@ -550,7 +550,7 @@ inline void Solve () {
 add和sub也就是普通的记录一下出现次数就行  
 关键在于对第三个指针（时间戳）的记录  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>

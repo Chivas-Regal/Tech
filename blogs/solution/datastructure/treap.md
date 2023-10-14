@@ -18,7 +18,7 @@ title: 平衡树
 小的要退出，就每次操作结束后找到最左边的数，判断一下是不是小于下界，小的话删掉  
 查询全局第 $k$ 大就用记录的子树大小 `size` 在树上走就行了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 3e5 + 10;
 struct node {
@@ -153,7 +153,7 @@ int main () {
 用权值线段树了话发现这些数都特别大，并且查询范围时存在加减关系，离散化有一点麻烦  
 而只有大小关系，可以直接平衡树实现：将 $fhq-treap$ 按 $val$ 分裂后右树的大小就是查询结果  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 struct node {

@@ -2,9 +2,6 @@
 key: 2021-11-16-狄利克雷卷积
 layout: article
 title: 狄利克雷卷积
-subtitle: 用一堆数论函数竟能得到如此性质？🤔
-categories: 数学
-tags: [数学]
 aside:
   toc: true
 sidebar:

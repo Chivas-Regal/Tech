@@ -2,9 +2,6 @@
 key: 2021-07-19-线性DP
 layout: article
 title: 线性DP
-subtitle: 如果父问题可以利用子问题求解，那岂不是非常方便了？🤔
-categories: 动态规划
-tags: [动态规划]
 aside:
   toc: true
 sidebar:

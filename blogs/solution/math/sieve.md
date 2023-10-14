@@ -17,7 +17,7 @@ title: 筛法
 所以用 $\sqrt{r_{max}}$ 的素数用埃氏筛去将 $[l,r]$ 内的合数全筛出来，然后枚举两两素数之间的距离即可  
 注意这本身是 $O(nlogn)$ 如果再加一个 $logn$ 存一个数是不是合数可能跑不过去，这里可以将 $x$ 映射为 $x-l$ ，使用数组查询即可  
         
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 bool ntp[N];
@@ -79,7 +79,7 @@ $$\frac {A_i}{A_j}=A_k=A_kA_j=A_i$$
 对于这种倍数计数问题，可以放前面考虑就是埃氏筛  
 我们先统计完所有的数的出现情况，然后用埃氏筛去枚举每一个数与其倍数，这样三个数都出来了，那么就累加计算一下这三个数出现次数的乘积即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 200005;
 
@@ -118,7 +118,7 @@ int main () {
 给了两秒，可以支持O(nlogn)    
 那么我们直接开埃氏筛存数即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -157,7 +157,7 @@ int main () {
   
 枚举所有的倍数，埃氏筛就可以实现  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 1e6 + 1;
@@ -216,7 +216,7 @@ $$
 然后在枚举 $x$ 计算完 $max\_k$ 后累加 $n\_dif[max\_k]$ 即可  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e6 + 10;
 int n, m;
@@ -270,7 +270,7 @@ int main () {
 如果 $[l,r]$ 出现过且 $i$ 每出现就是 `No`  
 复杂度均摊 $O(mlogm)$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int sum[1000005]; // 记录区间数字个数
 int cnt[1000005]; // 记录单点数字个数
@@ -319,7 +319,7 @@ inline void Solve () {
 性质：具有奇数个因数的数都是完全平方数  
 所以我们计算  <img src="https://latex.codecogs.com/svg.image?\inline&space;\left\lfloor\sqrt[]{n}\right\rfloor\times\left\lfloor\sqrt{m}\right\rfloor" title="\inline \left\lfloor\sqrt[]{n}\right\rfloor\times\left\lfloor\sqrt{m}\right\rfloor" /> 即可
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 int main () {
@@ -345,7 +345,7 @@ int main () {
 所以我们可以使用一个数组统计一下每个数出现的次数  
 只需要把数枚举一遍即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <unordered_map>
@@ -402,7 +402,7 @@ $$\begin{aligned}
 \end{aligned}$$  
 发现内部有 $\left\lfloor\right\rfloor$ 可以使用杜教筛进行整除分块  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int mod = 1e9 + 7;

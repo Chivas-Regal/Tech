@@ -2,9 +2,6 @@
 key: 2021-07-16-2_SAT问题
 layout: article
 title: 2-SAT问题
-subtitle: 给了一张关系网，其中的某两个人有怎么样的关系呢？🤔
-categories: 图论
-tags: [建图、Kosaraju]
 aside:
   toc: true
 sidebar:

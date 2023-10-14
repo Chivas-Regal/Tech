@@ -17,7 +17,7 @@ title: 并查集
 所以从 $1$ 到 $n$ 枚举节点，然后用已知连边合并比自己小的节点，看看是否存在两个子树里面都有没有被标记过的点，如果存在的话就让答案加一，该点代表子树的没标记点数 $num$ 减三（去掉两个子树中的点和自己）  
 合并可以用并查集合并  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 200005;
 int num[N], nod[N];
@@ -64,7 +64,7 @@ inline void Solve () {
 建立并查集，每次连通 $l-1\to r$ ，如果最后 $0$ 与 $n$ 连通，就可以传递过去  
 反之不能   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 
@@ -112,7 +112,7 @@ int main () {
 然后在操作时，对于 $l$ 更改为它并查集根的后继，$r$ 更改为它并查集根的前驱  
 然后让 $l$ 一直按链表向后跑并不断删除访问过的点直到 $r$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1000006;
 
@@ -187,7 +187,7 @@ $$a_{ij}\left\{
 然后遍历中维护一个连通块的个数、最小值  
 如果 $k\equiv 0(mod\;min)$ 并且连通块数量足够，就意味着可以构造出来，构造方式以最小值为中心开始 $BFS$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e3 + 10;
 const int dx[] = {0, 0, 1, -1};
@@ -302,7 +302,7 @@ int main () {
 所以使用并查集获取到每一个连通块的大小，对于大于等于 $2$ 的连通块，我们将 $res+sz[i]-1$  
 这样会得到最多能有几个人有吃的，输出 $m-res$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 int fa[N], sz[N];
@@ -352,7 +352,7 @@ int main () {
 所以用一组 $n*4$ 大小的并查集储存行在 $i\in[1,n]$ 奇数次为 $i$ 偶数次为 $i+n$ 的情况、列在 $j\in[1,n]$ 奇数次为 $j+2n$ 偶数次为 $j+3n$  
 按照上面的合并方式合并完，最后检查一下是否存在某一行或某一列，奇数次和偶数次在同一个连通块内的情况
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1010;
  
@@ -420,7 +420,7 @@ int main () {
 在特判的时候，如果一个人自己和自己不是同一阵营，就输出-1  
 否则在遇到每个阵营的祖先的时候，从它直接代表的两个阵营中选出一个最大的即 `max(siz[Find(x)], siz[Find(x + n)])`  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -490,7 +490,7 @@ int main () {
 然后反过来也一样操作
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 int nod[N];
@@ -561,7 +561,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=2844
 所以可以对a的被吃、b的吃、a的吃、b的吃进行合并  
 即两种权值以n为边界开成两维  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -677,7 +677,7 @@ http://poj.org/problem?id=1703
 因为有时候得到某种关系的时候，无法进行两者合并，只能对a的反派和b合并，b的反派和a合并
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -793,7 +793,7 @@ http://poj.org/problem?id=1988
 在每一次向下找堆底的块的时候，我们需要在逆序中回溯出这个堆中每个块底下有几个块  
 在每一次 x 向 y 合并的时候，我们都应该更新一下 x 下面的块数量、y这个堆的总块数、x属于的堆编号  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*

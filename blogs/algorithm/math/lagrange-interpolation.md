@@ -2,9 +2,6 @@
 key: 2021-11-19-拉格朗日插值法
 layout: article
 title: 拉格朗日插值法
-subtitle: 插值还能直接确定多项式？🤔
-categories: 数学
-tags: [数学]
 aside:
   toc: true
 sidebar:

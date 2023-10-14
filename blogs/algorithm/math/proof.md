@@ -2,9 +2,6 @@
 key: 2021-08-27-数学推导
 layout: article
 title: 推导 & 证明
-subtitle: 数学注重的不是默写模板，而是需要有严密的逻辑思维🤔
-categories: 推导
-tags: [推导]
 aside:
   toc: true
 sidebar:

@@ -2,9 +2,6 @@
 key: 2021-02-13-BFS
 layout: article
 title: BFS
-subtitle: 跑起图来真的比DFS更丝滑吗？ 🤔
-categories: 搜索
-tags: [搜索]
 aside:
   toc: true
 sidebar:

@@ -2,9 +2,6 @@
 key: 2021-07-20-背包DP
 layout: article
 title: 背包DP
-subtitle: DP奇奇怪怪的模型？🤔
-categories: 动态规划
-tags: [动态规划]
 aside:
   toc: true
 sidebar:

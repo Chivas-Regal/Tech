@@ -24,7 +24,7 @@ $s[i]$ 为 $vis$ 的前缀和
 - $1\ge s[i+1]-s[i]\ge 0\left\{\begin{aligned}&s[i+1]-s[i]\ge 0\\&s[i]-s[i+1]\ge-1\end{aligned}\right.$  
 由于是问最小值，所以我们化成 $\ge$ 后求最长路  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1100;
 const int M = 3100;
@@ -104,7 +104,7 @@ $spfa$ 判断是否合法。
 求出来一组 $dis$ 后，我们要判断是否和我们已知的 $<l,r,c>$ 成立，即在给定的时候记录 $dif[l][r]=c$，求完 $dis$ 扫描 $ij$ ，看 $dis[j]-dis[i-1]$ 是否等于 $\frac{j-i+1+dif[i][j]}{2}$     
 最后输出时由于我们 $dis$ 数组最多差 $1$ ，且是一组合法的前缀和，那么如果 $dis[i]>dis[i-1]$ 说明 $i$ 多了一个 $'('$ ，否则是一个 $')'$ 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int M = 1e6 + 10;
 const int N = 3e3 + 10;
@@ -216,7 +216,7 @@ y: a[i] - b[i] <= -c[i]</br>
 2.有负环，-2</br>
 3.不是1.2.就输出</br>
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -361,7 +361,7 @@ CHIVAS_{
 即然检查正确性，那么就跑图，对于每个连通块看一下有没有负环  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const ll N = 1e2 + 10, M = 2e3 + 10;
@@ -427,7 +427,7 @@ int main () {
   
 但是这个 $n$ 很大 $m$ 与 $n$ 同级，跑个 $spfa$ 大概率寄掉，但是注意到每一个边权都是 $-1$ ，故直接跑一个拓扑排序维护最短路就行了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void cgets (char *s) { // 读取一行字符串
     char ch;

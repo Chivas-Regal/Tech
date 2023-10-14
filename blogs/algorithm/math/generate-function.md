@@ -2,9 +2,6 @@
 key: 2021-05-28-生成函数
 layout: article
 title: 生成函数
-subtitle: 构造一堆多项式然后合并？🤔
-categories: 数学
-tags: [数学]
 aside:
   toc: true
 sidebar:

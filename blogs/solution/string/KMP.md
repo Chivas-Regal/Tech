@@ -14,7 +14,7 @@ https://codeforces.com/problemset/problem/1200/E
 我们在合并时有可能会删去字符串，但是删去的长度不会超过s  
 所以我们在匹配时只需要匹配不超过vec[i]长度的res与vec[i]的公共前后缀  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -192,7 +192,7 @@ https://acm.hdu.edu.cn/showproblem.php?pid=1686
 由于这里每匹配上一次后可以重复匹配  
 所以在匹配到最后计数完成后，副串不用回到-1，只需要回溯一次nxt即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -410,7 +410,7 @@ KMP模板
 但是不能重复  
 所以一旦判成一次j要变-1  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -515,7 +515,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=2594
 b的后面和a的nxt含的长度匹配  
 若b走到尾时看一下a的j在哪，就是b的后缀中a的前缀匹配的长度  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -729,7 +729,7 @@ https://acm.hdu.edu.cn/showproblem.php?pid=3336
 那么我们只需要每个位置统计一下回溯的数量即可  
 不断回溯时间过长，可以使nxt[i]递推出dp[i] = dp[nxt[i]] + 1  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -930,7 +930,7 @@ a串在每个点是否可以表示为一个 * 取决于这一点是否以b串结
 那么就有一线性递推式：若mark[i] = 1, dp[i] = dp[i - 1] + dp[i - b.size()]  
 使用kmp不裁剪拼接一下
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -1152,7 +1152,7 @@ https://pintia.cn/problem-sets/1384757951243542528/problems/1384758301778305035
 #### 💡
 是一个单一对next数组的应用过程
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp

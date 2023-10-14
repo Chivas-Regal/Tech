@@ -24,7 +24,7 @@ title: 博弈论
   
 如果不满足这个条件，那么就是每次让 $a_n-1$ ，看一下 $a_n-(n-1)$ 是否为奇数即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void read_Array ( int *a, int beg, int end ) { for ( int i = beg; i <= end; i ++ ) cin >> a[i]; }
 inline void print_Array ( int *a, char c, int beg, int end ) { for ( int i = beg; i <= end; i ++ ) cout << a[i] << c; }
@@ -63,7 +63,7 @@ int main () {
 那么为了不重复，对于同一类的数，最多会变成 $\{1,2,3,...\}$ ，所以每一类都统计变成最终态的次数，将所有类的次数累加在一起  
 如果总次数为奇数，$Alice$ 赢，否则 $Bob$ 赢    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 int n;
@@ -124,7 +124,7 @@ int main () {
 代表第二个人走最后一步，那么他的行为将会受到第一个人的限制，即只能走到最大的最小值  
 当然第一个人如果看出来了情况不妙也可以提前结束游戏，所以与第一个点比较一下  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const ll N = 1e5 + 10;
@@ -192,7 +192,7 @@ int main() {
 由于区间 $[l1,r1]$ 的异或为 $sum[r1]\oplus sum[l1-1]$ ，所以位置的奇偶性相同的前缀产生的区间为偶段，故前缀异或为某个数值的个数的计数需要开两个数组。  
 如果一个个跑是很费时间的，发现只有查询，使用莫队进行动态操作即可。  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int sq;
 inline int getpos (int x) {
@@ -285,7 +285,7 @@ int main() {
 这种拿埃氏筛的方式转移一下，然后往大跑 $dfs$ 就行，但是一次 $dfs$ 可能会被卡断，即一个 $(x+1,y)(x,y+1)(x+1,y+1)$ 都是必胜态，所以我们要外层双重循环枚举，如果 $(x,y)$ 为必败态，就进入 $dfs$   
 （当然这么多次进入 $dfs$ 肯定需要一个记忆化搜索）  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int sg[5003][5003];
 inline void dfs (int x, int y) {

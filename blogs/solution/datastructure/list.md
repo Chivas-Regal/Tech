@@ -25,7 +25,7 @@ title: 链表
 然后在操作时，对于 $l$ 更改为它并查集根的后继，$r$ 更改为它并查集根的前驱  
 然后让 $l$ 一直按链表向后跑并不断删除访问过的点直到 $r$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1000006;
 
@@ -95,7 +95,7 @@ int main () {
 最大值一定是向下减的，所以我们记录谁有答案之后，先确定最大值是 $n$ ，然后每次操作完向下走到第一个没有答案的  
 时间复杂度 $O(n)$    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 int n, k, a[N], id[N];
@@ -170,7 +170,7 @@ int main () {
 有一个细节要处理，就是如果我们当前 $map$ 里面有一个点对，并且这个点对是 $(1,1)$ ，如果不进行特判就会死循环，这里特判一下如果满足就将 $1$ 加入答案然后 `break`  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 int n, nxt[N], pre[N], a[N];

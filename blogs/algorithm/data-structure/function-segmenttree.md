@@ -2,9 +2,6 @@
 key: 2021-09-23-主席树
 layout: article
 title: 主席树
-subtitle: 要可以直接访问到每一次线段树的改变？🤔
-categories: 数据结构
-tags: [数据结构]
 aside:
   toc: true
 sidebar:

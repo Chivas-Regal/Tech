@@ -2,9 +2,6 @@
 key: 2021-08-23-高斯消元
 layout: article
 title: 高斯消元
-subtitle: 用矩阵解方程？🤔
-categories: 数学
-tags: [数学]
 aside:
   toc: true
 sidebar:

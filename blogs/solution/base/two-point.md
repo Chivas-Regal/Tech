@@ -15,7 +15,7 @@ https://ac.nowcoder.com/acm/contest/11166/D
 cnt0 - m + 1就是这一段0内放下老师的方案数  
 （如果想要在最后一个数计算方便的话可以在每个字符串最后插入一个'1')
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -138,7 +138,7 @@ https://ac.nowcoder.com/acm/contest/11257/I
 那么我们只需要对输入的区间里面的单位都设置为1后，求所有全0区间即可（但要绕环  
 所以本题是一道环形双指针问题
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -292,7 +292,7 @@ CHIVAS_{IOS;
 在修改时 `x, y` ，我们 `lower_bound` 出第一个 $l>=x+1$ 的块，然后前一个就是我们修改的块  
 修改使答案 `res - node.val + node.val / a[x] * y` ，并更新这个块的 `val`   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const ll N = 1e6 + 10;
 const ll mod = 1e9 + 7;
@@ -365,7 +365,7 @@ https://acm.hdu.edu.cn/showproblem.php?pid=6948
 所以如果某个字符个数超过k了  
 那么就将左指针移动到能将这个字符数量-1的位置
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -484,7 +484,7 @@ CHIVAS_{
   
 尺取我们 $r$ 是可以一直走的，但是 $l$ 走一轮就行了，所以 $l$ 不会进行模 $n$ ，特判 $l=n$ 时停止  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int main () {
         ios::sync_with_stdio(false);
@@ -546,7 +546,7 @@ https://vjudge.net/problem/CodeForces-660C
 那么我们只需要右指针向前移动，遇到0改成1  
 左指针保证子串修改次数上限，若超过就移动到一个改过的位置并将其改回来  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -672,7 +672,7 @@ CHIVAS_{
 所以对每一个串的每一个数都存一下位置，然后遍历 $1$ 串，用双指针每一次找出最长的连续的公共子串长度 $len$ ，个数为 $len(len-1)$   
 遇到断开的就计算，然后对 $len$ 设置为 $1$ 意味着重新开始    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 const int M = 20;
@@ -724,7 +724,7 @@ int main () {
 然后累加  
 这个先**预处理一下前缀和**然后通过双指针就可以实现  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 ll a[100005];
@@ -773,7 +773,7 @@ https://vjudge.net/problem/POJ-2566
 这类找最接近的双指针只需要 “ 大了左指针前推，小了右指针前推 ” 从而使每一步都尽可能接近这个数    
 并在过程中维护最接近的区间即可
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*

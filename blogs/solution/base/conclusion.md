@@ -18,7 +18,7 @@ https://ac.nowcoder.com/acm/contest/11166/F
 所以在100以内暴力查询  
 100以外就直接计算有多少个数即可
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -150,7 +150,7 @@ CHIVAS_{
 对于串长我们找 $2+3$ 、$2+2$ 、$3+3$ 、$3+2$ 的串就可以了  
 拿个 `map` 标记一下遍历  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
         int n; cin >> n;
@@ -218,7 +218,7 @@ inline void Solve () {
 那么就是 $a=\left\lfloor sqrt(hp)\right\rfloor$ ，对于这个 $a$ 我们带入公式去求最大值 `mx`  
 看看最大值是否 $\ge x$ 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int main () {
         ios::sync_with_stdio(false);
@@ -248,7 +248,7 @@ int main () {
   
 与之相对的，第二问肯定希望越浅越好，那就上 $BFS(1)$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 
@@ -329,7 +329,7 @@ val_l1,val_r1是左区间的两个端点值，val_l2,val_r2是右区间的两个
 并建立一个VAL_L用来继承上一步求得的val_l1或者val_l2（具体是哪个要根据我们选择的是左区间还是右区间  
 推到最后l=r时停止  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -400,7 +400,7 @@ int main () {
 :::  
 那么我们让 $x+sum\{a\}$ 和 $x+3+sum\{a\}$ 看看哪个奇偶性和 $y$ 相同就是谁赢    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
         ll n, x, y; cin >> n >> x >> y;
@@ -431,7 +431,7 @@ $(a_i+a_{i+1})\%2=1\leftrightarrow (a_i\%2)\oplus(a_{i+1}\%2)=1$
 意味着后面的奇数不可能跨越前面的奇数，偶数一样  
 所以我们只需要看偶数序列和奇数序列是否排序好了就行了   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
         int n; cin >> n;
@@ -467,7 +467,7 @@ int main () {
 后面每多一维其实是有给出一个边去分割  
 此时也就是点数<=维度+1即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 int main () {
@@ -504,7 +504,7 @@ int main () {
 <img src="https://latex.codecogs.com/svg.image?\begin{aligned}\sum\limits_{x=1}^n\sum\limits_{y=1}^n[xy^2]&plus;\sum\limits_{x=2}^n\sum\limits_{z=2}^n[xz]&plus;\sum\limits_{y=2}^n\sum\limits_{z=2}^n[y^2z]=\frac{(1&plus;n)n}{2}\frac{n(1&plus;n)(1&plus;2n)}{6}&plus;\frac{(2&plus;n)(n-1)}{2}\frac{(2&plus;n)(n-1)}{2}&plus;\frac{(2&plus;n)(n-1)}{2}[\frac{n(1&plus;n)(1&plus;2n)}{6}-1]\end{aligned}" title="\begin{aligned}\sum\limits_{x=1}^n\sum\limits_{y=1}^n[xy^2]+\sum\limits_{x=2}^n\sum\limits_{z=2}^n[xz]+\sum\limits_{y=2}^n\sum\limits_{z=2}^n[y^2z]=\frac{(1+n)n}{2}\frac{n(1+n)(1+2n)}{6}+\frac{(2+n)(n-1)}{2}\frac{(2+n)(n-1)}{2}+\frac{(2+n)(n-1)}{2}[\frac{n(1+n)(1+2n)}{6}-1]\end{aligned}" />
   
 数很大还要取模，直接开`BigInteger`
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```java
 public class Main {
         static BigInteger m = BigInteger.valueOf(1000000007);

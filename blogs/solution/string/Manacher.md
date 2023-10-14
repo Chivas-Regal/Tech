@@ -14,7 +14,7 @@ https://acm.hdu.edu.cn/showproblem.php?pid=3613
 提前处理好字符串内部权值的前缀和，方便利用区间和求子串  
 然后遍历一次分割点，计算前后区间全职乘是否回文的和  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*

@@ -20,7 +20,7 @@ title: ac自动机
 最后统计 $dp[m][i]$ 中 $i$ 没有被标记的数量和  
 用 $26^m$ 减去它即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 6010;
 const int mod = 1e4 + 7;

@@ -17,7 +17,7 @@ title: 最短路
 建好边然后四个点各跑一次  <img src="https://latex.codecogs.com/svg.image?\inline&space;Dijkstra" title="\inline Dijkstra" />   
 从  <img src="https://latex.codecogs.com/svg.image?\inline&space;a" title="\inline a" /> 城市的四个点到  <img src="https://latex.codecogs.com/svg.image?\inline&space;b" title="\inline b" /> 城市的四个点一共  <img src="https://latex.codecogs.com/svg.image?\inline&space;16" title="\inline 16" /> 种走法选最短的就行了...
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 15;
@@ -146,7 +146,7 @@ int main () {
   
 在时间p和总时间m和spfa的优化下不会太长时间  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -218,7 +218,7 @@ int main () {
 那么就输出-1  
 否则就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;Floyd" title="\inline Floyd" /> 的那个数组  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 1e4 + 10;
@@ -285,7 +285,7 @@ int main () {
 
 好了边有了，跑最短路就行了 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e6 + 10;
 
@@ -351,7 +351,7 @@ int main () {
 
 保证 $i\le k$ ，也可以视作拆点，即一个点被拆成 $k$ 种状态，那么最后统计一下 $t$ 的 $[0,k]$ 状态下的最小值即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e4 + 10;
 const int M = 1e5 + 10;
@@ -459,7 +459,7 @@ int main () {
 这样的话我们最后统计 “高度差$-dis[i]$” 的最大值即可  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const ll N = 2e5 + 10;
 const ll M = 4e5 + 10;
@@ -533,7 +533,7 @@ $Floyd$ 的更新操作
 如果一条边可以被别的已知的边更新的话，那么这条边就没必要  
 走一遍把边的编号存入 $set$ 然后 $m-sz$ 即为答案  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 310;
 int n, m;
@@ -583,7 +583,7 @@ int main () {
 线段树懒标记往下推的时候，需要考虑需不需要更改这两个关键字，而当子树的 $l=r$ 了话，就代表我们推到底了，如果将距离更新为更短了，就要直接修改 $pre[l]$    
   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 3e5 + 10;
 const int inf = 0x3f3f3f3f;
@@ -714,7 +714,7 @@ int main () {
 如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;to" title="\inline to" />  点的  <img src="https://latex.codecogs.com/svg.image?\inline&space;tim[to]" title="\inline tim[to]" />  被  <img src="https://latex.codecogs.com/svg.image?\inline&space;tim[x]+1" title="\inline tim[x]+1" />  更新了，那么就入队，一个一个向上更新  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 int n, k;
@@ -824,7 +824,7 @@ int main () {
 否则能抓住他的就是在最后一个dfs中看一下Vlad走的时候会被断多少次  
 因为每个人最多会断它一次，因为从上往下走的时候不会有多次相邻一个点
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 int n, k;
@@ -937,7 +937,7 @@ https://acm.dingbacode.com/showproblem.php?pid=1217
 松弛操作完之后判断还能不能松弛</br>
 朴素就能过
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png">
+#### ✅
 
 ```cpp
 /*
@@ -1087,7 +1087,7 @@ CHIVAS_{
 所以对点权排序，对询问按限制排序（离线处理）  
 在每次询问前，将这个限制下的点递进式插入进 $floyd$ 中，然后直接给答案赋值即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 210;
 

@@ -12,7 +12,7 @@ https://ac.nowcoder.com/acm/contest/1010/A
 #### 💡
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
   
 
 ```cpp
@@ -101,7 +101,7 @@ https://www.acwing.com/problem/content/145/
 在查找时都尽量找每一位与当前查找元素相反的数  
 维护最大值即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -228,7 +228,7 @@ CHIVAS_{
 所以我们从高到低将一个数字分解二进制插入字典树中，对于当前位 $b_i=1$ ，则我们保证我们选择的子树根当前位是 $!a_i$ 便可以保证这个子树下的所有点异或 $a$ 都小于 $b$ ，便直接累加上这个子节点被插入的数量， $res+t[][!a_i]$   
 然后我们走 位为 $a_i\oplus b_i$ 的子树来保证我们走的是相等的分界线   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 
@@ -310,7 +310,7 @@ int main () {
   
 同前缀内可以用 $Trie$ 数去查每个数的最大异或  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 3e5 + 10;
 
@@ -405,7 +405,7 @@ int main () {
 而在字典树中我们可以去查找异或的最小值最大值  
 我们去检查对应的 $x$ 即 $a_i\oplus l$ 在整个字典树中的最小值最大值是不是 $l$ 和 $r$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
  
@@ -491,7 +491,7 @@ $Trie$ 树、线性基...（等等，$Trie$ 树好像和上面列的条件有点
 走到底了说明走完了一条 $b$ 满足 $a\oplus b=k$ ，依旧是满足要求的，维护一下当前节点的 $mxid$ 和 $res$ 比较的最大值  
 也就是说：**在 $trie$ 树上沿着 $a\oplus b=k$ 的 $b$ 每一位向下走，遇到可以让 $a\oplus b>k$ 的分支时累计一下那个分支下的 $mxid$ 最大值，当彻底走不动时返回 $res$ ，如果能走完全程返回 $max(res,t[p].mxid)$**
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 int a[N];
@@ -572,7 +572,7 @@ inline void Solve () {
 (话说贴着字典树往下走上一场出过很类似的操作啊 [传送门](#hdu2021多校1f_xorsum) )
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int t[10000007];
 

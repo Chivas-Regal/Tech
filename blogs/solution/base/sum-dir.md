@@ -41,7 +41,7 @@ for (int i = 2; i <= n; i ++) {
 最后输出差分数组的前缀和  
 嗯 $100$ 分了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 ll dir[1000010];
 
@@ -111,7 +111,7 @@ $S_{2_i}=\sum\limits_{j=1}^iS_{1_j}$
   
 而 $n$ 和 $k$ 都很大，而模数很小，这是一个突破口，所以应用 $Lucas$ 定理求组合数
   
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 ll n, mod, k;
 
@@ -151,7 +151,7 @@ int main () {
 而修改不了的位置可以视作差分减值的垃圾箱，可以将前面任意位置的加值结尾为这个垃圾箱，那么只要保证加法不少于垃圾箱的个数即可，如果加法少于垃圾箱，则意味着垃圾箱喂不满，即为 $No$  
 否则为 $Yes$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
     int n; cin >> n;
@@ -184,7 +184,7 @@ inline void Solve () {
 然后每次询问用 `upper_bound` 求出有多少个差值 $>k$ ，个数为 $num$，是从第 $id$ 个开始     
 那么剩余值便是 $sum[id]-num\times k$    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 vector<ll> t;
 int n, Q;
@@ -228,7 +228,7 @@ int main () {
 当然如果本身 <img src="https://latex.codecogs.com/svg.image?l-1" title="l-1" /> 的前缀和不等于 <img src="https://latex.codecogs.com/svg.image?r" title="r" /> 的前缀和就也是不匹配的  
 这里的最小值可以使用线段树进行维护，修改便直接在线段树上修改如果本身是'('，修改后区间-2，否则+2  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -324,7 +324,7 @@ int main () {
 两个前缀和在k的区间内的差值，就是这k个数从只选1到全选之后所能做出的贡献  
 记录贡献最大值，然后加上第一个前缀和[n]  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 1e5 + 10;
@@ -365,7 +365,7 @@ int main(){
 这样对于上面的问题转换就是 $mxa[X]\le Y$ 即可  
 对于 $b$ 同理  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 int a[N], b[N];
@@ -423,7 +423,7 @@ int main () {
   
 数值不可能出现低于提升后的 $[c]$ 的情况，因为我们提升坡度没有必要整体上升  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 int n;
@@ -455,7 +455,7 @@ int main () {
 那么答案所在的区间即为 $[sum-min_sum,sum+max_sum]$  
 用前缀和统计一下 $min_sum,max_sum$ 即可   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 # include "bits/stdc++.h"
 
@@ -522,7 +522,7 @@ int main () {
   
 时间复杂度: $O(2n)$ 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int a[200005];
  
@@ -571,7 +571,7 @@ inline void Solve () {
 预处理一下前缀和，然后对于枚举每个b[i]求一下对应的区间和累加即可  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -626,7 +626,7 @@ sumcol[i][j]表示第j列第前i个格子可以竖着放多少个牌
 每一行和每一列都遍历一次累加计算一下  
   
   
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -695,7 +695,7 @@ int main () {
   
 输出的时候一次输出两个就行了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -761,7 +761,7 @@ int main () {
 这是一个前缀和的问题  
 就预处理出来 $a$ 每一位的前缀和，然后扫描 $b$ ，在遇到 $1$ 时对其累加即可   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int mod = 998244353;
@@ -814,7 +814,7 @@ int main () {
 然后枚举断点，扫一遍维护一下`max(res, pre[i] + nxt[i + 1])`  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -889,7 +889,7 @@ int main () {
 否则是 `No`   
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int main () {
         std::ios::sync_with_stdio(false);
@@ -956,7 +956,7 @@ int main () {
 这样下来就是一个考虑前缀最大值的问题了  
 我们从后往前维护最小值，如果这个位置前面没有比当前最小值更大的数了，就重启最小值并使答案 $+1$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 int mx[N];
@@ -1003,7 +1003,7 @@ int main () {
 那么以 $i$ 结尾的长度不小于 $k$ 的连续最小子区间即可通过 $sum[i]-mnsum[i-k]$ 得到  
 每次先行扫描一遍维护一下当前最大值，然后 $f[k]=max(mx,f[k-1])$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const ll N = 5010;
 ll a[N];
@@ -1046,7 +1046,7 @@ $$\sum\limits_{i=1}^m(i-1)x_i-\sum\limits_{j=1}^{i-1}x_j$$
 对于 $y$ 同理  
 那么后面的那个 $\sum\limits_{j=1}^{i-1}x_j$ 我们完全可以利用前缀和去记录  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 vector<ll> vec[100005][2];
 set<int> clr;
@@ -1103,7 +1103,7 @@ inline void Solve () {
 这又要加一个区间最大值的工具，由于只有查询，可以开两个 $st$ 表分别维护前缀和的区间最大值和后缀和的区间最大值  
 然后每次按上面推出来的查一下就行      
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 ll sum1[N], sum2[N], n, a[N];
@@ -1181,7 +1181,7 @@ https://acm.hdu.edu.cn/showproblem.php?pid=6954
 然后在处理完差分之后前缀累加一下得到每个输入的输出  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -1329,7 +1329,7 @@ log就很难做到很多分治类做法
 那么就可以跳过这一段，里面的要改的数可以通过区间修改一起改了，同时SUM重置为0  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -1422,7 +1422,7 @@ int main () {
   
 把每个字符求得的贡献累加一下即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const ll mod = 998244353;
@@ -1482,7 +1482,7 @@ int main () {
 为了方便可以将默认序列添加时间戳为 $-1$ 修改值为 $a_i$ 的操作一  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e6 + 10;
 int n, m, a[N];
@@ -1527,7 +1527,7 @@ $$x^2+(2x+1)=(x+1)^2\\x^2+(4x+4)=(x+2)^2\\x^2+(6x+9)=(x+3)^2$$
 看到后面的是倍数关系，可以通过对于每一个 $a_i$ 枚举后面括号的内容做一个 $O(nlogn)$ 的算法  
 后面的一定是比 $x$ 要大的，那么就从大到小扫 $a_i$ 然后扫完统计完就插入 $num[a_i]+1$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e6 + 10;
 int num[N];

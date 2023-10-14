@@ -2,9 +2,6 @@
 key: 2021-03-05-线段树
 layout: article
 title: 线段树
-subtitle: 区间更新查询？🤔
-categories: 数据结构
-tags: [数据结构]
 aside:
   toc: true
 sidebar:

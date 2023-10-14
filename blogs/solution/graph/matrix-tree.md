@@ -15,7 +15,7 @@ title: 矩阵树定理
 利用矩阵树定理构建行列式，然后高斯消元求一下行列式即可  
 （答案过大爆longlong，Java出击
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```java
 public class Main {
         static BigInteger [][] a = new BigInteger[110][110];
@@ -74,7 +74,7 @@ public class Main {
 使用矩阵树定理建行列式  
 高斯消元求一下行列式sz-1阶行列式即可即可  
   
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 15, M = 105;
@@ -139,7 +139,7 @@ int main () {
   
 然后容斥地加减，最后得到每条边一个公司建造的结果  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const ll M = 100;
@@ -213,7 +213,7 @@ int main () {
 对连的边用矩阵树定理构造行列式  
 然后高斯消元解行列式即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 105, M = 505;

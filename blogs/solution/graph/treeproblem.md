@@ -23,7 +23,7 @@ title: 树上问题
   
 最后输出重心和重量
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 2e4 + 10, M = 5e4;
@@ -95,7 +95,7 @@ int main () {
 #### 💡
 板子，包含了路径修改查询，子树修改查询  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const ll N = 1e5 + 10;
@@ -249,7 +249,7 @@ int main () {
 如果一直没有出现这种情况，说明它们在同一条链上，输出 `YES` 即可  
 那么问题在于如何快速求得路径上选中点的数量，这是基本的路径查询，可以用树剖+线段树实现  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int M = 4e5 + 10;
@@ -406,7 +406,7 @@ inline void Solve () {
 从下到上再到从上到下这是两种不同的更新方式，所以要分两次更新，且每次更新时要提出所有的更新区间然后分别按深度降序排序和深度升序排序  
 但是还有问题就是考虑到 $lca$ 这个位置会被更新两次且第二段整体左端点会偏移，所以只需要第一段记完 $num$ 后第二段再用时是 $num-1$ 开始的，然后让最后答案 $res[lca]-num*num$ 即可   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int M = 2 * N;
@@ -593,7 +593,7 @@ signed main () {
   
 就对关键点和交汇点建立虚树即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -742,7 +742,7 @@ int main () {
 最后如果虚树不为空还要加上两个哨兵之间的距离  
 （这里弄了一个大哨兵和一个小哨兵）  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 namespace Map {
@@ -832,7 +832,7 @@ int main () {
 对于每一个点 $i$ ，它的路径结束位置在它向上 $d_i$ 的位置上，这里倍增求一下结束位置在哪（$j$），然后就对 $val_i+1$ ，$val_{fa[j]}-1$   
 做完标记之后 $dfs$ 合并一下就结束了。  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e6 + 10;
 struct node {
@@ -905,7 +905,7 @@ signed main () {
 用 $DFS$ 回溯维护  
 每次查询就跑一下这个堆即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 const int M = 2e5 + 10;
@@ -991,7 +991,7 @@ int main () {
 - $0$ 的答案：以 $0$ 为根建图，那就是找最大的子树
 - $n+1$ 的答案：选全部，就是 $n$   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 // 这里拿权值从 [1,n] 开始了，写着方便
 const int N = 1e6 + 10;
@@ -1114,7 +1114,7 @@ int main () {
 - 在除了根环之外还有点的基环树，可以直接通过从入度为 $0$ 且没有遍历过的点进入递归遍历，设置一个点可以被遍历两次，那么所有被遍历两次的点就会形成一个环，且第一个遍历两遍就是他们的根。然后从根向下遍历对这棵树的点都打上标记同时处理出来每一个点的 $dep[]$  
 - 在只有根环的基环树上，可以在扫完上述条件后对每一个没有遍历过的点进行遍历，只允许访问一次，一次遍历到的点数就是这个基环树的环长
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 int n;
@@ -1240,7 +1240,7 @@ $x\rightarrow b\rightarrow a\rightarrow y$ ，对应距离为 $dis(x,b)+1+dis(y,
 至于 $dis(i,j)$ 的快速求法可以利用深度，但是这可能是两条链，所以处理出来 $lca(i,j)$ 即可，$lca$ 和他们都是同一条链，则 $dis(i,j)=dep_i+dep_j-2dep_{lca}$   
 三条路径得到的 $s'$ 都以上面说的判断格式判断一下即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int M = 4e5 + 10;
@@ -1321,7 +1321,7 @@ inline void Solve () {
 代码就不给了，思路比较直观  
 :::
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int M = 4e5 + 10;
@@ -1415,7 +1415,7 @@ inline void Solve () {
 考虑到这样操作有一种局限性：如果 $i$ 的子树中确定出来了 $x$ 个 $1$ ，那么 $i$ 是一定至少被提升了 $2x$ 的，因为为了保证子树中节点的成立性，它所用的 $1$ 一定是穿过其祖先的  
 那么这一条就可以用作判断，维护一个数组 $[chg]$ 表示子树中总共被修改了多少个人，由于我们无法降低参考值，如果在 $i$ 位置上原本的参考值 $t_i$ 加上子树中被修改的量 $chg_i$ 乘 $2$ 大于了我们的目标值 $h_i$ ，就肯定是不行了，就要输出 `NO` 了 ，当然结合前面的判断情况输出 `NO` 的还有参考值 $t_i$ 将所有的人都变成 $1$ 即 $t_i+2sz_i$ 都无法达到目标值 $h_i$ ，也是不行的，（当然由于修改是修改偶数，所以要保证参考值和目标值的差的奇偶性相同）     
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 const int M = N << 1;
@@ -1489,7 +1489,7 @@ inline void Solve () {
 所以先预处理出来子树中叶子结点的数量，然后建立一个优先队列，里面存的都是下标，排序规则为减得多的在前  
 每次挑选出来堆顶，减完之后重新放入堆中，并判断是否当前值小于 $S$ ，如果小了直接退出  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int M = 4e5 + 10;
@@ -1572,7 +1572,7 @@ inline void Solve () {
 两种花费，处理后得到两个数组 $[v1],[v2]$ ，枚举“操作需要花费 $1$ 的边”的次数 $num1$ ，动态减小“操作需要花费 $2$ 的边”的次数 $num2$  
 在满足 $v1[num1]+v2[num2]\le S$ 的情况下，维护 $num1+2\times num2$ 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int M = 4e5 + 10;
@@ -1664,7 +1664,7 @@ inline void Solve () {
 然后我们根据上面对“边是否能走”的判断来建一个新图  
 如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;x\rightarrow&space;y" title="\inline x\rightarrow&space;" /> 可以走，那么我们建一条  <img src="https://latex.codecogs.com/svg.image?\inline&space;y\rightarrow&space;x" title="\inline y\rightarrow&space;x" /> 的边，这样的话我们从所有黑点多源 BFS 即可走出所有能到达黑点的点  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int M = 6e5 + 10;

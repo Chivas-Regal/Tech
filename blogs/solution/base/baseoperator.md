@@ -15,7 +15,7 @@ title: 位运算
 那么我们让 $x$ 化为 $01$ 串后两段 $x$ 拼在一起即可  
 方便下其实左移 $30$ 为后腾出充足的位置在补上 $x$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```python
 x = int(input())
 print(x << 30 | x)
@@ -35,7 +35,7 @@ print(x << 30 | x)
 所以只要 $dir$ 和 $a$ 不存在有一位两者都为 $1$ 即可  
 即 $dir\&a=0$   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
         ll a, s; cin >> a >> s;
@@ -61,7 +61,8 @@ inline void Solve () {
 如果同为 $0$ ，那么这两位会变成 $0$ 和 $0$   
 发现并没有数量上的增多减少，那么就选一个就行了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+<h4><reco-icon></h4>
+
 ```cpp
 int main () {
         ios::sync_with_stdio(false);
@@ -91,7 +92,7 @@ int main () {
 这样的话所有的 $1$ 边都可以删掉了  
 否则我们既然要计算，那还不如不删，就保留下来，并让 $res$ 这一位为 $1$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 
@@ -157,7 +158,7 @@ inline void Solve () {
   
 同前缀内可以用 $Trie$ 数去查每个数的最大异或  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 3e5 + 10;
 
@@ -261,7 +262,7 @@ $$1_2\left\{\begin{aligned}
 即 $fibonacci$ 前缀和 $sum[p-sz+1]$  
 对去重后的所有数累加即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int mod = 1e9 + 7;
@@ -337,7 +338,7 @@ $$\begin{aligned}
 又考虑一下对于一位上异或 $1$ 的性质：结果 $01$ 反转  
 那么对于给出的 $r-l+1$ 个数，我们将其拆分，看看所有数在每一位上 $01$ 的个数，如果 $0$ 的个数 $\lt$ $1$ 的个数那么就意味着要反转，即让答案这一位变为 $1$   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve() {
         int l, r; cin >> l >> r;
@@ -382,7 +383,7 @@ inline void Solve() {
 意味着这些点完全可以走到我们一开始标记的点来关闭掉出现 $1$ 的可能性，然后再继续它的任务走到 $v$     
 <b>除此之外也就是 $2$ 了</b>  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 

@@ -42,7 +42,7 @@ $
 <b>统计答案</b>   
 由于根节点无父亲，所以最后取 $min(dp[rt][0],dp[rt][1])$
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 // 有上述转移，此处就不放置代码了
 ```
@@ -60,7 +60,7 @@ $
 第二种情况则是对于一个点 $u$ ，找到两个儿子 $v1,v2$，该毛毛虫为 $dp[v1]+dp[v2]+deg_u-1$  
 故我们跑 $dfs$ 维护 $dp$ ，然后每次维护 $max(dp[i]$,两个最大儿子 $dp$ 的和加上 $deg_u-1)$
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 300010;
 const int M = N << 1;
@@ -130,7 +130,7 @@ int main () {
 选特殊颜色时儿子的特殊颜色只能选 $y-1$ 种  
 向上转移最后 $dp[1][0]\times x+dp[1][1]\times y$ 就是答案了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int n, x, y;
 modint dp[N][2];
@@ -184,7 +184,7 @@ $3.$ $y$ 与 $x$ 同一个父亲且与父亲的边权都为 $1$
    
 最后答案是这三个加起来再加一  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e6 + 10;
 const int M = 2e6 + 10;
@@ -256,7 +256,7 @@ $dp[u][1]$ 只可以通过 $dp[v][0]$ 转移
 同时走子节点时，若这一位选了 $1$ 或者 $dp[v][0]>dp[v][1]$ ，那么子节点都要选 $0$   
 否则选 $1$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int M = 4e5 + 10;
@@ -363,7 +363,7 @@ dp[x][2]：存在且连了子节点
 最后不能选存在且不连子节点的祖先，这样是一个被孤立的点，所以我们计算  
 <img src="https://latex.codecogs.com/svg.image?dp[1][0]&space;&plus;dp[1][2]" title="dp[1][0] +dp[1][2]" />
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -448,7 +448,7 @@ dp[i][1]了话，员工不能选，+dp[son[i]][0]
 最后还要判断一下总问题的两种可能性是不是相同
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <unordered_map>
@@ -538,7 +538,7 @@ int main () {
 不过有特判的地方，就是 $n=2$ 时要分开 $k=1$ 和 $k=2$ 两种情况直接算，还有根节点不能度为 $1$ ，要选一个不可以作为叶子的根节点  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 vector<pair<int, int> > g[N];
@@ -625,7 +625,7 @@ int main () {
   
 最后答案就根据状态来，$a_1+dp_1$
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10,
 	  M = 2e5 + 10;

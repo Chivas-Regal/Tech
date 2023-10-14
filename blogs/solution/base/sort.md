@@ -20,7 +20,7 @@ title: 排序
 则可以保证不等号右侧是递减的，既然这一步不满足的 $c1*a_i+c2*b_i$ ，下一步依然不满足      
 则对于这一步我们可以使用一个大根堆存放 $c1*a_i+c2*b_i$ ，实时弹出即可，然后弹到合法后维护大根堆内容数量的最大值 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 # define int ll
 
@@ -72,7 +72,7 @@ https://acm.hdu.edu.cn/showproblem.php?pid=6318
 用逆序对数乘一下  
 （归并求逆序对比较方便）
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*

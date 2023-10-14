@@ -24,7 +24,7 @@ title: BFS
 这样的话，到最后我们查数的时候看看这个数有没有被标记即可  
 标记的话输出记录的次数，否则  <img src="https://latex.codecogs.com/svg.image?\inline&space;-1" title="\inline -1" />    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 map<string, int> vis, res;
@@ -128,7 +128,7 @@ inline ll new_Swap ( ll x, int i, int j ) {
 
 然后对每一个数存一个记录不重复搜索别的也就是普通的BFS了    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int mxstp = 256;
@@ -237,7 +237,7 @@ int main () {
 最多也就9!次  
 DFS太深了扛不下，使用BFS
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 int n;
@@ -320,7 +320,7 @@ int main () {
   
 直到当前位置等于离散化后的重点即可输出步数  
   
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int h, w, n;
 set<pair<int, int> > vis;
@@ -426,7 +426,7 @@ DFS肯定爆栈，我们可以对BFS中遍历队列设为**双端队列**
 我们每次优先将上下走的节点压入队首，左右走压入队尾  
 每次遍历时取队头即可满足优先上下走的条件了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -496,7 +496,7 @@ int main () {
 这么看来可以用搜索，但是DFS是一条路径向后找，会有很多不必要搜的字符串  
 所以我们用BFS  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 struct cmp{
@@ -554,7 +554,7 @@ CHIVAS_{
 然后去看它所包含的四个点是否有可以入队的  
 这样进行 BFS  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e3 + 10;
 int a[N][N];
@@ -641,7 +641,7 @@ int main () {
 如果用左侧点开始搜索，那么左半部分点本应该由左侧进行递推，但是按照 $BFS$ 反向顺序这里则会由右半部分进行递推  
 :::
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int dx[4] = {0, 0, 1, -1};
@@ -709,7 +709,7 @@ int main () {
 由于 $bfs$ 的特性步数一样的会出现在一起，所以建立一个一维数组 $vis[i]$ ，表示 $i$ 的位置最后一次出现的是第几步即可  
 两个剪枝就能把时间优化下来了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int vis[150004];
 char mxc[150004];

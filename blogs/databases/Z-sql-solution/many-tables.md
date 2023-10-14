@@ -11,7 +11,7 @@ title: 多表连接
 
 三表查询，可存在 NULL，于是就 `FROM` 一个表，然后再额外连两个 `LEFT JOIN` 即可
 
-#### <img src="https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/greencode1.png">
+#### ✅
 
 ```sql
 SELECT 

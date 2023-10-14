@@ -19,7 +19,7 @@ title: 区间DP
 但是有可能我们不消掉任何的东西就可以对称，即 $s[l]\neq s[r]$ 的时候， $dp[l][r]$ 可以通过不花费任何的价钱从 $dp[l+1][r-1]$ 转移过来  
 转移结束，码就完了
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int n, a, b, c, d;
 string s;
@@ -68,7 +68,7 @@ int main () {
 <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j]=max(dp[i-1][j]+a[i]*2^k,dp[i][j+1]+a[j]*2^k)" title="\inline dp[i][j]=max(dp[i-1][j]+a[i]*2^k,dp[i][j+1]+a[j]*2^k)" />
 <img src="https://latex.codecogs.com/svg.image?\inline&space;k" title="\inline k" /> 表示已经选过的个数
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const LL N = 100;
@@ -160,7 +160,7 @@ inline int WalkTime ( int i, int j ) {
 <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j+1][1]=min(dp[i][j][1]+walkTime(j,j+1)\times&space;work(i,j))" title="\inline dp[i][j+1][1]=min(dp[i][j+1][1],dp[i][j][1]+WalkTime(j,j+1)\times&space;Work(i,j))" />
 <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j+1][1]=min(dp[i][j][0]+walkTime(i,j+1)\times&space;work(i,j))" title="\inline dp[i][j+1][1]=min(dp[i][j+1][1],dp[i][j][0]+WalkTime(i,j+1)\times&space;Work(i,j))" />
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 # include <iostream>
@@ -231,7 +231,7 @@ int main () {
 这样就要取一个区间被划分为两个部分的 $\min$ ，也就是枚举这个区间的断点 $k$ ，维护 $dp_{l,r}=\min(dp_{l,r},dp_{l,k}+dp_{k,r}-1)$   
 之所以不是取 $dp_{l,k}+dp_{k+1,r}$ ，是因为有可能 $l,k,r$ 是一起删掉的，所以重复算 $k$ 不管是不是一起都稳定 $+1$ ，就 $dp_{l,k}+dp_{k,r}$ 减掉一个 $1$ 即可   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int n; 
 char s[510];
@@ -271,7 +271,7 @@ int main () {
 维护 $dp[l][r]$ 的最小值，即 $dp[l][r]=min(dp[l+1][r],dp[l][r-1])+a[r]-a[l]$  
 最后算 $dp[1][m]$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2010;
 int a[N], n;
@@ -320,7 +320,7 @@ $dp[l][r]$ 为将完整存在于 $[l,r]$ 的外星人全部干碎的最小花费
 那么我们 $DFS$ 内就很好求了，只用一重循环在 $[id[l][r].l,id[l][r].r]$ 跑该区间内 $fire$ 的位置即可  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 <b>记忆化分治DFS写法</b>
 
@@ -481,7 +481,7 @@ inline void Solve () {
 那么最后就最大可以白嫖 $dp[1][n]$ 次，结果便是 $n-1-dp[1][n]$  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 5e3 + 10;
 vector<int> pos[N];
@@ -540,7 +540,7 @@ $[l,mid],[mid,r]$ 都可以由 $l\to r\to mid$ 和 $r\to l\to mid$ 可以固定�
 
 更新 $k$ 次后我们即可得到我们想要的
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int M = 2010,

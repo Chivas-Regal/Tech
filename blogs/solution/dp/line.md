@@ -26,7 +26,7 @@ title: 线性DP
 我们可以顺求  <img src="https://latex.codecogs.com/svg.image?\inline&space;max\{dp1\}=res1" title="\inline max\{dp1\}=res1" /> 
 处理完之后累加一下每一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1=res" title="\inline dp1=res" /> 的  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2" title="\inline dp2" />  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -86,7 +86,7 @@ int main () {
 
 最后还是没走上去的话，就每次都吃统计一下总饱腹感，然后输出这个饱腹感就是坚持的时间  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -206,7 +206,7 @@ for ( int j = 1; j <= M; j ++ ) pre_D ( j );
  由于子弹肯定打完最好，所以最后一步一定是  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[m][k]" title="\inline dp1[m][k]" /> 
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 #include <iostream>
 
@@ -289,7 +289,7 @@ $$dp[i][j][k]=max(dp[t][j-1][k-i]+sum[i][j])$$
 总复杂度：$O(n^3m)$  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 51;
 int n, m, a[N][N];
@@ -344,7 +344,7 @@ $dp[i][j][k]=\max\limits_{l\in[0,i-1]}dp[l][l][k-1]+sum1[i]+sum2[j]-sum1[l]-sum2
 
 最后看位置维为 $n$ ，个数维为 $K$ 时的值即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int dp1[102][11];
 int dp2[102][102][11];
@@ -411,7 +411,7 @@ int main () {
 - 摸鱼：$dp[i+1][j]=max(this,dp[i][j])$
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 3e4 + 10;
 int t, s, n;
@@ -482,7 +482,7 @@ int main () {
 
 注意模数可能很小，所以我们需要用  <img src="https://latex.codecogs.com/svg.image?\inline&space;Lucas" title="\inline Lucas" /> 定理  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 3e6 + 10;
@@ -540,7 +540,7 @@ $dp[i][j][2]=max(dp[i-1][j][0]-A,dp[i-1][j][1]-A,dp[i-1][j][2]-B)$
 
 最后统计用完字符的状态即 $max(dp[n][m][])$
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int g[300][300];
 int dp[3005][3005][3];
@@ -591,7 +591,7 @@ int main () {
 那么要匹配下一位的起始为 $\sum\limits_{i=1}^{20}[s_i=1]sum[n][s_i]$ ，若要填入一个没有的 $j$ 终点为 起始加上$sum[n][s_{j}]$   
 不匹配数为 $(r-l)-(sum[r][j]-sum[l][j])$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 const int M = 30;
@@ -646,7 +646,7 @@ int main () {
 $\sum\limits_{i=1}^{min(n,m)}C_n^{i}C_m^{i}=\sum\limits_{i=1}^{min(n,m)}C_n^{n-i}C_m^i=C_{n+m}^n$  
 所以当 $A[i]<B[j]$ 时，累加 $dp[i-1][j-1]\times C_{n-i+m-i}^{n-i}$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 5010;
 const int mod = 1e9 + 7;
@@ -710,7 +710,7 @@ int main () {
 但是注意到 $[x]$ 的大小是可以参差不齐的，说明这 $b1$ 个数是可以插进前面 $b$ 个数的空中的，$0$ 是卡在 $[sum]$ 前的，所以有 $b$ 个空，它们是不同的，而且 $b1$ 个数是相同的，经典球盒模型在 $b$ 不为 $0$ 时带上 $\binom{b1+b-1}{b-1}$ 乘起来转移  
 最后求一下 $dp[k][n+1][t]$ 就好了 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int mod = 998244353;
 inline ll ksm (ll a, ll b) {
@@ -773,7 +773,7 @@ int main () {
 那么在转移的时候，如果 $j>0$ ，这一个可以选 $j$ ，$dp[i][j]=max(dp[i][j],dp[i-1][j-1]+c_i)$  
 如果不选 $c$ ，看看到这一步为止有多少个不选 $c$ 的，即 $i-j$ ，如果不够 $B$ 个，那么优先选 $b$ ，否则选 $a$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 struct Pick {
     int a, b, c;
@@ -828,7 +828,7 @@ https://vjudge.net/problem/AtCoder-abc189_d
 在 "and" 中，F可以由两个F和一个T转移来，T可以由一个T转移来  
 得到转移方程式，开始写程序  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -944,7 +944,7 @@ CHIVAS_{
 最后求一下这三个上升子序列在最后一位递增时的方案数总和（即长序列包含小序列  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 ll n, m;
 ll dp[1005][15][15][15];
@@ -993,7 +993,7 @@ int main () {
 对于第二层的 $dp[i]$ ，在 $i*i\to \sqrt x$ 均会出现  
 那么 $dp[x]=\sum\limits_{i=1}^{\left\lfloor\sqrt{\sqrt{x}}\right\rfloor}dp[i]\times (\sqrt{x}-i\times i+1)$
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 ll dp[55000];
 
@@ -1040,7 +1040,7 @@ $dp[i][1]=min(dp[i][1],min(dp[i-1][0],dp[i-1][1])+a[i])$
 可以 $dp$ 两次，一次初始值设置为 $dp[0][0]=0$ ，一次 $dp[0][1]=a[0]$   
 然后 $dp$ 从 $0$ 到 $n$ ，求一下 $n$ 第一种情况的 $dp[n][0]$ 和第二种情况的 $dp[n][1]$ 的最小值即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 3e5 + 10;
 int n; ll a[N];
@@ -1098,7 +1098,7 @@ int main () {
   
 初始化为 $dp[l][l]=1$ 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 # include "bits/stdc++.h"
 
@@ -1153,7 +1153,7 @@ int main () {
 那么我们完全可以把$a[i]$放到a[j]后面，得到的这一种子序列dp[i]=dp[j]+1  
 时间复杂度：O(n^2)  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 1005;
@@ -1193,7 +1193,7 @@ int main(){
 
 所以问题就转化成了一个带一点变动的LIS问题  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 210;
@@ -1236,7 +1236,7 @@ https://codeforces.com/contest/376/problem/D
 那么这样我们就可以对每一列的最长向左延伸距离做个降序排序，从而使得我们不需要再缩边  
 而我们每个最长向左延伸距离在有数的时候，我们的矩阵点都是1，所以我们排过序后，最长向上延伸距离就是这个点的行号  
 最后同理，扫一遍维护一下即可  
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -1362,7 +1362,7 @@ CHIVAS_{
 如果此时有 $m$ 个牌面为 $x$ 的牌，有 $n$ 个喜欢这个牌面的人，那么问题就是把这 $m$ 张牌分给 $n$ 个人，求最大价值  
 这就是一个很明显的三重循环 $dp$ 了，$dp[i][j]$ 表示前 $i$ 个人有 $j$ 个牌的最大价值，然后第三维去枚举第 $i$ 个人获得多少张牌即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 510;
 int dp[N][N * 10];
@@ -1419,7 +1419,7 @@ int main () {
 其实应该有条件反射 $n\times m$ 的矩阵最大曼哈顿距离为 $n+m-2$ ，这里最大就是 $r*2-2$ ，就意味着两个时间差如果超过 $r*2$ 的话那么一定是可以转移的  
 所以其实需要去检查来转移的只有 $[i-2r,i-1]$ ，更靠前的可以直接维护一个变量表示他们的最大值，然后维护 $dp[i]$ 统计能转移的最大值 $+1$   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 struct node { int t, x, y; };
 inline int dis (node a, node b) {
@@ -1469,7 +1469,7 @@ int main () {
 对于起点 $u$ 和终点 $v$ ，已知相同的的也可以互成倍数，那么我们记录 $v$ 是否存在的时候可以直接记录它的出现次数 $num$ ，然后最长路的转移就直接 $dp[v]=max(dp[v],dp[u]+num[v])$ 
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 int a[N], num[N], n, dp[N];
@@ -1512,7 +1512,7 @@ inline void Solve () {
   
 有一个细节点，如果我们在 $id\_pre\_max[i]$ 这个位置上剩余的钱数不低于我们突破到我们想到的位置的话，我们在前缀最大位置上攒钱的天数应该为 $0$   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 struct node {
         ll d, m;
@@ -1572,7 +1572,7 @@ inline void Solve () {
   
 对与查询 $[l,r]$ ，$l$ 列是一定不存在不确定的点的，那么就查 $[l+1,r]$ 的区间和是否不为 $0$ ，如果是的话就说明这个矩阵内存在不确定的点 ，就输出 `NO` 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int main () {
         cin.tie(0)->sync_with_stdio(0);
@@ -1623,7 +1623,7 @@ int main () {
 线段树懒标记往下推的时候，需要考虑需不需要更改这两个关键字，而当子树的 $l=r$ 了话，就代表我们推到底了，如果将距离更新为更短了，就要直接修改 $pre[l]$    
   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 3e5 + 10;
 const int inf = 0x3f3f3f3f;
@@ -1751,7 +1751,7 @@ int main () {
 如果第  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 个点要删掉了， <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j + 1] = min(dp[i][j + 1], dp[o][j - (i - o - 1)] + time(o, i))" title="\inline dp[i][j + 1] = min(dp[i][j + 1], dp[o][j - (i - o - 1)] + time(o, i))" />   
 如果不删的话  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j] = min(dp[i][j], dp[o][j - (i - o - 1)] + time(o, i))" title="\inline dp[i][j] = min(dp[i][j], dp[o][j - (i - o - 1)] + time(o, i))" /> ，即然是从  <img src="https://latex.codecogs.com/svg.image?\inline&space;o" title="\inline o" /> 跳过来的，那么中间的也必然被删掉了，所以  <img src="https://latex.codecogs.com/svg.image?\inline&space;o" title="\inline o" /> 的时候是删去了  <img src="https://latex.codecogs.com/svg.image?\inline&space;j-(i-o-1)" title="\inline j-(i-o-1)" /> 次  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 ll n, l, k;
@@ -1805,7 +1805,7 @@ int main () {
 这里的递推顺序需要一点感性思考，现将一个点汇聚完再开下一个点，这样也就是用 $BFS$ 会更好实现  
 至于求 $dis$ 、 $dp0$ 、 $dp1$ 可以开做三个 $BFS$ 处理会更清晰  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 const int M = 4e5 + 10;
@@ -1909,7 +1909,7 @@ inline void Solve () {
 
 要注意我们可能维护的数值后面也可以删干净，所以最后再扫一轮判断后面可以不可以删干净，如果可以的话就直接将这个 $dp[i]$ 也维护进去       
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 inline void Solve () {
         int n; cin >> n;
@@ -1954,7 +1954,7 @@ inline void Solve () {
 令 $dp[i][kk]$ 表示第 $i$ 个数以前有 $kk$ 段能否成立，那么对于第 $j$ 个数转移到第 $i$ 个数，也就是从 $j+1$ 到 $i$ 为一段，要满足这一段区间和中的 $1$ 是 $res$ 的超集，即 $(sum[i]-sum[j])\& x=x$  
 在满足这个的时候转移，这样就是一个 $n^3$ 的过程了，最后看看 $dp[n][k]$ 是不是 $true$ 就行了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 110;
 
@@ -2001,7 +2001,7 @@ int main () {
 同边染异色，在图上就是最大完全子图，对应这里就是最长下降子序列，也就是反过来的最长上升子序列  
 反一下求一下 $LIS$ 的长度即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int a[1000006];
 
@@ -2044,7 +2044,7 @@ https://acm.hdu.edu.cn/showproblem.php?pid=1176
 每一个单位时间可以移动左一格、右一格、不动。  
 所以得到三条边的递推式为：dp[i][j] += MAX(dp[i + 1][j], MAX(dp[i + 1][j + 1], dp[i + 1][j - 1]));
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -2171,7 +2171,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=2041
 所以sum[i] = sum[i - 1] + sum[i - 2]  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
 
 
 ```cpp
@@ -2248,7 +2248,7 @@ http://acm.hdu.edu.cn/showproblem.php?pid=2084
 所以从下向上，层层决策累加求得   
 dp[x][y] += MAX(dp[x + 1][y], dp[x + 1][y + 1]) 选取左右节点最大值   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -2371,7 +2371,7 @@ CHIVAS_{
 思考如何利用再开一个 $100$ ，发现还有一个关键信息也是题目中提醒我们的，就是总路线长度为 $2n-2$ ，并且我们要明确我们麻烦的地方是 "$dp$ 获取不到最大值" ，于是我们可以用 $dp$ 获得 $100$ 个较大的值，然后转移用这些值进行转移即可  
 故我们依旧是按 $sum1\times sum2$ 定谁大谁小，每次转移提出来最大的 $100$ 个进行转移，最后算一下 $dp[n][n]$ 最大位置的 $sum1\times sum2$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 105;
 struct node {
@@ -2438,7 +2438,7 @@ inline void Solve () {
 而当  <img src="https://latex.codecogs.com/svg.image?\inline&space;i=1" title="\inline i=1" /> 时，我们只是做到让推的源头  <img src="https://latex.codecogs.com/svg.image?\inline&space;+1" title="\inline +1" /> 而已，那么：  
 如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;i=1" title="\inline i=1" /> 那么  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i]++" title="\inline dp[i]++" />   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 1e3 + 10;
@@ -2481,7 +2481,7 @@ $$min(a-1,\{f(\left\lfloor\frac ag\right\rfloor,\frac dg)+\stackrel{a}{\underset
 对于 $f(a,d)$ 我们可以采用记忆化搜索的方式  
 出口便是 $a=1$  或者  $d=1$ 或者 $dp.count(\{a,d\})$ 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 vector<ll> prime;
@@ -2563,7 +2563,7 @@ int main () {
  在求  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2[i]" title="\inline dp2[i]" /> 时，我们一样枚举  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 前面的  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> ，如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;a[j]<a[i]" title="\inline a[j]<a[i]" /> 并且  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[i]=dp1[j]+1" title="\inline dp1[i]=dp1[j]+1" /> ，就说明这个  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[i]" title="\inline dp[i]" /> 有一部分方案是由  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[j]" title="\inline dp1[j]" /> 转移过来的  
  那么我们汇聚一下方案数也就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2[i]+=dp2[j]" title="\inline dp2[i]+=dp2[j]" /> 就可以了（记得在  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[i]=1" title="\inline dp1[i]=1" /> 的情况下说明  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 没有别的推过来，它自己是唯一一种方案，要设置为  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" /> 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 ll dp1[1005], dp2[1005];
@@ -2632,7 +2632,7 @@ https://vjudge.net/problem/UVA-10590
 
 PS：数据过大，使用高精或者java、python大数库（逃  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```java
 import java.math.BigInteger;
 import java.util.*;

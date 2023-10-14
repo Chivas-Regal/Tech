@@ -27,7 +27,7 @@ title: 高等数学
   
 如果系数一直为<img src="https://latex.codecogs.com/svg.image?0" title="0" />且<img src="https://latex.codecogs.com/svg.image?j>t" title="j>t" />，那么最大的项也要比<img src="https://latex.codecogs.com/svg.image?x^t" title="x^t" />小，所以输出<img src="https://latex.codecogs.com/svg.image?0" title="0" />  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>

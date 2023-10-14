@@ -2,9 +2,6 @@
 key: 2021-07-17-莫比乌斯反演
 layout: article
 title: 莫比乌斯反演
-subtitle: 复杂的式子经过反演竟然可以变得这么简单？🤔
-categories: 数学
-tags: [数论]
 aside:
   toc: true
 sidebar:

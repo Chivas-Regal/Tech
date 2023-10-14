@@ -18,7 +18,7 @@ title: 子集和DP
   
 询问结果的时候我们找出所有 $\{p\}$ 位置上为 $1$ 形成的 $01$ 串的 `suf` 和 `pre` 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 25;
 const int S = 1 << N;
@@ -75,7 +75,7 @@ int main () {
 我们累加，注意如果当前枚举的数本身也在这个维空间内要减去  
 然后让结果 $/2$ 即可   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int n;
 int num[1000005][6];
@@ -133,7 +133,7 @@ int main () {
 由于 $sum_n$ 里面的 $a[1\to n]$ 的系数是反着来的 ，我们就也是倒着 $sosdp$  
 就是让 $1$ 的位置推到 $0$ 的位置即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = (1 << 20) + 10;
 int a[N], dp[N];

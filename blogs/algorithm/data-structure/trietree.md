@@ -2,9 +2,6 @@
 key: 2021-03-07-字典树
 layout: article
 title: 字典树
-subtitle: 存字符串然后好找？🤔
-categories: 数据结构
-tags: [数据结构]
 aside:
   toc: true
 sidebar:

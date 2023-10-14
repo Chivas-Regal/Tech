@@ -20,7 +20,7 @@ title: 概率复杂度
 故随机选两个数 $a_i,a_k$ ，然后对差求一下质因数，拿这个质因数 $p$ 去看有多少个 $j$ 满足 $a_j\equiv a_i(mod\;p)$  
 跑三十次即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 3e6 + 10;
 vector<int> prime;

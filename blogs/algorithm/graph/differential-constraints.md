@@ -2,13 +2,10 @@
 key: 2021-09-29-差分约束
 layout: article
 title: 差分约束
-subtitle: 好家伙，不等式你跟我给这跑最短/长路？🤔
 aside:
   toc: true
 sidebar:
   nav: docs-en
-categories: 图论
-tags: [建图]
 ---
 
 

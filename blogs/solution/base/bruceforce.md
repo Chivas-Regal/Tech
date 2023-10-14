@@ -19,7 +19,7 @@ title: 暴力优化
 贡献即为 $f(a)-a$ 和 $f(b)-b*100000$ ，就是统计有多少对 $a,b$ 可以满足贡献和为 $x$  
 于是先统计 $f(a)-a,a\in[00001,99999]$ 的数量，然后再遍历 $b\in[00000,99999]$ ，直接去锁定 $x-(f(b)-b*100000)$ 的数量，对其求和即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 map<ll, ll> mp[10];
 //ll bg[10], ed[10];
@@ -98,7 +98,7 @@ int main () {
 然后就是另一半 $L$ 的信息，和统计 $R$ 时差不多，但是有一个要求是如果 $i$ 不在 $s$ 中，我们还需要保证在 $R$ 集合中的邻点要都存在，故维护一个 $need$ 表示我们需要的点的状态  
 最后在统计完乘积后，让乘积乘上 $sum[need]$ 即乘上我们之前维护的超集和，累加进答案中  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e6 + 10;
 int n, m, mod;
@@ -177,7 +177,7 @@ $16$ 个质数，一眼容斥吧
 减操作就是 $res-(n/it*sum[mul-1]+sum[n/it\%mul]$  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 9699690;
 int prime[] = {0, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53};
@@ -238,7 +238,7 @@ https://acm.dingbacode.com/showproblem.php?pid=2141
 然后排序后每输入一个x  
 就枚举c[i]然后在ab表内二分查找元素是否存在  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -367,7 +367,7 @@ http://poj.org/problem?id=2785
 然后排序后枚举c[i] + d[j]  
 同时在数列ab中二分查找答案，用upper_bound和lower_bound模拟数字哈希过程固定其元素个数即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -493,7 +493,7 @@ CHIVAS_{
 枚举两个偏移量，自然就知道第三个偏移量了，就在这个基础上，如果三个字符串之间互相成立，就维护一下最小值  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -559,7 +559,7 @@ int main () {
   
 答案便是 $num_{1,1} * num_{0,0} * (num_{1,0} + num_{0,1}) + num_{1,0} * num_{0,1} * (num_{1,1} + num_{0,0})$
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 ll num[2][2];
 
@@ -589,7 +589,7 @@ int main () {
 优化一下，发现 $\sum a[i]$ 非常小只有不到 $1e5$ ，这就说明会有很多重复的，且对于相同的 $a[i]$ 其 $\binom{k}{a[i]}$ 是相同的    
 要想没有重复也要 $\sqrt{1e5}$ 了，所以将对象缩减下来，然后对于每一个出现的数值求一下后算个幂即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int mod = 998244353;
 const int N = 1e5 + 10;
@@ -665,7 +665,7 @@ int main () {
 这道题就变成了一个枚举区间长度来判断是否满足条件的问题了  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -740,7 +740,7 @@ int main () {
 如果最后没有新得到的0了就开始遍历，如果存在“漏网之1”，那么就输出-1    
 否则就输出滚动次数-1（最后一轮没有对碰，所以不算  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -860,7 +860,7 @@ res=4*5*5*5=500
 当然如果在某一位出现-1了那么整个就不行  
 就输出-1  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 public class Main {
@@ -929,7 +929,7 @@ https://www.acwing.com/problem/content/description/3639/
 然后我们在累加的时候对每一块的乘积（这一块所有元素的和）进行累加即可  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >  
+#### ✅  
 
 
 ```cpp
@@ -1069,7 +1069,7 @@ $f(x)=x-10^{sz_x-1}+1$
 最后求第三部分，即 $+n$       
 本题难点2在取模上，写一个 `add(a,b)` 和 `sub(a,b)` 函数即可   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 // 代码为非取模版本  
 int main () {
@@ -1106,7 +1106,7 @@ https://codeforces.com/problemset/problem/813/B
 同时对跳过的区间维护一下区间最长值即可  
 PS：要开__int128
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -1245,7 +1245,7 @@ CHIVAS_{
 所以我们每次移动的就那最多50个数字  
 暴力就行了，一个位置的数字代表整个同数字的元素，每次挑选出那个元素x后，从1到50判断一下哪个的位置小于x，都向后推1即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -1305,7 +1305,7 @@ int main () {
 后面的<img src="https://latex.codecogs.com/svg.image?\inline&space;[0,10^{sz-i-1})" title="\inline" />跟着第 <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline" /> 位往上跳 <img src="https://latex.codecogs.com/svg.image?\inline&space;str[i]" title="\inline" /> 次，这便是贡献<img src="https://latex.codecogs.com/svg.image?\inline&space;2" title="\inline" />：<img src="https://latex.codecogs.com/svg.image?\inline&space;str[i]*s[sz-i-1]" title="\inline" />  
 <img src="https://latex.codecogs.com/svg.image?\inline&space;str[i]" title="\inline" /> 出现次数算过了，<img src="https://latex.codecogs.com/svg.image?\inline&space;[0,str[i-1]]" title="\inline" /> 出现的次数也要算一下，这便是贡献<img src="https://latex.codecogs.com/svg.image?\inline&space;3" title="\inline" />：<img src="https://latex.codecogs.com/svg.image?\inline&space;\sum\limits_{i=0}^{str[i]-1}*10^{sz-i-1}" title="\inline" />  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #### include <iostream>

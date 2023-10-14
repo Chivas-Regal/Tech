@@ -2,9 +2,6 @@
 key: 2021-10-13-Matrix-tree定理
 layout: article
 title: Matrix-tree定理
-subtitle: 图上的总生成树问题还能用矩阵玩出花？🤔
-categories: 图论
-tags: [图论]
 aside:
   toc: true
 sidebar:

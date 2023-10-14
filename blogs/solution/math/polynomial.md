@@ -18,7 +18,7 @@ B同理
 此时我们想求出两者的积，也就是把A(x)*B(x)  
 然后得到的C(x)，对系数转换10进制即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -119,7 +119,7 @@ dp[2\times i][C]=&\sum\limits_{g^A\times g^B \% m=g^C}dp[i][A]dp[i][B]\\
 然后计算 $f$ 的幂可以使用快速幂多项式乘法    
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int mod = 1004535809;
 
@@ -269,7 +269,7 @@ E_i=&\frac{F_i}{q_i}\\
 用 $FFT$ 优化即可     
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 3e5 + 10;
 const double PI = acos(-1.0);
@@ -346,7 +346,7 @@ int main () {
 
 多项式的幂可以写一个乘法函数然后用快速幂去计算， $p$ 小的离谱，乘法函数暴力写都行   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int mod = 20170408;
 
@@ -440,7 +440,7 @@ $\begin{aligned}
 注意这里匹配成环，环化作链，让 $a[i+n]=a[i]$ 即可   
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 300005;
 const double PI = acos(-1.0);
@@ -531,7 +531,7 @@ $\begin{aligned}
 我们对四个字符做多项式乘，那么从每一个位置开始匹配的相似度就可以加出来    
 如果这个值超过 $m-3$ 那么就说明不相似度满足了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 5e5 + 10;
 const double PI = acos(-1.0);
@@ -614,7 +614,7 @@ inline void Solve () {
 #### 💡
 <a href="https://chivas-regal.github.io/%E6%95%B0%E5%AD%A6/2021/08/15/%E5%BF%AB%E9%80%9F%E5%82%85%E7%AB%8B%E5%8F%B6%E5%8F%98%E6%8D%A2FFT.html">Blog--例题讲解</a>
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 3000010;
@@ -688,7 +688,7 @@ $i\in[0,n-m]$ ，对应上面相加后的幂为 $[m-1,n-1]$
   
 （屑题卡常开个 $O2$）  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2000006;
 const double PI = acos(-1.0);
@@ -771,7 +771,7 @@ int main () {
 发现这个指数为整数的多项式是一个一阶可导函数，我们对其求导为 $f'(x)$ ，然后使用 [牛顿迭代法](https://tech.chivas-regal.top/blogs/algorithm/math/newton-Iteration.html) 求 $[l,r]$ 范围内的零点即可     
 初始点可以设置为 $\left\lfloor\frac{l+r}2\right\rfloor$   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 4e5 + 10;
 const double PI = acos(-1.0);
@@ -879,7 +879,7 @@ $$\begin{aligned}
 如果当前枚举到 $b_d$ ，如果卷出来系数不为 $0$ 的地方，那么对于 $b_d-b_{d-1}$ 这一部分是我们之前没有计算到的地方也是这一次卷积满足的地方，就要让系数乘上 $b_d-b_{d-1}$ 累加入这一位的计数数组 $[res]$ 中  
 最后从小往大枚举指数 $i$ ，找最大的且是第一次出现的 $\left\lfloor\frac{res_i}2\right\rfloor$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 4e5 + 10;
 const int mod = 998244353;
@@ -958,7 +958,7 @@ $\forall i,j\in[1,n],i\neq j,a_i\not\equiv a_j(mod\;seed)$
 即读入 $x$ 时两个多项式一个对指数为 $x$ 的系数标 $1$ ，一个对指数为 $5\times 10^5-x$ 的系数标 $1$ ，卷完之后让所有系数不为零且指数大于 $5\times 10^5$ 的指数减去 $5\times 10^5$ ，就可以获取到所有满足条件的减法最终值了，最多只到 $5\times 10^5$ （这也是为什么上面用 $5\times 10^5-$ 代替减法的原因）  
 然后用埃氏筛的思想跑所有数，然后看其倍数是否存在 $1$ ，如果没有倍数存在的话那就是这个因数了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 5e6 + 10;
 const int mod = 998244353;
@@ -1046,7 +1046,7 @@ int main () {
 我们可以求一下相似度，然后  
 用所有都相似的相似度减去我们求到的相似度累加和就是不相似度的累加和  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -1137,7 +1137,7 @@ int main () {
   
 由于 $NTT$ 取模运算和乘法中复刻数组的常数复杂度很大，我们预处理出来原根对应每一个 $mid$ 的值与其逆元，并且将多项式乘法转换成新运算，用引用传递数组。  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e6 + 10;
 const int mod = 998244353;
@@ -1291,7 +1291,7 @@ int main () {
   
 <span style="color: orange;">PS:小数据不推荐使用FFT，常数较大有些吃亏</span>
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -1379,7 +1379,7 @@ int main(){
 与<a href="https://github.com/Chivas-Regal/ACM/blob/main/Code/%E6%95%B0%E5%AD%A6/%E5%A4%9A%E9%A1%B9%E5%BC%8F/%E5%BF%AB%E9%80%9F%E5%82%85%E7%AB%8B%E5%8F%B6%E5%8F%98%E6%8D%A2/Ignatius%20and%20the%20Princess%20III.md">FFT加速母函数</a>一样，这里构造的多项式的系数为1的条件是i%(k*k)==0  
 同样的，在枚举下一个括号的最后一个1时，使用m=num/(k*k)*(k*k)
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -1481,7 +1481,7 @@ b字符串反着建之后，每一次匹配可以与a的每一位形成一个固
 如果贡献值满m，那么就匹配成功，指针向后移动m位  
 否则匹配不成功，指针移动一位  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -1581,7 +1581,7 @@ int main () {
 求出从每一个位置作为开始的不相似度为多少，（m-匹配度）注意由于通配符的存在如果遇见两个通配符对应了话会重复多算九次，因此要以通配符为匹配符再扣一次 $9$ 就好了  
 最后求一下所有不相似度对应起始下标个数的前缀和，就是答案  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int n, m;
 char s[N], t[N];
@@ -1663,7 +1663,7 @@ inline void Solve () {
 这样在第一次匹配时，即寻找指数为2的卷积结果。第二次匹配时寻找指数为3的卷积结果...  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -1745,7 +1745,7 @@ $\sum\limits_{a'=1}^{a-i}\sum\limits_{b'=1}^{b-i}\sum\limits_{c'=1}^{c-i}\sum\li
 故提出四个多项式把它们乘一下就可以了（令乘出来的多项式为 $g$，第 $i$ 位的系数为 $g[i]$）    
 则在容斥下，最终方案等于 $\sum\limits_{i=0}^{min(a,b,c,d,\left\lfloor\frac n4\right\rfloor)}(-1)^i\binom{n-3i}{i}g[n-4i]$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int mod = 998244353;
 inline int ksm (int a, int b) { int res = 1; while (b) { if (b & 1) res = (ll)res * a % mod; a = (ll)a * a % mod; b >>= 1; } return res; }
@@ -1849,7 +1849,7 @@ int main () {
   
 数很大，开java的`BigInteger`
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 public class Main{

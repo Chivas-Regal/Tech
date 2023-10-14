@@ -16,7 +16,7 @@ title: 悬线法
 这道题每一个单位都可以满足哟求，所以初始化都是横  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> 竖  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" />   
 拉线和缩线的时候两者都满足要求的判断就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;\[a[i][j]\oplus&space;a[i-1][j]\neq0\]" title="\inline [a[i][j]^a[i-1][j]\neq0]" /> 或者  <img src="https://latex.codecogs.com/svg.image?\inline&space;[a[i][j]\oplus&space;a[i][j\pm1]\neq0]" title="\inline [a[i][j]\oplus&spacea[i][j\pm1]\neq0]" />   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 1e3 + 10;
@@ -63,7 +63,7 @@ https://www.luogu.com.cn/problem/P2701
 利用悬线法即可  
 到最后维护下最大的"长宽最小值"即是最大正方形  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -206,7 +206,7 @@ CHIVAS_{
 则 $dp[i][j]=dp[i][l]+h[i][j]*(j-l)$    
 或者不用 $dp$ ，处理出来第一个小于等于自己的点 $r$ （如果处理小于的话可能会导致互相冲突重复计数），然后令当前点作为矩阵下边的其中一点，子矩阵方案数为 $h[i][j]*(j-l+1)*(r-j+1)$
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 5010;
  
@@ -273,7 +273,7 @@ int main () {
 算好后也就是横向距离 $[l,r]$ 和高度 $h[i][j]$ 形成的矩阵是合法的，其中以 $(i,j)$ 为下边一点的矩阵数量都可以算出来了，也就是 $h[i][j]*(r-j+1)*(j-l+1)$   
 用 $res$ 累加这个值即可   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1010;
  

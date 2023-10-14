@@ -25,7 +25,7 @@ title: 主席树
 若`pos <= mid`，那么我们该向左固定区间，同时得知右一半的区间均满足，则 `res += query () + sgtr[sgtr[rt].r].sum`  
 若`pos > mid`，那么我们该向右固定区间，就还是正常的查询 `res += query()`
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -105,7 +105,7 @@ int main () {
 那么每次就是对左右子树分别查看，这个最小下标是否可以出现在子树内，来决定递归哪一个  
 肯定优先递归左子树，所以只有左子树的val>=pos的时候，才做右子树  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -191,7 +191,7 @@ int main () {
 存主席树时，也存一个该区间内数的个数  
 求出来mex后，在两个版本前缀主席树相减下，求出这个区间[mex+1, 1e9]的权值和  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 3e5 + 10;
@@ -279,7 +279,7 @@ int main () {
 然后在主席树内区间查询即可  
 然后注意到 $p_l,p_r$ 交换后这两个点的权值也会变化，可以直接求左侧右侧有几个小于它的数，还要注意 $\min(p_l,p_r)$ 对 $\max(p_l,p_r)$ 也有贡献 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 # define int long long
@@ -425,7 +425,7 @@ signed main () {
 在以 `root[k]` 中找下标第 $p$ 小    
 这就很板了，而且时间也快了不少（因为直接在查询的时候二分了）  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 // 初步解法 ---------------------------------------------------------------
 const int N = 2e5 + 10;

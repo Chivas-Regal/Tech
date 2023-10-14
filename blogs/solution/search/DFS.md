@@ -18,7 +18,7 @@ title: DFS
 至于怎么算最小值，我们可以枚举最多  <img src="https://latex.codecogs.com/svg.image?\inline&space;k-1" title="\inline k-1" />  个断点  
 以断点进行分割计算每一块的最大最小  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" /> 和最大最小  <img src="https://latex.codecogs.com/svg.image?\inline&space;y" title="\inline y" /> ，他们差值的乘积就是这一个矩形的面积
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 100;
@@ -95,7 +95,7 @@ int main () {
   
 每次走到最深的点时就维护一下  <img src="https://latex.codecogs.com/svg.image?\inline&space;res" title="\inline res" /> 的最小值
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 int res = 0x3f3f3f3f;
@@ -190,7 +190,7 @@ int main () {
 这样的话就是搜索的结果，剪枝剪下去也不会非常大  
 而且还能保证最后出来的都是完成的数独    
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 #include <iostream>
@@ -287,7 +287,7 @@ DFS，然后发现TLE两个点
 如果是一个的话就遍历这一个就行了  
 如果没有的话就说明成环，每一个跑一遍就行了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 vector<int> chr[30];
@@ -371,7 +371,7 @@ int main () {
 如果一个取模后的位置被走过且另外两个变量有一个与当前位置不同，就代表不折回跑地到达了两次  
 遍历就行了  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 int n, m;
@@ -430,7 +430,7 @@ int main () {
 每一个点对每一个可以转移的连接点进行连接，这些点的dfs()+1就是当前点的最优子问题之一  
 对每一个点都dfs一边即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 int n, m;
@@ -474,7 +474,7 @@ int main () {
 用这个性质对每一个质数（前12个）出现的次数进行搜索，剪枝为当前的乘积大于 $n$ 了  
 将搜索出来的 $\{x,g(x)\}$ 存入 `vector` 中，按上面说的任务找到 $g(x)$ 最大的情况下最大的 $x$ 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int p[12] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
 
@@ -523,7 +523,7 @@ int main () {
 则 $dp[i]$ 可以通过 $+1$ 转移给所有的 $dp[i+1,mx[i+1]]$  
 维护最小值，然后输出 $dp[m]$ 即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int dx[] = {0, 0, 1, -1};
 int dy[] = {1, -1, 0, 0};
@@ -607,7 +607,7 @@ int main () {
 所以我们可以 $01$ 暴力搜索去分配礼遇  
 递归出口的时候用最大得分 `sort` 一下与要求得分比对一下即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 ll n, k, s;
 ll p[40];
@@ -675,7 +675,7 @@ int main () {
 那么我们可以快速得到中序左区间的长度，也是先序左区间的长度 $len=b[P[l1]]-l2+1$   
 先序左区间为 $[l1+1,l1+len-1]$ 右区间为 $[l1+len,r1]$ 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 
 ```
@@ -696,7 +696,7 @@ int main () {
 if (res + (idx - i + 1) * 2 <= mxres) return;
 ```
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 struct node { int a, b, c; } eq[50]; int idx;
 
@@ -764,7 +764,7 @@ int main () {
 若下降不了就只能退出  
 出口可以设置为我们已经找出来了两种构造方式或者我们当前的数过大  
  
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 ll x, d;
 int cnt;
@@ -827,7 +827,7 @@ $P_i-P_j$ 为奇数，即 $P_i$ 与 $P_j$ 的奇偶性不同的对均满足
 开 $b$ 时奇偶性不变，顺接上一层的奇偶状态  
 开 $r$ 后奇偶变化，改变奇偶状态  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 int n;
 int nres;

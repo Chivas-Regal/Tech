@@ -20,7 +20,7 @@ title: 分治
   
 由于有撤销操作，这里使用可撤销并查集  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 struct Edge {
     int u, v, w;
@@ -113,7 +113,7 @@ int main () {
 故对边权分治，分治方法和 [这道题](#洛谷p5631_最小mex生成树) 一样  
 最后到 $l=r$ 时扫描一遍以 $l$ 为边权的边，累加两点的集合大小乘积  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 struct Edge {
     int u, v, w;
@@ -219,7 +219,7 @@ int main () {
 然后在分治内从两端同时向中间扫 $[tl:l\to mid,\;\;tr:r\to mid]$ ，去检查我们扫的 $tl,tr$ 是否有满足的，满足的直接去进行递归分治判断  
 这样每一次最坏的情况就是走 $\frac{r-l+1}{2}$ 次，时间复杂度 $O(nlogn)$  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 2e5 + 10;
 

@@ -2,13 +2,10 @@
 key: 2021-09-28-树分治
 layout: article
 title: 树分治
-subtitle: 树上路径那么多，你让我求满足条件的？🤔
 aside:
   toc: true
 sidebar:
   nav: docs-en
-categories: 图论
-tags: [树]
 ---
 
 

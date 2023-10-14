@@ -14,7 +14,7 @@ title: 树上启发式合并
 本题为模板题，知识点与伪代码看[这里](https://tech.chivas-regal.top/blogs/algorithm/graph/dsuontree.html)  
 本题 $AC$ 代码已批注释
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 const int M = 2e5 + 10;
@@ -107,7 +107,7 @@ int main () {
 在删除子树信息的时候若 ` map[dep[u]][col[u]] = 0` 就删掉这个名字  
 这样在我们的主体递归内，在关于 $u$ 的所有问题都可以直接在对应的深度下求 `map[].size()` 即可   
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 const int M = 2e5 + 10;
@@ -216,7 +216,7 @@ $a<x<b,\;d_{v,a}<d_{v,x}\le d_{v,b}$
 这就是在说让我们在 $v$ 的子树内，找到节点个数最多的深度，如果有多个深度节点个数相同且最多，选择最小的深度  
 那么就在 `dfs_Count()` 下维护一下每个深度的节点最小数量和该深度编号即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e6 + 10;
 const int M = 2e6 + 10;
@@ -315,7 +315,7 @@ int main () {
 那么可以直接在 `dfs_Count` 统计时统计数字个数，顺带将该<b>个数</b>插入线段树内  
 然后在查询时直接查询 $k\to N$ 的区间和即可  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1e5 + 10;
 const int M = 2e5 + 10;
@@ -434,7 +434,7 @@ int main () {
 看到这依旧是按层级来的，那么我们就每一层维护一个 `set` 专门存放对应层内的奇数数字  
 在查询时，如果该层 `size` 大于 $1$ 的话那么就无法构成，否则可以  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 5e5 + 10;
 const int M = N * 2;

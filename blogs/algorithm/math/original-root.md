@@ -2,9 +2,6 @@
 key: 2021-10-21-new-template
 layout: article
 title: 阶与原根
-subtitle: 一个数的原根都能干啥啊？🤔
-categories: 数学
-tags: [数学]
 aside:
   toc: true
 sidebar:

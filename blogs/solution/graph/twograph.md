@@ -14,7 +14,7 @@ title: 二分图染色
 求最大独立集即可  
 求之前先要男女染色  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 ```cpp
 const int N = 1005;
 const int M = 4010;
@@ -92,7 +92,7 @@ int main () {
 那么这道题答案的第一个数只有  <img src="https://latex.codecogs.com/svg.image?\inline&space;0" title="\inline 0" /> 和  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" /> 两种可能  
 而对于连通块，我们从一个点  <img src="https://latex.codecogs.com/svg.image?\inline&space;a" title="\inline a" />  开始  <img src="https://latex.codecogs.com/svg.image?\inline&space;dfs" title="\inline dfs" /> 出这个连通块，看看是离  <img src="https://latex.codecogs.com/svg.image?\inline&space;a" title="\inline a" /> 距离为奇数加标签用的多还是偶数加标签用的多，我们选用最少的标签加法  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 510;
@@ -184,7 +184,7 @@ int main () {
 那么我们就对  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" />  分二进制块之后每次一个完整的二进制块分给当前颜色数量最多的点集，给他们赋一下编号然后从该集合中删去  
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int N = 4e5 + 10;

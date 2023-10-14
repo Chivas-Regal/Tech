@@ -2,9 +2,6 @@
 key: 2021-03-01-KMP
 layout: article
 title: KMP
-subtitle: 文本识别匹配，引擎技术？🤔
-categories: 字符串
-tags: [字符串]
 aside:
   toc: true
 sidebar:

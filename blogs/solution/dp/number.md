@@ -14,7 +14,7 @@ https://acm.dingbacode.com/showproblem.php?pid=2089
 “4”是可以直接在每一位上进行判断，“62”则需要加一个记录前面是否为6的is_6变量，在这个基础上判断2  
 求区间内满足条件的数的个数，可以用前缀和的思想求区间和  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -142,7 +142,7 @@ https://acm.dingbacode.com/showproblem.php?pid=3555
 然后 x - solve(x) + 1 即是正解  
 本题为类模板题  
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -282,7 +282,7 @@ https://acm.dingbacode.com/showproblem.php?pid=4507
 可以通过记录填法数量、填法数总和并记录后面几位的平方和回溯出整体平方和
 
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 /*
@@ -437,7 +437,7 @@ CHIVAS_{
   
 我们在 <img src="https://latex.codecogs.com/svg.image?\inline&space;dfs" title="" />参数上也保持这样的状态，并因为有两个数，我们在枚举第<img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="" />位的时候应有两重 <img src="https://latex.codecogs.com/svg.image?\inline&space;01" title="" />，并根据是否为最高数来给定枚举的最大值，保证两个不同为<img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="" />即可
 
-#### <img src="https://img-blog.csdnimg.cn/20210713144601841.png" >
+#### ✅
 
 ```cpp
 const int mod = 1e9 + 7;
