@@ -28,46 +28,28 @@ sidebar:
 |问题转化|求证小n且与n互质的数的乘积模 $n$ 一定为 $1$ 或 $-1$|
 |因为是乘积，又与1有关，所以想<mark>逆元</mark>|在 $x^2\not\equiv1(mod\;n)$ 时<br><mark>$x\neq inv(x)$</mark>，$\therefore\;x$ 与 $inv(x)$ 在数组中<mark>成对出现</mark>且乘积贡献为1<br />|
 |特殊情况处理|在 $x^2\equiv1(mod\; n)$ 时<br><mark>$x=inv(x)$</mark><br>但同时 $(n-x)^2=n^2-nx+x^2\equiv x^2\equiv1(mod\;n)$<br />$\therefore$<mark>$\;n-x=inv(n-x)$</mark><br />在此时 $x$ 与 $n-x$ 也独立成对出现，乘积贡献为<span style="color: grey">$\boxed{x(n-x)=nx-x^2\equiv-1(mod\;n)}$</span>-1|
-|得出结论|<span style="color: red;">在小于 $n$ 且与 $n$ 互质的数中，会产生若干对数<br>它们的乘积要么是 $1$ 要么是 $-1$ <br />所以累乘是 $1$ 或 $-1$ |
+|得出结论|<span style="color: red;">在小于 $n$ 且与 $n$ 互质的数中，会产生若干对数<br>它们的乘积要么是 $1$ 要么是 $-1$ <br />所以累乘是 $1$ 或 $-1$ </span> |
 
 # <font size="4px" id="Q1_2">和差化积：$\sin(\alpha\pm\beta)\;and\;\cos(\alpha\pm\beta)$</font>
 
 |$Thoughts$|$Solution$|
 |---|---|
-|首先先证明<font style="color: red;">$\sin(\alpha+\beta)$</font>|<img src="https://codimd.s3.shivering-isles.com/demo/uploads/b7d85823f3cee0f76b15ddc37.png" width="400px"><br>$$\begin{aligned}S_{\triangle ABC}&=S_{\triangle ABD}+S_{\triangle BDC}\\ab\sin(\alpha+\beta)&=ac\sin\alpha+bc\sin\beta\\\sin(\alpha+\beta)&=\frac cb\sin\alpha+\frac ca\sin\beta\\\sin(\alpha+\beta)&=\cos\beta\sin\alpha+\cos\alpha\sin\beta\end{aligned}$$|
-|$\sin(\alpha-\beta)$|$$\begin{aligned}&\sin(\alpha-\beta)\\=&\sin(\alpha+(-\beta))\\=&\cos(-\beta)\sin\alpha+\cos\alpha\sin(-\beta)\\=&\cos\beta\sin\alpha-\cos\alpha\sin\beta\end{aligned}$$|
-|$\cos(\alpha+\beta)$|$$\begin{aligned}&\cos(\alpha+\beta)\\=&\sin(90^{\circ}-\alpha-\beta)\\=&\sin((90^{\circ}-\alpha)+(-\beta))\\=&\cos(90^{\circ}-\alpha)\sin(-\beta)+\cos(-\beta)\sin(90^{\circ}-\alpha)\\=&-\sin\alpha\sin\beta+\cos\beta\cos\alpha\\=&\cos\beta\cos\alpha-\sin\beta\sin\alpha\end{aligned}$$|
-|$\cos(\alpha-\beta)$|$$\begin{aligned}&\cos(\alpha-\beta)\\=&\cos(\alpha+(-\beta))\\=&\cos(-\beta)\cos\alpha-\sin(-\beta)\sin\alpha\\=&\cos\beta\sin\alpha+\sin\beta\sin\alpha\end{aligned}$$|
+|首先先证明<font style="color: red;">$\sin(\alpha+\beta)$</font>| $\begin{aligned}S_{\triangle ABC}&=S_{\triangle ABD}+S_{\triangle BDC}\\ab\sin(\alpha+\beta)&=ac\sin\alpha+bc\sin\beta\\\sin(\alpha+\beta)&=\frac cb\sin\alpha+\frac ca\sin\beta\\\sin(\alpha+\beta)&=\cos\beta\sin\alpha+\cos\alpha\sin\beta\end{aligned}$ | 
+|$\sin(\alpha-\beta)$|$\begin{aligned}&\sin(\alpha-\beta)\\=&\sin(\alpha+(-\beta))\\=&\cos(-\beta)\sin\alpha+\cos\alpha\sin(-\beta)\\=&\cos\beta\sin\alpha-\cos\alpha\sin\beta\end{aligned}$|
+|$\cos(\alpha+\beta)$|$\begin{aligned}&\cos(\alpha+\beta)\\=&\sin(90^{\circ}-\alpha-\beta)\\=&\sin((90^{\circ}-\alpha)+(-\beta))\\=&\cos(90^{\circ}-\alpha)\sin(-\beta)+\cos(-\beta)\sin(90^{\circ}-\alpha)\\=&-\sin\alpha\sin\beta+\cos\beta\cos\alpha\\=&\cos\beta\cos\alpha-\sin\beta\sin\alpha\end{aligned}$|
+|$\cos(\alpha-\beta)$|$\begin{aligned}&\cos(\alpha-\beta)\\=&\cos(\alpha+(-\beta))\\=&\cos(-\beta)\cos\alpha-\sin(-\beta)\sin\alpha\\=&\cos\beta\sin\alpha+\sin\beta\sin\alpha\end{aligned}$|
     
 # <font size="6px" id="Q2">递推式</font>
 ## <font size="6px" id="Q2_1"><b>$S_n=\left\lceil (a+\sqrt b)^n\right\rceil\%m$</b></font>
 
-<table>
-<tr>
-<th>$Thoughts$</th><th>$Solution$</th>
-</tr>
-<tr>
-<td> 根据<mark>二项式定理</mark>，可以设计以下两个式子 </td><td> $(a+\sqrt b)^n=A_n+B_n\sqrt b$ <br /> $(a-\sqrt b)^n=A_n-B_n\sqrt b$ </td>
-</tr>
-<tr>
-<td> 通过转换来的式子合并一下  </td><td> <mark>$(a+\sqrt b)^n+(a-\sqrt b)^n=2A_n$</mark><br>$(a+\sqrt b)^n=2A_n-(a-\sqrt b)^n$  </td>
-</tr>
-<tr>
-<td>利用限制条件有</td><td> $\because a-1\lt \sqrt b\lt a$ <br /> $\therefore 0\lt a-\sqrt b\lt 0$ <br /> $\therefore (a+\sqrt b)^n=2A_n-(a-\sqrt b)^n\left\{\begin{aligned} 
-&\lt 2A_n \\ 
-&\gt 2A_n-1\end{aligned}\right. 
-\Rightarrow \left\lceil(a+\sqrt b)^n\right\rceil=2A_n$ </td>
-</tr>
-<tr>
-<td>得到新式</td><td>$\left\lceil(a+\sqrt b)^n\right\rceil=2A_n=(a+\sqrt b)^n+(a-\sqrt b)^n$</td>
-</tr>
-<tr>
-<td>代数转换</td><td>令 $x=a+\sqrt b,\quad y=a-\sqrt b$<br>则 $(a+\sqrt b)^n +(a-\sqrt b)^n=\;$<mark>$x^n+y^n=(x+y)(x^{n-1}+y^{n-1})-xy(x^{n-2}+y^{n-2})$</mark></td>
-</tr>
-<tr>
-<td>构造递推函数</td><td>令 $g(n)=x^n+y^n\quad x+y=2a\quad xy=a^2-b$ <br /> $\therefore\;$ <span style="color:red;"> $g(n)=2a\times g(n-1)-(a^2-b^2)\times g(n-2),\quad g(1)=2a,\quad g(0)=2$ </span></td>
-</tr>
-</table>
+|$Thoughts$|$Solution$|
+|---|---|
+| 根据<mark>二项式定理</mark>，可以设计以下两个式子 | $(a+\sqrt b)^n=A_n+B_n\sqrt b$ <br /> $(a-\sqrt b)^n=A_n-B_n\sqrt b$ |
+| 通过转换来的式子合并一下  | <mark>$(a+\sqrt b)^n+(a-\sqrt b)^n=2A_n$</mark><br>$(a+\sqrt b)^n=2A_n-(a-\sqrt b)^n$  |
+|利用限制条件有| $\because a-1\lt \sqrt b\lt a$ <br /> $\therefore 0\lt a-\sqrt b\lt 0$ <br />  $\therefore (a+\sqrt b)^n=2A_n-(a-\sqrt b)^n\left\{\begin{aligned} &\lt 2A_n \\ &\gt 2A_n-1\end{aligned}\right.\Rightarrow \left\lceil(a+\sqrt b)^n\right\rceil=2A_n$ |
+|得到新式| $\left\lceil(a+\sqrt b)^n\right\rceil=2A_n=(a+\sqrt b)^n+(a-\sqrt b)^n$ |
+|代数转换|令 $x=a+\sqrt b,\quad y=a-\sqrt b$<br>则 $(a+\sqrt b)^n +(a-\sqrt b)^n=\;$<mark>$x^n+y^n=(x+y)(x^{n-1}+y^{n-1})-xy(x^{n-2}+y^{n-2})$</mark>|
+|构造递推函数|令 $g(n)=x^n+y^n\quad x+y=2a\quad xy=a^2-b$ <br /> $\therefore\;$ <span style="color:red;"> $g(n)=2a\times g(n-1)-(a^2-b^2)\times g(n-2),\quad g(1)=2a,\quad g(0)=2$ </span>|
 
 # <font size="6px" id="Q3">时间化简</font>
 # <font size="6px" id="Q3_1"><b>$f(k)=\sum\limits_{i_1=L}^H\sum\limits_{i_2=L}^H...\sum\limits_{i_n=L}^H[gcd(i_1,i_2,...,i_n)=k]$</b></font>

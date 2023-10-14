@@ -12,27 +12,33 @@ aside:
 
 $A(x)=a_0+a_1x+a_2x^2+\dots +a_nx^n$  
   
-<b>系数表示法的好处<b>  
+<b>系数表示法的好处</b>  
 可以直接利用参数 $x$ 计算多项式值，即直接代入上式 $O(n)$ 地计算    
 
 ### 多项式点值表示法  
  
 首先要知道一个定理：<mark>任意 $n+1$ 个不同点均可以确定一个 $n$ 次多项式</mark>  
 ::: tip
-$$x_1\rightarrow x_{n+1}:\left\{\begin{aligned}
-a_0&+a_1x_1+a_2x_1^2+\dots+a_nx_1^n=y_1\\
-a_0&+a_1x_2+a_2x_2^2+\dots+a_nx_2^n=y_2\\
-&\dots\\
-a_0&+a_1x_n+a_2x_n^2+\dots+a_nx_n^n=y_n\\
-a_0&+a_1x_{n+1}+a_2x_{n+1}^2+\dots+a_nx_{n+1}^n=y_{n+1}
-\end{aligned}\right.$$  
+
+$$x_1\rightarrow x_{n+1}:
+  \left\{\begin{aligned}
+    a_0&+a_1x_1+a_2x_1^2+\dots+a_nx_1^n=y_1\\
+    a_0&+a_1x_2+a_2x_2^2+\dots+a_nx_2^n=y_2\\
+    &\dots\\
+    a_0&+a_1x_n+a_2x_n^2+\dots+a_nx_n^n=y_n\\
+    a_0&+a_1x_{n+1}+a_2x_{n+1}^2+\dots+a_nx_{n+1}^n=y_{n+1}
+  \end{aligned}\right.$$  
+
 $$\left(\begin{aligned}
-&1&\quad&x_1&\quad&x_1^2&\quad&\dots&\quad&x_1^n&\\
-&1&\quad&x_2&\quad&x_2^2&\quad&\dots&\quad&x_2^n&\\
-&\dots&\\
-&1&\quad&x_{n+1}&\quad&x_{n+1}^2&\quad&\dots&\quad&x_{n+1}^n&
-\end{aligned}\right)=\prod\limits_{1\le i,j\le n+1}(x_i-x_j)\neq 0$$  
+  &1&\quad&x_1&\quad&x_1^2&\quad&\dots&\quad&x_1^n&\\
+  &1&\quad&x_2&\quad&x_2^2&\quad&\dots&\quad&x_2^n&\\
+  &\dots&\\
+  &1&\quad&x_{n+1}&\quad&x_{n+1}^2&\quad&\dots&\quad&x_{n+1}^n&
+\end{aligned}\right) 
+  =\prod\limits_{1\le i,j\le n+1}(x_i-x_j)\neq 0$$  
+
 即使用了 $n+1$ 个特殊点，这个方程组用高斯消元便可以解
+
 :::  
   
 <b>点表示法的好处</b>    
