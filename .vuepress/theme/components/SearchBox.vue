@@ -15,6 +15,7 @@
       @keyup.up="onUp"
       @keyup.down="onDown"
       ref="input"
+      style="border-radius: 2rem;"
     >
     <ul
       class="suggestions"
