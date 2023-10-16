@@ -17,7 +17,7 @@ const modeOptions = {
     '--text-color-sub': '#7F7F7F',
     '--border-color': '#eaecef',
     '--code-color': 'rgba(27, 31, 35, 0.05)',
-    '--mask-color': '#888'
+    '--mask-color': '#888',
   },
   dark: {
     '--default-color-10': 'rgba(0, 0, 0, 1)',
