@@ -21,6 +21,7 @@
       :style="linksWrapMaxWidth ? {
         'max-width': linksWrapMaxWidth + 'px'
       } : {}">
+      <Mode style="display: none;"/>
       <AlgoliaSearchBox
         v-if="isAlgoliaSearch"
         :options="algolia"/>
