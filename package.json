@@ -13,6 +13,7 @@
     "@maginapp/vuepress-plugin-katex": "^1.0.11",
     "@vite/vuepress-plugin-mathjax": "^1.1.0",
     "@vuepress-reco/vuepress-plugin-extract-code": "^1.0.4",
+    "@vuepress/plugin-docsearch": "^2.0.0-beta.67",
     "@vuepress/plugin-google-analytics": "^2.0.0-beta.61",
     "@vuepress/plugin-register-components": "^1.9.10",
     "@vuepress/plugin-shiki": "^2.0.0-beta.67",

@@ -131,8 +131,6 @@ export function resolveSidebarItems (page, regularPath, site, localePath) {
 }
 
 export function groupHeaders (headers) {
-  // show headers
-  console.log(headers)
   // group h3s under h2
   headers = headers.map(h => Object.assign({}, h))
   let lastH2
