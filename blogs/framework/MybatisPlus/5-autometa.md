@@ -79,7 +79,52 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
 这样在运行的时候就可以自动填充 `updateTime` 属性了，别的都是一样的  
 
-::: tip
+## ❗️常见错误：被迫更新
+
+元数据处理器中的一个 `xxxFill` 方法是一起执行的  
+如果你同时存在 `createTime` 属性和 `updateTime` 属性且都在元数据处理器中设置了，比如  
+
+```java
+...
+    @Override
+    public void insertFill (MetaObject metaObject) {
+        metaObject.setValue("createTime", LocalDateTime.now());
+        metaObject.setValue("updateTime", LocalDateTime.now());
+    }
+...
+```
+
+然后你有一个 POJO 类中只有一个 `createTime` 而不存在属性 `updateTime` ，它都会一起被迫更新然后就异常了     
+下面是解决办法
+
+### 解决办法一
+
+第一种是干脆对不寻常的类（不含你设置的公共字段）不采用自动填充  
+只要类中没有任意一个 `...FieldFill.INSERT)` 注解，它就不会走 `MetaObject` 的逻辑  
+
+### 解决办法二
+
+设置之前检查一下是否存在对应的属性  
+即
+
+```java
+...
+    @Override
+    public void insertFill(MetaObject metaObject) {
+        if (metaObject.hasSetter("createTime")) {
+            metaObject.setValue("createTime", LocalDateTime.now());
+        }
+        if (metaObject.hasSetter("updateTime")) {
+            metaObject.setValue("updateTime", LocalDateTime.now());
+        }
+    }
+...
+```
+
+就可以避免不存在的属性被更新了
+
+
+## 另：介绍 session 中的数据填充
 
 **这里介绍一下当前登录人（修改人）也就是网页 session 内容 `updateId` 的填充姿势，不想了解的可以划走了~**  
 session 我们不能在 `BetaObjectHandler` 这里直接获取，我们需要一个在这个元数据控制器**外层**的东西来获取，要了解一个前置知识：  
@@ -145,6 +190,3 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     ...
 }
 ```
-
-
-:::
