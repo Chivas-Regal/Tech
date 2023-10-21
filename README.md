@@ -64,11 +64,11 @@ features:
   children:
   - title: MySQL
     details: 一种列存储的磁盘数据库，为数据提供了强大的安全性保证，其内置的B+Tree也保证了读写的效率，且其提供的SQL语句可以实现复杂的逻辑功能
-    link: https://tech.chivas-regal.top/blogs/databases/Z-sql-solution/create-tables-query.html
+    link: blogs/mysql/Z-sql-solution/create-tables-query.html
     icon: iconfont icon-mysql
   - title: Redis
     details: KV 化的非关系型内存数据库，支持多种数据结构完成储存数据，以高速为特点作为缓存数据库与各种磁盘数据库相配合，在工程开发中十分常见
-    link: blogs/databases/redis/cluster-group.html
+    link: blogs/redis/begin.html
     icon: iconfont icon-Redis-session
   - title: SSM
     details: 是三种主流框架Spring、SpringMVC、Mybatis的结合，以Spring为桥梁整合出各种功能模块，是开发各种业务代码的基础框架
