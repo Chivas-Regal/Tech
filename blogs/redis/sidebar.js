@@ -8,14 +8,14 @@ module.exports = [
         children: getChildren('./blogs/redis/datatype')
     },
     {
+        title: '单机数据可靠性与并发性',
+        collapsable: false,
+        children: getChildren('./blogs/redis/longer')
+    },
+    {
         title: '多机数据库',
         collapsable: false,
         children: getChildren('./blogs/redis/group')
-    },
-    {
-        title: '单机数据可靠性',
-        collapsable: false,
-        children: getChildren('./blogs/redis/longer')
     },
     {
         title: '可调用 API',
