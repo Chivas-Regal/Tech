@@ -11,5 +11,15 @@ module.exports = [
         title: '多机数据库',
         collapsable: false,
         children: getChildren('./blogs/redis/group')
+    },
+    {
+        title: '单机数据可靠性',
+        collapsable: false,
+        children: getChildren('./blogs/redis/longer')
+    },
+    {
+        title: '可调用 API',
+        collapsable: false,
+        children: getChildren('./blogs/redis/program')
     }
 ]

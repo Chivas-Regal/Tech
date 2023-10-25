@@ -1,3 +1,9 @@
 node_modules/
 yarn.lock
 yarn.error
+.idea
+.temp
+.vscode
+.DS_Store
+newrelic_agent.log
+public

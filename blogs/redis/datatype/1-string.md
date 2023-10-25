@@ -9,28 +9,12 @@ title: string
 然后 `set` 就是 `String key = value`  
 `get` 就是 `return key`  
 
-## 基本操作
+## 数据存储与命令
 
-### 信息添加
+- 添加 key-value 对：`set key value`
+- 根据 key 查询 value（如果 key 不存在，这里会返回 `(nil)`）：`get key`
 
-设置 key 和 value 的数据  
-
-```sql
-set key value
-```
-
-### 信息查询
-
-根据 key 查询 value（如果 key 不存在，这里会返回 `(nil)`）
-
-```sql
-get key
-
--- 返回
-value
-```
-
-实际案例：  
+<p></p>
 
 ```sql
 -- 设置一对 key-value
@@ -42,78 +26,13 @@ OK
 "snopzyz"
 ```
 
-
-### 信息删除
-
-删除一个 key 的数据
-
-```sql
-del key
-
-# 返回
-(integer) <删除的成功与否>
-```
-
-当成功会返回 `(integer) 1` 否则返回 `(integer) 0`
-
-### 清屏
-
-```sql
-clear
-```
-
-### 帮助文档
-
-如果什么都不知道想看一下最宽泛的帮助文档，直接  
-
-```sql
-help
-```
-
-![20231021164142](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231021164142.png)
-
-如果知道某个首关键字但是不知道怎么用，采用如下形式  
-
-```sql
-help <查询的关键字>
-```
-
-![20231021163956](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231021163956.png)
-
-根据上面的 help 我们也可以查询群组命令内容  
-
-```sql
-help @<查询的群组名>
-```
-
-![20231021164411](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231021164411.png)
-
-这里就是 string 下的命令
-
-### 退出
-
-`exit` 和 `quit` 都可以
-
-### 多数据操作
-
+- 删除一个 key 的数据，当成功会返回 `(integer) 1` 否则返回 `(integer) 0`：`del key`
 - 添加/修改多个数据: `mset key1 value1 key2 value2 ...`
 - 获取多个数据: `mget key1 key2 ...`
+- 获取字符串长度：`strlen key`
+- 向一个key的value中追加/新建字符串：`append key value`
 
-### 字符串长度
-
-```sql
-strlen key
-```
-
-### 追加/新建
-
-```sql
-append key value
-```
-
-将 value 追加到 key 值的后面
-
-**实际案例**  
+<p></p>
 
 ```sql
 -- 批量设置 a = 1, b = 2, c = 3
@@ -161,7 +80,29 @@ OK
 发 10000 次 `set` 明显不合理，发一次 10000 个的又信息过长  
 可以切为发送 100 次，每次发送 100 个 kv 的 `set`，最后选择一下如何进行分配效率最高即可
 
-## 数值增减发号器
+## 时间复杂度分析
+
+命令|时间复杂度
+-|-
+`set`           |$O(1)$
+`get`           |$O(1)$
+`del`           |$O(k)$ ，k 为一次删除的元素个数
+`mset`          |$O(k)$ ，k 为一次设置的元素个数
+`mget`          |$O(k)$ ，k 为一次查询的元素个数
+`incr`	        |$O(1)$
+`decr`	        |$O(1)$
+`incryby`	    |$O(1)$
+`decryby`	    |$O(1)$
+`incrybyfloat`	|$O(1)$
+`append`	    |$O(1)$
+`strlen`	    |$O(1)$
+`setrange`	    |$O(n)$，n为更改的字符串长度
+`getrange`	    |$O(n)$，n为获取的字符串长度
+
+
+## 简单场景
+
+### 数值增减发号器
 
 **业务需要**  
 
@@ -217,7 +158,7 @@ incrbyfload key increment
 由于 Redis 操作的原子性保证我们能很好支持并发的场景  
 故可以用它控制数据库主键 $id$ 提供生成策略，保证唯一性
 
-## 时效性设置
+### 时效性设置
 
 **业务需要**  
 
@@ -236,7 +177,7 @@ psetex key milliseconds value
 
 但是注意如果此时再调用 `set key value` 那么之前设置的时效性将会作废
 
-## 对象数据存储
+### 对象数据存储
 
 在 Java 中将对象化为 String 都是按 json 进行格式化的  
 这里 Redis 中的 string 自然也可以存 json 数据    
@@ -256,3 +197,38 @@ set user:id:001 {id:001,name:snopzyz,password:123456,age:21}
 ```  
 
 key 的规范一般为 `<表名>:<主键名>:<主键值>:<字段名>`
+
+### 访问次数限制
+
+一个 api 接口什么的，每分钟最多可以调用 k 次。    
+  
+完成此控制可以通过计数器来实现。  
+为了方便我们可以使用到它自己的数值上限异常。  
+也就是在初始的时候我们设置一个计数器的值为 $9223372036854775807-k$。  
+然后不断 `incr` 直到上限后再执行就会报 `(error)`  
+
+这里拿最多10次为例  
+
+```sql
+-- 设置定时计数器
+127.0.0.1:6379> setex count 60 9223372036854775797 
+OK
+
+-- count+=1
+127.0.0.1:6379> incr count
+(integer) 9223372036854775798
+
+-- count+=1
+127.0.0.1:6379> incr count
+(integer) 9223372036854775799
+
+...
+
+-- count+=1
+127.0.0.1:6379> incr count
+(integer) 9223372036854775807
+
+-- count+=1
+127.0.0.1:6379> incr count
+(error) ERR increment or decrement would overflow -- 超范围异常 
+```

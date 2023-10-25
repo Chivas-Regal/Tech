@@ -12,21 +12,10 @@ module.exports = [
 
     /* 数学公式 */
     [ 
-        '@vite/vuepress-plugin-mathjax' ,
+        '@vite/vuepress-plugin-mathjax',
         {
-            target: 'svg',
-            presets: '\def\lr#1#2#3{\left#1#2\right#3}'
-        }
-    ],
-    [ 
-        'markdown-it-mathjax3',
-        {
-            tex: {
-                inlineMath :[['$', '$'], ['\\(', '\\)']]
-            },
-            svg: {
-                FontCache: 'global'
-            }
+            target: 'chtml',
+            showError: false
         }
     ],
 
