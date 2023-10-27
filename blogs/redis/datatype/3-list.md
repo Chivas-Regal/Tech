@@ -1,5 +1,5 @@
 ---
-title: list
+title: List
 ---
 
 ## 数据存储与命令

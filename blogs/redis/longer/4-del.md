@@ -29,4 +29,57 @@ expires:
 
 ### 定时删除
 
-未完待续...
+创建定时器，当 key 设置有过期时间到达时立刻执行删除操作。  
+这样做节约了内存，但是 CPU 要一直处于忙碌状态比较花费性能。
+
+### 惰性删除
+
+到时间了先不删，等下次访问它时若该 key 已过期就先删除它，然后返回 key 不存在的消息。  
+这样做节约 CPU 性能，但会出现长期占用内存的数据。  
+
+### 定期删除
+
+配置文件中存在 `server.hz` 表示一秒钟执行 `serverCron()` 的次数。  
+`serverCron()` 是一种服务端轮询策略，它配合 `server.hz` 会**定期查询**库中的 keys 看它们是否过期，若过期的话删除。  
+具体执行过程如下：  
+
+`serverCron(){ databasesCron() { activeExpireCycle(); } }`  
+其中 `activeExpireCycle()` 对每一个 expires[\*]（* 号数据库） 逐一检测，每次执行 250ms/server.hz  
+对某个 expires[*] 检测时**随机**选 $W=$`ACTIVE_EXPIRE_CYCLE_LOOKUPS_PER_LOOP`（来自于配置文件） 个 key 进行检测，对于当前检测的 key：
+- 如果 key 超时，删除 key
+- 如果一次删除的 key 的数量 $>\;W*25%$ 则继续做这个 expires[*]  
+- 如果一次删除的 key 的数量 $\le\;W*25%$ 则检查下一个 expires[*] ，$[0,15]$ 循环
+
+::: tip
+需要注意的是在 Redis 源码设计中，对这种删除策略是一种全局递进的，也就是说如果第一次删除到 expires[5] 了话，那么第二次会接着上一次的删除进度 expires[5] 继续往下走。  
+用于保存进度的全局变量是 `current_db`。  
+而由于 $[0,15]$ 循环的特性，不用担心会删除到终点。 
+:::
+
+这样周期性抽查删除过期数据，且可以根据CPU性能设置频率。  
+对CPU友好，且解决了长期无法访问的冷数据的清除问题。
+
+## 逐出算法
+
+发生于内存不足以支撑新数据的到来时。  
+Redis 反复执行逐出算法多次，若多次执行算法依旧未能满足内存需要，返回 OOM 指令失败，否则将新数据成功插入 Redis。  
+
+配置属性：  
+- `maxmemory`：Redis 最大可使用的物理内存
+  - `0`：不做限制
+  - `*`：*B
+  - `*MB`: *MB
+- `maxmemory-samples`：进行逐出算法时，每次选取的待删除的数据个数
+- `maxmemory-policy`：发生内存不足时，对挑选的数据进行逐出的策略
+  - 检测易失数据（从 server.db[i].expires 中挑选）
+    - `volatile-lru`：逐出最久未使用的数据
+    - `volatile-lfu`：逐出最近最少使用次数的数据
+    - `volatile-ttl`：逐出将要过期的数据
+    - `volatile-random`：逐出随机选择的数据
+  - 检测全库数据（从 server.db[i].dict 中挑选）
+    - `allkeys-lru`：逐出最久未使用的数据
+    - `allkeys-lfu`：逐出最近最少使用次数的数据
+    - `allkeys-random`：逐出随机选择的数据
+  - `no-enviction`：禁止数据逐出（Redis4.0中的默认策略）
+
+具体如何配置最合适的，可以利用 `info` 指令查看缓存 `hit` 和 `miss` 的次数来调优。

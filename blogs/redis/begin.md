@@ -1,10 +1,10 @@
 ---
-title: 通用操作与配置文件修改
+title: 通用操作与基础配置修改
 ---
 
 ## 配置文件与启动
 
-### 自带配置调改
+### 基础配置调改
 
 `redis` 存在一份配置文件可以修改运行时的状态  
 如果你是 ubuntu 系统那么它位于 `/etc/redis/redis.conf`  
@@ -41,6 +41,11 @@ daemonize yes
 ```sh
 sudo /etc/init.d/redis-server stop
 ```
+
+- `maxclients 0`：同一时间最大客户端连接数
+- `timeout 300`：客户端限制等待最大时长
+- `include /path/xxx.conf`：配置继承，在 /path/xxx.conf 做一些公共配置
+
 
 ### 命令行设参启动
 

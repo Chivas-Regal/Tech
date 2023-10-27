@@ -1,5 +1,5 @@
 ---
-title: string
+title: String
 ---
 
 ## key与字符串value

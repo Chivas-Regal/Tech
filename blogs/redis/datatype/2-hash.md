@@ -1,5 +1,5 @@
 ---
-title: hash
+title: Hash
 ---
 
 ## 数据存储与命令

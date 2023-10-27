@@ -1,5 +1,5 @@
 ---
-title: sorted_set
+title: SortedSet
 ---
 
 ## 数据存储与命令
