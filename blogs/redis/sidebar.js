@@ -18,8 +18,18 @@ module.exports = [
         children: getChildren('./blogs/redis/group')
     },
     {
-        title: '可调用 API',
+        title: '代码化设计',
         collapsable: false,
         children: getChildren('./blogs/redis/program')
+    },
+    {
+        title: '实况灾难与解决',
+        collapsable: false,
+        children: getChildren('./blogs/redis/true-error')
+    },
+    {
+        title: 'SpringCache + Redis 注解化缓存',
+        collapsable: false,
+        children: getChildren('./blogs/redis/springcache-redis')
     }
 ]

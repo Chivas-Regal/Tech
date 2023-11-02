@@ -1,6 +1,7 @@
 const {OauthConfig} = require('./dif-env-config.js')
 
 module.exports = [
+
     [ '@vuepress-reco/extract-code' ], 
     /* 流程图 */
     [ 'flowchart' ],

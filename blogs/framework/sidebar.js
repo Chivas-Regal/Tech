@@ -1,4 +1,5 @@
 const {getChildren} = require('vuepress-sidebar-atuo')
+const {mGetChildren} = require('../../.vuepress/selffunc')
 
 module.exports = [
     './0-IDEAuse',
@@ -31,5 +32,10 @@ module.exports = [
         title: 'SpringBoot',
         collapsable: false,
         children: getChildren('./blogs/framework/SpringBoot')
+    },
+    {
+        title: 'SpringCache + Redis 注解化缓存',
+        collapsable: false,
+        children: mGetChildren('./blogs/redis/springcache-redis')
     }
 ]

@@ -64,6 +64,9 @@ module.exports = [{
         },{ 
             text: 'SpringBoot', 
             link: '/blogs/framework/SpringBoot/0-firstquick.html' 
+        },{
+            text: 'SpringCache',
+            link: '/blogs/redis/springcache-redis/0-begin.md'
         }],
         icon: 'iconfont icon-zuzhijiagou'
     },{
