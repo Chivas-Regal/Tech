@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
     font-family: "Verdana";
     font-weight: normal;
     src: url("Verdana-1.ttf");
@@ -19,4 +19,6 @@
     font-weight: bold;
     font-style: italic;
     src: url("Verdana-4.ttf");
-}
+} */
+
+/* @import url('https://fonts.cdnfonts.com/css/verdana'); */

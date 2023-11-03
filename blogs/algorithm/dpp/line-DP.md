@@ -8,7 +8,7 @@ sidebar:
   nav: docs-en
 ---
 
-><mark><span style="color: red;">线性DP是几乎所有DP的基础，也是理解很多算法的基础</span></mark>
+><mark>线性DP是几乎所有DP的基础，也是理解很多算法的基础</mark>
 
 ## 导引问题：超级楼梯
 ![](https://img-blog.csdnimg.cn/20210719101521847.png?)  

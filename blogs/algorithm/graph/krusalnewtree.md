@@ -56,7 +56,7 @@ T---Y
 
 原图
 
-<img src="https://img-blog.csdnimg.cn/2ea5cda97a4c4142af608697dae6c5b5.png">
+![c5adfda9b28f8040aaec80e1cb7ccbea](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/c5adfda9b28f8040aaec80e1cb7ccbea.png)
 
 按边排序完为  
 
@@ -72,9 +72,9 @@ T---Y
 
 |枚举边|是否合并|重构树|
 |:-:|:-:|:-:|
-|$1\stackrel{1}{\longleftrightarrow} 3$|$\checkmark$|<img src="https://img-blog.csdnimg.cn/d3fda4edda1948bd892120732186ee0c.png">|
-|$1\stackrel{2}{\longleftrightarrow} 2$|$\checkmark$|<img src="https://img-blog.csdnimg.cn/c8a472172bcb4a6aa1b97305ca28d2de.png">|
-|$2\stackrel{3}{\longleftrightarrow} 4$|$\checkmark$|<img src="https://img-blog.csdnimg.cn/424f6f91e4f5440c84a900a91928254d.png">|
+|$1\stackrel{1}{\longleftrightarrow} 3$|$\checkmark$|![6cd209030de0ff196a525131c8f4eceb](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/6cd209030de0ff196a525131c8f4eceb.png)|
+|$1\stackrel{2}{\longleftrightarrow} 2$|$\checkmark$|![6413597f8b1c17d80bcafe131fe12b46](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/6413597f8b1c17d80bcafe131fe12b46.png)|
+|$2\stackrel{3}{\longleftrightarrow} 4$|$\checkmark$|![ea3f8a1f686283230d7be5c31aaf5437](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/ea3f8a1f686283230d7be5c31aaf5437.png)|
 |`break;`|
 
 ## 性质

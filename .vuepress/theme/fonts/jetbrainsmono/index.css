@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
     font-family: "Jetbrains mono";
     font-weight: normal;
     src: url("JetBrainsMono-Regular.ttf");
@@ -7,4 +7,6 @@
     font-family: "Jetbrains mono";
     font-weight: bold;
     src: url("JetBrainsMono-Bold.ttf");
-}
+} */
+
+/* @import url('https://fonts.cdnfonts.com/css/jetbrains-mono-2'); */

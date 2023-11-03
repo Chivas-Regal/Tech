@@ -1,8 +1,4 @@
-/* @font-face {
-    font-family: "MiSans";
-    font-weight: 100;
-    src: url("MiSans-Thin.ttf");
-} */
+/*
 @font-face {
     font-family: "MiSans";
     font-weight: 100;
@@ -42,4 +38,6 @@
     font-family: "MiSans";
     font-weight: 800;
     src: url("MiSans-Bold.ttf");
-}
+} */
+
+/* @import url("https://unpkg.com/misans/") */
