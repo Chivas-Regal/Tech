@@ -86,6 +86,12 @@ module.exports = [{
                 text: '操作系统', 
                 link: '/blogs/linux/' 
             }],
+        },{
+            text: '常用工具',
+            items: [{
+                text: 'Git',
+                link: '/blogs/computer-tools/git/0-begin.html'
+            }]
         }],
         icon: 'iconfont icon-jisuanjikaifa-copy'
     },{
