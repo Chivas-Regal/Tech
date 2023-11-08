@@ -91,6 +91,9 @@ module.exports = [{
             items: [{
                 text: 'Git',
                 link: '/blogs/computer-tools/git/0-begin.html'
+            },{
+                text: 'Docker',
+                link: '/blogs/computer-tools/docker/0-begin.html'
             }]
         }],
         icon: 'iconfont icon-jisuanjikaifa-copy'
