@@ -135,4 +135,8 @@ docker run -d \
   mysql
 ```
 
-这其中不乏有启动时必须要准备好的文件内容
+这其中不乏有启动时必须要准备好的文件内容 <a href="./static/conf.zip" download>conf.zip</a> 和 <a href="./static/init.zip" download>init.zip</a> 替换掉之前测试中遗留的 conf 和 init 文件夹。  
+测试 data 可以创建一个 mysql 容器写一些数据，找到它的 volume 位置将 .../_data 拷贝为 /root/mysql/data。       
+然后用上面的脚本命令启动。      
+![20231108171446](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231108171446.png)  
+这一次其中一启动就存在了之前备好的数据。

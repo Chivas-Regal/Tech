@@ -59,6 +59,14 @@ features:
     details: 一种高度自由与定制化的操作系统，支持各种丰富的终端命令，秉持”一切皆是文件“原则也有更为快捷的文件配置方式，常用于服务器
     link: https://tech.chivas-regal.top/blogs/linux/
     icon: iconfont icon-linux
+  - title: Git
+    details: 一种代码托管工具，可以将代码提交至私人本地仓库来规范控制管理自己的待发布代码，也可以提交到远程仓库多人协作管理
+    link: https://tech.chivas-regal.top/blogs/computer-tools/git/0-begin.html
+    icon: iconfont icon-git
+  - title: Docker
+    details: 一种将进程主机化的工具，可以隔离多个容器来加载不同的官方提供的镜像，从而部署多个隔离开来的微型主机服务
+    link: https://tech.chivas-regal.top/blogs/computer-tools/docker/0-begin.html
+    icon: iconfont icon-docker
 
 - title: 后端技能点
   children:
