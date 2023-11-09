@@ -33,8 +33,8 @@ module.exports = [{
     },{
         text: 'Java',
         items: [{ 
-            text: '基本语法使用', 
-            link: '/blogs/java/javalang/01-base.html' 
+            text: '语法与优化功能探究', 
+            link: '/blogs/java/javalang.html' 
         }],
         icon: 'iconfont icon-kafei'
     },{

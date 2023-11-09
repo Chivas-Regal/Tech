@@ -1,10 +1,16 @@
 const {getChildren} = require('vuepress-sidebar-atuo')
 
 module.exports = [
+    '/blogs/java/javalang.html',
     {
-        title: 'Java 语法使用',
+        title: '多线程并发技巧',
         collapsable: false,
-        children: getChildren('./blogs/java/javalang')
+        children: getChildren('./blogs/java/thread')
+    },
+    {
+        title: 'JSP 技术',
+        collapsable: false,
+        children: getChildren('./blogs/java/jsp')
     },
     {
         title: '其他',
