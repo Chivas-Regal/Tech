@@ -99,7 +99,7 @@ INSERT INTO `user` VALUES
 ![20231109110350](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231109110350.png)  
 mysql 作为 host 名是因为我们可以同一网络的容器内通过容器名通信，也就意味着我们把 hostname 换做 mysql 即可自动访问同一网络下的名为 mysql 的容器，也就是我们之前创建的容器    
 
-然后将项目打包，打包后的放在 [这里](./static/sqlproject.jar) 可以直接获取  
+然后将项目打包，打包后的放在 <a href="../../../static/docker/sqlproject.jar" download>这里</a> 可以直接获取  
 
 做好 Dockerfile 后与 jar 包一起放在 /root/sqlproject 目录下  
 
