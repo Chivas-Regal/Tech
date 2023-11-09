@@ -68,16 +68,40 @@ docker run -d --name mysql -p 3306:3306 -e TZ=Asia/Shanghai -e MYSQL_ROOT_PASSWO
 我们之前在 [自制镜像](./3-self-dockerfile.html#镜像构建案例) 中给出过一个简单的项目部署  
 这里给出一个加入了 mysql 连接的部署  
 
-先给之前创建的 mysql 容器添加数据，[这里是 sql 文件](./static/reggie-mysql.sql)  
+先给之前创建的 mysql 容器添加数据  
 
-我们将《瑞吉外卖》丐版加到容器内  
+```sh
+# 进入 mysql 容器
+docker exec -it mysql mysql -u root -p
+输入密码> ...
+
+# 执行 sql 语句创建 sqlproject 库并导入 sqlproject.user 表
+CREATE DATABASE sqlproject;
+USE sqlproject;
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user`  (
+  `id` bigint(0) NOT NULL COMMENT '主键',
+  `username` varchar(20) NOT NULL COMMENT '用户名',
+  `password` varchar(20) NOT NULL COMMENT '密码'
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
+
+# 给 sqlproject.user 表添加数据
+INSERT INTO `user` VALUES
+    (1, 'admin', '123'),
+    (2, 'snopzyz', '123456'),
+    (3, 'demo', '654321');
+```
+
+然后创建一个 chivasregal 网络并将其 `connect` 进去  
+
+接着我们做一个丐版 springboot 项目的 jar 加到容器内  
 配置文件连接到 mysql 链接这样写  
-![20231108221159](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231108221159.png)  
+![20231109110350](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231109110350.png)  
 mysql 作为 host 名是因为我们可以同一网络的容器内通过容器名通信，也就意味着我们把 hostname 换做 mysql 即可自动访问同一网络下的名为 mysql 的容器，也就是我们之前创建的容器    
 
-然后将项目打包，打包后的放在 [这里](./static/reggie.jar) 可以直接获取  
+然后将项目打包，打包后的放在 [这里](./static/sqlproject.jar) 可以直接获取  
 
-做好 Dockerfile 后与 jar 包一起放在 /root/reggie 目录下  
+做好 Dockerfile 后与 jar 包一起放在 /root/sqlproject 目录下  
 
 ```dockerfile
 # 基础镜像
@@ -86,15 +110,45 @@ FROM fabric8/java-alpine-openjdk8-jdk
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # 拷贝 jar 包
-COPY ./reggie.jar /app.jar
+COPY ./sqlproject.jar /app.jar
 # 入口
 ENTRYPOINT ["java", "-jar", "/app.jar"]
 ```
 
-部署镜像并以 snopzyz 为网络启动  
-![20231108221637](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231108221637.png)  
+部署镜像并以 chivasregal 为网络启动  
+![20231109114706](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231109114706.png)  
 
-启动后访问 `http://[虚拟机ip]:8081/backend/page/login/login.html`    
+启动后访问 `http://[虚拟机ip]:8081/user/list`    
   
-![20231108221808](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231108221808.png)  
-点击登录即可进入，说明我们已经连接上了 mysql 且访问到了其中的员工列表才能通过
+![20231109114732](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231109114732.png)  
+这样就说明成功访问到了我们之前调用 sql 语句填入的数据  
+
+
+## 问题解决
+
+### 虚拟机挂起后再恢复，容器自定义网络在外部无法连接
+
+在虚拟机挂起后主机重启等情况后可能会出现之前自定义的网桥在 `ip a` 下没有 ip 地址  
+
+![20231109122109](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231109122109.png)   
+
+此时连上这个网桥的容器内的程序启动时，我们也无法在我们自己的主机下访问。  
+
+![20231109122039](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231109122039.png)
+
+访问也会超时失败
+![20231109122143](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231109122143.png)  
+
+**解决办法：重启 docker**  
+
+```sh
+systemctl restart docker
+```
+
+ip 网桥恢复  
+
+![20231109131007](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231109131007.png)
+
+访问页面恢复
+
+![20231109131143](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231109131143.png)
