@@ -135,7 +135,7 @@ docker run -d \
   mysql
 ```
 
-这其中不乏有启动时必须要准备好的文件内容 <a href="../../../static/conf.zip" download>conf.zip</a> 和 <a href="../../../static/init.zip" download>init.zip</a> 替换掉之前测试中遗留的 conf 和 init 文件夹。  
+这其中不乏有启动时必须要准备好的文件内容 <a href="https://github.com/Chivas-Regal/Tech/raw/main/static/docker/conf.zip" download>conf.zip<Badge type="tip" text="download" vertical="top" /></a> 和 <a href="https://github.com/Chivas-Regal/Tech/raw/main/static/docker/init.zip" download>init.zip<Badge type="tip" text="download" vertical="top" /></a> 替换掉之前测试中遗留的 conf 和 init 文件夹。  
 测试 data 可以创建一个 mysql 容器写一些数据，找到它的 volume 位置将 .../_data 拷贝为 /root/mysql/data。       
 然后用上面的脚本命令启动。      
 ![20231108171446](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231108171446.png)  

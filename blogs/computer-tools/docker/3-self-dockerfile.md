@@ -69,7 +69,7 @@ docker build -t myImage:1.0 .
 # 解读为：docker 生成镜像 起名 [repository]:[tag] Dockerfile所在目录
 ```
 
-<a href="../../../static/docker/docker-demo.jar" download>这里</a>做了一个非常简单的 SpringBoot 程序  
+<a href="https://github.com/Chivas-Regal/Tech/raw/main/static/docker/docker-demo.jar" download>这里<Badge type="tip" text="download" vertical="top" /></a>做了一个非常简单的 SpringBoot 程序  
 功能就是接收到 `/demo/{name}` 的请求，响应一个 `Hello {name} !` 的字符串  
 然后我们在这个 jar 包同级目录下做一个 Dockerfile  
 
