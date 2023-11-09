@@ -6,5 +6,5 @@ yarn.error
 .vscode
 .DS_Store
 newrelic_agent.log
-public
+/public/
 blogs/1411390466/
