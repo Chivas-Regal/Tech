@@ -177,7 +177,7 @@ public class JdbcUtils {
 
 ## 内部结构与源码剖析
 
-每一个线程维护一个 `ThreadLocalMap`，它里面有多个键值对
+每一个线程维护一个 `ThreadLocalMap`，它里面有多个 Entry 键值对，非继承独立实现了 Map 功能
 - key：`ThreadLocal` 对象
 - value: 保存的值
 
@@ -185,7 +185,7 @@ public class JdbcUtils {
 - 减小了每一个 map 中键值对的数量，极大避免了哈希冲突的产生
 - 线程结束时可以直接删掉一个 `ThreadLocalMap`，对删除操作十分友好
 
-下面大概聊一下源码
+下面大概聊一下源码，先给出自己理解后标了注释的源码，然后是过程的总结
 
 ### set
 
@@ -310,3 +310,131 @@ protected T initialValue() {
 3. 检测值是否存在
     - 存在：返回值
     - 不存在：调用 `setInitialValue` 获取并 `set()` 进去一个初始化的值
+
+
+### remove
+
+```java
+/**
+ * 移除本 ThreadLocal 为 key 对应的 entry
+*/
+public void remove() {
+    /* 获取当前线程的 ThreadLocalMap */
+    ThreadLocalMap m = getMap(Thread.currentThread());
+    /* 当前线程存在 ThreadLocalMap 就移除掉自己 */
+    if (m != null) {
+        m.remove(this);
+    }
+}
+
+        /*   下面是 ThreadLocalMap 的方法      */
+
+        /**
+         * 根据 key 移除 entry
+         */
+        private void remove(ThreadLocal<?> key) {
+            Entry[] tab = table;
+            int len = tab.length;
+            /* 
+              从当前 key 的哈希码开始往后走
+                1. 直到 tab[i] 为空
+                2. 找到了 e.get()=key 的条目也就是当前 key 所位于的 tab 位置
+            */
+            int i = key.threadLocalHashCode & (len-1);
+            for (Entry e = tab[i];
+                 e != null;
+                 e = tab[i = nextIndex(i, len)]) {
+                if (e.get() == key) {
+                    e.clear();
+                    /* 找到了，从 i 开始 rehash 所有可能冲突的条目 */
+                    expungeStaleEntry(i);
+                    return;
+                }
+            }
+        }
+        /**
+         * 操作 staleSlot 后面的一连串非空条目：
+         *   - 若 key 为空：做 null 清理
+         *   - 若 key 非空：将它重新移动，做哈希计算并顺序探测到自己可用的位置
+         * 
+         * @param int 确定要删除的哈希槽位置
+         * @return int staleSlot 后面的第一个 null 位置
+        */
+        private int expungeStaleEntry(int staleSlot) {
+            Entry[] tab = table;
+            int len = tab.length;
+
+            /* 先将本槽置空 */
+            tab[staleSlot].value = null;
+            tab[staleSlot] = null;
+            size--;
+
+            /* 把 staleSlot 后面的全部进行 rehash 直到为空 */
+            Entry e;
+            int i;
+            for (i = nextIndex(staleSlot, len);
+                 (e = tab[i]) != null;
+                 i = nextIndex(i, len)) {
+                ThreadLocal<?> k = e.get();
+                /* 若 key 没有，说明已经过期需要清理该条目 */
+                if (k == null) {
+                    e.value = null;
+                    tab[i] = null;
+                    size--;
+                /* 若 key 有，重新计算并顺序探测它应该存放的位置 */
+                } else {
+                    int h = k.threadLocalHashCode & (len - 1);
+                    if (h != i) {
+                        tab[i] = null;
+                        while (tab[h] != null)
+                            h = nextIndex(h, len);
+                        tab[h] = e;
+                    }
+                }
+            }
+            return i;
+        }
+
+```
+
+过程总结：
+1. 取到本线程维护的 ThreadLocalMap 准备做移除工作
+2. 用哈希计算+顺序探测的方式找到自己所在的哈希位置（如果没有直接 return）
+3. 扫描自己所在的哈希位置一直到后面第一个 null 之间，做清理和rehash操作
+   - 若当前 key 为空做清理：将 entry[i] 置为空
+   - 若当前 key 非空做 rehash：重新计算寻找自己的哈希位置，并移动它
+
+这种回收策略兼顾了废弃数据清理与哈希优化机制，  
+对时间和空间上十分友好。
+
+## 内存泄漏问题
+
+先看一下 `ThreadLocalMap` 中 `Entry` 部分的源码  
+
+```java
+/**
+* 继承了弱引用对象令 key 为弱引用
+* 并写死了一个 key=ThreadLocal 的构造方法
+*/
+static class Entry extends WeakReference<ThreadLocal<?>> {
+   Object value;
+
+   Entry(ThreadLocal<?> k, Object v) {
+       super(k);
+       value = v;
+   }
+}
+```
+
+那么 ThreadLocal 使用中内存泄漏的问题出现的情况下面做分析：
+`Thread` $\rightarrow$ `ThreadLocalMap` $\rightarrow$ `Entry` 存在强引用链，若非手动销毁 Entry，则 Entry 与其 key 都不会被销毁。
+- 若 Entry.key 为强引用：key 指向的是一个 `ThreadLocal` 对象，因此它也不会销毁，故导致内存泄漏。
+- 若 Entry.key 为弱引用：key=null 时 `ThreadLocal` 对象会随之销毁，但是 Entry 还在，也会导致内存泄漏。
+
+因此内存泄漏的发生并不与 key 是强弱引用有关，它是因为 `ThreadLocalMap` 的生命周期和线程一样长，  
+若 key 没有手动删除也就意味着 Entry 没有进行删除，则它会被 ThreadLocalMap 强引用并保存下来，造成内存泄漏。
+
+## ThreadLocalMap 哈希冲突
+
+根据上门的源码分析我们也能看出来是”线性探测再扫描“  
+然后在清除时将后面的可能产生冲突的部分（从清除位置到第一个null之间）重新进行 hash 置位。  
