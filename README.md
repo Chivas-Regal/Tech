@@ -86,6 +86,14 @@ features:
     details: 是SSM的升级，通过将各种服务功能与环境配置写入pom文件中，以最少的代码开发出最完善的功能，也是当前时代最常用的Web应用开发框架
     link: blogs/framework/SpringBoot/0-firstquick.html
     icon: iconfont icon-bxl-spring-boot
+  - title: SpringCache
+    details: 将数据进行缓存，由于磁盘读写速度低于内存，结合redis等内存工具将热点或者最近访问的数据提到缓存中，可以大大提高读数据的效率
+    link: blogs/redis/springcache-redis/0-begin.html
+    icon: iconfont icon-data-download
+  - title: ZooKeeper
+    details: 一个分布式的协调服务，树形的结构和我们的目录层级十分相似，主要用来管理分布式系统中的数据、配置，或者是搭建分布式集群，构建分布式锁等
+    link: blogs/framework/Zookeeper/0-begin.html
+    icon: iconfont icon-Zookeeper
 - title: 前端技能点
   children:
   - title: Vuepress

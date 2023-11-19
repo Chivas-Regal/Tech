@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4278641 */
-  src: url('iconfont.woff2?t=1699409487832') format('woff2'),
-       url('iconfont.woff?t=1699409487832') format('woff'),
-       url('iconfont.ttf?t=1699409487832') format('truetype');
+  src: url('iconfont.woff2?t=1700407523319') format('woff2'),
+       url('iconfont.woff?t=1700407523319') format('woff'),
+       url('iconfont.ttf?t=1700407523319') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,22 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-huancun:before {
+  content: "\e60e";
+}
+
+.icon-data-download:before {
+  content: "\e93e";
+}
+
+.icon-huancunguanli:before {
+  content: "\e60c";
+}
+
+.icon-Zookeeper:before {
+  content: "\e685";
 }
 
 .icon-docker:before {

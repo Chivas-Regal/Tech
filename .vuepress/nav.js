@@ -66,7 +66,10 @@ module.exports = [{
             link: '/blogs/framework/SpringBoot/0-firstquick.html' 
         },{
             text: 'SpringCache',
-            link: '/blogs/redis/springcache-redis/0-begin.md'
+            link: '/blogs/redis/springcache-redis/0-begin.html'
+        },{
+            text: 'ZooKeeper',
+            link: '/blogs/framework/Zookeeper/0-begin.html'
         }],
         icon: 'iconfont icon-zuzhijiagou'
     },{
