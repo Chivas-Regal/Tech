@@ -63,8 +63,8 @@ CuratorCacheListener listener = CuratorCacheListener.builder()
         .build();
 ```
 
-`CuratorCache.build` 其实还可以指定第三个参数    
-- 当没有时：整棵树都会被缓存
+`CuratorCache.build` 还可以指定第三个参数来指定缓存的模式    
+- 当没有时：默认整棵树都会被缓存
 - `CuratorCache.Options.SINGLE_NODE_CACHE`：只缓存一个节点
 - `CuratorCache.Options.COMPRESSED_DATA`：节点的值进行压缩
 - `CuratorCache.Options.DO_NOT_CLEAR_ON_CLOSE`：在连接关闭时不删除缓存
@@ -108,4 +108,12 @@ client.delete().forPath("/snopzyz/data");
  * [forDeletes][forAll]
  */
 ```
+
+## 实现机制
+
+注册 watcher 时客户端在自己的 ZKWatchManager 中注册后会将注册事件通过 outgoingQueue 队列发送给服务端， 并开启一个线程等待服务端的回调。  
+然后服务端也将其存储到自己的 WatchManager 中。  
+当做了数据变更时，服务端扫描自己的 WatchManager 中是否存在 watcher，若存在则发送给客户端通知消息，客户端反序列化头信息处理为 event 对象，会有一个线程循环取出该 event 对象的 watcher 执行 process。   
+
+简单来说就是双方都注册 watcher，数据变更时服务端通知客户端执行 process  
 
