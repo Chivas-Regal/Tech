@@ -102,7 +102,10 @@ module.exports = [{
         icon: 'iconfont icon-jisuanjikaifa-copy'
     },{
         text: '个人',
-        items: [{ 
+        items: [{
+            text: '生涯',
+            link: 'https://tech.chivas-regal.top/about-myself.html'
+        },{ 
             text: '开发', 
             items: [{ 
                 text: 'Github', 
