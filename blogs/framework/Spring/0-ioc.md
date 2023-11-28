@@ -4,7 +4,7 @@ title: IoC 容器控制反转
 
 ## IOC 容器介绍
 
-由 new 产生对称转换为由 IOC 容器提供对象，[具体 IOC 简单使用参考这里](https://www.yuque.com/chivasregal/vhwl6i/apkfzx0o71xpp800#IOC: 新类+配置文件修改运行时调用的类)
+由 new 产生对称转换为由 IOC 容器提供对象，[具体 IOC 简单使用参考这里](../../java/javalang.html#IOC:新类+配置文件修改运行时调用的类)
 其管理的对象叫做 Bean
 在容器中建立bean与bean之间依赖关系的过程称为依赖注入（DI）
 
