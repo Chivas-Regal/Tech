@@ -32,8 +32,95 @@ Curator有五种锁模式：
 - InterProcessMultiLock：将多个锁作为单个实体管理的容器，向外提供一致的服务
 - InterProcessSemqphoreV：共享信号量，可以设置信号量大小表示最多同时允许几个client获取锁
 
-## 分布式锁实现12306售票
+## 实例操作
 
-::: warning
-作者正在上班...请明天再来看看吧~
-:::
+使用起来就很简单，用 Curator 包装好的类即可（类名为上面锁模式其中之一）   
+类的初始化需要带上 `CuratorFramework` 与锁的节点路径  
+- 占有锁：`mutex.acquire(a, b)` ，其中 `a` 为时间数值，`b` 为时间单位，表占有锁最长多久
+- 释放锁：`mutex.release()` 即可 
+
+下面这个类就是实现了在线程并发时对变量减法的控制，重点就是三个注释所在位置  
+
+```java
+class AtomicVar implements Runnable {
+
+    private int var = 10;
+
+    private InterProcessMutex mutex;
+
+    AtomicVar () {
+        /* 初始化 */
+        RetryPolicy retryPolicy = new ExponentialBackoffRetry(3000, 10);
+        CuratorFramework client = CuratorFrameworkFactory.builder()
+                .connectString("127.0.0.1:2181")
+                .sessionTimeoutMs(60*1000)
+                .connectionTimeoutMs(15*1000)
+                .retryPolicy(retryPolicy)
+                .build();
+        client.start();
+        mutex = new InterProcessMutex(client, "/lock");
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                /* 占有锁最多 3s */
+                mutex.acquire(3, TimeUnit.SECONDS);
+
+                /* 业务部分 */
+                if (var > 0) {
+                    var--;
+                    System.out.println(Thread.currentThread().getName() + " 将 var 减一后变为 " + var);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    /* 释放锁 */
+                    mutex.release();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}
+```
+
+可以看到最主要的就是锁初始化、占有、释放这三行  
+然后再在一个 main 方法上开启两个线程（客户端）来进行测试  
+
+```java
+public class MutexTest {
+
+    public static void main(String[] args) {
+        AtomicVar atomicVar = new AtomicVar();
+
+        Thread t1 = new Thread(atomicVar, "snopzyz");
+        Thread t2 = new Thread(atomicVar, "demo");
+
+        t1.start();
+        t2.start();
+    }
+
+}
+```
+
+运行后的效果为
+
+```
+snopzyz 将 var 减一后变为 9
+demo 将 var 减一后变为 8
+snopzyz 将 var 减一后变为 7
+demo 将 var 减一后变为 6
+snopzyz 将 var 减一后变为 5
+demo 将 var 减一后变为 4
+snopzyz 将 var 减一后变为 3
+demo 将 var 减一后变为 2
+snopzyz 将 var 减一后变为 1
+demo 将 var 减一后变为 0
+```
+
+这样
