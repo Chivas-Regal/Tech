@@ -86,6 +86,14 @@ features:
     details: 是SSM的升级，通过将各种服务功能与环境配置写入pom文件中，以最少的代码开发出最完善的功能，也是当前时代最常用的Web应用开发框架
     link: blogs/framework/SpringBoot/0-firstquick.html
     icon: iconfont icon-bxl-spring-boot
+  - title: SpringCache
+    details: 将数据进行缓存，由于磁盘读写速度低于内存，结合redis等内存工具将热点或者最近访问的数据提到缓存中，可以大大提高读数据的效率
+    link: blogs/redis/springcache-redis/0-begin.html
+    icon: iconfont icon-data-download
+  - title: ZooKeeper
+    details: 一个分布式的协调服务，树形的结构和我们的目录层级十分相似，主要用来管理分布式系统中的数据、配置，或者是搭建分布式集群，构建分布式锁等
+    link: blogs/framework/Zookeeper/0-begin.html
+    icon: iconfont icon-Zookeeper
 - title: 前端技能点
   children:
   - title: Vuepress
@@ -95,20 +103,19 @@ features:
 
 ---
 
-## 网页与作者
+## 关于网站
 
-这里是一位 20 级 ACMer 使用 vuepress 搭建的网页，作者对算法、底层、前后端都极为感兴趣，且都会去学习。  
-学习到的东西有一大部分会储存在这里，希望能将这里做得十分丰富   
+本站是用 vuepress 框架搭建的纯前端式知识文章存放网站，目前储备知识有：
+- 完结/停更内容
+  - 各种 acm 算法与数据结构的理论入门和题解：作者退出 acm 队后不进行更新了
+  - C++ 的技术栈：作者自己码完一个 [数据库内核](https://github.com/Chivas-Regal/cloudCodingDB) 后转了 Java
+- 玩命更新中的内容
+  - Java 语法应用与框架
+  - 数据库、计算机原理、计算机工具等
+  - 前端（随缘更新，喜欢前端但不是作者吃饭用的）
 
-作者大三退队后走的是 C++ 后端的路线，主体为服务端与存储的开发，自己设计制作了一个 （内存：LRU+MemTable）+（持久化：LSM-Tree） 的 KV 数据库。    
-目前在学习 Java 中 ......  
-持续更新内容： 
-- 算法与数据结构的理论知识与解题报告（xxx算法以及它的好题讲解...）
-- C++ 各种知识块（模板元、并发编程、内存管理等...）
-- 工具组件（如内存池、消息队列等...）
-- 前后端框架探究与实用性介绍（xxx框架完成xxx功能 ...）
-
-</div>
+本站涉及的内容较为丰富，本站非常欢迎您的光临  
+也希望您能在闲暇之余为本站的知识或者是界面提出宝贵的意见~  
 
 ## 阅读建议
 

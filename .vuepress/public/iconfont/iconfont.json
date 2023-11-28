@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "4608979",
+      "name": "缓存",
+      "font_class": "huancun",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "18169757",
+      "name": "服务下载,数据下载",
+      "font_class": "data-download",
+      "unicode": "e93e",
+      "unicode_decimal": 59710
+    },
+    {
+      "icon_id": "12694017",
+      "name": "缓存管理",
+      "font_class": "huancunguanli",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "21053792",
+      "name": "Zookeeper",
+      "font_class": "Zookeeper",
+      "unicode": "e685",
+      "unicode_decimal": 59013
+    },
+    {
       "icon_id": "11493424",
       "name": "docker",
       "font_class": "docker",

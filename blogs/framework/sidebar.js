@@ -37,5 +37,10 @@ module.exports = [
         title: 'SpringCache + Redis 注解化缓存',
         collapsable: false,
         children: mGetChildren('./blogs/redis/springcache-redis')
+    },
+    {
+        title: 'ZooKeeper',
+        collapsable: false,
+        children: getChildren('./blogs/framework/Zookeeper')
     }
 ]

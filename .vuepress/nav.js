@@ -66,7 +66,10 @@ module.exports = [{
             link: '/blogs/framework/SpringBoot/0-firstquick.html' 
         },{
             text: 'SpringCache',
-            link: '/blogs/redis/springcache-redis/0-begin.md'
+            link: '/blogs/redis/springcache-redis/0-begin.html'
+        },{
+            text: 'ZooKeeper',
+            link: '/blogs/framework/Zookeeper/0-begin.html'
         }],
         icon: 'iconfont icon-zuzhijiagou'
     },{
@@ -99,7 +102,10 @@ module.exports = [{
         icon: 'iconfont icon-jisuanjikaifa-copy'
     },{
         text: '个人',
-        items: [{ 
+        items: [{
+            text: '生涯',
+            link: 'https://tech.chivas-regal.top/about-myself.html'
+        },{ 
             text: '开发', 
             items: [{ 
                 text: 'Github', 
