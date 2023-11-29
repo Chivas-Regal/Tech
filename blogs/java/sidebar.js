@@ -8,6 +8,11 @@ module.exports = [
         children: getChildren('./blogs/java/thread')
     },
     {
+        title: '高效语法优化',
+        collapsable: false,
+        children: getChildren('./blogs/java/lang-skill')
+    },
+    {
         title: 'JSP 技术',
         collapsable: false,
         children: getChildren('./blogs/java/jsp')
