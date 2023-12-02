@@ -1,8 +1,4 @@
-module.exports = [{ 
-        text: '首页', 
-        link: '/', 
-        icon: 'reco-home' 
-    },{
+module.exports = [{
         text: '算法-数据结构',
         items: [{ 
             text: '理论梳理', 
@@ -45,7 +41,7 @@ module.exports = [{
         }],
         icon: 'iconfont icon-qianduan'
     },{
-        text: '常用框架',
+        text: '框架与中间件',
         items: [{ 
             text: 'Maven', 
             link: '/blogs/framework/Maven/0-desc.html' 
@@ -70,6 +66,9 @@ module.exports = [{
         },{
             text: 'ZooKeeper',
             link: '/blogs/framework/Zookeeper/0-begin.html'
+        },{
+            text: 'Kafka',
+            link: '/blogs/middleware/Kafka/0-begin.html'
         }],
         icon: 'iconfont icon-zuzhijiagou'
     },{

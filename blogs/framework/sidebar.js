@@ -42,5 +42,10 @@ module.exports = [
         title: 'ZooKeeper',
         collapsable: false,
         children: getChildren('./blogs/framework/Zookeeper')
+    },
+    {
+        title: 'Kafka',
+        collapsable: false,
+        children: getChildren('./blogs/framework/Kafka')
     }
 ]
