@@ -44,8 +44,10 @@ module.exports = [
         children: getChildren('./blogs/framework/Zookeeper')
     },
     {
-        title: 'Kafka',
+        title: 'MQ消息队列专栏',
         collapsable: false,
-        children: getChildren('./blogs/framework/Kafka')
+        children: [
+            ['./blogs/Kafka/0-begin.html', 'Kafka']
+        ]
     }
 ]

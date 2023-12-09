@@ -68,7 +68,7 @@ module.exports = [{
             link: '/blogs/framework/Zookeeper/0-begin.html'
         },{
             text: 'Kafka',
-            link: '/blogs/middleware/Kafka/0-begin.html'
+            link: '/blogs/mq/Kafka/0-begin.html'
         }],
         icon: 'iconfont icon-zuzhijiagou'
     },{

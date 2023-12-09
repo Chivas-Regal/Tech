@@ -10,5 +10,6 @@ module.exports = {
     '/blogs/front/': require('../blogs/front/sidebar.js'),
     '/blogs/redis/': require('../blogs/redis/sidebar.js'),
     '/blogs/mysql/': require('../blogs/mysql/sidebar.js'),
-    '/blogs/computer-tools/': require('../blogs/computer-tools/sidebar.js')
+    '/blogs/computer-tools/': require('../blogs/computer-tools/sidebar.js'),
+    '/blogs/mq/': require('../blogs/mq/sidebar.js')
 }
