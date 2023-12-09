@@ -47,7 +47,7 @@ module.exports = [
         title: 'MQ消息队列专栏',
         collapsable: false,
         children: [
-            ['./blogs/Kafka/0-begin.html', 'Kafka']
+            ['../mq/Kafka/0-begin.html', 'Kafka']
         ]
     }
 ]

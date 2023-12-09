@@ -60,5 +60,6 @@
   "bugs": {
     "url": "https://github.com/Chivas-Regal/Tech/issues"
   },
-  "homepage": "https://github.com/Chivas-Regal/Tech#readme"
+  "homepage": "https://github.com/Chivas-Regal/Tech#readme",
+  "fix-memory-limit": "cross-env LIMIT=4096 increase-memory-limit"
 }
