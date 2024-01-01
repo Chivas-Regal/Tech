@@ -2,22 +2,22 @@
 title: 入门、配置与启动
 ---
 
-## Kafka 基本概念
+# Kafka 基本概念
 
 Kafka是一个分布式、支持分区多副本的消息系统，常用语日志收集、消息收发、用户活动跟踪、运营指标等场景。  
 在早期 Kafka 依赖于 zookeeper 存储有关分区和代理的元数据，而在 2021/04/19 的 2.8.0 版本中用自管理的 Quorum 代替了 ZooKeeper 的功能。  
 
-### 角色与术语
+## 角色与术语
 
 在 Kafka 中有这样一些信息
 - broker：消息处理节点，代表一个 Kafka 节点
 - topic：Kafka 收到消息后会根据 topic 进行归类，来发送给订阅对应 topic 的消费者
 - producer：消息生产者，代表向 broker 发送消息的客户端
 - consumer：消息消费者，代表从 broker 读取消息的客户端
-- consumer-group：消息消费者组，由多个 consumer 组成，一个消息可以发送给多个 consumer-group ，但一个 consumer-group 只有一个 consumer 可以消费信息
+- consumer-group：消息消费者组，由多个 consumer 组成，一个分区下的消息可以发送给多个 consumer-group ，但一个 consumer-group 只有一个 consumer 可以消费信息
 - partition：分区，一个 topic 可以分为多个 partition，每个 partition 的内部消息是有序的
 
-## 第一个 Kafka 服务
+# 第一个 Kafka 服务
 
 ::: tip
 首先需要保证你的机器中有 jdk 并且存在一台运行 zookeeper 的机器  
@@ -25,7 +25,7 @@ Kafka是一个分布式、支持分区多副本的消息系统，常用语日志
 
 首先在 [官网](https://kafka.apache.org/downloads) 下载 Kafka，这里版本使用 2.4.1 ，将其解压到我们的机器中（这里选择路径为 /usr/local/kafka ）  
 
-### 配置文件
+## 配置文件
 
 进入 config 目录下的 server.properties ，修改其中的几个地方  
 
@@ -43,7 +43,7 @@ log.dir=/usr/local/kafka/data/kafka-logs
 zookeeper.connect=192.168.1.111:2181
 ```
 
-### 启动 Kafka
+## 启动 Kafka
 
 命令格式为 `<你的kafka安装包地址>/bin/kafka-server -start.sh <server.properties配置文件地址>`   
 这里再开一个守护进程运行模式
@@ -58,7 +58,7 @@ cd /usr/local/kafka/kafka_2.11-2.4.1/bin
 产生了非常多的节点  
 此时查看 `/brokers/ids` 后会看到里面多出来了一个 `0`，就是我们运行的 Kafka 在 config/server.properties 中的 `broker.id`   
 
-### 创建 topic
+## 创建 topic
 
 通过如下命令
 
@@ -76,7 +76,7 @@ cd /usr/local/kafka/kafka_2.11-2.4.1/bin
 
 ![20231210200814](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231210200814.png)  
 
-### 生产消息
+## 生产消息
 
 根据上面说的生产者 producer，Kafka 内置生产者客户端 `kafka-console-producer.sh` 可以调用  
 生产消息要指定 broker 的地址与 topic 信息  
@@ -90,7 +90,7 @@ cd /usr/local/kafka/kafka_2.11-2.4.1/bin
 
 ![20231210214240](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231210214240.png)
 
-### 消费消息
+## 消费消息
 
 根据上面说的消费者 consumer，Kafka 内置有 consumer 客户端 `kafka-console.consumer.sh` 供我们调用  
 消费消息的时候要指定从哪台 kafka 服务器，哪个 topic 接收消息  
@@ -142,7 +142,7 @@ Kafka 的消费组维护了个已经读取消息数量的偏移量信息
 *（分区就是对 topic 的消息做的划分，具体概念先不在这里说明）*
 :::
 
-### 消息的单播与多播
+## 消息的单播与多播
 
 在 [角色与术语](./0-begin.html#角色与术语) 中提到过，一个消费组收到一条消息，只会由其中的一个消费者消费。  
 
@@ -160,7 +160,7 @@ Kafka 的消费组维护了个已经读取消息数量的偏移量信息
 
 此时生产者发送消息后，**分别位于两个消费组的两个消费者均可接收消息，这便是多播**。 
 
-### 查看消费组信息
+## 查看消费组信息
 
 查看只需要这个命令
 
@@ -184,10 +184,19 @@ Kafka 的消费组维护了个已经读取消息数量的偏移量信息
 ![20231216174436](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231216174436.png)  
 这里就变成了 $4$  
 
-### 主题与分区
+## 主题与分区
 
 主题是一个逻辑概念，它是划分消息的标识。  
 分区则是将一个 topic 中的消息分布式存储，解决了 “统一存储文件过大导致的各种维护、读写性能的问题，与读写串行下的吞吐量过低” 的问题。  
+
+::: tip
+假设有一个 broker ，它有两个分区 1 和 2。  
+还有一个消费组，它有两个消费者 A 和 B。  
+分区1连接了消费者A，分区2连接了消费者B（假设主题都是一样的）。  
+那么由于一个 broker 收到消息后会被均匀分发到两个分区，所以向这个 broker 发送消息会同时被两个消费者均匀地接收。  
+:::
+
+同时需要注意的是消息只能在一个 partition 内保证消息的局部顺序性，但是多个 partition 发送消息的顺序却不能由 kafka 内部保证。  
 
 我们可以用下面的命令来创建一个多分区的主题：
 
@@ -199,7 +208,7 @@ Kafka 的消费组维护了个已经读取消息数量的偏移量信息
 ![20231216182857](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231216182857.png)  
 发现这里建立了两个 testWithMorePartitions 的目录，也就是意味着两个分区  
 
-## 集群
+# 集群
 
 先创建三个 properties 作为三台 broker 的启动配置文件，与之前配置的相比具体要改的是这些内容
 
@@ -253,7 +262,7 @@ log.dirs=/usr/local/kafka/data/kafka-logs-9094
 
 这样就说明启动了三台 broker 了  
 
-### 副本
+## 副本
 
 之前在启动的时候总是带有一个 `--replication-factor 1` 用来指代有几个副本，副本是对分区的备份，在集群中不同的副本会被部署到不同的 broker 上。  
 现在已经有了多台 broker ，这里在一台 broker 上制作一个多副本的 topic：
@@ -276,3 +285,154 @@ log.dirs=/usr/local/kafka/data/kafka-logs-9094
 再关注一下 data 内的日志结构  
 ![20231216220500](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231216220500.png)  
 首先 __consumer_offsets-x 只会在一个 broker 上有，保存消费者读取位置的信息太大了，整个集群有一份即可，而我们在集群中创建的 topic 则会保存在三台 broker 上。  
+
+## 收发消息
+
+基本的命令就是相比于之前来说将 broker-list 和 bootstap-server 的节点写为三个 ip:port  
+
+生产者调用命令
+
+```sh
+./kafka-console-producer.sh --broker-list 192.168.1.120:9092,192.168.1.120:9093,192.168.1.120:9094 --topic topicWithMoreReplicationFactor
+```
+
+消费者调用命令
+
+```sh
+./kafka-console-consumer.sh --bootstrap-server 192.168.1.120:9092,192.168.1.120:9093,192.168.1.120:9094 --topic topicWithMoreReplicationFactor
+```
+
+# JavaAPI
+
+## 生产者
+
+### 基本使用
+
+首先惯例导入 Kafka 坐标  
+
+```xml
+<!-- pom.xml -->
+
+<dependency>
+    <groupId>org.apache.kafka</groupId>
+    <artifactId>kafka-clients</artifactId>
+    <version>2.4.1</version>
+</dependency>
+```
+
+然后分析一下我们生产者启动的指令：
+
+```sh
+./kafka-console-producer.sh --broker-list 192.168.1.120:9092,192.168.1.120:9093,192.168.1.120:9094 --topic topicWithMoreReplicationFactor
+```
+
+这里主要是一些配置属性，指定 broker 节点，以及我们要发送的 topic ，由于在发送时指定 topic 会更方便，所以这里只看 broker 节点。  
+Java 中 Kafka 的生产者叫做 `KafkaProducer` ，是 `Producer` 的实现类，于是初始化一个，同时指定 Properties 参数，参数的 Key 都放在 `ProducerConfig` 中了。  
+一个最简单的生产者要配置的就是 broker 和一些序列化器。  
+
+```java
+Properties props = new Properties();
+// broker-list
+props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.1.120:9092,192.168.1.120:9093,192.168.1.120:9094");
+// key 的序列化器（key是什么等下面会说）
+props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+// value 的序列化器
+props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+// kafka 生产者
+Producer<String, String> producer = new KafkaProducer<>(props);
+```
+
+这里 value 都知道是消息本体，key 是什么下面会说。  
+配置完了需要消息体 `ProducerRecord` ，初始化时指定一下 topic-name 和消息即可。  
+
+```java
+ProducerRecord<String, String> producerRecord = new ProducerRecord<>(TOPIC_NAME, "hello kafka");
+```
+
+发送方式就是通过 `Producer#send` 来发送，这个方法的返回值调用 `get()` 可以获取到发送完数据之后该 topic 的状态的元数据。  
+
+```java
+RecordMetadata metadata = producer.send(producerRecord).get();
+System.out.println("topic = " + metadata.topic());
+System.out.println("partition = " + metadata.partition());
+System.out.println("offset = " + metadata.offset());
+```
+
+总的来说就是这样：
+
+```java
+// 配置 broker-list 和 序列化器
+Properties props = new Properties();
+props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.1.120:9092,192.168.1.120:9093,192.168.1.120:9094");
+props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+
+// 构造生产者
+Producer<String, String> producer = new KafkaProducer<>(props);
+
+// 构造生产的消息记录
+ProducerRecord<String, String> producerRecord = new ProducerRecord<>(TOPIC_NAME, "hello kafka");
+
+// 发送并获取到 topic 状态
+RecordMetadata metadata = producer.send(producerRecord).get();
+System.out.println("topic = " + metadata.topic());
+System.out.println("partition = " + metadata.partition());
+System.out.println("offset = " + metadata.offset());
+```
+
+我们运行一下这一段代码，然后在命令行那边的消费者即可看到消息  
+
+![20231223213022](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231223213022.png)
+
+### 消息记录构造方法
+
+ProducerRecord 构造的时候我们会看到有很多可以用的参数，这里来说明一下
+
+- `String topic`：指代要发送到的 topic 名称
+- `Integer partition`：指代要发送到的 topic 下的分区
+- `K key`：K 是泛化的类型参数中之一，在设置的序列化器中转化为 byte ，用处在于可以通过 `hash(key)%partitionNum` 来确定被发送到哪个分区中，**若同时设置了partition和key，则会发送到 partition 对应的分区中**
+- `V value`：V 是泛化的类型参数其中之一，在设置的序列化器中转化为 byte，表示消息的实体
+- `Long timestamp`：消息的时间戳，发送时可以带上 `System.currentTimeMillis()` 来发送表示消息创建的时间
+- `Iterable<Header> headers`：一个集合，内部含有多条 Header 表示消息头
+
+### 发送消息的同步异步
+
+Producer 在处理消息发送时有两种方式，一种是上面我们演示的调用 send 然后通过 get 获取元数据的方式，也是一种消息的同步发送机制，它在安全状态下应当以如下形式发送：  
+
+```java
+try {
+    RecordMetadata metadata = producer.send(producerRecord).get();
+    System.out.println("topic = " + metadata.topic());
+    System.out.println("partition = " + metadata.partition());
+    System.out.println("offset = " + metadata.offset());
+} catch (InterruptedException e) {
+    e.printStackTrace();
+    // 业务操作：重试 or 记录
+}
+```
+
+这种方式就保证了消息发送未成功时应该怎么做，可以嵌套多个发送来完成消息的重发或日志记录。  
+
+另外有一种异步发送的机制，即设置一个回调函数处理消息发送后的操作。  
+
+```java
+producer.send(producerRecord, new Callback() {
+    @Override
+    public void onCompletion(RecordMetadata recordMetadata, Exception e) {
+        if (e == null) {
+            log.error("消息 " + producerRecord + " 发送失败：" + e.getStackTrace());
+        } else if (recordMetadata != null) {
+            System.out.println("topic = " + recordMetadata.topic());
+            System.out.println("partition = " + recordMetadata.partition());
+            System.out.println("offset = " + recordMetadata.offset());
+        }
+    }
+});
+```
+
+异步发送对性能确实有提升作用，提高了 broker 的吞吐量，但值得一提的是这种机制产生消息丢失的概率会更大，因此这种机制更多应用在对速度要求高同时对消息是否发送成功要求不大的场合。
+
+
+::: tip
+因业务需要作者暂时进行 es 板块的更新，Kafka 应用学习暂时告一段落，恢复时间待定。
+:::

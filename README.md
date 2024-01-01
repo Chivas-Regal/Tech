@@ -78,6 +78,10 @@ features:
     details: KV 化的非关系型内存数据库，支持多种数据结构完成储存数据，以高速为特点作为缓存数据库与各种磁盘数据库相配合，在工程开发中十分常见
     link: blogs/redis/begin.html
     icon: iconfont icon-Redis-session
+  - title: ElasticSearch
+    details: ElasticStack 中的一个分布式开源搜索引擎，可以用来实现搜索、日志统计、分析、系统监控等功能，在很多企业内也负责一部分的数据存储
+    link: blogs/es/0-begin.html
+    icon: iconfont icon-Elasticsearch
   - title: SSM
     details: 是三种主流框架Spring、SpringMVC、Mybatis的结合，以Spring为桥梁整合出各种功能模块，是开发各种业务代码的基础框架
     link: blogs/framework/Spring/0-ioc.html
@@ -94,6 +98,10 @@ features:
     details: 一个分布式的协调服务，树形的结构和我们的目录层级十分相似，主要用来管理分布式系统中的数据、配置，或者是搭建分布式集群，构建分布式锁等
     link: blogs/framework/Zookeeper/0-begin.html
     icon: iconfont icon-Zookeeper
+  - title: Kafka
+    details: 一个支持分区、多副本的基于 Zookeeper 协调的分布式消息系统，可以完成海量消息的收发，在 MQ 流派中属于重 topic 的一类
+    link: blogs/mq/Kafka/0-begin.html
+    icon: iconfont icon-shujujieruKafkajiqun
 - title: 前端技能点
   children:
   - title: Vuepress

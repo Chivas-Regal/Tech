@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "4772840",
+      "name": "数据接入—Kafka集群",
+      "font_class": "shujujieruKafkajiqun",
+      "unicode": "e64f",
+      "unicode_decimal": 58959
+    },
+    {
+      "icon_id": "34318772",
+      "name": "Elasticsearch",
+      "font_class": "Elasticsearch",
+      "unicode": "e659",
+      "unicode_decimal": 58969
+    },
+    {
       "icon_id": "4608979",
       "name": "缓存",
       "font_class": "huancun",

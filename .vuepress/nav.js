@@ -81,6 +81,9 @@ module.exports = [{
             },{
                 text: 'MySQL',
                 link: '/blogs/mysql/Z-sql-solution/create-tables-query.html'
+            },{
+                text: 'ElasticSearch',
+                link: '/blogs/es/0-begin.html'
             }]
         },{ 
             text: '计算机基础',
