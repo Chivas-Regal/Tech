@@ -34,6 +34,11 @@ RestClient是一个调测RestFulAPI的工具，可以向9200端口发送http请�
 然后我们要调用的工具类是 `RestHighLevelClient`，它的初始化和关闭方式为  
 
 ```java
+import org.apache.http.HttpHost;
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestHighLevelClient;
+....
+
 // 初始化
 RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(
     // 指定 es 的 hostname 和 http 端口
@@ -62,3 +67,23 @@ public class ESIndexTest {
     }
 }
 ```
+
+::: danger
+
+可能有的小伙伴在 `HttpHost.create` 会报错
+
+![20240806205434](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240806205434.png)
+
+这里是因为 java 默认 4.4.5 版本的 `httpcore` 依赖，手动引入一个 4.4.6 版本的即可
+
+```xml
+<!-- pom.xml -->
+
+<dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpcore</artifactId>
+    <version>4.4.6</version>
+</dependency>
+```
+
+:::
