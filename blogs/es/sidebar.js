@@ -8,9 +8,9 @@ module.exports = [
         children: getChildren('./blogs/es/index-doc')
     },
     {
-        title: "JavaAPI-RestClient",
+        title: "文档数据检索",
         collapsable: false,
-        children: getChildren('./blogs/es/restclient')
+        children: getChildren('./blogs/es/search')
     },
     {
         title: '插件',

@@ -52,6 +52,25 @@ System.out.println(response.getResult());
 再执行一次后它就会变成更新（UPDATE）  
 ![20240101211940](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240101211940.png)
 
+::: tip
+在很多时候为了节省网络请求次数而提升性能，需要批量操作。对于查询、删除操作时都可以用 DSL 查询多个，而插入或更新时做批量操作可以用 `BulkRequest` 类组装多个 `IndexRequest` 类一起发送。  
+
+```java
+BulkRequest batchRequest = new BulkRequest();
+batchRequest.add(new IndexRequest("bloggers")
+        .id("1")
+        .source(SNOPZYZ_DOC, XContentType.JSON)
+);
+batchRequest.add(new IndexRequest("bloggers")
+        .id("2")
+        .source(SNOPZYZ_DOC, XContentType.JSON)
+);
+client.bulk(batchRequest, RequestOptions.DEFAULT);
+```
+
+这样即可完成多条数据的写入。  
+:::
+
 ## 查询
 
 一样的先不看精确查询的DSL，做一个按id查询。  
@@ -64,4 +83,37 @@ GetResponse response = client.get(request, RequestOptions.DEFAULT);
 System.out.println(response.getSourceAsString());
 ```
 
-> TODOING
+![20240106175210](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240106175210.png)
+
+下面就打印出来了具体数据的 json 格式  
+
+
+## 更新
+
+类似操作，使用 `UpdateRequest` 和 `update()` 方法   
+本次将技术栈内的 java 改为 javv
+
+```java
+UpdateRequest request = new UpdateRequest("bloggers", "1");
+request.doc(SNOPZYZ_DOC, XContentType.JSON);
+UpdateResponse response = client.update(request, RequestOptions.DEFAULT);
+System.out.println(response.getResult());
+```
+
+![20240106182241](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240106182241.png)
+
+在 postman 里面看一下数据，更新成功
+
+![20240106191701](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240106191701.png)
+
+## 删除
+
+`DeleteRequest` 和 `delete()` 方法
+
+```java
+DeleteRequest request = new DeleteRequest("bloggers", "1");
+DeleteResponse response = client.delete(request, RequestOptions.DEFAULT);
+System.out.println(response.getResult());
+```
+
+![20240106191910](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240106191910.png)
