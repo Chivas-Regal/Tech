@@ -52,10 +52,31 @@ System.out.println(response.getResult());
 再执行一次后它就会变成更新（UPDATE）  
 ![20240101211940](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240101211940.png)
 
+## 局部更新
+
+与上面类似，但是使用 `UpdateRequest`，初始化请求不仅需要索引名，还需要文档 id 指定更新的文档。  
+而后使用 `request.doc` 方法传入偶数个参数，包含多对 `key, value` 来表示更新的字段和对应值。  
+最后使用 `client.update` 方法进行更新。  
+
+```java
+UpdateRequest request = new UpdateRequest("bloggers", "1");
+// 更新作者名和年龄
+request.doc(
+        "name", "chivas-regal",
+        "age", "0"
+);
+client.update(request, RequestOptions.DEFAULT);
+```
+
+验证一下看看  
+![20240831201727](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240831201727.png)
+
+
+
 ## 查询
 
-一样的先不看精确查询的DSL，做一个按id查询。  
-这里也是通过 `GetRequest` 做请求然后用 `client.get()` 发送的。  
+先不看精确查询的DSL，做一个按id查询。  
+这里是通过 `GetRequest` 做请求然后用 `client.get()` 发送的。  
 将查询后得到的响应结果通过 `getSourceAsString()` 获取到内容  
 
 ```java
@@ -64,4 +85,33 @@ GetResponse response = client.get(request, RequestOptions.DEFAULT);
 System.out.println(response.getSourceAsString());
 ```
 
-> TODOING
+## 删除
+
+与上面同理，更简单的是只需要索引名和 id，给出示例不再叙述了。
+
+```java
+DeleteRequest request = new DeleteRequest("bloggers", "1");
+client.delete(request, RequestOptions.DEFAULT);
+```
+
+## 批量操作
+
+使用到 Es 的 bulk 操作，对应请求是 `BulkRequest`，其中可以添加多个处理操作，比如把刚刚的更新和删除合到一起（好像在废话）。
+
+```java
+// 批处理请求
+BulkRequest bulkRequest = new BulkRequest();
+// 添加请求1：更新请求
+bulkRequest.add(new UpdateRequest("bloggers", "1").doc("name", "snopzyz", "age", "22"));
+// 添加请求2：删除请求
+bulkRequest.add(new DeleteRequest("bloggers", "1"));
+// 执行批处理
+client.bulk(bulkRequest, RequestOptions.DEFAULT);
+```
+
+验证一下也发现确实是删除掉了
+
+![20240831203307](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240831203307.png)
+
+## 高级 DSL 检索
+

@@ -1,5 +1,5 @@
 ---
-title: 文档增删改查
+title: 文档基础操作
 ---
 
 关于库内文档的操作，我们沿用 [上节：索引库操作](./1-index-crud.html) 创建的 bloggers 来  
