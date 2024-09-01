@@ -52,29 +52,31 @@ System.out.println(response.getResult());
 再执行一次后它就会变成更新（UPDATE）  
 ![20240101211940](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240101211940.png)
 
-::: tip
-在很多时候为了节省网络请求次数而提升性能，需要批量操作。对于查询、删除操作时都可以用 DSL 查询多个，而插入或更新时做批量操作可以用 `BulkRequest` 类组装多个 `IndexRequest` 类一起发送。  
+## 局部更新
+
+与上面类似，但是使用 `UpdateRequest`，初始化请求不仅需要索引名，还需要文档 id 指定更新的文档。  
+而后使用 `request.doc` 方法传入偶数个参数，包含多对 `key, value` 来表示更新的字段和对应值。  
+最后使用 `client.update` 方法进行更新。  
 
 ```java
-BulkRequest batchRequest = new BulkRequest();
-batchRequest.add(new IndexRequest("bloggers")
-        .id("1")
-        .source(SNOPZYZ_DOC, XContentType.JSON)
+UpdateRequest request = new UpdateRequest("bloggers", "1");
+// 更新作者名和年龄
+request.doc(
+        "name", "chivas-regal",
+        "age", "0"
 );
-batchRequest.add(new IndexRequest("bloggers")
-        .id("2")
-        .source(SNOPZYZ_DOC, XContentType.JSON)
-);
-client.bulk(batchRequest, RequestOptions.DEFAULT);
+client.update(request, RequestOptions.DEFAULT);
 ```
 
-这样即可完成多条数据的写入。  
-:::
+验证一下看看  
+![20240831201727](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240831201727.png)
+
+
 
 ## 查询
 
-一样的先不看精确查询的DSL，做一个按id查询。  
-这里也是通过 `GetRequest` 做请求然后用 `client.get()` 发送的。  
+先不看精确查询的DSL，做一个按id查询。  
+这里是通过 `GetRequest` 做请求然后用 `client.get()` 发送的。  
 将查询后得到的响应结果通过 `getSourceAsString()` 获取到内容  
 
 ```java
@@ -83,37 +85,34 @@ GetResponse response = client.get(request, RequestOptions.DEFAULT);
 System.out.println(response.getSourceAsString());
 ```
 
-![20240106175210](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240106175210.png)
-
-下面就打印出来了具体数据的 json 格式  
-
-
-## 更新
-
-类似操作，使用 `UpdateRequest` 和 `update()` 方法   
-本次将技术栈内的 java 改为 javv
-
-```java
-UpdateRequest request = new UpdateRequest("bloggers", "1");
-request.doc(SNOPZYZ_DOC, XContentType.JSON);
-UpdateResponse response = client.update(request, RequestOptions.DEFAULT);
-System.out.println(response.getResult());
-```
-
-![20240106182241](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240106182241.png)
-
-在 postman 里面看一下数据，更新成功
-
-![20240106191701](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240106191701.png)
-
 ## 删除
 
-`DeleteRequest` 和 `delete()` 方法
+与上面同理，更简单的是只需要索引名和 id，给出示例不再叙述了。
 
 ```java
 DeleteRequest request = new DeleteRequest("bloggers", "1");
-DeleteResponse response = client.delete(request, RequestOptions.DEFAULT);
-System.out.println(response.getResult());
+client.delete(request, RequestOptions.DEFAULT);
 ```
 
-![20240106191910](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240106191910.png)
+## 批量操作
+
+在很多时候为了节省网络请求次数而提升性能，需要批量操作。  
+使用到 Es 的 bulk 操作，对应请求是 `BulkRequest`，其中可以添加多个处理操作，比如把刚刚的更新和删除合到一起（好像在废话）。
+
+```java
+// 批处理请求
+BulkRequest bulkRequest = new BulkRequest();
+// 添加请求1：更新请求
+bulkRequest.add(new UpdateRequest("bloggers", "1").doc("name", "snopzyz", "age", "22"));
+// 添加请求2：删除请求
+bulkRequest.add(new DeleteRequest("bloggers", "1"));
+// 执行批处理
+client.bulk(bulkRequest, RequestOptions.DEFAULT);
+```
+
+验证一下也发现确实是删除掉了
+
+![20240831203307](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240831203307.png)
+
+## 高级 DSL 检索
+
