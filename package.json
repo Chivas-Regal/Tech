@@ -4,14 +4,14 @@
   "author": "Chivas-Regal",
   "scripts": {
     "dev": "export NODE_OPTIONS=\"--max_old_space_size=4096\" && vuepress dev . --open --host \"localhost\" --version=development",
-    "build": "vuepress build . --version=production",
+    "build": "export NODE_OPTIONS=\"--openssl-legacy-provider\" && vuepress build . --version=production",
     "hotdev": "vuepress dev --temp .temp",
     "localdev": "vuepress dev . --open --host \"localhost\" --version=development",
     "remotedev": "vuepress dev . --open --host \"192.168.1.4\" --version=development"
   },
   "type": "commonjs",
   "devDependencies": {
-    "@maginapp/vuepress-plugin-flowchart": "^1.0.2",
+    "@maginapp/vuepress-plugin-flowchart": "^1　.0.2",
     "@maginapp/vuepress-plugin-katex": "^1.0.11",
     "@vite/vuepress-plugin-mathjax": "^1.1.0",
     "@vuepress-reco/vuepress-plugin-extract-code": "^1.0.4",
