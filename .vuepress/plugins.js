@@ -75,7 +75,9 @@ module.exports = [
             clientId: OauthConfig.clientId,
             clientSecret: OauthConfig.clientSecret,
             /* 自动创建评论 */
-            autoCreateIssue: true
+            autoCreateIssue: true,
+            // /* https://cors-anywhere.azm.workers.dev 在中国大陆被墙了，调整为别的代理 */
+            // proxy: url => `https://netnr-proxy.cloudno.de/${url}`
         }
     ],
 

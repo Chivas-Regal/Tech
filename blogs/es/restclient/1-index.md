@@ -61,6 +61,7 @@ client.indices().create(request, RequestOptions.DEFAULT);
 
 ## 存在性与内容查询
 
+RestClient 不仅可以做查询，也可以做存在性检测。  
 根据我们上面的创建操作，这里方法替换为了 `exists()` 和 `get()`，请求类都是 `GetIndexRequest`  
 并且在之前学的时候知道它们都不需要带什么 json 请求体，于是存在性检测可以直接这样写。  
 

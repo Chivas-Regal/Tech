@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "Chivas-Regal",
   "scripts": {
-    "dev": "export NODE_OPTIONS=\"--openssl-legacy-provider --max_old_space_size=4096\" && vuepress dev . --open --host \"localhost\" --version=development",
+    "dev": "export NODE_OPTIONS=\"--max_old_space_size=4096\" && vuepress dev . --open --host \"localhost\" --version=development",
     "build": "export NODE_OPTIONS=\"--openssl-legacy-provider --max_old_space_size=4096\" && vuepress build . --version=production",
     "hotdev": "vuepress dev --temp .temp",
     "localdev": "vuepress dev . --open --host \"localhost\" --version=development",
@@ -45,6 +45,7 @@
     "shiki": "^0.14.4",
     "shiki-themes": "^0.2.7",
     "valine": "^1.5.1",
+    "vssue": "^1.4.8",
     "vuepress-plugin-sitemap": "^2.3.1",
     "vuepress-sidebar-atuo": "^1.0.4"
   },
