@@ -2,6 +2,15 @@ const {OauthConfig} = require('./dif-env-config.js')
 
 module.exports = [
 
+    /* 数学公式 */
+    [
+        '@vite/vuepress-plugin-mathjax',
+        {
+            target: 'chtml',
+            showError: false
+        }
+    ],
+
     [ '@vuepress-reco/extract-code' ], 
     /* 流程图 */
     [ 'flowchart' ],
@@ -11,14 +20,6 @@ module.exports = [
 
     [ '@vuepress-reco/extract-code' ],
 
-    /* 数学公式 */
-    [ 
-        '@vite/vuepress-plugin-mathjax',
-        {
-            target: 'chtml',
-            showError: false
-        }
-    ],
 
     /* 支付页面 */
     [
@@ -64,9 +65,10 @@ module.exports = [
     /* 评论系统 */
     [
         '@vssue/vuepress-plugin-vssue',
+        // vssue 参数，其他参数请前往 .vuepress/theme/components/Page.vue 内直接在属性下修改
         {
             /* 设置平台，github-v4自动解析@vssue/api-github-v4包 */
-            plateform: 'github-v3',
+            plateform: 'github',
             /* 仓库拥有者 */
             owner: 'Tequila-Avage',
             /* 仓库 */
@@ -75,9 +77,7 @@ module.exports = [
             clientId: OauthConfig.clientId,
             clientSecret: OauthConfig.clientSecret,
             /* 自动创建评论 */
-            autoCreateIssue: true,
-            // /* https://cors-anywhere.azm.workers.dev 在中国大陆被墙了，调整为别的代理 */
-            // proxy: url => `https://netnr-proxy.cloudno.de/${url}`
+            autoCreateIssue: true
         }
     ],
 

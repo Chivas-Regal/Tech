@@ -18,6 +18,12 @@
       </a>
     </span>
     <span>
+      <reco-icon icon="reco-blog" />
+      <a>
+        {{ $recoPosts.length }} 篇
+      </a>
+    </span>
+    <span>
       <reco-icon icon="reco-theme" />
       <a target="blank" href="https://vuepress-theme-reco.recoluan.com">vuepress-theme-reco</a>
     </span>

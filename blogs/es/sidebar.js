@@ -2,6 +2,7 @@ const {getChildren} = require("vuepress-sidebar-atuo")
 
 module.exports = [
     './0-begin.html',
+    './1-painless.html',
     {
         title: '索引库与文档',
         collapsable: false,

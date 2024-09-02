@@ -54,7 +54,11 @@
       <div style="padding: 10%;">
         <Vssue 
           class="theme-default-content content__default" 
-          :options="{ locale: 'zh' }"
+          :options="{
+            locale: 'zh',
+            // https://cors-anywhere.azm.workers.dev 在中国大陆被墙了，调整为别的代理
+            proxy: url => `https://netnr-proxy.cloudno.de/${url}`
+          }"
           :key="pagePath"
           :title="pagePath"
         />

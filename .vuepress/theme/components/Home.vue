@@ -206,6 +206,7 @@ export default defineComponent({
     align-items: flex-start;
     align-content: stretch;
     justify-content: center;
+    height: fit-content;
   }
 
   .feature {
@@ -218,7 +219,8 @@ export default defineComponent({
     border: 1px solid #ebf2f2;
     border-radius: 10px;
     cursor: pointer;
-    height: 350px;
+    min-height: 350px;
+    height: fit-content;
     margin: 10px;
     padding: 30px 25px 20px;
     h2 {
