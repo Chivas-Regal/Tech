@@ -17,5 +17,10 @@ module.exports = [
         title: '插件',
         collapsable: false,
         children: getChildren('./blogs/es/plugins')
+    },
+    {
+        title: '常见问题',
+        collapsable: false,
+        children: getChildren('./blogs/es/most-qa')
     }
 ]

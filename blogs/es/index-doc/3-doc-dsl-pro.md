@@ -210,3 +210,87 @@ GET /${索引名}/_search
 ![20240902163555](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240902163555.png)  
 
 可以匹配到 `age: 21` 的这条记录，成功
+
+## 复合查询
+
+也称 bool 查询，可以结合多种查询子句来控制哪些文档包含在结果内，以及控制哪些文档的评分，有四种查询子句类型。  
+
+```json
+{
+    "query": {
+        "bool": {
+            "must": [],
+            "should": [],
+            "must_not": [],
+            "filter": []
+        }
+    }
+}
+```
+
+这些查询子句内部就和 `query` 内一样，通常用来存放上面说的 “精确查询” 和 “全文检索”，其中
+- `must`：结果文档和查询内容必须匹配，且查询会影响评分
+- `should`：查询可选
+    - 若没有 must 查询：结果文档至少能对上 should 内的一条
+    - 若有 must 查询：条件和结果文档的显示性无关，只影响评分
+- `must_not`：和 must 对立，结果文档和查询内容必须不能匹配，但不影响评分
+- `filter`：和 must 对应，不影响评分
+
+如我要查询年龄是 21，博客技术栈不能包含 “高数” 的作者。  
+
+![20240903115001](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240903115001.png)
+
+
+## 结果处理
+
+### 排序
+
+ES 默认按文档相关性得分排序，这里也可以自设定，格式为
+
+```json
+{
+    "query": {},
+    "sort": [
+        {
+            "${排序字段}": "(String) ${排序规则: asc/desc}"
+        }
+    ]
+}
+```
+
+其中 `sort` 字段为 arrays ，内部按顺序存储的多个排序规则，是按顺序的多关键字排序。  
+
+![20240903153142](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240903153142.png)
+
+### 分页
+
+分页就是我们前面一直使用的
+
+```json
+{
+    "from": "(Number) ${起始位置}",
+    "size": "(Number) ${数据条数}"
+}
+```
+
+使用方式非常简单不在这里讲了，但因 es 自带排序策略，分页需要注意**深度分页**发生的情况，具体部分可以了解 [这里](../most-qa/0-deep-page.html)
+
+### 高亮
+
+ES 为匹配信息提供了高亮的策略，其模板为
+
+```json
+"highlight": {
+    "fields": {
+        "${匹配字段}": {
+            "pre_tags": ["(String) ${匹配到的高亮片段的前tag}"],
+            "post_tags": ["(String) ${匹配到的高亮片段的后tag}"],
+            "require_field_match": "(Boolean) ${当前字段和查询字段是否要是同一个字段}"
+        }
+    }
+}
+```
+
+下面这样就新增了高亮的标签
+
+![20240903201051](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240903201051.png)
