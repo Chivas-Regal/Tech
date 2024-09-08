@@ -1,26 +1,37 @@
 .custom-block
+  position relative
   .title
     font-weight 600
     margin-bottom -0.4rem
+    padding-top 0.5rem
+    &:empty
+      padding-top 0
   &.tip, &.warning, &.danger
-    padding .1rem 1.5rem
-    border-left-width .5rem
-    border-left-style solid
+    padding .5rem 1.5rem .3rem 2.5rem
+    border: 1px solid
+    border-radius 8px
     margin 1rem 0
+    &::before
+      content: "ⓘ";
+      position: absolute;
+      font-weight: 600;
+      font-size: 15px;
+      top: 22px;
+      left: 17px;
   &.tip
-    background-color var(--code-color)
+    background-color var(--block-color)
     border-color #67cc86
-    .title
+    &::before
       color #67cc86
   &.warning
-    background-color var(--code-color)
-    border-color #fb9b5f
-    .title
-      color #fb9b5f
+    background-color var(--block-color)
+    border-color #ffc517
+    &:before
+      color #ffc517
   &.danger
-    background-color var(--code-color)
+    background-color var(--block-color)
     border-color #f26d6d
-    .title
+    &:before
       color #f26d6d
   &.right
     color transparentify($textColor, 0.4)
@@ -30,16 +41,17 @@
     margin 1rem 0
     padding .1rem 1.5rem
     border-radius 0.4rem
-    background-color var(--code-color)
+    background-color var(--block-color)
     .title
       font-weight bold
   &.details
     display block
     position relative
-    border-radius 2px
+    border-radius 8px
     margin 1em 0
     padding 1rem
-    background-color var(--code-color)
+    background-color var(--block-color)
+    box-shadow 0 3px 12px rgba(0, 0, 0, .07), 0 1px 4px rgba(0, 0, 0, .07);
     h4
       margin-top 0
     figure, p

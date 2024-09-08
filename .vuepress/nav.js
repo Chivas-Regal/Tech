@@ -113,13 +113,7 @@ module.exports = [{
                 text: 'Github', 
                 link: 'https://github.com/Chivas-Regal' 
             }]
-        },{ 
-            text: '社交', 
-            items:[{ 
-                text: 'We-Chat', 
-                link: '/person-wechat.html' 
-            }]
-        },{ 
+        },{
             text: 'CodeForces', 
             items: [{ 
                 text: 'Pepsi__Cola', 

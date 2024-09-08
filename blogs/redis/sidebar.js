@@ -1,7 +1,7 @@
 const {getChildren} = require('vuepress-sidebar-atuo')
 
 module.exports = [
-    './begin.html',
+    './begin',
     {
         title: '数据类型',
         collapsable: false,

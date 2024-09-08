@@ -135,6 +135,9 @@ features:
 [宝贝学习博客](https://demooo.top)
 
 ::: tip
+
+文档样式作者改动较多，若存在样式崩塌感谢提醒 [抱拳]
+
 :::: details 联系方式私戳👇这里   
 
 <br>

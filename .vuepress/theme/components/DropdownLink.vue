@@ -5,7 +5,9 @@
         <reco-icon :icon="`${item.icon}`" />
         {{ item.text }}
       </span>
-      <span class="arrow" :class="open ? 'down' : 'right'"></span>
+<!--      <span class="arrow" :class="open ? 'down' : 'right'">-->
+      <div class="arrow"></div>
+<!--      </span>-->
     </a>
 
     <DropdownTransition>
@@ -40,6 +42,8 @@ import { defineComponent, ref } from 'vue-demi'
 import { RecoIcon } from '@vuepress-reco/core/lib/components'
 import NavLink from '@theme/components/NavLink'
 import DropdownTransition from '@theme/components/DropdownTransition'
+import {useInstance} from "../helpers/composable";
+import {isExternal} from "../helpers/utils";
 
 export default defineComponent({
   components: { NavLink, DropdownTransition, RecoIcon },
@@ -57,7 +61,29 @@ export default defineComponent({
       open.value = !open.value
     }
 
-    return { open, toggle }
+    const isNavCurTitle = (subTitles) => {
+      for (let subTitle of subTitles) {
+        if (subTitle.items != null) {
+          if (isNavCurTitle(subTitle.items)) {
+            return true;
+          }
+        } else {
+          let subLink = subTitle.link;
+          if (subLink.startsWith("https://") || subLink.startsWith("http://")) {
+            continue;
+          }
+          if (subLink.endsWith(".html")) {
+            subLink = subLink.substring(0, subLink.lastIndexOf('/'))
+          }
+          if (useInstance().$route.path.startsWith(subLink)) {
+            return true;
+          }
+        }
+      }
+      return false
+    }
+
+    return { open, toggle, isNavCurTitle }
   }
 })
 </script>
@@ -80,7 +106,10 @@ export default defineComponent({
       h4
         margin 0.45rem 0 0
         border-top 1px solid var(--border-color)
-        padding 0.45rem 1.5rem 0 1.25rem
+        padding 0.95rem 1.5rem 0.45rem 1.25rem
+        font-size 10px
+        color: rgba(60, 60, 60, .33)
+        font-weight 600
       .dropdown-subitem-wrapper
         padding 0
         list-style none
@@ -138,12 +167,31 @@ export default defineComponent({
     &:hover .nav-dropdown
       // override the inline style.
       display block !important
+    // 与下拉框重叠，目前没思考到好的样式，故舍弃
+    //.nav-cur-active
+    //  position relative
+    //  &::after
+    //    content ''
+    //    position absolute
+    //    bottom -17px
+    //    left -8px
+    //    width calc(100% + 16px)
+    //    height 1px
+    //    background-color #3eaf7c
     .dropdown-title .arrow
       // make the arrow always down at desktop
-      border-left 4px solid transparent
-      border-right 4px solid transparent
-      border-top 6px solid var(--text-color-sub)
-      border-bottom 0
+      //border-left 4px solid transparent
+      //border-right 4px solid transparent
+      //border-top 6px solid var(--text-color-sub)
+      //border-bottom 0
+      width 5px
+      height 5px
+      background-color transparent
+      border-color var(--text-color-sub)
+      border-style solid
+      border-width 1.5px 1.5px 0 0
+      margin-bottom 6px
+      transform rotate(135deg)
     .nav-dropdown
       display none
       // Avoid height shaked by clicking

@@ -116,3 +116,14 @@ client.bulk(bulkRequest, RequestOptions.DEFAULT);
 
 ## 高级 DSL 检索
 
+::: tip
+对应高级 Restful-Api 的查询请看 [这里](../index-doc/3-doc-dsl-pro.html)
+:::
+
+### 模糊查询
+
+
+
+### 精确查询
+
+### 复合查询
