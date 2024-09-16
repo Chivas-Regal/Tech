@@ -114,16 +114,148 @@ client.bulk(bulkRequest, RequestOptions.DEFAULT);
 
 ![20240831203307](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240831203307.png)
 
-## 高级 DSL 检索
+## 高级检索
 
 ::: tip
-对应高级 Restful-Api 的查询请看 [这里](../index-doc/3-doc-dsl-pro.html)
-:::
+对应高级 Restful-Api 的 DSL 查询请看 [这里](../index-doc/3-doc-dsl-pro.html)
+:::    
+
+使用 `SearchRequest` 和 `SearchResponse` 作为入参请求（初始化时放入索引名）和出参响应，而调用时采用 `client.search(...)`  
+`SearchRequest.source().query(...)` 方法内填充我们具体的查询内容 `QueryBuilder`。
 
 ### 模糊查询
 
+对应之前使用的一种是查询全文 `match_all`，对应就是 `QueryBuilders.matchAllQuery()`  
+而解析也跟 DSL 查询一样有 hits，使用 `response.getHits()`，对应就是  
 
+```java
+// 构建请求体
+SearchRequest request = new SearchRequest("bloggers");
+QueryBuilder queryBuilder = QueryBuilders.matchAllQuery();
+request.source().query(queryBuilder);
+// 调用获取响应
+SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+// 解析响应结果
+response.getHits().forEach(hit -> {
+    System.out.println(hit.getSourceAsString());
+});
+```
+
+::: tip
+
+`response.getHits()` 对应的是 `SearchHits` 类型的变量，而它给出的得到的结果在通过 http 查询中得到的响应体也都是能 `get` 到的。  
+
+![QQ_1726328329082](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/QQ_1726328329082.png)  
+
+代码运行结果如此  
+
+![QQ_1726328506902](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/QQ_1726328506902.png)
+
+:::
+
+而针对字段的 `match` 使用 `QueryBuilders.matchQuery("${字段名}", "${查询值}")`  
+
+```java
+// 构建请求体
+...
+QueryBuilder queryBuilder = QueryBuilders.matchQuery("name", "snopzyz");
+// 调用...
+...
+```
 
 ### 精确查询
 
+和前面类似采用 `SearchRequest` 的类做请求体，这里只说下 `QueryBuilder`   
+
+**term**查询：  
+
+```java
+// .termQuery("${字段名}", "${查询的值}")
+QueryBuilders.termQuery("name", "snopzyz");
+```
+
+**range**查询：
+
+```java
+// .rangeQuery("${字段名}").gte(${>=的数字}).lt(${<的数字})
+QueryBuilders.rangeQuery("age").gte(20).lt(30);
+```
+
 ### 复合查询
+
+这里将之前使用的 `QueryBuilder` 替换为 `BoolQueryBuilder`。  
+类似于 DSL 的 `{ "must":{}, "filter":{} }`，通过直属于其下的方法 `.must(...)` 和 `.filter(...)` 来包裹具体的 `QueryBuilder`，来完成复合查询。  
+别的都是一样，甚至 `request.source().query(...)` 的参数也是支持 `BoolQueryBuilder`  
+
+实际演示如  
+
+```java
+SearchRequest request = new SearchRequest("bloggers");
+
+// 写个 "bool"
+BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+// 内部写个 "must": { "term": { "name": "snopzyz" }}
+boolQueryBuilder.must(QueryBuilders.termQuery("name", "snopzyz"));
+// 内部写个 "filter": { "range": { "age": { "gt": 20 }}}
+boolQueryBuilder.filter(QueryBuilders.rangeQuery("age").gt(20));
+// 将整个 "bool":{...} 放入请求体内
+request.source().query(boolQueryBuilder);
+
+SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+```
+
+### 排序和分页
+
+排序分页对应的外部 json-key， `from`、`size`、`sort`，都和 `query` 是同级的。  
+所以替换掉的应该是 `request.source()` 后面的链式方法 `.query`，改为 `request.source().from(${起始点}).size(${页面大小}).sort("${排序字段}", ${排序规则})`    
+如  
+
+```java
+request.source().from(0).size(10).sort("age", SortOrder.ASC);
+```
+
+### 高亮
+
+在 DSL 里面是 `highlight`，内部有字段名和对应规则，这里也是 
+
+```java
+request.source().highlighter(new HighlightBuilder()
+        .field("name")
+        .requireFieldMatch(false)
+        .preTags("<a>")
+        .postTags("</b>")
+);
+```
+
+`HighlightBuilder` 可以构造的方法和对应 DSL 的字段都是一样的，但是注意一下在响应体内带标签的高亮内容不存在于 `_source` 字段内，而是 `hightlight` 字段内。  
+也就是  
+
+![QQ_1726478898538](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/QQ_1726478898538.png)  
+
+所以在代码解析结果时也应当调用 `getHighlightFields()`，即
+
+```java
+...
+// 解析响应结果
+SearchHits searchHits = response.getHits();
+searchHits.forEach(hit -> {
+    Map<String, HighlightField> highlightFields = hit.getHighlightFields();
+    ...
+});
+```
+
+## 关于使用发现的小 TIPS
+
+用了这么多，也能看到一些规律了，其实这个 API 和 RestFul 风格是对应的。
+- `Request` 类的前缀大多数和 方法:url 有关，如 `GET` 方法获取文档和 `GetRequest`，`/_search` 的 url 和 `SearchRequest` 有关。
+- `request.source()` 值得是 json 请求体
+- `request.source().方法名` 指的是 json 请求体内的方法，如 `{ "query":{} }` 的内容用 `request.source().query(...)` 构造，`{ "sort":{} }` 的内容用 `request.source().sort(...)` 构造  
+
+而响应的内容也有规律，`Response` 类的前缀总是和 `Request` 类相对应，`response.XXX()` 方法所指响应体内的字段，如我们最熟悉的几个 `hits`、`tooks`、`...shares`、`scrollId` 等，都在其中可以找到。
+
+![QQ_1726482103550](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/QQ_1726482103550.png)  
+
+通过这些经验，我们可以很容易地模仿着 DSL 找到我们需要的内容。  
+
+
+
