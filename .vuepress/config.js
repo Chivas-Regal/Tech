@@ -12,7 +12,6 @@ module.exports = {
     ['link', { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css' }],
     ['link', { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" }],
     ['link', { rel: "stylesheet", href: "https://fonts.cdnfonts.com/css/jetbrains-mono-2"}],
-    ['link', { rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/misans@3.1.1/index.min.css"}],
     ['link', { rel: "stylesheet", href: "https://fonts.cdnfonts.com/css/sf-mono"}],
     ['link', { rel: "stylesheet", href: "https://fonts.cdnfonts.com/css/verdana"}]
   ],

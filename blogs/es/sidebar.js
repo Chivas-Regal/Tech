@@ -4,14 +4,19 @@ module.exports = [
     './0-begin.html',
     './1-painless.html',
     {
-        title: '索引库与文档',
+        title: '索引',
         collapsable: false,
-        children: getChildren('./blogs/es/index-doc')
+        children: getChildren('./blogs/es/index')
     },
     {
-        title: "JavaAPI-RestClient",
+        title: "文档",
         collapsable: false,
-        children: getChildren('./blogs/es/restclient')
+        children: getChildren('./blogs/es/doc')
+    },
+    {
+        title: "集群",
+        collapsable: false,
+        children: getChildren('./blogs/es/group')
     },
     {
         title: '插件',

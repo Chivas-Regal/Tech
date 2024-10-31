@@ -2,12 +2,14 @@
 title: ES基础与安装
 ---
 
+## 基本介绍
+
 ElasticSearch(ES) 来自于 ElasticStack(ELK) 中，是 ELK 的核心组件，负责数据的存储、搜索与分析。  
 ELK 还有其他的一些组件，有负责数据可视化的 Kibana 、负责数据抓取的 Logstash 和 Beats。  
 
 ES 的底层是一个 Java 的搜索引擎类库 Lucene，由 Apache 公司研发，ES 在其基础上实现了分布式并提供了 Restful 借口可以被任何语言调用。  
 
-## 倒排索引
+### 倒排索引
 
 MySQL 中用的是正排索引，也就是如果在 id 字段创建索引，可以根据 id 找到某条记录。  
 ES 中使用的是倒排索引，可以根据一个**文档（类似于记录）**的某些内容来找到 id 并获取到整个文档，并且 ES 中的文档是以 JSON 格式存储的，比如有下面这些数据：  
@@ -61,7 +63,7 @@ ES 中使用的是倒排索引，可以根据一个**文档（类似于记录）
 这种索引方式更能提高检索效率，因为可以直接通过词条找到关联的文档都有哪些，且在类似于模糊查询的场合它不用像 MySQL 一样进行全文扫描。  
 但由于它对事物功能的缺乏无法保证脏数据的消失，所以一般工作中会对它和 MySQL 双写，结合在一起使用。  
 
-## 安装
+### 安装 ES
 
 在 docker 中部署运行 es，先建一个 docker 网：
 
@@ -118,4 +120,90 @@ docker pull arm64v8/elasticsearch:7.14.0
 
 这里 `match_all` 就是匹配所有的意思
   
+## 安装JavaAPI - RestClient
 
+RestClient是一个调测RestFulAPI的工具，可以向9200端口发送http请求并得到响应，es项目有自己的RestClient工具。  
+对于 es 的客户端包有 high-level 的也有 low-level 的，high-level 支持的 API 比较多
+
+::: tip
+当然也有9300端口发送tcp的 `spring-data-elasticsearch` 包，但是官方不建议在9300端口操作，所以我们用 high-level 的客户端包
+:::
+
+导入依赖
+
+```xml
+<!-- pom.xml -->
+
+
+<dependency>
+    <groupId>org.elasticsearch.client</groupId>
+    <artifactId>elasticsearch-rest-high-level-client</artifactId>
+</dependency>
+```
+
+同时要指明我们 ES 使用的版本，这里包的版本要和它保持一致，我用的是 7.14.0 于是
+
+```xml
+<!-- pom.xml -->
+
+<properties>
+    <elasticsearch.version>7.14.0</elasticsearch.version>
+</properties>
+```
+
+然后我们要调用的工具类是 `RestHighLevelClient`，它的初始化和关闭方式为
+
+```java
+import org.apache.http.HttpHost;
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestHighLevelClient;
+....
+
+// 初始化
+RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(
+    // 指定 es 的 hostname 和 http 端口
+    HttpHost.create("http://192.168.1.130:9200");
+));
+// 销毁
+client.close()
+```
+
+为了后面更方便的测试学习功能，将 client 放到配置类中设置为 Bean
+
+```java
+public class ESIndexTest {
+    private RestHighLevelClient client;
+
+    @BeforeEach
+    void setUp () {
+        this.client = new RestHighLevelClient(RestClient.builder(
+                HttpHost.create("http://192.168.1.130:9200")
+        ));
+    }
+
+    @AfterEach
+    void close () throws IOException {
+        this.client.close();
+    }
+}
+```
+
+::: danger
+
+可能有的小伙伴在 `HttpHost.create` 会报错
+
+![20240806205434](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20240806205434.png)
+
+这里是因为 java 默认 4.4.5 版本的 `httpcore` 依赖，手动引入一个 4.4.6 版本的即可
+
+```xml
+<!-- pom.xml -->
+
+<dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpcore</artifactId>
+    <version>4.4.6</version>
+</dependency>
+```
+
+:::
