@@ -36,6 +36,7 @@
     "@vssue/vuepress-plugin-vssue": "^1.4.8",
     "emailjs": "^4.0.1",
     "entities": "^1.1.2",
+    "firebase-tools": "^13.17.0",
     "font-awesome": "^4.7.0",
     "leancloud-storage": "^4.15.2",
     "markdown-it": "^12.3.2",

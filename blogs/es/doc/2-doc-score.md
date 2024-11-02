@@ -145,7 +145,7 @@ DSL 模板如下
 ]
 ```
 
-**script_score**：计算 [Painless 脚本](../1-painless.html)，可以基于文档字段和自定义参数来计算
+**script_score**：计算 Painless 脚本，可以基于文档字段和自定义参数来计算
 
 ```json
 "functions": [
