@@ -9,38 +9,6 @@ module.exports = [{
         }],
         icon: 'iconfont icon-suanfa2'
     },{
-        text: 'C/C++',
-        items: [{
-            text: '特性/语法', 
-            items: [{ 
-                text: '基本开发', 
-                link: '/blogs/cppbases/' 
-            },{ 
-                text: '混合编程', 
-                link: '/blogs/mixprogram/' 
-            }]
-        },{ 
-            text: '模式识别', items: [{ 
-                text: '机器视觉', 
-                link: '/blogs/machine-vision/' 
-            }]
-        }],
-        icon: 'iconfont icon-language-cpp'
-    },{
-        text: 'Java',
-        items: [{ 
-            text: '语法与优化功能探究', 
-            link: '/blogs/java/javalang.html' 
-        }],
-        icon: 'iconfont icon-kafei'
-    },{
-        text: '前端开发',
-        items: [{ 
-            text: 'Vuepress源码开发', 
-            link: '/blogs/front/vuepress/0-thememove.html'
-        }],
-        icon: 'iconfont icon-qianduan'
-    },{
         text: '框架与中间件',
         items: [{ 
             text: 'Maven', 
@@ -71,6 +39,40 @@ module.exports = [{
             link: '/blogs/mq/Kafka/0-begin.html'
         }],
         icon: 'iconfont icon-zuzhijiagou'
+    },{
+        text: '源码分析',
+        items: [{
+            text: 'JDK',
+            link: '/blogs/source-code-jdk/'
+        }],
+        icon: 'iconfont icon-icon-test'
+    },{
+        text: '编程语言',
+        items: [{
+            text: 'C/C++',
+            link: '/blogs/cppbases/'
+        },{
+            text: 'Java',
+            link: '/blogs/java/javalang.html'
+        },{
+            text: '混合编程',
+            link: '/blogs/mixprogram/'
+        }],
+        icon: 'iconfont icon-yuyan'
+    },{
+        text: '人工智能',
+        items: [{
+            text: '模式识别',
+            link: '/blogs/machine-vision/'
+        }],
+        icon: 'iconfont icon-robot-2-line'
+    },{
+        text: '前端开发',
+        items: [{ 
+            text: 'Vuepress源码开发', 
+            link: '/blogs/front/vuepress/0-thememove.html'
+        }],
+        icon: 'iconfont icon-qianduan'
     },{
         text: '存储与系统',
         items: [{ 

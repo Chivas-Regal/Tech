@@ -9,7 +9,7 @@ ELK 还有其他的一些组件，有负责数据可视化的 Kibana 、负责�
 
 ES 的底层是一个 Java 的搜索引擎类库 Lucene，由 Apache 公司研发，ES 在其基础上实现了分布式并提供了 Restful 借口可以被任何语言调用。  
 
-### 倒排索引
+## 倒排索引
 
 MySQL 中用的是正排索引，也就是如果在 id 字段创建索引，可以根据 id 找到某条记录。  
 ES 中使用的是倒排索引，可以根据一个**文档（类似于记录）**的某些内容来找到 id 并获取到整个文档，并且 ES 中的文档是以 JSON 格式存储的，比如有下面这些数据：  
@@ -63,7 +63,9 @@ ES 中使用的是倒排索引，可以根据一个**文档（类似于记录）
 这种索引方式更能提高检索效率，因为可以直接通过词条找到关联的文档都有哪些，且在类似于模糊查询的场合它不用像 MySQL 一样进行全文扫描。  
 但由于它对事物功能的缺乏无法保证脏数据的消失，所以一般工作中会对它和 MySQL 双写，结合在一起使用。  
 
-### 安装 ES
+## 安装 ES
+
+### Docker 安装
 
 在 docker 中部署运行 es，先建一个 docker 网：
 
@@ -119,6 +121,11 @@ docker pull arm64v8/elasticsearch:7.14.0
 ![20231230233457](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20231230233457.png)
 
 这里 `match_all` 就是匹配所有的意思
+
+### 非 Docker 安装（推荐）
+
+在 [这里](https://www.elastic.co/cn/downloads/elasticsearch) 下载一下需要的版本。  
+解压下载完的压缩包后进 `bin` 目录下运行 `elasticsearch` 就行了，很方便。  
   
 ## 安装JavaAPI - RestClient
 

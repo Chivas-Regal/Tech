@@ -68,6 +68,13 @@ features:
     link: https://tech.chivas-regal.top/blogs/computer-tools/docker/0-begin.html
     icon: iconfont icon-docker
 
+- title: 源码剖析
+  children:
+  - title: JDK
+    details: 用于开发Java应用程序的软件开发工具包，包含了Java运行环境（JRE）、编译器、调试器等开发工具以及核心类库
+    link: https://tech.chivas-regal.top/blogs/source-code-jdk/
+    icon: iconfont icon-java
+
 - title: 后端技能点
   children:
   - title: MySQL

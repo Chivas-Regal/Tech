@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "5088145",
+      "name": "java",
+      "font_class": "java",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "577386",
+      "name": "语言",
+      "font_class": "yuyan",
+      "unicode": "e765",
+      "unicode_decimal": 59237
+    },
+    {
+      "icon_id": "11538001",
+      "name": "01",
+      "font_class": "icon-test",
+      "unicode": "e665",
+      "unicode_decimal": 58981
+    },
+    {
+      "icon_id": "42227536",
+      "name": "robot-2-line",
+      "font_class": "robot-2-line",
+      "unicode": "e7a2",
+      "unicode_decimal": 59298
+    },
+    {
       "icon_id": "4772840",
       "name": "数据接入—Kafka集群",
       "font_class": "shujujieruKafkajiqun",

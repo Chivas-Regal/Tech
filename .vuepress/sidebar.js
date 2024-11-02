@@ -12,5 +12,6 @@ module.exports = {
     '/blogs/mysql/': require('../blogs/mysql/sidebar.js'),
     '/blogs/computer-tools/': require('../blogs/computer-tools/sidebar.js'),
     '/blogs/mq/': require('../blogs/mq/sidebar.js'),
-    '/blogs/es/': require('../blogs/es/sidebar.js')
+    '/blogs/es/': require('../blogs/es/sidebar.js'),
+    '/blogs/source-code-jdk/': require('../blogs/source-code-jdk/sidebar.js')
 }

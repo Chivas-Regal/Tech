@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4278641 */
-  src: url('iconfont.woff2?t=1703410073442') format('woff2'),
-       url('iconfont.woff?t=1703410073442') format('woff'),
-       url('iconfont.ttf?t=1703410073442') format('truetype');
+  src: url('iconfont.woff2?t=1730555306340') format('woff2'),
+       url('iconfont.woff?t=1730555306340') format('woff'),
+       url('iconfont.ttf?t=1730555306340') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,22 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-java:before {
+  content: "\e61b";
+}
+
+.icon-yuyan:before {
+  content: "\e765";
+}
+
+.icon-icon-test:before {
+  content: "\e665";
+}
+
+.icon-robot-2-line:before {
+  content: "\e7a2";
 }
 
 .icon-shujujieruKafkajiqun:before {
