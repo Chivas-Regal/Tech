@@ -47,6 +47,13 @@ module.exports = [{
         }],
         icon: 'iconfont icon-icon-test'
     },{
+        text: '方法论',
+        items: [{
+            text: '设计模式',
+            link: '/blogs/dev-spec/pattern/0-overview.html'
+        }],
+        icon: 'iconfont icon-Idea'
+    }, {
         text: '编程语言',
         items: [{
             text: 'C/C++',

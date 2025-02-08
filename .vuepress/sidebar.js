@@ -13,5 +13,6 @@ module.exports = {
     '/blogs/computer-tools/': require('../blogs/computer-tools/sidebar.js'),
     '/blogs/mq/': require('../blogs/mq/sidebar.js'),
     '/blogs/es/': require('../blogs/es/sidebar.js'),
-    '/blogs/source-code-jdk/': require('../blogs/source-code-jdk/sidebar.js')
+    '/blogs/source-code-jdk/': require('../blogs/source-code-jdk/sidebar.js'),
+    '/blogs/dev-spec/': require('../blogs/dev-spec/sidebar.js')
 }

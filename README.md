@@ -75,6 +75,13 @@ features:
     link: https://tech.chivas-regal.top/blogs/source-code-jdk/
     icon: iconfont icon-java
 
+- title: 方法论
+  children:
+  - title: 设计模式
+    details: 旨在解决在软件开发中常见的问题。它们提供了一种结构化的方式来组织代码，以提高代码的可维护性、可读性和可扩展性，并避免常见的设计缺陷。‌
+    link: https://tech.chivas-regal.top/blogs/dev-spec/pattern/0-overview.html
+    icon: iconfont icon-shejimoshi
+
 - title: 后端技能点
   children:
   - title: MySQL

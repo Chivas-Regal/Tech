@@ -2,7 +2,7 @@
 title: 文档基础操作
 ---
 
-关于库内文档的操作，我们沿用 [上节：索引库操作](./1-index-crud.html) 创建的 bloggers 来  
+关于库内文档的操作，我们用 [索引库操作](../index/1-index-crud.html) 创建的 bloggers 来  
 
 ## 新增
 

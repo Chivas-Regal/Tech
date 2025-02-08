@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4278641 */
-  src: url('iconfont.woff2?t=1730555306340') format('woff2'),
-       url('iconfont.woff?t=1730555306340') format('woff'),
-       url('iconfont.ttf?t=1730555306340') format('truetype');
+  src: url('iconfont.woff2?t=1739028290578') format('woff2'),
+       url('iconfont.woff?t=1739028290578') format('woff'),
+       url('iconfont.ttf?t=1739028290578') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-Idea:before {
+  content: "\ea6a";
+}
+
+.icon-shejimoshi:before {
+  content: "\e647";
 }
 
 .icon-java:before {

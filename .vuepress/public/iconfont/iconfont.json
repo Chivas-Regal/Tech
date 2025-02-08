@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "12003231",
+      "name": "Idea",
+      "font_class": "Idea",
+      "unicode": "ea6a",
+      "unicode_decimal": 60010
+    },
+    {
+      "icon_id": "14137100",
+      "name": "设计模式",
+      "font_class": "shejimoshi",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
       "icon_id": "5088145",
       "name": "java",
       "font_class": "java",
