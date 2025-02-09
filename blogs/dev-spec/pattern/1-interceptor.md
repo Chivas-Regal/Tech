@@ -15,9 +15,18 @@ title: 行为型 - 拦截器(Interceptor)
 ## 实现
 
 拦截器的设计一般有三种成员：
-- 拦截器接口类 Interceptor
-- 拦截器实现类 XXInterceptor
-- 拦截器调用类 InterceptorManager
+- 拦截器接口类 `Interceptor`
+    - 前置操作方法 `preHandle()`
+    - 后置操作方法 `postHandle()`
+- 拦截器实现类 `XXInterceptor`
+- 拦截器调用类 `InterceptorManager`
+    - 注册的拦截器链 `interceptorChain`
+    - 循环执行前置 `doPreHandle()`
+    - 循环执行后置 `doPostHandle()`
+
+它们的组织关系如下（一个比较抽象的关于校验拦截器的类图）
+
+![拦截器模式.drawio](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/拦截器模式.drawio.svg)
 
 下面做一个示例演示一下，如何做前置拦截与后置行为。  
 
