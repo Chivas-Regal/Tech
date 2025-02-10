@@ -188,11 +188,11 @@ public class PipelineDemo {
 而看 Java8 的流操作 StreamAPI 的源代码可以发现，它也是按照管道模式进行设计的。  
 这里不会细致讲关于它是怎么做的，就只带着看一小块。  
 
-**Stream.filter** *(ReferencePipeline.java内)*   
+**Stream#filter** *(ReferencePipeline.java内)*   
 ![20250210224825](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20250210224825.png)  
 其定义了一个匿名类，在 `accept()` 方法中通过 filter 的核心校验方法 `test()` 后，将数据发送给下一层 `Sink.accept()`  
 
-**Stream.map** *(ReferencePipeline.java内)*   
+**Stream#map** *(ReferencePipeline.java内)*   
 ![20250210225133](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/20250210225133.png)  
 一样的，在匿名类的 `accept()` 中，将接受完 `mapper.apply` 转换后的数据发送给下一层的 `Sink.accept()`  
 
