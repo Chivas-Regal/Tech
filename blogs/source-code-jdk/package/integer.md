@@ -63,9 +63,12 @@ return negative ? result : -result;
 ```
 
 省略的在下面，前面是对首字符的判断，对一些边界情况处理，主要目的是设定正确的 
+
 - `negative`：首位为负，则为 true
 - `limit`：首位为负，则边界扩展 1，到 "-2147483648"
 - `multmin`：`result` 乘 `radix` 之前不能超过 `limit`，否则会溢出 Integer 的边界
+
+<div/>
 
 ```java
 char firstChar = s.charAt(0);

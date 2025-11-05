@@ -2,7 +2,7 @@
 title: 数位DP
 ---
 ###  
-<hr>
+
 
 ## HDUOJ2089_不要62
 
@@ -129,7 +129,7 @@ CHIVAS_{
 }
 ```
 
-<hr>
+
 
 ## HDUOJ3555_Bomb
 
@@ -262,7 +262,7 @@ CHIVAS_{
 }
 ```
 
-<hr>
+
 
 ## HDUOJ4507_恨7不成妻
 
@@ -420,7 +420,7 @@ CHIVAS_{
 
 ```
 
-<hr>
+
 
 ## ICPC2020上海站C_SumOfLog
 
@@ -495,4 +495,4 @@ int main () {
 }
 ```
 
-<hr>
+

@@ -3,7 +3,6 @@ title: 分类讨论
 ---
 
 ###
-<hr>
 
 ## HDU2021多校9J_UnfairContest
 
@@ -154,4 +153,3 @@ inline void Solve () {
     else puts("IMPOSSIBLE");
 }
 ```
-<hr>

@@ -3,7 +3,7 @@ title: 平衡树
 ---
 
 ### 
-<hr>
+
 
 ## 洛谷P1486_郁闷的出纳员
 
@@ -137,7 +137,6 @@ int main () {
     cout << LEAVE << endl;
 }
 ```
-<hr>
 
 
 ## CodeForces1042D_PetyaAndArray
@@ -229,4 +228,3 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>

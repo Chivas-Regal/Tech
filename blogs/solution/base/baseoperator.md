@@ -3,7 +3,6 @@ title: 位运算
 ---
 
 ###
-<hr>
 
 ## 牛客2022寒假算法基础集训营4K_小红的真真假假签到题题
 
@@ -20,7 +19,6 @@ title: 位运算
 x = int(input())
 print(x << 30 | x)
 ```
-<hr>
 
 
 ## ABC238D_ANDandSUM
@@ -47,7 +45,6 @@ inline void Solve () {
         }
 }
 ```
-<hr>
 
 ## 牛客练习赛97B_野比大雄的作业
 
@@ -74,7 +71,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ## CodeForces1624G_MinOrTree
@@ -142,7 +138,6 @@ inline void Solve () {
 	printf("%d\n", res);
 }
 ```
-<hr>
 
 ## CodeForces1625D_BinarySpiders
 
@@ -237,7 +232,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ## CodeForces1635D_InfiniteSet
 
@@ -315,7 +309,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ## CodeForces1658D1_388535（Easy Version）
 
@@ -357,7 +350,6 @@ inline void Solve() {
         cout << res << endl;
 }
 ```
-<hr>
 
 ## CodeForces1659E_AND-MEXWalk
 
@@ -440,5 +432,4 @@ int main () {
         }
 }
 ```
-<hr>
 

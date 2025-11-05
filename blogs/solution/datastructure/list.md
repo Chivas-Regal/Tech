@@ -3,7 +3,6 @@ title: 链表
 ---
 
 ###
-<hr>
 
 ## 洛谷P2391_白雪皑皑
 
@@ -79,7 +78,6 @@ int main () {
     for (int i = 1; i <= n; i ++) cout << res[i] << endl;
 }
 ```
-<hr>
 
 ## CodeForces1154E_TwoTeams
 
@@ -151,7 +149,6 @@ int main () {
         for (int i = 1; i <= n; i ++) cout << res[i];
 }
 ```
-<hr>
 
 ## CodeForces1482D_Playlist
 
@@ -222,4 +219,3 @@ inline void Solve () {
         cout << endl;
 }
 ```
-<hr>

@@ -3,7 +3,7 @@ title: 区间DP
 ---
 ###
 
-<hr>
+
 
 ## 河南萌新联赛2022（6）J_对称括号串
 
@@ -48,7 +48,6 @@ int main () {
     cout << dp[1][n] << endl;
 }
 ```
-<hr>
 
 
 ## 洛谷P1005_矩阵取数游戏
@@ -117,7 +116,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 洛谷P1220_关路灯
 
@@ -212,7 +211,7 @@ int main () {
 
 
 
-<hr>
+
 
 ## CodeForces1132F_ClearTheString
 
@@ -257,7 +256,6 @@ int main () {
         cout << dp[1][n] << endl;
 }
 ```
-<hr>
 
 ## DaimayuanOnlineJudge_体育节
 
@@ -292,7 +290,6 @@ int main () {
     printf("%lld\n", dp[1][n]);
 }
 ```
-<hr>
 
 
 ## ICPC2014CERCL_OuterSpaceInvaders
@@ -457,7 +454,7 @@ inline void Solve () {
 }
 ```
 
-<hr>
+
 
 
 ## ICPC2020南京站C_Cities
@@ -515,7 +512,6 @@ inline void Solve () {
         cout << n - 1 - dp[1][n] << endl;
 }
 ```
-<hr>
 
 
 ## NamomoCamp2022春季div1每日一题_NoCrossing
@@ -583,4 +579,4 @@ int main () {
 }
 ```
 
-<hr>
+

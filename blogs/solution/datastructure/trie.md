@@ -2,7 +2,7 @@
 title: Trie树
 ---
 ###  
-<hr>
+
 
 ## 牛客NC50992_前缀统计
 
@@ -89,7 +89,7 @@ int main()
 }
 ```
 
-<hr>
+
 
 ## AcWing145_最大异或对
 
@@ -213,7 +213,7 @@ CHIVAS_{
 
 ```
 
-<hr>
+
 
 ## CodeForces817E_ChoosingTheCommander
 
@@ -293,7 +293,6 @@ int main () {
         }  
 }
 ```
-<hr>
 
 
 ## CodeForces1625D_BinarySpiders
@@ -389,7 +388,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ## CodeForces1658D2_388535（Hard Version）
 
@@ -468,7 +466,6 @@ inline void Solve() {
         }
 }
 ```
-<hr>
 
 ## HDU2021多校(1)F_XorSum
 
@@ -555,7 +552,6 @@ inline void Solve () {
     else cout << res.first << " " << res.second << endl;
 }
 ```
-<hr>
 
 ### HDU2021多校(2)D_ILoveCounting
 
@@ -642,4 +638,3 @@ int main () {
     for (int i = 1; i <= q; i ++) printf("%d\n", res[i]);
 }
 ```
-<hr>

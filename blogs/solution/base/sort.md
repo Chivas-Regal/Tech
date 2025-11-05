@@ -3,7 +3,7 @@ title: 排序
 ---
 
 ###  
-<hr>
+
 
 ## 洛谷P1493_分梨子
 
@@ -58,7 +58,6 @@ signed main () {
     cout << res << endl;
 }
 ```
-<hr>
 
 
 ## HDUOJ6318_SwapsAndInversions
@@ -203,4 +202,4 @@ CHIVAS_{
 
 ```
 
-<hr>
+

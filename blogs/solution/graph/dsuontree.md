@@ -2,8 +2,7 @@
 title: 树上启发式合并
 ---
 
-##
-<hr>
+###
 
 ## CodeForces600E_LomsatGelral
 
@@ -91,7 +90,6 @@ int main () {
         for ( int i = 1; i <= n; i ++ ) printf("%lld ", res[i]);
 }
 ```
-<hr>
 
 ## CodeForces246E_BloodCousinsReturn
 
@@ -203,7 +201,6 @@ int main () {
         for ( int i = 1; i <= q; i ++ ) cout << res[i] << "\n";
 }
 ```
-<hr>
 
 ## CodeForces1009F_DominantIndices
 
@@ -300,7 +297,6 @@ int main () {
                 else               cout << res[i] - dep[i] << "\n";
         }
 ```
-<hr>
 
 ## CodeForces375D_TreeAndQueries
 
@@ -421,7 +417,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ## CodeForces570D_TreeRequests
 
@@ -515,4 +510,3 @@ int main () {
         }
 }
 ```
-<hr>

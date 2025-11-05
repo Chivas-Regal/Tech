@@ -3,7 +3,7 @@ title: 贪心-构造
 ---
 
 ###  
-<hr>
+
 
 ## 洛谷P1053_篝火晚会
 
@@ -73,7 +73,7 @@ int main() {
 }
 ```
 
-<hr>
+
 
 ## 洛谷P1131_时态同步
 
@@ -209,7 +209,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 洛谷P1286_两数之和
 
@@ -267,7 +267,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 洛谷P1645_序列
 
@@ -311,7 +311,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ## 洛谷2127_序列排序
 
@@ -380,7 +379,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 
@@ -446,7 +444,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 牛客2021多校(2)K_Stack
 
@@ -584,7 +582,7 @@ CHIVAS_{
 
 ```
 
-<hr>
+
 
 ## 牛客2021多校(6)I_IntervalsontheRing
 
@@ -731,7 +729,7 @@ CHIVAS_{IOS;
 }
 ```
 
-<hr>
+
 
 ## 牛客2022多校（6）A_Array
 
@@ -782,7 +780,6 @@ int main () {
         for (int i = 1; i <= m; i ++) cout << res[i] << " ";
 }
 ```
-<hr>
 
 ## 牛客2022多校（9）E_LongestIncreasingSubsequence
 
@@ -836,7 +833,6 @@ inline void Solve () {
     cout << endl;
 }
 ```
-<hr>
 
 
 ## 牛客2022寒假算法基础集训营
@@ -883,7 +879,6 @@ int main(){
         for ( int i = 0; i < res.size(); i ++ ) cout << res[i] << ' ';
 }
 ```
-<hr>
 
 
 ## 牛客练习赛92A_D与数列
@@ -920,7 +915,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 牛客练习赛92B_D与集合
 
@@ -1009,7 +1004,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 牛客练习赛97C_哦～唔西迪西小姐～
 
@@ -1082,7 +1077,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ## 牛客小白月赛41F_小红的375
 
@@ -1137,7 +1131,6 @@ for ( string can : cans ) { // 拆 [can]
 }
 cout << "-1\n";
 ```
-<hr>
 
 
 ## 牛客小白月赛44F_幽暗统领
@@ -1179,7 +1172,7 @@ inline void Solve () {
 }
 ```
 
-<hr>
+
 
 ## 牛客小白月赛46E_对决
 
@@ -1229,7 +1222,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 
 ## 省赛2021江苏C_MagicalRearrangement
@@ -1325,7 +1317,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 省赛2021江苏D_PatternLock
 
@@ -1410,7 +1402,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 省赛2021上海B_小A的卡牌游戏
 
@@ -1471,7 +1463,6 @@ int main () {
     cout << dp[n][C] << endl;
 }
 ```
-<hr>
 
 ## 省赛2022江苏L_CollectingDiamonds
 
@@ -1530,7 +1521,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ## ABC242D_ABCTransform
@@ -1574,7 +1564,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 
 ## ABC198D_SendMoreMoney
@@ -1636,7 +1625,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## ABC239F_ConstructHighway
 
@@ -1718,7 +1707,6 @@ int main () {
         for ( auto i : res ) printf("%d %d\n", i.first, i.second);
 }
 ```
-<hr>
 
 ## ABC240F_SumSumMax
 
@@ -1789,7 +1777,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ## ABC249F_IgnoreOperations
 
@@ -1852,7 +1839,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ## ABC251D_AtMost3(ContestantVer.)
 
@@ -1884,7 +1870,6 @@ int main () {
         for (int i : res) cout << i << " ";
 }
 ```
-<hr>
 
 
 
@@ -2025,7 +2010,7 @@ CHIVAS_{
 
 ```
 
-<hr>
+
 
 ## AcWing3767_三元数异或
 
@@ -2157,7 +2142,7 @@ CHIVAS_{
 
 ```
 
-<hr>
+
 
 ## AcWing3770_最小的值
 
@@ -2288,7 +2273,7 @@ CHIVAS_{
 
 ```
 
-<hr>
+
 
 ## CCPC2021网络赛_JumpingMonkey
 
@@ -2389,7 +2374,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ## CodeForces353_TwoHeaps
 
@@ -2464,7 +2448,6 @@ int main () {
         for (int i = 0; i < n * 2; i ++) cout << id[i] << " ";
 }
 ```
-<hr>
 
 
 
@@ -2524,7 +2507,7 @@ int main () {
 
 ```
 
-<hr>
+
 
 ## CodeForces509C_SumsOfDigits
 
@@ -2612,7 +2595,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces534D_Handshakes
 
@@ -2674,7 +2657,7 @@ int main () {
 } 
 ```
 
-<hr>
+
 
 ## CodeForces538C_Tourist'sNots
 
@@ -2737,7 +2720,7 @@ int main () {
 } 
 ```
 
-<hr>
+
 
 ## CodeForces610C_HarmonyAnalysis
 
@@ -2827,7 +2810,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces978D_AlmostArithmeticProgression
 
@@ -2879,7 +2862,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1202D_Printa1337-string...
 
@@ -2921,7 +2904,6 @@ inline void Solve () {
         } cout << endl;
 }
 ```
-<hr>
 
 
 ## CodeForces1307B_CowAndFriend
@@ -3049,7 +3031,7 @@ CHIVAS_{
 
 
 
-<hr>
+
 
 ## CodeForces1352F_BinaryStringReconstruction
 
@@ -3178,7 +3160,7 @@ CHIVAS_{
 
 
 
-<hr>
+
 
 ## CodeForces1365F_SwapsAgain
 
@@ -3266,7 +3248,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### CodeForces1399E1_WeightsDivision（Easy Version）
 
@@ -3349,7 +3331,6 @@ inline void Solve () {
         printf("%lld\n", res);
 }
 ```
-<hr>
 
 
 ### CodeForces1399E2_WeightsDivision（Hard Version）
@@ -3432,7 +3413,6 @@ inline void Solve () {
         printf("%lld\n", res);
 }
 ```
-<hr>
 
 ## CodeForces1443B_SavingTheCity
 
@@ -3495,7 +3475,7 @@ int main () {
 
 ```
 
-<hr>
+
 
 ### CodeForces1443C_TheDeliveryDilemma
 
@@ -3550,7 +3530,7 @@ int main () {
 
 ```
 
-<hr>
+
 
 ## CodeForces1430E_StringReversal
 
@@ -3609,7 +3589,6 @@ int main() {
         return 0;
 }
 ```
-<hr>
 
 
 ## CodeForces1468D_Firecrackers
@@ -3656,7 +3635,6 @@ inline void Solve () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ## CodeForces1482C_BasicDiplomacy
@@ -3719,7 +3697,6 @@ inline void Solve () {
         cout << "\n";
 }
 ```
-<hr>
 
 
 ## CodeForces1511B_GCDLength
@@ -3770,7 +3747,7 @@ int main(){
 }
 ```
 
-<hr>
+
 
 ## CodeForces1511C_YetAnotherCardDeck
 
@@ -3824,7 +3801,7 @@ int main()
 }
 ```
 
-<hr>
+
 
 ## CodeForces1511D_MinCostString
 
@@ -3874,7 +3851,7 @@ int main () {
 
 ```
 
-<hr>
+
 
 ## CodeForces1512E_PermutationBySum
 
@@ -3969,7 +3946,7 @@ int main()
 }
 ```
 
-<hr>
+
 
 ## CodeForces1517C_Fillomino2
 
@@ -4022,7 +3999,7 @@ int main() {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1536A_OmkarAndBadStory
 
@@ -4058,7 +4035,7 @@ CHIVAS_{
 }
 ```
 
-<hr>
+
 
 ## CodeForces1545A_SpecialPermutation
 
@@ -4088,7 +4065,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1549B_GregorAndThePawnGame
 
@@ -4213,7 +4190,7 @@ CHIVAS_{
 }
 ```
 
-<hr>
+
 
 ## CodeForces1555A_PizzaForces
 
@@ -4336,7 +4313,7 @@ CHIVAS_{
 }
 ```
 
-<hr>
+
 
 ## CodeForces1555C_CoinRows
 
@@ -4470,7 +4447,7 @@ CHIVAS_{IOS;
 }
 ```
 
-<hr>
+
 
 ## CodeForces1555D_SayNoToPalindromes
 
@@ -4637,7 +4614,7 @@ CHIVAS_{IOS;
 }
 ```
 
-<hr>
+
 
 ## CodeForces1556D_TakeAGuess
 
@@ -4700,7 +4677,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1569B_ChessTournament
 
@@ -4794,7 +4771,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1593C_SaveMoreMice
 
@@ -4836,7 +4813,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1611D_WeightsAssignmentForTreeEdges
 
@@ -4948,7 +4925,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1618D_ArrayAndOperations
 
@@ -4984,7 +4961,6 @@ inline void Solve () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ## CodeForces1620D_ExactChange
 
@@ -5043,7 +5019,6 @@ inline void Solve () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ## CodeForces1621B_IntegersShop
@@ -5105,7 +5080,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1624D_PalindromesColoring
 
@@ -5148,7 +5123,7 @@ inline void Solve () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1626C_MonstersAndSpells
 
@@ -5208,7 +5183,7 @@ inline void Solve () {
 
 ```
 
-<hr>
+
 
 ## CodeForces1626D_MartialArtsTournament
 
@@ -5277,7 +5252,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1629E_GridXor
 
@@ -5342,7 +5317,6 @@ inline void Solve () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ## CodeForces1632B_RoofConstruction
 
@@ -5369,7 +5343,6 @@ inline void Solve () {
         for ( int i = mx + 1; i < n; i ++ ) cout << i << ' '; cout << endl;
 }
 ```
-<hr>
 
 ## CodeForces1634C_OKEA
 
@@ -5418,7 +5391,6 @@ inline void Solve () {
         } 
 }
 ```
-<hr>
 
 
 ## CodeForces1634D_FindZero
@@ -5473,7 +5445,6 @@ inline void Solve () {
         else answer(a, b);
 }
 ```
-<hr>
 
 ## CodeForces1637F_Towers
 
@@ -5561,7 +5532,6 @@ int main () {
         printf("%lld\n", res);
 }
 ```
-<hr>
 
 ## CodeForces1649B_GameOfPassing
 
@@ -5598,7 +5568,6 @@ inline void Solve () {
         }
 }
 ```
-<hr>
 
 
 ## CodeForces1647D_MadokaAndChildishPranks
@@ -5640,7 +5609,6 @@ inline void Solve () {
         }
 }
 ```
-<hr>
 
 ## CodeForces1656D_K-good
 
@@ -5686,7 +5654,7 @@ inline void Solve () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1659D_ReverseSortSum
 
@@ -5732,7 +5700,6 @@ inline void Solve () {
         for (int i = 1; i <= n; i ++) cout << a[i] << " "; cout << endl;
  }
 ```
-<hr>
 
 ## CodeForces1691C_SumOfSubstrings
 
@@ -5790,7 +5757,6 @@ inline void Solve () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ## CodeForces1702C_TrainAndQueries
 
@@ -5828,7 +5794,6 @@ inline void Solve () {
         }
 }
 ```
-<hr>
 
 ## CodeForces1702F_EquateMultisets
 
@@ -5882,7 +5847,6 @@ inline void Solve () {
         else cout << "NO\n";
 }
 ```
-<hr>
 
 ## CodeForces1713D_TournamentCountdown
 
@@ -5953,7 +5917,6 @@ inline void Solve () {
 }
 
 ```
-<hr>
 
 
 
@@ -6072,7 +6035,7 @@ CHIVAS_{
 
 
 
-<hr>
+
 
 ## HDU2021多校(1)5_MinimumSpanningTree
 
@@ -6212,7 +6175,7 @@ CHIVAS_{beginTime
 
 ```
 
-<hr>
+
 
 ## HDU2021多校(1)8_Maximalsubmatrix
 
@@ -6364,7 +6327,7 @@ CHIVAS_{
 };
 ```
 
-<hr>
+
 
 ## HDU2021多校(9)3_Dota2ProCircuit
 
@@ -6442,7 +6405,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## ICPC2019南昌E_BobsProblem
 
@@ -6517,7 +6480,6 @@ inline void Solve () {
 
 }
 ```
-<hr>
 
 
 ## ICPC2019台北E_TheLeagueOfSequenceDesigners
@@ -6553,7 +6515,7 @@ inline void Solve () {
 }
 ```
 
-<hr>
+
 
 ## ICPC上海站2020B_MineSweeperII
 
@@ -6602,7 +6564,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## ICPC2020上海M_Gitignore
 
@@ -6671,7 +6633,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## ICPC2021台北J_TransportationNetwork
 
@@ -6738,7 +6700,6 @@ int main() {
 	return 0;
 }
 ```
-<hr>
 
 
 ## NCD2019M_GCDSalary
@@ -6775,4 +6736,4 @@ int main () {
 }
 ```
 
-<hr>
+

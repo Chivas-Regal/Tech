@@ -2,7 +2,7 @@
 title: 计算几何
 ---
 ###  
-<hr>
+
 
 ## 牛客2021多校(1)B_BallDropping
 
@@ -118,7 +118,7 @@ CHIVAS_{
 };
 ```
 
-<hr>
+
 
 ## 牛客多校2021(2)F_Girlfriend
 
@@ -183,7 +183,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ## CodeForces613A_PeterAndSnowBlower
@@ -298,7 +297,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## ICPC上海站2020I_SkyGarden
 
@@ -360,4 +359,4 @@ public class Main{
 }
 ```
 
-<hr>
+

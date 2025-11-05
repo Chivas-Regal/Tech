@@ -3,7 +3,7 @@ title: 反向思维
 ---
 
 ###  
-<hr>
+
 
 ## CodeForces1477B_NezzarAndBinaryString
 
@@ -114,7 +114,6 @@ inline void Solve () {
         cout << "YES\n";
 }
 ```
-<hr>
 
 
 ## CodeForces1638D_BigBrush
@@ -201,7 +200,6 @@ int main () {
         Solve();
 }
 ```
-<hr>
 
 ## CodeForces1644D_CrossColoring
 
@@ -258,7 +256,6 @@ inline void Solve () {
         cout << ksm(k, num) << endl;
 }
 ```
-<hr>
 
 ## CodeForces1654C_AliceAndTheCake
 
@@ -310,7 +307,6 @@ inline void Solve () {
         else cout << "YES\n";
 }
 ```
-<hr>
 
 
 ## CCPC2021网络赛_JumpingMonkey
@@ -413,7 +409,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## DaimayuanOnlineJudge731_数字替换
 
@@ -464,4 +460,3 @@ int main () {
     for (int i = 1; i <= len; i ++) printf("%d ", b[i]);
 }
 ```
-<hr>

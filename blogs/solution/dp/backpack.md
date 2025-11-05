@@ -2,7 +2,7 @@
 title: 背包DP
 ---
 ###  
-<hr>
+
 
 ## 牛客2022寒假算法基础集训营4I_爆炸的符卡洋洋洒洒
 
@@ -38,7 +38,6 @@ int main () {
         cout << (res == 0 ? -1 : res) << endl;
 }
 ```
-<hr>
 
 ## CodeForces1458B_GlassHalfSpilled
 
@@ -85,7 +84,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 
 ## CodeForces1516C_BabyEhabPartitionsAgain
@@ -299,7 +297,7 @@ CHIVAS_{
 
 
 
-<hr>
+
 
 ## HDUOJ2639_BoneCollector2
 
@@ -445,7 +443,7 @@ CHIVAS_{
 
 
 
-<hr>
+
 
 ## HDUOJ2844_Coins
 
@@ -583,7 +581,7 @@ CHIVAS_{
 
 ```
 
-<hr>
+
 
 ## ICPC2016青岛站L_EightySeven
 
@@ -635,7 +633,6 @@ inline void Solve () {
         }
 }
 ```
-<hr>
 
 ## OpenJ2726_采药
 
@@ -750,7 +747,7 @@ CHIVAS_{
 
 
 
-<hr>
+
 
 ## UVA624_CD
 
@@ -877,7 +874,7 @@ CHIVAS_{
 
 ```
 
-<hr>
+
 
 ## UVA12589_LearningVector
 
@@ -1015,7 +1012,7 @@ CHIVAS_{
 
 ```
 
-<hr>
+
 
 ## CodeForces1633D_MakeThemEqual
 
@@ -1083,4 +1080,3 @@ int main () {
         }
 }
 ```
-<hr>

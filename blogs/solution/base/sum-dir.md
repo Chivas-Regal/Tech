@@ -2,7 +2,7 @@
 title: 前缀-差分
 ---
 ###  
-<hr>
+
 
 ## 洛谷P3708_koishi的数学题
 
@@ -59,7 +59,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ## 洛谷T214799_夏摩山谷II
@@ -138,7 +137,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 牛客2022多校（加赛）J_JellyfishAndItsDream
 
@@ -166,7 +165,6 @@ inline void Solve () {
     else cout << "No\n";
 }
 ```
-<hr>
 
 
 ## 牛客2022寒假算法基础集训营5I_兔崽小孩
@@ -210,7 +208,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 
 ## ABC233F_ParenthesisChecking
@@ -308,7 +305,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## AcWing3494_最大的和
 
@@ -349,7 +346,7 @@ int main(){
 }
 ```
 
-<hr>
+
 
 ## ABC250E_PrefixEquality
 
@@ -404,7 +401,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 
 ## ARC136C_CircularAddition
@@ -441,7 +437,6 @@ int main () {
 	cout << max(res, *max_element(a, a + n)) << endl;
 }
 ```
-<hr>
 
 ## ARC137B_Count1's
 
@@ -493,7 +488,6 @@ int main () {
         cout << mxres - mnres + 1 << endl;
 }
 ```
-<hr>
 
 
 
@@ -552,7 +546,7 @@ inline void Solve () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces608B_HammingDistanceSum
 
@@ -604,7 +598,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces611C_NewYearAndDomino
 
@@ -674,7 +668,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces612D_TheUnionOfK-Segments
 
@@ -747,7 +741,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1066E_BinaryNumbersANDSum
 
@@ -799,7 +793,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ## CodeForces1409E_TwoPlatforms
@@ -941,7 +934,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 
 ## CodeForces1638C_InversionGraph
@@ -987,7 +979,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ## CodeForces1644C_IncreaseSubarraySums
 
@@ -1027,7 +1018,6 @@ inline void Solve () {
         for ( ll i = 0; i <= n; i ++ ) cout << f[i] << " "; cout << endl;
 }
 ```
-<hr>
 
 ## CodeForces1649C_WeirdSum
 
@@ -1086,7 +1076,6 @@ inline void Solve () {
         for ( auto i : clr ) vec[i][0].clear(), vec[i][1].clear();
 }
 ```
-<hr>
 
 ## CodeForces1691D_MaxGEQSum
 
@@ -1166,7 +1155,6 @@ inline void Solve () {
         cout << "YES\n";
 }
 ```
-<hr>
 
 
 ## HDU2021多校(1)5_Minimumspanningtree
@@ -1308,7 +1296,7 @@ CHIVAS_{beginTime
 
 ```
 
-<hr>
+
 
 ## HDU2021多校(5)9_Array
 
@@ -1397,7 +1385,7 @@ int main () {
 
 ```
 
-<hr>
+
 
 ## HDU2021多校(7)12_YiwenwithSqc
 
@@ -1466,7 +1454,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## NamomoCamp2022春季div1每日一题_序列操作
 
@@ -1512,7 +1500,6 @@ int main () {
 	}
 }
 ```
-<hr>
 
 ## NamomoCamp2022春季div1每日一题_平方计数
 
@@ -1548,4 +1535,3 @@ int main () {
         printf("%d\n", res);
 }
 ```
-<hr>

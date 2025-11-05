@@ -2,8 +2,7 @@
 title: 分治
 ---
 
-##
-<hr>
+###
 
 ## 洛谷P5631_最小mex生成树
 
@@ -99,7 +98,6 @@ int main () {
     dfs(0, e.back().w + 1, 0, m - 1);
 }
 ```
-<hr>
 
 ## CodeForces1681F_UniqueOccurrences
 
@@ -200,7 +198,6 @@ int main () {
     cout << res << endl;
 }
 ```
-<hr>
 
 
 
@@ -262,4 +259,3 @@ inline void Solve () {
 }
 
 ```
-<hr>

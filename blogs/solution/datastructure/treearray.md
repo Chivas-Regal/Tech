@@ -2,7 +2,7 @@
 title: 树状数组
 ---
 ###  
-<hr>
+
 
 ## 省赛2021广东K_Kera’sLineSegment 
 
@@ -67,7 +67,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ## ABC221E_LEQ
@@ -145,7 +144,7 @@ int main() {
 }
 ```
 
-<hr>
+
 
 ## AcWing109_超快速排序
 
@@ -246,7 +245,7 @@ int main()
 }
 ```
 
-<hr>
+
 
 ## POJ2352_Stars
 
@@ -334,4 +333,4 @@ Chivas{
 }
 ```
 
-<hr>
+

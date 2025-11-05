@@ -2,7 +2,7 @@
 title: 队列
 ---
 ###  
-<hr>
+
 
 ## HDU2021多校(9)7_BoringDataStructureProblem
 
@@ -99,4 +99,4 @@ int main () {
 }
 ```
 
-<hr>
+

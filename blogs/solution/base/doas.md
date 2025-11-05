@@ -3,7 +3,7 @@ title: 模拟
 ---
 
 ###  
-<hr>
+
 
 ## 洛谷P1067_多项式输出
 
@@ -53,7 +53,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1512C_A-BPanlindrom
 
@@ -144,7 +144,7 @@ int main()
 }
 ```
 
-<hr>
+
 
 ## CodeForces1549C_WebofLies
 
@@ -280,7 +280,7 @@ CHIVAS_{
 }
 ```
 
-<hr>
+
 
 ## CodeForces1555B_TwoTables
 
@@ -429,7 +429,7 @@ CHIVAS_{
 }
 ```
 
-<hr>
+
 
 ## CodeForces1593B_MakeItDivisibleBy25
 
@@ -473,7 +473,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1911C_PolycarpRecoversThePermutation
 
@@ -558,7 +558,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## HDU2021多校(5)6_CuteTree
 
@@ -609,4 +609,4 @@ int main () {
 }
 ```
 
-<hr>
+

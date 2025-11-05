@@ -2,7 +2,7 @@
 title: 主席树
 ---
 ###  
-<hr>
+
 
 ## 洛谷P1972_HH的项链
 
@@ -91,7 +91,7 @@ int main () {
 
 ```
 
-<hr>
+
 
 ## 洛谷P4137_RmqProblemMex
 
@@ -168,7 +168,7 @@ int main () {
 
 ```
 
-<hr>
+
 
 ## 牛客NC21758_LittleWAndDiscretization
 
@@ -262,7 +262,7 @@ int main () {
 
 ```
 
-<hr>
+
 
 ## CCPC2022浙江省赛F_EasyFix
 
@@ -381,7 +381,6 @@ signed main () {
     }
 }
 ```
-<hr>
 
 
 ## CodeForces1227D2_OptimalSubsequences（Hard Version）
@@ -536,4 +535,3 @@ int main () {
         }
 }
 ```
-<hr>

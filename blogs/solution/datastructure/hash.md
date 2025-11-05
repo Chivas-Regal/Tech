@@ -2,7 +2,7 @@
 title: 哈希表
 ---
 ###  
-<hr>
+
 
 ## hash
 
@@ -79,7 +79,6 @@ int main () {
     cout << res << endl;
 }
 ```
-<hr>
 
 
 ### 牛客2022多校（9）G_MagicSpells
@@ -178,7 +177,6 @@ int main () {
     cout << res << endl;
 }
 ```
-<hr>
 
 
 ### 牛客NC50986_兔子与兔子
@@ -269,7 +267,7 @@ Chivas{
 }
 ```
 
-<hr>
+
 
 ## CCPC2020威海站G_CaesarCipher
 
@@ -397,7 +395,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 ### CCPC湖北省赛J_PalindromeReversion
 
@@ -532,7 +529,6 @@ int main () {
         cout << "-1 -1\n";
 }
 ```
-<hr>
 
 
 ### HDUOJ1425_sort
@@ -625,7 +621,7 @@ Chivas{
 }
 ```
 
-<hr>
+
 
 ### HDUOJ1496_Equetions
 
@@ -789,7 +785,7 @@ Chivas{
 }
 ```
 
-<hr>
+
 
 ### HDUOJ4821_String
 
@@ -1018,7 +1014,7 @@ cerr    << "\033[1m\033[31m\n"
 }
 ```
 
-<hr>
+
 
 ### NCD2019E_AdnanAndTheBurnedDrivers
 
@@ -1128,7 +1124,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 康托展开
 
@@ -1222,4 +1218,4 @@ Chivas{
 }
 ```
 
-<hr>
+

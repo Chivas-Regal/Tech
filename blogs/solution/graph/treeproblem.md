@@ -2,7 +2,7 @@
 title: 树上问题
 ---
 ###  
-<hr>
+
 
 ## 树的重心
 
@@ -83,7 +83,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 树链剖分
 
@@ -231,7 +231,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 
 ### CodeForces1702G2_PassablePath（Hard Version）
@@ -387,7 +387,6 @@ inline void Solve () {
         }
 }
 ```
-<hr>
 
 ## HDU2021多校(2)B_ILoveTree
 
@@ -568,7 +567,6 @@ signed main () {
     }
 }
 ```
-<hr>
 
 
 
@@ -721,7 +719,7 @@ int main () {
 
 ```
 
-<hr>
+
 
 ### 洛谷P3320_寻宝游戏
 
@@ -818,7 +816,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 子树问题
 
@@ -890,7 +888,6 @@ signed main () {
         for (int i = 1; i <= n; i ++) printf("%d ", val[i]);
 }
 ```
-<hr>
 
 
 ### ABC239E_SubtreeK-thMax
@@ -962,7 +959,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ### CCPC2022河南省赛J_MexTree
 
@@ -1092,7 +1088,6 @@ int main () {
     cout << sz[1] << endl;
 }
 ```
-<hr>
 
 ### CCPC2022河南省赛K_复合函数
 
@@ -1222,7 +1217,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ### CodeForces1307E_1TreesAndQueries
@@ -1295,7 +1289,6 @@ inline void Solve () {
         }
 }
 ```
-<hr>
 
 
 ### CodeForces1328E_TreeQueries
@@ -1399,7 +1392,6 @@ inline void Solve () {
         }
 }
 ```
-<hr>
 
 
 ### CodeForces1388C_UncleBogdanAndCountryHappiness
@@ -1474,7 +1466,6 @@ inline void Solve () {
         else puts("NO");
 }
 ```
-<hr>
 
 ### CodeForces1399E1_WeightsDivision（Easy Version）
 
@@ -1557,7 +1548,6 @@ inline void Solve () {
         printf("%lld\n", res);
 }
 ```
-<hr>
 
 
 ### CodeForces1399E2_WeightsDivision（Hard Version）
@@ -1640,7 +1630,6 @@ inline void Solve () {
         printf("%lld\n", res);
 }
 ```
-<hr>
 
 
 ### CodeForces1626E_BlackAndWhiteTree
@@ -1729,4 +1718,4 @@ int main () {
 }
 ```
 
-<hr>
+

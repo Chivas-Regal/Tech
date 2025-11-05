@@ -3,7 +3,7 @@ title: 子集和DP
 ---
 
 ### 
-<hr>
+
 
 ## 牛客NC225630_智乃酱的子集与超集
 
@@ -56,7 +56,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 
 ## ARC136D_WithoutCarry
@@ -114,7 +113,6 @@ int main () {
         cout << res / 2 << endl;
 }
 ```
-<hr>
 
 ## ARC137D_PrefixXORs
 
@@ -159,5 +157,4 @@ int main () {
         print_Array(dp, ' ', 0, k - 1);
 }
 ```
-<hr>
 

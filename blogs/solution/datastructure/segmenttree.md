@@ -2,7 +2,7 @@
 title: 线段树
 ---
 ###  
-<hr>
+
 
 ## 洛谷P1438_无聊的数列
 
@@ -92,7 +92,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 ## 洛谷P1471_方差
 
@@ -201,7 +200,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 
 ## 洛谷P2216_理想正方形
@@ -307,7 +306,6 @@ int main () {
         printf("%d\n", RES);
 }
 ```
-<hr>
 
 ## 洛谷P2824_排序
 
@@ -420,7 +418,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ## 洛谷P6327_区间加区间sin和
@@ -542,7 +539,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 洛谷P7244_章节划分
 
@@ -645,7 +642,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ## 洛谷T225362_《山茶文具店》
@@ -742,7 +738,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 
 ## 牛客2022寒假算法基础集训营4B_进制
@@ -852,7 +847,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ### 牛客2022寒假算法基础集训营4G_子序列权值乘积
 
@@ -962,7 +956,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 
 ## 牛客2022寒假算法基础集训营5E_复苏小孩
@@ -1094,7 +1088,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 
 ## 牛客练习赛68A_牛牛的mex
@@ -1178,7 +1171,7 @@ int main()
 }
 ```
 
-<hr>
+
 
 ## 牛客NC19246_数据结构
 
@@ -1297,7 +1290,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ## 牛客NC226170_仓鼠的鸡蛋
 
@@ -1376,7 +1368,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ## 牛客NC226172_智乃酱的平方数列
 
@@ -1478,7 +1469,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ## 牛客NC230082_SashaAndArray
@@ -1602,7 +1592,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## ABC233F_ParenthesisChecking
 
@@ -1699,7 +1689,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## ABC253F_OperationsOnAMatrix
 
@@ -1796,7 +1786,6 @@ signed main () {
         }
 }
 ```
-<hr>
 
 ## CCPC2020威海站G_CaesarCipher
 
@@ -1924,7 +1913,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ## CodeForces1234D_DistinctCharactersQueries
@@ -1998,7 +1986,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ## CodeForces1354D_Multiset
 
@@ -2065,7 +2052,6 @@ int main () {
         else cout << res;
 }
 ```
-<hr>
 
 
 ## CodeForces1601B_FrogTraveler
@@ -2196,7 +2182,6 @@ int main () {
         for (auto i : res) cout << i << " ";
 }
 ```
-<hr>
 
 ## CodeForces1690G_CountTheTrains
 
@@ -2356,7 +2341,6 @@ inline void Solve () {
         } cout << endl;
 }
 ```
-<hr>
 
 
 
@@ -2475,7 +2459,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ## CodeForces1477B_NezzarAndBinaryString
 
@@ -2586,7 +2569,6 @@ inline void Solve () {
         cout << "YES\n";
 }
 ```
-<hr>
 
 ## CodeForces1668D_OptimalPartition
 
@@ -2672,7 +2654,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ## HDU2021多校(2)B_ILoveTree
 
@@ -2853,7 +2834,6 @@ signed main () {
     }
 }
 ```
-<hr>
 
 ## HDU2021多校8D_CountingStars 
 
@@ -3005,7 +2985,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 
@@ -3138,7 +3117,7 @@ ll Query(int a, int b, int l, int r, int rt)
 }
 ```
 
-<hr>
+
 
 ## NamomoCamp2022春季div1每日一题_子串最大差
 
@@ -3543,4 +3522,4 @@ cerr    << "\033[1m\033[31m\n"
 };
 ```
 
-<hr>
+

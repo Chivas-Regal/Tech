@@ -2,7 +2,7 @@
 title: 线性DP
 ---
 ###  
-<hr>
+
 
 ## 洛谷P1108_低价购买
 
@@ -59,7 +59,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 洛谷P1156_垃圾陷阱
 
@@ -142,7 +142,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 洛谷P1174_打砖块
 
@@ -315,7 +315,6 @@ int main () {
         cout << max(dp[0][n][m], dp[1][n][m]) << endl;
 }
 ```
-<hr>
 
 
 ## 洛谷P2331_最大子矩阵
@@ -387,7 +386,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 
 ## 洛谷P2498_SkiLessonsG
@@ -464,7 +462,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 
@@ -518,7 +515,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 洛谷P4059_找爸爸
 
@@ -575,7 +572,6 @@ int main () {
         cout << max({dp[n][m][0], dp[n][m][1], dp[n][m][2]}) << endl;
 }
 ```
-<hr>
 
 ## 洛谷P3694_邦邦的大合唱站队
 
@@ -628,7 +624,6 @@ int main () {
     cout << dp[(1 << m) - 1];
 }
 ```
-<hr>
 
 
 ## 牛客2021多校（5）D_DoubleStrings
@@ -689,7 +684,6 @@ int main () {
     cout << res << endl;
 }
 ```
-<hr>
 
 
 ## 牛客2022多校（7）J_MelborpElcissalc
@@ -756,7 +750,6 @@ int main () {
         printf("%lld\n", dp[k][n + 1][t]);
 }
 ```
-<hr>
 
 ## 省赛2021上海B_小A的卡牌游戏
 
@@ -807,7 +800,6 @@ int main () {
     cout << dp[n][C] << endl;
 }
 ```
-<hr>
 
 ## ABC189D_LogicalExpression
 
@@ -930,7 +922,7 @@ CHIVAS_{
 ```
 
 
-<hr>
+
 
 ## ABC237F_|LIS|=3
 
@@ -977,7 +969,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ## ABC243G_Sqrt
 
@@ -1023,7 +1014,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ## ABC251E_TakahashiAndAnimals
 
@@ -1073,7 +1063,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ## ABC252G_Pre-Order
 
@@ -1133,7 +1122,6 @@ int main () {
         cout << dp[1][n] << endl;
 }
 ```
-<hr>
 
 
 
@@ -1173,7 +1161,7 @@ int main(){
 }
 ```
 
-<hr>
+
 
 ## AcWing3499_序列最大收益
 
@@ -1220,7 +1208,7 @@ int main(){
 }
 ```
 
-<hr>
+
 
 ## CodeForces376D_MaximumSubmatrix2
 
@@ -1348,7 +1336,6 @@ CHIVAS_{
 
 
 ```
-<hr>
 
 ## CodeForces999F_CardsAndJoy
 
@@ -1405,7 +1392,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ## CodeForces1427C_TheHardWorkOfPaparazzi
@@ -1451,7 +1437,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ## CodeForces1475G_StrangeBeauty
@@ -1494,7 +1479,6 @@ inline void Solve () {
         cout << n - res << endl;
 }
 ```
-<hr>
 
 ## CodeForces1512F_Education
 
@@ -1556,7 +1540,6 @@ inline void Solve () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ## CodeForces1583C_OmkarAndDetermination
@@ -1602,7 +1585,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ## CodeForces1601B_FrogTraveler
 
@@ -1732,7 +1714,6 @@ int main () {
         for (auto i : res) cout << i << " ";
 }
 ```
-<hr>
 
 
 
@@ -1786,7 +1767,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1650G_CountingShortcuts
 
@@ -1887,7 +1868,6 @@ inline void Solve () {
         printf("%lld\n", (dp[t][0] + dp[t][1]) % mod);
 }
 ```
-<hr>
 
 ## CodeForces1699D_AlmostTripleDeletions
 
@@ -1939,7 +1919,6 @@ inline void Solve () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ## DaimayuanOnlineJudge665_数组划分
 
@@ -1989,7 +1968,6 @@ int main () {
     printf("%lld\n", res);
 }
 ```
-<hr>
 
 ## DaimayuanOnlineJudge699_并行排序
 
@@ -2028,7 +2006,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ## HDUOJ1176_免费馅饼
@@ -2158,7 +2135,7 @@ CHIVAS_{
 
 
 
-<hr>
+
 
 ## HDUOJ2041_超级楼梯
 
@@ -2234,7 +2211,7 @@ Chivas{
 }
 ```
 
-<hr>
+
 
 ## HDUOJ2084_数塔
 
@@ -2358,7 +2335,7 @@ CHIVAS_{
 
 ```
 
-<hr>
+
 
 ## HDU2021多校(3)I_RiseInPrice
 
@@ -2420,7 +2397,6 @@ inline void Solve () {
     printf("%lld\n", dp[n][n][0].v1 * dp[n][n][0].v2);
 }
 ```
-<hr>
 
 
 
@@ -2462,7 +2438,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## ICPC2021南京站J_Xingqiu'sJoke
 
@@ -2542,7 +2518,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 
 
@@ -2614,7 +2589,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## UVA10590_BoxesOfChocolatesAgain
 
@@ -2659,5 +2634,5 @@ public class Main {
 
 
 
-<hr>
+
 

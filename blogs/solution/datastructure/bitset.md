@@ -2,7 +2,7 @@
 title: bitset
 ---
 ###  
-<hr>
+
 
 ## 洛谷P3674_小清新人渣的本愿
 
@@ -102,7 +102,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## HDU2021多校(10)3_PtyLovesLines
 
@@ -184,4 +184,4 @@ int main () {
 }
 ```
 
-<hr>
+

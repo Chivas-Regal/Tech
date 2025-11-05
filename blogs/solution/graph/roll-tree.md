@@ -3,7 +3,6 @@ title: 基环树
 ---
 
 ###
-<hr>
 
 ## HDU2021多校7G_LinkWithLimit 
 
@@ -73,4 +72,3 @@ int main () {
     }
 }
 ```
-<hr>

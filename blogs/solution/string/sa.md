@@ -3,7 +3,6 @@ title: 后缀数组
 ---
 
 ###
-<hr>
 
 ## ABC272F_TwoStrings
 
@@ -97,7 +96,6 @@ int main () {
     cout << res << endl;
 }
 ```
-<hr>
 
 
 ## 洛谷P4248_差异
@@ -172,7 +170,6 @@ int main () {
     printf("%lld\n", res);
 }
 ```
-<hr>
 
 
 ## 洛谷P5546_公共串
@@ -261,7 +258,6 @@ int main () {
     cout << res << endl;
 }
 ```
-<hr>
 
 ## EC-Final2021B_BeautifulString
 
@@ -347,4 +343,3 @@ inline void Solve () {
     printf("%lld\n", res);
 }
 ```
-<hr>

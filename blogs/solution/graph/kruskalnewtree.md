@@ -3,7 +3,6 @@ title: kruskal重构树
 ---
 
 ###
-<hr>
 
 ## ICPC2021上海H_LifeIsAGame
 
@@ -101,4 +100,3 @@ signed main () {
     }
 }
 ```
-<hr>

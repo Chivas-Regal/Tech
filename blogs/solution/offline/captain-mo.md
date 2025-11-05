@@ -2,7 +2,7 @@
 title: 莫队
 ---
 ###  
-<hr>
+
 
 ## 普通莫队
 
@@ -91,7 +91,7 @@ int main () {
 
 ```
 
-<hr>
+
 
 
 ### 洛谷P3674_小清新人渣的本愿
@@ -192,7 +192,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## ABC238G_Cubic?
 
@@ -307,7 +307,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ### ICPC2022昆明E_EasyStringProblem
 
@@ -369,7 +368,6 @@ int main () {
     for (int i = 1; i <= q; i ++) cout << res[i] << endl;
 }
 ```
-<hr>
 
 ### HDU2021多校(2)D_ILoveCounting
 
@@ -453,7 +451,6 @@ int main () {
     for (int i = 1; i <= q; i ++) printf("%d\n", res[i]);
 }
 ```
-<hr>
 
 
 ### HDU2021多校(1)J_zoto
@@ -535,7 +532,6 @@ inline void Solve () {
     for (int i = 0; i < q; i ++) printf("%d\n", res[i]);
 }
 ```
-<hr>
 
 
 ## 带修莫队
@@ -620,4 +616,4 @@ int main () {
 }
 ```
 
-<hr>
+

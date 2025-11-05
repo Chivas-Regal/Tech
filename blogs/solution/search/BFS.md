@@ -2,7 +2,7 @@
 title: BFS
 ---
 ###  
-<hr>
+
 
 ## 洛谷P1132_数字生成游戏
 
@@ -82,7 +82,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 洛谷P1225_黑白棋
 
@@ -223,7 +223,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## ABC224_D8PuzzleOnGraph
 
@@ -288,7 +288,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## ABC241F_Skate
 
@@ -405,7 +405,6 @@ int main () {
         BFS();
 }
 ```
-<hr>
 
 
 ## CodeForces1063B_Labyrinth
@@ -480,7 +479,7 @@ int main () {
 
 ```
 
-<hr>
+
 
 ## CodeForces1536B_PrinzessinDerVerurteilung
 
@@ -535,7 +534,7 @@ CHIVAS_{
 }
 ```
 
-<hr>
+
 
 ## CodeForces1638D_BigBrush
 
@@ -621,7 +620,6 @@ int main () {
         Solve();
 }
 ```
-<hr>
 
 ## CodeForces1651D_NearestExcludedPoints
 
@@ -694,7 +692,6 @@ int main () {
         for ( int i = 1; i <= n; i ++ ) printf("%d %d\n", res[a[i]].x, res[a[i]].y);
 }
 ```
-<hr>
 
 ## ICPC2017沈阳站G_InfiniteFractionPath
 
@@ -738,7 +735,6 @@ inline void Solve () {
         for (int i = 1; i <= n; i ++) cout << mxc[i]; cout << endl;
 }
 ```
-<hr>
 
 
 

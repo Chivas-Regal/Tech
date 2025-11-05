@@ -2,7 +2,7 @@
 title: 差分约束
 ---
 ###  
-<hr>
+
 
 ## 洛谷P1645_序列
 
@@ -76,7 +76,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CCPC2022上海省赛B_BracketQuery
 
@@ -194,7 +194,6 @@ int main () {
     } else NOOOOOO
 }
 ```
-<hr>
 
 
 ## HDUOJ3592_WorldExhibition
@@ -344,7 +343,7 @@ CHIVAS_{
 }
 ```
 
-<hr>
+
 
 ## 洛谷2294_狡猾的商人
 
@@ -408,7 +407,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 牛客2022国庆集训派对day3H_Subsequence2
 
@@ -560,4 +559,3 @@ int main () {
 
 }
 ```
-<hr>

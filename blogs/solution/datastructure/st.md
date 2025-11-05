@@ -2,7 +2,7 @@
 title: ST表
 ---
 ###  
-<hr>
+
 
 ## 牛客2021多校(5)K_KingOfRange
 
@@ -156,7 +156,7 @@ CHIVAS_{
 }
 ```
 
-<hr>
+
 
 ## 洛谷P5629_区间与除法
 
@@ -239,7 +239,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ## ABC254F_RecangleGCD
@@ -305,7 +304,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ## CodeForces1450D_RatingCompression
 
@@ -371,7 +369,6 @@ inline void Solve () {
         cout << endl;
 }
 ```
-<hr>
 
 
 ## CodeForces1549D_IntegersHaveFriends
@@ -525,7 +522,7 @@ CHIVAS_{
 ```
 
 
-<hr>
+
 
 ## CodeForces1611F_ATMAndStudents
 
@@ -652,4 +649,4 @@ int main () {
 }
 ```
 
-<hr>
+

@@ -3,7 +3,7 @@ title: 特殊图
 ---
 
 ###  
-<hr>
+
 
 ## 牛客2022寒假算法基础集训营2E_小沙的长路
 
@@ -41,7 +41,6 @@ int main () {
         }
 } 
 ```
-<hr>
 
 ## 牛客练习赛99E_NP-Easy问题
 
@@ -92,5 +91,4 @@ inline void Solve () {
         for (int i : hasedge) deg[i] = 0;
 }
 ```
-<hr>
 

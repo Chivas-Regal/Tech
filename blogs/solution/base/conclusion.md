@@ -3,7 +3,7 @@ title: 结论
 ---
 
 ###  
-<hr>
+
 
 ## 牛客2021多校(1)F_Find3-friendlyIntegers
 
@@ -130,7 +130,7 @@ CHIVAS_{
 
 ```
 
-<hr>
+
 
 ## CodeForces1629D_PeculiarMoviePreferences
 
@@ -201,7 +201,7 @@ inline void Solve () {
 }
 ```
 
-<hr>
+
 
 ## 牛客2022寒假算法基础集训营2A_小沙的炉石
 
@@ -234,7 +234,6 @@ int main () {
         }        
 }
 ```
-<hr>
 
 ## ABC251F_TwoSpanningTrees
 
@@ -310,7 +309,6 @@ int main () {
         for (auto [x, y] : res2) cout << x << " " << y << "\n";
 }
 ```
-<hr>
 
 ## CodeForces507C_GuessYourWayOut
 
@@ -383,7 +381,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1634B_FortuneTelling
 
@@ -418,7 +416,6 @@ inline void Solve () {
         else cout << "Bob" << endl;
 }
 ```
-<hr>
 
 ## CodeForces1638B_OddSwapSort
 
@@ -452,7 +449,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 
 
@@ -481,7 +477,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## HDU2021多校(5)7_BanZhuan
 
@@ -551,4 +547,4 @@ public class Main {
 }
 ```
 
-<hr>
+

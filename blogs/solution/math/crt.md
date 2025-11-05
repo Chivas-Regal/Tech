@@ -2,7 +2,7 @@
 title: 中国剩余定理
 ---
 ###  
-<hr>
+
 
 ## HDUOJ1370_Biorhythms
 
@@ -156,7 +156,7 @@ CHIVAS_{
 };
 ```
 
-<hr>
+
 
 ## HDUOJ3579_HelloKiki
 
@@ -302,7 +302,7 @@ CHIVAS_{
 };
 ```
 
-<hr>
+
 
 ## README
 
@@ -444,4 +444,4 @@ CHIVAS_{
 };
 ```
 
-<hr>
+

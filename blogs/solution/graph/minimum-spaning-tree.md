@@ -2,7 +2,7 @@
 title: 最小生成树
 ---
 ###  
-<hr>
+
 
 ## 牛客2021多校(3)B_BlackAndWhite
 
@@ -60,7 +60,6 @@ int main () {
     printf("%lld\n", res);
 }
 ```
-<hr>
 
 
 ## ABC235E_MST+1
@@ -138,7 +137,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## POJ1258_AgriNet
 
@@ -243,7 +242,7 @@ Chivas{
 }
 ```
 
-<hr>
+
 
 ## POJ2349_ArcticNetwork
 
@@ -391,4 +390,4 @@ CHIVAS_{
 
 ```
 
-<hr>
+

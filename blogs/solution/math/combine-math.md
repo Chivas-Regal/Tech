@@ -2,7 +2,7 @@
 title: 组合数学
 ---
 ###  
-<hr>
+
 
 ## 排列组合
 
@@ -400,7 +400,7 @@ public class Main {
 }
 ```
 
-<hr>
+
 
 ### 洛谷P2290_树的计数
 
@@ -471,7 +471,7 @@ public class Main {
 }
 ```
 
-<hr>
+
 
 ### 洛谷P2606_排列计数
 
@@ -523,7 +523,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### 洛谷P3048_CowIDsS
 
@@ -581,7 +581,6 @@ int main () {
         } 
 }
 ```
-<hr>
 
 
 ### 洛谷P3904_三只小猪
@@ -620,7 +619,6 @@ public class Main{
         }
 }
 ```
-<hr>
 
 ### 洛谷P3937_Changing
 
@@ -662,7 +660,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ### 洛谷P4562_游戏
 
@@ -738,7 +735,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ### 洛谷P4912_情侣？给我烧了！
 
@@ -802,7 +798,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 
 ### 洛谷P4936_Agent1
@@ -826,7 +821,7 @@ AB两队，每队必出一个人
 cout << (n * ksm(2, n - 1) % mod - (ksm(2, n) + mod - 1) % mod + mod) % mod << endl;
 ```
 
-<hr>
+
 
 ### 洛谷P4981_父子
 
@@ -864,7 +859,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### 洛谷P5377_鸽鸽的分割
 
@@ -893,7 +888,6 @@ int main() {
     }
 }
 ```
-<hr>
 
 ### 洛谷P6162_四角链
 
@@ -948,7 +942,6 @@ int main () {
         cout << S(n + 1, n + 1 - k);
 }
 ```
-<hr>
 
 ## 牛客2022国庆集训派对day3G_Subsequence1
 
@@ -1041,7 +1034,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 ### 牛客2022寒假算法基础集训营4G_子序列权值乘积
 
@@ -1107,7 +1099,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ### 牛客练习赛80B_卷积
 
@@ -1156,7 +1147,7 @@ int main()
 }
 ```
 
-<hr>
+
 
 ### 牛客练习赛98D_SonString
 
@@ -1243,7 +1234,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ### 牛客练习赛99D_礼物
 
@@ -1324,7 +1314,6 @@ int main () {
         cout << resid << " " << resv * 2 + 1ll * n * (n + 1) / 2 << endl;
 }
 ```
-<hr>
 
 
 ### 牛客挑战赛58B_清新题
@@ -1387,7 +1376,6 @@ int main () { pre_F();
         cout << res << endl;
 }
 ```
-<hr>
 
 ### 牛客小白月赛50D_生日
 
@@ -1447,7 +1435,6 @@ int main () {
 
 }
 ```
-<hr>
 
 
 ### ABC202D_aabababaa
@@ -1523,7 +1510,7 @@ CHIVAS{
 }
 ```
 
-<hr>
+
 
 ### AcWing2418_光之大陆
 
@@ -1582,7 +1569,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### ARC117C_TricolorPyramid
 
@@ -1663,7 +1650,6 @@ int main () {
     cout << (res == 0 ? 'B' : (res == 1 ? 'W' : 'R')) << endl;
 }
 ```
-<hr>
 
 
 ### ARC134C_TheMajority
@@ -1743,7 +1729,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ### ARC136B_TripleShift
 
@@ -1801,7 +1786,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ### ICPC2019南京B_ChessBoard
 
@@ -1826,7 +1810,6 @@ inline void Solve () {
     }
 }
 ```
-<hr>
 
 
 ### CodeForces340C_TouristProblem
@@ -1873,7 +1856,6 @@ int main () {
         cout << up << " " << down << endl;
 }
 ```
-<hr>
 
 ### CodeForces1609E_IntercityTravelling
 
@@ -1935,7 +1917,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ### CodeForces1371E1_Asterism（Easy Version）
@@ -1980,7 +1961,6 @@ int main () {
         for (int i : res) cout << i << " ";
 }
 ```
-<hr>
 
 ### CodeForces1371E1_Asterism（Hard Version）
 
@@ -2029,7 +2009,6 @@ int main () {
         for (int i : res) cout << i << " ";
 }
 ```
-<hr>
 
 
 ### CodeForces1422C_Bargain
@@ -2091,7 +2070,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ### CodeForces1536B_AdvertisingAgency
@@ -2173,7 +2151,7 @@ int main()
 }
 ```
 
-<hr>
+
 
 ### CodeForces1557C_MoamenAndXOR
 
@@ -2313,7 +2291,7 @@ int main () {
 
 :::
 
-<hr>
+
 
 ### CodeForces1594B_SpecialNumbers
 
@@ -2372,7 +2350,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### CodeForces1594E1_Rubik'sCubeColoring(easyversion)
 
@@ -2409,7 +2387,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### CodeForces1644D_CrossColoring
 
@@ -2466,7 +2444,6 @@ inline void Solve () {
         cout << canr * cand + s.size() + 1 + dwn_num + rgt_num << endl;
 }
 ```
-<hr>
 
 ### CodeForces1649E_TylerAndStrings
 
@@ -2545,7 +2522,6 @@ int main () {
         printf("%d", res);
 }
 ```
-<hr>
 
 ### CodeForces1699C_TheThirdProblem
 
@@ -2583,7 +2559,6 @@ inline void Solve () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ### HDU2021多校7D_LinkWithBalls 
 
@@ -2641,7 +2616,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ### HDU2021多校8E_SeparatedNumber 
@@ -2737,7 +2711,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ### ICPC2018南京站J_PrimeGame
@@ -2796,7 +2769,6 @@ int main () {
     cout << res << endl;
 }
 ```
-<hr>
 
 
 ### ICPC2020上海站G_Fibonacci
@@ -2824,7 +2796,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### NamomoCamp2022春季div1每日一题_拆拆
 
@@ -2953,7 +2925,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 
 ### POJ3734_Blocks
@@ -2997,7 +2968,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 生成函数
 
@@ -3072,7 +3043,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### 牛客NC207746_背包
 
@@ -3120,7 +3091,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### HDUOJ1521_排列组合
 
@@ -3201,7 +3172,7 @@ Chivas{
 }
 ```
 
-<hr>
+
 
 ### HDUOJ1028_IgnatiusAndThePrincess3
 
@@ -3267,7 +3238,7 @@ int main(){
 }
 ```
 
-<hr>
+
 
 ### HDUOJ1085_HoldingBin-LadenCaptive
 
@@ -3345,7 +3316,7 @@ int main(){
 
 ```
 
-<hr>
+
 
 ### HDUOJ1398_SquareCoins
 
@@ -3413,7 +3384,7 @@ int main(){
 
 ```
 
-<hr>
+
 
 ### HDUOJ1709_TheBalance
 
@@ -3495,7 +3466,7 @@ main(){
 
 ```
 
-<hr>
+
 
 ### HDUOJ2152_Fruit
 
@@ -3576,7 +3547,7 @@ Chivas{
 
 ```
 
-<hr>
+
 
 ## 容斥原理
 
@@ -3643,7 +3614,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### 洛谷P3166_数三角形
 
@@ -3694,7 +3665,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ### 牛客2021多校(2)J_CountingTriangles
 
@@ -3767,7 +3737,6 @@ int main () {
     cout << res << endl;
 }
 ```
-<hr>
 
 
 ### 牛客2022寒假算法基础集训营K_智乃的C语言模除方程
@@ -3820,7 +3789,6 @@ int main () {
                 cout << Query(R) - Query(L - 1) << endl; // 正数容斥
 }
 ```
-<hr>
 
 
 ### 牛客练习赛92C_D与C
@@ -3882,7 +3850,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### ABC221E_LEQ
 
@@ -3959,7 +3927,7 @@ int main() {
 }
 ```
 
-<hr>
+
 
 ### CCPC2021威海M_810975 
 
@@ -4021,7 +3989,6 @@ inline void Solve () {
     }
 }
 ```
-<hr>
 
 
 ### CodeForces451E_DevuAndFlowers
@@ -4108,7 +4075,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### CodeForces979C_KuroAndWalkingRoute
 
@@ -4184,7 +4151,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### CodeForces1569C_JuryMeeting
 
@@ -4283,7 +4250,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### HDU2021多校(10)4_PtyHatesPrimeNumbers
 
@@ -4360,7 +4327,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### HDUOJ5776_sum
 
@@ -4450,7 +4417,7 @@ Chivas{
 }
 ```
 
-<hr>
+
 
 ### HRBUST2414_格子染色计数
 
@@ -4527,7 +4494,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 
 ## 鸽笼原理
@@ -4572,7 +4539,6 @@ int main () {
 	cout << "NO";
 }
 ```
-<hr>
 
 
 ### NamomoCamp2022春季每日一题_选数
@@ -4616,4 +4582,3 @@ int main () {
 	}
 }
 ```
-<hr>

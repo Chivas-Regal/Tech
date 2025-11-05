@@ -2,7 +2,7 @@
 title: Manacher
 ---
 ###  
-<hr>
+
 
 ## HDU3613_BestReward
 
@@ -228,4 +228,4 @@ cerr    << "\033[1m\033[31m\n"
 }
 ```
 
-<hr>
+

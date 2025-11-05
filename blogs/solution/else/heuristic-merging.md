@@ -3,7 +3,6 @@ title: 启发式合并
 ---
 
 ###
-<hr>
 
 ## CCPC2021湘潭省赛J_Stacks
 
@@ -96,4 +95,3 @@ inline void Solve () {
     }
 }
 ```
-<hr>

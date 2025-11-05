@@ -92,7 +92,6 @@ WHERE
 ORDER BY
 	t1.dept_no;
 ```
-<hr>
 
 ## 牛客SQL215-查找在职员工自入职以来的薪水涨幅情况
 
@@ -166,4 +165,3 @@ WHERE
 ORDER BY
     growth;
 ```
-<hr>

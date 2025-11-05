@@ -3,7 +3,6 @@ title: 单调队列
 ---
 
 ###
-<hr>
 
 ## 省赛2022江苏C_JumpAndTreasure
 
@@ -51,7 +50,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ## CodeForces1195D_OpenStreetMap
 
@@ -114,4 +112,3 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>

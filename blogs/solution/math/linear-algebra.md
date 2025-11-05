@@ -2,7 +2,7 @@
 title: 线性代数
 ---
 ###  
-<hr>
+
 
 ## 高斯消元
 
@@ -101,7 +101,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### 洛谷P4035_球形空间产生器
 
@@ -189,7 +189,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### ICPC2020济南A_MatrixEquation
 
@@ -309,7 +309,6 @@ int main () {
     cout << res << endl;
 }
 ```
-<hr>
 
 
 ## 线性基
@@ -363,7 +362,7 @@ int main () {
 
 
 
-<hr>
+
 
 ### 洛谷P4301_新Nim游戏
 
@@ -409,7 +408,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### 洛谷P4570_元素
 
@@ -456,7 +455,7 @@ int main (){
 
 
 
-<hr>
+
 
 ### 牛客NC17968_xor序列
 
@@ -503,7 +502,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### 牛客挑战赛59C_异或
 
@@ -566,7 +565,6 @@ int main () {
         print(Basis::Query(res));
 }
 ```
-<hr>
 
 
 ### ABC236F_Spices
@@ -620,7 +618,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### HDUOJ3949_XOR
 
@@ -775,7 +773,7 @@ CHIVAS_{
 
 
 
-<hr>
+
 
 ### README
 
@@ -919,7 +917,7 @@ CHIVAS_{
 
 
 
-<hr>
+
 
 ## 矩阵加速
 
@@ -1057,7 +1055,7 @@ int main()
 
 ```
 
-<hr>
+
 
 ### 牛客NC230081_MagicGems
 
@@ -1123,7 +1121,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### 牛客NC230082_SashaAndArray
 
@@ -1246,7 +1244,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### HDUOJ1575_TrA
 
@@ -1332,7 +1330,7 @@ int main(){
 }
 ```
 
-<hr>
+
 
 ### HDUOJ1757_ASimpleMathProblem
 
@@ -1423,7 +1421,7 @@ int main(){
 }
 ```
 
-<hr>
+
 
 ### HDUOJ2276_Kiki&LittleKiki2
 
@@ -1542,7 +1540,7 @@ int main()
 */
 ```
 
-<hr>
+
 
 ### HDUOJ2604_Queuing
 
@@ -1630,7 +1628,7 @@ int main(){
 }
 ```
 
-<hr>
+
 
 ### HDUOJ2793_SumOfTribonacciNumbers
 
@@ -1751,7 +1749,7 @@ int main()
 }
 ```
 
-<hr>
+
 
 ### HDUOJ3306_AnotherKindOfFibonacci
 
@@ -1851,7 +1849,7 @@ int main(){
 }
 ```
 
-<hr>
+
 
 ### HDUOJ4565_SoEasy!
 
@@ -1930,7 +1928,7 @@ class Mat {
 };
 ```
 
-<hr>
+
 
 ### HDUOJ6470_Count
 
@@ -2038,5 +2036,5 @@ int main(){
 }
 ```
 
-<hr>
+
 

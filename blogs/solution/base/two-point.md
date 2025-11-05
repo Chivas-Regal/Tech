@@ -2,7 +2,7 @@
 title: 双指针
 ---
 ###  
-<hr>
+
 
 ## 牛客2021多校(1)D_DeterminethePhotoPosition
 
@@ -125,7 +125,7 @@ CHIVAS_{
 
 ```
 
-<hr>
+
 
 ## 牛客2021多校(6)I_IntervalsontheRing
 
@@ -278,7 +278,7 @@ CHIVAS_{IOS;
 */
 ```
 
-<hr>
+
 
 ## 牛客2022寒假算法基础集训营2F_小沙的算数
 
@@ -349,7 +349,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ## 湘潭2021全国邀请赛11_Substring
 
@@ -457,7 +456,7 @@ CHIVAS_{
 
 ```
 
-<hr>
+
 
 ## ABC250F_OneFourth
 
@@ -531,7 +530,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 
@@ -658,7 +656,7 @@ CHIVAS_{
 };
 ```
 
-<hr>
+
 
 ## CodeForces1043D_MysteriousCrime
 
@@ -710,7 +708,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ## NCD2019K_MasaoudLOVESPIZZAS
@@ -756,7 +753,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## POJ2566_BoundFound
 
@@ -893,4 +890,4 @@ CHIVAS_{
 };
 ```
 
-<hr>
+

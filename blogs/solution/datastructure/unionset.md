@@ -2,7 +2,7 @@
 title: 并查集
 ---
 ###  
-<hr>
+
 
 ## 洛谷9月月赛2Div2C_Rabbit
 
@@ -48,7 +48,6 @@ inline void Solve () {
     cout << res << endl;
 }
 ```
-<hr>
 
 
 ## ABC238E_RangeSums
@@ -90,7 +89,6 @@ int main () {
         else cout << "No" << endl;
 }
 ```
-<hr>
 
 ## 洛谷P2391_白雪皑皑
 
@@ -166,7 +164,6 @@ int main () {
     for (int i = 1; i <= n; i ++) cout << res[i] << endl;
 }
 ```
-<hr>
 
 
 ## CodeForces659F_PolycarpAndHay
@@ -289,7 +286,6 @@ int main () {
         cout << "NO\n";
 }
 ```
-<hr>
 
 ## CodeForces1209D_CowAndSnacks
 
@@ -336,7 +332,6 @@ int main () {
     printf("%d\n", m - res);
 }
 ```
-<hr>
 
 
 ## CodeForces1475F_UnusualMatrix
@@ -400,7 +395,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ## CodeForces1594D_TheNumberOfImposters
@@ -472,7 +466,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1691E_NumberOfGroups
 
@@ -545,7 +539,6 @@ inline void Solve () {
         printf("%d\n", res);
 }
 ```
-<hr>
 
 
 
@@ -658,7 +651,7 @@ Chivas{
 }
 ```
 
-<hr>
+
 
 ## POJ1703_FindThem,CatchThem
 
@@ -776,7 +769,7 @@ Chivas{
 }
 ```
 
-<hr>
+
 
 ## POJ1988_BuildingBlock
 
@@ -916,4 +909,4 @@ CHIVAS_{Init();
 
 
 
-<hr>
+

@@ -2,7 +2,7 @@
 title: 整除相关
 ---
 ###  
-<hr>
+
 
 ## 因数、素数
 
@@ -142,7 +142,7 @@ public class Main {
 }
 ```
 
-<hr>
+
 
 ### 洛谷P1445_樱花
 
@@ -211,7 +211,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### 洛谷P3927_一道中档题Factorial
 
@@ -254,7 +254,6 @@ for (auto [v, num] : need) {
 
 cout << res << endl;
 ```
-<hr>
 
 
 ### 牛客2022寒假算法基础集训营4J_区间合数的最小公倍数
@@ -349,7 +348,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ### ABC254D_TogetherSquare
 
@@ -392,7 +390,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ### ABC254F_RecangleGCD
 
@@ -457,7 +454,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 
 ### CodeForces1445C_Division
@@ -593,7 +589,7 @@ CHIVAS_{
 
 ```
 
-<hr>
+
 
 ### CodeForces1593D2_HalfOfSame
 
@@ -660,7 +656,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### DaimayuanOnlineJudge131_最大公约数
 
@@ -712,7 +708,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ### HDU2021多校(6)1_YesPrimeMinister
@@ -775,7 +770,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### NamomoCamp2022春季div1每日一题_整齐的数组2
 
@@ -832,7 +827,6 @@ inline void Solve () {
         else cout << res << "\n";
 }
 ```
-<hr>
 
 
 ## 欧拉函数
@@ -962,7 +956,7 @@ CHIVAS{
 }
 ```
 
-<hr>
+
 
 ### 洛谷P2398_GCDSUM
 
@@ -1016,7 +1010,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### 洛谷P2568_GCD
 
@@ -1075,7 +1069,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ### 洛谷P3601_签到题
 
@@ -1142,7 +1135,6 @@ int main () {
     cout << res % 666623333 << endl;
 }
 ```
-<hr>
 
 
 ### 牛客2022寒假算法基础集训营1D_牛牛做数论
@@ -1192,7 +1184,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ### CodeForces1654D_PotionBrewingClass
 
@@ -1344,7 +1335,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 
 ### HDUOJ2588_GCD
@@ -1471,7 +1461,7 @@ CHIVAS_{
 };
 ```
 
-<hr>
+
 
 ### POJ1284_PrimitiveRoots
 
@@ -1591,7 +1581,7 @@ CHIVAS{
 }
 ```
 
-<hr>
+
 
 ### POJ2407_Relatives
 
@@ -1704,7 +1694,7 @@ CHIVAS{
 }
 ```
 
-<hr>
+
 
 ### POJ2478_FareySequence
 
@@ -1827,7 +1817,7 @@ CHIVAS{
 }
 ```
 
-<hr>
+
 
 ### POJ2773_Happy2006
 
@@ -1963,7 +1953,7 @@ CHIVAS{GET_PHI();
 }
 ```
 
-<hr>
+
 
 ### POJ3090_VisibleLatticePoints
 
@@ -2093,7 +2083,7 @@ CHIVAS{
 
 ```
 
-<hr>
+
 
 ### Question_phi
 
@@ -2225,7 +2215,7 @@ CHIVAS_{GET_PHI();
 }
 ```
 
-<hr>
+
 
 ### README
 
@@ -2355,7 +2345,7 @@ CHIVAS_{GET_PHI();
 
 ```
 
-<hr>
+
 
 ## 欧拉降幂
 
@@ -2528,7 +2518,7 @@ CHIVAS_{GET_PHI();
 
 ```
 
-<hr>
+
 
 ### README
 
@@ -2670,4 +2660,4 @@ CHIVAS_{
 
 ```
 
-<hr>
+

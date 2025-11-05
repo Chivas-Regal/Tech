@@ -29,4 +29,3 @@ LEFT JOIN
 ON
     d2.dept_no = d1.dept_no;
 ```
-<hr>

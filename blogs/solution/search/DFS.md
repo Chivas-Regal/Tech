@@ -2,7 +2,7 @@
 title: DFS
 ---
 ###  
-<hr>
+
 
 ## 洛谷P1034_矩形覆盖
 
@@ -72,7 +72,7 @@ int main () {
 
 ```
 
-<hr>
+
 
 ## 洛谷P1041_传染病控制
 
@@ -170,7 +170,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 洛谷P1074_靶形数独
 
@@ -264,7 +264,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 洛谷P1127_词链
 
@@ -357,7 +357,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 洛谷P1363_幻象迷宫
 
@@ -417,7 +417,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 洛谷P1434_滑雪
 
@@ -458,7 +458,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 洛谷P1463_反素数
 
@@ -507,7 +507,6 @@ int main () {
         cout << maxv << endl;
 }
 ```
-<hr>
 
 ## 洛谷P1514_引水入城
 
@@ -590,7 +589,6 @@ int main () {
     printf("1\n%d", dp[m]);
 }
 ```
-<hr>
 
 
 ## 牛客2022寒假算法基础集训营5C_战棋小孩
@@ -656,7 +654,6 @@ int main () {
         cout << RES << endl;
 }
 ```
-<hr>
 
 ## ABC255F_Pre-orderAndIn-order
 
@@ -679,7 +676,6 @@ int main () {
 ```cpp
 
 ```
-<hr>
 
 ## CCPC2016杭州站E_Equation
 
@@ -747,7 +743,6 @@ int main () {
   ;  }
 } 
 ```
-<hr>
 
 
 ## CodeForces1647D_MadokaAndTheBestSchoolInRussia
@@ -808,7 +803,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ## ICPC2020沈阳D_JourneyToUn'Goro
 
@@ -855,6 +849,5 @@ int main () {
         DFS(0, 1, 0, 0);
 }
 ```
-<hr>
 
 

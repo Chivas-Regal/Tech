@@ -2,7 +2,7 @@
 title: 多项式
 ---
 ###  
-<hr>
+
 
 ## 多项式乘法
 
@@ -90,7 +90,7 @@ BigInteger:
 */
 ```
 
-<hr>
+
 
 ### 洛谷P3321_序列统计
 
@@ -235,7 +235,6 @@ int main () {
         cout << Poly::res[lg[x]] << endl;
 }
 ```
-<hr>
 
 
 ### 洛谷P3338_力
@@ -326,7 +325,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ### 洛谷P3702_序列计数
 
@@ -420,7 +418,6 @@ int main () {
         cout << ((Solve_all() - Solve_del()) % mod + mod) % mod << endl;
 }
 ```
-<hr>
 
 ### 洛谷P3723_礼物
 
@@ -508,7 +505,6 @@ int main () {
         cout << RES << endl;
 }
 ```
-<hr>
 
 
 ### 洛谷P3763_DNA
@@ -603,7 +599,6 @@ inline void Solve () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ### 洛谷P3803_【模板】多项式乘法（FFT）
@@ -659,7 +654,7 @@ int main() {
 }
 ```
 
-<hr>
+
 
 
 ### 洛谷P4173_残缺的字符串
@@ -757,7 +752,6 @@ int main () {
         for (int i = 0; i < idx; i ++) printf("%d ", res[i]);
 }
 ```
-<hr>
 
 ### 洛谷P4986_逃离
 
@@ -850,7 +844,6 @@ int main () {
         else puts("Inconsistent!");
 }
 ```
-<hr>
 
 
 ### 洛谷P6300_悔改
@@ -941,7 +934,6 @@ int main () {
         cout << RES.first << " " << RES.second << endl;
 }
 ```
-<hr>
 
 ### 牛客2021多校(1)H_HashFunction
 
@@ -1032,7 +1024,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ### CodeForces608B_HammingDistanceSum
@@ -1116,7 +1107,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### HDU2022多校（5）7_CountSet
 
@@ -1268,7 +1259,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 
 ### HDUOJ1028_IgnatiusandthePrincessIII
@@ -1368,7 +1358,7 @@ int main(){
 }
 ```
 
-<hr>
+
 
 ### HDUOJ1398_SquareCoins
 
@@ -1466,7 +1456,7 @@ int elem[18] = {0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225
 */
 ```
 
-<hr>
+
 
 ### HDUOJ2087_剪花布条
 
@@ -1568,7 +1558,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### HDU2021多校(3)C_ForgivingMatching
 
@@ -1643,7 +1633,6 @@ inline void Solve () {
     for (int i = 0; i <= m; i ++) printf("%d\n", cnt[i]);
 }
 ```
-<hr>
 
 
 ### ICPC2021大田H_RockPaperScissors
@@ -1823,10 +1812,9 @@ int main () {
     printf("%d\n", res);
 }
 ```
-<hr>
 
 
-<hr>
+
 
 ## 拉格朗日插值
 
@@ -1936,4 +1924,4 @@ public class Main{
 }
 ```
 
-<hr>
+

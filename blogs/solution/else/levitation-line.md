@@ -2,7 +2,7 @@
 title: 悬线法
 ---
 ###  
-<hr>
+
 
 ## 洛谷P1169_棋盘制作
 
@@ -50,7 +50,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 洛谷P2701_巨大的牛棚BigBarn
 
@@ -190,7 +190,7 @@ CHIVAS_{
 };
 ```
 
-<hr>
+
 
 ## CCPC2021湖北省赛I_Sequence
 
@@ -258,7 +258,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 ## ICPC2016AmmanD_Rectangles
 
@@ -368,7 +367,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ## README
@@ -522,4 +520,4 @@ CHIVAS_{
 };
 ```
 
-<hr>
+

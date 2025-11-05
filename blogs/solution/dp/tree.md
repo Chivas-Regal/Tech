@@ -2,7 +2,7 @@
 title: 树形DP
 ---
 ###  
-<hr>
+
 
 ## 洛谷P2899_CellPhoneNetworkG
 
@@ -46,7 +46,6 @@ $
 ```cpp
 // 有上述转移，此处就不放置代码了
 ```
-<hr>
 
 ## 洛谷P3174_[HAOI2009]毛毛虫
 
@@ -115,7 +114,6 @@ int main () {
     printf("%d\n", res);
 }
 ```
-<hr>
 
 
 ## 牛客练习赛97D_月之暗面
@@ -162,7 +160,6 @@ int main () {
         cout << dp[1][0] * x + dp[1][1] * y << endl;
 }
 ```
-<hr>
 
 ## 牛客小白月赛46D_生活在树上
 
@@ -235,7 +232,6 @@ int main () {
         for ( int i = 1; i <= n; i ++ ) printf("%lld\n", 1 + res_down1[i] + res_down2[i] + res_samefather[i] + res_up1[i] + res_up2[i]);
 }
 ```
-<hr>
 
 
 ## CodeForces1646D_WeightTheTree
@@ -335,7 +331,6 @@ int main () {
         for ( int i = 1; i <= n; i ++ ) printf("%d ", w[i]);
 }
 ```
-<hr>
 
 
 ## gym103145C_VertexDeletion
@@ -431,7 +426,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## HDUOJ2412_PartyatHali-Bula
 
@@ -521,7 +516,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## ICPC2018银川站G_Factories
 
@@ -601,7 +596,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ## ICPC2021南京站H_Crystalfly
@@ -703,5 +697,4 @@ int main () {
 
 }
 ```
-<hr>
 

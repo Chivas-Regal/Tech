@@ -3,7 +3,7 @@ title: 暴力优化
 ---
 
 ###  
-<hr>
+
 
 ## 折半枚举
 
@@ -75,7 +75,6 @@ int main () {
     //cout << clock() * 1.0 / CLOCKS_PER_SEC << endl;
 }
 ```
-<hr>
 
 
 ### ICPC2018银川K_VertexCovers
@@ -156,7 +155,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 ### HDU2021多校10D_PtyHatesPrimeNumbers 
 
@@ -222,7 +220,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ### HDU2141_CanYouFindIt?
@@ -355,7 +352,7 @@ CHIVAS_{
 ```
 
 
-<hr>
+
 
 ### POJ2785_4ValuesWhoseSumIs0
 
@@ -471,7 +468,7 @@ CHIVAS_{
 
 
 
-<hr>
+
 
 ## 对象缩减
 
@@ -535,7 +532,7 @@ int main () {
 
 ```
 
-<hr>
+
 
 ### 牛客练习赛95B_Non-interger Area
 
@@ -575,7 +572,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### CCPC2021威海站G_ShinyruoAndKFC
 
@@ -641,7 +638,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ### CodeForces1060C_MaximumSubrectangle
@@ -717,7 +713,7 @@ int main () {
 
 ```
 
-<hr>
+
 
 ### CodeForces1579F_ArrayStabilization(ANDversion)
 
@@ -790,7 +786,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 
 ## 区间跳跃
@@ -915,7 +911,7 @@ public class Main {
 }
 ```
 
-<hr>
+
 
 ### AcWing3639_数组延伸
 
@@ -1053,7 +1049,7 @@ CHIVAS_{
 }
 ```
 
-<hr>
+
 
 ### ABC238C_Digitnum
 
@@ -1091,7 +1087,6 @@ int main () {
         cout << res + n << endl;
 }
 ```
-<hr>
 
 
 ### CodeForces813B_TheGoldenAge
@@ -1231,7 +1226,7 @@ CHIVAS_{
 }
 ```
 
-<hr>
+
 
 ### CodeForces1511C_YetAnotherCardDeck
 
@@ -1277,7 +1272,7 @@ int main () {
 
 ```
 
-<hr>
+
 
 ## 区间打表
 
@@ -1359,5 +1354,5 @@ int main () {
 }
 ```
 
-<hr>
+
 

@@ -3,7 +3,6 @@ title: 概率复杂度
 ---
 
 ###
-<hr>
 
 ## HDU2021多校9H_IntegersHaveFriends2.0
 
@@ -72,4 +71,3 @@ int main () {
     }
 }
 ```
-<hr>

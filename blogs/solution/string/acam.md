@@ -3,7 +3,7 @@ title: ac自动机
 ---
 
 ### 
-<hr>
+
 
 ## 洛谷P4052_文本生成器
 
@@ -89,4 +89,3 @@ int main () {
     cout << (res % mod + mod) % mod << endl;
 }
 ```
-<hr>

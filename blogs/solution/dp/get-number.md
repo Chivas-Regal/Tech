@@ -2,7 +2,7 @@
 title: 计数DP
 ---
 ###  
-<hr>
+
 
 ## 洛谷P1136_迎接仪式
 
@@ -66,7 +66,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 洛谷P1357_花园
 
@@ -198,7 +198,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ## 洛谷P2051_中国象棋
 
@@ -265,7 +264,6 @@ int main () {
     cout << res << endl;
 }
 ```
-<hr>
 
 ## 洛谷P5484_基因补全
 
@@ -325,7 +323,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 牛客2022国庆集训派对day3G_Subsequence1
 
@@ -418,7 +416,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ## ABC234F_Reordering
@@ -477,7 +474,6 @@ int main () {
 	cout << res << endl;
 }
 ```
-<hr>
 
 ## ABC249E_RLE
 
@@ -538,7 +534,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ## ABC253E_DistanceSequence
 
@@ -590,7 +585,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ## CodeForces1614D1Z_DivanAndKostomuksha（easy version）
@@ -636,7 +630,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ## CodeForces1635D_InfiniteSet
@@ -715,7 +708,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 
@@ -820,7 +812,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 
 ## NamomoCamp2022春季div1每日一题_路径计数2
@@ -904,4 +896,3 @@ int main () {
         printf("%lld\n", dp[m]);
 }
 ```
-<hr>

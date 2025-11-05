@@ -3,7 +3,7 @@ title:  二分
 ---
 
 ###  
-<hr>
+
 
 ## 洛谷P1462_通往奥格瑞玛的道路
 
@@ -84,7 +84,6 @@ int main () {
         printf("%lld\n", res);
 }
 ```
-<hr>
 
 ## 洛谷P1663_山
 
@@ -139,7 +138,6 @@ int main () {
         printf("%.3f\n", l);
 }
 ```
-<hr>
 
 ## 洛谷P1704_寻找最优美做题曲线
 
@@ -193,7 +191,6 @@ int main () {
         cout << vec.size() << endl;
 }
 ```
-<hr>
 
 ## 洛谷P1768_天路
 
@@ -280,7 +277,6 @@ int main () {
         printf("%.1f\n", l);
 }
 ```
-<hr>
 
 
 ## 洛谷P1800_software
@@ -336,7 +332,6 @@ int main () {
         cout << l << endl;
 }
 ```
-<hr>
 
 ## 洛谷P1948_TelephoneLinesS
 
@@ -415,7 +410,6 @@ int main () {
         cout << res - 1 << endl;
 }
 ```
-<hr>
 
 
 
@@ -510,7 +504,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 ## 洛谷P2754_家园 / 星际转移问题
 
@@ -631,7 +624,6 @@ int main () {
     printf("%d\n", res == 0x3f3f3f3f ? 0 : res - 1);
 }
 ```
-<hr>
 
 ## 洛谷P5546_公共串
 
@@ -706,7 +698,6 @@ int main () {
     cout << res << endl;
 }
 ```
-<hr>
 
 ## 洛谷P5657_格雷码
 
@@ -743,7 +734,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 
 ## 牛客2022寒假算法基础集训营5A_疫苗小孩
@@ -804,7 +795,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ## ABC236E_AverageAndMedian
@@ -889,7 +879,6 @@ int main () {
         Solve2();
 }
 ```
-<hr>
 
 ## AcWing2694_最长公共子序列
 
@@ -935,7 +924,7 @@ int main(){
 }
 ```
 
-<hr>
+
 
 ## CCPC2017哈尔滨站L_ColorATree
 
@@ -1041,7 +1030,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ## CCPC2022威海站I_DragonBloodline
@@ -1106,7 +1094,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ## CodeForces1141G_PrivatizationOfRoadsInTreeland
@@ -1176,7 +1163,6 @@ int main () {
         for (int i = 1; i < n; i ++) printf("%d ", col[i] + 1);
 }
 ```
-<hr>
 
 
 ## CodeForces1208D_RestorePermutation
@@ -1240,7 +1226,6 @@ int main () {
         for (ll i = 1; i <= n; i ++) cout << p[i] << " ";
 }
 ```
-<hr>
 
 ## CodeForces1358D_TheBestVacation
 
@@ -1327,7 +1312,6 @@ signed main () {
         cout << RES << endl;
 }
 ```
-<hr>
 
 
 
@@ -1380,7 +1364,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ## CodeForces1490G_OldFloppyDrive
 
@@ -1442,7 +1425,6 @@ inline void Solve () {
         } cout << endl;
 }
 ```
-<hr>
 
 
 ## CodeForces1512D_CorruptedArray
@@ -1506,7 +1488,7 @@ int main()
 }
 ```
 
-<hr>
+
 
 ## CodeForces1530C_Persuit
 
@@ -1642,7 +1624,7 @@ int main(){
 }
 ```
 
-<hr>
+
 
 ## CodeForces1611F_ATMAndStudents
 
@@ -1769,7 +1751,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1622C_SetOrDecrease
 
@@ -1830,7 +1812,6 @@ inline void Solve () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ## CodeForces1623C_BalancedStoneHeaps
 
@@ -1876,7 +1857,6 @@ inline void Solve () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 
@@ -1953,7 +1933,6 @@ inline void Solve () {
         }
 }
 ```
-<hr>
 
 
 ## HDU2022多校(3)B_BossRush
@@ -2023,7 +2002,6 @@ inline void Solve () {
         cout << (res == 1e9 ? -1 : res) << endl;
 }
 ```
-<hr>
 
 
 
@@ -2092,7 +2070,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## ICPC2021台湾省赛E_EatCoin
 
@@ -2200,7 +2178,7 @@ public class Main{
 }
 ```
 
-<hr>
+
 
 ## NCD2019A_HasanTheLazyJudge
 
@@ -2287,7 +2265,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## POJ3579_Median
 
@@ -2423,4 +2401,4 @@ CHIVAS_{
 
 
 
-<hr>
+

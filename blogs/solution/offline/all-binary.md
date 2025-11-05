@@ -3,7 +3,6 @@ title: 整体二分
 ---
 
 ###
-<hr>
 
 ## 洛谷P1527_矩阵乘法
 
@@ -104,7 +103,6 @@ int main () {
     for (int i = 1; i <= m; i ++) printf("%d\n", res[i]);
 }
 ```
-<hr>
 
 
 ## 洛谷P2617_DynamicRankings
@@ -219,7 +217,6 @@ int main () {
     for (int i = 1; i <= qtot; i ++) printf("%d\n", res[i]);
 }
 ```
-<hr>
 
 ## 洛谷P3332_K大数查询
 
@@ -318,7 +315,6 @@ signed main () {
     for (int i = 1; i <= totq; i ++) printf("%lld\n", res[i]);
 }
 ```
-<hr>
 
 
 ## 洛谷P7424_整体二分
@@ -413,4 +409,3 @@ int main () {
     }
 }
 ```
-<hr>

@@ -2,7 +2,7 @@
 title: 网络流
 ---
 ###  
-<hr>
+
 
 ## 51Nod1442_士兵的旅行
 
@@ -98,7 +98,6 @@ int main () {
 
 }
 ```
-<hr>
 
 
 ## 洛谷P1251_餐巾计划问题
@@ -209,7 +208,6 @@ signed main () {
     printf("%lld\n", mincost);
 }
 ```
-<hr>
 
 
 ## 洛谷P1264_K-联赛
@@ -339,7 +337,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 ## 洛谷P2754_家园 / 星际转移问题
 
@@ -460,7 +457,6 @@ int main () {
     printf("%d\n", res == 0x3f3f3f3f ? 0 : res - 1);
 }
 ```
-<hr>
 
 
 ## 洛谷P2763_试题库问题
@@ -566,7 +562,6 @@ int main () {
     }
 }
 ```
-<hr>
 
 
 ## ICPC2018南京I_MagicPotion 
@@ -661,7 +656,6 @@ int main () {
     cout << dicnic(S, T) << endl;
 }
 ```
-<hr>
 
 ## UVA563_Crimewave
 
@@ -769,4 +763,3 @@ int main () {
     }
 }
 ```
-<hr>

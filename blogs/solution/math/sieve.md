@@ -2,7 +2,7 @@
 title: 筛法
 ---
 ###  
-<hr>
+
 
 ## 埃氏筛
 
@@ -63,7 +63,6 @@ inline void Solve () {
     for (int i : now_not_prime) book[i] = 0;
 }
 ```
-<hr>
 
 
 ### ABC249D_IndexTrio
@@ -105,7 +104,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ### CodeForces1512G_ShortTask
@@ -144,7 +142,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### CodeForces1627D_NotAdding
 
@@ -188,7 +186,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1646E_PowerBoard
 
@@ -251,7 +249,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 ## CodeForces1649D_IntegralArray
 
@@ -300,7 +297,6 @@ inline void Solve () {
         cout << "Yes" << endl;
 }
 ```
-<hr>
 
 
 ### ICPC吉林站2020G_Matrix
@@ -331,7 +327,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ### LOJ10199_轻拍牛头
 
@@ -374,7 +370,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 杜教筛
 
@@ -432,4 +428,3 @@ int main () {
 }
 ```
 
-<hr>

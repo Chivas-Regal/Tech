@@ -2,7 +2,7 @@
 title: 状压DP
 ---
 ###  
-<hr>
+
 
 ## 洛谷P1171_售货员的难题
 
@@ -64,7 +64,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## 洛谷P1896_互不侵犯
 
@@ -134,7 +134,6 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ## 洛谷P4163_排列
@@ -181,7 +180,6 @@ inline void Solve () {
         cout << res << endl;
 }
 ```
-<hr>
 
 
 ## CCPC2021女生赛C_连锁商店
@@ -270,7 +268,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## ICPC2021台北D_LargestRemainder
 
@@ -328,4 +326,3 @@ int main() {
 	return 0;
 }
 ```
-<hr>

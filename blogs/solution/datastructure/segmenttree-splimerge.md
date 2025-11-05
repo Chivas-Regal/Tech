@@ -3,7 +3,6 @@ title: 线段树分裂合并
 ---
 
 ###
-<hr>
 
 ## 洛谷P1600_天天爱跑步
 
@@ -146,7 +145,6 @@ int main () {
         cout << endl;
 }
 ```
-<hr>
 
 
 ## 洛谷P3201_梦幻布丁
@@ -235,7 +233,6 @@ int main () {
         }
 }
 ```
-<hr>
 
 
 ## 洛谷P3521_ROT-TreeRotations
@@ -345,4 +342,3 @@ int main () {
         cout << res << endl;
 }
 ```
-<hr>

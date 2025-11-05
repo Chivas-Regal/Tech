@@ -2,7 +2,7 @@
 title: 二分图染色
 ---
 ###  
-<hr>
+
 
 ## 洛谷P6268_舞会
 
@@ -78,7 +78,6 @@ int main () {
         cout << n - res << endl;
 }
 ```
-<hr>
 
 
 ## 省赛2021江苏J_Anti-merge
@@ -161,7 +160,7 @@ int main () {
 }
 ```
 
-<hr>
+
 
 ## CodeForces1605D_Treelabeling
 
@@ -242,4 +241,4 @@ int main () {
 }
 ```
 
-<hr>
+
