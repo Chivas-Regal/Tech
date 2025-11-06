@@ -23,7 +23,8 @@ module.exports = {
       repo: 'NAME_OF_REPO', //github一个项目的名称
       clientId: 'YOUR_CLIENT_ID',//注册的Client ID
       clientSecret: 'YOUR_CLIENT_SECRET',//注册的Client Secret
-      autoCreateIssue:true // 自动创建评论，默认是false，最好开启，这样首次进入页面的时候就不用去点击创建评论的按钮了。
+      // autoCreateIssue=true时，若Issue不存在时会自动创建。但若用户当前没有登录，会触发平台（此处是github）的自动跳转进行登录。
+      autoCreateIssue: false
     },
   },
 };

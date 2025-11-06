@@ -37,6 +37,9 @@ module.exports = [{
         },{
             text: 'Kafka',
             link: '/blogs/mq/Kafka/0-begin.html'
+        },{
+            text: 'Dubbo',
+            link: '/blogs/framework/Dubbo/2-ip-chose.html'
         }],
         icon: 'iconfont icon-zuzhijiagou'
     },{

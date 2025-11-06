@@ -44,6 +44,11 @@ module.exports = [
         children: getChildren('./blogs/framework/Zookeeper')
     },
     {
+        title: 'Dubbo',
+        collapsable: false,
+        children: getChildren('./blogs/framework/Dubbo')
+    },
+    {
         title: 'MQ消息队列专栏',
         collapsable: false,
         children: [

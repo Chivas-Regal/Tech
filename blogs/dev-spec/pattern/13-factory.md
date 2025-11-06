@@ -1,5 +1,5 @@
 ---
-title: 创建型 - 工厂方法(Factory)
+title: 创建型 - 工厂(Factory)
 ---
 
 ## 反面教材
@@ -40,8 +40,12 @@ public class OrderService {
 }
 ```
 
-这段逻辑存在的问题：**耦合性太高**。
-客户端需要将服务端的类名硬编码进程序中，随着逻辑扩张，一旦需要新增具体“支付类”实现，都有可能同时令客户端产生较大改动。
+这段逻辑存在的问题：
+- **耦合性太高**，客户端必须清晰知道服务端的具体产品类名；
+- **内聚性太差**，服务端的类松散地散布在客户端的各处，一旦服务端需要改造模型，会对客户端带来大量的迭代成本；  
+
+客户端需要将服务端的类名硬编码进程序中，随着逻辑扩张，一旦需要新增具体“支付类”实现，都有可能同时令客户端产生较大改动。  
+一句直白且抽象的话就是：<mark><b>同一类事物的构造与选择，被写成了一块儿屎山。</b></mark>
 
 为了解决这个问题，就可以引入我们下面的工厂模式。
 
@@ -107,6 +111,8 @@ public class OrderService {
 虽然仍需编写具体的 `payType` 字符串，但是这种字符串就可以通过“配置”或“从数据库中取”，做到运行时动态选择产品类。  
 并且在需要针对指定的 `payType`，替换具体的 Payment 时，仅需改动服务端即可。  
 
+![简单工厂.drawio](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/简单工厂.drawio.svg)
+
 但这种简单工厂也存在问题：
 - 随着具体产品类变多，以及实例化过程变得复杂，单一一个工厂类下的一个方法会变得冗杂。
 - 每一次添加产品，都需要变更简单工厂的生产方法。  
@@ -121,6 +127,8 @@ public class OrderService {
 
 根据上面说的，在服务端需要拆分工厂，做到一个具体产品对应一个具体工厂。   
 这样在添加具体产品类时，只需要同时新增一个具体工厂即可，无需修改已有代码。  
+
+![工厂方法.drawio](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/工厂方法.drawio.svg)
 
 ```java
 // 服务端 --
@@ -144,7 +152,7 @@ public class WechatPaymentFactory implements PaymentFactory {
 public class OrderService {
 
     public void pay(PaymentFactory factory, double amount) {
-        Payment payment = factory.create(payType);
+        Payment payment = factory.create();
         payment.pay(amount);
     }
 }
@@ -155,14 +163,63 @@ public class OrderService {
 - 参数仍使用 `String payType`，自动装配 `List<PaymentFactory>` 后通过注册表动态选择
 - ...
 
+工厂方法针对同一类产品的生产完成了解耦，而事实上如果出现了多个功能并不统一的产品，一个工厂可能要负责很多种产品的生产。  
+仍沿用上面的案例，支付工具不仅可用做支付，还可以收款、退款...。这时就可以将一个支付工具视作一个工厂，而它生产的是一套产品族，所以就不能单单使用一个生产方法完成需求了。  
+于是就引入我们下面的**抽象工厂**。  
+
+## 抽象工厂
+
+::: tip
+目标：提高工厂功能的多样化，使其适应多种产品的生产。  
+:::
+
+根据上面说的，需要在一个工厂内设计更多的生产方法。  
+
+![抽象工厂.drawio](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/抽象工厂.drawio.svg)
+
+
+```java
+// 服务端 --------------
+// 支付的抽象与实现类
+public interface Payment { public void pay(double amount); }
+public class WechatPayment implements Payment { ... }
+public class AlipayPayment implements Payment { ... }
+
+// 收款的抽象与实现类
+public interface Receipt { public void receive(double amount); }
+public class WechatReceipt implements Receipt { ... }
+public class AlipayReceipt implements Receipt { ... }
+
+// 抽象工厂，生产支付与收款类
+public interface Factory {
+    public Payment createPayment ();
+    public Receipt createReceipt ();
+}
+public class WechatFactory implements Factory { ... }
+public class AlipayFactory implements Factory { ... }
+
+
+// 客户端 --------------
+public class OrderService {
+    // 模拟交易逻辑，付款再收款
+    public void order(Factory factory, double amount) {
+        Payment payment = factory.createPayment();
+        Receipt receipt = factory.createReceipt();
+        payment.pay(amount);
+        receipt.receive(amount);
+    }
+}
+```
+
+在使用上可以看出和工厂方法差不太多，只是使用前需要对大量的产品进行合理拆分为一套套产品族，使用之前一定要构思清楚。  
 
 ## 问题&理解
 
-**搞成工厂方法之后，不又回到将具体类硬编码进客户端的情况了？** 
+**搞成工厂方法/抽象工厂之后，不又回到将具体类硬编码进客户端的情况了？** 
 
 工厂方法并不是完全解决硬编码的存在性，而是将其收束进统一的位置。  
-从改造结果来看，唯一硬编码的就是具体工厂类名，这一点完全可以通过反射、注册表等方式来做。通过这仅有的一处硬编码，解决了“具体产品的实例化被分散进工程的各个位置造成污染”的问题。  
-如果是之前的产品类的方式，使用什么反射注册表是不行的，因为产品对象的生命周期很短，且实例化的过程中可能还有其他逻辑。
+从改造结果来看，唯一硬编码的就是具体工厂类名，这一点完全可以通过反射、注册表等方式来解决。通过这若有若无的一处硬编码，解决了“具体产品的实例化被分散进工程的各个位置造成污染”的问题。  
+如果是之前的产品类的方式，使用什么反射注册表的方法是不行的，因为产品对象的生命周期很短，且实例化的过程中可能还有其他逻辑。
 
 
 ## 取舍
@@ -177,3 +234,7 @@ public class OrderService {
 - 易于修改、管理大量具体产品。
 - 符合工程的开闭原则、单一职责。  
 - 易于结合Spring-Ioc自动装配、注册表灵活设计。
+
+**抽象工厂** 适用于在工厂方法的基础上，延伸出产品族概念的二维产品体系
+- 具备工厂方法的所有优点。
+- 内聚性更强。

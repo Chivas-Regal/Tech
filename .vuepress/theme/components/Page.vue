@@ -58,6 +58,8 @@
             locale: 'zh',
             // https://cors-anywhere.azm.workers.dev 在中国大陆被墙了，调整为别的代理
             // proxy: url => `https://netnr-proxy.cloudno.de/${url}`
+            // proxy: url => `https://cors-anywhere.herokuapp.com/${url}`
+            // proxy: url => `https://bird.ioliu.cn/v1?url=${url}`
           }"
           :key="pagePath"
           :title="pagePath"
@@ -84,7 +86,6 @@ import { resolvePage, outboundRE, endingSlashRE } from '@theme/helpers/utils'
 import { ModuleTransition } from '@vuepress-reco/core/lib/components'
 import SubSidebar from '@theme/components/SubSidebar'
 import { useInstance } from '@theme/helpers/composable'
-import { Valine } from '@theme/components/Valine'
 
 export default defineComponent({
   components: { PageInfo, ModuleTransition, SubSidebar },

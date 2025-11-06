@@ -77,7 +77,7 @@ module.exports = [
             clientId: OauthConfig.clientId,
             clientSecret: OauthConfig.clientSecret,
             /* 自动创建评论 */
-            autoCreateIssue: true
+            autoCreateIssue: false
         }
     ],
 
