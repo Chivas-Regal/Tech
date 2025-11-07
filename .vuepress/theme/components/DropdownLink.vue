@@ -107,8 +107,8 @@ export default defineComponent({
         margin 0.45rem 0 0
         border-top 1px solid var(--border-color)
         padding 0.95rem 1.5rem 0.45rem 1.25rem
-        font-size 10px
-        color: rgba(60, 60, 60, .33)
+        font-size .9rem
+        color: #2c3e50
         font-weight 600
       .dropdown-subitem-wrapper
         padding 0

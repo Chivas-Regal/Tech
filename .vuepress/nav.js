@@ -1,11 +1,29 @@
 module.exports = [{
-        text: '算法-数据结构',
+        text: '算法',
         items: [{ 
-            text: '理论梳理', 
-            link: '/blogs/algorithm/' 
-        },{ 
-            text: '解题报告', 
-            link: '/blogs/solution/' 
+            text: '基础算法', 
+            items: [{
+                text: 'ACM-竞赛题解', 
+                link: '/blogs/solution/' 
+            },{
+                text: '动态规划',
+                link: '/blogs/algorithm/dpp/backpack-DP.html'
+            },{
+                text: '数据结构',
+                link: '/blogs/algorithm/data-structure/captain-mo.html'
+            },{
+                text: '数学',
+                link: '/blogs/algorithm/math/ballandbox.html'
+            },{
+                text: '图论',
+                link: '/blogs/algorithm/graph/2-sat.html'
+            },{
+                text: '搜索',
+                link: '/blogs/algorithm/search/bfs.html'
+            },{
+                text: '字符串',
+                link: '/blogs/algorithm/string/kmp.html'
+            }]
         }],
         icon: 'iconfont icon-suanfa2'
     },{
@@ -56,7 +74,7 @@ module.exports = [{
             link: '/blogs/dev-spec/pattern/0-overview.html'
         }],
         icon: 'iconfont icon-Idea'
-    }, {
+    },/* TODO 未来单开为Java专栏，不要C++相关的了，学得一般{
         text: '编程语言',
         items: [{
             text: 'C/C++',
@@ -76,7 +94,7 @@ module.exports = [{
             link: '/blogs/machine-vision/'
         }],
         icon: 'iconfont icon-robot-2-line'
-    },{
+    },*/{
         text: '前端开发',
         items: [{ 
             text: 'Vuepress源码开发', 

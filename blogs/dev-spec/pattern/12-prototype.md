@@ -15,11 +15,12 @@ title: 创建型 - 原型(Prototype)
 
 ![原型模式.drawio](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/原型模式.drawio.svg)
 
-先做一个写了 `clone` 方法的原型类
+先做一个写了 `clone` 方法的原型类。然后客户端调用时，就实例化一个出来后一直 clone 就行。  
+
+<CodeTabs :titles="['Prototype.java', 'Client.java']">
+<template v-slot:tab-0>
 
 ```java
-// Prototype.java
-
 public class Prototype {
 
     private String msg;
@@ -34,12 +35,10 @@ public class Prototype {
     }
 }
 ```
-
-然后是调用，就实例化一个出来后一直 clone 就行。  
+</template>
+<template v-slot:tab-1>
 
 ```java
-/// Client.java
-
 public class Client {
     
     public void operate () {
@@ -49,6 +48,8 @@ public class Client {
     
 }
 ```
+</template>
+</CodeTabs>
 
 ## 延伸
 

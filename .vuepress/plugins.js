@@ -88,8 +88,13 @@ module.exports = [
                 {
                     name: 'Valine',
                     path: '/.vuepress/theme/components/Valine.vue'
+                },
+                {
+                    name: 'CodeTabs',
+                    path: '/.vuepress/theme/components/CodeTabs.vue'
                 }
             ]
         }
     ],
+    
 ]
