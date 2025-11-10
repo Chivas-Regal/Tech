@@ -50,7 +50,7 @@ div[class*="language-"]
    top 0.8em
    right 1em
    font-size 0.75rem
-   color rgba(255, 255, 255, 0.4)
+   color #838282
  &:not(.line-numbers-mode)
    .line-numbers-wrapper
      display none
@@ -103,13 +103,13 @@ for lang in $codeLang
    &:before
      content ('' + lang)
 
-div[class~="language-javascript"]
+div[class~="language-js"]
  &:before
-   content "js"
+   content "javascript"
 
-div[class~="language-typescript"]
+div[class~="language-ts"]
  &:before
-   content "ts"
+   content "typescript"
 
 div[class~="language-markup"]
  &:before

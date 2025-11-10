@@ -90,11 +90,19 @@ module.exports = [
                     path: '/.vuepress/theme/components/Valine.vue'
                 },
                 {
-                    name: 'CodeTabs',
-                    path: '/.vuepress/theme/components/CodeTabs.vue'
+                    name: 'CodeGroup',
+                    path: '/.vuepress/theme/components/CodeGroup/index.vue'
+                },
+                {
+                    name: 'CodeGroupItem',
+                    path: '/.vuepress/theme/components/CodeGroup/CodeGroupItem.vue'
                 }
             ]
         }
     ],
     
+    /* CodeGroup markdown语法插件 */
+    [
+        require('./theme/components/CodeGroup/markdown-plugin.js')
+    ]
 ]

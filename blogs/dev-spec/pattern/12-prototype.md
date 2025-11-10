@@ -17,8 +17,8 @@ title: 创建型 - 原型(Prototype)
 
 先做一个写了 `clone` 方法的原型类。然后客户端调用时，就实例化一个出来后一直 clone 就行。  
 
-<CodeTabs :titles="['Prototype.java', 'Client.java']">
-<template v-slot:tab-0>
+:::: code-group
+::: code-group-item Prototype
 
 ```java
 public class Prototype {
@@ -35,8 +35,8 @@ public class Prototype {
     }
 }
 ```
-</template>
-<template v-slot:tab-1>
+:::
+::: code-group-item Client
 
 ```java
 public class Client {
@@ -48,8 +48,8 @@ public class Client {
     
 }
 ```
-</template>
-</CodeTabs>
+:::
+::::
 
 ## 延伸
 

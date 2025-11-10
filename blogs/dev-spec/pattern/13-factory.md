@@ -6,18 +6,16 @@ title: 创建型 - 工厂(Factory)
 
 先看一个针对“支付”逻辑的方法的丑陋设计。
 
-<CodeTabs :titles="['服务端', '客户端']">
-<template v-slot:tab-0>
-
+:::: code-group
+::: code-group-item 服务端
 ```java
 public interface Payment { public void pay(double amount); }
 public class AlipayPayment implements Payment { ... }
 public class WechatPayment implements Payment { ... }
 ...
 ```
-</template>
-<template v-slot:tab-1>
-
+:::
+::: code-group-item 客户端
 ```java
 public class OrderService {
 
@@ -44,8 +42,8 @@ public class OrderService {
     }
 }
 ```
-</template>
-</CodeTabs>
+:::
+::::
 
 这段逻辑存在的问题：
 - **耦合性太高**，客户端必须清晰知道服务端的具体产品类名；
@@ -77,9 +75,8 @@ public class OrderService {
 
 第一条客户端关注的仅有“选择”，服务端可以承包实例化的过程。
 
-<CodeTabs :titles="['服务端', '客户端']">
-<template v-slot:tab-0>
-
+:::: code-group
+::: code-group-item 服务端
 ```java
 public class PaymentFactory {
 
@@ -106,8 +103,8 @@ public class PaymentFactory {
     }
 }
 ```
-</template>
-<template v-slot:tab-1>
+:::
+::: code-group-item 客户端
 
 ```java
 public class OrderService {
@@ -118,8 +115,8 @@ public class OrderService {
     }
 }
 ```
-</template>
-</CodeTabs>
+:::
+::::
 
 可以看到这样做后，客户端的抽象性大大提高（洁癖人士狂喜）。  
 虽然仍需编写具体的 `payType` 字符串，但是这种字符串就可以通过“配置”或“从数据库中取”，做到运行时动态选择产品类。  
@@ -144,8 +141,8 @@ public class OrderService {
 
 ![工厂方法.drawio](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/工厂方法.drawio.svg)
 
-<CodeTabs :titles="['服务端', '客户端']">
-<template v-slot:tab-0>
+:::: code-group
+::: code-group-item 服务端
 
 ```java
 public interface PaymentFactory {
@@ -164,8 +161,8 @@ public class WechatPaymentFactory implements PaymentFactory {
 }
 ...
 ```
-</template>
-<template v-slot:tab-1>
+:::
+::: code-group-item 客户端
 
 ```java
 public class OrderService {
@@ -176,8 +173,8 @@ public class OrderService {
     }
 }
 ```
-</template>
-</CodeTabs>
+:::
+::::
 
 
 当然客户端对工厂的使用方式可以很多样，如
@@ -199,17 +196,21 @@ public class OrderService {
 
 ![抽象工厂.drawio](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/抽象工厂.drawio.svg)
 
-<CodeTabs :titles="['服务端', '客户端']">
-<template v-slot:tab-0>
+:::: code-group
+::: code-group-item 服务端
 
 ```java
 // 支付的抽象与实现类
-public interface Payment { public void pay(double amount); }
+public interface Payment { 
+    public void pay(double amount); 
+}
 public class WechatPayment implements Payment { ... }
 public class AlipayPayment implements Payment { ... }
 
 // 收款的抽象与实现类
-public interface Receipt { public void receive(double amount); }
+public interface Receipt { 
+    public void receive(double amount); 
+}
 public class WechatReceipt implements Receipt { ... }
 public class AlipayReceipt implements Receipt { ... }
 
@@ -221,8 +222,8 @@ public interface Factory {
 public class WechatFactory implements Factory { ... }
 public class AlipayFactory implements Factory { ... }
 ```
-</template>
-<template v-slot:tab-1>
+:::
+::: code-group-item 客户端
 
 ```java
 public class OrderService {
@@ -235,8 +236,8 @@ public class OrderService {
     }
 }
 ```
-</template>
-</CodeTabs>
+:::
+::::
 
 在使用上可以看出和工厂方法差不太多，只是使用前需要对大量的产品进行合理拆分为一套套产品族，使用之前一定要构思清楚。  
 

@@ -65,6 +65,7 @@ module.exports = {
             md.set({
                 html: true
             });
+            md.use(require('./theme/components/CodeGroup/markdown-plugin.js'));
             // md.use(require('markdown-it-katex'))
             // md.use(require('markdown-it-mathjax3'), { tex: {tags: 'ams'} })
         }
