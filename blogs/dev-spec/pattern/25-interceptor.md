@@ -167,9 +167,9 @@ public class InterceptorManager {
 
 这里做两个名字不同但是功能一致的拦截器，各自的 `preHandle` 就按想返回的 `true/false` 来，目的是做个输出能看一下就行。  
 
+:::: code-group
+::: code-group-item AuditInterceptor.java
 ```java
-// AuditInterceptor.java
-
 public class AuditInterceptor implements Interceptor {
 
     @Override
@@ -183,8 +183,10 @@ public class AuditInterceptor implements Interceptor {
         System.out.println("AuditInterceptor 后置操作，postHandle()");
     }
 }
-
-// LogInterceptor.java
+```
+:::
+::: code-group-item LogInterceptor.java
+```java
 public class LogInterceptor implements Interceptor {
 
     @Override
@@ -199,10 +201,13 @@ public class LogInterceptor implements Interceptor {
     }
 }
 ```
+:::
+::::
 
 ### 使用方式
 
 这些拦截器相关的都写好了，写个 `main()` 函数运行一下。  
+
 
 ```java
 // InterceptorDemo.java
