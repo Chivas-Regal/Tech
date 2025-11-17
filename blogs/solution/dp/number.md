@@ -277,8 +277,8 @@ https://acm.dingbacode.com/showproblem.php?pid=4507
 3.数不能是7的倍数：参数列表设一个num，表示自身模7的数值，若为0代表是7的倍数  
   
 在求平方和时，我们可以使用平方和公式，即 :  
-<img src="https://latex.codecogs.com/svg.image?23^2=(20&plus;3)^2=20^2&plus;3^2&plus;2*20*3" title="23^2=(20+3)^2=20^2+3^2+2*20*3" />  
-<img src="https://latex.codecogs.com/svg.image?123^2=(100&plus;23)^2=100^2&plus;23^2&plus;2*100*23&space;" title="123^2=(100+23)^2=100^2+23^2+2*100*23 " />  
+$23^2=(20+3)^2=20^2+3^2+2*20*3$  
+$123^2=(100+23)^2=100^2+23^2+2*100*23$  
 可以通过记录填法数量、填法数总和并记录后面几位的平方和回溯出整体平方和
 
 
@@ -428,14 +428,14 @@ CHIVAS_{
 <a href="https://codeforces.com/gym/102900/problem/C"><img src="https://img-blog.csdnimg.cn/22c08ad3440c4ad7a629af2975f96976.png"></a>
 
 #### 💡
-关注一下 <img src="https://latex.codecogs.com/svg.image?\inline&space;[i\&j=0]" title="\inline [i\&j=0]" />，这样的话每一位都不同才可以做出贡献，那么<img src="https://latex.codecogs.com/svg.image?\inline&space;log(i+j)" title="\inline [i\&j=0]" />就是<img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline [i\&j=0]" />和<img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline [i\&j=0]" />的最高位  
-第一眼想到排列组合乱搞，但是架不住有 <img src="https://latex.codecogs.com/svg.image?\inline&space;XY" title="\inline [i\&j=0]" /> 的限制让选数不能随便选  
+关注一下 $[i\&j=0]$，这样的话每一位都不同才可以做出贡献，那么$log(i+j)$就是$i$和$j$的最高位  
+第一眼想到排列组合乱搞，但是架不住有 $XY$ 的限制让选数不能随便选  
 那么既然是上界，可以采用数位dp去跑  
   
 限制为两个上界，正常一个位数
-所以我们设置 <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j][k]" title="\inline [i\&j=0]" /> 表示枚举到第 <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="" /> 位，第一个数是否到达上界，第二个数是否到达上界  
+所以我们设置 $dp[i][j][k]$ 表示枚举到第 $i$ 位，第一个数是否到达上界，第二个数是否到达上界  
   
-我们在 <img src="https://latex.codecogs.com/svg.image?\inline&space;dfs" title="" />参数上也保持这样的状态，并因为有两个数，我们在枚举第<img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="" />位的时候应有两重 <img src="https://latex.codecogs.com/svg.image?\inline&space;01" title="" />，并根据是否为最高数来给定枚举的最大值，保证两个不同为<img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="" />即可
+我们在 $dfs$参数上也保持这样的状态，并因为有两个数，我们在枚举第$i$位的时候应有两重 $01$，并根据是否为最高数来给定枚举的最大值，保证两个不同为$1$即可
 
 #### ✅
 

@@ -1640,18 +1640,18 @@ inline void Solve () {
 #### 💡
 如果一个点只有它的两侧各有一个点，那么它是可以动的，但仍会选另一个点导致弹回原位，我们把它视作动不了  
 我们考虑什么样的边可以保证通过（并且不弹回来）  
-对于  <img src="https://latex.codecogs.com/svg.image?\inline&space;x\rightarrow&space;y" title="\inline x\rightarrow&space;y" /> 以  <img src="https://latex.codecogs.com/svg.image?\inline&space;y" title="\inline y" /> 为根的子树有多于两个黑点，那么我们可以借用一个黑点走到  <img src="https://latex.codecogs.com/svg.image?\inline&space;y" title="\inline y" /> 然后再借用另一个往里走，这个是不会弹回来的，所以这条边是可以走的  
-如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;y" title="\inline y" /> 黑点，  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" /> 只需要一步就可以走到他想去的点，所以也可以视作能走  
+对于  $x\rightarrow y$ 以  $y$ 为根的子树有多于两个黑点，那么我们可以借用一个黑点走到  $y$ 然后再借用另一个往里走，这个是不会弹回来的，所以这条边是可以走的  
+如果  $y$ 黑点，  $x$ 只需要一步就可以走到他想去的点，所以也可以视作能走  
   
-如果对于每个方向都求一次  <img src="https://latex.codecogs.com/svg.image?\inline&space;son[i]" title="\inline son[i]" /> 那么时间肯定不允许  
+如果对于每个方向都求一次  $son[i]$ 那么时间肯定不允许  
 但是由于子树的性质：   
-如果整棵树以  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" /> 为根  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;y" title="\inline y" /> 的子树  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" /> 为  <img src="https://latex.codecogs.com/svg.image?\inline&space;son[y]" title="\inline son[y]" />   
- 子树  <img src="https://latex.codecogs.com/svg.image?\inline&space;2" title="\inline 2" /> 为  <img src="https://latex.codecogs.com/svg.image?\inline&space;son[1]-son[y]+y" title="\inline son[1]-son[y]+y" />   
+如果整棵树以  $1$ 为根  
+ $y$ 的子树  $1$ 为  $son[y]$   
+ 子树  $2$ 为  $son[1]-son[y]+y$   
    
 利用这个性质，我们遍历一次 DFS 即可  
 然后我们根据上面对“边是否能走”的判断来建一个新图  
-如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;x\rightarrow&space;y" title="\inline x\rightarrow&space;" /> 可以走，那么我们建一条  <img src="https://latex.codecogs.com/svg.image?\inline&space;y\rightarrow&space;x" title="\inline y\rightarrow&space;x" /> 的边，这样的话我们从所有黑点多源 BFS 即可走出所有能到达黑点的点  
+如果  $x\rightarrow y$ 可以走，那么我们建一条  $y\rightarrow x$ 的边，这样的话我们从所有黑点多源 BFS 即可走出所有能到达黑点的点  
 
 #### ✅
 

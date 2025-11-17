@@ -286,6 +286,9 @@ function flatten (items, res) {
     margin: 0 auto;
     padding: 1rem 2.5rem;
     color var(--text-color)
+    .title
+      font-size: 1.875rem;
+      font-weight: 600;
   .theme-reco-content h2
     position relative
     padding-left 1.3rem

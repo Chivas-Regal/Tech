@@ -12,11 +12,11 @@ title: 组合数学
 <a href="https://www.luogu.com.cn/problem/P1066"><img src="https://i.loli.net/2021/11/09/L12VyJBogcEPT86.png"></a>
 
 #### 💡
-我们先打一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;2^k" title="\inline 2^k" /> 进制和  <img src="https://latex.codecogs.com/svg.image?\inline&space;2" title="\inline 2" /> 进制的对应表看看  
+我们先打一个  $2^k$ 进制和  $2$ 进制的对应表看看  
 
 ::: details 表格
 <table>
-<tr><th>k</th><th> <img src="https://latex.codecogs.com/svg.image?\inline&space;10" title="\inline 10" />  进制</th><th> <img src="https://latex.codecogs.com/svg.image?\inline&space;2^k" title="\inline 2^k" /> 进制</th><th> <img src="https://latex.codecogs.com/svg.image?\inline&space;2" title="\inline 2" /> 进制</th></tr>
+<tr><th>k</th><th> $10$  进制</th><th> $2^k$ 进制</th><th> $2$ 进制</th></tr>
 <tr><td rowspan="101">1</td></tr><tr><td>1</td><td>1</td><td>1</td></tr>
 <tr><td>2</td><td>10</td><td>10</td></tr>
 <tr><td>3</td><td>11</td><td>11</td></tr>
@@ -336,15 +336,15 @@ $2.$ $2^k$ 进制下，在这个排列里面，一次循环  $2^k$ 进制会进�
   
     
     
-对于题目，我们走完这个排列中  <img src="https://latex.codecogs.com/svg.image?\inline&space;w" title="\inline w" /> 个数就可以结束了    
-我们枚举最高位的数字  <img src="https://latex.codecogs.com/svg.image?\inline&space;[1,2^k-1]" title="\inline [1,2^k-1]" />  ，可知在一次循环中我们  <img src="https://latex.codecogs.com/svg.image?\inline&space;2^k" title="\inline 2^k" /> 进制的位数时不变的  
-且如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;i+1" title="\inline i+1" /> 是  <img src="https://latex.codecogs.com/svg.image?\inline&space;2" title="\inline 2" /> 的幂次，即  <img src="https://latex.codecogs.com/svg.image?\inline&space;lowbit(i+1)=i+1" title="\inline lowbit(i+1)=i+1" />  那么就说明我们走过了排列中的一个数也就是在  <img src="https://latex.codecogs.com/svg.image?\inline&space;2" title="\inline 2" /> 进制下进了一位    
-而我们想要在最高位  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  数字为  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> 时后面低位有多少种构造方式，可以通过  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j]" title="\inline dp[i][j]" /> 预处理一下  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}dp[i][j]&=\sum\limits_{x=1}^{(1<<k)-1}dp[i-1][x]\\&=dp[i][j-1]+dp[i-1][j]\end{aligned}" title="\inline \begin{aligned}dp[i][j]&=\sum\limits_{x=1}^{(1<<k)-1}dp[i-1][x]\\&=dp[i][j-1]+dp[i-1][j]\end{aligned}" />  
+对于题目，我们走完这个排列中  $w$ 个数就可以结束了    
+我们枚举最高位的数字  $[1,2^k-1]$  ，可知在一次循环中我们  $2^k$ 进制的位数时不变的  
+且如果  $i+1$ 是  $2$ 的幂次，即  $lowbit(i+1)=i+1$  那么就说明我们走过了排列中的一个数也就是在  $2$ 进制下进了一位    
+而我们想要在最高位  $i$  数字为  $j$ 时后面低位有多少种构造方式，可以通过  $dp[i][j]$ 预处理一下  
+ $\begin{aligned}dp[i][j]&=\sum\limits_{x=1}^{(1<<k)-1}dp[i-1][x]\\&=dp[i][j-1]+dp[i-1][j]\end{aligned}$  
 
-但是我们这个是计算了  <img src="https://latex.codecogs.com/svg.image?\inline&space;2^k" title="\inline 2^k" /> 进制下的所有可行位数，最后还要按要求减掉  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" /> 位的  
+但是我们这个是计算了  $2^k$ 进制下的所有可行位数，最后还要按要求减掉  $1$ 位的  
 
-这里上  <img src="https://latex.codecogs.com/svg.image?\inline&space;Java" title="\inline Java" /> 高精 
+这里上  $Java$ 高精 
 
 #### ✅
 ```java
@@ -412,7 +412,7 @@ public class Main {
 不过需要特判很多地方  
 1.如果节点数为1，输入的点度数只能是一个0  
 2.如果节点数不为1，有一个节点度数是0就不行  
-3.如果节点数不为1，<img src="https://latex.codecogs.com/svg.image?\sum\limits_{i=1}^nd_i&space;-&space;n&space;=&space;n-2" title="\sum\limits_{i=1}^nd_i - n = n-2" />才行  
+3.如果节点数不为1，$\sum\limits_{i=1}^nd_i - n = n-2$才行  
   
 这些特判判掉之后就进行计算即可  
 要开高精
@@ -479,13 +479,13 @@ public class Main {
 <a href="https://www.luogu.com.cn/problem/P2606"><img src="https://i.loli.net/2021/11/19/OYNjF4ecQx7MyCl.png"></a>
 
 #### 💡
-看到这个约束条件  <img src="https://latex.codecogs.com/svg.image?\inline&space;[1\rightarrow2\And3],[2\rightarrow4\And5],..." title="\inline 1\rightarrow2\And3,2\rightarrow4\And5,..." />   
+看到这个约束条件  $[1\rightarrow2\And3],[2\rightarrow4\And5],...$   
 我们可以构建出一棵二叉树  
-从  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" />  开始，我们有  <img src="https://latex.codecogs.com/svg.image?\inline&space;Sz_1" title="\inline Sz_1" /> 个节点，可以选择  <img src="https://latex.codecogs.com/svg.image?\inline&space;\binom{Sz_1-1}{Sz_2}" title="\inline \binom{Sz_1-1}{Sz_2}" /> 放入二号子树，其余放入三号子树  
-通俗地说，就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;\binom{Sz_x-1}{Sz_{x\times&space;2}}" title="\inline " /> 放入左子树，其余放入右子树  
-这样就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;C(Sz_x-1,Sz{x\times&space;2\times&space;Dfs(x\times2)\times&space;Dfs(x\times2+1)" title="\inline C(S" />   
+从  $1$  开始，我们有  $Sz_1$ 个节点，可以选择  $\binom{Sz_1-1}{Sz_2}$ 放入二号子树，其余放入三号子树  
+通俗地说，就是  $\binom{Sz_x-1}{Sz_{x\times 2}}$ 放入左子树，其余放入右子树  
+这样就是  $C(Sz_x-1,Sz{x\times 2\times Dfs(x\times2)\times Dfs(x\times2+1)$   
   
-注意模数可能很小，所以我们需要用  <img src="https://latex.codecogs.com/svg.image?\inline&space;Lucas" title="\inline Lucas" /> 定理  
+注意模数可能很小，所以我们需要用  $Lucas$ 定理  
 
 #### ✅
 
@@ -807,13 +807,13 @@ int main () {
 
 #### 💡
 AB两队，每队必出一个人  
-我们可以枚举每队谁必出，然后为了保证  <img src="https://latex.codecogs.com/svg.image?\inline&space;max\{A\}<min\{B\}" title="\inline max\{A\}<min\{B\}" /> 我们让每队出的两个人中间的数必不出，两侧的数选出  
-这样的话就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;\sum\limits_{i=1}^n\sum\limits_{j=i+1}^n(2^{i-1}\times&space;2^{n-j})" title="\inline \sum\limits_{i=1}^n\sum\limits_{j=i+1}^n(2^{i-1}\times&space;2^{n-j})" />   
-这是一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;O(n^2)" title="\inline O(n^2)" /> 的柿子，我们优化一下  
+我们可以枚举每队谁必出，然后为了保证  $max\{A\}<min\{B\}$ 我们让每队出的两个人中间的数必不出，两侧的数选出  
+这样的话就是  $\sum\limits_{i=1}^n\sum\limits_{j=i+1}^n(2^{i-1}\times 2^{n-j})$   
+这是一个  $O(n^2)$ 的柿子，我们优化一下  
   
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}&\sum\limits_{i=1}^n\sum\limits_{j=i+1}^n(2^{i-1}\times&space;2^{n-j})\\=&\sum\limits_{i=1}^n\sum\limits_{j=0}^{n-i-1}(2^{i-1}\times&space;2^j)\\=&\sum\limits_{i=0}^{n-1}\sum\limits_{j=0}^{n-i-2}(2^i\times&space;2^j)\\=&\sum\limits_{i=0}^{n-1}2^i\sum\limits_{j=0}^{n-i-2}2^j\\=&\sum\limits_{i=0}^{n-1}(2^i\times(2^{n-i-1}-1))\\=&\sum\limits_{i=0}^{n-1}(2^{n-1}-2^i)\\=&n2^{n-1}-(2^n-1)\end{aligned}" title="\inline \begin{aligned}&\sum\limits_{i=1}^n\sum\limits_{j=i+1}^n(2^{i-1}\times&space;2^{n-j})\\=&\sum\limits_{i=1}^n\sum\limits_{j=0}^{n-i-1}(2^{i-1}\times&space;2^j)\\=&\sum\limits_{i=0}^{n-1}\sum\limits_{j=0}^{n-i-2}(2^i\times&space;2^j)\\=&\sum\limits_{i=0}^{n-1}2^i\sum\limits_{j=0}^{n-i-2}2^j\\=&\sum\limits_{i=0}^{n-1}(2^i\times(2^{n-i-1}-1))\\=&\sum\limits_{i=0}^{n-1}(2^{n-1}-2^i)\\=&n2^{n-1}-(2^n-1)\end{aligned}" />   
+ $\begin{aligned}&\sum\limits_{i=1}^n\sum\limits_{j=i+1}^n(2^{i-1}\times 2^{n-j})\\=&\sum\limits_{i=1}^n\sum\limits_{j=0}^{n-i-1}(2^{i-1}\times 2^j)\\=&\sum\limits_{i=0}^{n-1}\sum\limits_{j=0}^{n-i-2}(2^i\times 2^j)\\=&\sum\limits_{i=0}^{n-1}2^i\sum\limits_{j=0}^{n-i-2}2^j\\=&\sum\limits_{i=0}^{n-1}(2^i\times(2^{n-i-1}-1))\\=&\sum\limits_{i=0}^{n-1}(2^{n-1}-2^i)\\=&n2^{n-1}-(2^n-1)\end{aligned}$   
    
-好了，这么一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;O(logn)" title="\inline O(1)" /> 的柿子就出来了  
+好了，这么一个  $O(logn)$ 的柿子就出来了  
 
 #### ✅
 
@@ -831,9 +831,9 @@ cout << (n * ksm(2, n - 1) % mod - (ksm(2, n) + mod - 1) % mod + mod) % mod << e
 #### 💡
 整个寝室的关系图很容易看成一棵树  
 而且是一棵n个人轮流当根的树  
-对于每一个人当祖先，根据prufer编码性质有<img src="https://latex.codecogs.com/svg.image?n^{n-2}" title="n^{n-2}" />种树  
+对于每一个人当祖先，根据prufer编码性质有$n^{n-2}$种树  
 而n个人当祖先就是  
-<img src="https://latex.codecogs.com/svg.image?n^{n-2}\times&space;n=n^{n-1}" title="n^{n-2}\times n=n^{n-1}" />
+$n^{n-2}\times n=n^{n-1}$
 
 #### ✅
 
@@ -2161,26 +2161,26 @@ int main()
 ::: details 思路一
 
 #### 💡
-首先把整个<img src="https://latex.codecogs.com/svg.image?n" title="n" />个k位数画成一个<img src="https://latex.codecogs.com/svg.image?n\times&space;k" title="n\times k" />的矩阵  
-然后对于每一列，也就是<img src="https://latex.codecogs.com/svg.image?n" title="n" />个数的每一位  
-如果全<img src="https://latex.codecogs.com/svg.image?1" title="1" />了话<img src="https://latex.codecogs.com/svg.image?\And&space;=1" title="\And =1" />，有一个<img src="https://latex.codecogs.com/svg.image?0" title="0" />就是<img src="https://latex.codecogs.com/svg.image?0" title="0" />。  
-偶数个<img src="https://latex.codecogs.com/svg.image?1" title="1" />了话<img src="https://latex.codecogs.com/svg.image?\bigoplus&space;=0" title="\bigoplus =0" />，奇数个<img src="https://latex.codecogs.com/svg.image?\bigoplus&space;=1" title="\bigoplus =1" />  
+首先把整个$n$个k位数画成一个$n\times k$的矩阵  
+然后对于每一列，也就是$n$个数的每一位  
+如果全$1$了话$\And =1$，有一个$0$就是$0$。  
+偶数个$1$了话$\bigoplus =0$，奇数个$\bigoplus =1$  
   
 得到两条性质：  
-**n为奇数时：** 这一位最多在含有偶数个<img src="https://latex.codecogs.com/svg.image?1" title="1" />的时候与和异或相等，都是<img src="https://latex.codecogs.com/svg.image?0" title="0" />  
-**n为偶数时：** 这一位在全<img src="https://latex.codecogs.com/svg.image?1" title="1" />时，<img src="https://latex.codecogs.com/svg.image?\And&space;=1" title="\And =1" />，<img src="https://latex.codecogs.com/svg.image?\bigoplus&space;=0" title="\bigoplus =0" />。而在全<img src="https://latex.codecogs.com/svg.image?1" title="1" />以下的偶数个时，<img src="https://latex.codecogs.com/svg.image?\And&space;=\bigoplus&space;=0" title="\And =\bigoplus =0" />  
+**n为奇数时：** 这一位最多在含有偶数个$1$的时候与和异或相等，都是$0$  
+**n为偶数时：** 这一位在全$1$时，$\And =1$，$\bigoplus =0$。而在全$1$以下的偶数个时，$\And =\bigoplus =0$  
   
 那么有两类解决方案：  
 **n为奇数时：**   
-每一位最多只能相等，就是在每一位都有偶数个<img src="https://latex.codecogs.com/svg.image?1" title="1" />或者全<img src="https://latex.codecogs.com/svg.image?1" title="1" />的情况下  
-所以我们对每一位的n个数字进行排列组合，设偶数个<img src="https://latex.codecogs.com/svg.image?1" title="1" />和全<img src="https://latex.codecogs.com/svg.image?1" title="1" />的组合情况累加为<img src="https://latex.codecogs.com/svg.image?has\_Eve&plus;1" title="has\_Eve+1" />    
+每一位最多只能相等，就是在每一位都有偶数个$1$或者全$1$的情况下  
+所以我们对每一位的n个数字进行排列组合，设偶数个$1$和全$1$的组合情况累加为$has\_Eve+1$    
 那么答案就是  
-<img src="https://latex.codecogs.com/svg.image?(has\_Eve&plus;1)^k" title="(has\_Eve+1)^k" />   
+$(has\_Eve+1)^k$   
 **n为偶数时：**  
-每一位可以是相等，就是在每一位在非全<img src="https://latex.codecogs.com/svg.image?1" title="1" />且有偶数个的情况下，设为<img src="https://latex.codecogs.com/svg.image?has\_Eve" title="has\_Eve" />  
-当前位还可以大于，就是在这一位(设为<img src="https://latex.codecogs.com/svg.image?i" title="i" />)全<img src="https://latex.codecogs.com/svg.image?1" title="1" />的情况下，那么前面的所有位都可以任意个<img src="https://latex.codecogs.com/svg.image?\And&space;=1" title="\And =1" />组合，方案有<img src="https://latex.codecogs.com/svg.image?(2^n)^{i-1}" title="(2^n)^{i-1}" />个  
+每一位可以是相等，就是在每一位在非全$1$且有偶数个的情况下，设为$has\_Eve$  
+当前位还可以大于，就是在这一位(设为$i$)全$1$的情况下，那么前面的所有位都可以任意个$\And =1$组合，方案有$(2^n)^{i-1}$个  
 所以这一位就是要递推，答案是  
-<img src="https://latex.codecogs.com/svg.image?\begin{aligned}i\{1\to&space;k\}:\\&res=res\times&space;has\_Eve&space;&plus;&space;(2^n)^{i-1}\end{aligned}" title="\begin{aligned}i\{1\to k\}:\\&res=res\times has\_Eve + (2^n)^{i-1}\end{aligned}" />
+$\begin{aligned}i\{1\to k\}:\\&res=res\times has\_Eve + (2^n)^{i-1}\end{aligned}$
 
 #### ✅
 
@@ -2359,11 +2359,11 @@ int main () {
 
 #### 💡
 首先应该能很快想到，只有祖先节点有6种颜色可以选，那么对于每个有父节点的节点，他们都只能选四个  
-一共有<img src="https://latex.codecogs.com/svg.image?2^k-1" title="2^k-1" />个节点  
-那么答案公式就是<img src="https://latex.codecogs.com/svg.image?6\times&space;4^{2^k-2}" title="6\times 4^{2^k-2}" />  
+一共有$2^k-1$个节点  
+那么答案公式就是$6\times 4^{2^k-2}$  
   
 此时k不过60所以我们也没有必要用快速幂求指数  
-如果非要用的话，模数要选择<img src="https://latex.codecogs.com/svg.image?10^9&plus;6" title="10^9+6" />，因为根据欧拉定理，指数取模时在<img src="https://latex.codecogs.com/svg.image?gcd(up,&space;mod)=1" title="gcd(up, mod)=1" />时要取<img src="https://latex.codecogs.com/svg.image?\phi(mod)" title="\phi(mod)" />
+如果非要用的话，模数要选择$10^9+6$，因为根据欧拉定理，指数取模时在$gcd(up, mod)=1$时要取$\phi(mod)$
 
 #### ✅
 
@@ -2933,14 +2933,14 @@ int main () {
 <a href="https://ac.nowcoder.com/acm/contest/24710/D"><img src="https://i.loli.net/2021/11/25/t2savw1RVIrTjGd.png"></a>
 
 #### 💡
-首先生成函数想一波，把这四个砖的生成函数乘起来得到  <img src="https://latex.codecogs.com/svg.image?\inline&space;\frac{1}{(1-x)^4(1+x)^2}" title="\inline \frac{1}{(1-x)^4(1+x)^2}" />  发现啥也不啥，告辞  
+首先生成函数想一波，把这四个砖的生成函数乘起来得到  $\frac{1}{(1-x)^4(1+x)^2}$  发现啥也不啥，告辞  
 组合数想一波  
 其实就是分成两部分，一部分一定是偶数，一部分无所谓，偶数那一部分分成两份偶数，无所谓那一部分分成两份无所谓  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" />  块砖选偶数个有  <img src="https://latex.codecogs.com/svg.image?\inline&space;2^{n-1}" title="\inline 2^{n-1}" />  种，选任意个有  <img src="https://latex.codecogs.com/svg.image?\inline&space;2^n" title="\inline 2^n" />  种  
+ $n$  块砖选偶数个有  $2^{n-1}$  种，选任意个有  $2^n$  种  
 那么从这偶数个中选偶数个，再从另外任意个中选任意个，得到柿子  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\sum\limits_{i=0}^{\frac&space;n2\times2}(\binom{n}{i}\times2^{i-1}\times2^{n-i})" title="\inline \sum\limits_{i=0}^{\frac n2\times2}(\binom{n}{i}\times2^{i-1}\times2^{n-i})" />   
-注意在  <img src="https://latex.codecogs.com/svg.image?\inline&space;i=0" title="\inline i=0" />  时  <img src="https://latex.codecogs.com/svg.image?\inline&space;2^{i-1}" title="\inline 2^{i-1}" />  可能会出错，所以拿出来  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}&\sum\limits_{i=0}^{\frac&space;n2\times2}(\binom{n}{i}\times2^{i-1}\times2^{n-i})\\=&\sum\limits_{i=2}^{\frac&space;n2\times2}(\binom{n}{i}\times2^{i-1}\times2^{n-i})+2^n\\=&2^{n-1}\sum\limits_{i=2}^{\frac&space;n2\times2}\binom{n}{i}+2^n\\=&2^{n-1}\times(2^{n-1}-1)+2^n\end{aligned}" title="\inline \begin{aligned}&\sum\limits_{i=0}^{\frac n2\times2}(\binom{n}{i}\times2^{i-1}\times2^{n-i})\\=&\sum\limits_{i=2}^{\frac n2\times2}(\binom{n}{i}\times2^{i-1}\times2^{n-i})+2^n\\=&2^{n-1}\sum\limits_{i=2}^{\frac n2\times2}\binom{n}{i}+2^n\\=&2^{n-1}\times(2^{n-1}-1)+2^n\end{aligned}" />   
+ $\sum\limits_{i=0}^{\frac n2\times2}(\binom{n}{i}\times2^{i-1}\times2^{n-i})$   
+注意在  $i=0$  时  $2^{i-1}$  可能会出错，所以拿出来  
+ $\begin{aligned}&\sum\limits_{i=0}^{\frac n2\times2}(\binom{n}{i}\times2^{i-1}\times2^{n-i})\\=&\sum\limits_{i=2}^{\frac n2\times2}(\binom{n}{i}\times2^{i-1}\times2^{n-i})+2^n\\=&2^{n-1}\sum\limits_{i=2}^{\frac n2\times2}\binom{n}{i}+2^n\\=&2^{n-1}\times(2^{n-1}-1)+2^n\end{aligned}$   
   
 我们解这个柿子就行了  
 
@@ -2979,22 +2979,22 @@ int main () {
 
 #### 💡
 先根据题目构建生成函数  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;i:1+x+x^2+...+x^{m_i}" title="\inline i:1+x+x^2+...+x^{m_i}" />   
-将生成函数乘起来  <img src="https://latex.codecogs.com/svg.image?\inline&space;\prod\limits_{i=1}^n\frac{1-x^{m_i+1}}{1-x}=\frac{\prod\limits_{i=1}^n(1-x(m_i+1))}{(1-x)^n}" title="\inline \prod\limits_{i=1}^n\frac{1-x^{m_i+1}}{1-x}=\frac{\prod\limits_{i=1}^n(1-x(m_i+1))}{(1-x)^n}" />   
-上面的可以变成一个多项式  <img src="https://latex.codecogs.com/svg.image?\inline&space;g(x)" title="\inline g(x)" />   
+ $i:1+x+x^2+...+x^{m_i}$   
+将生成函数乘起来  $\prod\limits_{i=1}^n\frac{1-x^{m_i+1}}{1-x}=\frac{\prod\limits_{i=1}^n(1-x(m_i+1))}{(1-x)^n}$   
+上面的可以变成一个多项式  $g(x)$   
 看下面的   
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}&=(1-x)^{-n}\\&=\sum\limits_{i\ge0}\binom{-n}i(-x)^i\\&=\sum\limits_{i\ge0}\frac{(-n)\times...\times(-n-i+1)}{i!}(-x)^i\\&=\sum\limits_{i\ge0}\frac{n\times...\times(n+i-1)}{i!}x^i\\&=\sum\limits_{i\ge0}\binom{n+i-1}ix^i\end{aligned}" title="\inline \begin{aligned}=(1-x)^{-n}\\=\sum\limits_{i\ge0}\binom{-n}i(-x)^i\\=\sum\limits_{i\ge0}\frac{(-n)\times...\times(-n-i+1)}{i!}(-x)^i\\=\sum\limits_{i\ge0}\frac{n\times...\times(n+i-1)}{i!}x^i\\=\sum\limits_{i\ge0}\binom{n+i-1}ix^i\end{aligned}" />   
-合并起来得到  <img src="https://latex.codecogs.com/svg.image?\inline&space;g(x)\sum\limits_{i\ge0}\binom{n+i-1}ix^i" title="\inline g(x)\sum\limits_{i\ge0}\binom{n+i-1}ix^i" />   
+ $\begin{aligned}&=(1-x)^{-n}\\&=\sum\limits_{i\ge0}\binom{-n}i(-x)^i\\&=\sum\limits_{i\ge0}\frac{(-n)\times...\times(-n-i+1)}{i!}(-x)^i\\&=\sum\limits_{i\ge0}\frac{n\times...\times(n+i-1)}{i!}x^i\\&=\sum\limits_{i\ge0}\binom{n+i-1}ix^i\end{aligned}$   
+合并起来得到  $g(x)\sum\limits_{i\ge0}\binom{n+i-1}ix^i$   
   
-对于  <img src="https://latex.codecogs.com/svg.image?\inline&space;x^k" title="\inline x^k" />  这一项：（系数设置为  <img src="https://latex.codecogs.com/svg.image?\inline&space;\alpha" title="\inline \alpha" />  )  <img src="https://latex.codecogs.com/svg.image?\inline&space;\alpha&space;x^k\sum\limits_{l\le&space;i+1\le&space;r}\binom{n+i-1}{i}x^i" title="\inline \alpha x^k\sum\limits_{l\le i+1\le r}\binom{n+i-1}{i}x^i" />   
-那么这一项贡献为  <img src="https://latex.codecogs.com/svg.image?\inline&space;\alpha\sum\limits_{i=l-k}^{r-k}\binom{n+i-1}{i}" title="\inline \alpha\sum\limits_{i=l-k}^{r-k}\binom{n+i-1}{i}" />   
-由  <img src="https://latex.codecogs.com/svg.image?\inline&space;\binom{n}{m}=\binom{n}{m-1}+\binom{n-1}{m-1}" title="\inline \binom{n}{m}=\binom{n}{m-1}+\binom{n-1}{m-1}" />  可将  <img src="https://latex.codecogs.com/svg.image?\inline&space;\sum\limits_{i=l-k}^{r-k}\binom{n+i-1}{i}" title="\inline \sum\limits_{i=l-k}^{r-k}\binom{n+i-1}{i}" />  化成  <img src="https://latex.codecogs.com/svg.image?\inline&space;\binom{r-k+n}{r-k}-\binom{l-k+n-1}{l-k-1}" title="\inline \binom{r-k+n}{r-k}-\binom{l-k+n-1}{l-k-1}" />   
-即  <img src="https://latex.codecogs.com/svg.image?\inline&space;\alpha(\binom{r+k-n}{r-k}-\binom{l-k+n-1}{l-k-1})" title="\inline \alpha(\binom{r+k-n}{r-k}-\binom{l-k+n-1}{l-k-1})" />   
+对于  $x^k$  这一项：（系数设置为  $\alpha$  )  $\alpha x^k\sum\limits_{l\le i+1\le r}\binom{n+i-1}{i}x^i$   
+那么这一项贡献为  $\alpha\sum\limits_{i=l-k}^{r-k}\binom{n+i-1}{i}$   
+由  $\binom{n}{m}=\binom{n}{m-1}+\binom{n-1}{m-1}$  可将  $\sum\limits_{i=l-k}^{r-k}\binom{n+i-1}{i}$  化成  $\binom{r-k+n}{r-k}-\binom{l-k+n-1}{l-k-1}$   
+即  $\alpha(\binom{r+k-n}{r-k}-\binom{l-k+n-1}{l-k-1})$   
 
-那么答案为  <img src="https://latex.codecogs.com/svg.image?\inline&space;\sum\limits_{i=1}^{SZ_g}\alpha_i(\binom{r+k_i-n}{r-k_i}-\binom{l-k_i+n-1}{l-k_i-1})" title="\inline \sum\limits_{i=1}^{SZ_g}\alpha_i(\binom{r+k_i-n}{r-k_i}-\binom{l-k_i+n-1}{l-k_i-1})" />   
+那么答案为  $\sum\limits_{i=1}^{SZ_g}\alpha_i(\binom{r+k_i-n}{r-k_i}-\binom{l-k_i+n-1}{l-k_i-1})$   
 
-对于取模，观察  <img src="https://latex.codecogs.com/svg.image?\inline&space;\binom{x+n}{x}=\frac{(n+1)\times...\times(n+x)}{n!}" title="\inline \binom{x+n}{x}=\frac{(n+1)\times...\times(n+x)}{n!}" />   
-将  <img src="https://latex.codecogs.com/svg.image?\inline&space;mod+n!" title="\inline mod+n!" />  ，取完模是比  <img src="https://latex.codecogs.com/svg.image?\inline&space;n!" title="\inline n!" />  要大的，那么这时就可以直接除  <img src="https://latex.codecogs.com/svg.image?\inline&space;n!" title="\inline n!" />  了  
+对于取模，观察  $\binom{x+n}{x}=\frac{(n+1)\times...\times(n+x)}{n!}$   
+将  $mod+n!$  ，取完模是比  $n!$  要大的，那么这时就可以直接除  $n!$  了  
 
 #### ✅
 
@@ -3052,18 +3052,18 @@ int main () {
 
 #### 💡
 我们对每一个物品一个生成函数多项式，同时根据下面这个结论将他们化简     
->对于等比  <img src="https://latex.codecogs.com/svg.image?\inline&space;(x)" title="\inline (x)" />  数列求和公式：  <img src="https://latex.codecogs.com/svg.image?\inline&space;\frac{a_0(1-x^n)}{1-x}" title="\inline \frac{a_0(1-x^n)}{1-x}" />   
->如果   <img src="https://latex.codecogs.com/svg.image?\inline&space;(0<x<1)" title="\inline (1\lt&space;x\lt y)" />  
->那么  <img src="https://latex.codecogs.com/svg.image?\inline&space;1-x^n\approx1" title="\inline 1-x^n\approx1" />   
->所以  <img src="https://latex.codecogs.com/svg.image?\inline&space;\frac{a_0(1-x^n)}{1-x}\approx\frac1{x-1}" title="\inline \frac{a_0(1-x^n)}{1-x}\approx\frac1{x-1}" /> 
+>对于等比  $(x)$  数列求和公式：  $\frac{a_0(1-x^n)}{1-x}$   
+>如果   $(0<x<1)$  
+>那么  $1-x^n\approx1$   
+>所以  $\frac{a_0(1-x^n)}{1-x}\approx\frac1{x-1}$ 
 
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}(1)&1+x&1+x\\(2)&1+x+x^2&\frac{1-x^3}{1-x}\\(3)&1+x+x^2+x^3&\frac{1-x^4}{1-x}\\(4)&1+x^2+x^4+...&\frac{1}{1-x^2}\\(5)&x+x^3+x^5+...&\frac{x}{1-x^2}\\(6)&1+x^4+x^8+...&\frac{1}{1-x^4}\\(7)&1+x&1+x\\(8)&x+x^3+x^6+...&\frac1{1-x^3}\end{aligned}" title="\inline \begin{aligned}(1)&1+x&1+x\\(2)&1+x+x^2&\frac{1-x^3}{1-x}\\(3)&1+x+x^2+x^3&\frac{1-x^4}{1-x}\\(4)&1+x^2+x^4+...&\frac{1}{1-x^2}\\(5)&x+x^3+x^5+...&\frac{x}{1-x^2}\\(6)&1+x^4+x^8+...&\frac{1}{1-x^4}\\(7)&1+x&1+x\\(8)&x+x^3+x^6+...&\frac1{1-x^3}\end{aligned}" />    
+ $\begin{aligned}(1)&1+x&1+x\\(2)&1+x+x^2&\frac{1-x^3}{1-x}\\(3)&1+x+x^2+x^3&\frac{1-x^4}{1-x}\\(4)&1+x^2+x^4+...&\frac{1}{1-x^2}\\(5)&x+x^3+x^5+...&\frac{x}{1-x^2}\\(6)&1+x^4+x^8+...&\frac{1}{1-x^4}\\(7)&1+x&1+x\\(8)&x+x^3+x^6+...&\frac1{1-x^3}\end{aligned}$    
 
-对后面的求和并化简得到  <img src="https://latex.codecogs.com/svg.image?\inline&space;g(x)=\frac{x}{(1-x)^4}" title="\inline g(x)=\frac{x}{(1-x)^4}" />   
-展开得  <img src="https://latex.codecogs.com/svg.image?\inline&space;g(x)=x\times&space;(\frac1{1-x})^4=x(1+x+x^2+x^3+...+x^n)^4" title="\inline g(x)=x\times (\frac1{1-x})^4=x(1+x+x^2+x^3+...+x^n)^4" />   
-根据二项式定理得到最后  <img src="https://latex.codecogs.com/svg.image?\inline&space;x^n" title="\inline x^n" />  的系数便是  <img src="https://latex.codecogs.com/svg.image?\inline&space;\binom{n+2}{n-1}" title="\inline \binom{n+2}{n-1}" />   
+对后面的求和并化简得到  $g(x)=\frac{x}{(1-x)^4}$   
+展开得  $g(x)=x\times (\frac1{1-x})^4=x(1+x+x^2+x^3+...+x^n)^4$   
+根据二项式定理得到最后  $x^n$  的系数便是  $\binom{n+2}{n-1}$   
    
-那么就直接求  <img src="https://latex.codecogs.com/svg.image?\inline&space;\frac{n\times(n+1)\times(n+2)}{1\times2\times3}" title="\inline \frac{n\times(n+1)\times(n+2)}{1\times2\times3}" />   
+那么就直接求  $\frac{n\times(n+1)\times(n+2)}{1\times2\times3}$   
 
 
 #### ✅
@@ -3557,18 +3557,18 @@ Chivas{
 <a href="https://www.luogu.com.cn/problem/P1450"><img src="https://i.loli.net/2021/11/10/27LQvBmkElueGT6.png"></a>
 
 #### 💡
-本题尝试生成函数  <img src="https://latex.codecogs.com/svg.image?\inline&space;10" title="\inline 10" /> 分，  <img src="https://latex.codecogs.com/svg.image?\inline&space;FFT" title="\inline FFT" /> 优化还是  <img src="https://latex.codecogs.com/svg.image?\inline&space;10" title="\inline 10" /> 分...  
+本题尝试生成函数  $10$ 分，  $FFT$ 优化还是  $10$ 分...  
   
 看了眼时间，开始老老实实想背包   
-（不会吧  <img src="https://latex.codecogs.com/svg.image?\inline&space;O(n)" title="\inline O(n)" /> 是极限而且不一定过？  
+（不会吧  $O(n)$ 是极限而且不一定过？  
   
-提前给定的  <img src="https://latex.codecogs.com/svg.image?\inline&space;c[0...4]" title="\inline c[0...4]" /> 一定有其用意，先拿完全背包预处理一下  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp" title="\inline dp" />  数组  
+提前给定的  $c[0...4]$ 一定有其用意，先拿完全背包预处理一下  $dp$  数组  
 但是让多重背包，我们就容斥减掉不合法的  
-假设我们枚举第  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 个，此时我们如果预先拿走  <img src="https://latex.codecogs.com/svg.image?\inline&space;d[i]+1" title="\inline d[i]+1" /> 个，那么之后的任意选择方式都是不合法的  
-此时不合法的也就是容积  <img src="https://latex.codecogs.com/svg.image?\inline&space;n-c[i]\times&space;(d[i]+1)" title="\inline n-c[i]\times&space;(d[i]+1)" /> 的背包，我们减去  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[n-c[i]*(d[i]+1)]" title="\inline dp[n-c[i]*(d[i]+1)]" />   
+假设我们枚举第  $i$ 个，此时我们如果预先拿走  $d[i]+1$ 个，那么之后的任意选择方式都是不合法的  
+此时不合法的也就是容积  $n-c[i]\times (d[i]+1)$ 的背包，我们减去  $dp[n-c[i]*(d[i]+1)]$   
 当然因为是容斥，所以我们还要加回来提前两个不合法，减掉提前三个不合法...   
   
-二进制枚举，观察时间复杂的，  <img src="https://latex.codecogs.com/svg.image?\inline&space;T*2^4" title="\inline T*2^4" /> 很正常的时间    
+二进制枚举，观察时间复杂的，  $T*2^4$ 很正常的时间    
   
 好家伙，容斥改完全背包为多重背包...
 
@@ -3798,13 +3798,13 @@ int main () {
 
 #### 💡
 真就看见计数想容斥呗  
-首先可以得到总边数  <img src="https://latex.codecogs.com/svg.image?\inline&space;has\_edge" title="\inline has\_edge" />  为  <img src="https://latex.codecogs.com/svg.image?\inline&space;\frac{n\times&space;(n-1)}2" title="\inline \frac{n\times&space;(n-1)}2" />  
-对于这些边数让两人一起放一共有  <img src="https://latex.codecogs.com/svg.image?\inline&space;\binom{has\_edge}{a}\times\binom{has\_edge}{b}" title="\inline \binom{}{}" /> 种情况，设为  <img src="https://latex.codecogs.com/svg.image?\inline&space;has\_situation" title="\inline has\_situation" />   
+首先可以得到总边数  $has\_edge$  为  $\frac{n\times (n-1)}2$  
+对于这些边数让两人一起放一共有  $\binom{has\_edge}{a}\times\binom{has\_edge}{b}$ 种情况，设为  $has\_situation$   
 
-如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;a+b\ge&space;has\_edge" title="\inline a+b\ge&space;has\_edge" /> 那么不管咋放都成立，直接输出  <img src="https://latex.codecogs.com/svg.image?\inline&space;has\_situation" title="\inline has\_situation" /> 就行  
+如果  $a+b\ge has\_edge$ 那么不管咋放都成立，直接输出  $has\_situation$ 就行  
 否则看看两人没有公共边的情况  
-就是在  <img src="https://latex.codecogs.com/svg.image?\inline&space;has\_edge" title="\inline has\_edge" /> 中选  <img src="https://latex.codecogs.com/svg.image?\inline&space;a" title="\inline a" /> 个，再从  <img src="https://latex.codecogs.com/svg.image?\inline&space;has\_edge-a" title="\inline has\_edge-a" /> 个中选  <img src="https://latex.codecogs.com/svg.image?\inline&space;b" title="\inline b" /> 个  
-这样的答案就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;has\_situation-\binom{has\_edge}{a}\times\binom{has\_edge-a}{b}" title="\inline has\_situation-\binom{has\_edge}{a}\times\binom{has\_edge-a}{b}" />   
+就是在  $has\_edge$ 中选  $a$ 个，再从  $has\_edge-a$ 个中选  $b$ 个  
+这样的答案就是  $has\_situation-\binom{has\_edge}{a}\times\binom{has\_edge-a}{b}$   
 
 #### ✅
 
@@ -3859,12 +3859,12 @@ int main () {
 
 #### 💡
 问题转化一下就是  
-从左向右，<img src="https://latex.codecogs.com/svg.image?a[i]" title="a[i]" />的贡献就是每个前面比它小的<img src="https://latex.codecogs.com/svg.image?a[j]" title="a[j]" />，在这个位置上的贡献为<img src="https://latex.codecogs.com/svg.image?2^{i-j-1}" title="2^{i-j-1}" />  
+从左向右，$a[i]$的贡献就是每个前面比它小的$a[j]$，在这个位置上的贡献为$2^{i-j-1}$  
 由于区间长度总是参差不齐的  
-那么对于每个<img src="https://latex.codecogs.com/svg.image?a[j]" title="a[j]" />，我们都可以维护一个前缀贡献为<img src="https://latex.codecogs.com/svg.image?2^{-j-1}&space;" title="2^{-j-1} " />   
-然后在<img src="https://latex.codecogs.com/svg.image?i" title="i" />的位置的时候的贡献容斥为<img src="https://latex.codecogs.com/svg.image?\sum\frac{2^i}{2^{j&plus;1}}" title="\sum\frac{2^i}{2^{j+1}}" />即可，其中sum可以由树状数组的前缀得到  
-所以每次累加查询<img src="https://latex.codecogs.com/svg.image?a[i]" title="a[i]" />位置以前的总贡献，`query(a[i]) * ksm(2, i)`  
-然后在<img src="https://latex.codecogs.com/svg.image?a[i]" title="a[i]" />的位置上更新一下这个前缀贡献，`update( a[i], ksm(ksm(2, i + 1), mod - 2) )`  
+那么对于每个$a[j]$，我们都可以维护一个前缀贡献为$2^{-j-1}$   
+然后在$i$的位置的时候的贡献容斥为$\sum\frac{2^i}{2^{j+1}}$即可，其中sum可以由树状数组的前缀得到  
+所以每次累加查询$a[i]$位置以前的总贡献，`query(a[i]) * ksm(2, i)`  
+然后在$a[i]$的位置上更新一下这个前缀贡献，`update( a[i], ksm(ksm(2, i + 1), mod - 2) )`  
 
 #### ✅
 
@@ -3998,23 +3998,23 @@ inline void Solve () {
 
 #### 💡
 这个数据量...  
-感觉母函数过不了，看了眼  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" />  想一下容斥  
+感觉母函数过不了，看了眼  $n$  想一下容斥  
   
 和多重背包超限一样  
 我们考虑这里面的总方案和不合法方案  
-如果箱子无限朵花，那么就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;\binom{s+n-1}{n-1}" title="\inline \binom{s+n-1}{n-1}" />  种取法  
->即问：  <img src="https://latex.codecogs.com/svg.image?\inline&space;\sum\limits_{i=1}^nx_i=s" title="\inline \sum\limits_{i=1}^nx_i=s" />   
->那就是使用  <img src="https://latex.codecogs.com/svg.image?\inline&space;n-1" title="\line n-1" />  个隔板将  <img src="https://latex.codecogs.com/svg.image?\inline&space;s" title="\inline s" />  个物品分割成  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" />  份  
->那就是有了  <img src="https://latex.codecogs.com/svg.image?\inline&space;s+n-1" title="\inline s+n-1" />  个位置可以用来放这  <img src="https://latex.codecogs.com/svg.image?\inline&space;n-1" title="\inline n-1" />  个隔板  
->方案数就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;\binom{s+n-1}{n-1}" title="\inline \binom{s+n-1}{n-1}" /> 
+如果箱子无限朵花，那么就是  $\binom{s+n-1}{n-1}$  种取法  
+>即问：  $\sum\limits_{i=1}^nx_i=s$   
+>那就是使用  $n-1$  个隔板将  $s$  个物品分割成  $n$  份  
+>那就是有了  $s+n-1$  个位置可以用来放这  $n-1$  个隔板  
+>方案数就是  $\binom{s+n-1}{n-1}$ 
 
-不合法方案就是“你第  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  个箱子只有  <img src="https://latex.codecogs.com/svg.image?\inline&space;x_i" title="\inline x_i" />  朵花，但是你取了  <img src="https://latex.codecogs.com/svg.image?\inline&space;x_i+1" title="\inline x_i+1" />  朵花  
+不合法方案就是“你第  $i$  个箱子只有  $x_i$  朵花，但是你取了  $x_i+1$  朵花  
   
-那么我们如果直接强制在<img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />号箱子取  <img src="https://latex.codecogs.com/svg.image?\inline&space;x_i+1" title="\inline x_i+1" />  朵花，那么别的所有取法都不合法  
+那么我们如果直接强制在$i$号箱子取  $x_i+1$  朵花，那么别的所有取法都不合法  
 这就是容斥的问题了，因为枚举会出现重复  
 所以就（奇数个箱子）-（偶数个箱子）  
   
-由于一开始给出的 <img src="https://latex.codecogs.com/svg.image?\inline&space;s" title="\line s" /> 可能很大，所以这里需要用 <img src="https://latex.codecogs.com/svg.image?\inline&space;Lucas" title="\line Lucas" /> 定理
+由于一开始给出的 $s$ 可能很大，所以这里需要用 $Lucas$ 定理
 
 
 #### ✅
@@ -4165,19 +4165,19 @@ int main () {
 如果最大值和次大值的差值大于1则怎么搞都不行  
 然后就是最大值和次大值差值为1的情况  
   
-获取一下所有的排列方式即<img src="https://latex.codecogs.com/svg.image?n!" title="n!" />  
-然后最大值在最后是不可以的，所以要减去<img src="https://latex.codecogs.com/svg.image?(n-1)!" title="(n-1)!" />  
+获取一下所有的排列方式即$n!$  
+然后最大值在最后是不可以的，所以要减去$(n-1)!$  
 然后计算所有次大值都在最大值前面的情况  
   
-我们设置<img src="https://latex.codecogs.com/svg.image?a_0" title="a_0" />是最大值，<img src="https://latex.codecogs.com/svg.image?a_1" title="a_1" />是次大值，<img src="https://latex.codecogs.com/svg.image?num_i" title="num_i" />是<img src="https://latex.codecogs.com/svg.image?i" title="i" />出现的个数  
-最大值前面至少要留下<img src="https://latex.codecogs.com/svg.image?num_{a_1" title="num_{a_1" />，最多就是<img src="https://latex.codecogs.com/svg.image?n-2" title="n-2" />个  
-那么我们以<img src="https://latex.codecogs.com/svg.image?i" title="i" />遍历  
-将<img src="https://latex.codecogs.com/svg.image?num_{a_1" title="num_{a_1" />个数不记顺序地放入<img src="https://latex.codecogs.com/svg.image?i" title="i" />个空中  
-即<img src="https://latex.codecogs.com/svg.image?C_i^{num_{a_1}}" title="C_i^{num_{a_1}}" />  
-然后对这<img src="https://latex.codecogs.com/svg.image?num_{a_1" title="num_{a_1" />个数考虑顺序，对其余的<img src="https://latex.codecogs.com/svg.image?n-num_{a_1}-1" title="n-num_{a_1}-1" />个数考虑顺序  
+我们设置$a_0$是最大值，$a_1$是次大值，$num_i$是$i$出现的个数  
+最大值前面至少要留下$num_{a_1$，最多就是$n-2$个  
+那么我们以$i$遍历  
+将$num_{a_1$个数不记顺序地放入$i$个空中  
+即$C_i^{num_{a_1}}$  
+然后对这$num_{a_1$个数考虑顺序，对其余的$n-num_{a_1}-1$个数考虑顺序  
 即都是阶乘  
 那么就有公式：  
-<img src="https://latex.codecogs.com/svg.image?n!-(n-1)!-\sum\limits_{i=num_{a_1}}^{n-2}\{C_i^{num_{a_1}}\times&space;num_{a_1}!\times&space;(n-1-num_{a_1})!\}" title="n!-(n-1)!-\sum\limits_{i=num_{a_1}}^{n-2}\{C_i^{num_{a_1}}\times num_{a_1}!\times (n-1-num_{a_1})!\}" />  
+$n!-(n-1)!-\sum\limits_{i=num_{a_1}}^{n-2}\{C_i^{num_{a_1}}\times num_{a_1}!\times (n-1-num_{a_1})!\}$  
 
 #### ✅
 
@@ -4427,11 +4427,11 @@ http://acm.hrbust.edu.cn/index.php?m=ProblemSet&a=showProblem&problem_id=2414
 #### 💡
 设第a[i]种颜色不能用  
 那么我们在选k个数中，要求得的是  
-<img src="https://latex.codecogs.com/svg.image?1-P(a[1]\cup&space;a[2]\cup&space;a[3]\cup&space;...\cup&space;a[k]&space;)" title="1-P(a[1]\cup a[2]\cup a[3]\cup ...\cup a[k] )" />  
+$1-P(a[1]\cup a[2]\cup a[3]\cup ...\cup a[k] )$  
 转化成容斥原理图得到的也就是  
-<img src="https://latex.codecogs.com/svg.image?\begin{align}&space;&space;1&-(P(a[1])&plus;P(a[2])&plus;...&plus;P(a[k]))\\&space;&&plus;&space;(P(a[1]\cap&space;a[2])&plus;P(a[1]\cap&space;a[3])&plus;...&plus;P(a[k-1]\cap&space;a[k]))&space;\\&-(P(a[1]\cap&space;a[2]\cap&space;a[3])&plus;P(a[1]\cap&space;a[2]\cap&space;a[4])&plus;...&plus;P(a[k-2]\cap&space;a[k-1]\cap&space;a[k]))\\&...\end{align}" title="\begin{align} 1&-(P(a[1])+P(a[2])+...+P(a[k]))\\ &+ (P(a[1]\cap a[2])+P(a[1]\cap a[3])+...+P(a[k-1]\cap a[k])) \\&-(P(a[1]\cap a[2]\cap a[3])+P(a[1]\cap a[2]\cap a[4])+...+P(a[k-2]\cap a[k-1]\cap a[k]))\\&...\end{align}" />    
+$\begin{align}  1&-(P(a[1])+P(a[2])+...+P(a[k]))\\ &+ (P(a[1]\cap a[2])+P(a[1]\cap a[3])+...+P(a[k-1]\cap a[k])) \\&-(P(a[1]\cap a[2]\cap a[3])+P(a[1]\cap a[2]\cap a[4])+...+P(a[k-2]\cap a[k-1]\cap a[k]))\\&...\end{align}$    
 转化成公式就是  
-<img src="https://latex.codecogs.com/svg.image?C_m^k(\sum_{i=1}^{k}(-1)^{k-i}C_k^ii(i-1)^{n-1})" title="C_m^k(\sum_{i=1}^{k}(-1)^{k-i}C_k^ii(i-1)^{n-1})" />  
+$C_m^k(\sum_{i=1}^{k}(-1)^{k-i}C_k^ii(i-1)^{n-1})$  
 那么就开卢卡斯定理求解即可  
 
 

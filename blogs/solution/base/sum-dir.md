@@ -218,11 +218,11 @@ int main () {
 #### 💡
 **括号匹配的本质是两两相消。**  
 对于每一个位置的点重定义一下它的权值：`'(' = 1，')' = -1`  
-在累加过程中，<img src="https://latex.codecogs.com/svg.image?1" title="1" />可以和<img src="https://latex.codecogs.com/svg.image?-1" title="-1" />相消为<img src="https://latex.codecogs.com/svg.image?0" title="0" />，所以**计算总贡献**  
+在累加过程中，$1$可以和$-1$相消为$0$，所以**计算总贡献**  
 
 那么可以记录一个**权值前缀和**  
-那么对于每一个区间，如果其中的**最小值**小于 <img src="https://latex.codecogs.com/svg.image?l-1" title="l-1" /> 的前缀和的话，那么就一定是不匹配的（最小值的位置前右括号太多了  
-当然如果本身 <img src="https://latex.codecogs.com/svg.image?l-1" title="l-1" /> 的前缀和不等于 <img src="https://latex.codecogs.com/svg.image?r" title="r" /> 的前缀和就也是不匹配的  
+那么对于每一个区间，如果其中的**最小值**小于 $l-1$ 的前缀和的话，那么就一定是不匹配的（最小值的位置前右括号太多了  
+当然如果本身 $l-1$ 的前缀和不等于 $r$ 的前缀和就也是不匹配的  
 这里的最小值可以使用线段树进行维护，修改便直接在线段树上修改如果本身是'('，修改后区间-2，否则+2  
 
 #### ✅
@@ -1399,7 +1399,7 @@ int main () {
   
 相差i个的段落的位置个数的相乘每一个贡献是i^2  
 那么对于每个字符贡献就是  
-<img src="https://latex.codecogs.com/svg.image?\begin{aligned}&\sum\limits_{i=1}^{sz}\sum\limits_{j=i&plus;1}^{sz}[a_ia_j(j-i)^2]\\=&\sum\limits_{i=1}^{sz}\sum\limits_{j=i&plus;1}^{sz}[a_j*a_ii^2-2a_jj*a_ii&plus;a_jj^2*a_i]\end{aligned}" title="\begin{aligned}&\sum\limits_{i=1}^{sz}\sum\limits_{j=i+1}^{sz}[a_ia_j(j-i)^2]\\=&\sum\limits_{i=1}^{sz}\sum\limits_{j=i+1}^{sz}[a_j*a_ii^2-2a_jj*a_ii+a_jj^2*a_i]\end{aligned}" />  
+$\begin{aligned}&\sum\limits_{i=1}^{sz}\sum\limits_{j=i+1}^{sz}[a_ia_j(j-i)^2]\\=&\sum\limits_{i=1}^{sz}\sum\limits_{j=i+1}^{sz}[a_j*a_ii^2-2a_jj*a_ii+a_jj^2*a_i]\end{aligned}$  
 看到这个式子应很快反应到，对于j:[2->sz]，每次累加的都是(j-1)的三个前缀和  
   
 所以设三个前缀和  

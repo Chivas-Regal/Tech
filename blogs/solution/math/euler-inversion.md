@@ -11,14 +11,14 @@ title: 欧拉反演
 
 #### 💡
 这个和仪仗队那个很像啊  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;(i,j)" title="\inline (i,j)" /> 位置上的点它前面挡住的人数就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;gcd(i,j)" title="\inline gcd(i,j)" />   
+ $(i,j)$ 位置上的点它前面挡住的人数就是  $gcd(i,j)$   
 所以我们把柿子抽象出来  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}main(n,m)=&\sum\limits_{i=1}^n\sum\limits_{j=1}^m(2*(i,j)-1)\\=&2\sum\limits_{i=1}^n\sum\limits_{j=1}^m(i,j)-nm\end{aligned}" title="\inline main(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m2*gcd(i,j)-1)" />   
- 对于  <img src="https://latex.codecogs.com/svg.image?\inline&space;solve(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m(i,j)" title="\inline solve(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m(i,j)" />   
+ $\begin{aligned}main(n,m)=&\sum\limits_{i=1}^n\sum\limits_{j=1}^m(2*(i,j)-1)\\=&2\sum\limits_{i=1}^n\sum\limits_{j=1}^m(i,j)-nm\end{aligned}$   
+ 对于  $solve(n,m)=\sum\limits_{i=1}^n\sum\limits_{j=1}^m(i,j)$   
 利用欧拉反演的核心公式  
-<img src="https://latex.codecogs.com/svg.image?\inline&space;n=\sum\limits_{d|n}\phi(d)" title="\inline n=\sum\limits_{d|n}\phi(d)" />   
+$n=\sum\limits_{d|n}\phi(d)$   
 有  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}&solve(n,m)\\=&\sum\limits_{i=1}^n\sum\limits_{j=1}^m(i,j)\\=&\sum\limits_{i=1}^n\sum\limits_{j=1}^m\sum\limits_{d|(i,j)}\phi(d)\\=&\sum\limits_{d=1}^{mn}\phi(d)\sum\limits_{i=1}^n\sum\limits_{j=1}^m[d|i\wedge&space;d|j]\\=&\sum\limits_{d=1}^{mn}\phi(d)\frac&space;nd\frac&space;md\end{aligned}" title="\inline \begin{aligned}&solve(n,m)\\=&\sum\limits_{i=1}^n\sum\limits_{j=1}^m(i,j)\\=&\sum\limits_{i=1}^n\sum\limits_{j=1}^m\sum\limits_{d|(i,j)}\phi(d)\\=&\sum\limits_{d=1}^{mn}\phi(d)\sum\limits_{i=1}^n\sum\limits_{j=1}^m[d|i\wedge&space;d|j]\end{aligned}" /> 
+ $\begin{aligned}&solve(n,m)\\=&\sum\limits_{i=1}^n\sum\limits_{j=1}^m(i,j)\\=&\sum\limits_{i=1}^n\sum\limits_{j=1}^m\sum\limits_{d|(i,j)}\phi(d)\\=&\sum\limits_{d=1}^{mn}\phi(d)\sum\limits_{i=1}^n\sum\limits_{j=1}^m[d|i\wedge d|j]\\=&\sum\limits_{d=1}^{mn}\phi(d)\frac nd\frac md\end{aligned}$ 
    
 数不大直接暴力跑就行  
 

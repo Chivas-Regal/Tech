@@ -12,10 +12,10 @@ title: 最短路
 #### 💡
 其实刚开始想的是一个dp的解法  
 想着全排列一下然后从a到b每一个城市四个点由上一个城市四个点跑火车和跑飞机推过来  
-想到时间复杂度过不去， <img src="https://latex.codecogs.com/svg.image?\inline&space;O(n\times&space;n!)" title="\inline O(n\times n!)" />   
+想到时间复杂度过不去， $O(n\times n!)$   
 然后~~这一看不就是个图论吗~~  
-建好边然后四个点各跑一次  <img src="https://latex.codecogs.com/svg.image?\inline&space;Dijkstra" title="\inline Dijkstra" />   
-从  <img src="https://latex.codecogs.com/svg.image?\inline&space;a" title="\inline a" /> 城市的四个点到  <img src="https://latex.codecogs.com/svg.image?\inline&space;b" title="\inline b" /> 城市的四个点一共  <img src="https://latex.codecogs.com/svg.image?\inline&space;16" title="\inline 16" /> 种走法选最短的就行了...
+建好边然后四个点各跑一次  $Dijkstra$   
+从  $a$ 城市的四个点到  $b$ 城市的四个点一共  $16$ 种走法选最短的就行了...
 
 #### ✅
 
@@ -139,7 +139,7 @@ int main () {
 就相当于a时间和a+b时间连了个边  
   
 （那不就最短路更新了？  
-由于会出现负权，我们要使用  <img src="https://latex.codecogs.com/svg.image?\inline&space;SPFA" title="\inline SPFA" />   
+由于会出现负权，我们要使用  $SPFA$   
 我们使用基本的bfs，队内塞时间点，每次对一个时间点枚举一下此时选择哪个工厂造使用多长时间的机器人  
 由于会推到另一个时间点，我们设置类似于最段路的best数组，和是否在队内的inq数组  
 对下一个时间点本身的best和它是否在队内决定吧更不更新和入不入队  
@@ -211,12 +211,12 @@ int main () {
 这个题就是最短路加上点更新  
 由于问我们的点比较随机加上点数比较少  
   
-考虑到  <img src="https://latex.codecogs.com/svg.image?\inline&space;Floyd" title="\inline Floyd" /> 的更新机制就是以点为中转  
-那么我们可以直接使用其  <img src="https://latex.codecogs.com/svg.image?\inline&space;Dp" title="\inline Dp" /> 思想进行更新  
+考虑到  $Floyd$ 的更新机制就是以点为中转  
+那么我们可以直接使用其  $Dp$ 思想进行更新  
 出现一个点时，所有以它为中转的点都可以更新一下看看  
 如果问的两个点都不在时间内或者中间无法转移  
 那么就输出-1  
-否则就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;Floyd" title="\inline Floyd" /> 的那个数组  
+否则就是  $Floyd$ 的那个数组  
 
 #### ✅
 
@@ -699,14 +699,14 @@ int main () {
 每一个玩家往上跑，Vlad往下跑  
 如果一个点Vlad先到了玩家才到，那么玩家是赶不上Vlad的  
 
-所以应该预处理出来玩家到达每一个节点的最短时间  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{tim\}" title="\inline \{tim\}" />   
+所以应该预处理出来玩家到达每一个节点的最短时间  $\{tim\}$   
 然后让Vlad往下跑，如果一个点玩家会先到，那么Vlad就不能走这个点  
 看看有没有一种方法让Vlad到达叶子节点  
 
   
-那么问题的关键就在处理  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{tim\}" title="\inline \{tim\}" />  数组上了  
-这个可以想到最短路的更新方式，以所有玩家为起始点入队进行  <img src="https://latex.codecogs.com/svg.image?\inline&space;BFS" title="\inline BFS" />   
-如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;to" title="\inline to" />  点的  <img src="https://latex.codecogs.com/svg.image?\inline&space;tim[to]" title="\inline tim[to]" />  被  <img src="https://latex.codecogs.com/svg.image?\inline&space;tim[x]+1" title="\inline tim[x]+1" />  更新了，那么就入队，一个一个向上更新  
+那么问题的关键就在处理  $\{tim\}$  数组上了  
+这个可以想到最短路的更新方式，以所有玩家为起始点入队进行  $BFS$   
+如果  $to$  点的  $tim[to]$  被  $tim[x]+1$  更新了，那么就入队，一个一个向上更新  
 
 
 #### ✅

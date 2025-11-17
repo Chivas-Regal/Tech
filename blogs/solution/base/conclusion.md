@@ -317,7 +317,7 @@ int main () {
 
 #### 💡
 这道题刚开始可能没有什么思路，在纸上画一下一个比较大的树的遍历顺序并把值写上去  
-发现在把叶子分为两部分时，左区间的右端点与右区间的左端点的差值为<img src="https://latex.codecogs.com/svg.image?2^h-1" title="2^h-1" />，再进一步划分就是<img src="https://latex.codecogs.com/svg.image?2^{h-1}-1" title="2^{h-1}-1" />   
+发现在把叶子分为两部分时，左区间的右端点与右区间的左端点的差值为$2^h-1$，再进一步划分就是$2^{h-1}-1$   
 每一个区间的左右端点差值也有类似的性质  
 一个节点的左儿子的树在中间两个数是递增的，右儿子中间两个数是递减的  
 把所有的可以用的性质挖出来之后  
@@ -489,7 +489,7 @@ int main () {
 就是不仅很坦诚地造出来一个n阶方块  
 同时还要每个都从最高的位置往下落  
 那么就是  
-<img src="https://latex.codecogs.com/svg.image?\sum\limits_{x=1}^n\sum\limits_{y=1}^n[xy^2]nn=\frac{(1&plus;n)n}{2}\frac{n(1&plus;n)(1&plus;2n)}{6}nn" title="\sum\limits_{x=1}^n\sum\limits_{y=1}^n[xy^2]nn=\frac{(1+n)n}{2}\frac{n(1+n)(1+2n)}{6}nn" />
+$\sum\limits_{x=1}^n\sum\limits_{y=1}^n[xy^2]nn=\frac{(1+n)n}{2}\frac{n(1+n)(1+2n)}{6}nn$
   
 再看看最小费用  
 每一个都是刚好放上去而不让它落下，然后能缺的就缺  
@@ -497,7 +497,7 @@ int main () {
 画一个二阶发现最划算的是在x=1和y=1的两侧构造一面墙  
 同时交界处不放方块  
 那么就是  
-<img src="https://latex.codecogs.com/svg.image?\begin{aligned}\sum\limits_{x=1}^n\sum\limits_{y=1}^n[xy^2]&plus;\sum\limits_{x=2}^n\sum\limits_{z=2}^n[xz]&plus;\sum\limits_{y=2}^n\sum\limits_{z=2}^n[y^2z]=\frac{(1&plus;n)n}{2}\frac{n(1&plus;n)(1&plus;2n)}{6}&plus;\frac{(2&plus;n)(n-1)}{2}\frac{(2&plus;n)(n-1)}{2}&plus;\frac{(2&plus;n)(n-1)}{2}[\frac{n(1&plus;n)(1&plus;2n)}{6}-1]\end{aligned}" title="\begin{aligned}\sum\limits_{x=1}^n\sum\limits_{y=1}^n[xy^2]+\sum\limits_{x=2}^n\sum\limits_{z=2}^n[xz]+\sum\limits_{y=2}^n\sum\limits_{z=2}^n[y^2z]=\frac{(1+n)n}{2}\frac{n(1+n)(1+2n)}{6}+\frac{(2+n)(n-1)}{2}\frac{(2+n)(n-1)}{2}+\frac{(2+n)(n-1)}{2}[\frac{n(1+n)(1+2n)}{6}-1]\end{aligned}" />
+$\begin{aligned}\sum\limits_{x=1}^n\sum\limits_{y=1}^n[xy^2]+\sum\limits_{x=2}^n\sum\limits_{z=2}^n[xz]+\sum\limits_{y=2}^n\sum\limits_{z=2}^n[y^2z]=\frac{(1+n)n}{2}\frac{n(1+n)(1+2n)}{6}+\frac{(2+n)(n-1)}{2}\frac{(2+n)(n-1)}{2}+\frac{(2+n)(n-1)}{2}[\frac{n(1+n)(1+2n)}{6}-1]\end{aligned}$
   
 数很大还要取模，直接开`BigInteger`
 #### ✅

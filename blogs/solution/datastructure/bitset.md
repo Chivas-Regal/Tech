@@ -12,14 +12,14 @@ title: bitset
 #### 💡
 一道莫队维护bitset的好题  
 bitset是一个很妙的STL容器，可以实现很多优化  
-是否有两个数的差为<img src="https://latex.codecogs.com/svg.image?x" title="x" />，只需要判断<img src="https://latex.codecogs.com/svg.image?bst1\And&space;(bst1&space;<<&space;x)" title="bst1\And (bst1 << x)" />是否存在1即可 
+是否有两个数的差为$x$，只需要判断$bst1\And (bst1 << x)$是否存在1即可 
   
-是否有两个数的和为<img src="https://latex.codecogs.com/svg.image?x" title="x" />  
+是否有两个数的和为$x$  
 可以推导一下  
-<img src="https://latex.codecogs.com/svg.image?\begin{aligned}a-N&plus;b=x-N\\a-(N-b)=x-N\\a=(N-b)-(N-x)\end{aligned}" title="\begin{aligned}a-N+b=x-N\\a-(N-b)=x-N\\a=(N-b)-(N-x)\end{aligned}" />  
-那么我们建立一个存放<img src="https://latex.codecogs.com/svg.image?N-x" title="N-x" />的bst2，然后查一下<img src="https://latex.codecogs.com/svg.image?bst1&space;\And&space;(bst2&space;>>&space;(N-x))" title="bst1 \And (bst2 >> (N-x))" />中是否存在1即可  
+$\begin{aligned}a-N+b=x-N\\a-(N-b)=x-N\\a=(N-b)-(N-x)\end{aligned}$  
+那么我们建立一个存放$N-x$的bst2，然后查一下$bst1 \And (bst2 >> (N-x))$中是否存在1即可  
   
-是否有两个数的积为<img src="https://latex.codecogs.com/svg.image?x" title="x" />  
+是否有两个数的积为$x$  
 直接暴力枚举因数然后查一下在不在就行了  
   
 

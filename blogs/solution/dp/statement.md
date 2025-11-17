@@ -11,21 +11,21 @@ title: 状压DP
            
 #### 💡
 这个题目数据对全排列很难不心动  
-然后设置  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j]" title="\inline dp[i][j]" /> 表示第  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  个点走的是  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" />   
+然后设置  $dp[i][j]$ 表示第  $i$  个点走的是  $j$   
 可以通过爆搜剪枝做  
   
 但是代码很长  
 可以想到，全排列中，每走过一个点，那么这个点其实就在这一趟中没什么用了  
-而且第  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 个点走的是  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> 的话似乎也没有用到前面的排列  
+而且第  $i$ 个点走的是  $j$ 的话似乎也没有用到前面的排列  
 那么不如就记录某个点是否走过了  
-这样走过的点会形成一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;01" title="\inline 01" />  状态：  <img src="https://latex.codecogs.com/svg.image?\inline&space;s" title="\inline s" />   
-我们用这个状态进行推，设置  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[s][i]" title="\inline dp[i][j]" /> 表示第  <img src="https://latex.codecogs.com/svg.image?\inline&space;s" title="\inline s" /> 状态下，最后走到的点是  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />   
-此时可以新换入一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" /> 来表示新的状态，即如果第  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> 位是  <img src="https://latex.codecogs.com/svg.image?\inline&space;0" title="\inline 0" /> 的话，就可以通过  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[s][i]" title="\inline dp[s][i]" /> 推过去，距离加了  <img src="https://latex.codecogs.com/svg.image?\inline&space;g[i][j]" title="\inline g[i][j]" />   
+这样走过的点会形成一个  $01$  状态：  $s$   
+我们用这个状态进行推，设置  $dp[s][i]$ 表示第  $s$ 状态下，最后走到的点是  $i$   
+此时可以新换入一个  $1$ 来表示新的状态，即如果第  $j$ 位是  $0$ 的话，就可以通过  $dp[s][i]$ 推过去，距离加了  $g[i][j]$   
     
-那么转移方程就是： <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[s|(1<<j)][j]=min(dp[s|(1<<j)][j],dp[s][i]+g[i][j])" title="\inline dp[s|(1<<j)][j]=min(dp[s|(1<<j)][j],dp[s][i]+g[i][j])" />  
+那么转移方程就是： $dp[s|(1<<j)][j]=min(dp[s|(1<<j)][j],dp[s][i]+g[i][j])$  
 
-最后再计算一下走到  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 后再走回去的距离  
-此时所有的点都走过了，所以状态是全  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" /> 的
+最后再计算一下走到  $i$ 后再走回去的距离  
+此时所有的点都走过了，所以状态是全  $1$ 的
 
 #### ✅
 
@@ -190,12 +190,12 @@ inline void Solve () {
 #### 💡
 类似于一个旅行商问题  
 n不大，我们可以想着用状压来表示状态  
-但它是  <img src="https://latex.codecogs.com/svg.image?\inline&space;36" title="\inline 36" /> ，如果用  <img src="https://latex.codecogs.com/svg.image?\inline&space;36" title="\inline 36" /> 位二进制肯定会超内存，想想优化  
+但它是  $36$ ，如果用  $36$ 位二进制肯定会超内存，想想优化  
 如果一个公司只有一个点，那么是没有必要用这个状态的  
 因为不能反方向走的话，根本不用决定这个点是否出现过在这个状态内  
 所以可以把这类只有一个点的公司拿出来单独选择  
 而把至少有两个点的公司压入二进制状态，我们第二维就可以作为上一步是哪个点  
-那么这个问题就状压DP  <img src="https://latex.codecogs.com/svg.image?\inline&space;sxy" title="\inline sxy" /> 就可以解决了  
+那么这个问题就状压DP  $sxy$ 就可以解决了  
 
 #### ✅
 

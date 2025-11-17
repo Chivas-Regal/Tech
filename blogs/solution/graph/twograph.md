@@ -88,8 +88,8 @@ int main () {
 #### 💡
 相同的会删去，我们要加标签来防止有数被删去  
 可以将相邻的一样的数看作连通块，我们要想让这个联通块两两隔开，其实就加一个编号就行了  
-那么这道题答案的第一个数只有  <img src="https://latex.codecogs.com/svg.image?\inline&space;0" title="\inline 0" /> 和  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" /> 两种可能  
-而对于连通块，我们从一个点  <img src="https://latex.codecogs.com/svg.image?\inline&space;a" title="\inline a" />  开始  <img src="https://latex.codecogs.com/svg.image?\inline&space;dfs" title="\inline dfs" /> 出这个连通块，看看是离  <img src="https://latex.codecogs.com/svg.image?\inline&space;a" title="\inline a" /> 距离为奇数加标签用的多还是偶数加标签用的多，我们选用最少的标签加法  
+那么这道题答案的第一个数只有  $0$ 和  $1$ 两种可能  
+而对于连通块，我们从一个点  $a$  开始  $dfs$ 出这个连通块，看看是离  $a$ 距离为奇数加标签用的多还是偶数加标签用的多，我们选用最少的标签加法  
 
 #### ✅
 
@@ -171,16 +171,16 @@ int main () {
 由于Eikooc只决定这个点放哪，但是先走的是Sushi  
 我们可以想一种方法让断开的点尽量多，这样Eikooc放到很多个位置Sushi都走不动  
   
-思考一下断边的条件： <img src="https://latex.codecogs.com/svg.image?\inline&space;a\oplus&space;b>min(a,b)" title="\inline&space;a^b>min(a,b)" />  
+思考一下断边的条件： $a\oplus b>min(a,b)$  
 这样的话只要邻边的二进制位数不同就一定可以  
 由于二进制位数相同的是一个集合  
 我们确保邻点不在同一集合即可  
 
 由于二进制可以合并成任意我们想要的数且二进制位数相同的数本身就是一个二的幂次      
-对点二分染色一下  <img src="https://latex.codecogs.com/svg.image?\inline&space;0/1" title="\inline 0/1" />   
+对点二分染色一下  $0/1$   
 让染色相同的点必须包含完整的二进制集合，不能有染色不同的点二进制位数相同的情况  
   
-那么我们就对  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" />  分二进制块之后每次一个完整的二进制块分给当前颜色数量最多的点集，给他们赋一下编号然后从该集合中删去  
+那么我们就对  $n$  分二进制块之后每次一个完整的二进制块分给当前颜色数量最多的点集，给他们赋一下编号然后从该集合中删去  
 
 
 #### ✅

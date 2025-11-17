@@ -10,13 +10,13 @@ title: DFS
 <a href="https://www.luogu.com.cn/problem/P1034"><img src="https://i.loli.net/2021/11/08/zkj1RuNLO2AfIS6.png"></a>
 
 #### 💡
-我们必然是想将所有的点分为连续的  <img src="https://latex.codecogs.com/svg.image?\inline&space;k" title="\inline k" />  块  
-即要么双关键字  <img src="https://latex.codecogs.com/svg.image?\inline&space;(x,y)" title="\inline (x,y)" /> 要么  <img src="https://latex.codecogs.com/svg.image?\inline&space;(y,x)" title="\inline (y,x)" />   
-单一种不行是有可能相临的两个  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" /> (或  <img src="https://latex.codecogs.com/svg.image?\inline&space;y" title="\inline y" /> ) 之间的 <img src="https://latex.codecogs.com/svg.image?\inline&space;y" title="\inline y" /> (或  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" /> )差的很大，这样的话就排一种其实也是选择得相对分散了  
+我们必然是想将所有的点分为连续的  $k$  块  
+即要么双关键字  $(x,y)$ 要么  $(y,x)$   
+单一种不行是有可能相临的两个  $x$ (或  $y$ ) 之间的 $y$ (或  $x$ )差的很大，这样的话就排一种其实也是选择得相对分散了  
 我们对这两个方式排过序后，每种都计算一下在这种排序方案下我们能得到的最小值，进行比较一下即可  
   
-至于怎么算最小值，我们可以枚举最多  <img src="https://latex.codecogs.com/svg.image?\inline&space;k-1" title="\inline k-1" />  个断点  
-以断点进行分割计算每一块的最大最小  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" /> 和最大最小  <img src="https://latex.codecogs.com/svg.image?\inline&space;y" title="\inline y" /> ，他们差值的乘积就是这一个矩形的面积
+至于怎么算最小值，我们可以枚举最多  $k-1$  个断点  
+以断点进行分割计算每一块的最大最小  $x$ 和最大最小  $y$ ，他们差值的乘积就是这一个矩形的面积
 
 #### ✅
 
@@ -88,12 +88,12 @@ int main () {
 我们其实要算的就是最后不安全的点数的最小值  
   
 我们先预处理出深度数组  
-然后  <img src="https://latex.codecogs.com/svg.image?\inline&space;Dfs" title="\inline Dfs" />  每次下潜一个深度  
+然后  $Dfs$  每次下潜一个深度  
 在这个深度下枚举我们要隔断哪个不安全的点  
-隔断后这个点的子树全部变为安全（通过又一种深搜  <img src="https://latex.codecogs.com/svg.image?\inline&space;Save" title="\inline Save" /> 实现，当然我们要回溯一下再变成不安全代表我们不选  
+隔断后这个点的子树全部变为安全（通过又一种深搜  $Save$ 实现，当然我们要回溯一下再变成不安全代表我们不选  
 每一次进行隔断都会安全化整个子树，所以我们预处理时也统计一下所有节点的子树大小即可  
   
-每次走到最深的点时就维护一下  <img src="https://latex.codecogs.com/svg.image?\inline&space;res" title="\inline res" /> 的最小值
+每次走到最深的点时就维护一下  $res$ 的最小值
 
 #### ✅
 
@@ -186,7 +186,7 @@ int main () {
 同九宫格不能出现两个相同的  
   
 那么我们开一个行数组列数组块数组  
-记录一下每块、每行、每列是否有  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />   
+记录一下每块、每行、每列是否有  $i$   
 这样的话就是搜索的结果，剪枝剪下去也不会非常大  
 而且还能保证最后出来的都是完成的数独    
 

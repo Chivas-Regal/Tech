@@ -165,11 +165,11 @@ int main () {
 那么就俨然成为了一道三维偏序问题（第三维：修改时间  
   
 做法一样，我们设置一个时间递进器  
-对于加人，我们就在这个该时刻的这个  <img src="https://latex.codecogs.com/svg.image?\inline&space;(x,y)" title="\inline (x,y)" /> 添加一个信息  
-对于查询，由于是二维，我们依旧用二维前缀和的方式，将二维区间和的四个信息分别设置  <img src="https://latex.codecogs.com/svg.image?\inline&space;\pm1" title="\inline " /> 然后我们在记录  <img src="https://latex.codecogs.com/svg.image?\inline&space;res[q[i].which\_qry]" title="\inline res[q[i].which\_qry]" /> 时就可以累加  <img src="https://latex.codecogs.com/svg.image?\inline&space;q[i].sgn\times&space;q[i].res" title="\inline q[i].sgn\times&space;q[i].res" /> ，由于查询要查四个数据，我们可以放在连续时刻的四个信息里面  
-而我们这三维关系就是对于  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 和  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> ， <img src="https://latex.codecogs.com/svg.image?\inline&space;q[i].x\le&space;q[j].x\wedge&space;q[i].y\le&space;q[j].y\wedge&space;q[i].t<q[j].t" title="\inline q[i].x\le&space;q[j].x\wedge&space;q[i].y\le&space;q[j].y\wedge&space;q[i].t\lt&space;q[j].t" />   
-第二维  <img src="https://latex.codecogs.com/svg.image?\inline&space;y" title="\inline y" /> 用归并  
-第三维  <img src="https://latex.codecogs.com/svg.image?\inline&space;t" title="\inline t" /> 在归并中用树状数组即可  
+对于加人，我们就在这个该时刻的这个  $(x,y)$ 添加一个信息  
+对于查询，由于是二维，我们依旧用二维前缀和的方式，将二维区间和的四个信息分别设置  $\pm1$ 然后我们在记录  $res[q[i].which\_qry]$ 时就可以累加  $q[i].sgn\times q[i].res$ ，由于查询要查四个数据，我们可以放在连续时刻的四个信息里面  
+而我们这三维关系就是对于  $i$ 和  $j$ ， $q[i].x\le q[j].x\wedge q[i].y\le q[j].y\wedge q[i].t<q[j].t$   
+第二维  $y$ 用归并  
+第三维  $t$ 在归并中用树状数组即可  
 
 
 #### ✅

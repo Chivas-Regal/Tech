@@ -15,10 +15,10 @@ title: 置换群
 这个题里面有一个置换群思想的应用  
 就是置换群本身的**不交轮换积**  
   
-即反复的  <img src="https://latex.codecogs.com/svg.image?\inline&space;q=q_{p_i}" title="\inline q=q_{p_i}" /> 下来，每一列都会进行循环，并形成一条在  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{pmatrix}x_1&x_2&\dots&x_3&x_4\\x_a&x_b&\dots&x_c&x_d\end{pmatrix}" title="\inline \begin{pmatrix}x_1&x_2&\dots&x_3&x_4\\x_a&x_b&\dots&x_c&x_d\end{pmatrix}" />   
- 下的  <img src="https://latex.codecogs.com/svg.image?\inline&space;x_1\rightarrow&space;x_a\rightarrow\dots\rightarrow&space;x_e\rightarrow&space;x_1" title="\inline x_1\rightarrow&space;x_a\rightarrow\dots\rightarrow&space;x_e\rightarrow&space;x_1" /> 这样的链  
- 而其中表示的就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;p[x_1]=x_a,p[x_a]=\dots,p[x_e]=x_1" title="">  
+即反复的  $q=q_{p_i}$ 下来，每一列都会进行循环，并形成一条在  
+ $\begin{pmatrix}x_1&x_2&\dots&x_3&x_4\\x_a&x_b&\dots&x_c&x_d\end{pmatrix}$   
+ 下的  $x_1\rightarrow x_a\rightarrow\dots\rightarrow x_e\rightarrow x_1$ 这样的链  
+ 而其中表示的就是  $p[x_1]=x_a,p[x_a]=\dots,p[x_e]=x_1$  
    
 所以我们设置一个 `set` 存储我们还不知道对应谁的数  
 每次从 `*set.begin()` 这一列开始问我们就能得到一条有 `*set.begin()` 的关系链  
@@ -76,20 +76,20 @@ int main () {
 #### 💡
 首先考虑有多少种置换  
 1.旋转置换  
-转<img src="https://latex.codecogs.com/svg.image?k" title="k" />次，<img src="https://latex.codecogs.com/svg.image?k=0,1,...,n-1" title="k=0,1,...,n-1" />  
-<img src="https://latex.codecogs.com/svg.image?d&space;=&space;gcd(n,&space;k)" title="d = gcd(n, k)" />  
+转$k$次，$k=0,1,...,n-1$  
+$d = gcd(n, k)$  
 出现循环的点为  
-<img src="https://latex.codecogs.com/svg.image?x&plus;kt\equiv&space;x(mod\;n)" title="x+kt\equiv x(mod\;n)" />  
-<img src="https://latex.codecogs.com/svg.image?kt\equiv&space;0(mod\;n)\Rightarrow&space;kt&plus;nr=0" title="kt\equiv 0(mod\;n)\Rightarrow kt+nr=0" />  
-解方程 <img src="https://latex.codecogs.com/svg.image?t=\frac&space;nd" title="t=\frac nd" />  
-即最少转<img src="https://latex.codecogs.com/svg.image?\frac&space;nd" title="\frac nd" />步会出现循环  
-长为n，有n/d哥循环点，所以总循环数=<img src="https://latex.codecogs.com/svg.image?\frac{n}{\frac{n}{d}}" title="\frac{n}{\frac{n}{d}}" />  
-得到式子：总不动点数=<img src="https://latex.codecogs.com/svg.image?\sum\limits_{k=0}^{n-1}m^{gcd(n,k)}" title="\sum\limits_{k=0}^{n-1}m^{gcd(n,k)}" />  
+$x+kt\equiv x(mod\;n)$  
+$kt\equiv 0(mod\;n)\Rightarrow kt+nr=0$  
+解方程 $t=\frac nd$  
+即最少转$\frac nd$步会出现循环  
+长为n，有n/d哥循环点，所以总循环数=$\frac{n}{\frac{n}{d}}$  
+得到式子：总不动点数=$\sum\limits_{k=0}^{n-1}m^{gcd(n,k)}$  
   
 2.翻转置换  
-1>n为奇数><img src="https://latex.codecogs.com/svg.image?n*m^{\frac{n&plus;1}2}" title="n*m^{\frac{n+1}2}" />  
-2>n为偶数>穿过某个点><img src="https://latex.codecogs.com/svg.image?\frac&space;n2*m^{\frac&space;n2&space;&plus;&space;1}" title="\frac n2*m^{\frac n2 + 1}" />  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不穿某个点><img src="https://latex.codecogs.com/svg.image?\frac&space;n2*m^{\frac&space;n2}" title="\frac n2*m^{\frac n2}" />  
+1>n为奇数>$n*m^{\frac{n+1}2}$  
+2>n为偶数>穿过某个点>$\frac n2*m^{\frac n2 + 1}$  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不穿某个点>$\frac n2*m^{\frac n2}$  
   
 最后所有的不动点数相加除 2*n 即可
 

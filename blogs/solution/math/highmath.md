@@ -13,19 +13,19 @@ title: 高等数学
 
 #### 💡
 首先根据泰勒展开可得  
-<img src="https://latex.codecogs.com/svg.image?ln(1&plus;x)&space;=&space;x-\frac{x^2}2&plus;\frac{x^3}3-\frac{x^4}4&plus;...." title="ln(1+x) = x-\frac{x^2}2+\frac{x^3}3-\frac{x^4}4+...." />  
+$ln(1+x) = x-\frac{x^2}2+\frac{x^3}3-\frac{x^4}4+....$  
 我们想找指数最小的第一个系数不为0的项  
-如果它的指数<img src="https://latex.codecogs.com/svg.image?=t" title="=t" />，可以求系数  
-如果<img src="https://latex.codecogs.com/svg.image?<t" title="<t" />，就输出<img src="https://latex.codecogs.com/svg.image?inf" title="inf" />  
-如果<img src="https://latex.codecogs.com/svg.image?>t" title=">t" />，就输出<img src="https://latex.codecogs.com/svg.image?0" title="0" />  
+如果它的指数$=t$，可以求系数  
+如果$<t$，就输出$inf$  
+如果$>t$，就输出$0$  
   
-那么对于第<img src="https://latex.codecogs.com/svg.image?j" title="j" />项也就是<img src="https://latex.codecogs.com/svg.image?x^j" title="x^j" />的时候，每一对<img src="https://latex.codecogs.com/svg.image?a[i],&space;b[i])" title="a[i], b[i])" />可以选出<img src="https://latex.codecogs.com/svg.image?(-1)^{j-1}\frac{a_ib_i^j}j" title="(-1)^{j-1}\frac{a_ib_i^j}j" />作为系数  
-所以分子可以枚举<img src="https://latex.codecogs.com/svg.image?\sum\limits_{j\ge1}x^{j}(-1)^{j-1}\sum\limits_{1\le&space;i\le&space;n}\frac{a_ib_i^j}j" title="\sum\limits_{j\ge1}x^{j}(-1)^{j-1}\sum\limits_{1\le i\le n}\frac{a_ib_i^j}j" />    
-在指数<img src="https://latex.codecogs.com/svg.image?\le&space;t" title="\le t" />时，如果遇到系数不为<img src="https://latex.codecogs.com/svg.image?0" title="0" />，首先判断<img src="https://latex.codecogs.com/svg.image?j" title="j" />是否为<img src="https://latex.codecogs.com/svg.image?t" title="t" />  
-如果<img src="https://latex.codecogs.com/svg.image?j=t" title="j=t" />，满足条件，跳出循环可以开始求系数（分数，up和down）    
-如果<img src="https://latex.codecogs.com/svg.image?j<t" title="j<t" />就说明存在指数比t小且系数不为0的，那么就是<img src="https://latex.codecogs.com/svg.image?inf" title="inf" />  
+那么对于第$j$项也就是$x^j$的时候，每一对$a[i], b[i])$可以选出$(-1)^{j-1}\frac{a_ib_i^j}j$作为系数  
+所以分子可以枚举$\sum\limits_{j\ge1}x^{j}(-1)^{j-1}\sum\limits_{1\le i\le n}\frac{a_ib_i^j}j$    
+在指数$\le t$时，如果遇到系数不为$0$，首先判断$j$是否为$t$  
+如果$j=t$，满足条件，跳出循环可以开始求系数（分数，up和down）    
+如果$j<t$就说明存在指数比t小且系数不为0的，那么就是$inf$  
   
-如果系数一直为<img src="https://latex.codecogs.com/svg.image?0" title="0" />且<img src="https://latex.codecogs.com/svg.image?j>t" title="j>t" />，那么最大的项也要比<img src="https://latex.codecogs.com/svg.image?x^t" title="x^t" />小，所以输出<img src="https://latex.codecogs.com/svg.image?0" title="0" />  
+如果系数一直为$0$且$j>t$，那么最大的项也要比$x^t$小，所以输出$0$  
 
 #### ✅
 

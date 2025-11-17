@@ -10,9 +10,9 @@ title: 全排列
 <a href="https://www.luogu.com.cn/training/119543#problems"><img src="https://i.loli.net/2021/11/08/Xa4NSThgWH91pZq.png"></a>
 
 #### 💡
-这个表的意思是， <img src="https://latex.codecogs.com/svg.image?\inline&space;\sum\limits_{i=1}^{n-1}\sum\limits_{j=1}^{n-1}\{a[0][i]+a[j][0]=a[i][j]\}" title="\inline a[0][i]+a[j][0]=a[i][j]" />    
-由于除加号之外最多有  <img src="https://latex.codecogs.com/svg.image?\inline&space;n-1" title="\inline n-1" /> 个元素，所以其实就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;n-1" title="\inline n-1" /> 进制
-由于  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" /> 不是很大，所以可以直接枚举  <img src="https://latex.codecogs.com/svg.image?\inline&space;n-1" title="\inline n-1" /> 的全排列，这个全排列相当于是对每一个单字母的映射  
+这个表的意思是， $\sum\limits_{i=1}^{n-1}\sum\limits_{j=1}^{n-1}\{a[0][i]+a[j][0]=a[i][j]\}$    
+由于除加号之外最多有  $n-1$ 个元素，所以其实就是  $n-1$ 进制
+由于  $n$ 不是很大，所以可以直接枚举  $n-1$ 的全排列，这个全排列相当于是对每一个单字母的映射  
 我们枚举到一个排列对中心的所有结果检查一下就行了，如果可以就输出这一个排列  
   
 检查方式其实大可不必模拟进制，如果两个数在一个进制下不一样，那么在别的进制下也不一样，所以我们转成十进制直接看一下等不等就行了  

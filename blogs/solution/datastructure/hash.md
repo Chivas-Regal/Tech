@@ -1024,11 +1024,11 @@ cerr    << "\033[1m\033[31m\n"
 #### 💡
 题目暗示过**回文串是正着读和反着读都一样的串**  
 而这里也有改数一样的单点修改和区间查询  
-那么我们可以用字符串  <img src="https://latex.codecogs.com/svg.image?\inline&space;Hash" title="\inline Hash" /> + 线段树  
+那么我们可以用字符串  $Hash$ + 线段树  
   
-字符串  <img src="https://latex.codecogs.com/svg.image?\inline&space;Hash" title="\inline Hash" /> 为一个正读  <img src="https://latex.codecogs.com/svg.image?\inline&space;Hash:s_1" title="\inline Hash" /> 和一个反渎  <img src="https://latex.codecogs.com/svg.image?\inline&space;Hash:s_2" title="\inline Hash:s_2" />，将这两个数组作为线段树数组     
+字符串  $Hash$ 为一个正读  $Hash:s_1$ 和一个反渎  $Hash:s_2$，将这两个数组作为线段树数组     
   
-我们单点修改的时候也就是重启所有连接到这个点的段值，这个处理一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;pw" title="\inline pw" /> 数组作为  <img src="https://latex.codecogs.com/svg.image?\inline&space;base" title="\inline base" /> 的幂  
+我们单点修改的时候也就是重启所有连接到这个点的段值，这个处理一个  $pw$ 数组作为  $base$ 的幂  
 一个修改中  
 
 
@@ -1046,8 +1046,8 @@ which ? ( Query ( l, mid, rt << 1, ql, mid, which ) + Query ( mid + 1, r, rt << 
       : ( Query ( l, mid, rt << 1, ql, mid, which ) * pw[qr - mid] + Query ( mid + 1, r, rt << 1 | 1, mid + 1, qr, which )) % mod; // which：0——正读，1——反读
 ```     
   
-这样操作下来，我们每次查询的时候如果这个段长是奇数，就差  <img src="https://latex.codecogs.com/svg.image?\inline&space;[l,mid]" title="\inline [l,mid]" /> 的正读和  <img src="https://latex.codecogs.com/svg.image?\inline&space;[mid,r]" title="\inline [mid,r]" /> 的反读  
-否则差  <img src="https://latex.codecogs.com/svg.image?\inline&space;[l,mid-1]" title="\inline [l,mid-1]" /> 的正和  <img src="https://latex.codecogs.com/svg.image?\inline&space;[mid+1,r]" title="\inline [mid+1,r]" /> 的反  
+这样操作下来，我们每次查询的时候如果这个段长是奇数，就差  $[l,mid]$ 的正读和  $[mid,r]$ 的反读  
+否则差  $[l,mid-1]$ 的正和  $[mid+1,r]$ 的反  
 比较这两个，如果一样的话就是回文  
 
 #### ✅

@@ -13,7 +13,7 @@ title: 多项式
 
 #### 💡
 我们可以把A转变为一个多项式  
-<img src="https://latex.codecogs.com/svg.image?A=A(x)=a_0x^0&plus;a_1x^1&plus;...&plus;a_nx^n" title="A=A(x)=a_0x^0+a_1x^1+...+a_nx^n" />  
+$A=A(x)=a_0x^0+a_1x^1+...+a_nx^n$  
 B同理  
 此时我们想求出两者的积，也就是把A(x)*B(x)  
 然后得到的C(x)，对系数转换10进制即可  
@@ -1271,10 +1271,10 @@ int main () {
 这里使用FFT优化  
   
 1.构造本问题的生成函数  
-<img src="https://latex.codecogs.com/svg.image?(1&plus;x&plus;x^2&plus;...&plus;x^n)*(1&plus;x^2&plus;x^4&plus;...&plus;x^{\left\lfloor\frac&space;n2\right&space;\rfloor&space;*&space;2})*(1&plus;x^3&plus;x^6&plus;...&plus;x^{\left\lfloor\frac&space;n3\right&space;\rfloor&space;*&space;3})&space;*..." title="(1+x+x^2+...+x^n)*(1+x^2+x^4+...+x^{\left\lfloor\frac n2\right \rfloor * 2})*(1+x^3+x^6+...+x^{\left\lfloor\frac n3\right \rfloor * 3}) *..." />  
+$(1+x+x^2+...+x^n)*(1+x^2+x^4+...+x^{\left\lfloor\frac n2\right \rfloor * 2})*(1+x^3+x^6+...+x^{\left\lfloor\frac n3\right \rfloor * 3}) *...$  
   
 2.转移为多项式问题  
-<img src="https://latex.codecogs.com/svg.image?(1&plus;1x&plus;1x^2&plus;...&plus;1x^n)*(1&plus;0x^1&plus;1x^2&plus;0x^3&plus;1x^4&plus;...&plus;1x^{\left&space;\lfloor&space;\frac&space;n2\right&space;\rfloor*2})*...." title="(1+1x+1x^2+...+1x^n)*(1+0x^1+1x^2+0x^3+1x^4+...+1x^{\left \lfloor \frac n2\right \rfloor*2})*...." />  
+$(1+1x+1x^2+...+1x^n)*(1+0x^1+1x^2+0x^3+1x^4+...+1x^{\left \lfloor \frac n2\right \rfloor*2})*....$  
   
 每次合并创建的多项式给a  
 对b不断地重启与清零，a在求得后对虚部与某些实部清零    
@@ -1648,7 +1648,7 @@ inline void Solve () {
 那么我们也可以利用多项式卷积，把一个字符串以某个字符匹配时的相似度做一个多项式  
 即我们在以字符c匹配时令一个位置的系数为[s[i]=c]  
 那么可以构造出这样一个多项式  
-<img src="https://latex.codecogs.com/svg.image?\begin{aligned}&a_0x^0&plus;a_1x^1&plus;a_2x^2&plus;a_3x^3\\&b_0x^2&plus;x_1x^1&plus;x_2x^0&space;\end{aligned}&space;" title="\begin{aligned}&a_0x^0+a_1x^1+a_2x^2+a_3x^3\\&b_0x^2+x_1x^1+x_2x^0 \end{aligned} " />  
+$\begin{aligned}&a_0x^0+a_1x^1+a_2x^2+a_3x^3\\&b_0x^2+x_1x^1+x_2x^0 \end{aligned}$  
 这样在第一次匹配时，即寻找指数为2的卷积结果。第二次匹配时寻找指数为3的卷积结果...  
 
 
@@ -1825,15 +1825,15 @@ int main () {
 
 #### 💡
 首先我们化简一下问题  
-第  <img src="https://latex.codecogs.com/svg.image?\inline&space;d" title="\inline d" /> 天算法会消耗  <img src="https://latex.codecogs.com/svg.image?\inline&space;p" title="\inline p" /> ，获得  <img src="https://latex.codecogs.com/svg.image?\inline&space;qd^5" title="\inline qd^5" />   
-也就是若算法可以执行，那么将获得  <img src="https://latex.codecogs.com/svg.image?\inline&space;-p+qd^5" title="\inline -p+qd^5" />  
-若开始前有  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" /> ，执行  <img src="https://latex.codecogs.com/svg.image?\inline&space;y" title="\inline y" /> 天后会成为  <img src="https://latex.codecogs.com/svg.image?\inline&space;x-py+q\sum\limits_{i=1}^yi^5" title="\inline x-py+q\sum\limits_{i=1}^yi^5" />  
-我们要让这个值  <img src="https://latex.codecogs.com/svg.image?\inline&space;\ge10^{99}" title="\inline \ge10^{99}" />  
-同时要保证  <img src="https://latex.codecogs.com/svg.image?\inline&space;\forall&space;j\in[0,y],x-pj+q\sum\limits_{i=1}^ji^5\ge&space;p" title="\inline \forall&space;j\in[0,y],x-pj+q\sum\limits_{i=1}^ji^5\ge&space;p" /> ，不然就继续不了算法了，（左侧如果开始上升那么就可以保证了  
+第  $d$ 天算法会消耗  $p$ ，获得  $qd^5$   
+也就是若算法可以执行，那么将获得  $-p+qd^5$  
+若开始前有  $x$ ，执行  $y$ 天后会成为  $x-py+q\sum\limits_{i=1}^yi^5$  
+我们要让这个值  $\ge10^{99}$  
+同时要保证  $\forall j\in[0,y],x-pj+q\sum\limits_{i=1}^ji^5\ge p$ ，不然就继续不了算法了，（左侧如果开始上升那么就可以保证了  
   
-我们求  <img src="https://latex.codecogs.com/svg.image?\inline&space;\sum\limits_{i=1}^ji^5" title="\inline \sum\limits_{i=1}^ji^5" /> 可以用求[自然数幂和](http://www.chivas-regal.top/%E6%95%B0%E5%AD%A6/2021/11/19/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E6%8F%92%E5%80%BC%E6%B3%95.html#%E5%BA%94%E7%94%A8%E8%87%AA%E7%84%B6%E6%95%B0%E7%9A%84%E5%B9%82%E5%92%8C)的方式进行拉格朗日插值，这里  <img src="https://latex.codecogs.com/svg.image?\inline&space;k" title="\inline k" /> 不大，所以就是常数复杂度  
-我们求  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" /> 可以使用第二个限制进行二分  
-求  <img src="https://latex.codecogs.com/svg.image?\inline&space;y" title="\inline y" /> 可以使用第一个进行二分  
+我们求  $\sum\limits_{i=1}^ji^5$ 可以用求[自然数幂和](http://www.chivas-regal.top/%E6%95%B0%E5%AD%A6/2021/11/19/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E6%8F%92%E5%80%BC%E6%B3%95.html#%E5%BA%94%E7%94%A8%E8%87%AA%E7%84%B6%E6%95%B0%E7%9A%84%E5%B9%82%E5%92%8C)的方式进行拉格朗日插值，这里  $k$ 不大，所以就是常数复杂度  
+我们求  $x$ 可以使用第二个限制进行二分  
+求  $y$ 可以使用第一个进行二分  
   
 数很大，开java的`BigInteger`
 

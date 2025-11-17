@@ -10,8 +10,8 @@ title: BFS
 <a href="https://www.luogu.com.cn/problem/P1132"><img src="https://i.loli.net/2021/11/08/9ynElPS8fCRkUbH.png"></a>
 
 #### 💡
-一看  <img src="https://latex.codecogs.com/svg.image?\inline&space;s<10^5" title="\inline s<10^5" /> ，最多  <img src="https://latex.codecogs.com/svg.image?\inline&space;5" title="\inline 5" /> 位，那时间最多也就  <img src="https://latex.codecogs.com/svg.image?\inline&space;9^5" title="\inline 9^5" /> ，直接暴力搜然后标记  
-我们发现如果一个串可以更快得到，那么它之后的所有转移出来的串都应该被更新，所以我们用  <img src="https://latex.codecogs.com/svg.image?\inline&space;bfs" title="\inline bfs" />  
+一看  $s<10^5$ ，最多  $5$ 位，那时间最多也就  $9^5$ ，直接暴力搜然后标记  
+我们发现如果一个串可以更快得到，那么它之后的所有转移出来的串都应该被更新，所以我们用  $bfs$  
 
 对给定的串，把它能变成的所有串都标记下来并存一下要变的次数  
 如果这个串搜过了就` continue`掉  
@@ -22,7 +22,7 @@ title: BFS
 删除要够一个数字  
 
 这样的话，到最后我们查数的时候看看这个数有没有被标记即可  
-标记的话输出记录的次数，否则  <img src="https://latex.codecogs.com/svg.image?\inline&space;-1" title="\inline -1" />    
+标记的话输出记录的次数，否则  $-1$    
 
 #### ✅
 

@@ -13,8 +13,8 @@ title: 悬线法
 求最大子全满足要求的矩阵问题  
 应该一眼想到悬线法  
 
-这道题每一个单位都可以满足哟求，所以初始化都是横  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> 竖  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" />   
-拉线和缩线的时候两者都满足要求的判断就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;\[a[i][j]\oplus&space;a[i-1][j]\neq0\]" title="\inline [a[i][j]^a[i-1][j]\neq0]" /> 或者  <img src="https://latex.codecogs.com/svg.image?\inline&space;[a[i][j]\oplus&space;a[i][j\pm1]\neq0]" title="\inline [a[i][j]\oplus&spacea[i][j\pm1]\neq0]" />   
+这道题每一个单位都可以满足哟求，所以初始化都是横  $j$ 竖  $1$   
+拉线和缩线的时候两者都满足要求的判断就是  $\[a[i][j]\oplus a[i-1][j]\neq0\]$ 或者  $[a[i][j]\oplus a[i][j\pm1]\neq0]$   
 
 #### ✅
 

@@ -12,21 +12,21 @@ title: 线性代数
 <a href="https://www.luogu.com.cn/problem/P1092"><img src="https://i.loli.net/2021/11/12/3ZjBEs2iLJ9r8qU.png"></a>
 
 #### 💡
- <img src="https://latex.codecogs.com/svg.image?\inline&space;n\le&space;26" title="\inline n\le&space;26" /> ，现在最不确定且影响我们枚举的因素就是第  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  位是否进位  
-我们设  <img src="https://latex.codecogs.com/svg.image?\inline&space;d_i" title="\inline d_i" />  表示第  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  位是否向  <img src="https://latex.codecogs.com/svg.image?\inline&space;i+1" title="\inline i+1" />  位进位，输入三个串  <img src="https://latex.codecogs.com/svg.image?\inline&space;a,b,c" title="\inline a,b,c" /> ， 那么可以列一个方程：  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}a_i+b_i+d_{i-1}&=c_i+n\times&space;d_i\\a_i+b_i-c_i&=n\times&space;d_i-d_{i-1}\end{aligned}" title="\inline \begin{aligned}a_i+b_i+d_{i-1}&=c_i+n\times d_i\\a_i+b_i-c_i&=n\times d_i-d_{i-1}\end{aligned}" />   
+ $n\le 26$ ，现在最不确定且影响我们枚举的因素就是第  $i$  位是否进位  
+我们设  $d_i$  表示第  $i$  位是否向  $i+1$  位进位，输入三个串  $a,b,c$ ， 那么可以列一个方程：  
+ $\begin{aligned}a_i+b_i+d_{i-1}&=c_i+n\times d_i\\a_i+b_i-c_i&=n\times d_i-d_{i-1}\end{aligned}$   
   
-则我们当前有两个系数矩阵（设左为  <img src="https://latex.codecogs.com/svg.image?\inline&space;A" title="\inline A" />  右为  <img src="https://latex.codecogs.com/svg.image?\inline&space;B" title="\inline B" /> )  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;A_{ij}" title="\inline A_{ij}" />  表示在第  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  项，  <img src="https://latex.codecogs.com/svg.image?\inline&space;'A'+j" title="\inline 'A'+j" />  这个字符的系数  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;B_{ij}" title="\inline B_{ij}" />  表示在第  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  项，进位  <img src="https://latex.codecogs.com/svg.image?\inline&space;d_j" title="\inline d_j" />  的系数  
+则我们当前有两个系数矩阵（设左为  $A$  右为  $B$ )  
+ $A_{ij}$  表示在第  $i$  项，  $'A'+j$  这个字符的系数  
+ $B_{ij}$  表示在第  $i$  项，进位  $d_j$  的系数  
   
-我们将  <img src="https://latex.codecogs.com/svg.image?\inline&space;[A]" title="\inline [A]" />  用高斯消元消至只有主对角线不为  <img src="https://latex.codecogs.com/svg.image?\inline&space;0" title="\inline 0" />  （同时  <img src="https://latex.codecogs.com/svg.image?\inline&space;[B]" title="\inline [B]" />  也跟着消）  
-则  <img src="https://latex.codecogs.com/svg.image?\inline&space;\sum\limits_{j=0}^{n-1}\frac{g_{ij}}{A_{ii}}" title="\inline \sum\limits_{j=0}^{n-1}\frac{g_{ij}}{A_{ii}}" />  就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;'A'+i" title="\inline 'A'+i" />  所表示的数值  
+我们将  $[A]$  用高斯消元消至只有主对角线不为  $0$  （同时  $[B]$  也跟着消）  
+则  $\sum\limits_{j=0}^{n-1}\frac{g_{ij}}{A_{ii}}$  就是  $'A'+i$  所表示的数值  
   
 由于我们有成立条件：  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;1." title="\inline 1." /> 不同字符数值不同    
- <img src="https://latex.codecogs.com/svg.image?\inline&space;2." title="\inline 2." />  数值  <img src="https://latex.codecogs.com/svg.image?\inline&space;\in[0,n-1]" title="\inline \in[0,n-1]" />   
-所以我们二进制枚举  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{d\}" title="\inline \{d\}" />  每次检查一下是否合法即可  
+ $1.$ 不同字符数值不同    
+ $2.$  数值  $\in[0,n-1]$   
+所以我们二进制枚举  $\{d\}$  每次检查一下是否合法即可  
 
 #### ✅
 
@@ -110,26 +110,26 @@ int main () {
 
 #### 💡
 n维太难想，考虑一下2维圆  
-在上面任意取3个点  <img src="https://latex.codecogs.com/svg.image?\inline&space;(x1,&space;y1),(x2,&space;y2),(x3,&space;y3)" title="\inline (x1, y1),(x2, y2),(x3, y3)" />  与圆心  <img src="https://latex.codecogs.com/svg.image?\inline&space;(x0,y0)" title="\inline (x0,y0)" />   
+在上面任意取3个点  $(x1, y1),(x2, y2),(x3, y3)$  与圆心  $(x0,y0)$   
 得到一个公式：  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\left\{\begin{aligned}(x_1-x_0)^2+(y_1-y_0)^2=R^2\\(x_2-x_0)^2+(y_2-y_0)^2=R^2\\(x_3-x_0)^2+(y_3-y_0)^2=R^2\end{aligned}\right." title="\inline \left\{\begin{aligned}(x_1-x_0)^2+(y_1-y_0)^2=R^2\\(x_2-x_0)^2+(y_2-y_0)^2=R^2\\(x_3-x_0)^2+(y_3-y_0)^2=R^2\end{aligned}\right." /> 
+ $\left\{\begin{aligned}(x_1-x_0)^2+(y_1-y_0)^2=R^2\\(x_2-x_0)^2+(y_2-y_0)^2=R^2\\(x_3-x_0)^2+(y_3-y_0)^2=R^2\end{aligned}\right.$ 
 
 那么此时我们就可以拓展到n维  
-我们建立球心坐标  <img src="https://latex.codecogs.com/svg.image?\inline&space;[x_1,x_2,...x_n]" title="\inline [x_1,x_2,...x_n]" />    
-第  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  个点坐标  <img src="https://latex.codecogs.com/svg.image?\inline&space;[a_{i_1},a_{i_2},a_{i_3},...,a_{i_n}]" title="\inline [a_{i_1}, a_{i_2}, a_{i_3},...,a_{i_n}]" />   
+我们建立球心坐标  $[x_1,x_2,...x_n]$    
+第  $i$  个点坐标  $[a_{i_1},a_{i_2},a_{i_3},...,a_{i_n}]$   
 则有方程:  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\left\{\begin{aligned}&(a_{1_1}-x_1)^2+(a_{1_2}-x_2)^2+...+(a_{1_n}-x_n)^2=R^2\\\\&(a_{2_1}-x_1)^2+(a_{2_2}-x_2)^2+...+(a_{2_n}-x_n)^2=R^2\\&...\\&(a_{n_1}-x_1)^2+(a_{n_2}-x_2)^2+...+(a_{n_n}-x_n)^2=R^2\\&(a_{n+1_1}-x_1)^2+(a_{n+1_2}-x_2)^2+...+(a_{n+1_n}-x_n)^2=R^2\end{aligned}\right." title="\inline \left\{\begin{aligned} &(a_{1_1}-x_1)^2+(a_{1_2}-x_2)^2+...+(a_{1_n}-x_n)^2=R^2\\\\ &(a_{2_1}-x_1)^2+(a_{2_2}-x_2)^2+...+(a_{2_n}-x_n)^2=R^2\\ &...\\ &(a_{n_1}-x_1)^2+(a_{n_2}-x_2)^2+...+(a_{n_n}-x_n)^2=R^2\\ &(a_{n+1_1}-x_1)^2+(a_{n+1_2}-x_2)^2+...+(a_{n+1_n}-x_n)^2=R^2 \end{aligned}\right." />   
+ $\left\{\begin{aligned}&(a_{1_1}-x_1)^2+(a_{1_2}-x_2)^2+...+(a_{1_n}-x_n)^2=R^2\\\\&(a_{2_1}-x_1)^2+(a_{2_2}-x_2)^2+...+(a_{2_n}-x_n)^2=R^2\\&...\\&(a_{n_1}-x_1)^2+(a_{n_2}-x_2)^2+...+(a_{n_n}-x_n)^2=R^2\\&(a_{n+1_1}-x_1)^2+(a_{n+1_2}-x_2)^2+...+(a_{n+1_n}-x_n)^2=R^2\end{aligned}\right.$   
 解一下方程组就可以得到这个圆心坐标  
 做减法将平方项消掉就可以变成一次方程  
 减法可以先看二维下前两个式子相减
 
 即  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}&\quad(a_{2}-x_1)^2-(a_{1}-x_1)^2=R^2-R^2\\&\Rightarrow&space;a_{2}^2-a_{1}^2-2(a_{2}-a_{1})x_1=0\\&\Rightarrow&space;a_{2}^2-a_{1}^2=2(a_{2}-a_{1})x_1\end{aligned}" title="\inline \begin{aligned} &\quad(a_{2}-x_1)^2-(a_{1}-x_1)^2=R^2-R^2\\ &\Rightarrow a_{2}^2-a_{1}^2-2(a_{2}-a_{1})x_1=0\\ &\Rightarrow a_{2}^2-a_{1}^2=2(a_{2}-a_{1})x_1 \end{aligned}" />   
+ $\begin{aligned}&\quad(a_{2}-x_1)^2-(a_{1}-x_1)^2=R^2-R^2\\&\Rightarrow a_{2}^2-a_{1}^2-2(a_{2}-a_{1})x_1=0\\&\Rightarrow a_{2}^2-a_{1}^2=2(a_{2}-a_{1})x_1\end{aligned}$   
 
 转换成朴素的可以变成：
 
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\left\{\begin{aligned}&(2)-(1):\quad\stackrel{\color{blue}{b_{1_1}}}{2(a_{2_1}-a_{1_1})}x_1+\stackrel{\color{blue}b_{1_2}}{2(a_{2_2}-a{1_2})}x_2+...+2\stackrel{\color{blue}b_{1\_3}}{(a_{2_n}-a_{1_n})}x_n=\stackrel{\color{blue}b_{1_{n+1}}}{a_{2_1}^2+a_{2_2}^2+...+a_{2_n}^2-a_{1_1}^2-a_{1_2}^2-...-a_{1_n}^2}\\&(3)-(1):\\&(4)-(1):\\&...\\&(n+1)-(1):\\\end{aligned}\right." title="\inline \left\{\begin{aligned} &(2)-(1):\quad \stackrel{\color{blue}{b_{1_1}}}{2(a_{2_1}-a_{1_1})}x_1+\stackrel{\color{blue}b_{1_2}}{2(a_{2_2}-a{1_2})}x_2+...+2\stackrel{\color{blue}b_{1\_3}}{(a_{2_n}-a_{1_n})}x_n=\stackrel{\color{blue}b_{1_{n+1}}}{a_{2_1}^2+a_{2_2}^2+...+a_{2_n}^2-a_{1_1}^2-a_{1_2}^2-...-a_{1_n}^2}\\ &(3)-(1):\\ &(4)-(1):\\ &...\\ &(n+1)-(1):\\ \end{aligned}\right." />   
- <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" />  元一次线性方程组，剩下的交给高斯消元即可  
+$\left\{\begin{aligned}&(2)-(1):\quad\stackrel{\color{blue}{b_{1_1}}}{2(a_{2_1}-a_{1_1})}x_1+\stackrel{\color{blue}b_{1_2}}{2(a_{2_2}-a_{1_2})}x_2+...+2\stackrel{\color{blue}b_{1\_3}}{(a_{2_n}-a_{1_n})}x_n=\stackrel{\color{blue}b_{1_{n+1}}}{a_{2_1}^2+a_{2_2}^2+...+a_{2_n}^2-a_{1_1}^2-a_{1_2}^2-...-a_{1_n}^2}\\&(3)-(1):\\&(4)-(1):\\&...\\&(n+1)-(1):\\\end{aligned}\right.$
+ $n$  元一次线性方程组，剩下的交给高斯消元即可  
 
 
 #### ✅
@@ -463,8 +463,8 @@ int main (){
 <a href="https://ac.nowcoder.com/acm/problem/17968"><img src="https://i.loli.net/2021/11/25/as87AUVJENuel1R.png"></a>
 
 #### 💡
-首先知道  <img src="https://latex.codecogs.com/svg.image?\inline&space;x\oplus&space;d=y\Rightarrow&space;x\oplus&space;y=d" title="\inline x\oplus&space;y=d\Rightarrow&space;x\oplus&space;y=d" />  
-所以我们只需要知道  <img src="https://latex.codecogs.com/svg.image?\inline&space;x\oplus&space;y" title="\inline x\oplus&space;y" /> 是否在  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{a\}" title="\inline \{a\}" /> 中能异或出来就行了  
+首先知道  $x\oplus d=y\Rightarrow x\oplus y=d$  
+所以我们只需要知道  $x\oplus y$ 是否在  $\{a\}$ 中能异或出来就行了  
 这个就可以直接使用线性基，看看这个数可不可以插进去即可  
 记得查询完如果能插入的话还要拔出来  
 
@@ -798,7 +798,7 @@ CHIVAS_{
 **输出**  
 1  
 **说明/提示**  
-<img src="https://latex.codecogs.com/svg.image?1&space;\le&space;n&space;\le&space;50,&space;0&space;\le&space;S_i&space;\le&space;2^{50}" title="1 \le n \le 50, 0 \le S_i \le 2^{50}" />  
+$1 \le n \le 50, 0 \le S_i \le 2^{50}$  
   
 <a href="https://www.luogu.com.cn/problem/P3812">Luogu传送门</a>
 
@@ -1065,11 +1065,11 @@ int main()
 #### 💡
 一个计数问题  
 一个宝石可以被分解，那么容量也降低  
-那么要拿第  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  个的时候可以由  <img src="https://latex.codecogs.com/svg.image?\inline&space;i-1" title="\inline i-1" /> 推过来，也可以选择分解这个，由  <img src="https://latex.codecogs.com/svg.image?\inline&space;i-m" title="\inline i-m" />  推过来
+那么要拿第  $i$  个的时候可以由  $i-1$ 推过来，也可以选择分解这个，由  $i-m$  推过来
 那么我们可以设计出递推式  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;f_i=f_{i-1}+f_{i-m}" title="\inline f_i=f_{i-1}+f_{i-m}" />  
+ $f_i=f_{i-1}+f_{i-m}$  
    
-由于  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" /> 很大，那么直接矩阵<img src="https://latex.codecogs.com/svg.image?\inline&space;ksm" title="\inline ksm" />优化
+由于  $n$ 很大，那么直接矩阵$ksm$优化
 
 #### ✅
 
@@ -1130,8 +1130,8 @@ int main () {
 
 #### 💡
 一个涉及到区间修改和区间求和的问题  
-且  <img src="https://latex.codecogs.com/svg.image?\inline&space;a_i" title="\inline a_i" />  到最后会很大，所以想矩阵  <img src="https://latex.codecogs.com/svg.image?\inline&space;ksm" title="\inline ksm" />  ，我们设置  <img src="https://latex.codecogs.com/svg.image?\inline&space;base" title="\inline base" />  矩阵就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;fibonacci" title="\inline fibonacci" />  的基础矩阵  
-那么在矩阵里面区间修改加也就是变成了区间修改乘（区间和矩阵乘上  <img src="https://latex.codecogs.com/svg.image?\inline&space;base" title="\inline base" />  矩阵的  <img src="https://latex.codecogs.com/svg.image?\inline&space;c" title="\inline c" />  次方  
+且  $a_i$  到最后会很大，所以想矩阵  $ksm$  ，我们设置  $base$  矩阵就是  $fibonacci$  的基础矩阵  
+那么在矩阵里面区间修改加也就是变成了区间修改乘（区间和矩阵乘上  $base$  矩阵的  $c$  次方  
 区间乘可以由乘法分配律满足，所以线段树懒标记就可以实现    
 而统计的时候就是区间查询加，这个就直接用线段树的区间求和数组计算加后的矩阵  
 由于满足乘法分配律，我们直接用初始的竖矩阵去乘这个区间和矩阵就行了  
@@ -1858,18 +1858,18 @@ int main(){
 	
 #### 💡
 根据二项式定理，可以设计两个式子  
-<img src="https://latex.codecogs.com/svg.image?\begin{aligned}(a&plus;\sqrt{b})^n=An&plus;B_n\sqrt{b}\\(a-\sqrt{b})^n=A_n-B_n\sqrt{b}\end{aligned}&space;" title="\begin{aligned}(a+\sqrt{b})^n=An+B_n\sqrt{b}\\(a-\sqrt{b})^n=A_n-B_n\sqrt{b}\end{aligned} " />  
+$\begin{aligned}(a+\sqrt{b})^n=An+B_n\sqrt{b}\\(a-\sqrt{b})^n=A_n-B_n\sqrt{b}\end{aligned}$  
 通过转化来的式子合并一下  
-<img src="https://latex.codecogs.com/svg.image?\begin{aligned}(a&plus;\sqrt{b})^n&plus;(a-\sqrt{b})^n=2A_n\\(a&plus;\sqrt{b})^n=2A_n-(a-\sqrt{b})^n\end{aligned}&space;" title="\begin{aligned}(a+\sqrt{b})^n+(a-\sqrt{b})^n=2A_n\\(a+\sqrt{b})^n=2A_n-(a-\sqrt{b})^n\end{aligned} " />  
+$\begin{aligned}(a+\sqrt{b})^n+(a-\sqrt{b})^n=2A_n\\(a+\sqrt{b})^n=2A_n-(a-\sqrt{b})^n\end{aligned}$  
 利用限制条件有  
-<img src="https://latex.codecogs.com/svg.image?\begin{aligned}&space;&space;&space;\because&space;a-1<\sqrt[]{b}<a\\\therefore&space;0<a-\sqrt[]{b}<0\\\therefore&space;(a&plus;\sqrt[]{b})^n=2A_n&space;&space;-(a-\sqrt[]{b})^n\left\{\begin{aligned}&<2A_n\\&>2A_n-1\end{aligned}\right.&space;\Rightarrow\lceil(a&plus;\sqrt[]{b})^n\rceil=2A_n&space;\end{aligned}" title="\begin{aligned} \because a-1<\sqrt[]{b}<a\\\therefore 0<a-\sqrt[]{b}<0\\\therefore (a+\sqrt[]{b})^n=2A_n -(a-\sqrt[]{b})^n\left\{\begin{aligned}&<2A_n\\&>2A_n-1\end{aligned}\right. \Rightarrow\lceil(a+\sqrt[]{b})^n\rceil=2A_n \end{aligned}" />  
+$\begin{aligned}   \because a-1<\sqrt[]{b}<a\\\therefore 0<a-\sqrt[]{b}<0\\\therefore (a+\sqrt[]{b})^n=2A_n  -(a-\sqrt[]{b})^n\left\{\begin{aligned}&<2A_n\\&>2A_n-1\end{aligned}\right. \Rightarrow\lceil(a+\sqrt[]{b})^n\rceil=2A_n \end{aligned}$  
 得到新式  
-<img src="https://latex.codecogs.com/svg.image?\lceil&space;(a&plus;\sqrt[]{b})^n\rceil&space;=2A_n=(a&plus;\sqrt[]{b})^n&plus;(a-\sqrt{b})^n&space;&space;" title="\lceil (a+\sqrt[]{b})^n\rceil =2A_n=(a+\sqrt[]{b})^n+(a-\sqrt{b})^n " />  
-令<img src="https://latex.codecogs.com/svg.image?x=a&plus;\sqrt[]{b},\quad&space;y=a-\sqrt[]{b}&space;&space;" title="x=a+\sqrt[]{b},\quad y=a-\sqrt[]{b} " />  
-则<img src="https://latex.codecogs.com/svg.image?(a&plus;\sqrt[]{b})^n&plus;(a-\sqrt[]{b})^n=x^n&plus;y^n=(x&plus;y)(x^{n-1}&plus;y^{n-1})-xy(x^{n-2}&plus;y^{n-2})&space;&space;" title="(a+\sqrt[]{b})^n+(a-\sqrt[]{b})^n=x^n+y^n=(x+y)(x^{n-1}+y^{n-1})-xy(x^{n-2}+y^{n-2}) " />  
-得到函数式<img src="https://latex.codecogs.com/svg.image?g(n)=x^n&plus;y^n,\quad&space;x&plus;y=2a,\quad&space;xy=a^2-b" title="g(n)=x^n+y^n,\quad x+y=2a,\quad xy=a^2-b" />  
+$\lceil (a+\sqrt[]{b})^n\rceil =2A_n=(a+\sqrt[]{b})^n+(a-\sqrt{b})^n$  
+令$x=a+\sqrt[]{b},\quad y=a-\sqrt[]{b}$  
+则$(a+\sqrt[]{b})^n+(a-\sqrt[]{b})^n=x^n+y^n=(x+y)(x^{n-1}+y^{n-1})-xy(x^{n-2}+y^{n-2})$  
+得到函数式$g(n)=x^n+y^n,\quad x+y=2a,\quad xy=a^2-b$  
 同时有递推  
-<img src="https://latex.codecogs.com/svg.image?g(n)=2a*g(n-1)-(a^2-b^2)*g(n-2)" title="g(n)=2a*g(n-1)-(a^2-b^2)*g(n-2)" />  
+$g(n)=2a*g(n-1)-(a^2-b^2)*g(n-2)$  
 利用求得的递推式构建矩阵ksm即可，但要防止爆数据类型，可以使用大数
 
 

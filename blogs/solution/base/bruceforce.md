@@ -1282,23 +1282,23 @@ int main () {
 <a href="https://www.luogu.com.cn/problem/P1836"><img src="https://img-blog.csdnimg.cn/85c8cd767515436397cb494f1ef7c93b.png"></a>
 
 #### 💡
-一类浅显的数位<img src="https://latex.codecogs.com/svg.image?\inline&space;dp" title="\inline a" />问题，可以直接分段打表  
-我们设置 <img src="https://latex.codecogs.com/svg.image?\inline&space;s[i]" title="\inline a" /> 表示 <img src="https://latex.codecogs.com/svg.image?\inline&space;[0,10^i)" title="\inline a" /> 所有数的数位和  
+一类浅显的数位$dp$问题，可以直接分段打表  
+我们设置 $s[i]$ 表示 $[0,10^i)$ 所有数的数位和  
 直接递推打表就可以造出来  
-在推 <img src="https://latex.codecogs.com/svg.image?\inline&space;s[i]" title="\inline s[i]" /> 时，<img src="https://latex.codecogs.com/svg.image?\inline&space;s[i-1]" title="\inline s[i]" /> 会出现 <img src="https://latex.codecogs.com/svg.image?\inline&space;10" title="\inline s[i]" /> 次，而 <img src="https://latex.codecogs.com/svg.image?\inline&space;[0,9]" title="\inline s[i]" /> 会各自出现 <img src="https://latex.codecogs.com/svg.image?\inline&space;10^{i-1}" title="\inline s[i]" /> 次  
-所以直接 <img src="https://latex.codecogs.com/svg.image?\inline&space;s[i]=s[i-1]*10&plus;45*10^{(i-1)}" title="\inline s[i]=s[i-1]*10+45*10^(i-1)" />  
+在推 $s[i]$ 时，$s[i-1]$ 会出现 $10$ 次，而 $[0,9]$ 会各自出现 $10^{i-1}$ 次  
+所以直接 $s[i]=s[i-1]*10+45*10^{(i-1)}$  
   
-我们观测一个数 <img src="https://latex.codecogs.com/svg.image?\inline&space;123" title="\inline 123" />   
-可以拆成 <img src="https://latex.codecogs.com/svg.image?\inline&space;100&plus;20&plus;3" title="\inline 100+20+3" /> 这样算  
+我们观测一个数 $123$   
+可以拆成 $100+20+3$ 这样算  
 但是要思考好每一位上每个数出现的次数  
-如第一位 <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline" /> ，出现过 <img src="https://latex.codecogs.com/svg.image?\inline&space;24" title="\inline" /> 次  
-第二位 <img src="https://latex.codecogs.com/svg.image?\inline&space;2" title="\inline" />，出现过 <img src="https://latex.codecogs.com/svg.image?\inline&space;4" title="\inline" /> 次
-第三位 <img src="https://latex.codecogs.com/svg.image?\inline&space;3" title="\inline" />，出现过 <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline" /> 次
+如第一位 $1$ ，出现过 $24$ 次  
+第二位 $2$，出现过 $4$ 次
+第三位 $3$，出现过 $1$ 次
   
-输入按字符串 <img src="https://latex.codecogs.com/svg.image?\inline&space;str" title="\inline" /> 处理  
-第 <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline" /> 位也就是 <img src="https://latex.codecogs.com/svg.image?\inline&space;str[i]" title="\inline" /> 会出现 <img src="https://latex.codecogs.com/svg.image?\inline&space;stoi(str[i+1,sz-1])+1" title="\inline" /> 次，这便是贡献<img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline" />： <img src="https://latex.codecogs.com/svg.image?\inline&space;str[i]*(stoi(str[i+1,sz-1])+1)" title="\inline" />  
-后面的<img src="https://latex.codecogs.com/svg.image?\inline&space;[0,10^{sz-i-1})" title="\inline" />跟着第 <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline" /> 位往上跳 <img src="https://latex.codecogs.com/svg.image?\inline&space;str[i]" title="\inline" /> 次，这便是贡献<img src="https://latex.codecogs.com/svg.image?\inline&space;2" title="\inline" />：<img src="https://latex.codecogs.com/svg.image?\inline&space;str[i]*s[sz-i-1]" title="\inline" />  
-<img src="https://latex.codecogs.com/svg.image?\inline&space;str[i]" title="\inline" /> 出现次数算过了，<img src="https://latex.codecogs.com/svg.image?\inline&space;[0,str[i-1]]" title="\inline" /> 出现的次数也要算一下，这便是贡献<img src="https://latex.codecogs.com/svg.image?\inline&space;3" title="\inline" />：<img src="https://latex.codecogs.com/svg.image?\inline&space;\sum\limits_{i=0}^{str[i]-1}*10^{sz-i-1}" title="\inline" />  
+输入按字符串 $str$ 处理  
+第 $i$ 位也就是 $str[i]$ 会出现 $stoi(str[i+1,sz-1])+1$ 次，这便是贡献$1$： $str[i]*(stoi(str[i+1,sz-1])+1)$  
+后面的$[0,10^{sz-i-1})$跟着第 $i$ 位往上跳 $str[i]$ 次，这便是贡献$2$：$str[i]*s[sz-i-1]$  
+$str[i]$ 出现次数算过了，$[0,str[i-1]]$ 出现的次数也要算一下，这便是贡献$3$：$\sum\limits_{i=0}^{str[i]-1}*10^{sz-i-1}$  
 
 #### ✅
 

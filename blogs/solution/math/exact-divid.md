@@ -13,32 +13,32 @@ title: 整除相关
 
 #### 💡
 **唯一分解定理**  
-如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" />  可以被质因数分解为  <img src="https://latex.codecogs.com/svg.image?\inline&space;x=p_1^{a_1}\times&space;p_2^{a_2}\times&space;p_3^{a_3}\times&space;...\times&space;p_k^{a_k}" title="\inline x=p_1^{a_1}\times p_2^{a_2}\times p_3^{a_3}\times ...\times p_k^{a_k}" />   
-则  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" />  的因数个数为  <img src="https://latex.codecogs.com/svg.image?\inline&space;(a_1+1)\times&space;(a_2+1)\times&space;(a_3+1)\times&space;...\times&space;(a_k+1)" title="\inline (a_1+1)\times (a_2+1)\times (a_3+1)\times ...\times (a_k+1)" />   
+如果  $x$  可以被质因数分解为  $x=p_1^{a_1}\times p_2^{a_2}\times p_3^{a_3}\times ...\times p_k^{a_k}$   
+则  $x$  的因数个数为  $(a_1+1)\times (a_2+1)\times (a_3+1)\times ...\times (a_k+1)$   
 
 **解题思路**  
 这个题很对应这个定理  
 ~~所以定理应该能很快想到吧（是吧是吧~~ 
 
-现在给出的是因数个数  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" /> ，那么我们利用公式贪心地反推一下不就好了吗？   
-我们第一反应肯定能想到可以对  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" />  分解质因数  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{a\}" title="\inline \{a\}" />   
-那么每一个质因数  <img src="https://latex.codecogs.com/svg.image?\inline&space;a" title="\inline a" />  都可以有一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;ksm(p,a-1)" title="\inline ksm(p,a-1)" />  来构造我们要求的这个数  <img src="https://latex.codecogs.com/svg.image?\inline&space;m" title="\inline m" />    
-根据贪心，我们肯定希望越大的质因数  <img src="https://latex.codecogs.com/svg.image?\inline&space;a" title="\inline a" />  去与越小的质数  <img src="https://latex.codecogs.com/svg.image?\inline&space;p" title="\inline p" />  凑数，这样可以使得  <img src="https://latex.codecogs.com/svg.image?\inline&space;m" title="\inline m" />  更小  
-这样的基础共识就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;m=p_1^{(a_1-1)}\times&space;p_2^{(a_2-1)}\times&space;p_3^{(a_3-1)}\times...\times&space;p_{sz}^{(a_{sz}-1)}" title="\inline m=p_1^{(a_1-1)}\times p_2^{(a_2-1)}\times p_3^{(a_3-1)}\times...\times p_{sz}^{(a_{sz}-1)}" /> 
+现在给出的是因数个数  $n$ ，那么我们利用公式贪心地反推一下不就好了吗？   
+我们第一反应肯定能想到可以对  $n$  分解质因数  $\{a\}$   
+那么每一个质因数  $a$  都可以有一个  $ksm(p,a-1)$  来构造我们要求的这个数  $m$    
+根据贪心，我们肯定希望越大的质因数  $a$  去与越小的质数  $p$  凑数，这样可以使得  $m$  更小  
+这样的基础共识就是  $m=p_1^{(a_1-1)}\times p_2^{(a_2-1)}\times p_3^{(a_3-1)}\times...\times p_{sz}^{(a_{sz}-1)}$ 
 
 而由于大质数的变化性会很大
-我们可以考虑合并某两个因数  <img src="https://latex.codecogs.com/svg.image?\inline&space;a_i=a_i\times&space;a_j" title="\inline a_i=a_i\times&space;a_j" />   
-例如如果给你  <img src="https://latex.codecogs.com/svg.image?\inline&space;n=16" title="\inline n=16" />   
-我们可以分解成  <img src="https://latex.codecogs.com/svg.image?\inline&space;2*2*2*2" title="\inline 2*2*2*2" />  ，此时  <img src="https://latex.codecogs.com/svg.image?\inline&space;m=2^1*3^1*5^1*7^1=210" title="\inline m=2^1*3^1*5^1*7^1=210" />   
-而考虑合并一下一个因数给第一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;2" title="\inline 2" /> ，此时  <img src="https://latex.codecogs.com/svg.image?\inline&space;m=2^3*3^1*5^1=120" title="\inline m=2^3*3^1*5^1=120" />   
+我们可以考虑合并某两个因数  $a_i=a_i\times a_j$   
+例如如果给你  $n=16$   
+我们可以分解成  $2*2*2*2$  ，此时  $m=2^1*3^1*5^1*7^1=210$   
+而考虑合并一下一个因数给第一个  $2$ ，此时  $m=2^3*3^1*5^1=120$   
 会变得更小  
 
-所以我们可以枚举我们可不可以在  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  的基础上乘上  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" />  ，也就是把  <img src="https://latex.codecogs.com/svg.image?\inline&space;a[j]" title="\inline a[j]" />  合并给  <img src="https://latex.codecogs.com/svg.image?\inline&space;a[i]" title="\inline a[i]" />  同时  <img src="https://latex.codecogs.com/svg.image?\inline&space;a[j]" title="\inline a[j]" />  删掉且整体  <img src="https://latex.codecogs.com/svg.image?\inline&space;sz--" title="\inline sz--" />   
+所以我们可以枚举我们可不可以在  $i$  的基础上乘上  $j$  ，也就是把  $a[j]$  合并给  $a[i]$  同时  $a[j]$  删掉且整体  $sz--$   
 看看这样做会不会更小更优
 如果更优的话就和合并掉，然后继续进行这套操作  
   
-数很大要开高精，这里直接拿  <img src="https://latex.codecogs.com/svg.image?\inline&space;BigInteger" title="\inline BigInteger" />  写了  
-（由于计算了一下对  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" />  分解后本身就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;log" title="\inline log" />  级别的，我们最多合并  <img src="https://latex.codecogs.com/svg.image?\inline&space;\frac{(logn+1)logn}2" title="\inline \frac{(logn + 1)logn}2" />  次，所以时间复杂度最高的为  <img src="https://latex.codecogs.com/svg.image?\inline&space;log(n)^2" title="\inline log(n)^2" /> ，然后  <img src="https://latex.codecogs.com/svg.image?\inline&space;Java" title="\inline Java" />  学的也不好，就啥都开暴力了（逃  
+数很大要开高精，这里直接拿  $BigInteger$  写了  
+（由于计算了一下对  $n$  分解后本身就是  $log$  级别的，我们最多合并  $\frac{(logn+1)logn}2$  次，所以时间复杂度最高的为  $log(n)^2$ ，然后  $Java$  学的也不好，就啥都开暴力了（逃  
 
 #### ✅
 ```java
@@ -151,20 +151,20 @@ public class Main {
 
 #### 💡
 这个柿子比较难看，我们化简一下  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;\begin{aligned}\frac1x+\frac1y&=\frac1{n!}\\yn!+xn!&=xy\\xy-(x+y)n!&=0\\n!^2-(x+y)n!+xy&=n!^2\\(x+n!)(y+n!)&=n!^2\end{aligned}" title="\inline \begin{aligned}\frac1x+\frac1y&=\frac1{n!}\\yn!+xn!&=xy\\xy-(x+y)n!&=0\\n!^2-(x+y)n!+xy&=n!^2\\(x+n!)(y+n!)&=n!^2\end{aligned}" />   
+ $\begin{aligned}\frac1x+\frac1y&=\frac1{n!}\\yn!+xn!&=xy\\xy-(x+y)n!&=0\\n!^2-(x+y)n!+xy&=n!^2\\(x+n!)(y+n!)&=n!^2\end{aligned}$   
   
-令  <img src="https://latex.codecogs.com/svg.image?\inline&space;A=x+n!,\;B=y+n!" title="\inline A=x+n!,\;B=y+n!" />   
-则  <img src="https://latex.codecogs.com/svg.image?\inline&space;AB=n!^2" title="\inline AB=n!^2" />   
- <img src="https://latex.codecogs.com/svg.image?\inline&space;A" title="\inline A" />  是整数则  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" />  也是整数， <img src="https://latex.codecogs.com/svg.image?\inline&space;B" title="\inline B" />  同理  
-只要  <img src="https://latex.codecogs.com/svg.image?\inline&space;A" title="\inline A" />  是  <img src="https://latex.codecogs.com/svg.image?\inline&space;n!^2" title="\inline n!^2" />  的因数，那么  <img src="https://latex.codecogs.com/svg.image?\inline&space;B" title="\inline B" />  也会是  <img src="https://latex.codecogs.com/svg.image?\inline&space;n!^2" title="\inline n!^2" />  的因数  
-那么这道题就变成了求  <img src="https://latex.codecogs.com/svg.image?\inline&space;n!^2" title="\inline n!^2" />  因数的个数  
+令  $A=x+n!,\;B=y+n!$   
+则  $AB=n!^2$   
+ $A$  是整数则  $x$  也是整数， $B$  同理  
+只要  $A$  是  $n!^2$  的因数，那么  $B$  也会是  $n!^2$  的因数  
+那么这道题就变成了求  $n!^2$  因数的个数  
   
-由唯一分解定理我们知道，若  <img src="https://latex.codecogs.com/svg.image?\inline&space;n=\prod\limits_{p|n}p^a" title="\inline n=\prod\limits_{p|n}p^a" />   
-那么  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" />  的因数个数就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;\prod\limits_{p|a}(a+1)" title="\inline \prod\limits_{p|a}(a+1)" />   
+由唯一分解定理我们知道，若  $n=\prod\limits_{p|n}p^a$   
+那么  $n$  的因数个数就是  $\prod\limits_{p|a}(a+1)$   
   
-由于是求  <img src="https://latex.codecogs.com/svg.image?\inline&space;n!^2" title="\inline n!^2" />  的因数  
-我们可以对  <img src="https://latex.codecogs.com/svg.image?\inline&space;1\rightarrow&space;n" title="\inline 1\rightarrow&space;n" />  的每一个数都分解一下质因数  
-然后让  <img src="https://latex.codecogs.com/svg.image?\inline&space;a" title="\inline a" />  乘  <img src="https://latex.codecogs.com/svg.image?\inline&space;2" title="\inline 2" />   
+由于是求  $n!^2$  的因数  
+我们可以对  $1\rightarrow n$  的每一个数都分解一下质因数  
+然后让  $a$  乘  $2$   
 再唯一分解定理进行求解即可  
 
 
@@ -716,7 +716,7 @@ int main () {
 <a href="https://acm.dingbacode.com/showproblem.php?pid=7025"><img src="https://i.loli.net/2021/10/14/xdH39a52foTyMbl.png"></a>
 
 #### 💡
-首先分析一下等差数列求和公式：<img src="https://latex.codecogs.com/svg.image?\frac{(l&plus;r)*(r-l&plus;1)}{2}" title="\frac{(l+r)*(r-l+1)}{2}" />  
+首先分析一下等差数列求和公式：$\frac{(l+r)*(r-l+1)}{2}$  
 如果正数超过两项，则必然会产生一个因数，所以只有正数三项不行  
   
 **先考虑一项：**  
@@ -843,7 +843,7 @@ https://www.luogu.com.cn/problem/P2158
 对于每个三角形  
 寻找互质数即可  
 所以   
-<img src="https://latex.codecogs.com/svg.image?res=\sum\limits_1^{n-1}phi(i)\quad*2&plus;1" title="res=\sum\limits_1^{n-1}phi(i)\quad*2+1" />
+$res=\sum\limits_1^{n-1}phi(i)\quad*2+1$
 
 #### ✅  
   
@@ -964,7 +964,7 @@ CHIVAS{
 <a href="https://www.luogu.com.cn/problem/P2398"><img src="https://img-blog.csdnimg.cn/c778e79a96624c4b89b12b9fbb8aff14.png"></a>
 
 #### 💡
-<img src="https://latex.codecogs.com/svg.image?\begin{aligned}&\sum\limits_{i=1}^n\sum\limits_{j=1}^ngcd(i,j)\\=&\sum\limits_{k=1}^nk\sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}[gcd(i,j)=k]\\=&\sum\limits_{k=1}^nk\sum\limits_{i=1}^{\left\lfloor\frac&space;nk\right\rfloor}\sum\limits_{j=1}^{\left\lfloor\frac&space;nk\right\rfloor}[gcd(i,j)=1]\end{aligned}" title="\begin{aligned}&\sum\limits_{i=1}^n\sum\limits_{j=1}^ngcd(i,j)\\=&\sum\limits_{k=1}^nk\sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}[gcd(i,j)=k]\\=&\sum\limits_{k=1}^nk\sum\limits_{i=1}^{\left\lfloor\frac nk\right\rfloor}\sum\limits_{j=1}^{\left\lfloor\frac nk\right\rfloor}[gcd(i,j)=1]\end{aligned}" />  
+$\begin{aligned}&\sum\limits_{i=1}^n\sum\limits_{j=1}^ngcd(i,j)\\=&\sum\limits_{k=1}^nk\sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}[gcd(i,j)=k]\\=&\sum\limits_{k=1}^nk\sum\limits_{i=1}^{\left\lfloor\frac nk\right\rfloor}\sum\limits_{j=1}^{\left\lfloor\frac nk\right\rfloor}[gcd(i,j)=1]\end{aligned}$  
 
 在转化完之后变成了在 n / k 内求两个数互质的个数   
 那么可以利用欧拉函数，不重复地计算任选两个数互质的个数，即1~n/k的phi和  
@@ -1343,10 +1343,10 @@ int main () {
 https://acm.dingbacode.com/showproblem.php?pid=2588
 
 #### 💡
-我们可以转化一下, <img src="https://latex.codecogs.com/svg.image?gcd(i,n)=a\Longrightarrow&space;gcd(\frac&space;ia,\frac&space;na)=1" title="gcd(i,n)=a\Longrightarrow gcd(\frac ia,\frac na)=1" />  
+我们可以转化一下, $gcd(i,n)=a\Longrightarrow gcd(\frac ia,\frac na)=1$  
 我们枚举的是 n 的大于等于 m 的因子(a)  
-此时在这个位置上个数就是<img src="https://latex.codecogs.com/svg.image?\phi(\frac&space;na)" title="\phi(\frac na)" />  
-由于因数都是成对出现的，所以我们只需遍历一边因子，即从 1 到 <img src="https://latex.codecogs.com/svg.image?\sqrt{n}" title="\sqrt{n}" /> 即可
+此时在这个位置上个数就是$\phi(\frac na)$  
+由于因数都是成对出现的，所以我们只需遍历一边因子，即从 1 到 $\sqrt{n}$ 即可
 
 #### ✅
 
@@ -2088,12 +2088,12 @@ CHIVAS{
 ### Question_phi
 
 #### 🔗
-**给出若干个正整数<img src="https://latex.codecogs.com/svg.image?n" title="n" />，请你求出最小的<img src="https://latex.codecogs.com/svg.image?m" title="m" />，使得<img src="https://latex.codecogs.com/svg.image?\phi(m)\ge&space;n" title="\phi(m)\ge n" />。**
+**给出若干个正整数$n$，请你求出最小的$m$，使得$\phi(m)\ge n$。**
 
 #### 💡
-首先要很容易想到一个性质：x为素数时，<img src="https://latex.codecogs.com/svg.image?\phi(x)=x-1" title="\phi(x)=x-1" />    
-而n后面的第一个素数肯定能满足<img src="https://latex.codecogs.com/svg.image?\phi\ge&space;n" title="\phi\ge n" />    
-根据素数分布规则来看，我们完全可以从<img src="https://latex.codecogs.com/svg.image?n" title="n" />向后找，从 n 到 大于n的第一个素数 这个范围内会有满足条件的数  
+首先要很容易想到一个性质：x为素数时，$\phi(x)=x-1$    
+而n后面的第一个素数肯定能满足$\phi\ge n$    
+根据素数分布规则来看，我们完全可以从$n$向后找，从 n 到 大于n的第一个素数 这个范围内会有满足条件的数  
 且时间复杂度能过去  
 
 #### ✅
@@ -2360,13 +2360,13 @@ https://acm.dingbacode.com/showproblem.php?pid=5728
   <li>
     <b>解K</b><br>
     由于 n 无平方因子，所以 n 唯一分解成几个质因子之后，每个质因子 p 都与别的互质<br><br>
-    即：<br><img src="https://latex.codecogs.com/svg.image?\phi(p*\frac&space;np)=\phi(p)*\phi(\frac&space;np)" title="\phi(p*\frac np)=\phi(p)*\phi(\frac np)" /><br><br>
-    设<br><img src="https://latex.codecogs.com/svg.image?\sum\limits_{n=1}^m\phi(i,n)=f(n,m)" title="\sum\limits_{n=1}^m\phi(i,n)=f(n,m)" /><br><br>
-    <img src="https://latex.codecogs.com/svg.image?\sum\limits_{n=1}^m\phi(i,n)=\phi(p)\sum\limits_{i=1}^m\phi(i,\frac&space;np)&plus;\sum\limits_{i=1}^{\frac&space;mp}\phi(i,n)" title="\sum\limits_{n=1}^m\phi(i,n)=\phi(p)\sum\limits_{i=1}^m\phi(i,\frac np)+\sum\limits_{i=1}^{\frac mp}\phi(i,n)" /><img src="https://latex.codecogs.com/svg.image?\Rightarrow&space;f(n,m)=\phi(p)*f(\frac&space;np,&space;m)&plus;f(n,&space;\frac&space;mp)" title="\Rightarrow f(n,m)=\phi(p)*f(\frac np, m)+f(n, \frac mp)" /><br>
+    即：<br>$\phi(p*\frac np)=\phi(p)*\phi(\frac np)$<br><br>
+    设<br>$\sum\limits_{n=1}^m\phi(i,n)=f(n,m)$<br><br>
+    $\sum\limits_{n=1}^m\phi(i,n)=\phi(p)\sum\limits_{i=1}^m\phi(i,\frac np)+\sum\limits_{i=1}^{\frac mp}\phi(i,n)$$\Rightarrow f(n,m)=\phi(p)*f(\frac np, m)+f(n, \frac mp)$<br>
   </li>
   <li>
     <b>递归降幂</b><br>
-    用<br><img src="https://latex.codecogs.com/svg.image?a^b=a^{b%\phi(n)&plus;\phi(n)}(mod\quad&space;n)" title="a^b=a^{b%\phi(n)+\phi(n)}(mod\quad n)" />递归一层层降幂<br>
+    用<br>$a^b=a^{b%\phi(n)+\phi(n)}(mod\quad n)$递归一层层降幂<br>
     递归出口是 phi = 1 <br>
   </li>
 </ol>

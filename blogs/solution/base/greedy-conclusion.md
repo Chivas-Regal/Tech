@@ -14,12 +14,12 @@ title: 贪心-构造
 一个序列整体变动成为另一个序列的话，最大的不动量是与目标位置距离相同的点个数  
   
 首先对这个要求，我们先建立出来一条链  
-同时如果一个点的好朋友不把它当作好朋友，就肯定是  <img src="https://latex.codecogs.com/svg.image?\inline&space;-1" title="\inline -1" />  
+同时如果一个点的好朋友不把它当作好朋友，就肯定是  $-1$  
 这个可以在建链的时候检查一下  
   
 建完之后就对这个距离统计一下数值，看看最多的是多少个点距离相同  
 （注意，距离有正反，因为这是个链）  
-然后  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" /> 减掉这个数量就行了  
+然后  $n$ 减掉这个数量就行了  
 
 #### ✅
 
@@ -83,31 +83,31 @@ int main() {
 #### 💡
 ~~很灵活的题，想到这个懒标记解法感觉很妙，想了这么久果然还是wtcl~~  
 ###### 问题转换
- <img src="https://latex.codecogs.com/svg.image?\inline&space;1." title="\inline 1." />  简化一下任务，一个有根树  
+ $1.$  简化一下任务，一个有根树  
 **在边上改变最少的全值让根到叶子节点的距离相同**  
 
- <img src="https://latex.codecogs.com/svg.image?\inline&space;2." title="\inline 2." />  因为边权只能加不能减，那么再简化一下任务  
-利用差分的思想将每个叶子节点与根节点的距离  <img src="https://latex.codecogs.com/svg.image?\inline&space;dis[i]" title="\inline dis[i]" />  设置为这个距离与最远叶子节点距离的差值即  <img src="https://latex.codecogs.com/svg.image?\inline&space;dis[i]=max\_dis-dis[i]" title="\inline dis[i]=max\_dis-dis[i]" />   
-**我们要让所有叶子节点的  <img src="https://latex.codecogs.com/svg.image?\inline&space;dis[i]=0" title="\inline dis[i]=0" />**
+ $2.$  因为边权只能加不能减，那么再简化一下任务  
+利用差分的思想将每个叶子节点与根节点的距离  $dis[i]$  设置为这个距离与最远叶子节点距离的差值即  $dis[i]=max\_dis-dis[i]$   
+**我们要让所有叶子节点的  $dis[i]=0$**
 
 ###### 解题思路
 纸上试推一下我们不难发现：  
-每一个边权的增加  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" />  会让这个边权下面的子树上所有叶子节点的  <img src="https://latex.codecogs.com/svg.image?\inline&space;dis" title="\inline dis" />  同加 <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" />  
-也就是我们转换后的  <img src="https://latex.codecogs.com/svg.image?\inline&space;dis[i]" title="\inline dis[i]" />  同减 <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" />  
+每一个边权的增加  $x$  会让这个边权下面的子树上所有叶子节点的  $dis$  同加 $x$  
+也就是我们转换后的  $dis[i]$  同减 $x$  
 
 **而这种做法是很划算的，因为我们只需要减一次就能对很多叶子节点产生影响**  
 
 但是要注意，不能减成负数了  
 因为减成负数了话还要在后面的过程中对很多子树的叶子节点再减些值补到一样，很不划算  
 
-**所以我们的每棵子树所能减的最多的值是有一个限制的，也就是这颗子树上所有叶子节点  <img src="https://latex.codecogs.com/svg.image?\inline&space;dis" title="\inline dis" />  的最小值**，这显然是可以直接预处理出来的，设为  <img src="https://latex.codecogs.com/svg.image?\inline&space;min\_val" title="\inline min\_val" />   
+**所以我们的每棵子树所能减的最多的值是有一个限制的，也就是这颗子树上所有叶子节点  $dis$  的最小值**，这显然是可以直接预处理出来的，设为  $min\_val$   
 这样看来似乎还是有些难以解决  
 那么就是想到了**懒标记**的处理方式  
-因为在往下推子树的时候，是子树减 <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" /> ，这样的话子树的最小值也会减 <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" />  
-因为在枚举到一个节点 <img src="https://latex.codecogs.com/svg.image?\inline&space;a" title="\inline a" /> 的时候，要让这颗子树的最小值 <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" /> 减到  <img src="https://latex.codecogs.com/svg.image?\inline&space;0" title="\inline 0" />  ，而**减的时候我们孙子节点 <img src="https://latex.codecogs.com/svg.image?\inline&space;c" title="\inline c" /> 是可以先放着不管**的，那么就是让儿子节点 <img src="https://latex.codecogs.com/svg.image?\inline&space;b" title="\inline b" /> 减去这个 <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" />  
+因为在往下推子树的时候，是子树减 $x$ ，这样的话子树的最小值也会减 $x$  
+因为在枚举到一个节点 $a$ 的时候，要让这颗子树的最小值 $x$ 减到  $0$  ，而**减的时候我们孙子节点 $c$ 是可以先放着不管**的，那么就是让儿子节点 $b$ 减去这个 $x$  
 
-<img src="https://latex.codecogs.com/svg.image?\inline&space;c" title="\inline c" /> 节点什么时候减呢？那就是在枚举到 <img src="https://latex.codecogs.com/svg.image?\inline&space;b" title="\inline b" /> 节点的时候，会让这个 <img src="https://latex.codecogs.com/svg.image?\inline&space;c" title="\inline c" /> 节点下减  
-减得少了怎么办？毕竟 <img src="https://latex.codecogs.com/svg.image?\inline&space;a" title="\inline a" /> 可是子树减过了，不能不算吧？诶**我们懒标记累加一下减的值，在 <img src="https://latex.codecogs.com/svg.image?\inline&space;c" title="\inline c" /> 节点减的时候给它算上**不就行了  
+$c$ 节点什么时候减呢？那就是在枚举到 $b$ 节点的时候，会让这个 $c$ 节点下减  
+减得少了怎么办？毕竟 $a$ 可是子树减过了，不能不算吧？诶**我们懒标记累加一下减的值，在 $c$ 节点减的时候给它算上**不就行了  
 **我们每次答案要加的值就是我们在每一个节点上要子树减的值**  
 
 就是这样一个顺序  
@@ -117,15 +117,15 @@ int main() {
 
 ###### 程序框架
 
-|----预处理叶子节点与根节点距离  <img src="https://latex.codecogs.com/svg.image?\inline&space;dis" title="\inline dis" />  数组  
-|----将 <img src="https://latex.codecogs.com/svg.image?\inline&space;dis" title="\inline dis" /> 数组差分化  
-|--------求  <img src="https://latex.codecogs.com/svg.image?\inline&space;max\{dis\}" title="\inline max\{dis\}" />   
-|--------  <img src="https://latex.codecogs.com/svg.image?\inline&space;dis[i]=max\{dis\}-dis[i]" title="\inline dis[i]=max\{dis\}-dis[i]" />   
-|----预处理子树最小叶子 <img src="https://latex.codecogs.com/svg.image?\inline&space;dis" title="\inline dis" /> 的 <img src="https://latex.codecogs.com/svg.image?\inline&space;min\_val" title="\inline min\_val" /> 数组  
-|----懒标记递推  <img src="https://latex.codecogs.com/svg.image?\inline&space;dfs" title="\inline dfs" />   
-|--------每个节点的 <img src="https://latex.codecogs.com/svg.image?\inline&space;min\_val" title="\inline min\_val" /> 加给 <img src="https://latex.codecogs.com/svg.image?\inline&space;lazy" title="\inline lazy" />  
-|--------儿子节点的 <img src="https://latex.codecogs.com/svg.image?\inline&space;min\_val" title="\inline min\_val" /> 同减 <img src="https://latex.codecogs.com/svg.image?\inline&space;lazy" title="\inline lazy" />   
-|--------答案累加该节点的 <img src="https://latex.codecogs.com/svg.image?\inline&space;min\_val" title="\inline min\_val" />  
+|----预处理叶子节点与根节点距离  $dis$  数组  
+|----将 $dis$ 数组差分化  
+|--------求  $max\{dis\}$   
+|--------  $dis[i]=max\{dis\}-dis[i]$   
+|----预处理子树最小叶子 $dis$ 的 $min\_val$ 数组  
+|----懒标记递推  $dfs$   
+|--------每个节点的 $min\_val$ 加给 $lazy$  
+|--------儿子节点的 $min\_val$ 同减 $lazy$   
+|--------答案累加该节点的 $min\_val$  
 |----输出答案
 
 #### ✅
@@ -1232,10 +1232,10 @@ int main () {
 #### 💡
 这种按字典序选数的策略：从前往后构造，对于这一位，从可以保证能顺利构造的字符中选取最小的字符  
 保证顺利构造：  
-在选中的字符的数量  <img src="https://latex.codecogs.com/svg.image?\inline&space;-1" title="\inline -1" /> 的情况下，设出现数量最多的字符为  <img src="https://latex.codecogs.com/svg.image?\inline&space;c" title="\inline maxc" /> ，数量为  <img src="https://latex.codecogs.com/svg.image?\inline&space;v" title="\inline maxv" /> ，总数量为  <img src="https://latex.codecogs.com/svg.image?\inline&space;cnt" title="\inline cnt" />  
-如果最多的是当前选中的字符，满足要求要保证  <img src="https://latex.codecogs.com/svg.image?\inline&space;v\times2\le&space;cnt" title="\inline maxv\times2\le&space;cnt" /> 即  <img src="https://latex.codecogs.com/svg.image?\inline&space;...\_c\_c\_c....\_c" title="\inline \_c\_c\_c....\_c" /> 这样  
-如果最多的不是选中的字符，满足要求要保证  <img src="https://latex.codecogs.com/svg.image?\inline&space;v\times2\le&space;cnt+1" title="\inline v\times2\le&space;cnt+1" /> ，即  <img src="https://latex.codecogs.com/svg.image?\inline&space;...c\_c\_c...\_c" title="\inline ...c\_c\_c...\_c" /> 这样  
->这里有个小技巧，就是如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;c" title="\inline c" /> 和当前选中的字符一样，我们可以看看有没有数量一样多的但是不是  <img src="https://latex.codecogs.com/svg.image?\inline&space;c" title="\inline c" /> 的，这样就能满足更多情况了  
+在选中的字符的数量  $-1$ 的情况下，设出现数量最多的字符为  $c$ ，数量为  $v$ ，总数量为  $cnt$  
+如果最多的是当前选中的字符，满足要求要保证  $v\times2\le cnt$ 即  $...\_c\_c\_c....\_c$ 这样  
+如果最多的不是选中的字符，满足要求要保证  $v\times2\le cnt+1$ ，即  $...c\_c\_c...\_c$ 这样  
+>这里有个小技巧，就是如果  $c$ 和当前选中的字符一样，我们可以看看有没有数量一样多的但是不是  $c$ 的，这样就能满足更多情况了  
 
 对于每一位，我们都从可以选择的数里面扫一下，最小的也就是第一个扫到的就让他做这一位的字符，就能保证字典序最小了  
 
@@ -1326,7 +1326,7 @@ int main () {
 
 #### 💡
 从样例获得启发  
-我们可以  <img src="https://latex.codecogs.com/svg.image?\inline&space;Z" title="\inline Z" /> 字形构造，但是多行翻来翻去会很麻烦，所以我们变一下  
+我们可以  $Z$ 字形构造，但是多行翻来翻去会很麻烦，所以我们变一下  
 <img src="https://s2.loli.net/2022/01/08/HJnDCWoTd9LlcYE.jpg">  
 横向就这样画  
 那么可以看到这种画法是不看列数的，但是行数要满足偶数  
@@ -1336,7 +1336,7 @@ int main () {
 那么问题来了，如果都是奇数的话  
 那么我们可以思考一下，这种画法横着摆不看列数，竖着摆不看行数，而他们也同时都受到偶数的限制  
 也就是说，我们先横着摆，留三行从左到右竖着摆，那么最后还是会摆不完  
-那么我们依旧可以留三行，那么就在左下角形成了一个边长为  <img src="https://latex.codecogs.com/svg.image?\inline&space;3" title="\inline 3" /> 的正方形点阵，这个随便造就可以了  
+那么我们依旧可以留三行，那么就在左下角形成了一个边长为  $3$ 的正方形点阵，这个随便造就可以了  
   
 例如：  
 <img src="https://s2.loli.net/2022/01/08/Ra1suYGgLP329tO.jpg">  
@@ -4624,9 +4624,9 @@ CHIVAS_{IOS;
 #### 💡
 本题我们可以把原数组构造出来，所以重在发现一个公式关系  
 对于每一位，我们可以用或运算求出这一位是否存在1，同时加上与运算求出这一位有几个1  
-则公式为：<img src="https://latex.codecogs.com/svg.image?a_{12}=a_1&plus;a_2=a_1|a_2&plus;a_1\&&space;a_2" title="a_{12}=a_1+a_2=a_1|a_2+a_1\& a_2" />  
-同时可以推出一组方程组运算关系：<img src="https://latex.codecogs.com/svg.image?a_1=\frac&space;{a_{12}&plus;a_{13}-a{23}}{2}" title="a_1=\frac {a_{12}+a_{13}-a{23}}{2}" />  
-然后直接：<img src="https://latex.codecogs.com/svg.image?a_{i&plus;1}=a_{i&plus;1}\&a_i&plus;a_{i&plus;1}|a_i-a_i" title="a_{i+1}=a_{i+1}\&a_i+a_{i+1}|a_i-a_i" />即可  
+则公式为：$a_{12}=a_1+a_2=a_1|a_2+a_1\& a_2$  
+同时可以推出一组方程组运算关系：$a_1=\frac {a_{12}+a_{13}-a_{23}}{2}$
+然后直接：$a_{i+1}=a_{i+1}\&a_i+a_{i+1}|a_i-a_i$即可  
 
 #### ✅
 
@@ -4828,7 +4828,7 @@ int main () {
 
 ###### 检查  
 
-由于  <img src="https://latex.codecogs.com/svg.image?\inline&space;p[]" title="\inline p[]" />  表示先后顺序，我们设  <img src="https://latex.codecogs.com/svg.image?\inline&space;p'[i]" title="\inline p'[i]" />  表示  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  是  <img src="https://latex.codecogs.com/svg.image?\inline&space;p[]" title="\inline p[]" />  中第几个  
+由于  $p[]$  表示先后顺序，我们设  $p'[i]$  表示  $i$  是  $p[]$  中第几个  
 
 
 ```cpp
@@ -4839,9 +4839,9 @@ for ( int i = 1; i <= n; i ++ )
 	rp[pr[i]] = i;
 ```
 
-一条链上的  <img src="https://latex.codecogs.com/svg.image?\inline&space;dis[]" title="\inline dis[]" />  必定越来越大，  <img src="https://latex.codecogs.com/svg.image?\inline&space;p'[]" title="\inline p'[]" />  同样    
-那么可以知道的是，如果一堆父子关系中， <img src="https://latex.codecogs.com/svg.image?\inline&space;p'[fath]>p'[son]" title="\inline p'[fath]\gt&space;p'[son]" />  那么一定不行   
-这个跑一遍点就可以实现了，也要在输入  <img src="https://latex.codecogs.com/svg.image?\inline&space;b[]" title="\inline b[]" />  的时候记录一下父子关系 
+一条链上的  $dis[]$  必定越来越大，  $p'[]$  同样    
+那么可以知道的是，如果一堆父子关系中， $p'[fath]>p'[son]$  那么一定不行   
+这个跑一遍点就可以实现了，也要在输入  $b[]$  的时候记录一下父子关系 
 
 **记录**
 
@@ -5027,8 +5027,8 @@ inline void Solve () {
 <a href="https://codeforces.com/contest/1621/problem/B"><img src="https://s2.loli.net/2022/01/04/YCUIs6LRJNdXayb.png"></a>
 
 #### 💡
-根据题意我们容易知道，其实就是让你选能覆盖已知全局的  <img src="https://latex.codecogs.com/svg.image?\inline&space;l" title="\inline l" /> 和  <img src="https://latex.codecogs.com/svg.image?\inline&space;r" title="\inline r" />   
-这个  <img src="https://latex.codecogs.com/svg.image?\inline&space;l" title="\inline l" /> 和  <img src="https://latex.codecogs.com/svg.image?\inline&space;r" title="\inline r" /> **可能会在一个段里也可能会在两个段里**   
+根据题意我们容易知道，其实就是让你选能覆盖已知全局的  $l$ 和  $r$   
+这个  $l$ 和  $r$ **可能会在一个段里也可能会在两个段里**   
 <img src="https://s2.loli.net/2022/01/04/XIrcsGPKTCU48k5.png">
     
 所以我们维护一个只会扩展的单段，维护这个单段在两端都最边界的情况下价值最小  
@@ -5090,10 +5090,10 @@ int main () {
 #### 💡
 由于**分配后的最小值最大**，所以我们肯定是希望均分  
 根据回文串的性质，如果我们能找出来一对一对的相同字符，那么我们可以把它分到每个字符串两侧  
-所以我们拿出来成对的字符，即偶数个字符  <img src="https://latex.codecogs.com/svg.image?\inline&space;num2/2" title="\inline num2/2" />    
-把它们分给  <img src="https://latex.codecogs.com/svg.image?\inline&space;k" title="\inline k" /> 个人  
-先记为分成了  <img src="https://latex.codecogs.com/svg.image?\inline&space;res" title="\inline res" /> 轮  
-那么一定会有  <img src="https://latex.codecogs.com/svg.image?\inline&space;k-num2\%k" title="\inline k-" /> 比  <img src="https://latex.codecogs.com/svg.image?\inline&space;num2\%k" title="\inline num2\%k" /> 少了两个，我们尽可能均分，让那  <img src="https://latex.codecogs.com/svg.image?\inline&space;num2\%k" title="\inline num2\%k" /> 个人每个人拿出来一个字符，此时和它配对的字符落单放到中间，然后在总字符串内的所有落单的字符个数中加进这些字符，设加后总共有  <img src="https://latex.codecogs.com/svg.image?\inline&space;num1" title="\inline num1" /> 个单字符，这些单字符可以拼给那  <img src="https://latex.codecogs.com/svg.image?\inline&space;k-num2\%k" title="\inline k-num2\%k" /> 个人，如果给的完，答案就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;num2/k\times2+1" title="\inline num2/k\times2+1" /> ，否则就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;num2/k\times2" title="\inline num2/k\times2" /> 
+所以我们拿出来成对的字符，即偶数个字符  $num2/2$    
+把它们分给  $k$ 个人  
+先记为分成了  $res$ 轮  
+那么一定会有  $k-num2\%k$ 比  $num2\%k$ 少了两个，我们尽可能均分，让那  $num2\%k$ 个人每个人拿出来一个字符，此时和它配对的字符落单放到中间，然后在总字符串内的所有落单的字符个数中加进这些字符，设加后总共有  $num1$ 个单字符，这些单字符可以拼给那  $k-num2\%k$ 个人，如果给的完，答案就是  $num2/k\times2+1$ ，否则就是  $num2/k\times2$ 
 
 #### ✅
 
@@ -5133,9 +5133,9 @@ inline void Solve () {
 #### 💡  
 建立一个这样的模型 <img src="https://s2.loli.net/2022/01/18/Q1KzUoAIOs4lqR8.jpg">  
   
-我们可以从  <img src="https://latex.codecogs.com/svg.image?\inline&space;k[i],h[i]" title="\inline k[i],h[i]" /> 中得出，我们至少要从  <img src="https://latex.codecogs.com/svg.image?\inline&space;k[i]-h[i]+1" title="\inline k[i]-h[i]+1" /> 这个时刻开始释放  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" /> 的攻击  
-才能安全地在  <img src="https://latex.codecogs.com/svg.image?\inline&space;k[i]" title="\inline k[i]" /> 时释放出  <img src="https://latex.codecogs.com/svg.image?\inline&space;h[i]" title="\inline h[i]" /> 的攻击  
-为了贪心，我们得出开始时间  <img src="https://latex.codecogs.com/svg.image?\inline&space;beg[i]=k[i]-h[i]+1" title="\inline beg[i]=k[i]-h[i]+1" /> ，结束时间  <img src="https://latex.codecogs.com/svg.image?\inline&space;k[i]" title="\inline k[i]" />   
+我们可以从  $k[i],h[i]$ 中得出，我们至少要从  $k[i]-h[i]+1$ 这个时刻开始释放  $1$ 的攻击  
+才能安全地在  $k[i]$ 时释放出  $h[i]$ 的攻击  
+为了贪心，我们得出开始时间  $beg[i]=k[i]-h[i]+1$ ，结束时间  $k[i]$   
   
 而需要更早蓄力更晚触发的中途就可以将晚蓄力早触发的怪消灭  
 那么我们要保证蓄力是一个严格单调递增的序列即可  
@@ -5144,10 +5144,10 @@ inline void Solve () {
 这种就要在之前蓄力的基础上消灭该怪兽后不停止继续蓄力  
 才可以安全消灭后面那只怪兽  
 所以要合并一下区间  
-对于每个  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> ，如果存在  <img src="https://latex.codecogs.com/svg.image?\inline&space;j<i" title="\inline j<i" /> 并且满足上面条件（  <img src="https://latex.codecogs.com/svg.image?\inline&space;beg[i]\ge&space;beg[j]\;and\;beg[i]\le&space;k[j]" title="\inline beg[i]\ge&space;beg[j]\;and\;beg[i]\le&space;k[j]" />  ），那么合并区间操作为  <img src="https://latex.codecogs.com/svg.image?\inline&space;beg[i]=beg[j]" title="\inline beg[i]=beg[j]" />   
+对于每个  $i$ ，如果存在  $j<i$ 并且满足上面条件（  $beg[i]\ge beg[j]\;and\;beg[i]\le k[j]$  ），那么合并区间操作为  $beg[i]=beg[j]$   
   
 然后我们就可以用单调栈求上升序列了  
-对于每个序列累加  <img src="https://latex.codecogs.com/svg.image?\inline&space;\sum\limits_{i=1}^{k-beg+1}i" title="\inline \sum\limits_{i=1}^{k-beg+1}i" /> 的和  
+对于每个序列累加  $\sum\limits_{i=1}^{k-beg+1}i$ 的和  
 
 #### ✅
 
@@ -5191,11 +5191,11 @@ inline void Solve () {
 <a href="https://codeforces.com/contest/1626/problem/D"><img src="https://s2.loli.net/2022/01/18/knzbK32pWmPlXBZ.png"></a>
 
 #### 💡
-我们对  <img src="https://latex.codecogs.com/svg.image?\inline&space;1\rightarrow&space;n" title="\inline 1\rightarrow&space;n" /> 的所有体重记录一个出现的次数  <img src="https://latex.codecogs.com/svg.image?\inline&space;cnt" title="\inline cnt" />   
-然后枚举第一段和第二段的期望长度  <img src="https://latex.codecogs.com/svg.image?\inline&space;l1,l2" title="\inline l1,l2" />   
-遍历  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" /> 到  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" /> 看看每段在不超过自身预期的前提下，最多能存在多少个运动员  
+我们对  $1\rightarrow n$ 的所有体重记录一个出现的次数  $cnt$   
+然后枚举第一段和第二段的期望长度  $l1,l2$   
+遍历  $1$ 到  $n$ 看看每段在不超过自身预期的前提下，最多能存在多少个运动员  
 预期和实际的差即是我们要扩招的人数  
-对于第三段，我们看看枚举完 <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  后面的人中，向上的第一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;2" title="\inline 2" /> 的整数幂，就是第三段预期的人数  
+对于第三段，我们看看枚举完 $i$  后面的人中，向上的第一个  $2$ 的整数幂，就是第三段预期的人数  
 这三个相加，对于每一个枚举的前两段长度，我们维护一下我们要扩招的人的最小值即可    
 
 #### ✅
@@ -6488,14 +6488,14 @@ inline void Solve () {
 <a href="https://codeforces.com/gym/102460/attachments"><img src="https://s2.loli.net/2022/01/18/lVzb8C4uv1ByO7W.png"></a>
 
 #### 💡  
-因为有数大小的限制，所以我们想让数列尽可能长，最长就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;2000" title="\inline 2000" />  
+因为有数大小的限制，所以我们想让数列尽可能长，最长就是  $2000$  
 我们构建一个这样的数列  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;-1,\underset{sum}{\underbrace{a_2,a_3,\dots,a_{1999}}} " title="\inline -1,\underset{sum}{\underbrace{a_2,a_3,\dots,a_{1999}}} " />   
+ $-1,\underset{sum}{\underbrace{a_2,a_3,\dots,a_{1999}}}$   
  那么即可得出  
- 我们设  <img src="https://latex.codecogs.com/svg.image?\inline&space;Natasha" title="\inline Natasha" /> 得出的结果是  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" /> ，那么  <img src="https://latex.codecogs.com/svg.image?\inline&space;Burce" title="\inline Burce" /> 得出的结果是  <img src="https://latex.codecogs.com/svg.image?\inline&space;x+k" title="\inline x+k" />   
+ 我们设  $Natasha$ 得出的结果是  $x$ ，那么  $Burce$ 得出的结果是  $x+k$   
  列出方程  
-  <img src="https://latex.codecogs.com/svg.image?\inline&space;\left\{\begin{aligned}&1999(sum-1)=x+k\\&1998sum=k\end{aligned}\right.\Rightarrow&space;sum=k+1999" title="\inline \left\{\begin{aligned}&1999(sum-1)=x+k\\&1998sum=k\end{aligned}\right.\Rightarrow&space;sum=k+1999" />  
-  那么就将  <img src="https://latex.codecogs.com/svg.image?\inline&space;1999+k" title="\inline 1999+k" /> 给  <img src="https://latex.codecogs.com/svg.image?\inline&space;sum" title="\inline sum" /> 分一下就行了  
+  $\left\{\begin{aligned}&1999(sum-1)=x+k\\&1998sum=k\end{aligned}\right.\Rightarrow sum=k+1999$  
+  那么就将  $1999+k$ 给  $sum$ 分一下就行了  
 
 #### ✅
 
@@ -6523,9 +6523,9 @@ inline void Solve () {
 <a href="https://codeforces.com/gym/102900/problem/B"><img src="https://s2.loli.net/2022/01/02/pn5JzxD1Lf3GEbd.png"></a>
 
 #### 💡
-给定两个矩阵，由  <img src="https://latex.codecogs.com/svg.image?\inline&space;X" title="\inline X" /> 和  <img src="https://latex.codecogs.com/svg.image?\inline&space;." title="\inline ." /> 构成，每个矩阵的价值是所有  <img src="https://latex.codecogs.com/svg.image?\inline&space;." title="\inline ." /> 一圈的  <img src="https://latex.codecogs.com/svg.image?\inline&space;X" title="\inline X" /> 的数量的和，问可否在不多于  <img src="https://latex.codecogs.com/svg.image?\inline&space;\left\lfloor\frac{mn}{2}\right\rfloor" title="\inline \left\lfloor\frac{mn}{2}\right\rfloor" /> 次操作让  <img src="https://latex.codecogs.com/svg.image?\inline&space;B" title="\inline B" /> 矩阵和  <img src="https://latex.codecogs.com/svg.image?\inline&space;A" title="\inline A" /> 矩阵的价值一样  
+给定两个矩阵，由  $X$ 和  $.$ 构成，每个矩阵的价值是所有  $.$ 一圈的  $X$ 的数量的和，问可否在不多于  $\left\lfloor\frac{mn}{2}\right\rfloor$ 次操作让  $B$ 矩阵和  $A$ 矩阵的价值一样  
   
-可以看到，每个  <img src="https://latex.codecogs.com/svg.image?\inline&space;." title="\inline ." /> 做出的贡献都是依靠相对的  <img src="https://latex.codecogs.com/svg.image?\inline&space;X" title="\inline X" /> ，那么我们对一个矩阵进行翻转那么价值是一样的，而  <img src="https://latex.codecogs.com/svg.image?\inline&space;A" title="\inline A" /> 矩阵变成  <img src="https://latex.codecogs.com/svg.image?\inline&space;B" title="\inline B" /> 矩阵或者  <img src="https://latex.codecogs.com/svg.image?\inline&space;B" title="\inline B" /> 的反矩阵必定有一个次数是小于要求的，我们就看  <img src="https://latex.codecogs.com/svg.image?\inline&space;A,B" title="\inline A" /> 的差异数，我们就可以知道要变哪个矩阵  
+可以看到，每个  $.$ 做出的贡献都是依靠相对的  $X$ ，那么我们对一个矩阵进行翻转那么价值是一样的，而  $A$ 矩阵变成  $B$ 矩阵或者  $B$ 的反矩阵必定有一个次数是小于要求的，我们就看  $A,B$ 的差异数，我们就可以知道要变哪个矩阵  
 
 #### ✅
 
@@ -6572,15 +6572,15 @@ int main () {
 <a href="https://codeforces.com/gym/102900/problem/M"><img src="https://s2.loli.net/2022/01/02/Qnus9vBJf4zgCG1.png"></a>
 
 #### 💡
-题目是给出我们  <img src="https://latex.codecogs.com/svg.image?\inline&space;n+m" title="\inline n+m" /> 个文件路径，让我们保留最后  <img src="https://latex.codecogs.com/svg.image?\inline&space;m" title="\inline m" /> 个，删掉别的所有文件需要的最少次数  
+题目是给出我们  $n+m$ 个文件路径，让我们保留最后  $m$ 个，删掉别的所有文件需要的最少次数  
   
-这就是个资源管理器，它就像一棵树，每个文件路径都是树上深度为  <img src="https://latex.codecogs.com/svg.image?\inline&space;0" title="\inline 0" /> 的点到一个叶子结点的树链  
-我们可以对这条树链的每一个前缀路径都标为  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" /> ，默认是  <img src="https://latex.codecogs.com/svg.image?\inline&space;0" title="\inline 0" /> ，这样我们就可以确定哪些需要删哪些不能删，删掉的标记为  <img src="https://latex.codecogs.com/svg.image?\inline&space;-1" title="\inline -1" /> 即可  
+这就是个资源管理器，它就像一棵树，每个文件路径都是树上深度为  $0$ 的点到一个叶子结点的树链  
+我们可以对这条树链的每一个前缀路径都标为  $1$ ，默认是  $0$ ，这样我们就可以确定哪些需要删哪些不能删，删掉的标记为  $-1$ 即可  
   
-既然要删最少的次数，我们肯定更希望删去每条  <img src="https://latex.codecogs.com/svg.image?\inline&space;0" title="\inline 0" /> 链最上面的文件夹
+既然要删最少的次数，我们肯定更希望删去每条  $0$ 链最上面的文件夹
   
-从根结点向下走是一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;DFS" title="\inline DFS" /> 的过程，而我们这里可以直接采用遍历要删掉的  <img src="https://latex.codecogs.com/svg.image?\inline&space;n" title="\inline n" /> 个文件的路径即可  
-为  <img src="https://latex.codecogs.com/svg.image?\inline&space;0" title="\inline 0" /> 的时候意味着要删去，我们标记  <img src="https://latex.codecogs.com/svg.image?\inline&space;-1" title="\inline -1" /> 然后将计数结果  <img src="https://latex.codecogs.com/svg.image?\inline&space;+1" title="\inline +1" /> 再 `break` 即可
+从根结点向下走是一个  $DFS$ 的过程，而我们这里可以直接采用遍历要删掉的  $n$ 个文件的路径即可  
+为  $0$ 的时候意味着要删去，我们标记  $-1$ 然后将计数结果  $+1$ 再 `break` 即可
 
 #### ✅
 
@@ -6709,11 +6709,11 @@ int main() {
 
 #### 💡
 原题来看是需要计算两个指数符  
-这个本身是不难的，但是我们对于  <img src="https://latex.codecogs.com/svg.image?\inline&space;1000000^{1000000}" title="\inline 1000000^{1000000}" /> 这么大的数显然是存不下的  
+这个本身是不难的，但是我们对于  $1000000^{1000000}$ 这么大的数显然是存不下的  
 就算存下了，在乘和比较的时候又会要很慢  
 我们可以贪一下，如果这个指数符变成加号或者乘号将会非常方便  
-想一下  <img src="https://latex.codecogs.com/svg.image?\inline&space;log" title="\inline log" /> 的性质，如果前面加一个指数的相反符也就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;log" title="\inline log" /> ，那么指数就可以提到前面做乘法了  
-问题转化：<img src="https://latex.codecogs.com/svg.image?\inline&space;a^b?c^d\rightarrow&space;blog_{10}a?dlog_{10}d?" title="\inline " />    
+想一下  $log$ 的性质，如果前面加一个指数的相反符也就是  $log$ ，那么指数就可以提到前面做乘法了  
+问题转化：$a^b?c^d\rightarrow blog_{10}a?dlog_{10}d?$    
 
 #### ✅
 

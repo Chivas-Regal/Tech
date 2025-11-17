@@ -13,18 +13,18 @@ title: 线性DP
 第一问仔细一分析就知道是个最长下降子序列  
 那么关键就是第二问：求最长下降子序列的个数  
 是 [这道题](https://codeforces.com/gym/102163/problem/C) 的深化版，就是多了一份同样的数列去重  
-去重是最难想的，因为没有去重的话我们每次就以 <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> 更新  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 的时候都递加一下这个长度的数量即可  
+去重是最难想的，因为没有去重的话我们每次就以 $j$ 更新  $i$ 的时候都递加一下这个长度的数量即可  
 
 求最长下降子序列的时候是前缀一个个递推的  
 我们在这里可以接着递推的时候求  
-设置  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{dp2\}" title="\inline \{dp2\}" /> 为方案数  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{dp\}" title="\inline \{dp\}" /> 数组，  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{dp1\}" title="\inline \{dp1\}" /> 是前缀最长下降子序列数组  
+设置  $\{dp2\}$ 为方案数  $\{dp\}$ 数组，  $\{dp1\}$ 是前缀最长下降子序列数组  
 
-如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;a_i=a_j" title="\inline a_i=a_j" /> 且  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp_i=dp_j" title="\inline dp_i=dp_j" /> 说明转移给  <img src="https://latex.codecogs.com/svg.image?\inline&space;a_j" title="\inline a_j" /> 的也可以以同样的方式转移给  <img src="https://latex.codecogs.com/svg.image?\inline&space;a_i" title="\inline a_i" /> ，那么此时我们就不需要  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2_j" title="\inline dp2_j" /> 了，直接用  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2_i" title="\inline dp2_i" /> 就可以表示  
-如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;a_j>a_i" title="\inline a_j>a_i" /> 且  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1_j+1=dp1_i" title="\inline dp1_j+1=dp1_i" /> ，则说明这里有  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1_i" title="\inline dp1_i" /> 通过  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1_j" title="\inline dp1_j" /> 转移来  
-所以我们在方案数  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2_i" title="\inline dp2_i" /> 可以继承  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2_j" title="\inline dp2_j" /> 即  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2_i+=dp2_i" title="\inline dp2_i+=dp2_i" />   
+如果  $a_i=a_j$ 且  $dp_i=dp_j$ 说明转移给  $a_j$ 的也可以以同样的方式转移给  $a_i$ ，那么此时我们就不需要  $dp2_j$ 了，直接用  $dp2_i$ 就可以表示  
+如果  $a_j>a_i$ 且  $dp1_j+1=dp1_i$ ，则说明这里有  $dp1_i$ 通过  $dp1_j$ 转移来  
+所以我们在方案数  $dp2_i$ 可以继承  $dp2_j$ 即  $dp2_i+=dp2_i$   
 
-我们可以顺求  <img src="https://latex.codecogs.com/svg.image?\inline&space;max\{dp1\}=res1" title="\inline max\{dp1\}=res1" /> 
-处理完之后累加一下每一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1=res" title="\inline dp1=res" /> 的  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2" title="\inline dp2" />  
+我们可以顺求  $max\{dp1\}=res1$ 
+处理完之后累加一下每一个  $dp1=res$ 的  $dp2$  
 
 #### ✅
 
@@ -70,19 +70,19 @@ int main () {
 这道题，每个地方吃垃圾和踩垃圾，两种中决策出来一个  
 受到饱腹感的限制  
 
-这不就  <img src="https://latex.codecogs.com/svg.image?\inline&space;DP" title="\inline DP" /> 吗  
+这不就  $DP$ 吗  
 我们想要进行取最优的是高度，所以我们状态表示的是高度  
 而那两个限制就放在维度中  
-令  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j]" title="\inline dp[i][j]" /> 表示第  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 个垃圾，有  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> 饱腹感的最高高度  
+令  $dp[i][j]$ 表示第  $i$ 个垃圾，有  $j$ 饱腹感的最高高度  
 
-那么我们在枚举到  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  的时候，有吃和踩两种  
-踩无法让饱腹感更高但是可以贡献高度：  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j]=max(dp[i-1][j+gbgs[i].t-gbgs[i-1].t]+gbgs[i].h)" title="\inline dp[i][j]=max(dp[i-1][j],dp[i-1][j+gbgs[i].t-gbgs[i-1].t]+gbgs[i].h)" />   
-吃无法让高度更高但是要更新更高的饱腹感：  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j+gbgs[i].f]=max(dp[i-1][j+gbgs[i].t-gbgs[i-1].t])" title="\inline dp[i][j+gbgs[i].f]=max(dp[i][j+gbgs[i].f],dp[i-1][j+gbgs[i].t-gbgs" />   
+那么我们在枚举到  $i$  的时候，有吃和踩两种  
+踩无法让饱腹感更高但是可以贡献高度：  $dp[i][j]=max(dp[i-1][j+gbgs[i].t-gbgs[i-1].t]+gbgs[i].h)$   
+吃无法让高度更高但是要更新更高的饱腹感：  $dp[i][j+gbgs[i].f]=max(dp[i-1][j+gbgs[i].t-gbgs[i-1].t])$   
 
 设计一个饱腹感变量让它每次都吃  
 也就是最高的饱腹感  
 不仅用作遍历，还用作判断，如果中间断时间过大，那么一定是走不上去就被饿死了，所以中间判断一下够不够减这个时间，不够的话就根据上一次时间和饱腹感输出时间  
-如果中间  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[][]" title="\inline dp" /> 比  <img src="https://latex.codecogs.com/svg.image?\inline&space;D" title="\inline D" /> 更高了，那么就直接输出这个时间，能走上去  
+如果中间  $dp[][]$ 比  $D$ 更高了，那么就直接输出这个时间，能走上去  
 
 最后还是没走上去的话，就每次都吃统计一下总饱腹感，然后输出这个饱腹感就是坚持的时间  
 
@@ -150,8 +150,8 @@ int main () {
 <a href="https://www.luogu.com.cn/problem/P1174"><img src="https://i.loli.net/2021/11/30/EfIzcHoMG7vWQbw.png"></a>
 
 #### 💡
-很麻烦的一道  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp" title="\inline dp" /> 加贪心  
-首先每一次要选哪个点进行射击时决策，所以我们想到  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp" title="\inline dp" />   
+很麻烦的一道  $dp$ 加贪心  
+首先每一次要选哪个点进行射击时决策，所以我们想到  $dp$   
 
 由于在不同的行花费不同的子弹能得到不同的价值，而我们有这个子弹数  
 所以预处理出  
@@ -178,32 +178,32 @@ inline void pre_D ( int j ) {
 for ( int j = 1; j <= M; j ++ ) pre_D ( j );
 ```
 
-其次是  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp" title="\inline dp" />   
+其次是  $dp$   
 由于限制为子弹数量和列数  
-所以我们设置  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j]" title="\inline dp[i][j]" /> 表示在第  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 列用了  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> 颗子弹的最大价值  
-但是  <img src="https://latex.codecogs.com/svg.image?\inline&space;'N'" title="\inline 'N'" /> 和  <img src="https://latex.codecogs.com/svg.image?\inline&space;'Y'" title="\inline 'Y'" /> 不一样，他们会影响你是否用光你的子弹  
+所以我们设置  $dp[i][j]$ 表示在第  $i$ 列用了  $j$ 颗子弹的最大价值  
+但是  $'N'$ 和  $'Y'$ 不一样，他们会影响你是否用光你的子弹  
 
 所以加一维  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[i][j]" title="\inline dp1[i][j]" /> ：前  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 列刚好打到  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> 颗子弹就可以停下  
-  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2[i][j]" title="\inline dp2[i][j]" /> ：前  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 列没打完  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> 颗子弹就要停下了  
+ $dp1[i][j]$ ：前  $i$ 列刚好打到  $j$ 颗子弹就可以停下  
+  $dp2[i][j]$ ：前  $i$ 列没打完  $j$ 颗子弹就要停下了  
 
 枚举:  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />列  
-  <img src="https://latex.codecogs.com/svg.image?\inline&space;k" title="\inline k" />  有的的子弹数量   
- <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" /> 用了的子弹数量
+ $i$列  
+  $k$  有的的子弹数量   
+ $x$ 用了的子弹数量
 
 那么有三种情况  
-   <img src="https://latex.codecogs.com/svg.image?\inline&space;1." title="\inline 1." />  没用完，对于  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1" title="\inline dp1" />:  <img src="https://latex.codecogs.com/svg.image?\inline&space;=max(dp2[j-1][k-x],dp1[j-1][k-x])+dy[j][x]" title="\inline =max(" />   
+   $1.$  没用完，对于  $dp1$:  $=max(dp2[j-1][k-x],dp1[j-1][k-x])+dy[j][x]$   
      
- <img src="https://latex.codecogs.com/svg.image?\inline&space;2." title="\inline 2." />  用完了，但是之前没有用完  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[j][k]=max(dp1[j-1]k-x]+dy[j][x])" title="\inline dp1[j][k]=max(dp1[j-1]k-x]+dy[j][x])" />    
-即前几步打完了，你这里就使劲走也不一定走到  <img src="https://latex.codecogs.com/svg.image?\inline&space;'N'" title="\inline 'N'" />  这个你满意的极限位置    
+ $2.$  用完了，但是之前没有用完  
+ $dp1[j][k]=max(dp1[j-1]k-x]+dy[j][x])$    
+即前几步打完了，你这里就使劲走也不一定走到  $'N'$  这个你满意的极限位置    
 
- <img src="https://latex.codecogs.com/svg.image?\inline&space;3." title="\inline 3." />  用完了，且之前也用完了  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[j][k]=max(dp2[j-1][k-x]+dn[j][x])" title="\inline dp1[i][j]=max(" />   
- 即前几部没打完，你这里使劲走走到最后一步一定是  <img src="https://latex.codecogs.com/svg.image?\inline&space;'N'" title="\inline 'n'" />   
+ $3.$  用完了，且之前也用完了  
+ $dp1[j][k]=max(dp2[j-1][k-x]+dn[j][x])$   
+ 即前几部没打完，你这里使劲走走到最后一步一定是  $'N'$   
 
- 由于子弹肯定打完最好，所以最后一步一定是  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[m][k]" title="\inline dp1[m][k]" /> 
+ 由于子弹肯定打完最好，所以最后一步一定是  $dp1[m][k]$ 
 
 
 #### ✅
@@ -471,13 +471,13 @@ int main () {
 <a href="https://www.luogu.com.cn/problem/P2606"><img src="https://i.loli.net/2021/11/19/OYNjF4ecQx7MyCl.png"></a>
 
 #### 💡
-看到这个约束条件  <img src="https://latex.codecogs.com/svg.image?\inline&space;[1\rightarrow2\And3],[2\rightarrow4\And5],..." title="\inline 1\rightarrow2\And3,2\rightarrow4\And5,..." />   
+看到这个约束条件  $[1\rightarrow2\And3],[2\rightarrow4\And5],...$   
 我们可以构建出一棵二叉树  
-从  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" />  开始，我们有  <img src="https://latex.codecogs.com/svg.image?\inline&space;Sz_1" title="\inline Sz_1" /> 个节点，可以选择  <img src="https://latex.codecogs.com/svg.image?\inline&space;\binom{Sz_1-1}{Sz_2}" title="\inline \binom{Sz_1-1}{Sz_2}" /> 放入二号子树，其余放入三号子树  
-通俗地说，就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;\binom{Sz_x-1}{Sz_{x\times&space;2}}" title="\inline " /> 放入左子树，其余放入右子树  
-这样就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;C(Sz_x-1,Sz{x\times&space;2\times&space;Dfs(x\times2)\times&space;Dfs(x\times2+1)" title="\inline C(S" />   
+从  $1$  开始，我们有  $Sz_1$ 个节点，可以选择  $\binom{Sz_1-1}{Sz_2}$ 放入二号子树，其余放入三号子树  
+通俗地说，就是  $\binom{Sz_x-1}{Sz_{x\times 2}}$ 放入左子树，其余放入右子树  
+这样就是  $C(Sz_x-1,Sz{x\times 2\times Dfs(x\times2)\times Dfs(x\times2+1)$   
 
-注意模数可能很小，所以我们需要用  <img src="https://latex.codecogs.com/svg.image?\inline&space;Lucas" title="\inline Lucas" /> 定理  
+注意模数可能很小，所以我们需要用  $Lucas$ 定理  
 
 #### ✅
 
@@ -810,7 +810,7 @@ https://vjudge.net/problem/AtCoder-abc189_d
 可以看出这是一道两套子问题互相来回交汇的方案数问题  
 由于中途中选TF是比较随意的，所以我们先列出TF的关系式：  
 
-<img src="https://latex.codecogs.com/svg.image?\begin{matrix}&F\;&\And\;&F\;&=\;&F\\&F\;&\And\;&T\;&=\;&F\\&T\;&\And\;&F\;&=\;&F\\&T\;&\And\;&T\;&=\;&T\\\\&F\;&|\;&T\;&=\;&T\\&T\;&|\;&T\;&=\;&T\\&T\;&|\;&F\;&=\;&T\\&F\;&|\;&F\;&=\;&F&space;\end{matrix}&space;" title="\begin{matrix}&F\;&\And\;&F\;&=\;&F\\&F\;&\And\;&T\;&=\;&F\\&T\;&\And\;&F\;&=\;&F\\&T\;&\And\;&T\;&=\;&T\\\\&F\;&|\;&T\;&=\;&T\\&T\;&|\;&T\;&=\;&T\\&T\;&|\;&F\;&=\;&T\\&F\;&|\;&F\;&=\;&F \end{matrix} " />
+$\begin{matrix}&F\;&\And\;&F\;&=\;&F\\&F\;&\And\;&T\;&=\;&F\\&T\;&\And\;&F\;&=\;&F\\&T\;&\And\;&T\;&=\;&T\\\\&F\;&|\;&T\;&=\;&T\\&T\;&|\;&T\;&=\;&T\\&T\;&|\;&F\;&=\;&T\\&F\;&|\;&F\;&=\;&F \end{matrix}$
 
 这两套方案即是这一位为T或F的两种状态  
 那么我们设置dpT, dpF为状态表示  
@@ -1724,13 +1724,13 @@ int main () {
 
 #### 💡
 开始两发贪心上去，想着每次删去一个删掉后最省时的点，结果wa了，后来一想删掉当前阶段最省时的不一定能保证这个操作对于最后阶段最优  
-观测一下数据量  <img src="https://latex.codecogs.com/svg.image?\inline&space;n\le500" title="\inline n\le500" /> ，三重循环能破，跑  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp" title="\inline dp" /> 吧  
-限制为 终止哪个点，最多删  <img src="https://latex.codecogs.com/svg.image?\inline&space;k" title="\inline k" /> 个点  
-于是我们设置  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j]" title="\inline dp[i][j]" /> 表示到第  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 个点删去了  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> 个点，可以跑出来的最短时间  
+观测一下数据量  $n\le500$ ，三重循环能破，跑  $dp$ 吧  
+限制为 终止哪个点，最多删  $k$ 个点  
+于是我们设置  $dp[i][j]$ 表示到第  $i$ 个点删去了  $j$ 个点，可以跑出来的最短时间  
 由于如果删掉一个点后，我们的速度是继承该点之前没有删掉的点  
-所以我们三重循环，一重  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  枚举到哪个点了，一重枚举删了  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" />  个点，一重枚举上一个点是 <img src="https://latex.codecogs.com/svg.image?\inline&space;o" title="\inline k" />   
-如果第  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 个点要删掉了， <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j + 1] = min(dp[i][j + 1], dp[o][j - (i - o - 1)] + time(o, i))" title="\inline dp[i][j + 1] = min(dp[i][j + 1], dp[o][j - (i - o - 1)] + time(o, i))" />   
-如果不删的话  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i][j] = min(dp[i][j], dp[o][j - (i - o - 1)] + time(o, i))" title="\inline dp[i][j] = min(dp[i][j], dp[o][j - (i - o - 1)] + time(o, i))" /> ，即然是从  <img src="https://latex.codecogs.com/svg.image?\inline&space;o" title="\inline o" /> 跳过来的，那么中间的也必然被删掉了，所以  <img src="https://latex.codecogs.com/svg.image?\inline&space;o" title="\inline o" /> 的时候是删去了  <img src="https://latex.codecogs.com/svg.image?\inline&space;j-(i-o-1)" title="\inline j-(i-o-1)" /> 次  
+所以我们三重循环，一重  $i$  枚举到哪个点了，一重枚举删了  $j$  个点，一重枚举上一个点是 $o$   
+如果第  $i$ 个点要删掉了， $dp[i][j + 1] = min(dp[i][j + 1], dp[o][j - (i - o - 1)] + time(o, i))$   
+如果不删的话  $dp[i][j] = min(dp[i][j], dp[o][j - (i - o - 1)] + time(o, i))$ ，即然是从  $o$ 跳过来的，那么中间的也必然被删掉了，所以  $o$ 的时候是删去了  $j-(i-o-1)$ 次  
 
 #### ✅
 
@@ -2407,12 +2407,12 @@ inline void Solve () {
 
 #### 💡
 ~~依稀记得好像做过类似的题来着~~  
-我们每次遇到一个字母  <img src="https://latex.codecogs.com/svg.image?\inline&space;c" title="\inline c" />   
-在所给序列  <img src="https://latex.codecogs.com/svg.image?\inline&space;c" title="\inline c" />  出现的位置假设为  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  
-因为当这个字母出现之后，比它小一位也就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;i-1" title="\inline i-1" /> 位多了一个渠道推向第  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 位，那么：  
-如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;i\neq1" title="\inline i\neq1" />  那么  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i]+=dp[i-1]" title="\inline dp[i]+=dp[i-1]" />   
-而当  <img src="https://latex.codecogs.com/svg.image?\inline&space;i=1" title="\inline i=1" /> 时，我们只是做到让推的源头  <img src="https://latex.codecogs.com/svg.image?\inline&space;+1" title="\inline +1" /> 而已，那么：  
-如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;i=1" title="\inline i=1" /> 那么  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp[i]++" title="\inline dp[i]++" />   
+我们每次遇到一个字母  $c$   
+在所给序列  $c$  出现的位置假设为  $i$  
+因为当这个字母出现之后，比它小一位也就是  $i-1$ 位多了一个渠道推向第  $i$ 位，那么：  
+如果  $i\neq1$  那么  $dp[i]+=dp[i-1]$   
+而当  $i=1$ 时，我们只是做到让推的源头  $+1$ 而已，那么：  
+如果  $i=1$ 那么  $dp[i]++$   
 
 #### ✅
 
@@ -2532,11 +2532,11 @@ int main () {
 并不需要涉及一样的数列去重  
 
 在这个地方就省去很多处理的步骤  
-还是一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[i]" title="\inline dp1[i]" /> 表示  结尾是  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  的最长上升子序列长度，一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2[i]" title="\inline dp2[i]" /> 表示结尾是  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  的最长上升子序列的数量  
- <img src="https://latex.codecogs.com/svg.image?\inline&space;1000" title="\inline 100" /> 的数据量，那么我们求它的时候就是正常的前面的进行   
+还是一个  $dp1[i]$ 表示  结尾是  $i$  的最长上升子序列长度，一个  $dp2[i]$ 表示结尾是  $i$  的最长上升子序列的数量  
+ $1000$ 的数据量，那么我们求它的时候就是正常的前面的进行   
 
- 在求  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2[i]" title="\inline dp2[i]" /> 时，我们一样枚举  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 前面的  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> ，如果  <img src="https://latex.codecogs.com/svg.image?\inline&space;a[j]<a[i]" title="\inline a[j]<a[i]" /> 并且  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[i]=dp1[j]+1" title="\inline dp1[i]=dp1[j]+1" /> ，就说明这个  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[i]" title="\inline dp[i]" /> 有一部分方案是由  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[j]" title="\inline dp1[j]" /> 转移过来的  
- 那么我们汇聚一下方案数也就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp2[i]+=dp2[j]" title="\inline dp2[i]+=dp2[j]" /> 就可以了（记得在  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp1[i]=1" title="\inline dp1[i]=1" /> 的情况下说明  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 没有别的推过来，它自己是唯一一种方案，要设置为  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" /> 
+ 在求  $dp2[i]$ 时，我们一样枚举  $i$ 前面的  $j$ ，如果  $a[j]<a[i]$ 并且  $dp1[i]=dp1[j]+1$ ，就说明这个  $dp1[i]$ 有一部分方案是由  $dp1[j]$ 转移过来的  
+ 那么我们汇聚一下方案数也就是  $dp2[i]+=dp2[j]$ 就可以了（记得在  $dp1[i]=1$ 的情况下说明  $i$ 没有别的推过来，它自己是唯一一种方案，要设置为  $1$ 
 
 #### ✅
 

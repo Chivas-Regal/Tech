@@ -150,8 +150,8 @@ int main () {
 <a href="https://codeforces.com/contest/1627/problem/D"><img src="https://s2.loli.net/2022/01/18/GtWesXr3kMwVHCY.png"></a>
 
 #### 💡
-可以简单的得到，其实就是每次选任意多任意的位置上的数，将它们的  <img src="https://latex.codecogs.com/svg.image?\inline&space;gcd" title="\inline gcd" /> 放进数组  
-那么我们可以枚举这个  <img src="https://latex.codecogs.com/svg.image?\inline&space;gcd" title="\inline gcd" /> ，将数组中所有是它的倍数的数求一下  <img src="https://latex.codecogs.com/svg.image?\inline&space;gcd" title="\inline gcd" /> ，如果这些数的  <img src="https://latex.codecogs.com/svg.image?\inline&space;gcd" title="\inline gcd" /> 就是我们当前枚举的  <img src="https://latex.codecogs.com/svg.image?\inline&space;gcd" title="\inline gcd" /> 并且该  <img src="https://latex.codecogs.com/svg.image?\inline&space;gcd" title="\inline gcd" /> 没有在原数组内出现过，那么我们就可以加入  
+可以简单的得到，其实就是每次选任意多任意的位置上的数，将它们的  $gcd$ 放进数组  
+那么我们可以枚举这个  $gcd$ ，将数组中所有是它的倍数的数求一下  $gcd$ ，如果这些数的  $gcd$ 就是我们当前枚举的  $gcd$ 并且该  $gcd$ 没有在原数组内出现过，那么我们就可以加入  
   
 枚举所有的倍数，埃氏筛就可以实现  
 
@@ -306,14 +306,14 @@ inline void Solve () {
 
 #### 💡
 一个埃氏筛的思想  
-从  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" />  枚举  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  然后改变  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  的倍数的话  
+从  $1$  枚举  $i$  然后改变  $i$  的倍数的话  
 每个数有多少个因数就会被筛几次  
   
-我们设  <img src="https://latex.codecogs.com/svg.image?\inline&space;dv[i]" title="\inline dv[i]" /> 表示  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 的因数个数  
-那么一个位置在  <img src="https://latex.codecogs.com/svg.image?\inline&space;(i,j)" title="\inline (i,j)" /> 的元素会被筛  <img src="https://latex.codecogs.com/svg.image?\inline&space;dv[i]\times&space;dv[j]" title="\inline dv[i]\times&space;dv[j]" /> 次  
-为了使一个位置的元素筛奇数次，则  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" /> 和  <img src="https://latex.codecogs.com/svg.image?\inline&space;j" title="\inline j" /> 都具有奇数个因数才可以  
+我们设  $dv[i]$ 表示  $i$ 的因数个数  
+那么一个位置在  $(i,j)$ 的元素会被筛  $dv[i]\times dv[j]$ 次  
+为了使一个位置的元素筛奇数次，则  $i$ 和  $j$ 都具有奇数个因数才可以  
 性质：具有奇数个因数的数都是完全平方数  
-所以我们计算  <img src="https://latex.codecogs.com/svg.image?\inline&space;\left\lfloor\sqrt[]{n}\right\rfloor\times\left\lfloor\sqrt{m}\right\rfloor" title="\inline \left\lfloor\sqrt[]{n}\right\rfloor\times\left\lfloor\sqrt{m}\right\rfloor" /> 即可
+所以我们计算  $\left\lfloor\sqrt[]{n}\right\rfloor\times\left\lfloor\sqrt{m}\right\rfloor$ 即可
 
 #### ✅
 

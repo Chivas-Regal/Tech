@@ -1634,11 +1634,11 @@ int main(){
 #### 💡
 看到这个题首先会想一段区间会被前缀影响也会被后缀影响，那么我们可以采用区间求解的形式  
   
-由于收益的累加是从前往后的，所以我们建立一个前缀和  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{sum\}" title="\inline \{sum\}" />  表示从  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" />  到  <img src="https://latex.codecogs.com/svg.image?\inline&space;i" title="\inline i" />  这一段的总收益为  <img src="https://latex.codecogs.com/svg.image?\inline&space;sum[i]" title="\inline sum[i]" />    
-如果我们选  <img src="https://latex.codecogs.com/svg.image?\inline&space;[l,r]" title="\inline [l,r]" />  这一段，因为不看前面的收益了，所以从  <img src="https://latex.codecogs.com/svg.image?\inline&space;l" title="\inline l" />  到  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" />  的准确收益会是  <img src="https://latex.codecogs.com/svg.image?\inline&space;sum[x]-sum[l-1]" title="\inline sum[x] - sum[l - 1]" />   
-而这一段能否被选择的关键在于**这一段准确收益的最小值是否低于<img src="https://latex.codecogs.com/svg.image?\inline&space;s" title="\inline s" />**  
+由于收益的累加是从前往后的，所以我们建立一个前缀和  $\{sum\}$  表示从  $1$  到  $i$  这一段的总收益为  $sum[i]$    
+如果我们选  $[l,r]$  这一段，因为不看前面的收益了，所以从  $l$  到  $x$  的准确收益会是  $sum[x]-sum[l-1]$   
+而这一段能否被选择的关键在于**这一段准确收益的最小值是否低于$s$**  
   
-好了， <img src="https://latex.codecogs.com/svg.image?\inline&space;\{sum\}" title="\inline \{sum\}" />  的**区间最小值**，可以开一个  <img src="https://latex.codecogs.com/svg.image?\inline&space;ST" title="\inline ST" />  表  
+好了， $\{sum\}$  的**区间最小值**，可以开一个  $ST$  表  
 
 
 ```cpp
@@ -2079,15 +2079,15 @@ int main () {
 
 #### 💡
 首先我们化简一下问题  
-第  <img src="https://latex.codecogs.com/svg.image?\inline&space;d" title="\inline d" /> 天算法会消耗  <img src="https://latex.codecogs.com/svg.image?\inline&space;p" title="\inline p" /> ，获得  <img src="https://latex.codecogs.com/svg.image?\inline&space;qd^5" title="\inline qd^5" />   
-也就是若算法可以执行，那么将获得  <img src="https://latex.codecogs.com/svg.image?\inline&space;-p+qd^5" title="\inline -p+qd^5" />  
-若开始前有  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" /> ，执行  <img src="https://latex.codecogs.com/svg.image?\inline&space;y" title="\inline y" /> 天后会成为  <img src="https://latex.codecogs.com/svg.image?\inline&space;x-py+q\sum\limits_{i=1}^yi^5" title="\inline x-py+q\sum\limits_{i=1}^yi^5" />  
-我们要让这个值  <img src="https://latex.codecogs.com/svg.image?\inline&space;\ge10^{99}" title="\inline \ge10^{99}" />  
-同时要保证  <img src="https://latex.codecogs.com/svg.image?\inline&space;\forall&space;j\in[0,y],x-pj+q\sum\limits_{i=1}^ji^5\ge&space;p" title="\inline \forall&space;j\in[0,y],x-pj+q\sum\limits_{i=1}^ji^5\ge&space;p" /> ，不然就继续不了算法了，（左侧如果开始上升那么就可以保证了  
+第  $d$ 天算法会消耗  $p$ ，获得  $qd^5$   
+也就是若算法可以执行，那么将获得  $-p+qd^5$  
+若开始前有  $x$ ，执行  $y$ 天后会成为  $x-py+q\sum\limits_{i=1}^yi^5$  
+我们要让这个值  $\ge10^{99}$  
+同时要保证  $\forall j\in[0,y],x-pj+q\sum\limits_{i=1}^ji^5\ge p$ ，不然就继续不了算法了，（左侧如果开始上升那么就可以保证了  
   
-我们求  <img src="https://latex.codecogs.com/svg.image?\inline&space;\sum\limits_{i=1}^ji^5" title="\inline \sum\limits_{i=1}^ji^5" /> 可以用求[自然数幂和](http://www.chivas-regal.top/%E6%95%B0%E5%AD%A6/2021/11/19/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E6%8F%92%E5%80%BC%E6%B3%95.html#%E5%BA%94%E7%94%A8%E8%87%AA%E7%84%B6%E6%95%B0%E7%9A%84%E5%B9%82%E5%92%8C)的方式进行拉格朗日插值，这里  <img src="https://latex.codecogs.com/svg.image?\inline&space;k" title="\inline k" /> 不大，所以就是常数复杂度  
-我们求  <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline x" /> 可以使用第二个限制进行二分  
-求  <img src="https://latex.codecogs.com/svg.image?\inline&space;y" title="\inline y" /> 可以使用第一个进行二分  
+我们求  $\sum\limits_{i=1}^ji^5$ 可以用求[自然数幂和](http://www.chivas-regal.top/%E6%95%B0%E5%AD%A6/2021/11/19/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E6%8F%92%E5%80%BC%E6%B3%95.html#%E5%BA%94%E7%94%A8%E8%87%AA%E7%84%B6%E6%95%B0%E7%9A%84%E5%B9%82%E5%92%8C)的方式进行拉格朗日插值，这里  $k$ 不大，所以就是常数复杂度  
+我们求  $x$ 可以使用第二个限制进行二分  
+求  $y$ 可以使用第一个进行二分  
   
 数很大，开java的`BigInteger`
 
@@ -2189,17 +2189,17 @@ public class Main{
 答案问我们在满足一定条件下的结果，要最优的  
 可以使用二分答案  
   
-我们对结果  <img src="https://latex.codecogs.com/svg.image?\inline&space;len" title="\inline len" /> 进行二分，思考这个答案如何进行  <img src="https://latex.codecogs.com/svg.image?\inline&space;check" title="\inline check" />  
+我们对结果  $len$ 进行二分，思考这个答案如何进行  $check$  
   
-首先，这两条线的长度都至少为  <img src="https://latex.codecogs.com/svg.image?\inline&space;len\times2" title="\inline len\times2" />   
-我们设横线为  <img src="https://latex.codecogs.com/svg.image?\inline&space;p" title="\inline p" /> 竖线为  <img src="https://latex.codecogs.com/svg.image?\inline&space;q" title="\inline q" /> ，每条线都有  <img src="https://latex.codecogs.com/svg.image?\inline&space;\{a,b,pos\}" title="\inline \{a,b,pos\}" /> ，即端点、垂直坐标，我们枚举竖线，满足的情况应为  <img src="https://latex.codecogs.com/svg.image?\inline&space;q.pos\in[p.a+len,p.b-len]" title="\inline q.pos\in[p.a+len,p.b-len]" /> 且  <img src="https://latex.codecogs.com/svg.image?\inline&space;q.pos\in[q.a+len,q.b-len]" title="\inline q.pos\in[q.a+len,q.b-len]" />，这个集合  <img src="https://latex.codecogs.com/svg.image?\inline&space;\alpha" title="\inline \alpha" />  是包含在集合  <img src="https://latex.codecogs.com/svg.image?\inline&space;\beta:q.pos\in[p.a,p.b]" title="\inline q.pos\in[p.a+len,p.b-len]" /> 中的，我们首先要满足  <img src="https://latex.codecogs.com/svg.image?\inline&space;\alpha" title="\inline \alpha" /> 才能找  <img src="https://latex.codecogs.com/svg.image?\inline&space;\beta" title="\inline \beta" />      
+首先，这两条线的长度都至少为  $len\times2$   
+我们设横线为  $p$ 竖线为  $q$ ，每条线都有  $\{a,b,pos\}$ ，即端点、垂直坐标，我们枚举竖线，满足的情况应为  $q.pos\in[p.a+len,p.b-len]$ 且  $q.pos\in[q.a+len,q.b-len]$，这个集合  $\alpha$  是包含在集合  $\beta:q.pos\in[p.a,p.b]$ 中的，我们首先要满足  $\alpha$ 才能找  $\beta$      
 我们可以把这两个情况用两种方式同步求  
    
 
-对于  <img src="https://latex.codecogs.com/svg.image?\inline&space;\beta" title="\inline \alpha" />，可以发现这三者有偏序关系，所以排序就可以解决  
-我们存入每个横线的  <img src="https://latex.codecogs.com/svg.image?\inline&space;a+len" title="\inline l" /> 和  <img src="https://latex.codecogs.com/svg.image?\inline&space;b-len" title="\inline b" /> 以及竖线的  <img src="https://latex.codecogs.com/svg.image?\inline&space;pos" title="\inline pos" /> ，将它们进行排序后进行遍历，如果当前遍历到的是横线的  <img src="https://latex.codecogs.com/svg.image?\inline&space;a" title="\inline a" /> ，就把这个横线的  <img src="https://latex.codecogs.com/svg.image?\inline&space;pos" title="\inline pos" /> 存入，如果是  <img src="https://latex.codecogs.com/svg.image?\inline&space;b" title="\inline b" /> 就把这个横线的  <img src="https://latex.codecogs.com/svg.image?\inline&space;pos" title="\inline pos" /> 弹出，这个可以用一个 `multiset` 来维护  
-如果遍历到的是  <img src="https://latex.codecogs.com/svg.image?\inline&space;q" title="\inline q" /> 的  <img src="https://latex.codecogs.com/svg.image?\inline&space;pos" title="\inline pos" /> ，就是子集的求法  
-已知所有存在 `multiset` 中的  <img src="https://latex.codecogs.com/svg.image?\inline&space;pos" title="\inline pos" /> 都是满足第一个集合的情况，我们在其中进行二分出满足  <img src="https://latex.codecogs.com/svg.image?\inline&space;[q.a+len" title="\inline [p.a" /> 这个子集的最左端，如果这个点也能满足  <img src="https://latex.codecogs.com/svg.image?\inline&space;\le&space;q.b-len" title="\inline \le&space;q.b-len" /> 那么就说明可能存在比这个答案更大的情况，我们就  <img src="https://latex.codecogs.com/svg.image?\inline&space;check" title="\inline check" /> 成功了  
+对于  $\beta$，可以发现这三者有偏序关系，所以排序就可以解决  
+我们存入每个横线的  $a+len$ 和  $b-len$ 以及竖线的  $pos$ ，将它们进行排序后进行遍历，如果当前遍历到的是横线的  $a$ ，就把这个横线的  $pos$ 存入，如果是  $b$ 就把这个横线的  $pos$ 弹出，这个可以用一个 `multiset` 来维护  
+如果遍历到的是  $q$ 的  $pos$ ，就是子集的求法  
+已知所有存在 `multiset` 中的  $pos$ 都是满足第一个集合的情况，我们在其中进行二分出满足  $[q.a+len$ 这个子集的最左端，如果这个点也能满足  $\le q.b-len$ 那么就说明可能存在比这个答案更大的情况，我们就  $check$ 成功了  
 
 
 #### ✅

@@ -427,11 +427,11 @@ int main () {
 
 #### 💡
 
-首先看修改，对 <img src="https://latex.codecogs.com/svg.image?\inline&space;a" title="\inline a" /> 加 <img src="https://latex.codecogs.com/svg.image?\inline&space;x" title="\inline a" />  
-<img src="https://latex.codecogs.com/svg.image?\inline&space;\sin(a+x)" title="\inline a" /> 可以想到和差化积 <img src="https://latex.codecogs.com/svg.image?\inline&space;=\sin(a)\cos(x)+\sin(x)\cos(a)" title="\inline a" />  
-我们可以看到每次会用到两个值 <img src="https://latex.codecogs.com/svg.image?\inline&space;\cos" title="\inline a" /> 和 <img src="https://latex.codecogs.com/svg.image?\inline&space;\sin" title="\inline a" /> ，那么我们线段树维护这两个就行了  
-可以发现修改也是可以在原有基础上进行 <img src="https://latex.codecogs.com/svg.image?\inline&space;\cos(x)" title="\inline a" /> 和 <img src="https://latex.codecogs.com/svg.image?\inline&space;\sin(x)" title="\inline a" /> 的乘法分配律的  
-所以我们可以正常 <img src="https://latex.codecogs.com/svg.image?\inline&space;lazy" title="\inline lazy" /> 维护加的 <img src="https://latex.codecogs.com/svg.image?\inline&space;\sum&space;x" title="\inline a" />    
+首先看修改，对 $a$ 加 $x$  
+$\sin(a+x)$ 可以想到和差化积 $=\sin(a)\cos(x)+\sin(x)\cos(a)$  
+我们可以看到每次会用到两个值 $\cos$ 和 $\sin$ ，那么我们线段树维护这两个就行了  
+可以发现修改也是可以在原有基础上进行 $\cos(x)$ 和 $\sin(x)$ 的乘法分配律的  
+所以我们可以正常 $lazy$ 维护加的 $\sum x$    
 
 
 #### ✅
@@ -1478,8 +1478,8 @@ int main () {
 
 #### 💡
 一个涉及到区间修改和区间求和的问题  
-且  <img src="https://latex.codecogs.com/svg.image?\inline&space;a_i" title="\inline a_i" />  到最后会很大，所以想矩阵  <img src="https://latex.codecogs.com/svg.image?\inline&space;ksm" title="\inline ksm" />  ，我们设置  <img src="https://latex.codecogs.com/svg.image?\inline&space;base" title="\inline base" />  矩阵就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;fibonacci" title="\inline fibonacci" />  的基础矩阵  
-那么在矩阵里面区间修改加也就是变成了区间修改乘（区间和矩阵乘上  <img src="https://latex.codecogs.com/svg.image?\inline&space;base" title="\inline base" />  矩阵的  <img src="https://latex.codecogs.com/svg.image?\inline&space;c" title="\inline c" />  次方  
+且  $a_i$  到最后会很大，所以想矩阵  $ksm$  ，我们设置  $base$  矩阵就是  $fibonacci$  的基础矩阵  
+那么在矩阵里面区间修改加也就是变成了区间修改乘（区间和矩阵乘上  $base$  矩阵的  $c$  次方  
 区间乘可以由乘法分配律满足，所以线段树懒标记就可以实现    
 而统计的时候就是区间查询加，这个就直接用线段树的区间求和数组计算加后的矩阵  
 由于满足乘法分配律，我们直接用初始的竖矩阵去乘这个区间和矩阵就行了  
@@ -1602,11 +1602,11 @@ int main () {
 #### 💡
 **括号匹配的本质是两两相消。**  
 对于每一个位置的点重定义一下它的权值：`'(' = 1，')' = -1`  
-在累加过程中，<img src="https://latex.codecogs.com/svg.image?1" title="1" />可以和<img src="https://latex.codecogs.com/svg.image?-1" title="-1" />相消为<img src="https://latex.codecogs.com/svg.image?0" title="0" />，所以**计算总贡献**  
+在累加过程中，$1$可以和$-1$相消为$0$，所以**计算总贡献**  
 
 那么可以记录一个**权值前缀和**  
-那么对于每一个区间，如果其中的**最小值**小于 <img src="https://latex.codecogs.com/svg.image?l-1" title="l-1" /> 的前缀和的话，那么就一定是不匹配的（最小值的位置前右括号太多了  
-当然如果本身 <img src="https://latex.codecogs.com/svg.image?l-1" title="l-1" /> 的前缀和不等于 <img src="https://latex.codecogs.com/svg.image?r" title="r" /> 的前缀和就也是不匹配的  
+那么对于每一个区间，如果其中的**最小值**小于 $l-1$ 的前缀和的话，那么就一定是不匹配的（最小值的位置前右括号太多了  
+当然如果本身 $l-1$ 的前缀和不等于 $r$ 的前缀和就也是不匹配的  
 这里的最小值可以使用线段树进行维护，修改便直接在线段树上修改如果本身是'('，修改后区间-2，否则+2  
 
 #### ✅

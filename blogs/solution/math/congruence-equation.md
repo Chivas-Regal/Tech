@@ -140,11 +140,11 @@ CHIVAS_{
 #### 💡
 我们发现，有一个固定的区间——数轴长度l  
 那么我们可以得到一个公式  
-<img src="https://latex.codecogs.com/svg.image?X&plus;mx\equiv&space;Y&plus;nx(mod\;l)" title="X+mx\equiv Y+nx(mod\;l)" />  
-<img src="https://latex.codecogs.com/svg.image?(m-n)x\equiv&space;Y-X(mod\;l)" title="(m-n)x\equiv Y-X(mod\;l)" />  
+$X+mx\equiv Y+nx(mod\;l)$  
+$(m-n)x\equiv Y-X(mod\;l)$  
 即转变为求  
-<img src="https://latex.codecogs.com/svg.image?(m-n)x\equiv&space;Y-X(mod\;l)" title="(m-n)x\equiv Y-X(mod\;l)" />   
-则设<img src="https://latex.codecogs.com/svg.image?a=m-n,b=l,x,y" title="a=m-n,b=l,x,y" />  
+$(m-n)x\equiv Y-X(mod\;l)$   
+则设$a=m-n,b=l,x,y$  
 使用扩展欧几里得解方程即可  
 
 #### ✅

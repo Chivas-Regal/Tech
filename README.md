@@ -51,10 +51,6 @@ features:
     
 - title: 计算机原理技术
   children:
-  - title: C/C++
-    details: 是针对于计算机原理来编程，深入底层挖掘的利器，既有C的底层支持也有各种便于开发的新特性语法糖，也是作者认真学习的第一份语言
-    link: blogs/cppbases/0begin/0enviroment.html
-    icon: iconfont icon-language-cpp
   - title: Linux
     details: 一种高度自由与定制化的操作系统，支持各种丰富的终端命令，秉持”一切皆是文件“原则也有更为快捷的文件配置方式，常用于服务器
     link: https://tech.chivas-regal.top/blogs/linux/

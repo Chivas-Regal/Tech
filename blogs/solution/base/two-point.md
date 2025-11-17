@@ -716,8 +716,8 @@ int main () {
 <a href="https://codeforces.com/gym/102163/problem/K"><img src="https://s2.loli.net/2022/01/06/zRhQVGom2Hn39bp.png"></a>
 
 #### 💡
-求有多少个子段和不超过  <img src="https://latex.codecogs.com/svg.image?\inline&space;k" title="\inline k" />  
-不一样的子段的差异就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;[l,r]" title="\inline [l,r]" /> 的差异，所以我们可以找对于每个  <img src="https://latex.codecogs.com/svg.image?\inline&space;l" title="\inline l" /> 有多少个  <img src="https://latex.codecogs.com/svg.image?\inline&space;r" title="\inline r" /> 满足，也就是对于每个  <img src="https://latex.codecogs.com/svg.image?\inline&space;l" title="\inline l" /> 的满足条件的最大字段长   
+求有多少个子段和不超过  $k$  
+不一样的子段的差异就是  $[l,r]$ 的差异，所以我们可以找对于每个  $l$ 有多少个  $r$ 满足，也就是对于每个  $l$ 的满足条件的最大字段长   
 然后累加  
 这个先**预处理一下前缀和**然后通过双指针就可以实现  
 

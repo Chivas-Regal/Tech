@@ -310,19 +310,19 @@ int main () {
 同圈：看看走直线和走曲线哪个更近，由于是等分，所以这两个都很好求出  
 异圈：外圈的先走到小圈，然后看看走直线和走曲线哪个更近  
   
-易知道，同圈上一个点访问该圈所有的点求出之后设为  <img src="https://latex.codecogs.com/svg.image?\inline&space;cur" title="\inline cur" /> ，外圈上一个点访问这圈所有点在这圈上走的距离是  <img src="https://latex.codecogs.com/svg.image?\inline&space;dir\times2\times&space;m+cur" title="\inline dir\times2\times&space;m+cur" />   
+易知道，同圈上一个点访问该圈所有的点求出之后设为  $cur$ ，外圈上一个点访问这圈所有点在这圈上走的距离是  $dir\times2\times m+cur$   
 所以这道题的关键就在于遍历每一圈，求出这圈上一个点访问所有点的距离，然后用外圈所有的点套这个距离就行了  
   
 那么我们就可以把问题分为“圈上选择走法”和“直线走法”  
 圈上选择走法：  
-从内圈向外遍历圈数，第  <img src="https://latex.codecogs.com/svg.image?\inline&space;dp" title="\inline i" /> 圈求出  <img src="https://latex.codecogs.com/svg.image?\inline&space;cur" title="\inline cur" /> ，该圈互相访问需要  <img src="https://latex.codecogs.com/svg.image?\inline&space;cur\times&space;m" title="\inline \frac{cur}{2}" /> ，比这圈层数大的点的个数为  <img src="https://latex.codecogs.com/svg.image?\inline&space;2\times&space;m\times(n-dp)" title="\inline 2\times&space;m" /> ，去访问这所有点在圈上选择走法总距离为  <img src="https://latex.codecogs.com/svg.image?\inline&space;2\times&space;m\times(n-dp)\times&space;cur" title="\inline " />   
+从内圈向外遍历圈数，第  $dp$ 圈求出  $cur$ ，该圈互相访问需要  $cur\times m$ ，比这圈层数大的点的个数为  $2\times m\times(n-dp)$ ，去访问这所有点在圈上选择走法总距离为  $2\times m\times(n-dp)\times cur$   
   
 直线走法：  
-每一次外圈要访问该圈所有点都要先走到这圈，那么每一个点到这个圈的距离为  <img src="https://latex.codecogs.com/svg.image?\inline&space;1,2,\dots,n-dp" title="\inline 1,2,\dots,n-dp" /> ，每个点访问这圈所有点要走  <img src="https://latex.codecogs.com/svg.image?\inline&space;2\times&space;m" title="\inline n" /> 次  
-总距离就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;2\times&space;m\times\frac{(1+n-dp)(n-dp)}{2}\times2\times&space;m" title="\inline 2\times&space;m\times\frac{(1+n-dp)(n-dp)}{2}\times2\times&space;m" />   
+每一次外圈要访问该圈所有点都要先走到这圈，那么每一个点到这个圈的距离为  $1,2,\dots,n-dp$ ，每个点访问这圈所有点要走  $2\times m$ 次  
+总距离就是  $2\times m\times\frac{(1+n-dp)(n-dp)}{2}\times2\times m$   
   
-注意，当分割线数量不为  <img src="https://latex.codecogs.com/svg.image?\inline&space;1" title="\inline 1" /> 时，还有个所有点到圆心的距离  
-也就是  <img src="https://latex.codecogs.com/svg.image?\inline&space;2\times&space;m\times\frac{(1+n)n}{2}" title="\inline 2\times&space;m\times\frac{(1+n)n}{2}" />   
+注意，当分割线数量不为  $1$ 时，还有个所有点到圆心的距离  
+也就是  $2\times m\times\frac{(1+n)n}{2}$   
   
 >C++ 精度一直出问题，所以换成 Java 来做
 

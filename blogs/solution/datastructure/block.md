@@ -12,16 +12,16 @@ https://www.luogu.com.cn/problem/P3396
 #### 💡
 (应该是国集的一道论文题来着吧)  
   
-暴力中对每一个数对应的每一个模数都打一个表，<img src="https://latex.codecogs.com/svg.image?O(n^2)" title="O(n^2)" />肯定会超时  
+暴力中对每一个数对应的每一个模数都打一个表，$O(n^2)$肯定会超时  
 考虑根号算法  
   
 我们可以在发现在查询的时候如果模数x很小的时候一个个暴力肯定是不行的  
 所以与朴素的线形分块不同  
-这里将整个可以取得模数以<img src="https://latex.codecogs.com/svg.image?\sqrt{n}" title="\sqrt{n}" />为分界线分为两大块  
+这里将整个可以取得模数以$\sqrt{n}$为分界线分为两大块  
 
-模数小于<img src="https://latex.codecogs.com/svg.image?\sqrt{n}" title="\sqrt{n}" />的可以直接打表出来sum[x][y]表示这n个数对x取模得y的序号的总和，  
-修改的时候可以只对sum进行修改，<img src="https://latex.codecogs.com/svg.image?O(n\sqrt{n})" title="O(n\sqrt{n})" /> 
-查询的时候，如果模数<img src="https://latex.codecogs.com/svg.image?x\leqslant&space;\sqrt{n}" title="x\leqslant \sqrt{n}" />，那么我们可以用已有的表直接输出<img src="https://latex.codecogs.com/svg.image?O(1)" title="O(1)" />。如果<img src="https://latex.codecogs.com/svg.image?x\geqslant&space;\sqrt{n}" title="x\geqslant \sqrt{n}" />，那么我们完全暴力（以大于根号n的步长向上跳）去累加，<img src="https://latex.codecogs.com/svg.image?O(\sqrt{n})" title="O(\sqrt{n})" />。  
+模数小于$\sqrt{n}$的可以直接打表出来sum[x][y]表示这n个数对x取模得y的序号的总和，  
+修改的时候可以只对sum进行修改，$O(n\sqrt{n})$ 
+查询的时候，如果模数$x\leqslant \sqrt{n}$，那么我们可以用已有的表直接输出$O(1)$。如果$x\geqslant \sqrt{n}$，那么我们完全暴力（以大于根号n的步长向上跳）去累加，$O(\sqrt{n})$。  
 
 
 #### ✅
