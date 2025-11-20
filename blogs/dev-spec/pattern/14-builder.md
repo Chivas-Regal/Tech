@@ -28,7 +28,7 @@ String result = builder.toString();
 
 ## 实现
 
-TODO 流程图
+![生成器模式.drawio](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/生成器模式.drawio.svg)
  
 接下来将以电脑的生产举例。  
 
@@ -119,7 +119,7 @@ Computer officePC = Computer.builder("Intel i5", "16GB")
 
 规范产品生成的顺序、封装产品生成的逻辑。  
 
-TODO 流程图
+![生成器模式+Director.drawio](https://cr-demo-blog-1308117710.cos.ap-nanjing.myqcloud.com/chivas-regal/%E7%94%9F%E6%88%90%E5%99%A8%E6%A8%A1%E5%BC%8F%2BDirector.drawio.svg)
 
 我们仍按上面所使用的电脑生产来举例
 - 由抽象、具体的生成器对电脑的硬件横向扩展（CPU型号、GPU型号...）
@@ -157,7 +157,7 @@ public class Computer {
 }
 ```
 :::
-::: code-group-item 抽象生成器接口
+::: code-group-item 抽象生成器
 ```java
 public interface ComputerBuilder {
     void reset();
@@ -170,7 +170,7 @@ public interface ComputerBuilder {
 }
 ```
 :::
-::: code-group-item 具体生成器A
+::: code-group-item 生成器A
 ```java
 // 游戏电脑
 public class GamingComputerBuilder implements ComputerBuilder {
@@ -200,7 +200,7 @@ public class GamingComputerBuilder implements ComputerBuilder {
 }
 ```
 :::
-::: code-group-item 具体生成器B
+::: code-group-item 生成器B
 ```java
 // 办公电脑
 public class OfficeComputerBuilder implements ComputerBuilder {
@@ -301,3 +301,10 @@ public class Client {
 ```
 :::
 ::::
+
+## 与其他设计模式的关系
+
+### 工厂模式
+
+工厂模式意在封装对象的构造过程。  
+生成器模式意在拆解对象的构造过程，制定对象的生成规范，并且可以规定对象的生成步骤。  
