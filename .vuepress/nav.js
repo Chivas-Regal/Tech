@@ -61,9 +61,9 @@ module.exports = [{
         }],
         icon: 'iconfont icon-zuzhijiagou'
     },{
-        text: '源码分析',
+        text: 'Java',
         items: [{
-            text: 'JDK',
+            text: 'JDK与源码',
             link: '/blogs/source-code-jdk/'
         }],
         icon: 'iconfont icon-icon-test'

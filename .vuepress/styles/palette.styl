@@ -121,3 +121,21 @@ mark {
   border-radius: 3px
   border: #3eaf7c 1px solid;
 }
+
+/* 文档效果：引用部分 */
+blockquote {
+  border-left: none !important;
+  position: relative
+  background-color: inherit !important;
+  color: #00000080 !important;
+}
+blockquote::before {
+  content: ''
+  position: absolute
+  top: 0
+  left: 0
+  bottom: 0
+  width: 0.25rem
+  background: #eaecef
+  border-radius: 0.15rem
+}

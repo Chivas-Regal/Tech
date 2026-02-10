@@ -15,7 +15,7 @@ $Manager\xrightarrow{data}AHandler\xrightarrow{handle(data)}BHandler\xrightarrow
 
 ::: tip 责任链案例：多级缓存
 多级缓存的实现，每一级缓存都是一个责任节点。  
-当一个查询单元被某一级缓存或远程接口查询到，该查询单元便不再会乡下处理了。
+当一个查询单元被某一级缓存或远程接口查询到，该查询单元便不再会向下处理了。
 :::
 
 ## 实现
